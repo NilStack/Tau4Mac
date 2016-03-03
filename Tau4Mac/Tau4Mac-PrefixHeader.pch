@@ -17,7 +17,16 @@
 
 #define LOG_LEVEL_DEF ddLogLevel
 @import CocoaLumberjack;
-static const DDLogLevel ddLogLevel = DDLogLevelDebug;
+
+static const DDLogLevel ddLogLevel =
+#if DEBUG
+DDLogLevelVerbose
+#elif RELEASE
+DDLogLevelInfo
+#else
+DDLogLevelOff
+#endif
+;
 
 @import PureLayout;
 

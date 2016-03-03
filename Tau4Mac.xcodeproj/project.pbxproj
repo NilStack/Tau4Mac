@@ -32,6 +32,9 @@
 		8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E21C1C88232E00A42C44 /* TauMainWindow.m */; settings = {ASSET_TAGS = (); }; };
 		8399E2201C88235500A42C44 /* TauMainContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E21F1C88235500A42C44 /* TauMainContentView.m */; settings = {ASSET_TAGS = (); }; };
 		83DA1C3E1C885216007B084F /* TauDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C3D1C885216007B084F /* TauDataService.m */; settings = {ASSET_TAGS = (); }; };
+		83DA1C421C886138007B084F /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DA1C411C886138007B084F /* WebKit.framework */; };
+		83DA1C461C8864C0007B084F /* TauAbstractLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C451C8864C0007B084F /* TauAbstractLogFormatter.m */; settings = {ASSET_TAGS = (); }; };
+		83DA1C491C8864E9007B084F /* TauTTYLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C481C8864E9007B084F /* TauTTYLogFormatter.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -319,6 +322,11 @@
 		8399E21F1C88235500A42C44 /* TauMainContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauMainContentView.m; sourceTree = "<group>"; };
 		83DA1C3C1C885216007B084F /* TauDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauDataService.h; sourceTree = "<group>"; };
 		83DA1C3D1C885216007B084F /* TauDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauDataService.m; sourceTree = "<group>"; };
+		83DA1C411C886138007B084F /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		83DA1C441C8864C0007B084F /* TauAbstractLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauAbstractLogFormatter.h; sourceTree = "<group>"; };
+		83DA1C451C8864C0007B084F /* TauAbstractLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAbstractLogFormatter.m; sourceTree = "<group>"; };
+		83DA1C471C8864E9007B084F /* TauTTYLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauTTYLogFormatter.h; sourceTree = "<group>"; };
+		83DA1C481C8864E9007B084F /* TauTTYLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauTTYLogFormatter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -326,6 +334,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83DA1C421C886138007B084F /* WebKit.framework in Frameworks */,
 				83765B941C881E2300D93554 /* GTL.framework in Frameworks */,
 				83765B681C881A6200D93554 /* CocoaLumberjack.framework in Frameworks */,
 				83765B311C8818FC00D93554 /* PureLayout.framework in Frameworks */,
@@ -365,6 +374,7 @@
 		83765AD11C8811DD00D93554 = {
 			isa = PBXGroup;
 			children = (
+				83DA1C411C886138007B084F /* WebKit.framework */,
 				83765ADC1C8811DD00D93554 /* Tau4Mac */,
 				83765B121C88173300D93554 /* Deps */,
 				83765AF31C8811DE00D93554 /* Tau4MacTests */,
@@ -386,6 +396,7 @@
 		83765ADC1C8811DD00D93554 /* Tau4Mac */ = {
 			isa = PBXGroup;
 			children = (
+				83DA1C431C8864AC007B084F /* logging */,
 				831BD6E01C88480800122AF6 /* yt */,
 				83765B0D1C8816F300D93554 /* wysiwyg */,
 				83765ADD1C8811DD00D93554 /* TauAppDelegate.h */,
@@ -519,6 +530,17 @@
 				83765B821C881E1700D93554 /* GTLCore.xcodeproj */,
 			);
 			name = GTL;
+			sourceTree = "<group>";
+		};
+		83DA1C431C8864AC007B084F /* logging */ = {
+			isa = PBXGroup;
+			children = (
+				83DA1C441C8864C0007B084F /* TauAbstractLogFormatter.h */,
+				83DA1C451C8864C0007B084F /* TauAbstractLogFormatter.m */,
+				83DA1C471C8864E9007B084F /* TauTTYLogFormatter.h */,
+				83DA1C481C8864E9007B084F /* TauTTYLogFormatter.m */,
+			);
+			name = logging;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -890,8 +912,10 @@
 				831BD6E31C88482200122AF6 /* TauCollectionObject.m in Sources */,
 				83765AE21C8811DD00D93554 /* main.m in Sources */,
 				8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */,
+				83DA1C491C8864E9007B084F /* TauTTYLogFormatter.m in Sources */,
 				831BD6D71C88426A00122AF6 /* TauContentPanelView.m in Sources */,
 				8399E2141C88200000A42C44 /* GTLYouTube_Sources.m in Sources */,
+				83DA1C461C8864C0007B084F /* TauAbstractLogFormatter.m in Sources */,
 				831BD6DB1C88434500122AF6 /* TauContentPanelViewController.m in Sources */,
 				83DA1C3E1C885216007B084F /* TauDataService.m in Sources */,
 				831BD6CC1C883FA300122AF6 /* TauVideoView.m in Sources */,
@@ -960,7 +984,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer: Tong Guo (8ZDY95NQGT)";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 9;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -985,6 +1009,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "<3";
 			};
 			name = Debug;
 		};
@@ -1005,7 +1030,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer: Tong Guo (8ZDY95NQGT)";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 9;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1013,6 +1038,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1023,6 +1049,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "<3";
 			};
 			name = Release;
 		};
@@ -1040,6 +1067,7 @@
 				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4Mac;
 				PRODUCT_NAME = Tau;
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
@@ -1052,11 +1080,13 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tau4Mac/Tau4Mac-PrefixHeader.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
 				INFOPLIST_FILE = Tau4Mac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4Mac;
 				PRODUCT_NAME = Tau;
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};

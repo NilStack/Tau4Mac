@@ -7,7 +7,7 @@
 //
 
 // TauAppDelegate class
-@interface TauAppDelegate : NSObject <NSApplicationDelegate>
+@interface TauAppDelegate : NSObject 
 
 
 @end // TauAppDelegate class

@@ -7,6 +7,6 @@
 //
 
 // TauMainWindowController class
-@interface TauMainWindowController : NSWindowController
+@interface TauMainWindowController : NSWindowController <NSApplicationDelegate>
 
 @end // TauMainWindowController class

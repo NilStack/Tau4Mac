@@ -13,9 +13,24 @@
 #import "GTL/GTMSessionFetcher.h"
 #import "GTL/GTMOAuth2Authentication.h"
 #import "GTL/GTMOAuth2WindowController.h"
+#import "GTL/GTMSessionFetcher.h"
 
-NSString static* const kClientID = @"889656423754-okdcqp9ujnlpc4ob5eno7l0658seoqo4.apps.googleusercontent.com";
-NSString static* const kClientSecret = @"C8tMCJMqle9fFtuBnMwODope";
+#pragma mark - Keychain Item Name
+
+NSString* const TauKeychainItemName = @"home.bedroom.TongKuo.Tau4Mac";
+
+#pragma mark - Client Credentials
+
+NSString* const TauClientID =       @"889656423754-okdcqp9ujnlpc4ob5eno7l0658seoqo4.apps.googleusercontent.com";
+NSString* const TauClientSecret =   @"C8tMCJMqle9fFtuBnMwODope";
+
+#pragma mark - Auth Scopes
+
+// Auth Scopes
+NSString* const TauManageAuthScope =                @"https://www.googleapis.com/auth/youtube.force-ssl";
+NSString* const TauReadonlyAuthScope =              @"https://www.googleapis.com/auth/youtube.readonly";
+NSString* const TauUploadAuthScope =                @"https://www.googleapis.com/auth/youtube.upload";
+NSString* const TauPartnerChannelAuditAuthScope =   @"https://www.googleapis.com/auth/youtubepartner-channel-audit";
 
 // TauDataService class
 @implementation TauDataService
@@ -65,18 +80,22 @@ TauDataService static* sDataService_;
 
             service.retryBlock = retryBlock;
 
+            GTMOAuth2Authentication* auth =
+                [ GTMOAuth2WindowController authForGoogleFromKeychainForName: TauKeychainItemName clientID: TauClientID clientSecret: TauClientSecret ];
+            [ service setAuthorizer: auth ];
+
+            NSMutableString* userAgent = [ GTMFetcherApplicationIdentifier( nil ) mutableCopy ];
+            [ userAgent appendString: [ NSString stringWithFormat: @" OSX %@", [ NSProcessInfo processInfo ].operatingSystemVersionString ] ];
+
             NSUInteger majorVer = 0;
             NSUInteger minorVer = 0;
             NSUInteger release = 0;
             GTLFrameworkVersion( &majorVer, &minorVer, &release );
 
-            service.userAgent = [ NSString stringWithFormat:
-                  @"%@ 1.0 (Macintosh; OS X %@) GTL/%ld.%ld.%ld"
-                , [ NSProcessInfo processInfo ].processName
-                , [ NSProcessInfo processInfo ].operatingSystemVersionString
-                , majorVer, minorVer, release ];
+            [ userAgent appendString: [ NSString stringWithFormat: @" GTL/%ld.%ld.%ld", majorVer, minorVer, release ] ];
+            service.userAgent = GTMFetcherCleanedUserAgentString( userAgent );
 
-            DDLogInfo( @"Current user-agent is %@", service.userAgent );
+            DDLogVerbose( @"Current user-agent is \"%@\"", service.userAgent );
             } );
 
     return service;
