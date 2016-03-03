@@ -1,15 +1,15 @@
 //
-//  TauViewController.m
+//  TauMainViewController.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/3/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauViewController.h"
+#import "TauMainViewController.h"
 
-// TauViewController class
-@implementation TauViewController
+// TauMainViewController class
+@implementation TauMainViewController
 
 - ( void ) viewDidLoad
     {
@@ -25,4 +25,4 @@
     // Update the view, if already loaded.
     }
 
-@end // TauViewController class
+@end // TauMainViewController class
