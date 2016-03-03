@@ -68,7 +68,7 @@ TauDataService static* sDataService_;
             {
             service = [ [ GTLServiceYouTube alloc ] init ];
 
-            service.surrogates = @{ ( id <NSCopying> )[ GTLYouTubeSearchListResponse class ] : [ TauCollectionObject class ] };
+//            service.surrogates = @{ ( id <NSCopying> )[ GTLYouTubeSearchListResponse class ] : [ TauCollectionObject class ] };
             service.retryEnabled = YES;
 
             BOOL ( ^retryBlock )( GTLServiceTicket*, BOOL, NSError* ) =

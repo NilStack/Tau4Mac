@@ -35,6 +35,8 @@
 		83DA1C421C886138007B084F /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DA1C411C886138007B084F /* WebKit.framework */; };
 		83DA1C461C8864C0007B084F /* TauAbstractLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C451C8864C0007B084F /* TauAbstractLogFormatter.m */; settings = {ASSET_TAGS = (); }; };
 		83DA1C491C8864E9007B084F /* TauTTYLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C481C8864E9007B084F /* TauTTYLogFormatter.m */; settings = {ASSET_TAGS = (); }; };
+		83DA1C581C8893BF007B084F /* OAuthSigningConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C571C8893BF007B084F /* OAuthSigningConstants.m */; settings = {ASSET_TAGS = (); }; };
+		83DA1C5A1C8893D5007B084F /* libcommonCrypto.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DA1C591C8893D5007B084F /* libcommonCrypto.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -327,6 +329,9 @@
 		83DA1C451C8864C0007B084F /* TauAbstractLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAbstractLogFormatter.m; sourceTree = "<group>"; };
 		83DA1C471C8864E9007B084F /* TauTTYLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauTTYLogFormatter.h; sourceTree = "<group>"; };
 		83DA1C481C8864E9007B084F /* TauTTYLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauTTYLogFormatter.m; sourceTree = "<group>"; };
+		83DA1C561C8893BF007B084F /* OAuthSigningConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthSigningConstants.h; sourceTree = "<group>"; };
+		83DA1C571C8893BF007B084F /* OAuthSigningConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthSigningConstants.m; sourceTree = "<group>"; };
+		83DA1C591C8893D5007B084F /* libcommonCrypto.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcommonCrypto.tbd; path = usr/lib/system/libcommonCrypto.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -334,6 +339,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83DA1C5A1C8893D5007B084F /* libcommonCrypto.tbd in Frameworks */,
 				83DA1C421C886138007B084F /* WebKit.framework in Frameworks */,
 				83765B941C881E2300D93554 /* GTL.framework in Frameworks */,
 				83765B681C881A6200D93554 /* CocoaLumberjack.framework in Frameworks */,
@@ -461,6 +467,8 @@
 		83765B121C88173300D93554 /* Deps */ = {
 			isa = PBXGroup;
 			children = (
+				83DA1C591C8893D5007B084F /* libcommonCrypto.tbd */,
+				83DA1C551C8893BF007B084F /* OAuthSigningConstants */,
 				83765B101C88171400D93554 /* QuartzCore.framework */,
 				83765B0E1C88170F00D93554 /* Cocoa.framework */,
 				83DA1C411C886138007B084F /* WebKit.framework */,
@@ -541,6 +549,16 @@
 				83DA1C481C8864E9007B084F /* TauTTYLogFormatter.m */,
 			);
 			name = logging;
+			sourceTree = "<group>";
+		};
+		83DA1C551C8893BF007B084F /* OAuthSigningConstants */ = {
+			isa = PBXGroup;
+			children = (
+				83DA1C561C8893BF007B084F /* OAuthSigningConstants.h */,
+				83DA1C571C8893BF007B084F /* OAuthSigningConstants.m */,
+			);
+			name = OAuthSigningConstants;
+			path = ../Deps/OAuthSigningConstants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -919,6 +937,7 @@
 				831BD6DB1C88434500122AF6 /* TauContentPanelViewController.m in Sources */,
 				83DA1C3E1C885216007B084F /* TauDataService.m in Sources */,
 				831BD6CC1C883FA300122AF6 /* TauVideoView.m in Sources */,
+				83DA1C581C8893BF007B084F /* OAuthSigningConstants.m in Sources */,
 				83765ADF1C8811DD00D93554 /* TauAppDelegate.m in Sources */,
 				8399E2201C88235500A42C44 /* TauMainContentView.m in Sources */,
 			);
@@ -1064,6 +1083,10 @@
 				GCC_PREFIX_HEADER = "Tau4Mac/Tau4Mac-PrefixHeader.pch";
 				INFOPLIST_FILE = Tau4Mac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/system",
+				);
 				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4Mac;
 				PRODUCT_NAME = Tau;
@@ -1083,6 +1106,10 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
 				INFOPLIST_FILE = Tau4Mac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/system",
+				);
 				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4Mac;
 				PRODUCT_NAME = Tau;
@@ -1204,6 +1231,10 @@
 				);
 				INFOPLIST_FILE = Tau4Mac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/system",
+				);
 				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4Mac;
 				PRODUCT_NAME = Tau;

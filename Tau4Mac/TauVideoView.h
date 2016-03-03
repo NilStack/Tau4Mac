@@ -8,4 +8,17 @@
 
 // TauVideoView class
 @interface TauVideoView : NSView
+    {
+@protected
+    GTLObject __strong* ytVideo_;
+    }
+
+#pragma mark - Initializations
+
+- ( instancetype ) initWithGTLObject: ( GTLObject* )_GTLObject;
+
+#pragma mark - Properties
+
+@property ( strong, readwrite ) GTLObject* ytVideo;
+
 @end // TauVideoView class

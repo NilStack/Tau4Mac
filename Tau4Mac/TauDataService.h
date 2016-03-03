@@ -33,7 +33,7 @@ NSString extern* const TauUploadAuthScope;
 NSString extern* const TauPartnerChannelAuditAuthScope;
 
 // TauDataService class
-@interface TauDataService : GTLServiceYouTube
+@interface TauDataService : NSObject
 
 #pragma mark - Core
 

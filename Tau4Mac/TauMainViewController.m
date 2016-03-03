@@ -33,15 +33,33 @@
 
 - ( IBAction ) searchUserInputAction: ( id )_Sender
     {
-    NSBundle* correctBundle = [ NSBundle bundleForClass: [ TauContentPanelViewController class ] ];
-    TauContentPanelViewController* contentPanelViewController = [ [ TauContentPanelViewController alloc ] initWithNibName: nil bundle: correctBundle ];
+    NSString* userInput = self.searchField.stringValue;
+    if ( userInput.length > 0 )
+        {
+        NSBundle* correctBundle = [ NSBundle bundleForClass: [ TauContentPanelViewController class ] ];
+        TauContentPanelViewController* contentPanelViewController = [ [ TauContentPanelViewController alloc ] initWithNibName: nil bundle: correctBundle ];
 
-    [ self.view removeConstraints: self.view.constraints ];
-    [ self.view setSubviews: @[] ];
-    [ self.view addSubview: contentPanelViewController.view ];
-    [ contentPanelViewController.view autoPinEdgesToSuperviewEdges ];
+        [ self.view removeConstraints: self.view.constraints ];
+        [ self.view setSubviews: @[] ];
+        [ self.view addSubview: contentPanelViewController.view ];
+        [ contentPanelViewController.view autoPinEdgesToSuperviewEdges ];
 
-    [ contentPanelViewController setRepresentedObject: nil ];
+        GTLQueryYouTube* ytSearchListQuery = [ GTLQueryYouTube queryForSearchListWithPart: @"snippet" ];
+        [ ytSearchListQuery setQ: userInput ];
+        [ ytSearchListQuery setMaxResults: 20 ];
+
+        [ [ TauDataService sharedService ].ytService executeQuery: ytSearchListQuery
+                                                completionHandler:
+            ^( GTLServiceTicket* _Ticket, GTLYouTubeSearchListResponse* _SearchListResp, NSError* _Error )
+                {
+                if ( !_Error )
+                    {
+                    [ contentPanelViewController setRepresentedObject: _SearchListResp ];
+                    }
+                else
+                    DDLogError( @"%@", _Error );
+                } ];
+        }
     }
 
 @end // TauMainViewController class
