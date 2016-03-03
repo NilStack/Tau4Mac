@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  TauViewController.h
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/3/16.
@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface ViewController : NSViewController
+@interface TauViewController : NSViewController
 
 
 @end

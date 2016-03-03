@@ -1,14 +1,14 @@
 //
-//  ViewController.m
+//  TauViewController.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/3/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "TauViewController.h"
 
-@implementation ViewController
+@implementation TauViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

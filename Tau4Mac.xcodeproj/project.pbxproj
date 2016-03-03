@@ -9,11 +9,13 @@
 /* Begin PBXBuildFile section */
 		83765ADF1C8811DD00D93554 /* TauAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765ADE1C8811DD00D93554 /* TauAppDelegate.m */; };
 		83765AE21C8811DD00D93554 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AE11C8811DD00D93554 /* main.m */; };
-		83765AE51C8811DD00D93554 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AE41C8811DD00D93554 /* ViewController.m */; };
+		83765AE51C8811DD00D93554 /* TauViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AE41C8811DD00D93554 /* TauViewController.m */; };
 		83765AE71C8811DD00D93554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83765AE61C8811DD00D93554 /* Assets.xcassets */; };
 		83765AEA1C8811DD00D93554 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83765AE81C8811DD00D93554 /* Main.storyboard */; };
 		83765AF51C8811DE00D93554 /* Tau4MacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AF41C8811DE00D93554 /* Tau4MacTests.m */; };
 		83765B001C8811DE00D93554 /* Tau4MacUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AFF1C8811DE00D93554 /* Tau4MacUITests.m */; };
+		83765B0F1C88170F00D93554 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B0E1C88170F00D93554 /* Cocoa.framework */; };
+		83765B111C88171400D93554 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B101C88171400D93554 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,12 +36,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		83765ADA1C8811DD00D93554 /* Tau4Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tau4Mac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		83765ADA1C8811DD00D93554 /* Tau.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tau.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83765ADD1C8811DD00D93554 /* TauAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TauAppDelegate.h; sourceTree = "<group>"; };
 		83765ADE1C8811DD00D93554 /* TauAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TauAppDelegate.m; sourceTree = "<group>"; };
 		83765AE11C8811DD00D93554 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		83765AE31C8811DD00D93554 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		83765AE41C8811DD00D93554 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		83765AE31C8811DD00D93554 /* TauViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TauViewController.h; sourceTree = "<group>"; };
+		83765AE41C8811DD00D93554 /* TauViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TauViewController.m; sourceTree = "<group>"; };
 		83765AE61C8811DD00D93554 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		83765AE91C8811DD00D93554 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		83765AEB1C8811DD00D93554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +51,8 @@
 		83765AFB1C8811DE00D93554 /* Tau4MacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tau4MacUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		83765AFF1C8811DE00D93554 /* Tau4MacUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tau4MacUITests.m; sourceTree = "<group>"; };
 		83765B011C8811DE00D93554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83765B0E1C88170F00D93554 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		83765B101C88171400D93554 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83765B111C88171400D93554 /* QuartzCore.framework in Frameworks */,
+				83765B0F1C88170F00D93554 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				83765ADC1C8811DD00D93554 /* Tau4Mac */,
+				83765B121C88173300D93554 /* Deps */,
 				83765AF31C8811DE00D93554 /* Tau4MacTests */,
 				83765AFE1C8811DE00D93554 /* Tau4MacUITests */,
 				83765ADB1C8811DD00D93554 /* Products */,
@@ -89,7 +96,7 @@
 		83765ADB1C8811DD00D93554 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				83765ADA1C8811DD00D93554 /* Tau4Mac.app */,
+				83765ADA1C8811DD00D93554 /* Tau.app */,
 				83765AF01C8811DE00D93554 /* Tau4MacTests.xctest */,
 				83765AFB1C8811DE00D93554 /* Tau4MacUITests.xctest */,
 			);
@@ -99,13 +106,12 @@
 		83765ADC1C8811DD00D93554 /* Tau4Mac */ = {
 			isa = PBXGroup;
 			children = (
+				83765B0D1C8816F300D93554 /* wysiwyg */,
 				83765ADD1C8811DD00D93554 /* TauAppDelegate.h */,
 				83765ADE1C8811DD00D93554 /* TauAppDelegate.m */,
-				83765AE31C8811DD00D93554 /* ViewController.h */,
-				83765AE41C8811DD00D93554 /* ViewController.m */,
-				83765AE61C8811DD00D93554 /* Assets.xcassets */,
-				83765AE81C8811DD00D93554 /* Main.storyboard */,
-				83765AEB1C8811DD00D93554 /* Info.plist */,
+				83765AE31C8811DD00D93554 /* TauViewController.h */,
+				83765AE41C8811DD00D93554 /* TauViewController.m */,
+				83765AE11C8811DD00D93554 /* main.m */,
 				83765AE01C8811DD00D93554 /* Supporting Files */,
 			);
 			path = Tau4Mac;
@@ -114,7 +120,8 @@
 		83765AE01C8811DD00D93554 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				83765AE11C8811DD00D93554 /* main.m */,
+				83765AEB1C8811DD00D93554 /* Info.plist */,
+				83765AE61C8811DD00D93554 /* Assets.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -137,6 +144,23 @@
 			path = Tau4MacUITests;
 			sourceTree = "<group>";
 		};
+		83765B0D1C8816F300D93554 /* wysiwyg */ = {
+			isa = PBXGroup;
+			children = (
+				83765AE81C8811DD00D93554 /* Main.storyboard */,
+			);
+			name = wysiwyg;
+			sourceTree = "<group>";
+		};
+		83765B121C88173300D93554 /* Deps */ = {
+			isa = PBXGroup;
+			children = (
+				83765B101C88171400D93554 /* QuartzCore.framework */,
+				83765B0E1C88170F00D93554 /* Cocoa.framework */,
+			);
+			name = Deps;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -154,7 +178,7 @@
 			);
 			name = Tau4Mac;
 			productName = Tau4Mac;
-			productReference = 83765ADA1C8811DD00D93554 /* Tau4Mac.app */;
+			productReference = 83765ADA1C8811DD00D93554 /* Tau.app */;
 			productType = "com.apple.product-type.application";
 		};
 		83765AEF1C8811DE00D93554 /* Tau4MacTests */ = {
@@ -204,6 +228,7 @@
 				TargetAttributes = {
 					83765AD91C8811DD00D93554 = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 89BSC2UYH8;
 					};
 					83765AEF1C8811DE00D93554 = {
 						CreatedOnToolsVersion = 7.0;
@@ -266,7 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83765AE51C8811DD00D93554 /* ViewController.m in Sources */,
+				83765AE51C8811DD00D93554 /* TauViewController.m in Sources */,
 				83765AE21C8811DD00D93554 /* main.m in Sources */,
 				83765ADF1C8811DD00D93554 /* TauAppDelegate.m in Sources */,
 			);
@@ -398,11 +423,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Tau4Mac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4Mac;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Tau;
 			};
 			name = Debug;
 		};
@@ -410,11 +436,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Tau4Mac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4Mac;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Tau;
 			};
 			name = Release;
 		};
