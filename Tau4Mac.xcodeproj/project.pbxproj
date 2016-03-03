@@ -16,6 +16,8 @@
 		83765B001C8811DE00D93554 /* Tau4MacUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AFF1C8811DE00D93554 /* Tau4MacUITests.m */; };
 		83765B0F1C88170F00D93554 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B0E1C88170F00D93554 /* Cocoa.framework */; };
 		83765B111C88171400D93554 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B101C88171400D93554 /* QuartzCore.framework */; };
+		83765B311C8818FC00D93554 /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B221C8818F500D93554 /* PureLayout.framework */; };
+		83765B341C88191C00D93554 /* PureLayout.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B221C8818F500D93554 /* PureLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,7 +35,84 @@
 			remoteGlobalIDString = 83765AD91C8811DD00D93554;
 			remoteInfo = Tau4Mac;
 		};
+		83765B1F1C8818F500D93554 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83765B131C8818F500D93554 /* PureLayout.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B1046AB01A7F32380017187F;
+			remoteInfo = PureLayout_iOS;
+		};
+		83765B211C8818F500D93554 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83765B131C8818F500D93554 /* PureLayout.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B1046AD81A7F32790017187F;
+			remoteInfo = PureLayout_Mac;
+		};
+		83765B231C8818F500D93554 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83765B131C8818F500D93554 /* PureLayout.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 164C8B831C0D36500007A6B1;
+			remoteInfo = PureLayout_tvOS;
+		};
+		83765B251C8818F500D93554 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83765B131C8818F500D93554 /* PureLayout.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B12C23DB17C3FDE4001CF667;
+			remoteInfo = "Example-iOS";
+		};
+		83765B271C8818F500D93554 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83765B131C8818F500D93554 /* PureLayout.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A7D4967E1B7B084800A74818;
+			remoteInfo = "Example-iOS-Xcode7";
+		};
+		83765B291C8818F500D93554 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83765B131C8818F500D93554 /* PureLayout.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B1A290DB19562FDA00D4765E;
+			remoteInfo = "Example-Mac";
+		};
+		83765B2B1C8818F500D93554 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83765B131C8818F500D93554 /* PureLayout.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 164C8B4E1C0D354E0007A6B1;
+			remoteInfo = "Example-tvOS";
+		};
+		83765B2D1C8818F500D93554 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83765B131C8818F500D93554 /* PureLayout.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B1EC855D195662790099293C;
+			remoteInfo = "PureLayoutTests-iOS";
+		};
+		83765B2F1C8818F500D93554 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83765B131C8818F500D93554 /* PureLayout.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B1EC857C195662B40099293C;
+			remoteInfo = "PureLayoutTests-Mac";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		83765B321C88190300D93554 /* Copy Third-Party Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				83765B341C88191C00D93554 /* PureLayout.framework in Copy Third-Party Frameworks */,
+			);
+			name = "Copy Third-Party Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		83765ADA1C8811DD00D93554 /* Tau.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tau.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,6 +132,7 @@
 		83765B011C8811DE00D93554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83765B0E1C88170F00D93554 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		83765B101C88171400D93554 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		83765B131C8818F500D93554 /* PureLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PureLayout.xcodeproj; path = ../Deps/PureLayout/PureLayout/PureLayout.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +140,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83765B311C8818FC00D93554 /* PureLayout.framework in Frameworks */,
 				83765B111C88171400D93554 /* QuartzCore.framework in Frameworks */,
 				83765B0F1C88170F00D93554 /* Cocoa.framework in Frameworks */,
 			);
@@ -155,10 +236,27 @@
 		83765B121C88173300D93554 /* Deps */ = {
 			isa = PBXGroup;
 			children = (
+				83765B131C8818F500D93554 /* PureLayout.xcodeproj */,
 				83765B101C88171400D93554 /* QuartzCore.framework */,
 				83765B0E1C88170F00D93554 /* Cocoa.framework */,
 			);
 			name = Deps;
+			sourceTree = "<group>";
+		};
+		83765B141C8818F500D93554 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				83765B201C8818F500D93554 /* PureLayout.framework */,
+				83765B221C8818F500D93554 /* PureLayout.framework */,
+				83765B241C8818F500D93554 /* PureLayout.framework */,
+				83765B261C8818F500D93554 /* Example-iOS.app */,
+				83765B281C8818F500D93554 /* Example-iOS-Xcode7.app */,
+				83765B2A1C8818F500D93554 /* Example-Mac.app */,
+				83765B2C1C8818F500D93554 /* Example-tvOS.app */,
+				83765B2E1C8818F500D93554 /* PureLayoutTests-iOS.xctest */,
+				83765B301C8818F500D93554 /* PureLayoutTests-Mac.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,6 +269,7 @@
 				83765AD61C8811DD00D93554 /* Sources */,
 				83765AD71C8811DD00D93554 /* Frameworks */,
 				83765AD81C8811DD00D93554 /* Resources */,
+				83765B321C88190300D93554 /* Copy Third-Party Frameworks */,
 			);
 			buildRules = (
 			);
@@ -251,6 +350,12 @@
 			mainGroup = 83765AD11C8811DD00D93554;
 			productRefGroup = 83765ADB1C8811DD00D93554 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 83765B141C8818F500D93554 /* Products */;
+					ProjectRef = 83765B131C8818F500D93554 /* PureLayout.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				83765AD91C8811DD00D93554 /* Tau4Mac */,
@@ -259,6 +364,72 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		83765B201C8818F500D93554 /* PureLayout.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PureLayout.framework;
+			remoteRef = 83765B1F1C8818F500D93554 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		83765B221C8818F500D93554 /* PureLayout.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PureLayout.framework;
+			remoteRef = 83765B211C8818F500D93554 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		83765B241C8818F500D93554 /* PureLayout.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PureLayout.framework;
+			remoteRef = 83765B231C8818F500D93554 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		83765B261C8818F500D93554 /* Example-iOS.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Example-iOS.app";
+			remoteRef = 83765B251C8818F500D93554 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		83765B281C8818F500D93554 /* Example-iOS-Xcode7.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Example-iOS-Xcode7.app";
+			remoteRef = 83765B271C8818F500D93554 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		83765B2A1C8818F500D93554 /* Example-Mac.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Example-Mac.app";
+			remoteRef = 83765B291C8818F500D93554 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		83765B2C1C8818F500D93554 /* Example-tvOS.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Example-tvOS.app";
+			remoteRef = 83765B2B1C8818F500D93554 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		83765B2E1C8818F500D93554 /* PureLayoutTests-iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "PureLayoutTests-iOS.xctest";
+			remoteRef = 83765B2D1C8818F500D93554 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		83765B301C8818F500D93554 /* PureLayoutTests-Mac.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "PureLayoutTests-Mac.xctest";
+			remoteRef = 83765B2F1C8818F500D93554 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		83765AD81C8811DD00D93554 /* Resources */ = {
