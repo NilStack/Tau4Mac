@@ -26,6 +26,11 @@
 		8399E21A1C88231400A42C44 /* TauMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2191C88231400A42C44 /* TauMainWindowController.m */; settings = {ASSET_TAGS = (); }; };
 		8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E21C1C88232E00A42C44 /* TauMainWindow.m */; settings = {ASSET_TAGS = (); }; };
 		8399E2201C88235500A42C44 /* TauMainContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E21F1C88235500A42C44 /* TauMainContentView.m */; settings = {ASSET_TAGS = (); }; };
+		8399E2761C88288900A42C44 /* INAppStoreWindowSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E26B1C88288900A42C44 /* INAppStoreWindowSwizzling.m */; settings = {ASSET_TAGS = (); }; };
+		8399E2771C88288900A42C44 /* INWindowBackgroundView+CoreUIRendering.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E26E1C88288900A42C44 /* INWindowBackgroundView+CoreUIRendering.m */; settings = {ASSET_TAGS = (); }; };
+		8399E2781C88288900A42C44 /* NSDocument+INAppStoreWindowFixes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2701C88288900A42C44 /* NSDocument+INAppStoreWindowFixes.m */; settings = {ASSET_TAGS = (); }; };
+		8399E2791C88288900A42C44 /* INAppStoreWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2721C88288900A42C44 /* INAppStoreWindow.m */; settings = {ASSET_TAGS = (); }; };
+		8399E27A1C88288900A42C44 /* INWindowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2751C88288900A42C44 /* INWindowButton.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -302,6 +307,17 @@
 		8399E21C1C88232E00A42C44 /* TauMainWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauMainWindow.m; sourceTree = "<group>"; };
 		8399E21E1C88235500A42C44 /* TauMainContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauMainContentView.h; sourceTree = "<group>"; };
 		8399E21F1C88235500A42C44 /* TauMainContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauMainContentView.m; sourceTree = "<group>"; };
+		8399E26B1C88288900A42C44 /* INAppStoreWindowSwizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INAppStoreWindowSwizzling.m; sourceTree = "<group>"; };
+		8399E26C1C88288900A42C44 /* INAppStoreWindowSwizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INAppStoreWindowSwizzling.h; sourceTree = "<group>"; };
+		8399E26D1C88288900A42C44 /* INWindowBackgroundView+CoreUIRendering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "INWindowBackgroundView+CoreUIRendering.h"; sourceTree = "<group>"; };
+		8399E26E1C88288900A42C44 /* INWindowBackgroundView+CoreUIRendering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "INWindowBackgroundView+CoreUIRendering.m"; sourceTree = "<group>"; };
+		8399E26F1C88288900A42C44 /* NSDocument+INAppStoreWindowFixes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDocument+INAppStoreWindowFixes.h"; sourceTree = "<group>"; };
+		8399E2701C88288900A42C44 /* NSDocument+INAppStoreWindowFixes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDocument+INAppStoreWindowFixes.m"; sourceTree = "<group>"; };
+		8399E2711C88288900A42C44 /* INAppStoreWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INAppStoreWindow.h; sourceTree = "<group>"; };
+		8399E2721C88288900A42C44 /* INAppStoreWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INAppStoreWindow.m; sourceTree = "<group>"; };
+		8399E2731C88288900A42C44 /* INAppStoreWindowCompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INAppStoreWindowCompatibility.h; sourceTree = "<group>"; };
+		8399E2741C88288900A42C44 /* INWindowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INWindowButton.h; sourceTree = "<group>"; };
+		8399E2751C88288900A42C44 /* INWindowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INWindowButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -418,6 +434,7 @@
 				83765B101C88171400D93554 /* QuartzCore.framework */,
 				83765B0E1C88170F00D93554 /* Cocoa.framework */,
 				8399E2151C88201F00A42C44 /* GTL */,
+				8399E2691C88288900A42C44 /* INAppStoreWindow */,
 				83765B351C881A5700D93554 /* Lumberjack.xcodeproj */,
 				83765B131C8818F500D93554 /* PureLayout.xcodeproj */,
 			);
@@ -483,6 +500,33 @@
 				83765B821C881E1700D93554 /* GTLCore.xcodeproj */,
 			);
 			name = GTL;
+			sourceTree = "<group>";
+		};
+		8399E2691C88288900A42C44 /* INAppStoreWindow */ = {
+			isa = PBXGroup;
+			children = (
+				8399E26A1C88288900A42C44 /* Extensions */,
+				8399E2711C88288900A42C44 /* INAppStoreWindow.h */,
+				8399E2721C88288900A42C44 /* INAppStoreWindow.m */,
+				8399E2731C88288900A42C44 /* INAppStoreWindowCompatibility.h */,
+				8399E2741C88288900A42C44 /* INWindowButton.h */,
+				8399E2751C88288900A42C44 /* INWindowButton.m */,
+			);
+			name = INAppStoreWindow;
+			path = ../Deps/INAppStoreWindow/INAppStoreWindow;
+			sourceTree = "<group>";
+		};
+		8399E26A1C88288900A42C44 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8399E26B1C88288900A42C44 /* INAppStoreWindowSwizzling.m */,
+				8399E26C1C88288900A42C44 /* INAppStoreWindowSwizzling.h */,
+				8399E26D1C88288900A42C44 /* INWindowBackgroundView+CoreUIRendering.h */,
+				8399E26E1C88288900A42C44 /* INWindowBackgroundView+CoreUIRendering.m */,
+				8399E26F1C88288900A42C44 /* NSDocument+INAppStoreWindowFixes.h */,
+				8399E2701C88288900A42C44 /* NSDocument+INAppStoreWindowFixes.m */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -848,8 +892,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8399E2781C88288900A42C44 /* NSDocument+INAppStoreWindowFixes.m in Sources */,
 				83765AE51C8811DD00D93554 /* TauMainViewController.m in Sources */,
+				8399E2791C88288900A42C44 /* INAppStoreWindow.m in Sources */,
+				8399E2771C88288900A42C44 /* INWindowBackgroundView+CoreUIRendering.m in Sources */,
 				8399E21A1C88231400A42C44 /* TauMainWindowController.m in Sources */,
+				8399E2761C88288900A42C44 /* INAppStoreWindowSwizzling.m in Sources */,
+				8399E27A1C88288900A42C44 /* INWindowButton.m in Sources */,
 				83765AE21C8811DD00D93554 /* main.m in Sources */,
 				8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */,
 				8399E2141C88200000A42C44 /* GTLYouTube_Sources.m in Sources */,
