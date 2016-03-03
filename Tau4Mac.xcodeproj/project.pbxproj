@@ -1,0 +1,515 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		83765ADF1C8811DD00D93554 /* TauAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765ADE1C8811DD00D93554 /* TauAppDelegate.m */; };
+		83765AE21C8811DD00D93554 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AE11C8811DD00D93554 /* main.m */; };
+		83765AE51C8811DD00D93554 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AE41C8811DD00D93554 /* ViewController.m */; };
+		83765AE71C8811DD00D93554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83765AE61C8811DD00D93554 /* Assets.xcassets */; };
+		83765AEA1C8811DD00D93554 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83765AE81C8811DD00D93554 /* Main.storyboard */; };
+		83765AF51C8811DE00D93554 /* Tau4MacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AF41C8811DE00D93554 /* Tau4MacTests.m */; };
+		83765B001C8811DE00D93554 /* Tau4MacUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AFF1C8811DE00D93554 /* Tau4MacUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		83765AF11C8811DE00D93554 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83765AD21C8811DD00D93554 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 83765AD91C8811DD00D93554;
+			remoteInfo = Tau4Mac;
+		};
+		83765AFC1C8811DE00D93554 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83765AD21C8811DD00D93554 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 83765AD91C8811DD00D93554;
+			remoteInfo = Tau4Mac;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		83765ADA1C8811DD00D93554 /* Tau4Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tau4Mac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		83765ADD1C8811DD00D93554 /* TauAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TauAppDelegate.h; sourceTree = "<group>"; };
+		83765ADE1C8811DD00D93554 /* TauAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TauAppDelegate.m; sourceTree = "<group>"; };
+		83765AE11C8811DD00D93554 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		83765AE31C8811DD00D93554 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		83765AE41C8811DD00D93554 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		83765AE61C8811DD00D93554 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		83765AE91C8811DD00D93554 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		83765AEB1C8811DD00D93554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83765AF01C8811DE00D93554 /* Tau4MacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tau4MacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		83765AF41C8811DE00D93554 /* Tau4MacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tau4MacTests.m; sourceTree = "<group>"; };
+		83765AF61C8811DE00D93554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83765AFB1C8811DE00D93554 /* Tau4MacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tau4MacUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		83765AFF1C8811DE00D93554 /* Tau4MacUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tau4MacUITests.m; sourceTree = "<group>"; };
+		83765B011C8811DE00D93554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		83765AD71C8811DD00D93554 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83765AED1C8811DE00D93554 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83765AF81C8811DE00D93554 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		83765AD11C8811DD00D93554 = {
+			isa = PBXGroup;
+			children = (
+				83765ADC1C8811DD00D93554 /* Tau4Mac */,
+				83765AF31C8811DE00D93554 /* Tau4MacTests */,
+				83765AFE1C8811DE00D93554 /* Tau4MacUITests */,
+				83765ADB1C8811DD00D93554 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		83765ADB1C8811DD00D93554 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				83765ADA1C8811DD00D93554 /* Tau4Mac.app */,
+				83765AF01C8811DE00D93554 /* Tau4MacTests.xctest */,
+				83765AFB1C8811DE00D93554 /* Tau4MacUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		83765ADC1C8811DD00D93554 /* Tau4Mac */ = {
+			isa = PBXGroup;
+			children = (
+				83765ADD1C8811DD00D93554 /* TauAppDelegate.h */,
+				83765ADE1C8811DD00D93554 /* TauAppDelegate.m */,
+				83765AE31C8811DD00D93554 /* ViewController.h */,
+				83765AE41C8811DD00D93554 /* ViewController.m */,
+				83765AE61C8811DD00D93554 /* Assets.xcassets */,
+				83765AE81C8811DD00D93554 /* Main.storyboard */,
+				83765AEB1C8811DD00D93554 /* Info.plist */,
+				83765AE01C8811DD00D93554 /* Supporting Files */,
+			);
+			path = Tau4Mac;
+			sourceTree = "<group>";
+		};
+		83765AE01C8811DD00D93554 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				83765AE11C8811DD00D93554 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		83765AF31C8811DE00D93554 /* Tau4MacTests */ = {
+			isa = PBXGroup;
+			children = (
+				83765AF41C8811DE00D93554 /* Tau4MacTests.m */,
+				83765AF61C8811DE00D93554 /* Info.plist */,
+			);
+			path = Tau4MacTests;
+			sourceTree = "<group>";
+		};
+		83765AFE1C8811DE00D93554 /* Tau4MacUITests */ = {
+			isa = PBXGroup;
+			children = (
+				83765AFF1C8811DE00D93554 /* Tau4MacUITests.m */,
+				83765B011C8811DE00D93554 /* Info.plist */,
+			);
+			path = Tau4MacUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		83765AD91C8811DD00D93554 /* Tau4Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83765B041C8811DE00D93554 /* Build configuration list for PBXNativeTarget "Tau4Mac" */;
+			buildPhases = (
+				83765AD61C8811DD00D93554 /* Sources */,
+				83765AD71C8811DD00D93554 /* Frameworks */,
+				83765AD81C8811DD00D93554 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Tau4Mac;
+			productName = Tau4Mac;
+			productReference = 83765ADA1C8811DD00D93554 /* Tau4Mac.app */;
+			productType = "com.apple.product-type.application";
+		};
+		83765AEF1C8811DE00D93554 /* Tau4MacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83765B071C8811DE00D93554 /* Build configuration list for PBXNativeTarget "Tau4MacTests" */;
+			buildPhases = (
+				83765AEC1C8811DE00D93554 /* Sources */,
+				83765AED1C8811DE00D93554 /* Frameworks */,
+				83765AEE1C8811DE00D93554 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				83765AF21C8811DE00D93554 /* PBXTargetDependency */,
+			);
+			name = Tau4MacTests;
+			productName = Tau4MacTests;
+			productReference = 83765AF01C8811DE00D93554 /* Tau4MacTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		83765AFA1C8811DE00D93554 /* Tau4MacUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83765B0A1C8811DE00D93554 /* Build configuration list for PBXNativeTarget "Tau4MacUITests" */;
+			buildPhases = (
+				83765AF71C8811DE00D93554 /* Sources */,
+				83765AF81C8811DE00D93554 /* Frameworks */,
+				83765AF91C8811DE00D93554 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				83765AFD1C8811DE00D93554 /* PBXTargetDependency */,
+			);
+			name = Tau4MacUITests;
+			productName = Tau4MacUITests;
+			productReference = 83765AFB1C8811DE00D93554 /* Tau4MacUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		83765AD21C8811DD00D93554 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Tong Kuo";
+				TargetAttributes = {
+					83765AD91C8811DD00D93554 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+					83765AEF1C8811DE00D93554 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = 83765AD91C8811DD00D93554;
+					};
+					83765AFA1C8811DE00D93554 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = 83765AD91C8811DD00D93554;
+					};
+				};
+			};
+			buildConfigurationList = 83765AD51C8811DD00D93554 /* Build configuration list for PBXProject "Tau4Mac" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 83765AD11C8811DD00D93554;
+			productRefGroup = 83765ADB1C8811DD00D93554 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				83765AD91C8811DD00D93554 /* Tau4Mac */,
+				83765AEF1C8811DE00D93554 /* Tau4MacTests */,
+				83765AFA1C8811DE00D93554 /* Tau4MacUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		83765AD81C8811DD00D93554 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83765AE71C8811DD00D93554 /* Assets.xcassets in Resources */,
+				83765AEA1C8811DD00D93554 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83765AEE1C8811DE00D93554 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83765AF91C8811DE00D93554 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		83765AD61C8811DD00D93554 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83765AE51C8811DD00D93554 /* ViewController.m in Sources */,
+				83765AE21C8811DD00D93554 /* main.m in Sources */,
+				83765ADF1C8811DD00D93554 /* TauAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83765AEC1C8811DE00D93554 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83765AF51C8811DE00D93554 /* Tau4MacTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83765AF71C8811DE00D93554 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83765B001C8811DE00D93554 /* Tau4MacUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		83765AF21C8811DE00D93554 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 83765AD91C8811DD00D93554 /* Tau4Mac */;
+			targetProxy = 83765AF11C8811DE00D93554 /* PBXContainerItemProxy */;
+		};
+		83765AFD1C8811DE00D93554 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 83765AD91C8811DD00D93554 /* Tau4Mac */;
+			targetProxy = 83765AFC1C8811DE00D93554 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		83765AE81C8811DD00D93554 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				83765AE91C8811DD00D93554 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		83765B021C8811DE00D93554 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		83765B031C8811DE00D93554 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		83765B051C8811DE00D93554 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Tau4Mac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4Mac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		83765B061C8811DE00D93554 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Tau4Mac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4Mac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		83765B081C8811DE00D93554 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Tau4MacTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4MacTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tau4Mac.app/Contents/MacOS/Tau4Mac";
+			};
+			name = Debug;
+		};
+		83765B091C8811DE00D93554 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Tau4MacTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4MacTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tau4Mac.app/Contents/MacOS/Tau4Mac";
+			};
+			name = Release;
+		};
+		83765B0B1C8811DE00D93554 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Tau4MacUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4MacUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Tau4Mac;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		83765B0C1C8811DE00D93554 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Tau4MacUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4MacUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Tau4Mac;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		83765AD51C8811DD00D93554 /* Build configuration list for PBXProject "Tau4Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83765B021C8811DE00D93554 /* Debug */,
+				83765B031C8811DE00D93554 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83765B041C8811DE00D93554 /* Build configuration list for PBXNativeTarget "Tau4Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83765B051C8811DE00D93554 /* Debug */,
+				83765B061C8811DE00D93554 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83765B071C8811DE00D93554 /* Build configuration list for PBXNativeTarget "Tau4MacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83765B081C8811DE00D93554 /* Debug */,
+				83765B091C8811DE00D93554 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83765B0A1C8811DE00D93554 /* Build configuration list for PBXNativeTarget "Tau4MacUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83765B0B1C8811DE00D93554 /* Debug */,
+				83765B0C1C8811DE00D93554 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 83765AD21C8811DD00D93554 /* Project object */;
+}
