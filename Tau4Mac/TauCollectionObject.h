@@ -6,6 +6,7 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
+// TauCollectionObject class
 @interface TauCollectionObject : GTLCollectionObject
 
-@end
+@end // TauCollectionObject class

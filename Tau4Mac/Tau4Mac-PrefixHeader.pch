@@ -22,5 +22,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 @import PureLayout;
 
 #import "GTLYouTube.h"
+#import "TauDataService.h"
 
 #endif /* Tau4Mac_PrefixHeader_pch */

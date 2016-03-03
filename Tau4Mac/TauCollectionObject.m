@@ -8,6 +8,7 @@
 
 #import "TauCollectionObject.h"
 
+// TauCollectionObject class
 @implementation TauCollectionObject
 
-@end
+@end // TauCollectionObject class
