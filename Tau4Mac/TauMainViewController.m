@@ -40,6 +40,8 @@
     [ self.view setSubviews: @[] ];
     [ self.view addSubview: contentPanelViewController.view ];
     [ contentPanelViewController.view autoPinEdgesToSuperviewEdges ];
+
+    [ contentPanelViewController setRepresentedObject: nil ];
     }
 
 @end // TauMainViewController class

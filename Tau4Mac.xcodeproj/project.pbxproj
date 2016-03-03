@@ -11,6 +11,7 @@
 		831BD6D71C88426A00122AF6 /* TauContentPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6D61C88426A00122AF6 /* TauContentPanelView.m */; settings = {ASSET_TAGS = (); }; };
 		831BD6DB1C88434500122AF6 /* TauContentPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6D91C88434500122AF6 /* TauContentPanelViewController.m */; settings = {ASSET_TAGS = (); }; };
 		831BD6DC1C88434500122AF6 /* TauContentPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 831BD6DA1C88434500122AF6 /* TauContentPanelViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		831BD6E31C88482200122AF6 /* TauCollectionObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6E21C88482200122AF6 /* TauCollectionObject.m */; settings = {ASSET_TAGS = (); }; };
 		83765ADF1C8811DD00D93554 /* TauAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765ADE1C8811DD00D93554 /* TauAppDelegate.m */; };
 		83765AE21C8811DD00D93554 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AE11C8811DD00D93554 /* main.m */; };
 		83765AE51C8811DD00D93554 /* TauMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AE41C8811DD00D93554 /* TauMainViewController.m */; };
@@ -283,6 +284,8 @@
 		831BD6D81C88434500122AF6 /* TauContentPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauContentPanelViewController.h; sourceTree = "<group>"; };
 		831BD6D91C88434500122AF6 /* TauContentPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauContentPanelViewController.m; sourceTree = "<group>"; };
 		831BD6DA1C88434500122AF6 /* TauContentPanelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TauContentPanelViewController.xib; sourceTree = "<group>"; };
+		831BD6E11C88482200122AF6 /* TauCollectionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauCollectionObject.h; sourceTree = "<group>"; };
+		831BD6E21C88482200122AF6 /* TauCollectionObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauCollectionObject.m; sourceTree = "<group>"; };
 		83765ADA1C8811DD00D93554 /* Tau.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tau.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83765ADD1C8811DD00D93554 /* TauAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TauAppDelegate.h; sourceTree = "<group>"; };
 		83765ADE1C8811DD00D93554 /* TauAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TauAppDelegate.m; sourceTree = "<group>"; };
@@ -345,6 +348,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		831BD6E01C88480800122AF6 /* yt */ = {
+			isa = PBXGroup;
+			children = (
+				831BD6E11C88482200122AF6 /* TauCollectionObject.h */,
+				831BD6E21C88482200122AF6 /* TauCollectionObject.m */,
+			);
+			name = yt;
+			sourceTree = "<group>";
+		};
 		83765AD11C8811DD00D93554 = {
 			isa = PBXGroup;
 			children = (
@@ -369,6 +381,7 @@
 		83765ADC1C8811DD00D93554 /* Tau4Mac */ = {
 			isa = PBXGroup;
 			children = (
+				831BD6E01C88480800122AF6 /* yt */,
 				83765B0D1C8816F300D93554 /* wysiwyg */,
 				83765ADD1C8811DD00D93554 /* TauAppDelegate.h */,
 				83765ADE1C8811DD00D93554 /* TauAppDelegate.m */,
@@ -869,6 +882,7 @@
 			files = (
 				83765AE51C8811DD00D93554 /* TauMainViewController.m in Sources */,
 				8399E21A1C88231400A42C44 /* TauMainWindowController.m in Sources */,
+				831BD6E31C88482200122AF6 /* TauCollectionObject.m in Sources */,
 				83765AE21C8811DD00D93554 /* main.m in Sources */,
 				8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */,
 				831BD6D71C88426A00122AF6 /* TauContentPanelView.m in Sources */,
@@ -942,6 +956,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -963,6 +978,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -985,6 +1001,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -999,6 +1016,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
