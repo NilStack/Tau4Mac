@@ -15,6 +15,10 @@
 
 - ( void ) awakeFromNib
     {
+    [ self configureForAutoLayout ];
+    [ self autoSetDimension: ALDimensionWidth toSize: 0.f relation: NSLayoutRelationGreaterThanOrEqual ];
+    [ self autoSetDimension: ALDimensionHeight toSize: 0.f relation: NSLayoutRelationGreaterThanOrEqual ];
+
     self.material = NSVisualEffectMaterialDark;
     self.state = NSVisualEffectStateActive;
     }

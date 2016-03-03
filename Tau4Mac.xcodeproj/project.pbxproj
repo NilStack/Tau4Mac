@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		831BD6CC1C883FA300122AF6 /* TauVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6CB1C883FA300122AF6 /* TauVideoView.m */; settings = {ASSET_TAGS = (); }; };
+		831BD6D71C88426A00122AF6 /* TauContentPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6D61C88426A00122AF6 /* TauContentPanelView.m */; settings = {ASSET_TAGS = (); }; };
+		831BD6DB1C88434500122AF6 /* TauContentPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6D91C88434500122AF6 /* TauContentPanelViewController.m */; settings = {ASSET_TAGS = (); }; };
+		831BD6DC1C88434500122AF6 /* TauContentPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 831BD6DA1C88434500122AF6 /* TauContentPanelViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		83765ADF1C8811DD00D93554 /* TauAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765ADE1C8811DD00D93554 /* TauAppDelegate.m */; };
 		83765AE21C8811DD00D93554 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AE11C8811DD00D93554 /* main.m */; };
 		83765AE51C8811DD00D93554 /* TauMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AE41C8811DD00D93554 /* TauMainViewController.m */; };
@@ -26,11 +30,6 @@
 		8399E21A1C88231400A42C44 /* TauMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2191C88231400A42C44 /* TauMainWindowController.m */; settings = {ASSET_TAGS = (); }; };
 		8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E21C1C88232E00A42C44 /* TauMainWindow.m */; settings = {ASSET_TAGS = (); }; };
 		8399E2201C88235500A42C44 /* TauMainContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E21F1C88235500A42C44 /* TauMainContentView.m */; settings = {ASSET_TAGS = (); }; };
-		8399E2761C88288900A42C44 /* INAppStoreWindowSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E26B1C88288900A42C44 /* INAppStoreWindowSwizzling.m */; settings = {ASSET_TAGS = (); }; };
-		8399E2771C88288900A42C44 /* INWindowBackgroundView+CoreUIRendering.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E26E1C88288900A42C44 /* INWindowBackgroundView+CoreUIRendering.m */; settings = {ASSET_TAGS = (); }; };
-		8399E2781C88288900A42C44 /* NSDocument+INAppStoreWindowFixes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2701C88288900A42C44 /* NSDocument+INAppStoreWindowFixes.m */; settings = {ASSET_TAGS = (); }; };
-		8399E2791C88288900A42C44 /* INAppStoreWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2721C88288900A42C44 /* INAppStoreWindow.m */; settings = {ASSET_TAGS = (); }; };
-		8399E27A1C88288900A42C44 /* INWindowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2751C88288900A42C44 /* INWindowButton.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -277,6 +276,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		831BD6CA1C883FA300122AF6 /* TauVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauVideoView.h; sourceTree = "<group>"; };
+		831BD6CB1C883FA300122AF6 /* TauVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauVideoView.m; sourceTree = "<group>"; };
+		831BD6D51C88426A00122AF6 /* TauContentPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauContentPanelView.h; sourceTree = "<group>"; };
+		831BD6D61C88426A00122AF6 /* TauContentPanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauContentPanelView.m; sourceTree = "<group>"; };
+		831BD6D81C88434500122AF6 /* TauContentPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauContentPanelViewController.h; sourceTree = "<group>"; };
+		831BD6D91C88434500122AF6 /* TauContentPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauContentPanelViewController.m; sourceTree = "<group>"; };
+		831BD6DA1C88434500122AF6 /* TauContentPanelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TauContentPanelViewController.xib; sourceTree = "<group>"; };
 		83765ADA1C8811DD00D93554 /* Tau.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tau.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83765ADD1C8811DD00D93554 /* TauAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TauAppDelegate.h; sourceTree = "<group>"; };
 		83765ADE1C8811DD00D93554 /* TauAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TauAppDelegate.m; sourceTree = "<group>"; };
@@ -307,17 +313,6 @@
 		8399E21C1C88232E00A42C44 /* TauMainWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauMainWindow.m; sourceTree = "<group>"; };
 		8399E21E1C88235500A42C44 /* TauMainContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauMainContentView.h; sourceTree = "<group>"; };
 		8399E21F1C88235500A42C44 /* TauMainContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauMainContentView.m; sourceTree = "<group>"; };
-		8399E26B1C88288900A42C44 /* INAppStoreWindowSwizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INAppStoreWindowSwizzling.m; sourceTree = "<group>"; };
-		8399E26C1C88288900A42C44 /* INAppStoreWindowSwizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INAppStoreWindowSwizzling.h; sourceTree = "<group>"; };
-		8399E26D1C88288900A42C44 /* INWindowBackgroundView+CoreUIRendering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "INWindowBackgroundView+CoreUIRendering.h"; sourceTree = "<group>"; };
-		8399E26E1C88288900A42C44 /* INWindowBackgroundView+CoreUIRendering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "INWindowBackgroundView+CoreUIRendering.m"; sourceTree = "<group>"; };
-		8399E26F1C88288900A42C44 /* NSDocument+INAppStoreWindowFixes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDocument+INAppStoreWindowFixes.h"; sourceTree = "<group>"; };
-		8399E2701C88288900A42C44 /* NSDocument+INAppStoreWindowFixes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDocument+INAppStoreWindowFixes.m"; sourceTree = "<group>"; };
-		8399E2711C88288900A42C44 /* INAppStoreWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INAppStoreWindow.h; sourceTree = "<group>"; };
-		8399E2721C88288900A42C44 /* INAppStoreWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INAppStoreWindow.m; sourceTree = "<group>"; };
-		8399E2731C88288900A42C44 /* INAppStoreWindowCompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INAppStoreWindowCompatibility.h; sourceTree = "<group>"; };
-		8399E2741C88288900A42C44 /* INWindowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INWindowButton.h; sourceTree = "<group>"; };
-		8399E2751C88288900A42C44 /* INWindowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INWindowButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -385,6 +380,12 @@
 				83765AE41C8811DD00D93554 /* TauMainViewController.m */,
 				8399E21E1C88235500A42C44 /* TauMainContentView.h */,
 				8399E21F1C88235500A42C44 /* TauMainContentView.m */,
+				831BD6D81C88434500122AF6 /* TauContentPanelViewController.h */,
+				831BD6D91C88434500122AF6 /* TauContentPanelViewController.m */,
+				831BD6D51C88426A00122AF6 /* TauContentPanelView.h */,
+				831BD6D61C88426A00122AF6 /* TauContentPanelView.m */,
+				831BD6CA1C883FA300122AF6 /* TauVideoView.h */,
+				831BD6CB1C883FA300122AF6 /* TauVideoView.m */,
 				83765AE01C8811DD00D93554 /* Supporting Files */,
 			);
 			path = Tau4Mac;
@@ -424,6 +425,7 @@
 			isa = PBXGroup;
 			children = (
 				83765AE81C8811DD00D93554 /* Main.storyboard */,
+				831BD6DA1C88434500122AF6 /* TauContentPanelViewController.xib */,
 			);
 			name = wysiwyg;
 			sourceTree = "<group>";
@@ -434,7 +436,6 @@
 				83765B101C88171400D93554 /* QuartzCore.framework */,
 				83765B0E1C88170F00D93554 /* Cocoa.framework */,
 				8399E2151C88201F00A42C44 /* GTL */,
-				8399E2691C88288900A42C44 /* INAppStoreWindow */,
 				83765B351C881A5700D93554 /* Lumberjack.xcodeproj */,
 				83765B131C8818F500D93554 /* PureLayout.xcodeproj */,
 			);
@@ -500,33 +501,6 @@
 				83765B821C881E1700D93554 /* GTLCore.xcodeproj */,
 			);
 			name = GTL;
-			sourceTree = "<group>";
-		};
-		8399E2691C88288900A42C44 /* INAppStoreWindow */ = {
-			isa = PBXGroup;
-			children = (
-				8399E26A1C88288900A42C44 /* Extensions */,
-				8399E2711C88288900A42C44 /* INAppStoreWindow.h */,
-				8399E2721C88288900A42C44 /* INAppStoreWindow.m */,
-				8399E2731C88288900A42C44 /* INAppStoreWindowCompatibility.h */,
-				8399E2741C88288900A42C44 /* INWindowButton.h */,
-				8399E2751C88288900A42C44 /* INWindowButton.m */,
-			);
-			name = INAppStoreWindow;
-			path = ../Deps/INAppStoreWindow/INAppStoreWindow;
-			sourceTree = "<group>";
-		};
-		8399E26A1C88288900A42C44 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				8399E26B1C88288900A42C44 /* INAppStoreWindowSwizzling.m */,
-				8399E26C1C88288900A42C44 /* INAppStoreWindowSwizzling.h */,
-				8399E26D1C88288900A42C44 /* INWindowBackgroundView+CoreUIRendering.h */,
-				8399E26E1C88288900A42C44 /* INWindowBackgroundView+CoreUIRendering.m */,
-				8399E26F1C88288900A42C44 /* NSDocument+INAppStoreWindowFixes.h */,
-				8399E2701C88288900A42C44 /* NSDocument+INAppStoreWindowFixes.m */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -866,6 +840,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				831BD6DC1C88434500122AF6 /* TauContentPanelViewController.xib in Resources */,
 				83765AE71C8811DD00D93554 /* Assets.xcassets in Resources */,
 				83765AEA1C8811DD00D93554 /* Main.storyboard in Resources */,
 			);
@@ -892,16 +867,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8399E2781C88288900A42C44 /* NSDocument+INAppStoreWindowFixes.m in Sources */,
 				83765AE51C8811DD00D93554 /* TauMainViewController.m in Sources */,
-				8399E2791C88288900A42C44 /* INAppStoreWindow.m in Sources */,
-				8399E2771C88288900A42C44 /* INWindowBackgroundView+CoreUIRendering.m in Sources */,
 				8399E21A1C88231400A42C44 /* TauMainWindowController.m in Sources */,
-				8399E2761C88288900A42C44 /* INAppStoreWindowSwizzling.m in Sources */,
-				8399E27A1C88288900A42C44 /* INWindowButton.m in Sources */,
 				83765AE21C8811DD00D93554 /* main.m in Sources */,
 				8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */,
+				831BD6D71C88426A00122AF6 /* TauContentPanelView.m in Sources */,
 				8399E2141C88200000A42C44 /* GTLYouTube_Sources.m in Sources */,
+				831BD6DB1C88434500122AF6 /* TauContentPanelViewController.m in Sources */,
+				831BD6CC1C883FA300122AF6 /* TauVideoView.m in Sources */,
 				83765ADF1C8811DD00D93554 /* TauAppDelegate.m in Sources */,
 				8399E2201C88235500A42C44 /* TauMainContentView.m in Sources */,
 			);

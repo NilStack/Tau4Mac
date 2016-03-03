@@ -11,4 +11,12 @@
 // TauMainWindow class
 @implementation TauMainWindow
 
+#pragma mark - Initializations
+
+- ( void ) awakeFromNib
+    {
+    self.appearance = [ NSAppearance appearanceNamed: NSAppearanceNameVibrantDark ];
+    self.titleVisibility = NSWindowTitleHidden;
+    }
+
 @end // TauMainWindow class
