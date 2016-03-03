@@ -20,6 +20,9 @@
 		83765B341C88191C00D93554 /* PureLayout.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B221C8818F500D93554 /* PureLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83765B681C881A6200D93554 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B491C881A5700D93554 /* CocoaLumberjack.framework */; };
 		83765B691C881A6800D93554 /* CocoaLumberjack.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B491C881A5700D93554 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		83765B941C881E2300D93554 /* GTL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B8B1C881E1700D93554 /* GTL.framework */; };
+		83765B971C881EA900D93554 /* GTL.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B8B1C881E1700D93554 /* GTL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8399E2141C88200000A42C44 /* GTLYouTube_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2121C88200000A42C44 /* GTLYouTube_Sources.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -212,6 +215,41 @@
 			remoteGlobalIDString = 18F3BFF21A81E0C700692297;
 			remoteInfo = iOSLibStaticTest;
 		};
+		83765B8A1C881E1700D93554 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83765B821C881E1700D93554 /* GTLCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4F38F6A60B66E91D00B24B81;
+			remoteInfo = GTLOSXCore;
+		};
+		83765B8C1C881E1700D93554 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83765B821C881E1700D93554 /* GTLCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F4469DB41C40229D00BCFAA1;
+			remoteInfo = GTLiOSCore;
+		};
+		83765B8E1C881E1700D93554 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83765B821C881E1700D93554 /* GTLCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F4368F721B8233BF00E17643;
+			remoteInfo = GTLiOSUnitTests;
+		};
+		83765B901C881E1700D93554 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83765B821C881E1700D93554 /* GTLCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4F12027D11A4CA2F00BEB470;
+			remoteInfo = GTLOSXUnitTests;
+		};
+		83765B921C881E1700D93554 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83765B821C881E1700D93554 /* GTLCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4F1AD9020B71603F00DC0485;
+			remoteInfo = OSXDevTool;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -221,6 +259,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				83765B971C881EA900D93554 /* GTL.framework in Copy Third-Party Frameworks */,
 				83765B691C881A6800D93554 /* CocoaLumberjack.framework in Copy Third-Party Frameworks */,
 				83765B341C88191C00D93554 /* PureLayout.framework in Copy Third-Party Frameworks */,
 			);
@@ -250,6 +289,10 @@
 		83765B131C8818F500D93554 /* PureLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PureLayout.xcodeproj; path = ../Deps/PureLayout/PureLayout/PureLayout.xcodeproj; sourceTree = "<group>"; };
 		83765B351C881A5700D93554 /* Lumberjack.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Lumberjack.xcodeproj; path = ../Deps/CocoaLumberjack/Lumberjack.xcodeproj; sourceTree = "<group>"; };
 		83765B6A1C881B3200D93554 /* Tau4Mac-PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tau4Mac-PrefixHeader.pch"; sourceTree = "<group>"; };
+		83765B821C881E1700D93554 /* GTLCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GTLCore.xcodeproj; path = ../Deps/GTL/Source/GTLCore.xcodeproj; sourceTree = "<group>"; };
+		83765B991C881EBC00D93554 /* Tau.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Tau.entitlements; sourceTree = "<group>"; };
+		8399E2121C88200000A42C44 /* GTLYouTube_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLYouTube_Sources.m; path = ../Deps/GTL/Source/Services/YouTube/Generated/GTLYouTube_Sources.m; sourceTree = "<group>"; };
+		8399E2131C88200000A42C44 /* GTLYouTube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLYouTube.h; path = ../Deps/GTL/Source/Services/YouTube/Generated/GTLYouTube.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +300,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83765B941C881E2300D93554 /* GTL.framework in Frameworks */,
 				83765B681C881A6200D93554 /* CocoaLumberjack.framework in Frameworks */,
 				83765B311C8818FC00D93554 /* PureLayout.framework in Frameworks */,
 				83765B111C88171400D93554 /* QuartzCore.framework in Frameworks */,
@@ -318,8 +362,9 @@
 		83765AE01C8811DD00D93554 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				83765AE11C8811DD00D93554 /* main.m */,
 				83765B6A1C881B3200D93554 /* Tau4Mac-PrefixHeader.pch */,
+				83765AE11C8811DD00D93554 /* main.m */,
+				83765B991C881EBC00D93554 /* Tau.entitlements */,
 				83765AEB1C8811DD00D93554 /* Info.plist */,
 				83765AE61C8811DD00D93554 /* Assets.xcassets */,
 			);
@@ -357,6 +402,7 @@
 			children = (
 				83765B101C88171400D93554 /* QuartzCore.framework */,
 				83765B0E1C88170F00D93554 /* Cocoa.framework */,
+				8399E2151C88201F00A42C44 /* GTL */,
 				83765B351C881A5700D93554 /* Lumberjack.xcodeproj */,
 				83765B131C8818F500D93554 /* PureLayout.xcodeproj */,
 			);
@@ -400,6 +446,28 @@
 				83765B671C881A5700D93554 /* iOSLibStaticTest.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		83765B831C881E1700D93554 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				83765B8B1C881E1700D93554 /* GTL.framework */,
+				83765B8D1C881E1700D93554 /* GTL.framework */,
+				83765B8F1C881E1700D93554 /* GTLiOSUnitTests.xctest */,
+				83765B911C881E1700D93554 /* GTLUnitTests.xctest */,
+				83765B931C881E1700D93554 /* OSXDevTool */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8399E2151C88201F00A42C44 /* GTL */ = {
+			isa = PBXGroup;
+			children = (
+				8399E2131C88200000A42C44 /* GTLYouTube.h */,
+				8399E2121C88200000A42C44 /* GTLYouTube_Sources.m */,
+				83765B821C881E1700D93554 /* GTLCore.xcodeproj */,
+			);
+			name = GTL;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -471,6 +539,11 @@
 					83765AD91C8811DD00D93554 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = 89BSC2UYH8;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 					83765AEF1C8811DE00D93554 = {
 						CreatedOnToolsVersion = 7.0;
@@ -494,6 +567,10 @@
 			productRefGroup = 83765ADB1C8811DD00D93554 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 83765B831C881E1700D93554 /* Products */;
+					ProjectRef = 83765B821C881E1700D93554 /* GTLCore.xcodeproj */;
+				},
 				{
 					ProductGroup = 83765B361C881A5700D93554 /* Products */;
 					ProjectRef = 83765B351C881A5700D93554 /* Lumberjack.xcodeproj */;
@@ -688,6 +765,41 @@
 			remoteRef = 83765B661C881A5700D93554 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		83765B8B1C881E1700D93554 /* GTL.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GTL.framework;
+			remoteRef = 83765B8A1C881E1700D93554 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		83765B8D1C881E1700D93554 /* GTL.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GTL.framework;
+			remoteRef = 83765B8C1C881E1700D93554 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		83765B8F1C881E1700D93554 /* GTLiOSUnitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GTLiOSUnitTests.xctest;
+			remoteRef = 83765B8E1C881E1700D93554 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		83765B911C881E1700D93554 /* GTLUnitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GTLUnitTests.xctest;
+			remoteRef = 83765B901C881E1700D93554 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		83765B931C881E1700D93554 /* OSXDevTool */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = OSXDevTool;
+			remoteRef = 83765B921C881E1700D93554 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -723,6 +835,7 @@
 			files = (
 				83765AE51C8811DD00D93554 /* TauViewController.m in Sources */,
 				83765AE21C8811DD00D93554 /* main.m in Sources */,
+				8399E2141C88200000A42C44 /* GTLYouTube_Sources.m in Sources */,
 				83765ADF1C8811DD00D93554 /* TauAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -853,12 +966,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Tau4Mac/Tau.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tau4Mac/Tau4Mac-PrefixHeader.pch";
 				INFOPLIST_FILE = Tau4Mac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4Mac;
 				PRODUCT_NAME = Tau;
 			};
@@ -868,12 +983,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Tau4Mac/Tau.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tau4Mac/Tau4Mac-PrefixHeader.pch";
 				INFOPLIST_FILE = Tau4Mac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4Mac;
 				PRODUCT_NAME = Tau;
 			};
