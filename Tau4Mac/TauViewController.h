@@ -6,10 +6,8 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-
+// TauViewController class
 @interface TauViewController : NSViewController
 
 
-@end
-
+@end // TauViewController class

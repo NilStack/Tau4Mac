@@ -8,18 +8,12 @@
 
 #import "TauAppDelegate.h"
 
+// Private Interfaces
 @interface TauAppDelegate ()
 
-@end
+@end // Private Interfaces
 
+// TauAppDelegate class
 @implementation TauAppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // Insert code here to initialize your application
-}
-
-- (void)applicationWillTerminate:(NSNotification *)aNotification {
-    // Insert code here to tear down your application
-}
-
-@end
+@end // TauAppDelegate class

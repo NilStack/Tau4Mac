@@ -6,10 +6,8 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-
+// TauAppDelegate class
 @interface TauAppDelegate : NSObject <NSApplicationDelegate>
 
 
-@end
-
+@end // TauAppDelegate class

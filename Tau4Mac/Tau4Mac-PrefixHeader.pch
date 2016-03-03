@@ -1,0 +1,20 @@
+//
+//  Tau4Mac-PrefixHeader.pch
+//  Tau4Mac
+//
+//  Created by Tong G. on 3/3/16.
+//  Copyright © 2016 Tong Kuo. All rights reserved.
+//
+
+#ifndef Tau4Mac_PrefixHeader_pch
+#define Tau4Mac_PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+@import Cocoa;
+@import QuartzCore;
+@import CocoaLumberjack;
+@import PureLayout;
+
+#endif /* Tau4Mac_PrefixHeader_pch */

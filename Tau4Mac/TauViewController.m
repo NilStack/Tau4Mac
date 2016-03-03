@@ -8,18 +8,21 @@
 
 #import "TauViewController.h"
 
+// TauViewController class
 @implementation TauViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- ( void ) viewDidLoad
+    {
+    [ super viewDidLoad ];
 
     // Do any additional setup after loading the view.
-}
+    }
 
-- (void)setRepresentedObject:(id)representedObject {
-    [super setRepresentedObject:representedObject];
+- ( void ) setRepresentedObject: ( id )_RepresentedObject
+    {
+    [ super setRepresentedObject: _RepresentedObject ];
 
     // Update the view, if already loaded.
-}
+    }
 
-@end
+@end // TauViewController class
