@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8318A5481C89205700F3E9CD /* TauItemLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8318A5471C89205700F3E9CD /* TauItemLayer.m */; settings = {ASSET_TAGS = (); }; };
-		831BD6CC1C883FA300122AF6 /* TauVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6CB1C883FA300122AF6 /* TauVideoView.m */; settings = {ASSET_TAGS = (); }; };
-		831BD6D71C88426A00122AF6 /* TauContentPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6D61C88426A00122AF6 /* TauContentPanelView.m */; settings = {ASSET_TAGS = (); }; };
-		831BD6DB1C88434500122AF6 /* TauContentPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6D91C88434500122AF6 /* TauContentPanelViewController.m */; settings = {ASSET_TAGS = (); }; };
-		831BD6DC1C88434500122AF6 /* TauContentPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 831BD6DA1C88434500122AF6 /* TauContentPanelViewController.xib */; settings = {ASSET_TAGS = (); }; };
-		831BD6E31C88482200122AF6 /* TauCollectionObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6E21C88482200122AF6 /* TauCollectionObject.m */; settings = {ASSET_TAGS = (); }; };
+		8318A5481C89205700F3E9CD /* TauItemLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8318A5471C89205700F3E9CD /* TauItemLayer.m */; };
+		831BD6CC1C883FA300122AF6 /* TauVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6CB1C883FA300122AF6 /* TauVideoView.m */; };
+		831BD6D71C88426A00122AF6 /* TauContentPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6D61C88426A00122AF6 /* TauContentPanelView.m */; };
+		831BD6DB1C88434500122AF6 /* TauContentPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6D91C88434500122AF6 /* TauContentPanelViewController.m */; };
+		831BD6DC1C88434500122AF6 /* TauContentPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 831BD6DA1C88434500122AF6 /* TauContentPanelViewController.xib */; };
+		831BD6E31C88482200122AF6 /* TauCollectionObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6E21C88482200122AF6 /* TauCollectionObject.m */; };
 		83765ADF1C8811DD00D93554 /* TauAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765ADE1C8811DD00D93554 /* TauAppDelegate.m */; };
 		83765AE21C8811DD00D93554 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AE11C8811DD00D93554 /* main.m */; };
 		83765AE51C8811DD00D93554 /* TauMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AE41C8811DD00D93554 /* TauMainViewController.m */; };
@@ -28,16 +28,15 @@
 		83765B691C881A6800D93554 /* CocoaLumberjack.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B491C881A5700D93554 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83765B941C881E2300D93554 /* GTL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B8B1C881E1700D93554 /* GTL.framework */; };
 		83765B971C881EA900D93554 /* GTL.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B8B1C881E1700D93554 /* GTL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8399E2141C88200000A42C44 /* GTLYouTube_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2121C88200000A42C44 /* GTLYouTube_Sources.m */; settings = {ASSET_TAGS = (); }; };
-		8399E21A1C88231400A42C44 /* TauMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2191C88231400A42C44 /* TauMainWindowController.m */; settings = {ASSET_TAGS = (); }; };
-		8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E21C1C88232E00A42C44 /* TauMainWindow.m */; settings = {ASSET_TAGS = (); }; };
-		8399E2201C88235500A42C44 /* TauMainContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E21F1C88235500A42C44 /* TauMainContentView.m */; settings = {ASSET_TAGS = (); }; };
-		83DA1C3E1C885216007B084F /* TauDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C3D1C885216007B084F /* TauDataService.m */; settings = {ASSET_TAGS = (); }; };
+		8399E2141C88200000A42C44 /* GTLYouTube_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2121C88200000A42C44 /* GTLYouTube_Sources.m */; };
+		8399E21A1C88231400A42C44 /* TauMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2191C88231400A42C44 /* TauMainWindowController.m */; };
+		8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E21C1C88232E00A42C44 /* TauMainWindow.m */; };
+		8399E2201C88235500A42C44 /* TauMainContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E21F1C88235500A42C44 /* TauMainContentView.m */; };
+		83DA1C3E1C885216007B084F /* TauDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C3D1C885216007B084F /* TauDataService.m */; };
 		83DA1C421C886138007B084F /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DA1C411C886138007B084F /* WebKit.framework */; };
-		83DA1C461C8864C0007B084F /* TauAbstractLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C451C8864C0007B084F /* TauAbstractLogFormatter.m */; settings = {ASSET_TAGS = (); }; };
-		83DA1C491C8864E9007B084F /* TauTTYLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C481C8864E9007B084F /* TauTTYLogFormatter.m */; settings = {ASSET_TAGS = (); }; };
-		83DA1C581C8893BF007B084F /* OAuthSigningConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C571C8893BF007B084F /* OAuthSigningConstants.m */; settings = {ASSET_TAGS = (); }; };
-		83DA1C5A1C8893D5007B084F /* libcommonCrypto.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DA1C591C8893D5007B084F /* libcommonCrypto.tbd */; };
+		83DA1C461C8864C0007B084F /* TauAbstractLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C451C8864C0007B084F /* TauAbstractLogFormatter.m */; };
+		83DA1C491C8864E9007B084F /* TauTTYLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C481C8864E9007B084F /* TauTTYLogFormatter.m */; };
+		83DA1C581C8893BF007B084F /* OAuthSigningConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C571C8893BF007B084F /* OAuthSigningConstants.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -342,7 +341,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83DA1C5A1C8893D5007B084F /* libcommonCrypto.tbd in Frameworks */,
 				83DA1C421C886138007B084F /* WebKit.framework in Frameworks */,
 				83765B941C881E2300D93554 /* GTL.framework in Frameworks */,
 				83765B681C881A6200D93554 /* CocoaLumberjack.framework in Frameworks */,

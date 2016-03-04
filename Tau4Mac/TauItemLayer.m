@@ -17,8 +17,12 @@
     {
     if ( self = [ super init ] )
         {
+        [ CATransaction begin ];
+        [ CATransaction setDisableActions: YES ];
         self.borderColor = [ NSColor blackColor ].CGColor;
         self.borderWidth = 1.f;
+        self.backgroundColor = [ NSColor lightGrayColor ].CGColor;
+        [ CATransaction commit ];
         }
 
     return self;
