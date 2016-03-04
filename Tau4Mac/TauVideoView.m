@@ -125,7 +125,7 @@
                     [ self.layer setNeedsDisplay ];
                     }
                 else
-                    DDLogError( @"%@ (%@)", _Error, fetcher.comment );
+                    DDLogError( @"[%@] %@ (%@)", highestDefinitionThumbnailURL, _Error, fetcher.comment );
                 } ];
         }
     }
@@ -146,7 +146,7 @@
     self.layerContentsPlacement = NSViewLayerContentsPlacementScaleProportionallyToFit;
 
     [ self configureForAutoLayout ];
-    [ self autoSetDimension: ALDimensionWidth toSize: 120 relation: NSLayoutRelationGreaterThanOrEqual ];
+    [ self autoSetDimension: ALDimensionWidth toSize: 200 relation: NSLayoutRelationGreaterThanOrEqual ];
     [ self autoMatchDimension: ALDimensionHeight toDimension: ALDimensionWidth ofView: self withMultiplier: 9.f / 16.f ];
     }
 
