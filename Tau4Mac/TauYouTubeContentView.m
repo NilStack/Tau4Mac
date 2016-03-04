@@ -9,21 +9,14 @@
 #import "TauYouTubeContentView.h"
 #import "OAuthSigningConstants.h"
 #import "TauItemLayer.h"
+#import "PriTauYouTubeContentView_.h"
 
 // Private Interfaces
 @interface TauYouTubeContentView ()
-
-// Init
-- ( void ) doInit_;
-
 @end // Private Interfaces
 
 // TauYouTubeContentView class
 @implementation TauYouTubeContentView
-    {
-@private
-    NSImage __strong* thumbnailImage_;
-    }
 
 #pragma mark - Initializations
 
@@ -57,17 +50,73 @@
 
 - ( void ) displayLayer: ( CALayer* )_Layer
     {
-    self.layer.contents = thumbnailImage_;
+    switch ( self.type )
+        {
+        case TauYouTubeVideoView: self.layer.contents = thumbnailImage_; break;
+        default:;
+        }
     }
 
 #pragma mark - Properties
 
 @dynamic ytContent;
+@dynamic type;
+
+- ( void ) setYtContent: ( GTLObject* )_ytContent
+    {
+    [ self updateYtContent_: _ytContent ];
+    }
+
+- ( GTLObject* ) ytContent
+    {
+    return ytContent_;
+    }
+
+- ( TauYouTubeContentViewType ) type
+    {
+    TauYouTubeContentViewType type = TauYouTubeUnknownView;
+
+    if ( [ ytContent_ isKindOfClass: [ GTLYouTubeVideo class ] ]
+            || ( [ ytContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ]
+                    && [ [ ( GTLYouTubeSearchResult* )ytContent_ identifier ].kind isEqualToString: @"youtube#video" ] ) )
+        type = TauYouTubeVideoView;
+
+    else if ( [ ytContent_ isKindOfClass: [ GTLYouTubeChannel class ] ]
+            || ( [ ytContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ]
+                    && [ [ ( GTLYouTubeSearchResult* )ytContent_ identifier ].kind isEqualToString: @"youtube#channel" ] ) )
+        type = TauYouTubeChannelView;
+
+    else if ( [ ytContent_ isKindOfClass: [ GTLYouTubePlaylist class ] ]
+            || ( [ ytContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ]
+                    && [ [ ( GTLYouTubeSearchResult* )ytContent_ identifier ].kind isEqualToString: @"youtube#playlist" ] ) )
+        type = TauYouTubePlayListView;
+
+    return type;
+    }
+
+@end // TauYouTubeContentView class
+
+// TauYouTubeContentView + PriTauYouTubeContentView_
+@implementation TauYouTubeContentView ( PriTauYouTubeContentView_ )
+
+// Init
+- ( void ) doInit_
+    {
+    self.wantsLayer = YES;
+    self.layer.delegate = self;
+    self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawNever;
+    self.layerContentsPlacement = NSViewLayerContentsPlacementScaleProportionallyToFill;
+
+    [ self configureForAutoLayout ];
+    [ self autoSetDimension: ALDimensionWidth toSize: 200 relation: NSLayoutRelationGreaterThanOrEqual ];
+    [ self autoMatchDimension: ALDimensionHeight toDimension: ALDimensionWidth ofView: self withMultiplier: 9.f / 16.f ];
+    }
 
 NSString* const kPreferredThumbKey = @"kPreferredThumbKey";
 NSString* const kBackingThumbKey = @"kBackingThumbKey";
 
-- ( void ) setYtContent: ( GTLObject* )_ytContent
+// Content
+- ( void ) updateYtContent_: ( GTLObject* )_ytContent
     {
     if ( ytContent_ != _ytContent )
         {
@@ -153,24 +202,4 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
         }
     }
 
-- ( GTLObject* ) ytContent
-    {
-    return ytContent_;
-    }
-
-#pragma mark - Private Interfaces
-
-// Init
-- ( void ) doInit_
-    {
-    self.wantsLayer = YES;
-    self.layer.delegate = self;
-    self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawNever;
-    self.layerContentsPlacement = NSViewLayerContentsPlacementScaleProportionallyToFill;
-
-    [ self configureForAutoLayout ];
-    [ self autoSetDimension: ALDimensionWidth toSize: 200 relation: NSLayoutRelationGreaterThanOrEqual ];
-    [ self autoMatchDimension: ALDimensionHeight toDimension: ALDimensionWidth ofView: self withMultiplier: 9.f / 16.f ];
-    }
-
-@end // TauYouTubeContentView class
+@end // TauYouTubeContentView + PriTauYouTubeContentView_
