@@ -44,7 +44,7 @@
 - ( instancetype ) initWithGTLObject: ( GTLObject* )_GTLObject
     {
     if ( self = [ self initWithFrame: NSZeroRect ] )
-        self.ytVideo = _GTLObject;
+        self.ytContent = _GTLObject;
     return self;
     }
 
@@ -62,9 +62,9 @@
 
 #pragma mark - Properties
 
-@dynamic ytVideo;
+@dynamic ytContent;
 
-- ( void ) setYtVideo: ( GTLObject* )_ytVideo
+- ( void ) setYtContent: ( GTLObject* )_ytVideo
     {
     DDAssert( ( !( _ytVideo ) )
                 || [ _ytVideo isKindOfClass: [ GTLYouTubeVideo class ] ]
@@ -74,22 +74,22 @@
             , _ytVideo
             );
 
-    if ( ytVideo_ != _ytVideo )
+    if ( ytContent_ != _ytVideo )
         {
-        ytVideo_ = _ytVideo;
+        ytContent_ = _ytVideo;
 
         NSURL* preferred = nil;
         GTLYouTubeThumbnailDetails* thumbnailDetails = nil;
 
-        if ( [ ytVideo_ isKindOfClass: [ GTLYouTubeVideo class ] ] )
+        if ( [ ytContent_ isKindOfClass: [ GTLYouTubeVideo class ] ] )
             {
-            GTLYouTubeVideoSnippet* videoSnippet = [ ( GTLYouTubeVideo* )ytVideo_ snippet ];
+            GTLYouTubeVideoSnippet* videoSnippet = [ ( GTLYouTubeVideo* )ytContent_ snippet ];
             thumbnailDetails = videoSnippet.thumbnails;
             }
 
-        else if ( [ ytVideo_ isKindOfClass: [ GTLYouTubeSearchResult class ] ] )
+        else if ( [ ytContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ] )
             {
-            GTLYouTubeSearchResultSnippet* searchResultSnippet = [ ( GTLYouTubeSearchResult* )ytVideo_ snippet ];
+            GTLYouTubeSearchResultSnippet* searchResultSnippet = [ ( GTLYouTubeSearchResult* )ytContent_ snippet ];
             thumbnailDetails = searchResultSnippet.thumbnails;
             }
 
@@ -149,9 +149,9 @@
         }
     }
 
-- ( GTLObject* ) ytVideo
+- ( GTLObject* ) ytContent
     {
-    return ytVideo_;
+    return ytContent_;
     }
 
 #pragma mark - Private Interfaces

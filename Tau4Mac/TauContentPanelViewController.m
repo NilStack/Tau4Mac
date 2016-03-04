@@ -183,7 +183,7 @@
     [ videoObjects enumerateObjectsUsingBlock:
     ^( GTLYouTubeSearchResult* _Nonnull _SearchResult, NSUInteger _Index, BOOL* _Nonnull _Stop )
         {
-        [ mutVideoViews_[ _Index ] setYtVideo: _SearchResult ];
+        [ mutVideoViews_[ _Index ] setYtContent: _SearchResult ];
         } ];
     }
 

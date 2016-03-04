@@ -10,7 +10,7 @@
 @interface TauVideoView : NSView
     {
 @protected
-    GTLObject __strong* ytVideo_;
+    GTLObject __strong* ytContent_;
     }
 
 #pragma mark - Initializations
@@ -19,6 +19,6 @@
 
 #pragma mark - Properties
 
-@property ( strong, readwrite ) GTLObject* ytVideo;
+@property ( strong, readwrite ) GTLObject* ytContent;
 
 @end // TauVideoView class
