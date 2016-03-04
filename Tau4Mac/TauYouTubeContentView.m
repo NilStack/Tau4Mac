@@ -11,6 +11,8 @@
 #import "TauItemLayer.h"
 #import "PriTauYouTubeContentView_.h"
 
+#import "NSImage+Tau.h"
+
 // Private Interfaces
 @interface TauYouTubeContentView ()
 @end // Private Interfaces
@@ -52,7 +54,16 @@
     {
     switch ( self.type )
         {
-        case TauYouTubeVideoView: self.layer.contents = thumbnailImage_; break;
+        case TauYouTubeVideoView:
+            {
+            self.layer.contents = thumbnailImage_;
+            } break;
+
+        case TauYouTubeChannelView:
+            {
+            self.layer.contents = [ thumbnailImage_ gaussianBluredOfRadius: 10.f ];
+            } break;
+
         default:;
         }
     }
@@ -172,7 +183,7 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
                     {
                     DDLogDebug( @"Finished fetching thumbnail %@", fetchID );
                     thumbnailImage_ = [ [ NSImage alloc ] initWithData: _Data ];
-                    [ self.layer setNeedsDisplay ];
+                    [ self updateUI_ ];
                     }
                 else
                     {
@@ -193,12 +204,38 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
                                     {
                                     DDLogDebug( @"Congrats! Finished fetching backing thumbnail" );
                                     thumbnailImage_ = [ [ NSImage alloc ] initWithData: _Data ];
-                                    [ self.layer setNeedsDisplay ];
+                                    [ self updateUI_ ];
                                     } ];
                             }
                         }
                     }
                 } ];
+        }
+    }
+
+- ( void ) updateUI_
+    {
+    [ self.layer setNeedsDisplay ];
+
+    if ( self.type == TauYouTubeChannelView )
+        {
+        NSButton* button = [ [ NSButton alloc ] initWithFrame: NSZeroRect ];
+        [ button setTitle: @"CHANNEL" ];
+        [ button sizeToFit ];
+        [ button configureForAutoLayout ];
+        [ self addSubview: button ];
+
+        [ button autoPinEdge: ALEdgeTop toEdge: ALEdgeTop ofView: button.superview withOffset: 5.f ];
+        [ button autoPinEdge: ALEdgeTrailing toEdge: ALEdgeTrailing ofView: button.superview withOffset: -5.f ];
+
+        NSImageView* imageView = [ [ NSImageView alloc ] initWithFrame: NSZeroRect ];
+        [ imageView setImageFrameStyle: NSImageFrameNone ];
+        [ imageView setImage: thumbnailImage_ ];
+
+        [ self addSubview: imageView ];
+        [ imageView autoSetDimensionsToSize: NSMakeSize( 60.f, 60.f ) ];
+        [ imageView autoPinEdge: ALEdgeTop toEdge: ALEdgeTop ofView: imageView.superview withOffset: 5.f ];
+        [ imageView autoPinEdge: ALEdgeLeading toEdge: ALEdgeLeading ofView: imageView.superview withOffset: -5.f ];
         }
     }
 

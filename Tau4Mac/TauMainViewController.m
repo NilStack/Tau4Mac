@@ -47,7 +47,7 @@
         GTLQueryYouTube* ytSearchListQuery = [ GTLQueryYouTube queryForSearchListWithPart: @"snippet" ];
         [ ytSearchListQuery setQ: userInput ];
         [ ytSearchListQuery setMaxResults: 20 ];
-//        [ ytSearchListQuery setType: @"video" ];
+//        [ ytSearchListQuery setType: @"playlist" ];
 
         [ [ TauDataService sharedService ].ytService executeQuery: ytSearchListQuery
                                                 completionHandler:
