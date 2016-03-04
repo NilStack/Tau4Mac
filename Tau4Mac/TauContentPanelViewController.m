@@ -36,6 +36,8 @@
         if ( [ _SearchResult.identifier.kind isEqualToString: @"youtube#video" ] )
             {
             videoView = [ [ TauVideoView alloc ] initWithGTLObject: _SearchResult ];
+            [ self.view addSubview: videoView ];
+            [ videoView autoMatchDimension: ALDimensionWidth toDimension: ALDimensionWidth ofView: self.view withMultiplier: 1.f / 4.f ];
             break;
             }
         }

@@ -8,6 +8,7 @@
 
 #import "TauVideoView.h"
 #import "OAuthSigningConstants.h"
+#import "TauItemLayer.h"
 
 // Private Interfaces
 @interface TauVideoView ()
@@ -51,7 +52,7 @@
 
 - ( CALayer* ) makeBackingLayer
     {
-    return [ [ CALayer alloc ] init ];
+    return [ [ TauItemLayer alloc ] init ];
     }
 
 - ( void ) displayLayer: ( CALayer* )_Layer
@@ -106,7 +107,9 @@
 
         highestDefinitionThumbnailURL = [ NSURL URLWithString: preferThumbnail.url ];
 
-        DDLogDebug( @"Selected Thumbnail: %@", highestDefinitionThumbnailURL );
+        NSString* maxresdefault = @"maxresdefault.jpg";
+        if ( ![ [ highestDefinitionThumbnailURL.lastPathComponent stringByDeletingPathExtension ] isEqualToString: maxresdefault ] )
+            highestDefinitionThumbnailURL = [ [ highestDefinitionThumbnailURL URLByDeletingLastPathComponent ] URLByAppendingPathComponent: maxresdefault ];
 
         NSString* fetchID = [ NSString stringWithFormat: @"(fetchID: %@)", TKNonce() ];
         DDLogDebug( @"Begin fetching thumbnail... %@", fetchID );

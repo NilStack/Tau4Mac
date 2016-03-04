@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8318A5481C89205700F3E9CD /* TauItemLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8318A5471C89205700F3E9CD /* TauItemLayer.m */; settings = {ASSET_TAGS = (); }; };
 		831BD6CC1C883FA300122AF6 /* TauVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6CB1C883FA300122AF6 /* TauVideoView.m */; settings = {ASSET_TAGS = (); }; };
 		831BD6D71C88426A00122AF6 /* TauContentPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6D61C88426A00122AF6 /* TauContentPanelView.m */; settings = {ASSET_TAGS = (); }; };
 		831BD6DB1C88434500122AF6 /* TauContentPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6D91C88434500122AF6 /* TauContentPanelViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -283,6 +284,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8318A5461C89205700F3E9CD /* TauItemLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauItemLayer.h; sourceTree = "<group>"; };
+		8318A5471C89205700F3E9CD /* TauItemLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauItemLayer.m; sourceTree = "<group>"; };
 		831BD6CA1C883FA300122AF6 /* TauVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauVideoView.h; sourceTree = "<group>"; };
 		831BD6CB1C883FA300122AF6 /* TauVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauVideoView.m; sourceTree = "<group>"; };
 		831BD6D51C88426A00122AF6 /* TauContentPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauContentPanelView.h; sourceTree = "<group>"; };
@@ -418,6 +421,8 @@
 				831BD6D91C88434500122AF6 /* TauContentPanelViewController.m */,
 				831BD6D51C88426A00122AF6 /* TauContentPanelView.h */,
 				831BD6D61C88426A00122AF6 /* TauContentPanelView.m */,
+				8318A5461C89205700F3E9CD /* TauItemLayer.h */,
+				8318A5471C89205700F3E9CD /* TauItemLayer.m */,
 				831BD6CA1C883FA300122AF6 /* TauVideoView.h */,
 				831BD6CB1C883FA300122AF6 /* TauVideoView.m */,
 				83765AE01C8811DD00D93554 /* Supporting Files */,
@@ -940,6 +945,7 @@
 				83DA1C581C8893BF007B084F /* OAuthSigningConstants.m in Sources */,
 				83765ADF1C8811DD00D93554 /* TauAppDelegate.m in Sources */,
 				8399E2201C88235500A42C44 /* TauMainContentView.m in Sources */,
+				8318A5481C89205700F3E9CD /* TauItemLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
