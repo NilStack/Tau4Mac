@@ -47,15 +47,14 @@
         GTLQueryYouTube* ytSearchListQuery = [ GTLQueryYouTube queryForSearchListWithPart: @"snippet" ];
         [ ytSearchListQuery setQ: userInput ];
         [ ytSearchListQuery setMaxResults: 20 ];
+        [ ytSearchListQuery setType: @"video" ];
 
         [ [ TauDataService sharedService ].ytService executeQuery: ytSearchListQuery
                                                 completionHandler:
             ^( GTLServiceTicket* _Ticket, GTLYouTubeSearchListResponse* _SearchListResp, NSError* _Error )
                 {
                 if ( !_Error )
-                    {
                     [ contentPanelViewController setRepresentedObject: _SearchListResp ];
-                    }
                 else
                     DDLogError( @"%@", _Error );
                 } ];

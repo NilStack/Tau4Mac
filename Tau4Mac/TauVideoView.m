@@ -78,7 +78,7 @@
         {
         ytVideo_ = _ytVideo;
 
-        NSURL* highestDefinitionThumbnailURL = nil;
+        NSURL* preferred = nil;
         GTLYouTubeThumbnailDetails* thumbnailDetails = nil;
 
         if ( [ ytVideo_ isKindOfClass: [ GTLYouTubeVideo class ] ] )
@@ -105,16 +105,18 @@
                 /* 120x90 px */
                 ?: thumbnailDetails.defaultProperty;
 
-        highestDefinitionThumbnailURL = [ NSURL URLWithString: preferThumbnail.url ];
+        preferred = [ NSURL URLWithString: preferThumbnail.url ];
 
-        NSString* maxresdefault = @"maxresdefault.jpg";
-        if ( ![ [ highestDefinitionThumbnailURL.lastPathComponent stringByDeletingPathExtension ] isEqualToString: maxresdefault ] )
-            highestDefinitionThumbnailURL = [ [ highestDefinitionThumbnailURL URLByDeletingLastPathComponent ] URLByAppendingPathComponent: maxresdefault ];
+        NSString* maxresName = @"maxresdefault.jpg";
+        NSURL* maxresURL = nil;
+        if ( ![ [ preferred.lastPathComponent stringByDeletingPathExtension ] isEqualToString: maxresName ] )
+            maxresURL = [ [ preferred URLByDeletingLastPathComponent ] URLByAppendingPathComponent: maxresName ];
 
         NSString* fetchID = [ NSString stringWithFormat: @"(fetchID: %@)", TKNonce() ];
         DDLogDebug( @"Begin fetching thumbnail... %@", fetchID );
-        GTMSessionFetcher* fetcher = [ GTMSessionFetcher fetcherWithURL: highestDefinitionThumbnailURL ];
+        GTMSessionFetcher* fetcher = [ GTMSessionFetcher fetcherWithURL: maxresURL ];
         [ fetcher setComment: fetchID ];
+        [ fetcher setUserData: @{ @"backup" : preferred } ];
         [ fetcher beginFetchWithCompletionHandler:
             ^( NSData* _Nullable _Data, NSError* _Nullable _Error )
                 {
@@ -125,7 +127,24 @@
                     [ self.layer setNeedsDisplay ];
                     }
                 else
-                    DDLogError( @"[%@] %@ (%@)", highestDefinitionThumbnailURL, _Error, fetcher.comment );
+                    {
+                    DDLogError( @"[%@] %@ (%@)", maxresURL, _Error, fetcher.comment );
+
+                    if ( [ _Error.domain isEqualToString: kGTMSessionFetcherStatusDomain ] )
+                        {
+                        if ( _Error.code == 404 )
+                            {
+                            [ [ GTMSessionFetcher fetcherWithURL: fetcher.userData[ @"backup" ] ]
+                                beginFetchWithCompletionHandler:
+                                ^( NSData* _Nullable _Data, NSError* _Nullable _Error )
+                                    {
+                                    DDLogDebug( @"Finished fetching thumbnail %@", fetchID );
+                                    thumbnailImage_ = [ [ NSImage alloc ] initWithData: _Data ];
+                                    [ self.layer setNeedsDisplay ];
+                                    } ];
+                            }
+                        }
+                    }
                 } ];
         }
     }
@@ -143,7 +162,7 @@
     self.wantsLayer = YES;
     self.layer.delegate = self;
     self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawNever;
-    self.layerContentsPlacement = NSViewLayerContentsPlacementScaleProportionallyToFit;
+    self.layerContentsPlacement = NSViewLayerContentsPlacementScaleProportionallyToFill;
 
     [ self configureForAutoLayout ];
     [ self autoSetDimension: ALDimensionWidth toSize: 200 relation: NSLayoutRelationGreaterThanOrEqual ];
