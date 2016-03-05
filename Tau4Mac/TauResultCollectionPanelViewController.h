@@ -8,14 +8,19 @@
 
 #import "TauStackViewItem.h"
 
+// TauResultCollectionPanelViewController class
 @interface TauResultCollectionPanelViewController : TauStackViewItem
 
 #pragma mark - Initializations
 
 - ( instancetype ) initWithGTLCollectionObject: ( GTLCollectionObject* )_CollectionObject ticket: ( GTLServiceTicket* )_Ticket;
 
+#pragma mark - Outlets
+
+@property ( weak ) IBOutlet NSView* toolbarView;
+
 #pragma mark - IBAction
 
-- ( IBAction ) cancelAction: ( id )_Sender;
+- ( IBAction ) dismissAction: ( id )_Sender;
 
-@end
+@end // TauResultCollectionPanelViewController class

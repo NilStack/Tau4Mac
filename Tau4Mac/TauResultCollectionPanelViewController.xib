@@ -6,6 +6,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TauResultCollectionPanelViewController">
             <connections>
+                <outlet property="toolbarView" destination="MzW-W0-JMa" id="BFc-ls-eyL"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -15,27 +16,52 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="MzW-W0-JMa">
-                    <rect key="frame" x="0.0" y="228" width="480" height="44"/>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="MzW-W0-JMa" customClass="NSVisualEffectView">
+                    <rect key="frame" x="0.0" y="233" width="480" height="39"/>
                     <subviews>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ewq-CW-Hf5">
-                            <rect key="frame" x="403" y="9" width="57" height="25"/>
+                            <rect key="frame" x="403" y="7" width="57" height="25"/>
                             <buttonCell key="cell" type="roundTextured" title="Cancel" bezelStyle="texturedRounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PGc-hl-3LP">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <action selector="cancelAction:" target="-2" id="txh-X5-Loc"/>
+                                <action selector="dismissAction:" target="-2" id="txh-X5-Loc"/>
                             </connections>
                         </button>
+                        <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="C39-pw-mzU">
+                            <rect key="frame" x="20" y="7" width="315" height="25"/>
+                            <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedRounded" trackingMode="selectOne" id="56C-8S-e8G">
+                                <font key="font" metaFont="system"/>
+                                <segments>
+                                    <segment image="NSGoLeftTemplate" width="30">
+                                        <nil key="label"/>
+                                    </segment>
+                                    <segment label="1" width="30" selected="YES" tag="1"/>
+                                    <segment label="2" width="30"/>
+                                    <segment label="4" width="30"/>
+                                    <segment label="5" width="30"/>
+                                    <segment label="6" width="30"/>
+                                    <segment label="7" width="30"/>
+                                    <segment label="8" width="30"/>
+                                    <segment label="9" width="30"/>
+                                    <segment image="NSGoRightTemplate" width="30">
+                                        <nil key="label"/>
+                                    </segment>
+                                </segments>
+                            </segmentedCell>
+                        </segmentedControl>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="Ewq-CW-Hf5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MzW-W0-JMa" secondAttribute="leading" constant="403" id="8Yd-Vs-lWb"/>
-                        <constraint firstAttribute="bottom" secondItem="Ewq-CW-Hf5" secondAttribute="bottom" constant="11" id="Gwd-dc-TGQ"/>
+                        <constraint firstItem="Ewq-CW-Hf5" firstAttribute="top" secondItem="MzW-W0-JMa" secondAttribute="top" constant="8" id="Ot8-aX-xV3"/>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="480" id="Rhg-ML-2ho"/>
-                        <constraint firstItem="Ewq-CW-Hf5" firstAttribute="top" secondItem="MzW-W0-JMa" secondAttribute="top" constant="11" id="U2p-Wj-ecL"/>
                         <constraint firstAttribute="trailing" secondItem="Ewq-CW-Hf5" secondAttribute="trailing" constant="20" id="VsP-8a-i9l"/>
-                        <constraint firstAttribute="height" constant="44" id="k8b-Kv-QQe"/>
+                        <constraint firstItem="C39-pw-mzU" firstAttribute="leading" secondItem="MzW-W0-JMa" secondAttribute="leading" constant="20" id="Zbv-Hh-3tx"/>
+                        <constraint firstAttribute="bottom" secondItem="C39-pw-mzU" secondAttribute="bottom" constant="9" id="aVc-Oq-qfT"/>
+                        <constraint firstAttribute="bottom" secondItem="Ewq-CW-Hf5" secondAttribute="bottom" constant="9" id="c89-N7-ELf"/>
+                        <constraint firstItem="Ewq-CW-Hf5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="C39-pw-mzU" secondAttribute="trailing" constant="68" id="f0q-wI-pdP"/>
+                        <constraint firstAttribute="height" constant="39" id="k8b-Kv-QQe"/>
+                        <constraint firstItem="C39-pw-mzU" firstAttribute="top" secondItem="MzW-W0-JMa" secondAttribute="top" constant="8" id="t9F-X2-Obq"/>
                     </constraints>
                 </customView>
             </subviews>
@@ -46,4 +72,8 @@
             </constraints>
         </customView>
     </objects>
+    <resources>
+        <image name="NSGoLeftTemplate" width="9" height="12"/>
+        <image name="NSGoRightTemplate" width="9" height="12"/>
+    </resources>
 </document>

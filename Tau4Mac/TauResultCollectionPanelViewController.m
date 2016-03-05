@@ -10,10 +10,12 @@
 #import "TauYouTubeEntriesCollectionViewController.h"
 #import "TauSearchPanelStackViewController.h"
 
+// Private Interfaces
 @interface TauResultCollectionPanelViewController ()
 
-@end
+@end // Private Interfaces
 
+// TauResultCollectionPanelViewController class
 @implementation TauResultCollectionPanelViewController
     {
     TauYouTubeEntriesCollectionViewController __strong* entriesCollectionViewController_;
@@ -25,10 +27,8 @@
                                         ticket: ( GTLServiceTicket* )_Ticket
     {
     if ( self = [ super initWithNibName: nil bundle: nil ] )
-        {
         entriesCollectionViewController_ =
             [ [ TauYouTubeEntriesCollectionViewController alloc ] initWithGTLCollectionObject: _CollectionObject ticket: _Ticket ];
-        }
 
     return self;
     }
@@ -39,13 +39,14 @@
 
     [ self.view addSubview: entriesCollectionViewController_.view ];
     [ entriesCollectionViewController_.view autoPinEdgesToSuperviewEdgesWithInsets: NSEdgeInsetsMake( 0, 0, 0, 0 ) excludingEdge: ALEdgeTop ];
+    [ entriesCollectionViewController_.view autoPinEdge: ALEdgeTop toEdge: ALEdgeBottom ofView: self.toolbarView ];
     }
 
 #pragma mark - IBAction
 
-- ( IBAction ) cancelAction: ( id )_Sender
+- ( IBAction ) dismissAction: ( id )_Sender
     {
     [ self.hostStack popView ];
     }
 
-@end
+@end // TauResultCollectionPanelViewController class

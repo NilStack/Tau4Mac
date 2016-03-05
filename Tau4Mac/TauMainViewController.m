@@ -25,7 +25,6 @@
     [ super viewDidLoad ];
 
     // Do any additional setup after loading the view.
-//    [ self.view setFrameSize: NSMakeSize( 800, 800 ) ];
 
     [ self.view addSubview: self.searchPanelStackViewController_.view ];
     [ self.searchPanelStackViewController_.view autoPinEdgesToSuperviewEdges ];
