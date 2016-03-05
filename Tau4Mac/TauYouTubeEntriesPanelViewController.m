@@ -1,22 +1,22 @@
 //
-//  TauContentPanelViewController.m
+//  TauYouTubeEntriesPanelViewController.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/3/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauContentPanelViewController.h"
+#import "TauYouTubeEntriesPanelViewController.h"
 
 #import "TauCollectionObject.h"
 #import "TauYouTubeEntriesView.h"
 
 // Private Interfaces
-@interface TauContentPanelViewController ()
+@interface TauYouTubeEntriesPanelViewController ()
 @end // Private Interfaces
 
-// TauContentPanelViewController class
-@implementation TauContentPanelViewController
+// TauYouTubeEntriesPanelViewController class
+@implementation TauYouTubeEntriesPanelViewController
     {
 @protected
     GTLCollectionObject __strong* repContents_;
@@ -189,4 +189,4 @@
 
 // #pragma mark - Private Interfaces
 
-@end // TauContentPanelViewController class
+@end // TauYouTubeEntriesPanelViewController class
