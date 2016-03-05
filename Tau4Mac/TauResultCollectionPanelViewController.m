@@ -46,6 +46,8 @@
     [ self.view addSubview: entriesCollectionViewController_.view ];
     [ entriesCollectionViewController_.view autoPinEdgesToSuperviewEdgesWithInsets: NSEdgeInsetsMake( 0, 0, 0, 0 ) excludingEdge: ALEdgeTop ];
     [ entriesCollectionViewController_.view autoPinEdge: ALEdgeTop toEdge: ALEdgeBottom ofView: self.toolbarView ];
+
+    self.toolbarView.ytCollectionObject = ytCollectionObject_;
     }
 
 #pragma mark - IBAction

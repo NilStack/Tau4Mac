@@ -32,7 +32,7 @@
         GTLQueryYouTube* ytSearchListQuery = [ GTLQueryYouTube queryForSearchListWithPart: @"snippet" ];
         [ ytSearchListQuery setQ: userInput ];
         [ ytSearchListQuery setMaxResults: 20 ];
-//        [ ytSearchListQuery setType: @"playlist" ];
+//        [ ytSearchListQuery setType: @"channel" ];
 
         if ( ytSearchListTicket_ )
             [ ytSearchListTicket_ cancelTicket ];

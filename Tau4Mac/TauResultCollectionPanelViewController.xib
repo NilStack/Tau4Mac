@@ -12,7 +12,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="Hz6-mo-xeY" customClass="TauResultCollectionToolbarView">
+        <customView id="Hz6-mo-xeY">
             <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
@@ -76,6 +76,7 @@
                     <connections>
                         <outlet property="dismissButton" destination="Ewq-CW-Hf5" id="1US-UT-fhS"/>
                         <outlet property="segPager" destination="C39-pw-mzU" id="apA-9z-jic"/>
+                        <outlet property="titleView" destination="JyQ-Ek-OnU" id="KQz-n1-yej"/>
                     </connections>
                 </customView>
             </subviews>
@@ -84,6 +85,10 @@
                 <constraint firstItem="MzW-W0-JMa" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="P8p-fy-yB0"/>
                 <constraint firstAttribute="trailing" secondItem="MzW-W0-JMa" secondAttribute="trailing" id="pJd-OJ-yKu"/>
             </constraints>
+            <connections>
+                <outlet property="dismissButton" destination="Ewq-CW-Hf5" id="lAq-Jl-00L"/>
+                <outlet property="segPager" destination="C39-pw-mzU" id="8Ud-9Z-QN6"/>
+            </connections>
         </customView>
     </objects>
     <resources>

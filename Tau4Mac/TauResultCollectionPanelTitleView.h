@@ -6,8 +6,9 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-
+// TauResultCollectionPanelTitleView class
 @interface TauResultCollectionPanelTitleView : NSView
 
-@end
+@property ( assign, readwrite ) NSInteger numberOfResults;
+
+@end // TauResultCollectionPanelTitleView class

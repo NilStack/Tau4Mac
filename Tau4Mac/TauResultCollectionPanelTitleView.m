@@ -8,10 +8,31 @@
 
 #import "TauResultCollectionPanelTitleView.h"
 
+// TauResultCollectionPanelTitleView class
 @implementation TauResultCollectionPanelTitleView
     {
     NSDictionary __strong* sumDrawingAttrs_;
     NSDictionary __strong* countDrawingAttrs_;
+
+    NSInteger numberOfResults_;
+    }
+
+#pragma mark - Dynmaic Properties
+
+@dynamic numberOfResults;
+
+- ( void ) setNumberOfResults: ( NSInteger )_NumberOfResults
+    {
+    if ( numberOfResults_ != _NumberOfResults )
+        {
+        numberOfResults_ = _NumberOfResults;
+        self.needsDisplay = YES;
+        }
+    }
+
+- ( NSInteger ) numberOfResults
+    {
+    return numberOfResults_;
     }
 
 #pragma mark - Drawing
@@ -21,7 +42,7 @@
     [ super drawRect: _DirtyRect ];
 
     NSString* summaryText = NSLocalizedString( @"Search Results", nil );
-    NSString* countText = [ NSString stringWithFormat: NSLocalizedString( @"About %@ results", nil ), @( 200042 ) ];
+    NSString* countText = [ NSString stringWithFormat: NSLocalizedString( @"About %@ results", nil ), @( numberOfResults_ ) ];
 
     NSString* fontName = @"Helvetica";
     if ( !sumDrawingAttrs_ )
@@ -59,4 +80,4 @@
     [ countText drawAtPoint: countTextDrawingPoint withAttributes: countDrawingAttrs_ ];
     }
 
-@end
+@end // TauResultCollectionPanelTitleView class

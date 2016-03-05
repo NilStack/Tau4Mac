@@ -7,6 +7,7 @@
 //
 
 #import "TauResultCollectionToolbarView.h"
+#import "TauResultCollectionPanelTitleView.h"
 
 // Private Interfaces
 @interface TauResultCollectionToolbarView ()
@@ -16,6 +17,7 @@
 @implementation TauResultCollectionToolbarView
     {
     NSUInteger pageNumber_;
+    GTLCollectionObject* ytCollectionObject_;
 
     NSArray <NSLayoutConstraint*>* layoutConstraintsCache_;
     }
@@ -34,6 +36,22 @@
     if ( self = [ super initWithFrame: _FrameRect ] )
         [ self doInit_ ];
     return self;
+    }
+
+#pragma mark - Dynamic Properties
+
+- ( void ) setYtCollectionObject: ( GTLCollectionObject* )_NewCollectionObject
+    {
+    if ( ytCollectionObject_ != _NewCollectionObject )
+        {
+        ytCollectionObject_ = _NewCollectionObject;
+        self.titleView.numberOfResults = [ ( GTLYouTubePageInfo* )[ ytCollectionObject_ performSelector: @selector( pageInfo ) ] totalResults ].integerValue;
+        }
+    }
+
+- ( GTLCollectionObject* ) ytCollectionObject
+    {
+    return ytCollectionObject_;
     }
 
 #pragma mark - Private Interfaces
