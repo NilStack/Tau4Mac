@@ -1,12 +1,12 @@
 //
-//  TauYouTubeEntriesView.h
+//  TauYouTubeEntryView.h
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/3/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-// TauYouTubeEntriesView class
+// TauYouTubeEntryView class
 
 typedef NS_ENUM ( NSUInteger, TauYouTubeContentViewType )
     { TauYouTubeVideoView       = 1
@@ -16,7 +16,7 @@ typedef NS_ENUM ( NSUInteger, TauYouTubeContentViewType )
     , TauYouTubeUnknownView     = 0
     };
 
-@interface TauYouTubeEntriesView : NSView
+@interface TauYouTubeEntryView : NSView
     {
 @protected
     NSImage __strong* thumbnailImage_;
@@ -34,4 +34,4 @@ typedef NS_ENUM ( NSUInteger, TauYouTubeContentViewType )
 @property ( strong, readwrite ) GTLObject* ytContent;
 @property ( assign, readonly ) TauYouTubeContentViewType type;
 
-@end // TauYouTubeEntriesView class
+@end // TauYouTubeEntryView class
