@@ -8,13 +8,4 @@
 
 // TauMainViewController class
 @interface TauMainViewController : NSViewController
-
-#pragma mark - Outlets
-
-@property ( weak ) IBOutlet NSSearchField* searchField;
-
-#pragma mark - IBActions
-
-- ( IBAction ) searchUserInputAction: ( id )_Sender;
-
 @end // TauMainViewController class

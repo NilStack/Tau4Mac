@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1712" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="TauSearchPanelViewController">
+            <connections>
+                <outlet property="searchField" destination="3On-Ag-Ji8" id="PYY-cq-Kdi"/>
+                <outlet property="view" destination="3TL-3f-VzS" id="vmE-6X-jLj"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view id="3TL-3f-VzS" customClass="TauSearchPanelView">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <searchField wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3On-Ag-Ji8">
+                    <rect key="frame" x="130" y="124" width="221" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="4ag-qK-abf"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="221" id="NRO-iP-i4W"/>
+                    </constraints>
+                    <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" sendsWholeSearchString="YES" id="cje-Gk-2tN">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </searchFieldCell>
+                    <connections>
+                        <action selector="searchUserInputAction:" target="-2" id="rfg-vj-3ON"/>
+                    </connections>
+                </searchField>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="3On-Ag-Ji8" secondAttribute="bottom" constant="124" id="BEU-Bg-dr1"/>
+                <constraint firstItem="3On-Ag-Ji8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="3TL-3f-VzS" secondAttribute="top" constant="124" id="Zi9-nu-ndw"/>
+                <constraint firstItem="3On-Ag-Ji8" firstAttribute="leading" secondItem="3TL-3f-VzS" secondAttribute="leading" constant="130" id="f1D-Tx-PeI"/>
+                <constraint firstAttribute="trailing" secondItem="3On-Ag-Ji8" secondAttribute="trailing" constant="129" id="vx4-YD-Ntf"/>
+            </constraints>
+        </view>
+    </objects>
+</document>
