@@ -1,15 +1,15 @@
 //
-//  TauYouTubeEntriesPanelView.m
+//  TauYouTubeEntriesCollectionView.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/3/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauYouTubeEntriesPanelView.h"
+#import "TauYouTubeEntriesCollectionView.h"
 
 // Private Interfaces
-@interface TauYouTubeEntriesPanelView ()
+@interface TauYouTubeEntriesCollectionView ()
 
 // Init
 
@@ -17,8 +17,8 @@
 
 @end // Private Interfaces
 
-// TauYouTubeEntriesPanelView class
-@implementation TauYouTubeEntriesPanelView
+// TauYouTubeEntriesCollectionView class
+@implementation TauYouTubeEntriesCollectionView
 
 #pragma mark - Initializations
 
@@ -66,4 +66,4 @@
     [ self autoSetDimension: ALDimensionHeight toSize: 0.f relation: NSLayoutRelationGreaterThanOrEqual ];
     }
 
-@end // TauYouTubeEntriesPanelView class
+@end // TauYouTubeEntriesCollectionView class

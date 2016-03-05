@@ -15,7 +15,10 @@
 @import Cocoa;
 @import QuartzCore;
 
-#define LOG_LEVEL_DEF ddLogLevel
+#ifndef LOG_LEVEL_DEF
+#   define LOG_LEVEL_DEF ddLogLevel
+#endif
+
 @import CocoaLumberjack;
 
 static const DDLogLevel ddLogLevel =

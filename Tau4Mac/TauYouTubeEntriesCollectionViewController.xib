@@ -4,14 +4,14 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="TauYouTubeEntriesPanelViewController">
+        <customObject id="-2" userLabel="File's Owner" customClass="TauYouTubeEntriesCollectionViewController">
             <connections>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="Hz6-mo-xeY" customClass="TauYouTubeEntriesPanelView">
+        <customView id="Hz6-mo-xeY" customClass="TauYouTubeEntriesCollectionView">
             <rect key="frame" x="0.0" y="0.0" width="990" height="732"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <point key="canvasLocation" x="655" y="579"/>

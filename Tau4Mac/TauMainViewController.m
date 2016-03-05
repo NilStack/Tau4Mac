@@ -7,7 +7,7 @@
 //
 
 #import "TauMainViewController.h"
-#import "TauYouTubeEntriesPanelViewController.h"
+#import "TauYouTubeEntriesCollectionViewController.h"
 
 // TauMainViewController class
 @implementation TauMainViewController
@@ -36,8 +36,8 @@
     NSString* userInput = self.searchField.stringValue;
     if ( userInput.length > 0 )
         {
-        NSBundle* correctBundle = [ NSBundle bundleForClass: [ TauYouTubeEntriesPanelViewController class ] ];
-        TauYouTubeEntriesPanelViewController* contentPanelViewController = [ [ TauYouTubeEntriesPanelViewController alloc ] initWithNibName: nil bundle: correctBundle ];
+        NSBundle* correctBundle = [ NSBundle bundleForClass: [ TauYouTubeEntriesCollectionViewController class ] ];
+        TauYouTubeEntriesCollectionViewController* contentPanelViewController = [ [ TauYouTubeEntriesCollectionViewController alloc ] initWithNibName: nil bundle: correctBundle ];
 
         [ self.view removeConstraints: self.view.constraints ];
         [ self.view setSubviews: @[] ];
