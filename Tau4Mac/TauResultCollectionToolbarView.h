@@ -12,11 +12,6 @@
 #pragma mark - Outlets
 
 @property ( weak ) IBOutlet NSSegmentedControl* segPager;
-@property ( weak ) IBOutlet NSTextField* title;
 @property ( weak ) IBOutlet NSButton* dismissButton;
-
-#pragma mark - Properties
-
-@property ( assign, readwrite ) NSUInteger pageNumber;
 
 @end // TauResultCollectionToolbarView class

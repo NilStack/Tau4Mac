@@ -18,14 +18,64 @@
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="MzW-W0-JMa" customClass="TauResultCollectionToolbarView">
                     <rect key="frame" x="0.0" y="240" width="480" height="32"/>
+                    <subviews>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ewq-CW-Hf5">
+                            <rect key="frame" x="396" y="3" width="69" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="22" id="DXW-Xc-Ht0"/>
+                                <constraint firstAttribute="width" constant="69" id="dsV-Fx-eLd"/>
+                            </constraints>
+                            <buttonCell key="cell" type="roundTextured" title="Cancel" bezelStyle="texturedRounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PGc-hl-3LP">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="dismissAction:" target="-2" id="txh-X5-Loc"/>
+                            </connections>
+                        </button>
+                        <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="C39-pw-mzU">
+                            <rect key="frame" x="15" y="3" width="67" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="22" id="ZR0-xS-etV"/>
+                                <constraint firstAttribute="width" constant="67" id="bBp-gg-rQW"/>
+                            </constraints>
+                            <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedRounded" trackingMode="momentary" id="56C-8S-e8G">
+                                <font key="font" metaFont="system"/>
+                                <segments>
+                                    <segment image="NSGoLeftTemplate" width="30">
+                                        <nil key="label"/>
+                                    </segment>
+                                    <segment image="NSGoRightTemplate" width="30" tag="1">
+                                        <nil key="label"/>
+                                    </segment>
+                                </segments>
+                            </segmentedCell>
+                        </segmentedControl>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="JyQ-Ek-OnU" customClass="TauResultCollectionPanelTitleView">
+                            <rect key="frame" x="88" y="1" width="302" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="ats-3M-XC2"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="302" id="btQ-wH-7JU"/>
+                            </constraints>
+                        </customView>
+                    </subviews>
                     <constraints>
+                        <constraint firstItem="Ewq-CW-Hf5" firstAttribute="top" secondItem="MzW-W0-JMa" secondAttribute="top" constant="5" id="63A-px-iSt"/>
+                        <constraint firstItem="JyQ-Ek-OnU" firstAttribute="top" secondItem="MzW-W0-JMa" secondAttribute="top" constant="1" id="8uf-os-Mis"/>
+                        <constraint firstAttribute="bottom" secondItem="Ewq-CW-Hf5" secondAttribute="bottom" constant="5" id="CER-3s-KVC"/>
+                        <constraint firstItem="C39-pw-mzU" firstAttribute="leading" secondItem="MzW-W0-JMa" secondAttribute="leading" constant="15" id="OLs-1F-gdI"/>
                         <constraint firstAttribute="height" constant="32" id="P5b-Un-tAQ"/>
+                        <constraint firstAttribute="trailing" secondItem="Ewq-CW-Hf5" secondAttribute="trailing" constant="15" id="QKk-6G-K0C"/>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="480" id="Rhg-ML-2ho"/>
+                        <constraint firstAttribute="bottom" secondItem="JyQ-Ek-OnU" secondAttribute="bottom" constant="1" id="Wlt-Qj-pp7"/>
+                        <constraint firstItem="JyQ-Ek-OnU" firstAttribute="leading" secondItem="C39-pw-mzU" secondAttribute="trailing" constant="6" id="eyE-qB-fBq"/>
+                        <constraint firstItem="C39-pw-mzU" firstAttribute="top" secondItem="MzW-W0-JMa" secondAttribute="top" constant="5" id="qsH-pk-t6H"/>
+                        <constraint firstItem="Ewq-CW-Hf5" firstAttribute="leading" secondItem="JyQ-Ek-OnU" secondAttribute="trailing" constant="6" id="vcL-pj-wBj"/>
+                        <constraint firstAttribute="bottom" secondItem="C39-pw-mzU" secondAttribute="bottom" constant="5" id="yJ4-sP-e9g"/>
                     </constraints>
                     <connections>
                         <outlet property="dismissButton" destination="Ewq-CW-Hf5" id="1US-UT-fhS"/>
                         <outlet property="segPager" destination="C39-pw-mzU" id="apA-9z-jic"/>
-                        <outlet property="title" destination="ARf-Mg-MzL" id="jZ4-Id-MIw"/>
                     </connections>
                 </customView>
             </subviews>
@@ -35,52 +85,6 @@
                 <constraint firstAttribute="trailing" secondItem="MzW-W0-JMa" secondAttribute="trailing" id="pJd-OJ-yKu"/>
             </constraints>
         </customView>
-        <segmentedControl verticalHuggingPriority="750" id="C39-pw-mzU">
-            <rect key="frame" x="0.0" y="0.0" width="315" height="25"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedRounded" trackingMode="selectOne" id="56C-8S-e8G">
-                <font key="font" metaFont="system"/>
-                <segments>
-                    <segment image="NSGoLeftTemplate" width="30">
-                        <nil key="label"/>
-                    </segment>
-                    <segment label="1" width="30" selected="YES" tag="1"/>
-                    <segment label="2" width="30"/>
-                    <segment label="4" width="30"/>
-                    <segment label="5" width="30"/>
-                    <segment label="6" width="30"/>
-                    <segment label="7" width="30"/>
-                    <segment label="8" width="30"/>
-                    <segment label="9" width="30"/>
-                    <segment image="NSGoRightTemplate" width="30">
-                        <nil key="label"/>
-                    </segment>
-                </segments>
-            </segmentedCell>
-            <point key="canvasLocation" x="307.5" y="356"/>
-        </segmentedControl>
-        <button verticalHuggingPriority="750" id="Ewq-CW-Hf5">
-            <rect key="frame" x="0.0" y="0.0" width="57" height="25"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <buttonCell key="cell" type="roundTextured" title="Cancel" bezelStyle="texturedRounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PGc-hl-3LP">
-                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                <font key="font" metaFont="system"/>
-            </buttonCell>
-            <connections>
-                <action selector="dismissAction:" target="-2" id="txh-X5-Loc"/>
-            </connections>
-            <point key="canvasLocation" x="546.5" y="356"/>
-        </button>
-        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="ARf-Mg-MzL">
-            <rect key="frame" x="0.0" y="0.0" width="38" height="17"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="Tuw-zU-989">
-                <font key="font" metaFont="system"/>
-                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-            </textFieldCell>
-            <point key="canvasLocation" x="651" y="337.5"/>
-        </textField>
     </objects>
     <resources>
         <image name="NSGoLeftTemplate" width="9" height="12"/>
