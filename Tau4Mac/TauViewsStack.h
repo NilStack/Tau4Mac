@@ -28,20 +28,20 @@
 @interface TauViewsStack : NSObject
     {
 @private
-    NSMutableArray __strong* _viewsStack;
+    NSMutableArray <NSViewController*> __strong* _viewsStack;
     }
 
 // Base View
-@property ( weak ) TauViewController* baseViewController;
+@property ( weak ) NSViewController* baseViewController;
 
 // Views Stack
 @property ( strong, readonly ) NSMutableArray* viewsStack;
 
-- ( void ) pushView: ( TauViewController* )_ViewController;
+- ( void ) pushView: ( NSViewController* )_ViewController;
 - ( void ) popView;
 
-- ( TauViewController* ) currentView;
-- ( TauViewController* ) viewBeforeCurrentView;
+- ( NSViewController* ) currentView;
+- ( NSViewController* ) viewBeforeCurrentView;
 
 @end // TauViewsStack class
 

@@ -1,20 +1,22 @@
 //
-//  TauSearchPanelViewController.m
+//  TauSearchPanelBaseViewController.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/5/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauSearchPanelViewController.h"
-
+#import "TauSearchPanelBaseViewController.h"
 #import "TauYouTubeEntriesCollectionViewController.h"
+#import "TauSearchPanelStackViewController.h"
 
-@interface TauSearchPanelViewController ()
+// Private Interfaces
+@interface TauSearchPanelBaseViewController ()
 
-@end
+@end // Private Interfaces
 
-@implementation TauSearchPanelViewController
+// TauSearchPanelBaseViewController class
+@implementation TauSearchPanelBaseViewController
     {
 @private
     GTLServiceTicket __strong* ytSearchListTicket_;
@@ -44,10 +46,12 @@
                 TauYouTubeEntriesCollectionViewController* contentPanelViewController =
                     [ [ TauYouTubeEntriesCollectionViewController alloc ] initWithGTLCollectionObject: _SearchListResp ticket: _Ticket ];
 
-                [ self.view removeConstraints: self.view.constraints ];
-                [ self.view setSubviews: @[] ];
-                [ self.view addSubview: contentPanelViewController.view ];
-                [ contentPanelViewController.view autoPinEdgesToSuperviewEdges ];
+                [ self.hostStack pushView: contentPanelViewController ];
+
+//                [ self.view removeConstraints: self.view.constraints ];
+//                [ self.view setSubviews: @[] ];
+//                [ self.view addSubview: contentPanelViewController.view ];
+//                [ contentPanelViewController.view autoPinEdgesToSuperviewEdges ];
 
                 DDLogInfo( @"%@", ytSearchListTicket_ );
                 }
@@ -57,4 +61,4 @@
         }
     }
 
-@end
+@end // TauSearchPanelBaseViewController class

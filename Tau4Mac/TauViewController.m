@@ -8,15 +8,12 @@
 
 #import "TauViewController.h"
 
+// Private Interfaces
 @interface TauViewController ()
 
-@end
+@end // Private Interfaces
 
+// TauViewController class
 @implementation TauViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do view setup here.
-}
-
-@end
+@end // TauViewController class

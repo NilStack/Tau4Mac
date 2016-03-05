@@ -27,7 +27,7 @@
 
 // Private Interfaces
 @interface TauViewsStack ()
-- ( TauViewController* ) _currentView;
+- ( NSViewController* ) _currentView;
 @end // Private Interfaces
 
 // TauViewsStack class
@@ -44,7 +44,7 @@
     return self;
     }
 
-- ( void ) pushView: ( TauViewController* )_ViewController
+- ( void ) pushView: ( NSViewController* )_ViewController
     {
     if ( _ViewController.view )
         [ self->_viewsStack addObject: _ViewController ];
@@ -58,15 +58,15 @@
         [ self->_viewsStack removeLastObject ];
     }
 
-- ( TauViewController* ) currentView
+- ( NSViewController* ) currentView
     {
     return [ self _currentView ];
     }
 
-- ( TauViewController* ) viewBeforeCurrentView
+- ( NSViewController* ) viewBeforeCurrentView
     {
-    TauViewController* interestingView = nil;
-    TauViewController* current = [ self _currentView ];
+    NSViewController* interestingView = nil;
+    NSViewController* current = [ self _currentView ];
     NSUInteger currentIndex = [ self->_viewsStack indexOfObject: current ];
     if ( currentIndex > 0 && currentIndex != NSNotFound )
         interestingView = [ self->_viewsStack objectAtIndex: currentIndex - 1 ];
@@ -77,9 +77,9 @@
     }
 
 #pragma mark Private Interfaces
-- ( TauViewController* ) _currentView
+- ( NSViewController* ) _currentView
     {
-    TauViewController* currentViewController = nil;
+    NSViewController* currentViewController = nil;
 
     if ( self->_viewsStack.count > 0 )
         currentViewController = self->_viewsStack.lastObject;
