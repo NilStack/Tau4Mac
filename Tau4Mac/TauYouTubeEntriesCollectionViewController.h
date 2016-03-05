@@ -9,4 +9,13 @@
 // TauYouTubeEntriesCollectionViewController class
 @interface TauYouTubeEntriesCollectionViewController : NSViewController
 
+#pragma mark - Initializations
+
+- ( instancetype ) initWithGTLCollectionObject: ( GTLCollectionObject* )_CollectionObject ticket: ( GTLServiceTicket* )_Ticket;
+
+#pragma mark - Properties
+
+@property ( strong, readwrite ) GTLCollectionObject* collectionObject;
+@property ( strong, readwrite ) GTLServiceTicket* ticket;
+
 @end // TauYouTubeEntriesCollectionViewController class

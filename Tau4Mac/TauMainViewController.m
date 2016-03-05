@@ -11,6 +11,10 @@
 
 // TauMainViewController class
 @implementation TauMainViewController
+    {
+@private
+    GTLServiceTicket __strong* ytSearchListTicket_;
+    }
 
 #pragma mark - Initializations
 
@@ -36,28 +40,33 @@
     NSString* userInput = self.searchField.stringValue;
     if ( userInput.length > 0 )
         {
-        NSBundle* correctBundle = [ NSBundle bundleForClass: [ TauYouTubeEntriesCollectionViewController class ] ];
-        TauYouTubeEntriesCollectionViewController* contentPanelViewController = [ [ TauYouTubeEntriesCollectionViewController alloc ] initWithNibName: nil bundle: correctBundle ];
-
-        [ self.view removeConstraints: self.view.constraints ];
-        [ self.view setSubviews: @[] ];
-        [ self.view addSubview: contentPanelViewController.view ];
-        [ contentPanelViewController.view autoPinEdgesToSuperviewEdges ];
-
         GTLQueryYouTube* ytSearchListQuery = [ GTLQueryYouTube queryForSearchListWithPart: @"snippet" ];
         [ ytSearchListQuery setQ: userInput ];
         [ ytSearchListQuery setMaxResults: 20 ];
 //        [ ytSearchListQuery setType: @"playlist" ];
 
-        [ [ TauDataService sharedService ].ytService executeQuery: ytSearchListQuery
-                                                completionHandler:
-            ^( GTLServiceTicket* _Ticket, GTLYouTubeSearchListResponse* _SearchListResp, NSError* _Error )
+        if ( ytSearchListTicket_ )
+            [ ytSearchListTicket_ cancelTicket ];
+
+        ytSearchListTicket_ = [ [ TauDataService sharedService ].ytService executeQuery: ytSearchListQuery
+                                                                      completionHandler:
+        ^( GTLServiceTicket* _Ticket, GTLYouTubeSearchListResponse* _SearchListResp, NSError* _Error )
+            {
+            if ( !_Error )
                 {
-                if ( !_Error )
-                    [ contentPanelViewController setRepresentedObject: _SearchListResp ];
-                else
-                    DDLogError( @"%@", _Error );
-                } ];
+                TauYouTubeEntriesCollectionViewController* contentPanelViewController =
+                    [ [ TauYouTubeEntriesCollectionViewController alloc ] initWithGTLCollectionObject: _SearchListResp ticket: _Ticket ];
+
+                [ self.view removeConstraints: self.view.constraints ];
+                [ self.view setSubviews: @[] ];
+                [ self.view addSubview: contentPanelViewController.view ];
+                [ contentPanelViewController.view autoPinEdgesToSuperviewEdges ];
+
+                DDLogInfo( @"%@", ytSearchListTicket_ );
+                }
+            else
+                DDLogError( @"%@", _Error );
+            } ];
         }
     }
 

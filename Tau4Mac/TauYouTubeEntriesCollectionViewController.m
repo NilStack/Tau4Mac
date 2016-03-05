@@ -20,6 +20,7 @@
     {
 @protected
     GTLCollectionObject __strong* repContents_;
+    GTLServiceTicket __strong* ticket_;
 
     NSMutableArray __strong* mutVideoViews_;
     }
@@ -32,9 +33,33 @@
 #define TAU_ROW_MAX_IDX ( TAU_ROW_COUNT - 1 )
 #define TAU_COL_MAX_IDX ( TAU_COL_COUNT - 1 )
 
+#pragma mark - Initializations
+
+- ( instancetype ) initWithGTLCollectionObject: ( GTLCollectionObject* )_CollectionObject
+                                        ticket: ( GTLServiceTicket* )_Ticket
+    {
+    NSBundle* correctBundle = [ NSBundle bundleForClass: [ TauYouTubeEntriesCollectionViewController class ] ];
+    
+    if ( self = [ super initWithNibName: @"TauYouTubeEntriesCollectionView" bundle: correctBundle ] )
+        {
+        repContents_ = _CollectionObject;
+        ticket_ = _Ticket;
+        }
+
+    return self;
+    }
+
+- ( void ) viewDidLoad
+    {
+    [ self setRepresentedObject: repContents_ ];
+    }
+
 - ( void ) setRepresentedObject: ( GTLCollectionObject* )_RepresentedObject
     {
     [ super setRepresentedObject: _RepresentedObject ];
+
+    if ( ![ _RepresentedObject isKindOfClass: [ GTLCollectionObject class ] ] )
+        return;
 
     if ( !mutVideoViews_ )
         {
@@ -175,9 +200,7 @@
     for ( GTLYouTubeSearchResult* _SearchResult in _RepresentedObject )
         {
         DDLogDebug( @"%@", _SearchResult );
-
-//        if ( [ _SearchResult.identifier.kind isEqualToString: @"youtube#video" ] )
-            [ videoObjects addObject: _SearchResult ];
+        [ videoObjects addObject: _SearchResult ];
         }
 
     [ videoObjects enumerateObjectsUsingBlock:
@@ -187,6 +210,34 @@
         } ];
     }
 
-// #pragma mark - Private Interfaces
+#pragma mark - Dynamic Properties
+
+@dynamic collectionObject;
+@dynamic ticket;
+
+- ( void ) setCollectionObject: ( GTLCollectionObject* )_CollectionObject
+    {
+    if ( repContents_ != _CollectionObject )
+        {
+        repContents_ = _CollectionObject;
+        [ self setRepresentedObject: repContents_ ];
+        }
+    }
+
+- ( GTLCollectionObject* ) collectionObject
+    {
+    return repContents_;
+    }
+
+- ( void ) setTicket: ( GTLServiceTicket* )_Ticket
+    {
+    if ( ticket_ != _Ticket )
+        ticket_ = _Ticket;
+    }
+
+- ( GTLServiceTicket* ) ticket
+    {
+    return ticket_;
+    }
 
 @end // TauYouTubeEntriesCollectionViewController class
