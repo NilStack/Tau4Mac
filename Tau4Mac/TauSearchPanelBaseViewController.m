@@ -7,7 +7,7 @@
 //
 
 #import "TauSearchPanelBaseViewController.h"
-#import "TauYouTubeEntriesCollectionViewController.h"
+#import "TauResultCollectionPanelViewController.h"
 #import "TauSearchPanelStackViewController.h"
 
 // Private Interfaces
@@ -43,15 +43,11 @@
             {
             if ( !_Error )
                 {
-                TauYouTubeEntriesCollectionViewController* contentPanelViewController =
-                    [ [ TauYouTubeEntriesCollectionViewController alloc ] initWithGTLCollectionObject: _SearchListResp ticket: _Ticket ];
+                TauResultCollectionPanelViewController* contentPanelViewController =
+                    [ [ TauResultCollectionPanelViewController alloc ] initWithGTLCollectionObject: _SearchListResp ticket: _Ticket ];
 
+                [ contentPanelViewController setHostStack: self.hostStack ];
                 [ self.hostStack pushView: contentPanelViewController ];
-
-//                [ self.view removeConstraints: self.view.constraints ];
-//                [ self.view setSubviews: @[] ];
-//                [ self.view addSubview: contentPanelViewController.view ];
-//                [ contentPanelViewController.view autoPinEdgesToSuperviewEdges ];
 
                 DDLogInfo( @"%@", ytSearchListTicket_ );
                 }

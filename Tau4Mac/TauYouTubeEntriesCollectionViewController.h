@@ -6,10 +6,8 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauStackViewItem.h"
-
 // TauYouTubeEntriesCollectionViewController class
-@interface TauYouTubeEntriesCollectionViewController : TauStackViewItem
+@interface TauYouTubeEntriesCollectionViewController : NSViewController
 
 #pragma mark - Initializations
 
