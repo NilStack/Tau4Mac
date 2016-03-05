@@ -9,7 +9,7 @@
 #import "TauContentPanelViewController.h"
 
 #import "TauCollectionObject.h"
-#import "TauYouTubeContentView.h"
+#import "TauYouTubeEntriesView.h"
 
 // Private Interfaces
 @interface TauContentPanelViewController ()
@@ -45,7 +45,7 @@
 
         for ( int _Index = 0; _Index < TAU_ROW_COUNT * TAU_COL_COUNT; _Index++ )
             {
-            TauYouTubeContentView* videoView = [ [ TauYouTubeContentView alloc ] initWithFrame: NSZeroRect ];
+            TauYouTubeEntriesView* videoView = [ [ TauYouTubeEntriesView alloc ] initWithFrame: NSZeroRect ];
             [ self.view addSubview: videoView ];
 
             NSUInteger row = _Index / TAU_COL_COUNT;

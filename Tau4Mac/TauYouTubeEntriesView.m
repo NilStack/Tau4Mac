@@ -1,12 +1,12 @@
 //
-//  TauYouTubeContentView.m
+//  TauYouTubeEntriesView.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/3/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauYouTubeContentView.h"
+#import "TauYouTubeEntriesView.h"
 #import "OAuthSigningConstants.h"
 #import "TauItemLayer.h"
 #import "PriTauYouTubeContentView_.h"
@@ -14,11 +14,11 @@
 #import "NSImage+Tau.h"
 
 // Private Interfaces
-@interface TauYouTubeContentView ()
+@interface TauYouTubeEntriesView ()
 @end // Private Interfaces
 
-// TauYouTubeContentView class
-@implementation TauYouTubeContentView
+// TauYouTubeEntriesView class
+@implementation TauYouTubeEntriesView
 
 #pragma mark - Initializations
 
@@ -105,10 +105,10 @@
     return type;
     }
 
-@end // TauYouTubeContentView class
+@end // TauYouTubeEntriesView class
 
-// TauYouTubeContentView + PriTauYouTubeContentView_
-@implementation TauYouTubeContentView ( PriTauYouTubeContentView_ )
+// TauYouTubeEntriesView + PriTauYouTubeContentView_
+@implementation TauYouTubeEntriesView ( PriTauYouTubeContentView_ )
 
 // Init
 - ( void ) doInit_
@@ -239,4 +239,4 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
         }
     }
 
-@end // TauYouTubeContentView + PriTauYouTubeContentView_
+@end // TauYouTubeEntriesView + PriTauYouTubeContentView_

@@ -6,10 +6,10 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauYouTubeContentView.h"
+#import "TauYouTubeEntriesView.h"
 
-// TauYouTubeContentView + PriTauYouTubeContentView_
-@interface TauYouTubeContentView ( PriTauYouTubeContentView_ )
+// TauYouTubeEntriesView + PriTauYouTubeContentView_
+@interface TauYouTubeEntriesView ( PriTauYouTubeContentView_ )
 
 // Init
 - ( void ) doInit_;
@@ -17,4 +17,4 @@
 // Content
 - ( void ) updateYtContent_: ( GTLObject* )_ytContent;
 
-@end // TauYouTubeContentView + PriTauYouTubeContentView_
+@end // TauYouTubeEntriesView + PriTauYouTubeContentView_
