@@ -10,6 +10,7 @@
 #import "OAuthSigningConstants.h"
 #import "TauYouTubeEntryLayer.h"
 #import "TauYouTubePlaylistSummaryView.h"
+#import "TauChannelBadge.h"
 
 #import "NSImage+Tau.h"
 
@@ -257,17 +258,14 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
         {
         case TauYouTubeChannelView:
             {
-            NSButton* button = [ [ NSButton alloc ] initWithFrame: NSZeroRect ];
-            [ button setTitle: @"CHANNEL" ];
-            [ button sizeToFit ];
-            [ button configureForAutoLayout ];
-            [ self addSubview: button ];
+            TauChannelBadge* channelBadge = [ [ TauChannelBadge alloc ] initWithFrame: NSZeroRect ];
+            [ self addSubview: channelBadge ];
 
             [ layoutConstraintsCache_ addObject:
-                [ button autoPinEdge: ALEdgeTop toEdge: ALEdgeTop ofView: button.superview withOffset: 5.f ] ];
+                [ channelBadge autoPinEdge: ALEdgeTop toEdge: ALEdgeTop ofView: channelBadge.superview withOffset: 5.f ] ];
 
             [ layoutConstraintsCache_ addObject:
-                [ button autoPinEdge: ALEdgeTrailing toEdge: ALEdgeTrailing ofView: button.superview withOffset: -5.f ] ];
+                [ channelBadge autoPinEdge: ALEdgeTrailing toEdge: ALEdgeTrailing ofView: channelBadge.superview withOffset: -5.f ] ];
 
             NSImageView* imageView = [ [ NSImageView alloc ] initWithFrame: NSZeroRect ];
             [ imageView setImageFrameStyle: NSImageFrameNone ];
