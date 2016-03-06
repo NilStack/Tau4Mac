@@ -50,6 +50,9 @@
                                     </segment>
                                 </segments>
                             </segmentedCell>
+                            <connections>
+                                <action selector="pageAction:" target="-2" id="55F-hL-sTo"/>
+                            </connections>
                         </segmentedControl>
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="JyQ-Ek-OnU" customClass="TauResultCollectionPanelTitleView">
                             <rect key="frame" x="88" y="1" width="302" height="30"/>

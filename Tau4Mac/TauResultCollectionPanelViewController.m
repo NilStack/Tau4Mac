@@ -20,7 +20,9 @@
 @implementation TauResultCollectionPanelViewController
     {
     TauYouTubeEntriesCollectionViewController __strong* entriesCollectionViewController_;
+    
     GTLCollectionObject __strong* ytCollectionObject_;
+    GTLServiceTicket __strong* ytTicket_;
     }
 
 #pragma mark - Initializations
@@ -31,6 +33,7 @@
     if ( self = [ super initWithNibName: nil bundle: nil ] )
         {
         ytCollectionObject_ = _CollectionObject;
+        ytTicket_ = _Ticket;
 
         entriesCollectionViewController_ =
             [ [ TauYouTubeEntriesCollectionViewController alloc ] initWithGTLCollectionObject: ytCollectionObject_ ticket: _Ticket ];
@@ -51,6 +54,53 @@
     }
 
 #pragma mark - IBAction
+
+#define TAU_PAGEER_PREV 0
+#define TAU_PAGEER_NEXT 1
+
+- ( IBAction ) pageAction: ( NSSegmentedControl* )_Sender
+    {
+    id pageToken = nil;
+    SEL pageSelector = nil;
+
+    switch ( _Sender.selectedSegment )
+        {
+        case TAU_PAGEER_PREV:
+            {
+            pageSelector = @selector( prevPageToken );
+            } break;
+
+        case TAU_PAGEER_NEXT:
+            {
+            pageSelector = @selector( nextPageToken );
+            } break;
+        }
+
+    pageToken = [ ytCollectionObject_ performSelector: pageSelector ];
+
+    if ( pageToken )
+        {
+        GTLQueryYouTube* newQuery = ytTicket_.originalQuery;
+        newQuery.pageToken = pageToken;
+
+        ytTicket_ = [ [ TauDataService sharedService ].ytService
+            executeQuery: newQuery completionHandler:
+        ^( GTLServiceTicket* _Ticket, GTLCollectionObject* _CollectionObject, NSError* _Error )
+            {
+            if ( _CollectionObject && !_Error )
+                {
+                ytCollectionObject_ = _CollectionObject;
+
+                entriesCollectionViewController_.collectionObject = _CollectionObject;
+                entriesCollectionViewController_.ticket = _Ticket;
+
+                self.toolbarView.ytCollectionObject = _CollectionObject;
+                }
+            else
+                DDLogError( @"%@", _Error );
+            } ];
+        }
+    }
 
 - ( IBAction ) dismissAction: ( id )_Sender
     {

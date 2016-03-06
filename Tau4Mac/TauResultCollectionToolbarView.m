@@ -46,6 +46,9 @@
         {
         ytCollectionObject_ = _NewCollectionObject;
         self.titleView.numberOfResults = [ ( GTLYouTubePageInfo* )[ ytCollectionObject_ performSelector: @selector( pageInfo ) ] totalResults ].integerValue;
+
+        [ self.segPager setEnabled: ( [ ytCollectionObject_ performSelector: @selector( prevPageToken ) ] != nil ) forSegment: 0 ];
+        [ self.segPager setEnabled: ( [ ytCollectionObject_ performSelector: @selector( nextPageToken ) ] != nil ) forSegment: 1 ];
         }
     }
 

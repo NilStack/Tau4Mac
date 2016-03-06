@@ -23,6 +23,7 @@
 
 #pragma mark - IBAction
 
+- ( IBAction ) pageAction: ( id )_Sender;
 - ( IBAction ) dismissAction: ( id )_Sender;
 
 @end // TauResultCollectionPanelViewController class
