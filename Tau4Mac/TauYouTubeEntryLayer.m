@@ -25,15 +25,21 @@
     {
     [ super setContents: _Contents ];
 
+    [ CATransaction begin ];
+    [ CATransaction setDisableActions: YES ];
     if ( self.contents )
         {
-        [ CATransaction begin ];
-        [ CATransaction setDisableActions: YES ];
-        self.borderColor = [ NSColor blackColor ].CGColor;
-        self.borderWidth = 1.f;
+        self.borderColor = [ NSColor grayColor ].CGColor;
+        self.borderWidth = .5f;
         self.backgroundColor = [ NSColor blackColor ].CGColor;
-        [ CATransaction commit ];
         }
+    else
+        {
+        self.borderColor = [ NSColor clearColor ].CGColor;
+        self.borderWidth = 0.f;
+        }
+
+    [ CATransaction commit ];
     }
 
 @end // TauYouTubeEntryLayer class

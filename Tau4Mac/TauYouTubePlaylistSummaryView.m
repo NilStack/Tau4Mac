@@ -116,7 +116,7 @@
                          };
 
     // Drawing count text
-    NSString* countText = ( videoCount_ > -1 ) ? @( videoCount_ ).stringValue : @"?";
+    NSString* countText = ( videoCount_ > -1 ) ? @( videoCount_ ).stringValue : @"\U0000221E";
     NSSize countTextSize = [ countText sizeWithAttributes: drawingAttrs_ ];
     [ countText drawAtPoint: NSMakePoint( ( NSWidth( self.bounds ) - countTextSize.width ) / 2
                                         , NSMidY( self.bounds ) - countTextSize.height - 15.f )
