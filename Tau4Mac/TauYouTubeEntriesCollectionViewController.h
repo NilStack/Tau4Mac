@@ -15,7 +15,7 @@
 
 #pragma mark - Properties
 
-@property ( strong, readwrite ) GTLCollectionObject* collectionObject;
-@property ( strong, readwrite ) GTLServiceTicket* ticket;
+@property ( strong, readwrite ) GTLCollectionObject* ytCollectionObject;
+@property ( strong, readwrite ) GTLServiceTicket* ytTicket;
 
 @end // TauYouTubeEntriesCollectionViewController class

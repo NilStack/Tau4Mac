@@ -48,10 +48,6 @@
 - ( void ) drawRect: ( NSRect )_DirtyRect
     {
     [ super drawRect: _DirtyRect ];
-    
-    // Drawing code here.
-//    [ [ NSColor orangeColor ] set];
-//    NSRectFill( self.bounds );
     }
 
 #pragma mark - Private Interfaces

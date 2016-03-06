@@ -17,13 +17,6 @@ typedef NS_ENUM ( NSUInteger, TauYouTubeContentViewType )
     };
 
 @interface TauYouTubeEntryView : NSView
-    {
-@protected
-    NSImage __strong* thumbnailImage_;
-    GTLObject __strong* ytContent_;
-
-    Class concreteClass_;
-    }
 
 #pragma mark - Initializations
 

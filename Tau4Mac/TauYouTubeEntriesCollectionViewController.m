@@ -19,8 +19,8 @@
 @implementation TauYouTubeEntriesCollectionViewController
     {
 @protected
-    GTLCollectionObject __strong* repContents_;
-    GTLServiceTicket __strong* ticket_;
+    GTLCollectionObject __strong* ytCollectionObject_;
+    GTLServiceTicket __strong* ytTicket_;
 
     NSMutableArray __strong* mutVideoViews_;
     }
@@ -42,8 +42,8 @@
     
     if ( self = [ super initWithNibName: @"TauYouTubeEntriesCollectionView" bundle: correctBundle ] )
         {
-        repContents_ = _CollectionObject;
-        ticket_ = _Ticket;
+        ytCollectionObject_ = _CollectionObject;
+        ytTicket_ = _Ticket;
         }
 
     return self;
@@ -51,7 +51,7 @@
 
 - ( void ) viewDidLoad
     {
-    [ self setRepresentedObject: repContents_ ];
+    [ self setRepresentedObject: ytCollectionObject_ ];
     }
 
 - ( void ) setRepresentedObject: ( GTLCollectionObject* )_RepresentedObject
@@ -203,6 +203,12 @@
         [ videoObjects addObject: _SearchResult ];
         }
 
+    [ mutVideoViews_ enumerateObjectsUsingBlock:
+    ^( TauYouTubeEntryView* _EntryView, NSUInteger idx, BOOL * _Nonnull stop)
+        {
+        [ _EntryView setYtContent: nil ];
+        } ];
+
     [ videoObjects enumerateObjectsUsingBlock:
     ^( GTLYouTubeSearchResult* _Nonnull _SearchResult, NSUInteger _Index, BOOL* _Nonnull _Stop )
         {
@@ -212,32 +218,32 @@
 
 #pragma mark - Dynamic Properties
 
-@dynamic collectionObject;
-@dynamic ticket;
+@dynamic ytCollectionObject;
+@dynamic ytTicket;
 
-- ( void ) setCollectionObject: ( GTLCollectionObject* )_CollectionObject
+- ( void ) setYtCollectionObject: ( GTLCollectionObject* )_CollectionObject
     {
-    if ( repContents_ != _CollectionObject )
+    if ( ytCollectionObject_ != _CollectionObject )
         {
-        repContents_ = _CollectionObject;
-        [ self setRepresentedObject: repContents_ ];
+        ytCollectionObject_ = _CollectionObject;
+        [ self setRepresentedObject: ytCollectionObject_ ];
         }
     }
 
-- ( GTLCollectionObject* ) collectionObject
+- ( GTLCollectionObject* ) ytCollectionObject
     {
-    return repContents_;
+    return ytCollectionObject_;
     }
 
-- ( void ) setTicket: ( GTLServiceTicket* )_Ticket
+- ( void ) setYtTicket: ( GTLServiceTicket* )_Ticket
     {
-    if ( ticket_ != _Ticket )
-        ticket_ = _Ticket;
+    if ( ytTicket_ != _Ticket )
+        ytTicket_ = _Ticket;
     }
 
-- ( GTLServiceTicket* ) ticket
+- ( GTLServiceTicket* ) ytTicket
     {
-    return ticket_;
+    return ytTicket_;
     }
 
 @end // TauYouTubeEntriesCollectionViewController class

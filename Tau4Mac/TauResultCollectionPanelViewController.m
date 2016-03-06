@@ -76,30 +76,36 @@
             } break;
         }
 
-    pageToken = [ ytCollectionObject_ performSelector: pageSelector ];
+    @try {
+        pageToken = [ ytCollectionObject_ performSelector: pageSelector ];
 
-    if ( pageToken )
-        {
-        GTLQueryYouTube* newQuery = ytTicket_.originalQuery;
-        newQuery.pageToken = pageToken;
-
-        ytTicket_ = [ [ TauDataService sharedService ].ytService
-            executeQuery: newQuery completionHandler:
-        ^( GTLServiceTicket* _Ticket, GTLCollectionObject* _CollectionObject, NSError* _Error )
+        if ( pageToken )
             {
-            if ( _CollectionObject && !_Error )
+            GTLQueryYouTube* newQuery = ytTicket_.originalQuery;
+            newQuery.pageToken = pageToken;
+
+            ytTicket_ = [ [ TauDataService sharedService ].ytService
+                executeQuery: newQuery completionHandler:
+            ^( GTLServiceTicket* _Ticket, GTLCollectionObject* _CollectionObject, NSError* _Error )
                 {
-                ytCollectionObject_ = _CollectionObject;
+                if ( _CollectionObject && !_Error )
+                    {
+                    ytCollectionObject_ = _CollectionObject;
+                    ytTicket_ = _Ticket;
 
-                entriesCollectionViewController_.collectionObject = _CollectionObject;
-                entriesCollectionViewController_.ticket = _Ticket;
+                    entriesCollectionViewController_.ytCollectionObject = ytCollectionObject_;
+                    entriesCollectionViewController_.ytTicket = ytTicket_;
 
-                self.toolbarView.ytCollectionObject = _CollectionObject;
-                }
-            else
-                DDLogError( @"%@", _Error );
-            } ];
-        }
+                    self.toolbarView.ytCollectionObject = _CollectionObject;
+                    }
+                else
+                    DDLogError( @"%@", _Error );
+                } ];
+            }
+        } @catch ( NSException* _Ex )
+            {
+            DDLogWarn( @"%@", _Ex );
+            };
     }
 
 - ( IBAction ) dismissAction: ( id )_Sender

@@ -15,10 +15,18 @@
 
 // Private Interfaces
 @interface TauYouTubeEntryView ()
+- ( void ) cleanUp_;
 @end // Private Interfaces
 
 // TauYouTubeEntryView class
 @implementation TauYouTubeEntryView
+    {
+@protected
+    NSImage __strong* thumbnailImage_;
+    GTLObject __strong* ytContent_;
+
+    NSMutableArray <NSLayoutConstraint*>* layoutConstraintsCache_;
+    }
 
 #pragma mark - Initializations
 
@@ -105,6 +113,19 @@
     return type;
     }
 
+#pragma mark - Private Interfaces
+
+- ( void ) cleanUp_
+    {
+    if ( layoutConstraintsCache_.count > 0 )
+        [ layoutConstraintsCache_ removeAllObjects ];
+
+    [ self setSubviews: @[] ];
+
+    thumbnailImage_ = nil;
+    [ self.layer setNeedsDisplay ];
+    }
+
 @end // TauYouTubeEntryView class
 
 // TauYouTubeEntryView + PriTauYouTubeContentView_
@@ -132,6 +153,12 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
     if ( ytContent_ != _ytContent )
         {
         ytContent_ = _ytContent;
+
+        if ( !ytContent_ )
+            {
+            [ self cleanUp_ ];
+            return;
+            }
 
         NSURL* backingThumb = nil;
         NSURL* preferredThumb = nil;
@@ -215,27 +242,42 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
 
 - ( void ) updateUI_
     {
+    [ self.layer setContents: nil ];
     [ self.layer setNeedsDisplay ];
 
     if ( self.type == TauYouTubeChannelView )
         {
+        if ( !layoutConstraintsCache_ )
+            layoutConstraintsCache_ = [ NSMutableArray array ];
+        else
+            [ layoutConstraintsCache_ removeAllObjects ];
+
         NSButton* button = [ [ NSButton alloc ] initWithFrame: NSZeroRect ];
         [ button setTitle: @"CHANNEL" ];
         [ button sizeToFit ];
         [ button configureForAutoLayout ];
         [ self addSubview: button ];
 
-        [ button autoPinEdge: ALEdgeTop toEdge: ALEdgeTop ofView: button.superview withOffset: 5.f ];
-        [ button autoPinEdge: ALEdgeTrailing toEdge: ALEdgeTrailing ofView: button.superview withOffset: -5.f ];
+        [ layoutConstraintsCache_ addObject:
+            [ button autoPinEdge: ALEdgeTop toEdge: ALEdgeTop ofView: button.superview withOffset: 5.f ] ];
+
+        [ layoutConstraintsCache_ addObject:
+            [ button autoPinEdge: ALEdgeTrailing toEdge: ALEdgeTrailing ofView: button.superview withOffset: -5.f ] ];
 
         NSImageView* imageView = [ [ NSImageView alloc ] initWithFrame: NSZeroRect ];
         [ imageView setImageFrameStyle: NSImageFrameNone ];
         [ imageView setImage: thumbnailImage_ ];
 
         [ self addSubview: imageView ];
-        [ imageView autoSetDimensionsToSize: NSMakeSize( 60.f, 60.f ) ];
-        [ imageView autoPinEdge: ALEdgeTop toEdge: ALEdgeTop ofView: imageView.superview withOffset: 5.f ];
-        [ imageView autoPinEdge: ALEdgeLeading toEdge: ALEdgeLeading ofView: imageView.superview withOffset: -5.f ];
+
+        [ layoutConstraintsCache_ addObjectsFromArray:
+            [ imageView autoSetDimensionsToSize: NSMakeSize( 60.f, 60.f ) ] ];
+
+        [ layoutConstraintsCache_ addObject:
+            [ imageView autoPinEdge: ALEdgeTop toEdge: ALEdgeTop ofView: imageView.superview withOffset: 5.f ] ];
+
+        [ layoutConstraintsCache_ addObject:
+            [ imageView autoPinEdge: ALEdgeLeading toEdge: ALEdgeLeading ofView: imageView.superview withOffset: -5.f ] ];
         }
     }
 

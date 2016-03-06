@@ -31,7 +31,7 @@
         [ CATransaction setDisableActions: YES ];
         self.borderColor = [ NSColor blackColor ].CGColor;
         self.borderWidth = 1.f;
-        self.backgroundColor = [ NSColor lightGrayColor ].CGColor;
+        self.backgroundColor = [ NSColor blackColor ].CGColor;
         [ CATransaction commit ];
         }
     }
