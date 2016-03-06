@@ -46,9 +46,8 @@
     {
     [ self.view configureForAutoLayout ];
 
-    [ self.view addSubview: entriesCollectionViewController_.view ];
-    [ entriesCollectionViewController_.view autoPinEdgesToSuperviewEdgesWithInsets: NSEdgeInsetsMake( 0, 0, 0, 0 ) excludingEdge: ALEdgeTop ];
-    [ entriesCollectionViewController_.view autoPinEdge: ALEdgeTop toEdge: ALEdgeBottom ofView: self.toolbarView ];
+    [ self.scrollView setDocumentView: entriesCollectionViewController_.view ];
+    [ entriesCollectionViewController_.view autoPinEdgesToSuperviewEdges ];
 
     self.toolbarView.ytCollectionObject = ytCollectionObject_;
     }

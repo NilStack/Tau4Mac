@@ -19,6 +19,7 @@
 
 #pragma mark - Outlets
 
+@property ( weak ) IBOutlet NSScrollView* scrollView;
 @property ( weak ) IBOutlet TauResultCollectionToolbarView* toolbarView;
 
 #pragma mark - IBAction

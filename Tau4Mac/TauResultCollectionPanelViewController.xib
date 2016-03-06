@@ -6,6 +6,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TauResultCollectionPanelViewController">
             <connections>
+                <outlet property="scrollView" destination="4Ay-YB-aqU" id="3xF-9Z-MYi"/>
                 <outlet property="toolbarView" destination="MzW-W0-JMa" id="BFc-ls-eyL"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -82,11 +83,39 @@
                         <outlet property="titleView" destination="JyQ-Ek-OnU" id="KQz-n1-yej"/>
                     </connections>
                 </customView>
+                <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ay-YB-aqU">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="241"/>
+                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="bzG-dy-gav">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="241"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MDj-8b-NZJ">
+                                <rect key="frame" x="0.0" y="147" width="181" height="94"/>
+                            </view>
+                        </subviews>
+                    </clipView>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="241" id="5Z5-6k-oVx"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="480" id="5us-hA-Cyn"/>
+                    </constraints>
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="1A6-Lj-aIJ">
+                        <rect key="frame" x="-100" y="-100" width="480" height="16"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="C3s-BT-sA5">
+                        <rect key="frame" x="464" y="0.0" width="16" height="241"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
             </subviews>
             <constraints>
                 <constraint firstItem="MzW-W0-JMa" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="73o-4F-6FM"/>
+                <constraint firstAttribute="bottom" secondItem="4Ay-YB-aqU" secondAttribute="bottom" id="K52-pT-p6g"/>
                 <constraint firstItem="MzW-W0-JMa" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="P8p-fy-yB0"/>
+                <constraint firstAttribute="trailing" secondItem="4Ay-YB-aqU" secondAttribute="trailing" id="p5s-ZK-3Do"/>
                 <constraint firstAttribute="trailing" secondItem="MzW-W0-JMa" secondAttribute="trailing" id="pJd-OJ-yKu"/>
+                <constraint firstItem="4Ay-YB-aqU" firstAttribute="top" secondItem="MzW-W0-JMa" secondAttribute="bottom" constant="-1" id="wNw-Fa-qgp"/>
+                <constraint firstItem="4Ay-YB-aqU" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="zct-Dx-rFJ"/>
             </constraints>
             <connections>
                 <outlet property="dismissButton" destination="Ewq-CW-Hf5" id="lAq-Jl-00L"/>

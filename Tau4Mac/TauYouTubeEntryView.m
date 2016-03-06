@@ -295,9 +295,6 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
 
             [ plSummaryView autoMatchDimension: ALDimensionWidth toDimension: ALDimensionWidth ofView: self withMultiplier: 0.4f ];
             [ plSummaryView setYtObject: ytContent_ ];
-
-//            [ layoutConstraintsCache_ addObject:
-//                [ plSummaryView
             } break;
 
         default:
