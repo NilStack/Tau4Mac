@@ -9,9 +9,11 @@
 #import "TauYouTubeEntryView.h"
 #import "OAuthSigningConstants.h"
 #import "TauYouTubeEntryLayer.h"
-#import "PriTauYouTubeContentView_.h"
+#import "TauYouTubePlaylistSummaryView.h"
 
 #import "NSImage+Tau.h"
+
+#import "PriTauYouTubeContentView_.h"
 
 // Private Interfaces
 @interface TauYouTubeEntryView ()
@@ -63,6 +65,7 @@
     switch ( self.type )
         {
         case TauYouTubeVideoView:
+        case TauYouTubePlayListView:
             {
             self.layer.contents = thumbnailImage_;
             } break;
@@ -245,39 +248,62 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
     [ self.layer setContents: nil ];
     [ self.layer setNeedsDisplay ];
 
-    if ( self.type == TauYouTubeChannelView )
+    if ( !layoutConstraintsCache_ )
+        layoutConstraintsCache_ = [ NSMutableArray array ];
+    else
+        [ layoutConstraintsCache_ removeAllObjects ];
+
+    switch ( self.type )
         {
-        if ( !layoutConstraintsCache_ )
-            layoutConstraintsCache_ = [ NSMutableArray array ];
-        else
-            [ layoutConstraintsCache_ removeAllObjects ];
+        case TauYouTubeChannelView:
+            {
+            NSButton* button = [ [ NSButton alloc ] initWithFrame: NSZeroRect ];
+            [ button setTitle: @"CHANNEL" ];
+            [ button sizeToFit ];
+            [ button configureForAutoLayout ];
+            [ self addSubview: button ];
 
-        NSButton* button = [ [ NSButton alloc ] initWithFrame: NSZeroRect ];
-        [ button setTitle: @"CHANNEL" ];
-        [ button sizeToFit ];
-        [ button configureForAutoLayout ];
-        [ self addSubview: button ];
+            [ layoutConstraintsCache_ addObject:
+                [ button autoPinEdge: ALEdgeTop toEdge: ALEdgeTop ofView: button.superview withOffset: 5.f ] ];
 
-        [ layoutConstraintsCache_ addObject:
-            [ button autoPinEdge: ALEdgeTop toEdge: ALEdgeTop ofView: button.superview withOffset: 5.f ] ];
+            [ layoutConstraintsCache_ addObject:
+                [ button autoPinEdge: ALEdgeTrailing toEdge: ALEdgeTrailing ofView: button.superview withOffset: -5.f ] ];
 
-        [ layoutConstraintsCache_ addObject:
-            [ button autoPinEdge: ALEdgeTrailing toEdge: ALEdgeTrailing ofView: button.superview withOffset: -5.f ] ];
+            NSImageView* imageView = [ [ NSImageView alloc ] initWithFrame: NSZeroRect ];
+            [ imageView setImageFrameStyle: NSImageFrameNone ];
+            [ imageView setImage: thumbnailImage_ ];
 
-        NSImageView* imageView = [ [ NSImageView alloc ] initWithFrame: NSZeroRect ];
-        [ imageView setImageFrameStyle: NSImageFrameNone ];
-        [ imageView setImage: thumbnailImage_ ];
+            [ self addSubview: imageView ];
 
-        [ self addSubview: imageView ];
+            [ layoutConstraintsCache_ addObjectsFromArray:
+                [ imageView autoSetDimensionsToSize: NSMakeSize( 60.f, 60.f ) ] ];
 
-        [ layoutConstraintsCache_ addObjectsFromArray:
-            [ imageView autoSetDimensionsToSize: NSMakeSize( 60.f, 60.f ) ] ];
+            [ layoutConstraintsCache_ addObject:
+                [ imageView autoPinEdge: ALEdgeTop toEdge: ALEdgeTop ofView: imageView.superview withOffset: 5.f ] ];
 
-        [ layoutConstraintsCache_ addObject:
-            [ imageView autoPinEdge: ALEdgeTop toEdge: ALEdgeTop ofView: imageView.superview withOffset: 5.f ] ];
+            [ layoutConstraintsCache_ addObject:
+                [ imageView autoPinEdge: ALEdgeLeading toEdge: ALEdgeLeading ofView: imageView.superview withOffset: -5.f ] ];
+            } break;
 
-        [ layoutConstraintsCache_ addObject:
-            [ imageView autoPinEdge: ALEdgeLeading toEdge: ALEdgeLeading ofView: imageView.superview withOffset: -5.f ] ];
+        case TauYouTubePlayListView:
+            {
+            TauYouTubePlaylistSummaryView* plSummaryView = [ [ TauYouTubePlaylistSummaryView alloc ] initWithFrame: NSZeroRect ];
+            [ self addSubview: plSummaryView ];
+
+            [ layoutConstraintsCache_ addObjectsFromArray:
+                [ plSummaryView autoPinEdgesToSuperviewEdgesWithInsets: NSEdgeInsetsZero excludingEdge: ALEdgeLeading ] ];
+
+            [ plSummaryView autoMatchDimension: ALDimensionWidth toDimension: ALDimensionWidth ofView: self withMultiplier: 0.4f ];
+            [ plSummaryView setYtObject: ytContent_ ];
+
+//            [ layoutConstraintsCache_ addObject:
+//                [ plSummaryView
+            } break;
+
+        default:
+            {
+
+            } break;
         }
     }
 
