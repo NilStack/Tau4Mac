@@ -144,7 +144,7 @@
 
     [ self configureForAutoLayout ];
     [ self autoSetDimension: ALDimensionWidth toSize: 200 relation: NSLayoutRelationGreaterThanOrEqual ];
-    [ self autoMatchDimension: ALDimensionHeight toDimension: ALDimensionWidth ofView: self withMultiplier: 9.f / 16.f ];
+    [ self autoMatchDimension: ALDimensionHeight toDimension: ALDimensionWidth ofView: self withMultiplier: 0.56f ];
     }
 
 NSString* const kPreferredThumbKey = @"kPreferredThumbKey";
