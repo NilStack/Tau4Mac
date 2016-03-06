@@ -24,14 +24,27 @@
 @end // Private Interfaces
 
 @implementation TauMainWindowController
+    {
+    NSSegmentedControl __strong* segSwitcher_;
+    FBKVOController __strong* kvoController_;
+    }
+
+#pragma mark - Initializations
+
+- ( instancetype ) initWithCoder: ( NSCoder* )_Coder
+    {
+    if ( self = [ super initWithCoder: _Coder] )
+        kvoController_ = [ [ FBKVOController alloc ] initWithObserver: self ];
+    return self;
+    }
 
 - ( void ) windowDidLoad
     {
     [ super windowDidLoad ];
 
+    [ self.toolbar setAllowsUserCustomization: NO ];
+
     [ NSApp setDelegate: self ];
-    
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     }
 
 #pragma mark - Conforms to <NSApplicationDelegate>
@@ -42,6 +55,142 @@
 
     if ( ![ [ TauDataService sharedService ] isSignedIn ] )
         [ self runSignInThenHandler_: nil ];
+    }
+
+#pragma mark - Conforms to <NSToolbarDelegate>
+
+NSString* const kPanelsSwitcher = @"kPanelsSwitcher";
+
+- ( NSArray <NSString*>* ) toolbarAllowedItemIdentifiers: ( NSToolbar* )_Toolbar
+    {
+    return @[ NSToolbarFlexibleSpaceItemIdentifier
+            , kPanelsSwitcher
+            , NSToolbarFlexibleSpaceItemIdentifier
+            ];
+    }
+
+- ( NSArray <NSString*>* ) toolbarDefaultItemIdentifiers: ( NSToolbar* )_Toolbar
+    {
+    return @[ NSToolbarFlexibleSpaceItemIdentifier
+            , kPanelsSwitcher
+            , NSToolbarFlexibleSpaceItemIdentifier
+            ];
+    }
+
+typedef NS_ENUM ( NSInteger, TauPanelsSwitcherSegmentTag )
+    { TauPanelsSwitcherSearchTag    = 0
+    , TauPanelsSwitcherMeTag        = 1
+    , TauPanelsSwitcherTrendingTag  = 2
+    };
+
+- ( NSToolbarItem* )  toolbar: ( NSToolbar* )_Toolbar
+        itemForItemIdentifier: ( NSString* )_ItemIdentifier
+    willBeInsertedIntoToolbar: ( BOOL )_Flag
+    {
+    NSToolbarItem* toolbarItem = nil;
+    BOOL should = NO;
+
+    NSString* identifier = _ItemIdentifier;
+    NSString* label = nil;
+    NSString* paleteLabel = nil;
+    NSString* toolTip = nil;
+    id content = nil;
+    id target = self;
+    SEL action = nil;
+    NSMenu* repMenu = nil;
+
+    if ( ( should = [ _ItemIdentifier isEqualToString: kPanelsSwitcher ] ) )
+        {
+        label = NSLocalizedString( @"Go Back", nil );
+        paleteLabel = NSLocalizedString( @"Go Back", nil );
+        toolTip = NSLocalizedString( @"Show the previous page", nil );
+
+        NSUInteger segmentCount = 3;
+        CGFloat segmentFixedWidth = 80.f;
+        segSwitcher_ = [ [ NSSegmentedControl alloc ] initWithFrame: NSMakeRect( 0, 0, 248.f, 21.f ) ];
+        [ segSwitcher_ setSegmentCount: 3 ];
+        [ segSwitcher_ setTrackingMode: NSSegmentSwitchTrackingSelectOne ];
+
+        for ( int _Index = 0; _Index < segmentCount; _Index++ )
+            {
+            [ segSwitcher_ setWidth: segmentFixedWidth forSegment: _Index ];
+            [ segSwitcher_.cell setTag: ( TauPanelsSwitcherSegmentTag )_Index forSegment: _Index ];
+
+            switch ( [ segSwitcher_.cell tagForSegment: _Index ] )
+                {
+                case TauPanelsSwitcherSearchTag:    [ segSwitcher_ setLabel: NSLocalizedString( @"Search", nil ) forSegment: _Index ];      break;
+                case TauPanelsSwitcherMeTag:        [ segSwitcher_ setLabel: NSLocalizedString( @"MeTube", nil ) forSegment: _Index ];          break;
+                case TauPanelsSwitcherTrendingTag:  [ segSwitcher_ setLabel: NSLocalizedString( @"Trending", nil ) forSegment: _Index ];    break;
+                }
+            }
+
+        [ kvoController_ observe: segSwitcher_
+                         keyPath: @"cell.selectedSegment"
+                         options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                           block:
+        ^( id _Observer, id _Object, NSDictionary* _Change )
+            {
+            NSNumber* newVal = _Change[ @"new" ];
+            NSNumber* oldVal = _Change[ @"old" ];
+
+            if ( ![ newVal isEqualToNumber: oldVal ] )
+                NSLog( @"🍊%@", _Change );
+            } ];
+
+        [ segSwitcher_ selectSegmentWithTag: TauPanelsSwitcherSearchTag ];
+
+        content = segSwitcher_;
+        }
+
+    if ( should )
+        {
+        toolbarItem = [ self _toolbarWithIdentifier: identifier
+                                              label: label
+                                        paleteLabel: paleteLabel
+                                            toolTip: toolTip
+                                             target: target
+                                             action: action
+                                        itemContent: content
+                                            repMenu: repMenu ];
+        }
+
+    return toolbarItem;
+    }
+
+#pragma mark - Private Interfaces
+- ( NSToolbarItem* ) _toolbarWithIdentifier: ( NSString* )_Identifier
+                                      label: ( NSString* )_Label
+                                paleteLabel: ( NSString* )_PaleteLabel
+                                    toolTip: ( NSString* )_ToolTip
+                                     target: ( id )_Target
+                                     action: ( SEL )_ActionSEL
+                                itemContent: ( id )_ImageOrView
+                                    repMenu: ( NSMenu* )_Menu
+    {
+    NSToolbarItem* newToolbarItem = [ [ NSToolbarItem alloc ] initWithItemIdentifier: _Identifier ];
+
+    [ newToolbarItem setLabel: _Label ];
+    [ newToolbarItem setPaletteLabel: _PaleteLabel ];
+    [ newToolbarItem setToolTip: _ToolTip ];
+
+    [ newToolbarItem setTarget: _Target ];
+    [ newToolbarItem setAction: _ActionSEL ];
+
+    if ( [ _ImageOrView isKindOfClass: [ NSImage class ] ] )
+        [ newToolbarItem setImage: ( NSImage* )_ImageOrView ];
+
+    else if ( [ _ImageOrView isKindOfClass: [ NSView class ] ] )
+        [ newToolbarItem setView: ( NSView* )_ImageOrView ];
+
+    if ( _Menu )
+        {
+        NSMenuItem* repMenuItem = [ [ NSMenuItem alloc ] init ];
+        [ repMenuItem setSubmenu: _Menu ];
+        [ repMenuItem setTitle: _Label ];
+        [ newToolbarItem setMenuFormRepresentation: repMenuItem ];
+        }
+
+    return newToolbarItem;
     }
 
 #pragma mark - Private Interfaces

@@ -51,6 +51,8 @@
 		83DA1C461C8864C0007B084F /* TauAbstractLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C451C8864C0007B084F /* TauAbstractLogFormatter.m */; };
 		83DA1C491C8864E9007B084F /* TauTTYLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C481C8864E9007B084F /* TauTTYLogFormatter.m */; };
 		83DA1C581C8893BF007B084F /* OAuthSigningConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C571C8893BF007B084F /* OAuthSigningConstants.m */; };
+		83EB73331C8C6B6E004EB117 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB73301C8C6B6E004EB117 /* FBKVOController.m */; };
+		83EB73341C8C6B6E004EB117 /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB73321C8C6B6E004EB117 /* NSObject+FBKVOController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -374,6 +376,11 @@
 		83DA1C561C8893BF007B084F /* OAuthSigningConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthSigningConstants.h; sourceTree = "<group>"; };
 		83DA1C571C8893BF007B084F /* OAuthSigningConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthSigningConstants.m; sourceTree = "<group>"; };
 		83DA1C591C8893D5007B084F /* libcommonCrypto.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcommonCrypto.tbd; path = usr/lib/system/libcommonCrypto.tbd; sourceTree = SDKROOT; };
+		83EB732E1C8C6B6E004EB117 /* FBKVOController-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBKVOController-Prefix.pch"; sourceTree = "<group>"; };
+		83EB732F1C8C6B6E004EB117 /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBKVOController.h; sourceTree = "<group>"; };
+		83EB73301C8C6B6E004EB117 /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
+		83EB73311C8C6B6E004EB117 /* NSObject+FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+FBKVOController.h"; sourceTree = "<group>"; };
+		83EB73321C8C6B6E004EB117 /* NSObject+FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+FBKVOController.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -552,6 +559,7 @@
 		83765B121C88173300D93554 /* Deps */ = {
 			isa = PBXGroup;
 			children = (
+				83EB732D1C8C6B6E004EB117 /* FBKVOController */,
 				83DA1C591C8893D5007B084F /* libcommonCrypto.tbd */,
 				83765B101C88171400D93554 /* QuartzCore.framework */,
 				83765B0E1C88170F00D93554 /* Cocoa.framework */,
@@ -644,6 +652,19 @@
 			);
 			name = OAuthSigningConstants;
 			path = ../Deps/OAuthSigningConstants;
+			sourceTree = "<group>";
+		};
+		83EB732D1C8C6B6E004EB117 /* FBKVOController */ = {
+			isa = PBXGroup;
+			children = (
+				83EB732E1C8C6B6E004EB117 /* FBKVOController-Prefix.pch */,
+				83EB732F1C8C6B6E004EB117 /* FBKVOController.h */,
+				83EB73301C8C6B6E004EB117 /* FBKVOController.m */,
+				83EB73311C8C6B6E004EB117 /* NSObject+FBKVOController.h */,
+				83EB73321C8C6B6E004EB117 /* NSObject+FBKVOController.m */,
+			);
+			name = FBKVOController;
+			path = ../Deps/KVOController/FBKVOController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1029,12 +1050,14 @@
 				8399E2141C88200000A42C44 /* GTLYouTube_Sources.m in Sources */,
 				83DA1C461C8864C0007B084F /* TauAbstractLogFormatter.m in Sources */,
 				831BD6DB1C88434500122AF6 /* TauYouTubeEntriesCollectionViewController.m in Sources */,
+				83EB73331C8C6B6E004EB117 /* FBKVOController.m in Sources */,
 				83DA1C3E1C885216007B084F /* TauDataService.m in Sources */,
 				831BD6CC1C883FA300122AF6 /* TauYouTubeEntryView.m in Sources */,
 				8321F6B21C8ABB8700D11FE0 /* TauResultCollectionPanelViewController.m in Sources */,
 				8349D3DF1C899444000D091F /* NSImage+Tau.m in Sources */,
 				8321F6681C8AA0A500D11FE0 /* TauViewsStack.m in Sources */,
 				83DA1C581C8893BF007B084F /* OAuthSigningConstants.m in Sources */,
+				83EB73341C8C6B6E004EB117 /* NSObject+FBKVOController.m in Sources */,
 				83765ADF1C8811DD00D93554 /* TauAppDelegate.m in Sources */,
 				8399E2201C88235500A42C44 /* TauSearchPanelView.m in Sources */,
 				8321F6891C8AA11800D11FE0 /* TauViewController.m in Sources */,

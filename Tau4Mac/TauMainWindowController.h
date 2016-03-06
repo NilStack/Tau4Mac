@@ -7,6 +7,9 @@
 //
 
 // TauMainWindowController class
-@interface TauMainWindowController : NSWindowController <NSApplicationDelegate>
+@interface TauMainWindowController : NSWindowController
+    <NSApplicationDelegate, NSToolbarDelegate>
+
+@property ( weak ) IBOutlet NSToolbar* toolbar;
 
 @end // TauMainWindowController class
