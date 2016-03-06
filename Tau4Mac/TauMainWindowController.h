@@ -6,6 +6,8 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
+@class TauMainViewController;
+
 // TauMainWindowController class
 @interface TauMainWindowController : NSWindowController
     <NSApplicationDelegate, NSToolbarDelegate>

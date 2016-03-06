@@ -39,4 +39,10 @@ DDLogLevelOff
 #import "GTLYouTube.h"
 #import "TauDataService.h"
 
+typedef NS_ENUM ( NSInteger, TauPanelsSwitcherSegmentTag )
+    { TauPanelsSwitcherSearchTag    = 0
+    , TauPanelsSwitcherMeTubeTag    = 1
+    , TauPanelsSwitcherTrendingTag  = 2
+    };
+
 #endif /* Tau4Mac_PrefixHeader_pch */

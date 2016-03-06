@@ -34,7 +34,38 @@
 - ( instancetype ) initWithCoder: ( NSCoder* )_Coder
     {
     if ( self = [ super initWithCoder: _Coder] )
-        kvoController_ = [ [ FBKVOController alloc ] initWithObserver: self ];
+        {
+        NSUInteger segmentCount = 3;
+        CGFloat segmentFixedWidth = 80.f;
+        segSwitcher_ = [ [ NSSegmentedControl alloc ] initWithFrame: NSMakeRect( 0, 0, 248.f, 21.f ) ];
+        [ segSwitcher_ setSegmentCount: 3 ];
+        [ segSwitcher_ setTrackingMode: NSSegmentSwitchTrackingSelectOne ];
+
+        for ( int _Index = 0; _Index < segmentCount; _Index++ )
+            {
+            [ segSwitcher_ setWidth: segmentFixedWidth forSegment: _Index ];
+            [ segSwitcher_.cell setTag: ( TauPanelsSwitcherSegmentTag )_Index forSegment: _Index ];
+
+            switch ( [ segSwitcher_.cell tagForSegment: _Index ] )
+                {
+                case TauPanelsSwitcherSearchTag:
+                    {
+                    [ segSwitcher_ setLabel: NSLocalizedString( @"Search", nil ) forSegment: _Index ];
+                    } break;
+
+                case TauPanelsSwitcherMeTubeTag:
+                    {
+                    [ segSwitcher_ setLabel: NSLocalizedString( @"MeTube", nil ) forSegment: _Index ];
+                    } break;
+
+                case TauPanelsSwitcherTrendingTag:
+                    {
+                    [ segSwitcher_ setLabel: NSLocalizedString( @"Trending", nil ) forSegment: _Index ];
+                    } break;
+                }
+            }
+        }
+
     return self;
     }
 
@@ -45,6 +76,18 @@
     [ self.toolbar setAllowsUserCustomization: NO ];
 
     [ NSApp setDelegate: self ];
+
+    kvoController_ = [ [ FBKVOController alloc ] initWithObserver: self.contentViewController ];
+
+#pragma clang diagnostic push
+// Get rid of the 'undeclared selector' warning
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    [ kvoController_ observe: segSwitcher_ keyPath: @"cell.selectedSegment"
+                     options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                      action: @selector( selectedSegmentDidChange:observing: ) ];
+#pragma clang diagnostic pop
+
+    [ segSwitcher_ selectSegmentWithTag: TauPanelsSwitcherSearchTag ];
     }
 
 #pragma mark - Conforms to <NSApplicationDelegate>
@@ -77,12 +120,6 @@ NSString* const kPanelsSwitcher = @"kPanelsSwitcher";
             ];
     }
 
-typedef NS_ENUM ( NSInteger, TauPanelsSwitcherSegmentTag )
-    { TauPanelsSwitcherSearchTag    = 0
-    , TauPanelsSwitcherMeTag        = 1
-    , TauPanelsSwitcherTrendingTag  = 2
-    };
-
 - ( NSToolbarItem* )  toolbar: ( NSToolbar* )_Toolbar
         itemForItemIdentifier: ( NSString* )_ItemIdentifier
     willBeInsertedIntoToolbar: ( BOOL )_Flag
@@ -101,44 +138,6 @@ typedef NS_ENUM ( NSInteger, TauPanelsSwitcherSegmentTag )
 
     if ( ( should = [ _ItemIdentifier isEqualToString: kPanelsSwitcher ] ) )
         {
-        label = NSLocalizedString( @"Go Back", nil );
-        paleteLabel = NSLocalizedString( @"Go Back", nil );
-        toolTip = NSLocalizedString( @"Show the previous page", nil );
-
-        NSUInteger segmentCount = 3;
-        CGFloat segmentFixedWidth = 80.f;
-        segSwitcher_ = [ [ NSSegmentedControl alloc ] initWithFrame: NSMakeRect( 0, 0, 248.f, 21.f ) ];
-        [ segSwitcher_ setSegmentCount: 3 ];
-        [ segSwitcher_ setTrackingMode: NSSegmentSwitchTrackingSelectOne ];
-
-        for ( int _Index = 0; _Index < segmentCount; _Index++ )
-            {
-            [ segSwitcher_ setWidth: segmentFixedWidth forSegment: _Index ];
-            [ segSwitcher_.cell setTag: ( TauPanelsSwitcherSegmentTag )_Index forSegment: _Index ];
-
-            switch ( [ segSwitcher_.cell tagForSegment: _Index ] )
-                {
-                case TauPanelsSwitcherSearchTag:    [ segSwitcher_ setLabel: NSLocalizedString( @"Search", nil ) forSegment: _Index ];      break;
-                case TauPanelsSwitcherMeTag:        [ segSwitcher_ setLabel: NSLocalizedString( @"MeTube", nil ) forSegment: _Index ];          break;
-                case TauPanelsSwitcherTrendingTag:  [ segSwitcher_ setLabel: NSLocalizedString( @"Trending", nil ) forSegment: _Index ];    break;
-                }
-            }
-
-        [ kvoController_ observe: segSwitcher_
-                         keyPath: @"cell.selectedSegment"
-                         options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
-                           block:
-        ^( id _Observer, id _Object, NSDictionary* _Change )
-            {
-            NSNumber* newVal = _Change[ @"new" ];
-            NSNumber* oldVal = _Change[ @"old" ];
-
-            if ( ![ newVal isEqualToNumber: oldVal ] )
-                NSLog( @"🍊%@", _Change );
-            } ];
-
-        [ segSwitcher_ selectSegmentWithTag: TauPanelsSwitcherSearchTag ];
-
         content = segSwitcher_;
         }
 

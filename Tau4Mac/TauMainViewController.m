@@ -17,6 +17,9 @@
 
 // TauMainViewController class
 @implementation TauMainViewController
+    {
+    NSArray <NSLayoutConstraint*>* layoutConstraintsCache_;
+    }
 
 #pragma mark - Initializations
 
@@ -25,9 +28,36 @@
     [ super viewDidLoad ];
 
     // Do any additional setup after loading the view.
+    }
 
-    [ self.view addSubview: self.searchPanelStackViewController_.view ];
-    [ self.searchPanelStackViewController_.view autoPinEdgesToSuperviewEdges ];
+#pragma mark - KVO Notifications
+
+- ( void ) selectedSegmentDidChange: ( NSDictionary* )_Change observing: ( id )_ObservingObject
+    {
+    TauPanelsSwitcherSegmentTag new = [ _Change[ @"new" ] integerValue ];
+    TauPanelsSwitcherSegmentTag old = [ _Change[ @"old" ] integerValue ];
+
+    if ( new != old )
+        {
+        if ( layoutConstraintsCache_ )
+            [ self.view removeConstraints: layoutConstraintsCache_ ];
+
+        [ self.view setSubviews: @[] ];
+
+        switch ( new )
+            {
+            case TauPanelsSwitcherSearchTag:
+                {
+                [ self.view addSubview: self.searchPanelStackViewController_.view ];
+                layoutConstraintsCache_ = [ self.searchPanelStackViewController_.view autoPinEdgesToSuperviewEdges ];
+                } break;
+
+            case TauPanelsSwitcherMeTubeTag:
+            case TauPanelsSwitcherTrendingTag:
+                {
+                } break;
+            }
+        }
     }
 
 #pragma mark - Private Interfaces
