@@ -55,7 +55,7 @@
                                 <action selector="pageAction:" target="-2" id="55F-hL-sTo"/>
                             </connections>
                         </segmentedControl>
-                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="JyQ-Ek-OnU" customClass="TauSearchResultCollectionPanelTitleView">
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="JyQ-Ek-OnU" customClass="TauSearchResultCollectionSummaryView">
                             <rect key="frame" x="88" y="1" width="302" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="ats-3M-XC2"/>

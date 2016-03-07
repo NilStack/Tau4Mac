@@ -1,15 +1,15 @@
 //
-//  TauSearchPanelView.m
+//  TauSearchStackPanelBaseView.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/3/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauSearchPanelView.h"
+#import "TauSearchStackPanelBaseView.h"
 
-// TauSearchPanelView class
-@implementation TauSearchPanelView
+// TauSearchStackPanelBaseView class
+@implementation TauSearchStackPanelBaseView
 
 #pragma mark - Initializations
 
@@ -23,4 +23,4 @@
     self.state = NSVisualEffectStateActive;
     }
 
-@end // TauSearchPanelView class
+@end // TauSearchStackPanelBaseView class

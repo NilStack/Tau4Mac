@@ -8,7 +8,7 @@
 
 #import "TauResultCollectionPanelViewController.h"
 #import "TauYouTubeEntriesCollectionViewController.h"
-#import "TauPanelStackViewController.h"
+#import "TauAbstractStackPanelController.h"
 #import "TauSearchResultCollectionToolbar.h"
 
 // Private Interfaces

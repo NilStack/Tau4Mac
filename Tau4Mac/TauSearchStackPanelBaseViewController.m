@@ -1,22 +1,22 @@
 //
-//  TauSearchPanelBaseViewController.m
+//  TauSearchStackPanelBaseViewController.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/5/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauSearchPanelBaseViewController.h"
+#import "TauSearchStackPanelBaseViewController.h"
 #import "TauResultCollectionPanelViewController.h"
-#import "TauPanelStackViewController.h"
+#import "TauAbstractStackPanelController.h"
 
 // Private Interfaces
-@interface TauSearchPanelBaseViewController ()
+@interface TauSearchStackPanelBaseViewController ()
 
 @end // Private Interfaces
 
-// TauSearchPanelBaseViewController class
-@implementation TauSearchPanelBaseViewController
+// TauSearchStackPanelBaseViewController class
+@implementation TauSearchStackPanelBaseViewController
     {
 @private
     GTLServiceTicket __strong* ytSearchListTicket_;
@@ -57,4 +57,4 @@
         }
     }
 
-@end // TauSearchPanelBaseViewController class
+@end // TauSearchStackPanelBaseViewController class

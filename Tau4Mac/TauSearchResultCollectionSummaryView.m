@@ -1,15 +1,15 @@
 //
-//  TauSearchResultCollectionPanelTitleView.m
+//  TauSearchResultCollectionSummaryView.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/5/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauSearchResultCollectionPanelTitleView.h"
+#import "TauSearchResultCollectionSummaryView.h"
 
-// TauSearchResultCollectionPanelTitleView class
-@implementation TauSearchResultCollectionPanelTitleView
+// TauSearchResultCollectionSummaryView class
+@implementation TauSearchResultCollectionSummaryView
     {
     NSDictionary __strong* sumDrawingAttrs_;
     NSDictionary __strong* countDrawingAttrs_;
@@ -80,4 +80,4 @@
     [ countText drawAtPoint: countTextDrawingPoint withAttributes: countDrawingAttrs_ ];
     }
 
-@end // TauSearchResultCollectionPanelTitleView class
+@end // TauSearchResultCollectionSummaryView class

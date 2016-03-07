@@ -8,11 +8,15 @@
 
 #import "TauMainViewController.h"
 
-#import "TauPanelStackViewController.h"
+#import "TauSearchStackPanelController.h"
+#import "TauMeTubeStackPanelController.h"
+
+#import "TauMeTubeStackPanelBaseViewController.h"
 
 // Private Interfaces
 @interface TauMainViewController ()
-@property ( strong, readonly ) TauPanelStackViewController* searchPanelStackViewController_;
+@property ( strong, readonly ) TauSearchStackPanelController* searchPanelStackViewController_;
+@property ( strong, readonly ) TauMeTubeStackPanelController* meTubePanelStackViewController_;
 @end // Private Interfaces
 
 // TauMainViewController class
@@ -53,6 +57,11 @@
                 } break;
 
             case TauPanelsSwitcherMeTubeTag:
+                {
+                [ self.view addSubview: self.meTubePanelStackViewController_.view ];
+                layoutConstraintsCache_ = [ self.meTubePanelStackViewController_.view autoPinEdgesToSuperviewEdges ];
+                } break;
+
             case TauPanelsSwitcherTrendingTag:
                 {
                 } break;
@@ -63,17 +72,33 @@
 #pragma mark - Private Interfaces
 
 @dynamic searchPanelStackViewController_;
+@dynamic meTubePanelStackViewController_;
 
-- ( TauPanelStackViewController* ) searchPanelStackViewController_
+- ( TauAbstractStackPanelController* ) searchPanelStackViewController_
     {
-    TauPanelStackViewController static* sCtrller;
+    TauAbstractStackPanelController static* sCtrller;
 
     dispatch_once_t static onceToken;
     dispatch_once( &onceToken
                  , ( dispatch_block_t )
     ^( void )
         {
-        sCtrller = [ [ TauPanelStackViewController alloc ] initWithNibName: nil bundle: nil ];
+        sCtrller = [ [ TauSearchStackPanelController alloc ] initWithNibName: @"TauAbstractStackPanelController" bundle: nil ];
+        } );
+
+    return sCtrller;
+    }
+
+- ( TauMeTubeStackPanelController* ) meTubePanelStackViewController_
+    {
+    TauMeTubeStackPanelController static* sCtrller;
+
+    dispatch_once_t static onceToken;
+    dispatch_once( &onceToken
+                 , ( dispatch_block_t )
+    ^( void )
+        {
+        sCtrller = [ [ TauMeTubeStackPanelController alloc ] initWithNibName: @"TauAbstractStackPanelController" bundle: nil ];
         } );
 
     return sCtrller;

@@ -14,15 +14,15 @@
 		831BD6DC1C88434500122AF6 /* TauYouTubeEntriesCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 831BD6DA1C88434500122AF6 /* TauYouTubeEntriesCollectionView.xib */; };
 		831BD6E31C88482200122AF6 /* TauCollectionObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6E21C88482200122AF6 /* TauCollectionObject.m */; };
 		8321F6681C8AA0A500D11FE0 /* TauViewsStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6671C8AA0A500D11FE0 /* TauViewsStack.m */; };
-		8321F68D1C8AA19B00D11FE0 /* TauPanelStackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F68B1C8AA19B00D11FE0 /* TauPanelStackViewController.m */; };
-		8321F68E1C8AA19B00D11FE0 /* TauSearchPanelBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8321F68C1C8AA19B00D11FE0 /* TauSearchPanelBaseViewController.xib */; };
-		8321F6971C8AA6D300D11FE0 /* TauSearchPanelBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6951C8AA6D300D11FE0 /* TauSearchPanelBaseViewController.m */; };
-		8321F6981C8AA6D300D11FE0 /* TauPanelStackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8321F6961C8AA6D300D11FE0 /* TauPanelStackViewController.xib */; };
+		8321F68D1C8AA19B00D11FE0 /* TauAbstractStackPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F68B1C8AA19B00D11FE0 /* TauAbstractStackPanelController.m */; };
+		8321F68E1C8AA19B00D11FE0 /* TauSearchStackPanelBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8321F68C1C8AA19B00D11FE0 /* TauSearchStackPanelBaseViewController.xib */; };
+		8321F6971C8AA6D300D11FE0 /* TauSearchStackPanelBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6951C8AA6D300D11FE0 /* TauSearchStackPanelBaseViewController.m */; };
+		8321F6981C8AA6D300D11FE0 /* TauAbstractStackPanelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8321F6961C8AA6D300D11FE0 /* TauAbstractStackPanelController.xib */; };
 		8321F6AE1C8AB52800D11FE0 /* TauStackViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6AD1C8AB52800D11FE0 /* TauStackViewItem.m */; };
 		8321F6B21C8ABB8700D11FE0 /* TauResultCollectionPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6B01C8ABB8700D11FE0 /* TauResultCollectionPanelViewController.m */; };
 		8321F6B31C8ABB8700D11FE0 /* TauResultCollectionPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8321F6B11C8ABB8700D11FE0 /* TauResultCollectionPanelViewController.xib */; };
 		8321F6B61C8ACADC00D11FE0 /* TauSearchResultCollectionToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6B51C8ACADC00D11FE0 /* TauSearchResultCollectionToolbar.m */; };
-		8321F6B91C8AEA3900D11FE0 /* TauSearchResultCollectionPanelTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6B81C8AEA3900D11FE0 /* TauSearchResultCollectionPanelTitleView.m */; };
+		8321F6B91C8AEA3900D11FE0 /* TauSearchResultCollectionSummaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6B81C8AEA3900D11FE0 /* TauSearchResultCollectionSummaryView.m */; };
 		8321F6BC1C8BE62C00D11FE0 /* TauYouTubePlaylistSummaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6BB1C8BE62C00D11FE0 /* TauYouTubePlaylistSummaryView.m */; };
 		8321F6BF1C8C3DDC00D11FE0 /* TauChannelBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6BE1C8C3DDC00D11FE0 /* TauChannelBadge.m */; };
 		8349D3DF1C899444000D091F /* NSImage+Tau.m in Sources */ = {isa = PBXBuildFile; fileRef = 8349D3DE1C899444000D091F /* NSImage+Tau.m */; };
@@ -44,7 +44,7 @@
 		8399E2141C88200000A42C44 /* GTLYouTube_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2121C88200000A42C44 /* GTLYouTube_Sources.m */; };
 		8399E21A1C88231400A42C44 /* TauMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2191C88231400A42C44 /* TauMainWindowController.m */; };
 		8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E21C1C88232E00A42C44 /* TauMainWindow.m */; };
-		8399E2201C88235500A42C44 /* TauSearchPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E21F1C88235500A42C44 /* TauSearchPanelView.m */; };
+		8399E2201C88235500A42C44 /* TauSearchStackPanelBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E21F1C88235500A42C44 /* TauSearchStackPanelBaseView.m */; };
 		83DA1C3E1C885216007B084F /* TauDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C3D1C885216007B084F /* TauDataService.m */; };
 		83DA1C421C886138007B084F /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DA1C411C886138007B084F /* WebKit.framework */; };
 		83DA1C461C8864C0007B084F /* TauAbstractLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C451C8864C0007B084F /* TauAbstractLogFormatter.m */; };
@@ -52,8 +52,10 @@
 		83DA1C581C8893BF007B084F /* OAuthSigningConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C571C8893BF007B084F /* OAuthSigningConstants.m */; };
 		83EB73331C8C6B6E004EB117 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB73301C8C6B6E004EB117 /* FBKVOController.m */; };
 		83EB73341C8C6B6E004EB117 /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB73321C8C6B6E004EB117 /* NSObject+FBKVOController.m */; };
-		83EB733D1C8D0EF5004EB117 /* TauMeTubePanelBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB733B1C8D0EF5004EB117 /* TauMeTubePanelBaseViewController.m */; };
-		83EB733E1C8D0EF5004EB117 /* TauMeTubePanelBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83EB733C1C8D0EF5004EB117 /* TauMeTubePanelBaseViewController.xib */; };
+		83EB733D1C8D0EF5004EB117 /* TauMeTubeStackPanelBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB733B1C8D0EF5004EB117 /* TauMeTubeStackPanelBaseViewController.m */; };
+		83EB73401C8D1A0C004EB117 /* TauMeTubeStackPanelBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83EB733F1C8D1A0C004EB117 /* TauMeTubeStackPanelBaseViewController.xib */; };
+		83EB73431C8D1C2D004EB117 /* TauSearchStackPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB73421C8D1C2D004EB117 /* TauSearchStackPanelController.m */; };
+		83EB73461C8D1D3F004EB117 /* TauMeTubeStackPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB73451C8D1D3F004EB117 /* TauMeTubeStackPanelController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -313,12 +315,12 @@
 		831BD6E21C88482200122AF6 /* TauCollectionObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauCollectionObject.m; sourceTree = "<group>"; };
 		8321F6661C8AA0A500D11FE0 /* TauViewsStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauViewsStack.h; sourceTree = "<group>"; };
 		8321F6671C8AA0A500D11FE0 /* TauViewsStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauViewsStack.m; sourceTree = "<group>"; };
-		8321F68A1C8AA19B00D11FE0 /* TauPanelStackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauPanelStackViewController.h; sourceTree = "<group>"; };
-		8321F68B1C8AA19B00D11FE0 /* TauPanelStackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauPanelStackViewController.m; sourceTree = "<group>"; };
-		8321F68C1C8AA19B00D11FE0 /* TauSearchPanelBaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TauSearchPanelBaseViewController.xib; sourceTree = "<group>"; };
-		8321F6941C8AA6D300D11FE0 /* TauSearchPanelBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauSearchPanelBaseViewController.h; sourceTree = "<group>"; };
-		8321F6951C8AA6D300D11FE0 /* TauSearchPanelBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauSearchPanelBaseViewController.m; sourceTree = "<group>"; };
-		8321F6961C8AA6D300D11FE0 /* TauPanelStackViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TauPanelStackViewController.xib; sourceTree = "<group>"; };
+		8321F68A1C8AA19B00D11FE0 /* TauAbstractStackPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauAbstractStackPanelController.h; sourceTree = "<group>"; };
+		8321F68B1C8AA19B00D11FE0 /* TauAbstractStackPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAbstractStackPanelController.m; sourceTree = "<group>"; };
+		8321F68C1C8AA19B00D11FE0 /* TauSearchStackPanelBaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TauSearchStackPanelBaseViewController.xib; sourceTree = "<group>"; };
+		8321F6941C8AA6D300D11FE0 /* TauSearchStackPanelBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauSearchStackPanelBaseViewController.h; sourceTree = "<group>"; };
+		8321F6951C8AA6D300D11FE0 /* TauSearchStackPanelBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauSearchStackPanelBaseViewController.m; sourceTree = "<group>"; };
+		8321F6961C8AA6D300D11FE0 /* TauAbstractStackPanelController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TauAbstractStackPanelController.xib; sourceTree = "<group>"; };
 		8321F6AC1C8AB52800D11FE0 /* TauStackViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauStackViewItem.h; sourceTree = "<group>"; };
 		8321F6AD1C8AB52800D11FE0 /* TauStackViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauStackViewItem.m; sourceTree = "<group>"; };
 		8321F6AF1C8ABB8700D11FE0 /* TauResultCollectionPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauResultCollectionPanelViewController.h; sourceTree = "<group>"; };
@@ -326,8 +328,8 @@
 		8321F6B11C8ABB8700D11FE0 /* TauResultCollectionPanelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TauResultCollectionPanelViewController.xib; sourceTree = "<group>"; };
 		8321F6B41C8ACADC00D11FE0 /* TauSearchResultCollectionToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauSearchResultCollectionToolbar.h; sourceTree = "<group>"; };
 		8321F6B51C8ACADC00D11FE0 /* TauSearchResultCollectionToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauSearchResultCollectionToolbar.m; sourceTree = "<group>"; };
-		8321F6B71C8AEA3900D11FE0 /* TauSearchResultCollectionPanelTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauSearchResultCollectionPanelTitleView.h; sourceTree = "<group>"; };
-		8321F6B81C8AEA3900D11FE0 /* TauSearchResultCollectionPanelTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauSearchResultCollectionPanelTitleView.m; sourceTree = "<group>"; };
+		8321F6B71C8AEA3900D11FE0 /* TauSearchResultCollectionSummaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauSearchResultCollectionSummaryView.h; sourceTree = "<group>"; };
+		8321F6B81C8AEA3900D11FE0 /* TauSearchResultCollectionSummaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauSearchResultCollectionSummaryView.m; sourceTree = "<group>"; };
 		8321F6BA1C8BE62C00D11FE0 /* TauYouTubePlaylistSummaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauYouTubePlaylistSummaryView.h; sourceTree = "<group>"; };
 		8321F6BB1C8BE62C00D11FE0 /* TauYouTubePlaylistSummaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauYouTubePlaylistSummaryView.m; sourceTree = "<group>"; };
 		8321F6BD1C8C3DDC00D11FE0 /* TauChannelBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauChannelBadge.h; sourceTree = "<group>"; };
@@ -363,8 +365,8 @@
 		8399E2191C88231400A42C44 /* TauMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauMainWindowController.m; sourceTree = "<group>"; };
 		8399E21B1C88232E00A42C44 /* TauMainWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauMainWindow.h; sourceTree = "<group>"; };
 		8399E21C1C88232E00A42C44 /* TauMainWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauMainWindow.m; sourceTree = "<group>"; };
-		8399E21E1C88235500A42C44 /* TauSearchPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauSearchPanelView.h; sourceTree = "<group>"; };
-		8399E21F1C88235500A42C44 /* TauSearchPanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauSearchPanelView.m; sourceTree = "<group>"; };
+		8399E21E1C88235500A42C44 /* TauSearchStackPanelBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauSearchStackPanelBaseView.h; sourceTree = "<group>"; };
+		8399E21F1C88235500A42C44 /* TauSearchStackPanelBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauSearchStackPanelBaseView.m; sourceTree = "<group>"; };
 		83DA1C3C1C885216007B084F /* TauDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauDataService.h; sourceTree = "<group>"; };
 		83DA1C3D1C885216007B084F /* TauDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauDataService.m; sourceTree = "<group>"; };
 		83DA1C411C886138007B084F /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -380,9 +382,13 @@
 		83EB73301C8C6B6E004EB117 /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
 		83EB73311C8C6B6E004EB117 /* NSObject+FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+FBKVOController.h"; sourceTree = "<group>"; };
 		83EB73321C8C6B6E004EB117 /* NSObject+FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+FBKVOController.m"; sourceTree = "<group>"; };
-		83EB733A1C8D0EF5004EB117 /* TauMeTubePanelBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauMeTubePanelBaseViewController.h; sourceTree = "<group>"; };
-		83EB733B1C8D0EF5004EB117 /* TauMeTubePanelBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauMeTubePanelBaseViewController.m; sourceTree = "<group>"; };
-		83EB733C1C8D0EF5004EB117 /* TauMeTubePanelBaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TauMeTubePanelBaseViewController.xib; sourceTree = "<group>"; };
+		83EB733A1C8D0EF5004EB117 /* TauMeTubeStackPanelBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauMeTubeStackPanelBaseViewController.h; sourceTree = "<group>"; };
+		83EB733B1C8D0EF5004EB117 /* TauMeTubeStackPanelBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauMeTubeStackPanelBaseViewController.m; sourceTree = "<group>"; };
+		83EB733F1C8D1A0C004EB117 /* TauMeTubeStackPanelBaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TauMeTubeStackPanelBaseViewController.xib; sourceTree = "<group>"; };
+		83EB73411C8D1C2D004EB117 /* TauSearchStackPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauSearchStackPanelController.h; sourceTree = "<group>"; };
+		83EB73421C8D1C2D004EB117 /* TauSearchStackPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauSearchStackPanelController.m; sourceTree = "<group>"; };
+		83EB73441C8D1D3F004EB117 /* TauMeTubeStackPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauMeTubeStackPanelController.h; sourceTree = "<group>"; };
+		83EB73451C8D1D3F004EB117 /* TauMeTubeStackPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauMeTubeStackPanelController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -481,8 +487,8 @@
 				8399E21C1C88232E00A42C44 /* TauMainWindow.m */,
 				83765AE31C8811DD00D93554 /* TauMainViewController.h */,
 				83765AE41C8811DD00D93554 /* TauMainViewController.m */,
-				8321F68A1C8AA19B00D11FE0 /* TauPanelStackViewController.h */,
-				8321F68B1C8AA19B00D11FE0 /* TauPanelStackViewController.m */,
+				8321F68A1C8AA19B00D11FE0 /* TauAbstractStackPanelController.h */,
+				8321F68B1C8AA19B00D11FE0 /* TauAbstractStackPanelController.m */,
 				8321F6AF1C8ABB8700D11FE0 /* TauResultCollectionPanelViewController.h */,
 				8321F6B01C8ABB8700D11FE0 /* TauResultCollectionPanelViewController.m */,
 				831BD6D81C88434500122AF6 /* TauYouTubeEntriesCollectionViewController.h */,
@@ -543,10 +549,10 @@
 			children = (
 				83765AE81C8811DD00D93554 /* Main.storyboard */,
 				831BD6DA1C88434500122AF6 /* TauYouTubeEntriesCollectionView.xib */,
-				8321F6961C8AA6D300D11FE0 /* TauPanelStackViewController.xib */,
 				8321F6B11C8ABB8700D11FE0 /* TauResultCollectionPanelViewController.xib */,
-				8321F68C1C8AA19B00D11FE0 /* TauSearchPanelBaseViewController.xib */,
-				83EB733C1C8D0EF5004EB117 /* TauMeTubePanelBaseViewController.xib */,
+				8321F6961C8AA6D300D11FE0 /* TauAbstractStackPanelController.xib */,
+				8321F68C1C8AA19B00D11FE0 /* TauSearchStackPanelBaseViewController.xib */,
+				83EB733F1C8D1A0C004EB117 /* TauMeTubeStackPanelBaseViewController.xib */,
 			);
 			name = wysiwyg;
 			sourceTree = "<group>";
@@ -665,12 +671,14 @@
 		83EB73381C8D08FD004EB117 /* search-panel */ = {
 			isa = PBXGroup;
 			children = (
-				8321F6941C8AA6D300D11FE0 /* TauSearchPanelBaseViewController.h */,
-				8321F6951C8AA6D300D11FE0 /* TauSearchPanelBaseViewController.m */,
-				8399E21E1C88235500A42C44 /* TauSearchPanelView.h */,
-				8399E21F1C88235500A42C44 /* TauSearchPanelView.m */,
-				8321F6B71C8AEA3900D11FE0 /* TauSearchResultCollectionPanelTitleView.h */,
-				8321F6B81C8AEA3900D11FE0 /* TauSearchResultCollectionPanelTitleView.m */,
+				83EB73411C8D1C2D004EB117 /* TauSearchStackPanelController.h */,
+				83EB73421C8D1C2D004EB117 /* TauSearchStackPanelController.m */,
+				8321F6941C8AA6D300D11FE0 /* TauSearchStackPanelBaseViewController.h */,
+				8321F6951C8AA6D300D11FE0 /* TauSearchStackPanelBaseViewController.m */,
+				8399E21E1C88235500A42C44 /* TauSearchStackPanelBaseView.h */,
+				8399E21F1C88235500A42C44 /* TauSearchStackPanelBaseView.m */,
+				8321F6B71C8AEA3900D11FE0 /* TauSearchResultCollectionSummaryView.h */,
+				8321F6B81C8AEA3900D11FE0 /* TauSearchResultCollectionSummaryView.m */,
 				8321F6B41C8ACADC00D11FE0 /* TauSearchResultCollectionToolbar.h */,
 				8321F6B51C8ACADC00D11FE0 /* TauSearchResultCollectionToolbar.m */,
 			);
@@ -680,8 +688,10 @@
 		83EB73391C8D0EBC004EB117 /* metube-panel */ = {
 			isa = PBXGroup;
 			children = (
-				83EB733A1C8D0EF5004EB117 /* TauMeTubePanelBaseViewController.h */,
-				83EB733B1C8D0EF5004EB117 /* TauMeTubePanelBaseViewController.m */,
+				83EB73441C8D1D3F004EB117 /* TauMeTubeStackPanelController.h */,
+				83EB73451C8D1D3F004EB117 /* TauMeTubeStackPanelController.m */,
+				83EB733A1C8D0EF5004EB117 /* TauMeTubeStackPanelBaseViewController.h */,
+				83EB733B1C8D0EF5004EB117 /* TauMeTubeStackPanelBaseViewController.m */,
 			);
 			name = "metube-panel";
 			sourceTree = "<group>";
@@ -1023,10 +1033,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8321F6981C8AA6D300D11FE0 /* TauPanelStackViewController.xib in Resources */,
+				8321F6981C8AA6D300D11FE0 /* TauAbstractStackPanelController.xib in Resources */,
 				8321F6B31C8ABB8700D11FE0 /* TauResultCollectionPanelViewController.xib in Resources */,
-				83EB733E1C8D0EF5004EB117 /* TauMeTubePanelBaseViewController.xib in Resources */,
-				8321F68E1C8AA19B00D11FE0 /* TauSearchPanelBaseViewController.xib in Resources */,
+				83EB73401C8D1A0C004EB117 /* TauMeTubeStackPanelBaseViewController.xib in Resources */,
+				8321F68E1C8AA19B00D11FE0 /* TauSearchStackPanelBaseViewController.xib in Resources */,
 				831BD6DC1C88434500122AF6 /* TauYouTubeEntriesCollectionView.xib in Resources */,
 				83765AE71C8811DD00D93554 /* Assets.xcassets in Resources */,
 				83765AEA1C8811DD00D93554 /* Main.storyboard in Resources */,
@@ -1055,18 +1065,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				8321F6BF1C8C3DDC00D11FE0 /* TauChannelBadge.m in Sources */,
-				8321F68D1C8AA19B00D11FE0 /* TauPanelStackViewController.m in Sources */,
+				8321F68D1C8AA19B00D11FE0 /* TauAbstractStackPanelController.m in Sources */,
 				83765AE51C8811DD00D93554 /* TauMainViewController.m in Sources */,
 				8399E21A1C88231400A42C44 /* TauMainWindowController.m in Sources */,
-				8321F6971C8AA6D300D11FE0 /* TauSearchPanelBaseViewController.m in Sources */,
+				8321F6971C8AA6D300D11FE0 /* TauSearchStackPanelBaseViewController.m in Sources */,
 				8321F6B61C8ACADC00D11FE0 /* TauSearchResultCollectionToolbar.m in Sources */,
 				831BD6E31C88482200122AF6 /* TauCollectionObject.m in Sources */,
 				83765AE21C8811DD00D93554 /* main.m in Sources */,
 				8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */,
-				8321F6B91C8AEA3900D11FE0 /* TauSearchResultCollectionPanelTitleView.m in Sources */,
+				8321F6B91C8AEA3900D11FE0 /* TauSearchResultCollectionSummaryView.m in Sources */,
 				83DA1C491C8864E9007B084F /* TauTTYLogFormatter.m in Sources */,
 				8321F6BC1C8BE62C00D11FE0 /* TauYouTubePlaylistSummaryView.m in Sources */,
-				83EB733D1C8D0EF5004EB117 /* TauMeTubePanelBaseViewController.m in Sources */,
+				83EB733D1C8D0EF5004EB117 /* TauMeTubeStackPanelBaseViewController.m in Sources */,
 				831BD6D71C88426A00122AF6 /* TauYouTubeEntriesCollectionView.m in Sources */,
 				8399E2141C88200000A42C44 /* GTLYouTube_Sources.m in Sources */,
 				83DA1C461C8864C0007B084F /* TauAbstractLogFormatter.m in Sources */,
@@ -1078,11 +1088,13 @@
 				8349D3DF1C899444000D091F /* NSImage+Tau.m in Sources */,
 				8321F6681C8AA0A500D11FE0 /* TauViewsStack.m in Sources */,
 				83DA1C581C8893BF007B084F /* OAuthSigningConstants.m in Sources */,
+				83EB73461C8D1D3F004EB117 /* TauMeTubeStackPanelController.m in Sources */,
 				83EB73341C8C6B6E004EB117 /* NSObject+FBKVOController.m in Sources */,
 				83765ADF1C8811DD00D93554 /* TauAppDelegate.m in Sources */,
-				8399E2201C88235500A42C44 /* TauSearchPanelView.m in Sources */,
+				8399E2201C88235500A42C44 /* TauSearchStackPanelBaseView.m in Sources */,
 				8318A5481C89205700F3E9CD /* TauYouTubeEntryLayer.m in Sources */,
 				8321F6AE1C8AB52800D11FE0 /* TauStackViewItem.m in Sources */,
+				83EB73431C8D1C2D004EB117 /* TauSearchStackPanelController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

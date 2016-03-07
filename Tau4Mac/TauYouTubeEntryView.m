@@ -178,6 +178,33 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
 
         GTLYouTubeThumbnailDetails* thumbnailDetails = [ snippet performSelector: @selector( thumbnails ) withObject: nil ];
 
+        if ( !thumbnailDetails )
+            {
+//            NSSize imageSize = self.bounds.size;
+//            NSImage* replacement = [ NSImage imageWithSize: imageSize
+//                                                   flipped: NO
+//                                            drawingHandler:
+//            ^BOOL ( NSRect _DstRect )
+//                {
+//                [ [ NSColor blackColor ] set ];
+//                NSRectFill( _DstRect );
+//
+//                NSString* noCover = @"NO COVER";
+//                NSDictionary* attrs = @{ NSForegroundColorAttributeName : [ NSColor whiteColor ]
+//                                       , NSFontAttributeName : [ NSFont fontWithName: @"Helvetica Neue Light" size: 15 ]
+//                                       };
+//
+//                NSSize size = [ noCover sizeWithAttributes: attrs ];
+//                [ noCover drawAtPoint: NSMakePoint( ( NSWidth( _DstRect ) * .6f - size.width ) / 2, ( NSHeight( _DstRect ) - size.height ) / 2 ) withAttributes: attrs ];
+//
+//                return YES;
+//                } ];
+//
+//            thumbnailImage_ = replacement;
+            [ self updateUI_ ];
+            return;
+            }
+
         // Pick up the thumbnail that has the highest definition
         GTLYouTubeThumbnail* preferThumbnail =
                 /* 1280x720 px */

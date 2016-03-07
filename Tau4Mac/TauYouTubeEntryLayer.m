@@ -21,7 +21,7 @@
     [ CATransaction setDisableActions: YES ];
     if ( self.contents )
         {
-        self.borderColor = [ NSColor grayColor ].CGColor;
+        self.borderColor = [ NSColor blackColor ].CGColor;
         self.borderWidth = .5f;
         self.backgroundColor = [ NSColor blackColor ].CGColor;
         }

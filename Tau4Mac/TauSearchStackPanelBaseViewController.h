@@ -1,5 +1,5 @@
 //
-//  TauSearchPanelBaseViewController.h
+//  TauSearchStackPanelBaseViewController.h
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/5/16.
@@ -8,8 +8,8 @@
 
 #import "TauStackViewItem.h"
 
-// TauSearchPanelBaseViewController class
-@interface TauSearchPanelBaseViewController : TauStackViewItem
+// TauSearchStackPanelBaseViewController class
+@interface TauSearchStackPanelBaseViewController : TauStackViewItem
 
 #pragma mark - Outlets
 
@@ -19,4 +19,4 @@
 
 - ( IBAction ) searchUserInputAction: ( id )_Sender;
 
-@end // TauSearchPanelBaseViewController class
+@end // TauSearchStackPanelBaseViewController class

@@ -8,10 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class TauPanelStackViewController;
+@class TauAbstractStackPanelController;
 
 @interface TauStackViewItem : NSViewController
 
-@property ( weak, readwrite ) TauPanelStackViewController* hostStack;
+@property ( weak, readwrite ) TauAbstractStackPanelController* hostStack;
 
 @end

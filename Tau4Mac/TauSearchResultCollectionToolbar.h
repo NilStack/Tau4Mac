@@ -6,7 +6,7 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-@class TauSearchResultCollectionPanelTitleView;
+@class TauSearchResultCollectionSummaryView;
 
 // TauSearchResultCollectionToolbar class
 @interface TauSearchResultCollectionToolbar : NSVisualEffectView
@@ -16,7 +16,7 @@
 #pragma mark - Outlets
 
 @property ( weak ) IBOutlet NSSegmentedControl* segPager;
-@property ( weak ) IBOutlet TauSearchResultCollectionPanelTitleView* titleView;
+@property ( weak ) IBOutlet TauSearchResultCollectionSummaryView* titleView;
 @property ( weak ) IBOutlet NSButton* dismissButton;
 
 @end // TauSearchResultCollectionToolbar class

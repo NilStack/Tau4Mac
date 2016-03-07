@@ -7,7 +7,7 @@
 //
 
 #import "TauSearchResultCollectionToolbar.h"
-#import "TauSearchResultCollectionPanelTitleView.h"
+#import "TauSearchResultCollectionSummaryView.h"
 
 // Private Interfaces
 @interface TauSearchResultCollectionToolbar ()
