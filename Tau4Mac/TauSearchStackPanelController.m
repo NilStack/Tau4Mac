@@ -10,11 +10,15 @@
 #import "TauSearchStackPanelBaseViewController.h"
 #import "TauViewsStack.h"
 
+// Private Interfaces
 @interface TauSearchStackPanelController ()
 @property ( strong, readwrite ) TauSearchStackPanelBaseViewController* baseViewController_;
-@end
+@end // Private Interfaces
 
+// TauSearchStackPanelController class
 @implementation TauSearchStackPanelController
+
+#pragma mark - Initializations
 
 - ( void ) viewDidLoad
     {
@@ -28,4 +32,4 @@
     constraintsCache_ = [ viewsStack_.currentView.view autoPinEdgesToSuperviewEdges ];
     }
 
-@end
+@end // TauSearchStackPanelController class

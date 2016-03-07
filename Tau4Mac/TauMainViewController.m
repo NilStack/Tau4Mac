@@ -83,7 +83,7 @@
                  , ( dispatch_block_t )
     ^( void )
         {
-        sCtrller = [ [ TauSearchStackPanelController alloc ] initWithNibName: @"TauAbstractStackPanelController" bundle: nil ];
+        sCtrller = [ [ TauSearchStackPanelController alloc ] initWithNibName: nil bundle: nil ];
         } );
 
     return sCtrller;
@@ -98,7 +98,7 @@
                  , ( dispatch_block_t )
     ^( void )
         {
-        sCtrller = [ [ TauMeTubeStackPanelController alloc ] initWithNibName: @"TauAbstractStackPanelController" bundle: nil ];
+        sCtrller = [ [ TauMeTubeStackPanelController alloc ] initWithNibName: nil bundle: nil ];
         } );
 
     return sCtrller;

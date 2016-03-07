@@ -17,6 +17,8 @@
     NSArray <NSLayoutConstraint*> __strong* constraintsCache_;
     }
 
+#pragma mark - Stack Operations
+
 - ( void ) pushView: ( TauStackViewItem* )_NewItem;
 - ( void ) popView;
 

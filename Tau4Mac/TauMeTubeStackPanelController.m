@@ -10,10 +10,12 @@
 #import "TauMeTubeStackPanelBaseViewController.h"
 #import "TauViewsStack.h"
 
+// Private Interfaces
 @interface TauMeTubeStackPanelController ()
 @property ( strong, readwrite ) TauMeTubeStackPanelBaseViewController* baseViewController_;
-@end
+@end // Private Interfaces
 
+// TauMeTubeStackPanelController class
 @implementation TauMeTubeStackPanelController
 
 - ( void ) viewDidLoad
@@ -28,4 +30,4 @@
     constraintsCache_ = [ viewsStack_.currentView.view autoPinEdgesToSuperviewEdges ];
     }
 
-@end
+@end // TauMeTubeStackPanelController class

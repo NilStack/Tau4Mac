@@ -16,6 +16,17 @@
 
 @implementation TauAbstractStackPanelController
 
+#pragma mark - Initializations
+
+- ( instancetype ) initWithNibName: ( NSString* )_NibNameOrNil
+                            bundle: ( NSBundle* )_NibBundleOrNil
+    {
+    id correctedNibName = _NibNameOrNil ?: NSStringFromClass( [ TauAbstractStackPanelController class ] );
+    return [ super initWithNibName: correctedNibName bundle: _NibBundleOrNil ];
+    }
+
+#pragma mark - Stack Operations
+
 - ( void ) pushView: ( TauStackViewItem* )_NewItem
     {
     if ( constraintsCache_ )

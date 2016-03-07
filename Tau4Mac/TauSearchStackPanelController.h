@@ -8,6 +8,7 @@
 
 #import "TauAbstractStackPanelController.h"
 
+// TauSearchStackPanelController class
 @interface TauSearchStackPanelController : TauAbstractStackPanelController
 
-@end
+@end // TauSearchStackPanelController class
