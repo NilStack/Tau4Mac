@@ -6,7 +6,7 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-@class TauStackViewItem;
+@class TauAbstractStackViewItem;
 @class TauViewsStack;
 
 // TauAbstractStackPanelController class
@@ -19,7 +19,7 @@
 
 #pragma mark - Stack Operations
 
-- ( void ) pushView: ( TauStackViewItem* )_NewItem;
+- ( void ) pushView: ( TauAbstractStackViewItem* )_NewItem;
 - ( void ) popView;
 
 @end // TauAbstractStackPanelController class

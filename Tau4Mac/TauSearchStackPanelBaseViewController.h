@@ -6,10 +6,10 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauStackViewItem.h"
+#import "TauAbstractStackViewItem.h"
 
 // TauSearchStackPanelBaseViewController class
-@interface TauSearchStackPanelBaseViewController : TauStackViewItem
+@interface TauSearchStackPanelBaseViewController : TauAbstractStackViewItem
 
 #pragma mark - Outlets
 

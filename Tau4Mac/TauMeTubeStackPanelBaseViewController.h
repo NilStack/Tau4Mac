@@ -6,9 +6,9 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauStackViewItem.h"
+#import "TauAbstractStackViewItem.h"
 
 // TauMeTubeStackPanelBaseViewController class
-@interface TauMeTubeStackPanelBaseViewController : TauStackViewItem
+@interface TauMeTubeStackPanelBaseViewController : TauAbstractStackViewItem
 
 @end // TauMeTubeStackPanelBaseViewController class

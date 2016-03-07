@@ -8,7 +8,7 @@
 
 #import "TauAbstractStackPanelController.h"
 #import "TauViewsStack.h"
-#import "TauStackViewItem.h"
+#import "TauAbstractStackViewItem.h"
 
 // TauAbstractStackPanelController class
 @interface TauAbstractStackPanelController ()
@@ -27,7 +27,7 @@
 
 #pragma mark - Stack Operations
 
-- ( void ) pushView: ( TauStackViewItem* )_NewItem
+- ( void ) pushView: ( TauAbstractStackViewItem* )_NewItem
     {
     if ( constraintsCache_ )
         [ self.view removeConstraints: constraintsCache_ ];

@@ -6,12 +6,12 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauStackViewItem.h"
+#import "TauAbstractStackViewItem.h"
 
 @class TauSearchResultCollectionToolbar;
 
 // TauResultCollectionPanelViewController class
-@interface TauResultCollectionPanelViewController : TauStackViewItem
+@interface TauResultCollectionPanelViewController : TauAbstractStackViewItem
 
 #pragma mark - Initializations
 

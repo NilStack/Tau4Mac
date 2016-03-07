@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="TauSearchPanelBaseViewController">
+        <customObject id="-2" userLabel="File's Owner" customClass="TauSearchStackPanelBaseViewController">
             <connections>
                 <outlet property="searchField" destination="3On-Ag-Ji8" id="PYY-cq-Kdi"/>
                 <outlet property="view" destination="3TL-3f-VzS" id="vmE-6X-jLj"/>
