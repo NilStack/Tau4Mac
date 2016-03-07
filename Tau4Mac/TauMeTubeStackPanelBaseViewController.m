@@ -38,6 +38,8 @@
     GTLYouTubePlaylistItemListResponse __strong* watchLaterPlaylistItemResp_;
 
     GTLServiceTicket __strong __block* ytChannelMineListTicket_;
+    GTLYouTubeChannelContentDetails __strong __block* ytChannelMineContentDetails_;
+
     GTLServiceTicket __strong* ytLikesListTicket_;
 
     NSMutableArray <NSLayoutConstraint*>* layoutConstraintsCache_;
@@ -77,8 +79,8 @@
                 {
                 isFetchRelatedPlaylistsSuccess_ = YES;
 
-                GTLYouTubeChannelContentDetails* contentDetails = [ ( GTLYouTubeChannel* )( _ChannelListResp.items.firstObject ) contentDetails ];
-                GTLYouTubeChannelContentDetailsRelatedPlaylists* relatedPlaylists = contentDetails.relatedPlaylists;
+                ytChannelMineContentDetails_ = [ ( GTLYouTubeChannel* )( _ChannelListResp.items.firstObject ) contentDetails ];
+                GTLYouTubeChannelContentDetailsRelatedPlaylists* relatedPlaylists = ytChannelMineContentDetails_.relatedPlaylists;
 
                 likesPlaylistID_ = relatedPlaylists.likes;
                 favoritesPlaylistID_ = relatedPlaylists.favorites;
@@ -133,6 +135,8 @@
                         [ self.likesCollectionSubPanelController_.view autoPinEdge: ALEdgeTop toEdge: ALEdgeBottom ofView: self.subPanelSegSwitcherPanel ] ];
 
                     } break;
+
+                default:;
                 }
             }
         } ];
@@ -168,6 +172,8 @@
                 {
                 if ( _PlaylistItemListResp && !_Error )
                     {
+                    [ _PlaylistItemListResp setProperty: ytChannelMineContentDetails_ forKey: @"hint" ];
+
                     sC.ytCollectionObject = _PlaylistItemListResp;
                     sC.ytTicket = _Ticket;
                     }

@@ -9,7 +9,7 @@
 #import "TauResultCollectionPanelViewController.h"
 #import "TauYouTubeEntriesCollectionViewController.h"
 #import "TauAbstractStackPanelController.h"
-#import "TauSearchResultCollectionToolbar.h"
+#import "TauResultsCollectionToolbar.h"
 
 // Private Interfaces
 @interface TauResultCollectionPanelViewController ()
@@ -55,16 +55,6 @@
 
 #pragma mark - IBAction
 
-#define TAU_PAGEER_PREV 0
-#define TAU_PAGEER_NEXT 1
-
-// To suppress the "PerformSelector may cause a leak because its selector is unknown" warning
-#define TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING( _CodeFragment )\
-    _Pragma("clang diagnostic push")\
-    _Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"")\
-        do { _CodeFragment } while( 0 )\
-    _Pragma("clang diagnostic pop")
-
 - ( IBAction ) pageAction: ( NSSegmentedControl* )_Sender
     {
     id pageToken = nil;
@@ -85,7 +75,7 @@
 
     @try {
         if ( [ ytCollectionObject_ respondsToSelector: pageSelector ] )
-            TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING( pageToken = [ ytCollectionObject_ performSelector: pageSelector ]; );
+            TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING( pageToken = [ ytCollectionObject_ performSelector: pageSelector ] );
 
         if ( pageToken )
             {
@@ -132,6 +122,8 @@
         {
         ytCollectionObject_ = _CollectionObject;
         entriesCollectionViewController_.ytCollectionObject = ytCollectionObject_;
+
+        self.toolbarView.ytCollectionObject = ytCollectionObject_;
         }
     }
 

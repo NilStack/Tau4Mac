@@ -17,10 +17,10 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="MzW-W0-JMa" customClass="TauSearchResultCollectionToolbar">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="MzW-W0-JMa" customClass="TauResultsCollectionToolbar">
                     <rect key="frame" x="0.0" y="240" width="480" height="32"/>
                     <subviews>
-                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ewq-CW-Hf5">
+                        <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ewq-CW-Hf5">
                             <rect key="frame" x="396" y="3" width="69" height="25"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="22" id="DXW-Xc-Ht0"/>
@@ -34,7 +34,7 @@
                                 <action selector="dismissAction:" target="-2" id="txh-X5-Loc"/>
                             </connections>
                         </button>
-                        <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="C39-pw-mzU">
+                        <segmentedControl hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="C39-pw-mzU">
                             <rect key="frame" x="15" y="3" width="67" height="25"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="22" id="ZR0-xS-etV"/>
@@ -43,10 +43,10 @@
                             <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedRounded" trackingMode="momentary" id="56C-8S-e8G">
                                 <font key="font" metaFont="system"/>
                                 <segments>
-                                    <segment image="NSGoLeftTemplate" width="30">
+                                    <segment image="NSGoLeftTemplate" width="30" enabled="NO">
                                         <nil key="label"/>
                                     </segment>
-                                    <segment image="NSGoRightTemplate" width="30" tag="1">
+                                    <segment image="NSGoRightTemplate" width="30" enabled="NO" tag="1">
                                         <nil key="label"/>
                                     </segment>
                                 </segments>
@@ -55,7 +55,7 @@
                                 <action selector="pageAction:" target="-2" id="55F-hL-sTo"/>
                             </connections>
                         </segmentedControl>
-                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="JyQ-Ek-OnU" customClass="TauSearchResultCollectionSummaryView">
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="JyQ-Ek-OnU" customClass="TauResultsCollectionSummaryView">
                             <rect key="frame" x="88" y="1" width="302" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="ats-3M-XC2"/>
