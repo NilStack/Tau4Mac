@@ -11,15 +11,7 @@
 // TauYouTubeEntryLayer class
 @implementation TauYouTubeEntryLayer
 
-#pragma mark - Initialozations
-
-- ( instancetype ) init
-    {
-    if ( self = [ super init ] )
-        ;
-
-    return self;
-    }
+#pragma mark - Overrides
 
 - ( void ) setContents: ( id )_Contents
     {
