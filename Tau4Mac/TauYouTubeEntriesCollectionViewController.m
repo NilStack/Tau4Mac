@@ -197,20 +197,20 @@
         }
 
     NSMutableArray* videoObjects = [ NSMutableArray array ];
-    for ( GTLYouTubeSearchResult* _SearchResult in _RepresentedObject )
+    for ( GTLObject* _Object in _RepresentedObject )
         {
-        DDLogDebug( @"%@", _SearchResult );
-        [ videoObjects addObject: _SearchResult ];
+        DDLogDebug( @"%@", _Object );
+        [ videoObjects addObject: _Object ];
         }
 
     [ mutVideoViews_ enumerateObjectsUsingBlock:
-    ^( TauYouTubeEntryView* _EntryView, NSUInteger idx, BOOL * _Nonnull stop)
+    ^( TauYouTubeEntryView* _EntryView, NSUInteger _Index, BOOL * _Nonnull _Stop)
         {
         [ _EntryView setYtContent: nil ];
         } ];
 
     [ videoObjects enumerateObjectsUsingBlock:
-    ^( GTLYouTubeSearchResult* _Nonnull _SearchResult, NSUInteger _Index, BOOL* _Nonnull _Stop )
+    ^( GTLObject* _Nonnull _SearchResult, NSUInteger _Index, BOOL* _Nonnull _Stop )
         {
         [ mutVideoViews_[ _Index ] setYtContent: _SearchResult ];
         } ];

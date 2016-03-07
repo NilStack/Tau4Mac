@@ -67,6 +67,7 @@
         {
         case TauYouTubeVideoView:
         case TauYouTubePlayListView:
+        case TauYouTubePlayListItemView:
             {
             self.layer.contents = thumbnailImage_;
             } break;
@@ -76,7 +77,8 @@
             self.layer.contents = [ thumbnailImage_ gaussianBluredOfRadius: 10.f ];
             } break;
 
-        default:;
+        default:
+            self.layer.contents = nil;
         }
     }
 
@@ -113,6 +115,9 @@
             || ( [ ytContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ]
                     && [ [ ( GTLYouTubeSearchResult* )ytContent_ identifier ].kind isEqualToString: @"youtube#playlist" ] ) )
         type = TauYouTubePlayListView;
+
+    else if ( [ ytContent_ isKindOfClass: [ GTLYouTubePlaylistItem class ] ] )
+        type = TauYouTubePlayListItemView;
 
     return type;
     }
@@ -170,8 +175,12 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
         GTLObject* snippet = nil;
         if ( [ ytContent_ isKindOfClass: [ GTLYouTubeVideo class ] ] )
             snippet = [ ( GTLYouTubeVideo* )ytContent_ snippet ];
+
         else if ( [ ytContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ] )
             snippet = [ ( GTLYouTubeSearchResult* )ytContent_ snippet ];
+
+        else if ( [ ytContent_ isKindOfClass: [ GTLYouTubePlaylistItem class ] ] )
+            snippet = [ ( GTLYouTubePlaylistItem* )ytContent_ snippet ];
 
         // snippet is kind of either GTLYouTubeVideoSnippet or GTLYouTubeSearchResultSnippet
         // both two classes response `thumbnails` selector correctly

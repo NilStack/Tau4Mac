@@ -9,7 +9,7 @@
 @class TauSearchResultCollectionSummaryView;
 
 // TauSearchResultCollectionToolbar class
-@interface TauSearchResultCollectionToolbar : NSVisualEffectView
+@interface TauSearchResultCollectionToolbar : NSView
 
 @property ( strong ) GTLCollectionObject* ytCollectionObject;
 

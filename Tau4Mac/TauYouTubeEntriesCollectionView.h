@@ -9,6 +9,6 @@
 #import "TauAbstractBeautifulView.h"
 
 // TauYouTubeEntriesCollectionView class
-@interface TauYouTubeEntriesCollectionView : TauAbstractBeautifulView
+@interface TauYouTubeEntriesCollectionView : NSView
 
 @end // TauYouTubeEntriesCollectionView class

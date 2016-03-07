@@ -17,6 +17,11 @@
 
 - ( instancetype ) initWithGTLCollectionObject: ( GTLCollectionObject* )_CollectionObject ticket: ( GTLServiceTicket* )_Ticket;
 
+#pragma mark - Properties
+
+@property ( strong, readwrite ) GTLCollectionObject* ytCollectionObject;
+@property ( strong, readwrite ) GTLServiceTicket* ytTicket;
+
 #pragma mark - Outlets
 
 @property ( weak ) IBOutlet TauSearchResultCollectionToolbar* toolbarView;

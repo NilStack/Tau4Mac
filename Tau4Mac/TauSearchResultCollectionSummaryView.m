@@ -44,7 +44,7 @@
     NSString* summaryText = NSLocalizedString( @"Search Results", nil );
     NSString* countText = [ NSString stringWithFormat: NSLocalizedString( @"About %@ results", nil ), @( numberOfResults_ ) ];
 
-    NSString* fontName = @"Helvetica";
+    NSString* fontName = @"Helvetica Neue";
     if ( !sumDrawingAttrs_ )
         {
         sumDrawingAttrs_ =

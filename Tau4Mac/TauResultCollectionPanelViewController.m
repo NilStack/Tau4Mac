@@ -121,4 +121,37 @@
     [ self.hostStack popView ];
     }
 
+#pragma mark - Dynamic Properties
+
+@dynamic ytCollectionObject;
+@dynamic ytTicket;
+
+- ( void ) setYtCollectionObject: ( GTLCollectionObject* )_CollectionObject
+    {
+    if ( ytCollectionObject_ != _CollectionObject )
+        {
+        ytCollectionObject_ = _CollectionObject;
+        entriesCollectionViewController_.ytCollectionObject = ytCollectionObject_;
+        }
+    }
+
+- ( GTLCollectionObject* ) ytCollectionObject
+    {
+    return ytCollectionObject_;
+    }
+
+- ( void ) setYtTicket: ( GTLServiceTicket* )_Ticket
+    {
+    if ( ytTicket_ != _Ticket )
+        {
+        ytTicket_ = _Ticket;
+        entriesCollectionViewController_.ytTicket = ytTicket_;
+        }
+    }
+
+- ( GTLServiceTicket* ) ytTicket
+    {
+    return ytTicket_;
+    }
+
 @end // TauResultCollectionPanelViewController class

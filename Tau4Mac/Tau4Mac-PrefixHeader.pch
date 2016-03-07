@@ -45,4 +45,12 @@ typedef NS_ENUM ( NSInteger, TauPanelsSwitcherSegmentTag )
     , TauPanelsSwitcherTrendingTag  = 2
     };
 
+typedef NS_ENUM ( NSInteger, TauMeTubeSubPanelSwitcherSegmentTag )
+    { TauMeTubeSubPanelSwitcherLikesTag         = 0
+    , TauMeTubeSubPanelSwitcherFavoritesTag     = 1
+    , TauMeTubeSubPanelSwitcherUploadsTag       = 2
+    , TauMeTubeSubPanelSwitcherHistoryTag       = 3
+    , TauMeTubeSubPanelSwitcherWatchLaterTag    = 4
+    };
+
 #endif /* Tau4Mac_PrefixHeader_pch */

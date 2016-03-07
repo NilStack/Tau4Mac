@@ -11,4 +11,7 @@
 // TauMeTubeStackPanelBaseViewController class
 @interface TauMeTubeStackPanelBaseViewController : TauAbstractStackViewItem
 
+@property ( weak ) IBOutlet NSSegmentedControl* subPanelSegSwitcher;
+@property ( weak ) IBOutlet NSView* subPanelSegSwitcherPanel;
+
 @end // TauMeTubeStackPanelBaseViewController class
