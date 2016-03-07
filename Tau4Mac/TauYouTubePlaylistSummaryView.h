@@ -6,8 +6,10 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
+#import "TauAbstractBeautifulView.h"
+
 // TauYouTubePlaylistSummaryView class
-@interface TauYouTubePlaylistSummaryView : NSVisualEffectView
+@interface TauYouTubePlaylistSummaryView : TauAbstractBeautifulView
 
 #pragma mark - Wrapped Properties
 

@@ -16,7 +16,7 @@
 
 // Private Interfaces
 @interface TauYouTubePlaylistSummaryView ()
-- ( void ) doInit_;
+- ( void ) doPlistSumViewInit_;
 @end // Private Interfaces
 
 // TauYouTubePlaylistSummaryView class
@@ -30,26 +30,22 @@
 - ( instancetype ) initWithFrame: ( NSRect )_FrameRect
     {
     if ( self = [ super initWithFrame: _FrameRect ] )
-        [ self doInit_ ];
+        [ self doPlistSumViewInit_ ];
     return self;
     }
 
 - ( instancetype ) initWithCoder: ( NSCoder* )_Coder
     {
     if ( self = [ super initWithCoder: _Coder ] )
-        [ self doInit_ ];
+        [ self doPlistSumViewInit_ ];
     return self;
     }
 
 #pragma mark - Private Interfaces
 
-- ( void ) doInit_
+- ( void ) doPlistSumViewInit_
     {
-    [ self configureForAutoLayout ];
-
     self.blendingMode = NSVisualEffectBlendingModeWithinWindow;
-    self.material = NSVisualEffectMaterialDark;
-    self.state = NSVisualEffectStateActive;
 
     internalView_ = [ [ InternalView_ alloc ] initWithFrame: NSZeroRect ];
     [ self addSubview: internalView_ ];
@@ -110,6 +106,8 @@
 
 - ( void ) drawRect: ( NSRect )_DirtyRect
     {
+    [ super drawRect: _DirtyRect ];
+
     if ( !drawingAttrs_ )
         drawingAttrs_ = @{ NSFontAttributeName : [ NSFont fontWithName: @"Helvetica Neue Light" size: 25.f ]
                          , NSForegroundColorAttributeName : [ NSColor whiteColor ]

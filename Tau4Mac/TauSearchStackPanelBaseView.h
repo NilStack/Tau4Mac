@@ -6,7 +6,9 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
+#import "TauAbstractBeautifulView.h"
+
 // TauSearchStackPanelBaseView class
-@interface TauSearchStackPanelBaseView : NSVisualEffectView
+@interface TauSearchStackPanelBaseView : TauAbstractBeautifulView
 
 @end // TauSearchStackPanelBaseView class

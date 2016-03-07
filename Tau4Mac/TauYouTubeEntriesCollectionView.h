@@ -6,7 +6,9 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
+#import "TauAbstractBeautifulView.h"
+
 // TauYouTubeEntriesCollectionView class
-@interface TauYouTubeEntriesCollectionView : NSView
+@interface TauYouTubeEntriesCollectionView : TauAbstractBeautifulView
 
 @end // TauYouTubeEntriesCollectionView class

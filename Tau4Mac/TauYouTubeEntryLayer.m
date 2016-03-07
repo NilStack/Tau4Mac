@@ -19,11 +19,11 @@
 
     [ CATransaction begin ];
     [ CATransaction setDisableActions: YES ];
+
     if ( self.contents )
         {
         self.borderColor = [ NSColor blackColor ].CGColor;
-        self.borderWidth = .5f;
-        self.backgroundColor = [ NSColor blackColor ].CGColor;
+        self.borderWidth = .7f;
         }
     else
         {
