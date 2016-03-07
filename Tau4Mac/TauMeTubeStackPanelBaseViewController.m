@@ -13,6 +13,10 @@
 @interface TauMeTubeStackPanelBaseViewController ()
 
 @property ( strong, readonly ) TauResultCollectionPanelViewController* likesCollectionSubPanelController_;
+@property ( strong, readonly ) TauResultCollectionPanelViewController* uploadsCollectionSubPanelController_;
+@property ( strong, readonly ) TauResultCollectionPanelViewController* historyCollectionSubPanelController_;
+@property ( strong, readonly ) TauResultCollectionPanelViewController* watchLaterCollectionSubPanelController_;
+
 @property ( assign, readonly ) BOOL isFetchingRelatedPlaylists_;
 
 - ( void ) doMeTubeStackPanelBaseViewControllerInit_;
@@ -136,6 +140,42 @@
 
                     } break;
 
+                case TauMeTubeSubPanelSwitcherUploadsTag:
+                    {
+                    currentCollectionPanelView_ = self.uploadsCollectionSubPanelController_.view;
+                    [ self.view addSubview: currentCollectionPanelView_ ];
+
+                    [ layoutConstraintsCache_ addObjectsFromArray:
+                        [ self.uploadsCollectionSubPanelController_.view autoPinEdgesToSuperviewEdgesWithInsets: NSEdgeInsetsZero excludingEdge: ALEdgeTop ] ];
+
+                    [ layoutConstraintsCache_ addObject:
+                        [ self.uploadsCollectionSubPanelController_.view autoPinEdge: ALEdgeTop toEdge: ALEdgeBottom ofView: self.subPanelSegSwitcherPanel ] ];
+                    } break;
+
+                case TauMeTubeSubPanelSwitcherHistoryTag:
+                    {
+                    currentCollectionPanelView_ = self.historyCollectionSubPanelController_.view;
+                    [ self.view addSubview: currentCollectionPanelView_ ];
+
+                    [ layoutConstraintsCache_ addObjectsFromArray:
+                        [ self.historyCollectionSubPanelController_.view autoPinEdgesToSuperviewEdgesWithInsets: NSEdgeInsetsZero excludingEdge: ALEdgeTop ] ];
+
+                    [ layoutConstraintsCache_ addObject:
+                        [ self.historyCollectionSubPanelController_.view autoPinEdge: ALEdgeTop toEdge: ALEdgeBottom ofView: self.subPanelSegSwitcherPanel ] ];
+                    } break;
+
+                case TauMeTubeSubPanelSwitcherWatchLaterTag:
+                    {
+                    currentCollectionPanelView_ = self.watchLaterCollectionSubPanelController_.view;
+                    [ self.view addSubview: currentCollectionPanelView_ ];
+
+                    [ layoutConstraintsCache_ addObjectsFromArray:
+                        [ self.watchLaterCollectionSubPanelController_.view autoPinEdgesToSuperviewEdgesWithInsets: NSEdgeInsetsZero excludingEdge: ALEdgeTop ] ];
+
+                    [ layoutConstraintsCache_ addObject:
+                        [ self.watchLaterCollectionSubPanelController_.view autoPinEdge: ALEdgeTop toEdge: ALEdgeBottom ofView: self.subPanelSegSwitcherPanel ] ];
+                    } break;
+
                 default:;
                 }
             }
@@ -147,18 +187,22 @@
 #pragma mark - Private Interfaces
 
 @dynamic likesCollectionSubPanelController_;
+@dynamic uploadsCollectionSubPanelController_;
+@dynamic historyCollectionSubPanelController_;
+@dynamic watchLaterCollectionSubPanelController_;
+
 @dynamic isFetchingRelatedPlaylists_;
 
 - ( TauResultCollectionPanelViewController* ) likesCollectionSubPanelController_
     {
-    TauResultCollectionPanelViewController static* sC;
+    TauResultCollectionPanelViewController static* sLikesC;
 
     dispatch_once_t static onceToken;
     dispatch_once( &onceToken
                  , ( dispatch_block_t )
     ^( void )
         {
-        sC = [ [ TauResultCollectionPanelViewController alloc ] initWithGTLCollectionObject: nil ticket: nil ];
+        sLikesC = [ [ TauResultCollectionPanelViewController alloc ] initWithGTLCollectionObject: nil ticket: nil ];
 
         if ( !self.isFetchingRelatedPlaylists_ && likesPlaylistID_ )
             {
@@ -174,8 +218,8 @@
                     {
                     [ _PlaylistItemListResp setProperty: ytChannelMineContentDetails_ forKey: @"hint" ];
 
-                    sC.ytCollectionObject = _PlaylistItemListResp;
-                    sC.ytTicket = _Ticket;
+                    sLikesC.ytCollectionObject = _PlaylistItemListResp;
+                    sLikesC.ytTicket = _Ticket;
                     }
                 else
                     DDLogError( @"%@", _Error );
@@ -183,7 +227,118 @@
             }
         } );
 
-    return sC;
+    return sLikesC;
+    }
+
+- ( TauResultCollectionPanelViewController* ) uploadsCollectionSubPanelController_
+    {
+    TauResultCollectionPanelViewController static* sUploadsC;
+
+    dispatch_once_t static onceToken;
+    dispatch_once( &onceToken
+                 , ( dispatch_block_t )
+    ^( void )
+        {
+        sUploadsC = [ [ TauResultCollectionPanelViewController alloc ] initWithGTLCollectionObject: nil ticket: nil ];
+
+        if ( !self.isFetchingRelatedPlaylists_ && uploadsPlaylistID_ )
+            {
+            GTLQueryYouTube* playlistListItemsQuery = [ GTLQueryYouTube queryForPlaylistItemsListWithPart: @"contentDetails,id,snippet,status" ];
+            [ playlistListItemsQuery setPlaylistId: uploadsPlaylistID_ ];
+            [ playlistListItemsQuery setMaxResults: 20 ];
+
+            [ [ TauDataService sharedService ].ytService
+                executeQuery: playlistListItemsQuery completionHandler:
+            ^( GTLServiceTicket* _Ticket, GTLYouTubePlaylistItemListResponse* _PlaylistItemListResp, NSError* _Error )
+                {
+                if ( _PlaylistItemListResp && !_Error )
+                    {
+                    [ _PlaylistItemListResp setProperty: ytChannelMineContentDetails_ forKey: @"hint" ];
+
+                    sUploadsC.ytCollectionObject = _PlaylistItemListResp;
+                    sUploadsC.ytTicket = _Ticket;
+                    }
+                else
+                    DDLogError( @"%@", _Error );
+                } ];
+            }
+        } );
+
+    return sUploadsC;
+    }
+
+- ( TauResultCollectionPanelViewController* ) historyCollectionSubPanelController_
+    {
+    TauResultCollectionPanelViewController static* sHisC;
+
+    dispatch_once_t static onceToken;
+    dispatch_once( &onceToken
+                 , ( dispatch_block_t )
+    ^( void )
+        {
+        sHisC = [ [ TauResultCollectionPanelViewController alloc ] initWithGTLCollectionObject: nil ticket: nil ];
+
+        if ( !self.isFetchingRelatedPlaylists_ && historyPlaylistID_ )
+            {
+            GTLQueryYouTube* playlistListItemsQuery = [ GTLQueryYouTube queryForPlaylistItemsListWithPart: @"contentDetails,id,snippet,status" ];
+            [ playlistListItemsQuery setPlaylistId: historyPlaylistID_ ];
+            [ playlistListItemsQuery setMaxResults: 20 ];
+
+            [ [ TauDataService sharedService ].ytService
+                executeQuery: playlistListItemsQuery completionHandler:
+            ^( GTLServiceTicket* _Ticket, GTLYouTubePlaylistItemListResponse* _PlaylistItemListResp, NSError* _Error )
+                {
+                if ( _PlaylistItemListResp && !_Error )
+                    {
+                    [ _PlaylistItemListResp setProperty: ytChannelMineContentDetails_ forKey: @"hint" ];
+
+                    sHisC.ytCollectionObject = _PlaylistItemListResp;
+                    sHisC.ytTicket = _Ticket;
+                    }
+                else
+                    DDLogError( @"%@", _Error );
+                } ];
+            }
+        } );
+
+    return sHisC;
+    }
+
+- ( TauResultCollectionPanelViewController* ) watchLaterCollectionSubPanelController_
+    {
+    TauResultCollectionPanelViewController static* sHisC;
+
+    dispatch_once_t static onceToken;
+    dispatch_once( &onceToken
+                 , ( dispatch_block_t )
+    ^( void )
+        {
+        sHisC = [ [ TauResultCollectionPanelViewController alloc ] initWithGTLCollectionObject: nil ticket: nil ];
+
+        if ( !self.isFetchingRelatedPlaylists_ && watchLaterPlaylistID_ )
+            {
+            GTLQueryYouTube* playlistListItemsQuery = [ GTLQueryYouTube queryForPlaylistItemsListWithPart: @"contentDetails,id,snippet,status" ];
+            [ playlistListItemsQuery setPlaylistId: watchLaterPlaylistID_ ];
+            [ playlistListItemsQuery setMaxResults: 20 ];
+
+            [ [ TauDataService sharedService ].ytService
+                executeQuery: playlistListItemsQuery completionHandler:
+            ^( GTLServiceTicket* _Ticket, GTLYouTubePlaylistItemListResponse* _PlaylistItemListResp, NSError* _Error )
+                {
+                if ( _PlaylistItemListResp && !_Error )
+                    {
+                    [ _PlaylistItemListResp setProperty: ytChannelMineContentDetails_ forKey: @"hint" ];
+
+                    sHisC.ytCollectionObject = _PlaylistItemListResp;
+                    sHisC.ytTicket = _Ticket;
+                    }
+                else
+                    DDLogError( @"%@", _Error );
+                } ];
+            }
+        } );
+
+    return sHisC;
     }
 
 - ( BOOL ) isFetchingRelatedPlaylists_

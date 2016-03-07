@@ -22,17 +22,16 @@
                     <rect key="frame" x="0.0" y="242" width="480" height="30"/>
                     <subviews>
                         <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MOZ-Tp-Kur">
-                            <rect key="frame" x="35" y="6" width="410" height="18"/>
+                            <rect key="frame" x="76" y="6" width="329" height="18"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="408" id="0lL-ny-2Qz"/>
+                                <constraint firstAttribute="width" constant="327" id="0lL-ny-2Qz"/>
                                 <constraint firstAttribute="height" constant="16" id="2zu-AP-5yA"/>
                             </constraints>
                             <segmentedCell key="cell" controlSize="small" enabled="NO" borderStyle="border" alignment="left" style="roundRect" trackingMode="selectOne" id="KgX-7Y-dPF">
                                 <font key="font" metaFont="smallSystem"/>
                                 <segments>
                                     <segment label="Likes" width="80"/>
-                                    <segment label="Favorites" width="80" tag="1"/>
-                                    <segment label="Uploads" width="80"/>
+                                    <segment label="Uploads" width="80" tag="1"/>
                                     <segment label="History" width="80"/>
                                     <segment label="Watch Later" width="80"/>
                                 </segments>
