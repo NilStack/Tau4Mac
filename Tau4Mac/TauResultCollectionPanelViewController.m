@@ -8,8 +8,8 @@
 
 #import "TauResultCollectionPanelViewController.h"
 #import "TauYouTubeEntriesCollectionViewController.h"
-#import "TauSearchPanelStackViewController.h"
-#import "TauResultCollectionToolbarView.h"
+#import "TauPanelStackViewController.h"
+#import "TauSearchResultCollectionToolbar.h"
 
 // Private Interfaces
 @interface TauResultCollectionPanelViewController ()
@@ -49,6 +49,8 @@
     [ self.view addSubview: entriesCollectionViewController_.view ];
     [ entriesCollectionViewController_.view autoPinEdgesToSuperviewEdgesWithInsets: NSEdgeInsetsZero excludingEdge: ALEdgeTop ];
     [ entriesCollectionViewController_.view autoPinEdge: ALEdgeTop toEdge: ALEdgeBottom ofView: self.toolbarView ];
+
+    self.toolbarView.ytCollectionObject = ytCollectionObject_;
     }
 
 #pragma mark - IBAction

@@ -8,7 +8,7 @@
 
 #import "TauStackViewItem.h"
 
-@class TauResultCollectionToolbarView;
+@class TauSearchResultCollectionToolbar;
 
 // TauResultCollectionPanelViewController class
 @interface TauResultCollectionPanelViewController : TauStackViewItem
@@ -19,8 +19,7 @@
 
 #pragma mark - Outlets
 
-@property ( weak ) IBOutlet NSScrollView* scrollView;
-@property ( weak ) IBOutlet TauResultCollectionToolbarView* toolbarView;
+@property ( weak ) IBOutlet TauSearchResultCollectionToolbar* toolbarView;
 
 #pragma mark - IBAction
 

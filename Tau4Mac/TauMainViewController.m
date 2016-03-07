@@ -8,11 +8,11 @@
 
 #import "TauMainViewController.h"
 
-#import "TauSearchPanelStackViewController.h"
+#import "TauPanelStackViewController.h"
 
 // Private Interfaces
 @interface TauMainViewController ()
-@property ( strong, readonly ) TauSearchPanelStackViewController* searchPanelStackViewController_;
+@property ( strong, readonly ) TauPanelStackViewController* searchPanelStackViewController_;
 @end // Private Interfaces
 
 // TauMainViewController class
@@ -64,16 +64,16 @@
 
 @dynamic searchPanelStackViewController_;
 
-- ( TauSearchPanelStackViewController* ) searchPanelStackViewController_
+- ( TauPanelStackViewController* ) searchPanelStackViewController_
     {
-    TauSearchPanelStackViewController static* sCtrller;
+    TauPanelStackViewController static* sCtrller;
 
     dispatch_once_t static onceToken;
     dispatch_once( &onceToken
                  , ( dispatch_block_t )
     ^( void )
         {
-        sCtrller = [ [ TauSearchPanelStackViewController alloc ] initWithNibName: nil bundle: nil ];
+        sCtrller = [ [ TauPanelStackViewController alloc ] initWithNibName: nil bundle: nil ];
         } );
 
     return sCtrller;

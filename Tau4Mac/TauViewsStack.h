@@ -1,6 +1,4 @@
 
-@class TauViewController;
-
 // TauViewsStack class
 @interface TauViewsStack : NSObject
     {

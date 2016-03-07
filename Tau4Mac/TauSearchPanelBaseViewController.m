@@ -8,7 +8,7 @@
 
 #import "TauSearchPanelBaseViewController.h"
 #import "TauResultCollectionPanelViewController.h"
-#import "TauSearchPanelStackViewController.h"
+#import "TauPanelStackViewController.h"
 
 // Private Interfaces
 @interface TauSearchPanelBaseViewController ()

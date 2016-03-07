@@ -1,20 +1,20 @@
 //
-//  TauResultCollectionToolbarView.m
+//  TauSearchResultCollectionToolbar.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/5/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauResultCollectionToolbarView.h"
-#import "TauResultCollectionPanelTitleView.h"
+#import "TauSearchResultCollectionToolbar.h"
+#import "TauSearchResultCollectionPanelTitleView.h"
 
 // Private Interfaces
-@interface TauResultCollectionToolbarView ()
+@interface TauSearchResultCollectionToolbar ()
 - ( void ) doInit_;
 @end // Private Interfaces
 
-@implementation TauResultCollectionToolbarView
+@implementation TauSearchResultCollectionToolbar
     {
     NSUInteger pageNumber_;
     GTLCollectionObject* ytCollectionObject_;

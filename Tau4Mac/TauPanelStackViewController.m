@@ -1,22 +1,22 @@
 //
-//  TauSearchPanelStackViewController.m
+//  TauPanelStackViewController.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/5/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauSearchPanelStackViewController.h"
+#import "TauPanelStackViewController.h"
 #import "TauViewsStack.h"
 #import "TauSearchPanelBaseViewController.h"
 #import "TauStackViewItem.h"
 
-// TauSearchPanelStackViewController class
-@interface TauSearchPanelStackViewController ()
+// TauPanelStackViewController class
+@interface TauPanelStackViewController ()
 @property ( strong, readwrite ) TauSearchPanelBaseViewController* baseViewController_;
 @end
 
-@implementation TauSearchPanelStackViewController
+@implementation TauPanelStackViewController
     {
     TauViewsStack __strong* viewsStack_;
     NSArray <NSLayoutConstraint*> __strong* constraintsCache_;
@@ -58,4 +58,4 @@
     constraintsCache_ = [ viewsStack_.currentView.view autoPinEdgesToSuperviewEdges ];
     }
 
-@end // TauSearchPanelStackViewController class
+@end // TauPanelStackViewController class

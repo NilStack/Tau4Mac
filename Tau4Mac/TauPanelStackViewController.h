@@ -1,5 +1,5 @@
 //
-//  TauSearchPanelStackViewController.h
+//  TauPanelStackViewController.h
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/5/16.
@@ -8,10 +8,10 @@
 
 @class TauStackViewItem;
 
-// TauSearchPanelStackViewController class
-@interface TauSearchPanelStackViewController : NSViewController
+// TauPanelStackViewController class
+@interface TauPanelStackViewController : NSViewController
 
 - ( void ) pushView: ( TauStackViewItem* )_NewItem;
 - ( void ) popView;
 
-@end // TauSearchPanelStackViewController class
+@end // TauPanelStackViewController class
