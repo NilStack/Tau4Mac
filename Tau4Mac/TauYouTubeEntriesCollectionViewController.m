@@ -71,6 +71,8 @@
         for ( int _Index = 0; _Index < TAU_ROW_COUNT * TAU_COL_COUNT; _Index++ )
             {
             TauYouTubeEntryView* videoView = [ [ TauYouTubeEntryView alloc ] initWithFrame: NSZeroRect ];
+            [ videoView setAction: @selector( showPlayerViewAction: ) ];
+            [ videoView setTarget: self.parentViewController ];
             [ self.view addSubview: videoView ];
 
             NSUInteger row = _Index / TAU_COL_COUNT;

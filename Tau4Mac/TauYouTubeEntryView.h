@@ -17,7 +17,7 @@ typedef NS_ENUM ( NSUInteger, TauYouTubeContentViewType )
     , TauYouTubeUnknownView         = 0
     };
 
-@interface TauYouTubeEntryView : NSView
+@interface TauYouTubeEntryView : NSControl
 
 #pragma mark - Initializations
 

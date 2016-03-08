@@ -234,6 +234,7 @@
     if ( needs )
         {
         resultC = [ [ TauResultCollectionPanelViewController alloc ] initWithGTLCollectionObject: nil ticket: nil ];
+        [ resultC setHostStack: self.hostStack ];
 
         GTLQueryYouTube* playlistListItemsQuery = [ GTLQueryYouTube queryForPlaylistItemsListWithPart: @"contentDetails,id,snippet,status" ];
         [ playlistListItemsQuery setPlaylistId: _PlaylistID ];

@@ -11,6 +11,7 @@
 #import "TauYouTubeEntryLayer.h"
 #import "TauYouTubePlaylistSummaryView.h"
 #import "TauChannelBadge.h"
+#import "TauPlayerViewController.h"
 
 #import "NSImage+Tau.h"
 
@@ -120,6 +121,24 @@
         type = TauYouTubePlayListItemView;
 
     return type;
+    }
+
+#pragma mark - Events
+
+- ( void ) mouseDown: ( NSEvent* )_Event
+    {
+    [ super mouseDown: _Event ];
+
+    switch ( self.type )
+        {
+        case TauYouTubeVideoView:
+        case TauYouTubePlayListItemView:
+            {
+            [ self.target performSelectorOnMainThread: self.action withObject: self waitUntilDone: YES ];
+//            TauPlayerViewController* playerViewController = [ [ TauPlayerViewController alloc ] initWithNibName: nil bundle: nil ];
+//            [ playerViewController setHostStack: self
+            } break;
+        }
     }
 
 #pragma mark - Private Interfaces

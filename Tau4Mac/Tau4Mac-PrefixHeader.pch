@@ -14,6 +14,8 @@
 
 @import Cocoa;
 @import QuartzCore;
+@import AVFoundation;
+@import AVKit;
 
 #ifndef LOG_LEVEL_DEF
 #   define LOG_LEVEL_DEF ddLogLevel

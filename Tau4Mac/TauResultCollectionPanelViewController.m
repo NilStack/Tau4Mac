@@ -10,10 +10,12 @@
 #import "TauYouTubeEntriesCollectionViewController.h"
 #import "TauAbstractStackPanelController.h"
 #import "TauResultsCollectionToolbar.h"
+#import "TauPlayerViewController.h"
+#import "TauYouTubeEntryView.h"
 
 // Private Interfaces
 @interface TauResultCollectionPanelViewController ()
-
+@property ( strong, readonly ) TauPlayerViewController* playerViewController_;
 @end // Private Interfaces
 
 // TauResultCollectionPanelViewController class
@@ -23,6 +25,8 @@
     
     GTLCollectionObject __strong* ytCollectionObject_;
     GTLServiceTicket __strong* ytTicket_;
+
+    TauPlayerViewController __strong* playerViewController_;
     }
 
 #pragma mark - Initializations
@@ -46,6 +50,7 @@
     {
     [ self.view configureForAutoLayout ];
 
+    [ self addChildViewController: entriesCollectionViewController_ ];
     [ self.view addSubview: entriesCollectionViewController_.view ];
     [ entriesCollectionViewController_.view autoPinEdgesToSuperviewEdgesWithInsets: NSEdgeInsetsZero excludingEdge: ALEdgeTop ];
     [ entriesCollectionViewController_.view autoPinEdge: ALEdgeTop toEdge: ALEdgeBottom ofView: self.toolbarView ];
@@ -111,6 +116,12 @@
     [ self.hostStack popView ];
     }
 
+- ( IBAction ) showPlayerViewAction: ( TauYouTubeEntryView* )_Sender
+    {
+    [ self.hostStack pushView: self.playerViewController_ ];
+    [ self.playerViewController_ setYtContent: _Sender.ytContent ];
+    }
+
 #pragma mark - Dynamic Properties
 
 @dynamic ytCollectionObject;
@@ -144,6 +155,21 @@
 - ( GTLServiceTicket* ) ytTicket
     {
     return ytTicket_;
+    }
+
+#pragma mark - Private Interfaces
+
+@dynamic playerViewController_;
+
+- ( TauPlayerViewController* ) playerViewController_
+    {
+    if ( !playerViewController_ )
+        {
+        playerViewController_ = [ [ TauPlayerViewController alloc ] initWithNibName: nil bundle: nil ];
+        playerViewController_.hostStack = self.hostStack;
+        }
+
+    return playerViewController_;
     }
 
 @end // TauResultCollectionPanelViewController class
