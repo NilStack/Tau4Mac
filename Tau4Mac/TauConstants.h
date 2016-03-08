@@ -16,10 +16,11 @@ typedef NS_ENUM ( NSInteger, TauPanelsSwitcherSegmentTag )
     };
 
 typedef NS_ENUM ( NSInteger, TauMeTubeSubPanelSwitcherSegmentTag )
-    { TauMeTubeSubPanelSwitcherLikesTag      = 0
-    , TauMeTubeSubPanelSwitcherUploadsTag    = 1
-    , TauMeTubeSubPanelSwitcherHistoryTag    = 2
-    , TauMeTubeSubPanelSwitcherWatchLaterTag = 3
+    { TauMeTubeSubPanelSwitcherLikesTag         = 0
+    , TauMeTubeSubPanelSwitcherUploadsTag       = 1
+    , TauMeTubeSubPanelSwitcherHistoryTag       = 2
+    , TauMeTubeSubPanelSwitcherSubscriptionsTag = 3
+    , TauMeTubeSubPanelSwitcherWatchLaterTag    = 4
     };
 
 #define TAU_PAGEER_PREV 0
