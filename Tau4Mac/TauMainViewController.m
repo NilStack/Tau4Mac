@@ -10,13 +10,17 @@
 
 #import "TauSearchStackPanelController.h"
 #import "TauMeTubeStackPanelController.h"
+#import "TauPlayerStackPanelController.h"
 
 #import "TauMeTubeStackPanelBaseViewController.h"
 
 // Private Interfaces
 @interface TauMainViewController ()
+
 @property ( strong, readonly ) TauSearchStackPanelController* searchPanelStackViewController_;
 @property ( strong, readonly ) TauMeTubeStackPanelController* meTubePanelStackViewController_;
+@property ( strong, readonly ) TauPlayerStackPanelController* playerPanelStackViewController_;
+
 @end // Private Interfaces
 
 // TauMainViewController class
@@ -64,6 +68,8 @@
 
             case TauPanelsSwitcherPlayerTag:
                 {
+                [ self.view addSubview: self.playerPanelStackViewController_.view ];
+                layoutConstraintsCache_ = [ self.playerPanelStackViewController_.view autoPinEdgesToSuperviewEdges ];
                 } break;
             }
         }
@@ -73,35 +79,51 @@
 
 @dynamic searchPanelStackViewController_;
 @dynamic meTubePanelStackViewController_;
+@dynamic playerPanelStackViewController_;
 
 - ( TauAbstractStackPanelController* ) searchPanelStackViewController_
     {
-    TauAbstractStackPanelController static* sCtrller;
+    TauAbstractStackPanelController static* sSearchC;
 
     dispatch_once_t static onceToken;
     dispatch_once( &onceToken
                  , ( dispatch_block_t )
     ^( void )
         {
-        sCtrller = [ [ TauSearchStackPanelController alloc ] initWithNibName: nil bundle: nil ];
+        sSearchC = [ [ TauSearchStackPanelController alloc ] initWithNibName: nil bundle: nil ];
         } );
 
-    return sCtrller;
+    return sSearchC;
     }
 
 - ( TauMeTubeStackPanelController* ) meTubePanelStackViewController_
     {
-    TauMeTubeStackPanelController static* sCtrller;
+    TauMeTubeStackPanelController static* sMeTubeC;
 
     dispatch_once_t static onceToken;
     dispatch_once( &onceToken
                  , ( dispatch_block_t )
     ^( void )
         {
-        sCtrller = [ [ TauMeTubeStackPanelController alloc ] initWithNibName: nil bundle: nil ];
+        sMeTubeC = [ [ TauMeTubeStackPanelController alloc ] initWithNibName: nil bundle: nil ];
         } );
 
-    return sCtrller;
+    return sMeTubeC;
+    }
+
+- ( TauPlayerStackPanelController* ) playerPanelStackViewController_
+    {
+    TauPlayerStackPanelController static* sPlayerC;
+
+    dispatch_once_t static onceToken;
+    dispatch_once( &onceToken
+                 , ( dispatch_block_t )
+    ^( void )
+        {
+        sPlayerC = [ [ TauPlayerStackPanelController alloc ] initWithNibName: nil bundle: nil ];
+        } );
+
+    return sPlayerC;
     }
 
 @end // TauMainViewController class
