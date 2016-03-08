@@ -111,6 +111,35 @@
             };
     }
 
+- ( void ) whateverWithYouTubePlaylistID_: ( NSString* )_ytPlistID hint: ( GTLYouTubeChannelContentDetails* )_Hint
+    {
+    if ( !_ytPlistID )
+        {
+        // TODO: Change log method from DDLogWarn() to DDLogUnexpected()
+        DDLogWarn( @"YouTube play list ID must be not nil" );
+        return;
+        }
+
+    // youtube.playlistItems.list
+    GTLQueryYouTube* ytPlistItemsListQuery = [ GTLQueryYouTube queryForPlaylistItemsListWithPart: @"contentDetails,id,snippet,status" ];
+    [ ytPlistItemsListQuery setPlaylistId: _ytPlistID ];
+    [ ytPlistItemsListQuery setMaxResults: 20 ];
+
+    [ [ TauDataService sharedService ].ytService
+        executeQuery: ytPlistItemsListQuery completionHandler:
+    ^( GTLServiceTicket* _Ticket, GTLYouTubePlaylistItemListResponse* _PlistItemsResp, NSError* _Error )
+        {
+        if ( _PlistItemsResp && !_Error )
+            {
+            [ _PlistItemsResp setProperty: _Hint forKey: @"hint" ];
+            TauResultCollectionPanelViewController* c = [ [ TauResultCollectionPanelViewController alloc ] initWithGTLCollectionObject: _PlistItemsResp ticket: _Ticket ];
+            c.hostStack = self.hostStack;
+
+            [ self.hostStack pushView: c ];
+            }
+        } ];
+    }
+
 - ( IBAction ) ytEntryViewUserInteraction: ( TauYouTubeEntryView* )_Sender
     {
     if ( !_Sender )
@@ -129,6 +158,7 @@
             } break;
 
         case TauYouTubeChannelView:
+        case TauYouTubePlayListView:
             {
             Class expectedClass = [ GTLYouTubeSearchResult class ];
             if ( ![ _Sender.ytContent isKindOfClass: expectedClass ] )
@@ -139,6 +169,14 @@
                 }
 
             GTLYouTubeSearchResult* ytSearchRes = ( GTLYouTubeSearchResult* )( _Sender.ytContent );
+            GTLYouTubeResourceId* identifier = ytSearchRes.identifier;
+            NSString* kind = identifier.kind;
+            if ( [ kind isEqualToString: @"youtube#playlist" ] )
+                {
+                [ self whateverWithYouTubePlaylistID_: identifier.JSON[ @"playlistId" ] hint: nil ];
+                return;
+                }
+
             NSString* channelID = ytSearchRes.identifier.JSON[ @"channelId" ];
             if ( channelID )
                 {
@@ -156,27 +194,7 @@
                         GTLYouTubeChannel* channel = _ChannelListResp.items.firstObject;
                         GTLYouTubeChannelContentDetails* channelContentDetails = channel.contentDetails;
                         NSString* uploadsPlaylistID = channelContentDetails.relatedPlaylists.uploads;
-                        if ( uploadsPlaylistID )
-                            {
-                            // youtube.playlistItems.list
-                            GTLQueryYouTube* ytPlistItemsListQuery = [ GTLQueryYouTube queryForPlaylistItemsListWithPart: @"contentDetails,id,snippet,status" ];
-                            [ ytPlistItemsListQuery setPlaylistId: uploadsPlaylistID ];
-                            [ ytPlistItemsListQuery setMaxResults: 20 ];
-
-                            [ [ TauDataService sharedService ].ytService
-                                executeQuery: ytPlistItemsListQuery completionHandler:
-                            ^( GTLServiceTicket* _Ticket, GTLYouTubePlaylistItemListResponse* _PlistItemsResp, NSError* _Error )
-                                {
-                                if ( _PlistItemsResp && !_Error )
-                                    {
-                                    [ _PlistItemsResp setProperty: channelContentDetails forKey: @"hint" ];
-                                    TauResultCollectionPanelViewController* c = [ [ TauResultCollectionPanelViewController alloc ] initWithGTLCollectionObject: _PlistItemsResp ticket: _Ticket ];
-                                    c.hostStack = self.hostStack;
-
-                                    [ self.hostStack pushView: c ];
-                                    }
-                                } ];
-                            }
+                        [ self whateverWithYouTubePlaylistID_: uploadsPlaylistID hint: channelContentDetails ];
                         }
                     else
                         DDLogError( @"Failed to execute %@ due to: <%@>", _Ticket.originalQuery, _Error );

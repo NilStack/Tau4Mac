@@ -20,7 +20,7 @@
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="MzW-W0-JMa" customClass="TauResultsCollectionToolbar">
                     <rect key="frame" x="0.0" y="240" width="480" height="32"/>
                     <subviews>
-                        <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ewq-CW-Hf5">
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ewq-CW-Hf5">
                             <rect key="frame" x="396" y="3" width="69" height="25"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="22" id="DXW-Xc-Ht0"/>

@@ -36,7 +36,9 @@
         [ self.segPager setEnabled: ( [ ytCollectionObject_ performSelector: @selector( prevPageToken ) ] != nil ) forSegment: 0 ];
         [ self.segPager setEnabled: ( [ ytCollectionObject_ performSelector: @selector( nextPageToken ) ] != nil ) forSegment: 1 ];
 
-        self.dismissButton.hidden = ![ ytCollectionObject_ isKindOfClass: [ GTLYouTubeSearchListResponse class ] ];
+//        self.dismissButton.hidden =
+//            ![ ytCollectionObject_ isKindOfClass: [ GTLYouTubeSearchListResponse class ] ]
+//                && ![ ytCollectionObject_ isKindOfClass: [ GTLYouTubePlaylistItemListResponse class ] ];
         }
     }
 
