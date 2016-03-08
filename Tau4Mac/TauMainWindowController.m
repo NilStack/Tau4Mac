@@ -7,6 +7,7 @@
 //
 
 #import "TauMainWindowController.h"
+#import "TauYouTubeEntryView.h"
 
 #import "GTL/GTMOAuth2WindowController.h"
 
@@ -22,6 +23,12 @@
 - ( void ) configureLogging_;
 
 @end // Private Interfaces
+
+NSString* const TauShouldSwitch2SearchSegmentNotif = @"Should.Switch2SearchSegment.Notif";
+NSString* const TauShouldSwitch2MeTubeSegmentNotif = @"Should.Switch2MeTubeSegment.Notif";
+NSString* const TauShouldSwitch2PlayerSegmentNotif = @"Should.Switch2PlayerSegment.Notif";
+
+NSString* const kRequester = @"kRequester";
 
 @implementation TauMainWindowController
     {
@@ -88,6 +95,19 @@
 #pragma clang diagnostic pop
 
     [ segSwitcher_ selectSegmentWithTag: TauPanelsSwitcherSearchTag ];
+
+    [ [ NSNotificationCenter defaultCenter ]
+        addObserver: self selector: @selector( shouldSwitch2PlayerSegment_: ) name: TauShouldSwitch2PlayerSegmentNotif object: nil ];
+    }
+
+- ( void ) shouldSwitch2PlayerSegment_: ( NSNotification* )_Notif
+    {
+    [ segSwitcher_ selectSegmentWithTag: TauPanelsSwitcherPlayerTag ];
+
+    TauYouTubeEntryView* requester = _Notif.userInfo[ kRequester ];
+
+    NSNotification* shouldPlayVideoNotif = [ NSNotification notificationWithName: TauShouldPlayVideoNotif object: self userInfo: @{ kGTLObject : requester.ytContent } ];
+    [ [ NSNotificationCenter defaultCenter ] postNotification: shouldPlayVideoNotif ];
     }
 
 #pragma mark - Conforms to <NSApplicationDelegate>

@@ -9,6 +9,8 @@
 #import "TauPlayerStackPanelBaseViewController.h"
 #import "TauPlayerStackPanelBaseView.h"
 
+NSString* const TauShouldPlayVideoNotif = @"Should.PlayVideo.Notif";
+
 // Private Interfaces
 @interface TauPlayerStackPanelBaseViewController ()
 @property ( strong, readonly ) TauPlayerStackPanelBaseView* playerView_;
@@ -29,6 +31,17 @@
 - ( GTLObject* ) ytContent
     {
     return self.playerView_.ytContent;
+    }
+
+- ( void ) viewDidLoad
+    {
+    [ [ NSNotificationCenter defaultCenter ]
+        addObserver: self selector: @selector( shouldPlayVideo_: ) name: TauShouldPlayVideoNotif object: nil ];
+    }
+
+- ( void ) shouldPlayVideo_: ( NSNotification* )_Notif
+    {
+    self.playerView_.ytContent = _Notif.userInfo[ kGTLObject ];
     }
 
 #pragma mark - Private Interfaces

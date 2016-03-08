@@ -116,12 +116,6 @@
     [ self.hostStack popView ];
     }
 
-- ( IBAction ) showPlayerViewAction: ( TauYouTubeEntryView* )_Sender
-    {
-    [ self.hostStack pushView: self.playerViewController_ ];
-    [ self.playerViewController_ setYtContent: _Sender.ytContent ];
-    }
-
 #pragma mark - Dynamic Properties
 
 @dynamic ytCollectionObject;

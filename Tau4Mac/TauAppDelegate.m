@@ -8,6 +8,8 @@
 
 #import "TauAppDelegate.h"
 
+NSString* const kGTLObject = @"kGTLObject";
+
 // Private Interfaces
 @interface TauAppDelegate ()
 

@@ -36,7 +36,6 @@
 
 - ( void ) doInit_
     {
-//    self.blendingMode = NSVisualEffectBlendingModeWithinWindow;
     self.material = NSVisualEffectMaterialDark;
     self.state = NSVisualEffectStateActive;
 

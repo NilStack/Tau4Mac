@@ -34,8 +34,6 @@
 - ( void ) viewDidLoad
     {
     [ super viewDidLoad ];
-
-    // Do any additional setup after loading the view.
     }
 
 #pragma mark - KVO Notifications
@@ -68,6 +66,7 @@
 
             case TauPanelsSwitcherPlayerTag:
                 {
+                DDLogDebug( @"%@", self.playerPanelStackViewController_.view );
                 [ self.view addSubview: self.playerPanelStackViewController_.view ];
                 layoutConstraintsCache_ = [ self.playerPanelStackViewController_.view autoPinEdgesToSuperviewEdges ];
                 } break;

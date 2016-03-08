@@ -54,6 +54,18 @@
     [ self setRepresentedObject: ytCollectionObject_ ];
     }
 
+- ( IBAction ) showSwitch2PlayerSegmentAction_: ( TauYouTubeEntryView* )_Sender
+    {
+    if ( !_Sender )
+        {
+        DDLogError( @"%@ must not be nil", _Sender);
+        return;
+        }
+
+    NSNotification* shouldSwitchToPlayerSegNotif = [ NSNotification notificationWithName: TauShouldSwitch2PlayerSegmentNotif object: self userInfo: @{ kRequester : _Sender } ];
+    [ [ NSNotificationCenter defaultCenter ] postNotification: shouldSwitchToPlayerSegNotif ];
+    }
+
 - ( void ) setRepresentedObject: ( GTLCollectionObject* )_RepresentedObject
     {
     [ super setRepresentedObject: _RepresentedObject ];
@@ -71,8 +83,8 @@
         for ( int _Index = 0; _Index < TAU_ROW_COUNT * TAU_COL_COUNT; _Index++ )
             {
             TauYouTubeEntryView* videoView = [ [ TauYouTubeEntryView alloc ] initWithFrame: NSZeroRect ];
-            [ videoView setAction: @selector( showPlayerViewAction: ) ];
-            [ videoView setTarget: self.parentViewController ];
+            [ videoView setAction: @selector( showSwitch2PlayerSegmentAction_: ) ];
+            [ videoView setTarget: self ];
             [ self.view addSubview: videoView ];
 
             NSUInteger row = _Index / TAU_COL_COUNT;

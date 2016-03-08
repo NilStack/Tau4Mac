@@ -463,6 +463,7 @@
 		83EB73CD1C8E680F004EB117 /* TauPlayerStackPanelBaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TauPlayerStackPanelBaseViewController.xib; sourceTree = "<group>"; };
 		83EB74371C8EA203004EB117 /* TauPlayerStackPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauPlayerStackPanelController.h; sourceTree = "<group>"; };
 		83EB74381C8EA203004EB117 /* TauPlayerStackPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauPlayerStackPanelController.m; sourceTree = "<group>"; };
+		83EB743C1C8EA78C004EB117 /* TauConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TauConstants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -552,6 +553,7 @@
 		83765ADC1C8811DD00D93554 /* Tau4Mac */ = {
 			isa = PBXGroup;
 			children = (
+				83EB743C1C8EA78C004EB117 /* TauConstants.h */,
 				8349D3DC1C899420000D091F /* extensions */,
 				83DA1C431C8864AC007B084F /* logging */,
 				831BD6E01C88480800122AF6 /* yt */,

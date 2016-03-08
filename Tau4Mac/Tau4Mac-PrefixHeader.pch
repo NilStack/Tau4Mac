@@ -42,27 +42,6 @@ DDLogLevelOff
 #import "GTLYouTube.h"
 #import "TauDataService.h"
 
-typedef NS_ENUM ( NSInteger, TauPanelsSwitcherSegmentTag )
-    { TauPanelsSwitcherSearchTag = 0
-    , TauPanelsSwitcherMeTubeTag = 1
-    , TauPanelsSwitcherPlayerTag = 2
-    };
-
-typedef NS_ENUM ( NSInteger, TauMeTubeSubPanelSwitcherSegmentTag )
-    { TauMeTubeSubPanelSwitcherLikesTag      = 0
-    , TauMeTubeSubPanelSwitcherUploadsTag    = 1
-    , TauMeTubeSubPanelSwitcherHistoryTag    = 2
-    , TauMeTubeSubPanelSwitcherWatchLaterTag = 3
-    };
-
-#define TAU_PAGEER_PREV 0
-#define TAU_PAGEER_NEXT 1
-
-// To suppress the "PerformSelector may cause a leak because its selector is unknown" warning
-#define TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING( _CodeFragment )\
-    _Pragma("clang diagnostic push")\
-    _Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"")\
-    _CodeFragment\
-    _Pragma("clang diagnostic pop")
+#import "TauConstants.h"
 
 #endif /* Tau4Mac_PrefixHeader_pch */

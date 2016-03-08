@@ -51,6 +51,9 @@
         {
         ytContent_ = _New;
 
+        if ( self.corePlayer_ )
+            [ self.corePlayer_ replaceCurrentItemWithPlayerItem: nil ];
+
         NSString* videoID = nil;
         if ( [ ytContent_ isKindOfClass: [ GTLYouTubePlaylistItem class ] ] )
             videoID = [ ( GTLYouTubePlaylistItem* )ytContent_ contentDetails ].videoId;
