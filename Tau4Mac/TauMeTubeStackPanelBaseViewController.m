@@ -20,7 +20,7 @@
 @property ( assign, readonly ) BOOL isFetchingRelatedPlaylists_;
 
 - ( void ) doMeTubeStackPanelBaseViewControllerInit_;
-
+- ( void ) fetchPlaylistIDs_;
 - ( TauResultCollectionPanelViewController* ) relatedPlaylistPanelControllerWithPlaylistID_: ( NSString* )_PlaylistID;
 
 @end // Private Interfaces
@@ -72,42 +72,6 @@
     if ( self = [ super initWithNibName: _NibNameOrNil bundle: _NibBundleOrNil ] )
         [ self doMeTubeStackPanelBaseViewControllerInit_ ];
     return self;
-    }
-
-- ( void ) fetchPlaylistIDs_
-    {
-    if ( !self.isFetchingRelatedPlaylists_ )
-        {
-        GTLQueryYouTube* channelsMineListQuery = [ GTLQueryYouTube queryForChannelsListWithPart: @"snippet,contentDetails" ];
-        [ channelsMineListQuery setMine: YES ];
-
-        ytChannelMineListTicket_ = [ [ TauDataService sharedService ].ytService
-            executeQuery: channelsMineListQuery completionHandler:
-        ^( GTLServiceTicket* _Ticket, GTLYouTubeChannelListResponse* _ChannelListResp, NSError* _Error )
-            {
-            if ( _ChannelListResp && !_Error )
-                {
-                isFetchRelatedPlaylistsSuccess_ = YES;
-
-                ytChannelMineContentDetails_ = [ ( GTLYouTubeChannel* )( _ChannelListResp.items.firstObject ) contentDetails ];
-                GTLYouTubeChannelContentDetailsRelatedPlaylists* relatedPlaylists = ytChannelMineContentDetails_.relatedPlaylists;
-
-                likesPlaylistID_ = relatedPlaylists.likes;
-                uploadsPlaylistID_ = relatedPlaylists.uploads;
-                historyPlaylistID_ = relatedPlaylists.watchHistory;
-                watchLaterPlaylistID_ = relatedPlaylists.watchLater;
-
-                self.subPanelSegSwitcher.enabled = YES;
-                self.subPanelSegSwitcher.selectedSegment = TauMeTubeSubPanelSwitcherLikesTag;
-                }
-            else
-                {
-                DDLogError( @"%@", _Error );
-                isFetchRelatedPlaylistsSuccess_ = NO;
-                ytChannelMineListTicket_ = nil;
-                }
-            } ];
-        }
     }
 
 - ( void ) viewDidLoad
@@ -199,6 +163,42 @@
     kvoController_ = [ [ FBKVOController alloc ] initWithObserver: self ];
 
     layoutConstraintsCache_ = [ NSMutableArray array ];
+    }
+
+- ( void ) fetchPlaylistIDs_
+    {
+    if ( !self.isFetchingRelatedPlaylists_ )
+        {
+        GTLQueryYouTube* channelsMineListQuery = [ GTLQueryYouTube queryForChannelsListWithPart: @"snippet,contentDetails" ];
+        [ channelsMineListQuery setMine: YES ];
+
+        ytChannelMineListTicket_ = [ [ TauDataService sharedService ].ytService
+            executeQuery: channelsMineListQuery completionHandler:
+        ^( GTLServiceTicket* _Ticket, GTLYouTubeChannelListResponse* _ChannelListResp, NSError* _Error )
+            {
+            if ( _ChannelListResp && !_Error )
+                {
+                isFetchRelatedPlaylistsSuccess_ = YES;
+
+                ytChannelMineContentDetails_ = [ ( GTLYouTubeChannel* )( _ChannelListResp.items.firstObject ) contentDetails ];
+                GTLYouTubeChannelContentDetailsRelatedPlaylists* relatedPlaylists = ytChannelMineContentDetails_.relatedPlaylists;
+
+                likesPlaylistID_ = relatedPlaylists.likes;
+                uploadsPlaylistID_ = relatedPlaylists.uploads;
+                historyPlaylistID_ = relatedPlaylists.watchHistory;
+                watchLaterPlaylistID_ = relatedPlaylists.watchLater;
+
+                self.subPanelSegSwitcher.enabled = YES;
+                self.subPanelSegSwitcher.selectedSegment = TauMeTubeSubPanelSwitcherLikesTag;
+                }
+            else
+                {
+                DDLogError( @"%@", _Error );
+                isFetchRelatedPlaylistsSuccess_ = NO;
+                ytChannelMineListTicket_ = nil;
+                }
+            } ];
+        }
     }
 
 - ( TauResultCollectionPanelViewController* ) relatedPlaylistPanelControllerWithPlaylistID_: ( NSString* )_PlaylistID
