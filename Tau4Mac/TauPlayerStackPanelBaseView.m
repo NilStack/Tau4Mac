@@ -1,15 +1,15 @@
 //
-//  TauPlayerView.m
+//  TauPlayerStackPanelBaseView.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/8/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauPlayerView.h"
+#import "TauPlayerStackPanelBaseView.h"
 
-// TauPlayerView class
-@interface TauPlayerView ()
+// TauPlayerStackPanelBaseView class
+@interface TauPlayerStackPanelBaseView ()
 
 @property ( strong, readonly ) XCDYouTubeClient* ytClient_;
 @property ( strong, readonly ) AVPlayer* corePlayer_;
@@ -17,10 +17,10 @@
 
 - ( void ) doPlayerViewInit_;
 
-@end // TauPlayerView class
+@end // TauPlayerStackPanelBaseView class
 
-// TauPlayerView class
-@implementation TauPlayerView
+// TauPlayerStackPanelBaseView class
+@implementation TauPlayerStackPanelBaseView
     {
     XCDYouTubeClient __strong* ytClient_;
     GTLObject __strong* ytContent_;
@@ -143,4 +143,4 @@
     // TODO:
     }
 
-@end // TauPlayerView class
+@end // TauPlayerStackPanelBaseView class

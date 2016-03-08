@@ -7,11 +7,11 @@
 //
 
 #import "TauPlayerStackPanelBaseViewController.h"
-#import "TauPlayerView.h"
+#import "TauPlayerStackPanelBaseView.h"
 
 // Private Interfaces
 @interface TauPlayerStackPanelBaseViewController ()
-@property ( strong, readonly ) TauPlayerView* playerView_;
+@property ( strong, readonly ) TauPlayerStackPanelBaseView* playerView_;
 @end // Private Interfaces
 
 // TauPlayerStackPanelBaseViewController class
@@ -33,9 +33,9 @@
 
 #pragma mark - Private Interfaces
 
-- ( TauPlayerView* ) playerView_
+- ( TauPlayerStackPanelBaseView* ) playerView_
     {
-    return ( TauPlayerView* )( self.view );
+    return ( TauPlayerStackPanelBaseView* )( self.view );
     }
 
 @end // TauPlayerStackPanelBaseViewController class
