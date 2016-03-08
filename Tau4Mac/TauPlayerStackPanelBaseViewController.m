@@ -1,21 +1,21 @@
 //
-//  TauPlayerViewController.m
+//  TauPlayerStackPanelBaseViewController.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/8/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauPlayerViewController.h"
+#import "TauPlayerStackPanelBaseViewController.h"
 #import "TauPlayerView.h"
 
 // Private Interfaces
-@interface TauPlayerViewController ()
+@interface TauPlayerStackPanelBaseViewController ()
 @property ( strong, readonly ) TauPlayerView* playerView_;
 @end // Private Interfaces
 
-// TauPlayerViewController class
-@implementation TauPlayerViewController
+// TauPlayerStackPanelBaseViewController class
+@implementation TauPlayerStackPanelBaseViewController
 
 #pragma mark - Dynamic Properties
 
@@ -38,4 +38,4 @@
     return ( TauPlayerView* )( self.view );
     }
 
-@end // TauPlayerViewController class
+@end // TauPlayerStackPanelBaseViewController class

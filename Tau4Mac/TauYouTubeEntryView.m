@@ -11,7 +11,7 @@
 #import "TauYouTubeEntryLayer.h"
 #import "TauYouTubePlaylistSummaryView.h"
 #import "TauChannelBadge.h"
-#import "TauPlayerViewController.h"
+#import "TauPlayerStackPanelBaseViewController.h"
 
 #import "NSImage+Tau.h"
 
@@ -135,7 +135,7 @@
         case TauYouTubePlayListItemView:
             {
             [ self.target performSelectorOnMainThread: self.action withObject: self waitUntilDone: YES ];
-//            TauPlayerViewController* playerViewController = [ [ TauPlayerViewController alloc ] initWithNibName: nil bundle: nil ];
+//            TauPlayerStackPanelBaseViewController* playerViewController = [ [ TauPlayerStackPanelBaseViewController alloc ] initWithNibName: nil bundle: nil ];
 //            [ playerViewController setHostStack: self
             } break;
         }

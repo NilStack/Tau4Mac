@@ -10,12 +10,12 @@
 #import "TauYouTubeEntriesCollectionViewController.h"
 #import "TauAbstractStackPanelController.h"
 #import "TauResultsCollectionToolbar.h"
-#import "TauPlayerViewController.h"
+#import "TauPlayerStackPanelBaseViewController.h"
 #import "TauYouTubeEntryView.h"
 
 // Private Interfaces
 @interface TauResultCollectionPanelViewController ()
-@property ( strong, readonly ) TauPlayerViewController* playerViewController_;
+@property ( strong, readonly ) TauPlayerStackPanelBaseViewController* playerViewController_;
 @end // Private Interfaces
 
 // TauResultCollectionPanelViewController class
@@ -26,7 +26,7 @@
     GTLCollectionObject __strong* ytCollectionObject_;
     GTLServiceTicket __strong* ytTicket_;
 
-    TauPlayerViewController __strong* playerViewController_;
+    TauPlayerStackPanelBaseViewController __strong* playerViewController_;
     }
 
 #pragma mark - Initializations
@@ -161,11 +161,11 @@
 
 @dynamic playerViewController_;
 
-- ( TauPlayerViewController* ) playerViewController_
+- ( TauPlayerStackPanelBaseViewController* ) playerViewController_
     {
     if ( !playerViewController_ )
         {
-        playerViewController_ = [ [ TauPlayerViewController alloc ] initWithNibName: nil bundle: nil ];
+        playerViewController_ = [ [ TauPlayerStackPanelBaseViewController alloc ] initWithNibName: nil bundle: nil ];
         playerViewController_.hostStack = self.hostStack;
         }
 
