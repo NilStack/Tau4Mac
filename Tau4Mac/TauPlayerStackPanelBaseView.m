@@ -51,6 +51,7 @@
         {
         ytContent_ = _New;
 
+        // Clear the videos previously added to the playback queue
         if ( self.corePlayer_ )
             [ self.corePlayer_ replaceCurrentItemWithPlayerItem: nil ];
 

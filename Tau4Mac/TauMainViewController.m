@@ -34,6 +34,10 @@
 - ( void ) viewDidLoad
     {
     [ super viewDidLoad ];
+
+    [ self.view configureForAutoLayout ];
+    [ self.view autoSetDimension: ALDimensionWidth toSize: 200 * 4 relation: NSLayoutRelationGreaterThanOrEqual ];
+    [ self.view autoSetDimension: ALDimensionHeight toSize: 200 * 0.56 * 5 relation: NSLayoutRelationGreaterThanOrEqual ];
     }
 
 #pragma mark - KVO Notifications
