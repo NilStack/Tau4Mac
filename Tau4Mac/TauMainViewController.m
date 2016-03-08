@@ -62,7 +62,7 @@
                 layoutConstraintsCache_ = [ self.meTubePanelStackViewController_.view autoPinEdgesToSuperviewEdges ];
                 } break;
 
-            case TauPanelsSwitcherTrendingTag:
+            case TauPanelsSwitcherPlayerTag:
                 {
                 } break;
             }

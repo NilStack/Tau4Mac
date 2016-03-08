@@ -58,9 +58,9 @@
                     [ segSwitcher_ setLabel: NSLocalizedString( @"MeTube", nil ) forSegment: _Index ];
                     } break;
 
-                case TauPanelsSwitcherTrendingTag:
+                case TauPanelsSwitcherPlayerTag:
                     {
-                    [ segSwitcher_ setLabel: NSLocalizedString( @"Trending", nil ) forSegment: _Index ];
+                    [ segSwitcher_ setLabel: NSLocalizedString( @"Player", nil ) forSegment: _Index ];
                     } break;
                 }
             }

@@ -43,16 +43,16 @@ DDLogLevelOff
 #import "TauDataService.h"
 
 typedef NS_ENUM ( NSInteger, TauPanelsSwitcherSegmentTag )
-    { TauPanelsSwitcherSearchTag    = 0
-    , TauPanelsSwitcherMeTubeTag    = 1
-    , TauPanelsSwitcherTrendingTag  = 2
+    { TauPanelsSwitcherSearchTag = 0
+    , TauPanelsSwitcherMeTubeTag = 1
+    , TauPanelsSwitcherPlayerTag = 2
     };
 
 typedef NS_ENUM ( NSInteger, TauMeTubeSubPanelSwitcherSegmentTag )
-    { TauMeTubeSubPanelSwitcherLikesTag         = 0
-    , TauMeTubeSubPanelSwitcherUploadsTag       = 1
-    , TauMeTubeSubPanelSwitcherHistoryTag       = 2
-    , TauMeTubeSubPanelSwitcherWatchLaterTag    = 3
+    { TauMeTubeSubPanelSwitcherLikesTag      = 0
+    , TauMeTubeSubPanelSwitcherUploadsTag    = 1
+    , TauMeTubeSubPanelSwitcherHistoryTag    = 2
+    , TauMeTubeSubPanelSwitcherWatchLaterTag = 3
     };
 
 #define TAU_PAGEER_PREV 0
