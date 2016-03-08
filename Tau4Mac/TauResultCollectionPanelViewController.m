@@ -111,6 +111,81 @@
             };
     }
 
+- ( IBAction ) ytEntryViewUserInteraction: ( TauYouTubeEntryView* )_Sender
+    {
+    if ( !_Sender )
+        {
+        DDLogError( @"%@ must not be nil", _Sender);
+        return;
+        }
+
+    switch ( _Sender.type )
+        {
+        case TauYouTubeVideoView:
+        case TauYouTubePlayListItemView:
+            {
+            NSNotification* shouldSwitchToPlayerSegNotif = [ NSNotification notificationWithName: TauShouldSwitch2PlayerSegmentNotif object: self userInfo: @{ kRequester : _Sender } ];
+            [ [ NSNotificationCenter defaultCenter ] postNotification: shouldSwitchToPlayerSegNotif ];
+            } break;
+
+        case TauYouTubeChannelView:
+            {
+            Class expectedClass = [ GTLYouTubeSearchResult class ];
+            if ( ![ _Sender.ytContent isKindOfClass: expectedClass ] )
+                {
+                // TODO: Change log method from DDLogWarn() to DDLogUnexpected()
+                DDLogWarn( @"Sender's ytContent property must be kind of %@", NSStringFromClass( expectedClass ) );
+                break;
+                }
+
+            GTLYouTubeSearchResult* ytSearchRes = ( GTLYouTubeSearchResult* )( _Sender.ytContent );
+            NSString* channelID = ytSearchRes.identifier.JSON[ @"channelId" ];
+            if ( channelID )
+                {
+                // youtube.channel.list
+                GTLQueryYouTube* ytChannelListQuery = [ GTLQueryYouTube queryForChannelsListWithPart: @"snippet,contentDetails" ];
+                [ ytChannelListQuery setIdentifier: channelID ];
+                [ ytChannelListQuery setMaxResults: 1 ];
+
+                [ [ TauDataService sharedService ].ytService
+                    executeQuery: ytChannelListQuery completionHandler:
+                ^( GTLServiceTicket* _Ticket, GTLYouTubeChannelListResponse* _ChannelListResp, NSError* _Error )
+                    {
+                    if ( _ChannelListResp && !_Error )
+                        {
+                        GTLYouTubeChannel* channel = _ChannelListResp.items.firstObject;
+                        GTLYouTubeChannelContentDetails* channelContentDetails = channel.contentDetails;
+                        NSString* uploadsPlaylistID = channelContentDetails.relatedPlaylists.uploads;
+                        if ( uploadsPlaylistID )
+                            {
+                            // youtube.playlistItems.list
+                            GTLQueryYouTube* ytPlistItemsListQuery = [ GTLQueryYouTube queryForPlaylistItemsListWithPart: @"contentDetails,id,snippet,status" ];
+                            [ ytPlistItemsListQuery setPlaylistId: uploadsPlaylistID ];
+                            [ ytPlistItemsListQuery setMaxResults: 20 ];
+
+                            [ [ TauDataService sharedService ].ytService
+                                executeQuery: ytPlistItemsListQuery completionHandler:
+                            ^( GTLServiceTicket* _Ticket, GTLYouTubePlaylistItemListResponse* _PlistItemsResp, NSError* _Error )
+                                {
+                                if ( _PlistItemsResp && !_Error )
+                                    {
+                                    [ _PlistItemsResp setProperty: channelContentDetails forKey: @"hint" ];
+                                    TauResultCollectionPanelViewController* c = [ [ TauResultCollectionPanelViewController alloc ] initWithGTLCollectionObject: _PlistItemsResp ticket: _Ticket ];
+                                    c.hostStack = self.hostStack;
+
+                                    [ self.hostStack pushView: c ];
+                                    }
+                                } ];
+                            }
+                        }
+                    else
+                        DDLogError( @"Failed to execute %@ due to: <%@>", _Ticket.originalQuery, _Error );
+                    } ];
+                }
+            } break;
+        }
+    }
+
 - ( IBAction ) dismissAction: ( id )_Sender
     {
     [ self.hostStack popView ];

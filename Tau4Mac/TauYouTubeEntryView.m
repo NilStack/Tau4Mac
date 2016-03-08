@@ -128,17 +128,7 @@
 - ( void ) mouseDown: ( NSEvent* )_Event
     {
     [ super mouseDown: _Event ];
-
-    switch ( self.type )
-        {
-        case TauYouTubeVideoView:
-        case TauYouTubePlayListItemView:
-            {
-            [ self.target performSelectorOnMainThread: self.action withObject: self waitUntilDone: YES ];
-//            TauPlayerStackPanelBaseViewController* playerViewController = [ [ TauPlayerStackPanelBaseViewController alloc ] initWithNibName: nil bundle: nil ];
-//            [ playerViewController setHostStack: self
-            } break;
-        }
+    [ self.target performSelectorOnMainThread: self.action withObject: self waitUntilDone: NO ];
     }
 
 #pragma mark - Private Interfaces
