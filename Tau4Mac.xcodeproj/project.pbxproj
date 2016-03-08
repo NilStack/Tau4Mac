@@ -36,11 +36,11 @@
 		83765B0F1C88170F00D93554 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B0E1C88170F00D93554 /* Cocoa.framework */; };
 		83765B111C88171400D93554 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B101C88171400D93554 /* QuartzCore.framework */; };
 		83765B311C8818FC00D93554 /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B221C8818F500D93554 /* PureLayout.framework */; };
-		83765B341C88191C00D93554 /* PureLayout.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B221C8818F500D93554 /* PureLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		83765B341C88191C00D93554 /* PureLayout.framework in Copy Third-Party Frameworks (4 items) */ = {isa = PBXBuildFile; fileRef = 83765B221C8818F500D93554 /* PureLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83765B681C881A6200D93554 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B491C881A5700D93554 /* CocoaLumberjack.framework */; };
-		83765B691C881A6800D93554 /* CocoaLumberjack.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B491C881A5700D93554 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		83765B691C881A6800D93554 /* CocoaLumberjack.framework in Copy Third-Party Frameworks (4 items) */ = {isa = PBXBuildFile; fileRef = 83765B491C881A5700D93554 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83765B941C881E2300D93554 /* GTL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B8B1C881E1700D93554 /* GTL.framework */; };
-		83765B971C881EA900D93554 /* GTL.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B8B1C881E1700D93554 /* GTL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		83765B971C881EA900D93554 /* GTL.framework in Copy Third-Party Frameworks (4 items) */ = {isa = PBXBuildFile; fileRef = 83765B8B1C881E1700D93554 /* GTL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8399E2141C88200000A42C44 /* GTLYouTube_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2121C88200000A42C44 /* GTLYouTube_Sources.m */; };
 		8399E21A1C88231400A42C44 /* TauMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2191C88231400A42C44 /* TauMainWindowController.m */; };
 		8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E21C1C88232E00A42C44 /* TauMainWindow.m */; };
@@ -58,6 +58,8 @@
 		83EB73461C8D1D3F004EB117 /* TauMeTubeStackPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB73451C8D1D3F004EB117 /* TauMeTubeStackPanelController.m */; };
 		83EB73491C8D33BC004EB117 /* TauAbstractBeautifulView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB73481C8D33BC004EB117 /* TauAbstractBeautifulView.m */; };
 		83EB73531C8D5076004EB117 /* TauMeTubeStackPanelBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB73521C8D5076004EB117 /* TauMeTubeStackPanelBaseView.m */; };
+		83EB73C11C8E6520004EB117 /* XCDYouTubeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EB73B81C8E6514004EB117 /* XCDYouTubeKit.framework */; };
+		83EB73C31C8E6531004EB117 /* XCDYouTubeKit.framework in Copy Third-Party Frameworks (4 items) */ = {isa = PBXBuildFile; fileRef = 83EB73B81C8E6514004EB117 /* XCDYouTubeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -285,20 +287,70 @@
 			remoteGlobalIDString = 4F1AD9020B71603F00DC0485;
 			remoteInfo = OSXDevTool;
 		};
+		83EB73B31C8E6514004EB117 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C2A3F2CD17F4827800AC1C3B;
+			remoteInfo = "XCDYouTubeKit iOS Static Library";
+		};
+		83EB73B51C8E6514004EB117 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C2F0E5731944F10E00D8EBA8;
+			remoteInfo = "XCDYouTubeKit iOS Framework";
+		};
+		83EB73B71C8E6514004EB117 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C262317A191D741700D23900;
+			remoteInfo = "XCDYouTubeKit OS X";
+		};
+		83EB73B91C8E6514004EB117 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C215BE971BE2E36600F9783B;
+			remoteInfo = "XCDYouTubeKit tvOS";
+		};
+		83EB73BB1C8E6514004EB117 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C20F579B18817D5400EDBFB0;
+			remoteInfo = "XCDYouTubeKit iOS Tests";
+		};
+		83EB73BD1C8E6514004EB117 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C2DD4DA2191FFDE100AF6F85;
+			remoteInfo = "XCDYouTubeKit OS X Tests";
+		};
+		83EB73BF1C8E6514004EB117 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C215BEA01BE2E36600F9783B;
+			remoteInfo = "XCDYouTubeKit tvOS Tests";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		83765B321C88190300D93554 /* Copy Third-Party Frameworks */ = {
+		83765B321C88190300D93554 /* Copy Third-Party Frameworks (4 items) */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				83765B971C881EA900D93554 /* GTL.framework in Copy Third-Party Frameworks */,
-				83765B691C881A6800D93554 /* CocoaLumberjack.framework in Copy Third-Party Frameworks */,
-				83765B341C88191C00D93554 /* PureLayout.framework in Copy Third-Party Frameworks */,
+				83EB73C31C8E6531004EB117 /* XCDYouTubeKit.framework in Copy Third-Party Frameworks (4 items) */,
+				83765B971C881EA900D93554 /* GTL.framework in Copy Third-Party Frameworks (4 items) */,
+				83765B691C881A6800D93554 /* CocoaLumberjack.framework in Copy Third-Party Frameworks (4 items) */,
+				83765B341C88191C00D93554 /* PureLayout.framework in Copy Third-Party Frameworks (4 items) */,
 			);
-			name = "Copy Third-Party Frameworks";
+			name = "Copy Third-Party Frameworks (4 items)";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -395,6 +447,7 @@
 		83EB73481C8D33BC004EB117 /* TauAbstractBeautifulView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAbstractBeautifulView.m; sourceTree = "<group>"; };
 		83EB73511C8D5076004EB117 /* TauMeTubeStackPanelBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauMeTubeStackPanelBaseView.h; sourceTree = "<group>"; };
 		83EB73521C8D5076004EB117 /* TauMeTubeStackPanelBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauMeTubeStackPanelBaseView.m; sourceTree = "<group>"; };
+		83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XCDYouTubeKit.xcodeproj; path = ../Deps/XCDYouTubeKit/XCDYouTubeKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -402,6 +455,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83EB73C11C8E6520004EB117 /* XCDYouTubeKit.framework in Frameworks */,
 				83DA1C421C886138007B084F /* WebKit.framework in Frameworks */,
 				83765B941C881E2300D93554 /* GTL.framework in Frameworks */,
 				83765B681C881A6200D93554 /* CocoaLumberjack.framework in Frameworks */,
@@ -579,6 +633,7 @@
 				83DA1C411C886138007B084F /* WebKit.framework */,
 				8399E2151C88201F00A42C44 /* GTL */,
 				83DA1C551C8893BF007B084F /* OAuthSigningConstants */,
+				83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */,
 				83765B351C881A5700D93554 /* Lumberjack.xcodeproj */,
 				83765B131C8818F500D93554 /* PureLayout.xcodeproj */,
 			);
@@ -706,6 +761,20 @@
 			name = "metube-panel";
 			sourceTree = "<group>";
 		};
+		83EB73AA1C8E6514004EB117 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				83EB73B41C8E6514004EB117 /* libXCDYouTubeKit.a */,
+				83EB73B61C8E6514004EB117 /* XCDYouTubeKit.framework */,
+				83EB73B81C8E6514004EB117 /* XCDYouTubeKit.framework */,
+				83EB73BA1C8E6514004EB117 /* XCDYouTubeKit.framework */,
+				83EB73BC1C8E6514004EB117 /* XCDYouTubeKit iOS Tests.xctest */,
+				83EB73BE1C8E6514004EB117 /* XCDYouTubeKit OS X Tests.xctest */,
+				83EB73C01C8E6514004EB117 /* XCDYouTubeKit tvOS Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -716,7 +785,7 @@
 				83765AD61C8811DD00D93554 /* Sources */,
 				83765AD71C8811DD00D93554 /* Frameworks */,
 				83765AD81C8811DD00D93554 /* Resources */,
-				83765B321C88190300D93554 /* Copy Third-Party Frameworks */,
+				83765B321C88190300D93554 /* Copy Third-Party Frameworks (4 items) */,
 			);
 			buildRules = (
 			);
@@ -814,6 +883,10 @@
 				{
 					ProductGroup = 83765B141C8818F500D93554 /* Products */;
 					ProjectRef = 83765B131C8818F500D93554 /* PureLayout.xcodeproj */;
+				},
+				{
+					ProductGroup = 83EB73AA1C8E6514004EB117 /* Products */;
+					ProjectRef = 83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1034,6 +1107,55 @@
 			fileType = "compiled.mach-o.executable";
 			path = OSXDevTool;
 			remoteRef = 83765B921C881E1700D93554 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		83EB73B41C8E6514004EB117 /* libXCDYouTubeKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libXCDYouTubeKit.a;
+			remoteRef = 83EB73B31C8E6514004EB117 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		83EB73B61C8E6514004EB117 /* XCDYouTubeKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = XCDYouTubeKit.framework;
+			remoteRef = 83EB73B51C8E6514004EB117 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		83EB73B81C8E6514004EB117 /* XCDYouTubeKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = XCDYouTubeKit.framework;
+			remoteRef = 83EB73B71C8E6514004EB117 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		83EB73BA1C8E6514004EB117 /* XCDYouTubeKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = XCDYouTubeKit.framework;
+			remoteRef = 83EB73B91C8E6514004EB117 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		83EB73BC1C8E6514004EB117 /* XCDYouTubeKit iOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "XCDYouTubeKit iOS Tests.xctest";
+			remoteRef = 83EB73BB1C8E6514004EB117 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		83EB73BE1C8E6514004EB117 /* XCDYouTubeKit OS X Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "XCDYouTubeKit OS X Tests.xctest";
+			remoteRef = 83EB73BD1C8E6514004EB117 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		83EB73C01C8E6514004EB117 /* XCDYouTubeKit tvOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "XCDYouTubeKit tvOS Tests.xctest";
+			remoteRef = 83EB73BF1C8E6514004EB117 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

@@ -189,27 +189,27 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
 
         if ( !thumbnailDetails )
             {
-//            NSSize imageSize = self.bounds.size;
-//            NSImage* replacement = [ NSImage imageWithSize: imageSize
-//                                                   flipped: NO
-//                                            drawingHandler:
-//            ^BOOL ( NSRect _DstRect )
-//                {
-//                [ [ NSColor blackColor ] set ];
-//                NSRectFill( _DstRect );
-//
-//                NSString* noCover = @"NO COVER";
-//                NSDictionary* attrs = @{ NSForegroundColorAttributeName : [ NSColor whiteColor ]
-//                                       , NSFontAttributeName : [ NSFont fontWithName: @"Helvetica Neue Light" size: 15 ]
-//                                       };
-//
-//                NSSize size = [ noCover sizeWithAttributes: attrs ];
-//                [ noCover drawAtPoint: NSMakePoint( ( NSWidth( _DstRect ) * .6f - size.width ) / 2, ( NSHeight( _DstRect ) - size.height ) / 2 ) withAttributes: attrs ];
-//
-//                return YES;
-//                } ];
-//
-//            thumbnailImage_ = replacement;
+            NSSize imageSize = self.bounds.size;
+            NSImage* replacement = [ NSImage imageWithSize: imageSize
+                                                   flipped: NO
+                                            drawingHandler:
+            ^BOOL ( NSRect _DstRect )
+                {
+                [ [ NSColor blackColor ] set ];
+                NSRectFill( _DstRect );
+
+                NSString* noCover = @"NO COVER";
+                NSDictionary* attrs = @{ NSForegroundColorAttributeName : [ NSColor whiteColor ]
+                                       , NSFontAttributeName : [ NSFont fontWithName: @"Helvetica Neue Light" size: 15 ]
+                                       };
+
+                NSSize size = [ noCover sizeWithAttributes: attrs ];
+                [ noCover drawAtPoint: NSMakePoint( ( NSWidth( _DstRect ) * .6f - size.width ) / 2, ( NSHeight( _DstRect ) - size.height ) / 2 ) withAttributes: attrs ];
+
+                return YES;
+                } ];
+
+            thumbnailImage_ = replacement;
             [ self updateUI_ ];
             return;
             }
@@ -310,13 +310,16 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
             [ self addSubview: imageView ];
 
             [ layoutConstraintsCache_ addObjectsFromArray:
-                [ imageView autoSetDimensionsToSize: NSMakeSize( 60.f, 60.f ) ] ];
+                [ imageView autoSetDimensionsToSize: NSMakeSize( 80.f, 80.f ) ] ];
 
             [ layoutConstraintsCache_ addObject:
-                [ imageView autoPinEdge: ALEdgeTop toEdge: ALEdgeTop ofView: imageView.superview withOffset: 5.f ] ];
+                [ imageView autoAlignAxisToSuperviewAxis: ALAxisHorizontal ] ];
 
             [ layoutConstraintsCache_ addObject:
-                [ imageView autoPinEdge: ALEdgeLeading toEdge: ALEdgeLeading ofView: imageView.superview withOffset: -5.f ] ];
+                [ imageView autoMatchDimension: ALDimensionHeight toDimension: ALDimensionWidth ofView: imageView ] ];
+
+            [ layoutConstraintsCache_ addObject:
+                [ imageView autoPinEdge: ALEdgeLeading toEdge: ALEdgeLeading ofView: imageView.superview withOffset: 15.f ] ];
             } break;
 
         case TauYouTubePlayListView:

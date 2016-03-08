@@ -33,6 +33,7 @@ DDLogLevelOff
 #endif
 ;
 
+@import XCDYouTubeKit;
 @import PureLayout;
 #import "FBKVOController.h"
 

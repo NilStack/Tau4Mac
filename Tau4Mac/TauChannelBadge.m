@@ -23,10 +23,6 @@
     {
     if ( self = [ super initWithFrame: _FrameRect ] )
         {
-        self.blendingMode = NSVisualEffectBlendingModeWithinWindow;
-        self.material = NSVisualEffectMaterialLight;
-        self.state = NSVisualEffectStateActive;
-
         [ self configureForAutoLayout ];
         [ self autoSetDimensionsToSize: NSMakeSize( 60, 16 ) ];
 
@@ -36,14 +32,6 @@
         }
 
     return self;
-    }
-
-- ( CALayer* ) makeBackingLayer
-    {
-    CALayer* backingLayer = [ super makeBackingLayer ];
-    backingLayer.cornerRadius = 3.f;
-
-    return backingLayer;
     }
 
 @end // TauChannelBadge class
@@ -70,9 +58,12 @@
 - ( void ) drawRect: ( NSRect )_DirtyRect
     {
     if ( !drawingAttrs_ )
-        drawingAttrs_ = @{ NSForegroundColorAttributeName : [ NSColor colorWithSRGBRed: 81.f / 255 green: 81.f / 255 blue: 81.f / 255 alpha: 1.f ]
+        drawingAttrs_ = @{ NSForegroundColorAttributeName : [ NSColor whiteColor ]
                          , NSFontAttributeName : [ NSFont fontWithName: @"Helvetica Neue" size: 12 ]
                          };
+
+    [ [ NSColor colorWithSRGBRed: 81.f / 255 green: 81.f / 255 blue: 81.f / 255 alpha: 1.f ] set ];
+    NSRectFill( self.bounds );
 
     NSString* badgeText = NSLocalizedString( @"CHANNEL", nil );
     NSSize badgeTextSize = [ badgeText sizeWithAttributes: drawingAttrs_ ];

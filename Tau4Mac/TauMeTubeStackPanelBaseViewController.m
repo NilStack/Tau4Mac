@@ -208,7 +208,7 @@
 
     BOOL needs = NO;
     TauResultCollectionPanelViewController* resultC = nil;
-    TauMeTubeSubPanelSwitcherSegmentTag ivarTag = 0;
+    TauMeTubeSubPanelSwitcherSegmentTag ivarTag = -1;
 
     if ( [ _PlaylistID isEqualToString: likesPlaylistID_ ] )
         {

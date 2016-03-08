@@ -6,8 +6,7 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+// TauChannelBadge class
+@interface TauChannelBadge : NSView
 
-@interface TauChannelBadge : NSVisualEffectView
-
-@end
+@end // TauChannelBadge class
