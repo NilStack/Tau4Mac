@@ -31,6 +31,11 @@
     return self.playerView_.ytContent;
     }
 
+- ( void ) viewDidLoad
+    {
+//    NSLog( @"%@", self.playerView_.
+    }
+
 #pragma mark - Private Interfaces
 
 - ( TauPlayerStackPanelBaseView* ) playerView_

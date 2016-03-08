@@ -140,7 +140,9 @@
 
 - ( void ) doPlayerViewInit_
     {
-    // TODO:
+    // Force to load the AVPlayerView
+    if ( !self.playerView_ )
+        DDLogError( @"Goddamn it! Failed to load AVPlayerView" );
     }
 
 @end // TauPlayerStackPanelBaseView class

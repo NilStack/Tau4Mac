@@ -65,6 +65,7 @@
 		83EB73CA1C8E65A2004EB117 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EB73C81C8E65A2004EB117 /* AVKit.framework */; };
 		83EB73CE1C8E680F004EB117 /* TauPlayerStackPanelBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB73CC1C8E680F004EB117 /* TauPlayerStackPanelBaseViewController.m */; };
 		83EB73CF1C8E680F004EB117 /* TauPlayerStackPanelBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83EB73CD1C8E680F004EB117 /* TauPlayerStackPanelBaseViewController.xib */; };
+		83EB743A1C8EA203004EB117 /* TauPlayerStackPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB74381C8EA203004EB117 /* TauPlayerStackPanelController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -460,6 +461,8 @@
 		83EB73CB1C8E680F004EB117 /* TauPlayerStackPanelBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauPlayerStackPanelBaseViewController.h; sourceTree = "<group>"; };
 		83EB73CC1C8E680F004EB117 /* TauPlayerStackPanelBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauPlayerStackPanelBaseViewController.m; sourceTree = "<group>"; };
 		83EB73CD1C8E680F004EB117 /* TauPlayerStackPanelBaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TauPlayerStackPanelBaseViewController.xib; sourceTree = "<group>"; };
+		83EB74371C8EA203004EB117 /* TauPlayerStackPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauPlayerStackPanelController.h; sourceTree = "<group>"; };
+		83EB74381C8EA203004EB117 /* TauPlayerStackPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauPlayerStackPanelController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -796,6 +799,8 @@
 		83EB74361C8EA1C3004EB117 /* player-panel */ = {
 			isa = PBXGroup;
 			children = (
+				83EB74371C8EA203004EB117 /* TauPlayerStackPanelController.h */,
+				83EB74381C8EA203004EB117 /* TauPlayerStackPanelController.m */,
 				83EB73CB1C8E680F004EB117 /* TauPlayerStackPanelBaseViewController.h */,
 				83EB73CC1C8E680F004EB117 /* TauPlayerStackPanelBaseViewController.m */,
 				83EB73C41C8E6598004EB117 /* TauPlayerStackPanelBaseView.h */,
@@ -1261,6 +1266,7 @@
 				8318A5481C89205700F3E9CD /* TauYouTubeEntryLayer.m in Sources */,
 				8321F6AE1C8AB52800D11FE0 /* TauAbstractStackViewItem.m in Sources */,
 				83EB73431C8D1C2D004EB117 /* TauSearchStackPanelController.m in Sources */,
+				83EB743A1C8EA203004EB117 /* TauPlayerStackPanelController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
