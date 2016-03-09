@@ -61,12 +61,12 @@
             case TauYouTubeVideoView:
             case TauYouTubePlayListItemView:
                 {
-                TauYouTubeVideoDurationBadge* durationBadge = [ [ TauYouTubeVideoDurationBadge alloc ] initWithFrame: NSZeroRect ];
-                [ self addSubview: durationBadge ];
-
-                [ durationBadge autoPinEdge: ALEdgeBottom toEdge: ALEdgeBottom ofView: durationBadge.superview withOffset: -5.f ];
-
-                [ durationBadge autoPinEdge: ALEdgeTrailing toEdge: ALEdgeTrailing ofView: durationBadge.superview withOffset: -5.f ];
+//                TauYouTubeVideoDurationBadge* durationBadge = [ [ TauYouTubeVideoDurationBadge alloc ] initWithFrame: NSZeroRect ];
+//                [ self addSubview: durationBadge ];
+//
+//                [ durationBadge autoPinEdge: ALEdgeBottom toEdge: ALEdgeBottom ofView: durationBadge.superview withOffset: -5.f ];
+//
+//                [ durationBadge autoPinEdge: ALEdgeTrailing toEdge: ALEdgeTrailing ofView: durationBadge.superview withOffset: -5.f ];
                 } break;
 
             default:

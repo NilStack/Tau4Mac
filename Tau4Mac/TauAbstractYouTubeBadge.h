@@ -9,4 +9,6 @@
 // TauAbstractYouTubeBadge class
 @interface TauAbstractYouTubeBadge : NSControl
 
+@property ( strong, readwrite ) GTLObject* ytContent;
+
 @end // TauAbstractYouTubeBadge class

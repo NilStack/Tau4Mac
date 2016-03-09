@@ -154,24 +154,20 @@
 
 - ( void ) mouseEntered: ( NSEvent* )_Event
     {
-    self.isMosExitedInteractionViewHidden_ = YES;
-    self.isMosEnteredInteractionViewHidden_ = NO;
-
-//    [ NSLayoutConstraint activateConstraints: self.mos ];
-
-//    for ( NSView* _View in self.mouseEnteredInteractionSubViews_ )
-//        [ _View setHidden: NO ];
+    if ( thumbnailImage_ )
+        {
+        self.isMosExitedInteractionViewHidden_ = YES;
+        self.isMosEnteredInteractionViewHidden_ = NO;
+        }
     }
 
 - ( void ) mouseExited: ( NSEvent* )_Event
     {
-    self.isMosExitedInteractionViewHidden_ = NO;
-    self.isMosEnteredInteractionViewHidden_ = YES;
-
-//    [ NSLayoutConstraint deactivateConstraints: self.mouseEnteredLayoutConstraintsCache_ ];
-//
-//    for ( NSView* _View in self.mouseEnteredInteractionSubViews_ )
-//        [ _View setHidden: YES ];
+    if ( thumbnailImage_ )
+        {
+        self.isMosExitedInteractionViewHidden_ = NO;
+        self.isMosEnteredInteractionViewHidden_ = YES;
+        }
     }
 
 #pragma mark - Private Interfaces

@@ -13,6 +13,7 @@
 @implementation TauAbstractYouTubeBadge
     {
     PriTauBadgeTextInternalCell_ __strong* internalView_;
+    GTLObject __strong* ytContent_;
     }
 
 #pragma mark - Initializations
@@ -35,6 +36,21 @@
     return [ PriTauBadgeTextInternalCell_ class ];
     }
 
+#pragma mark - Dynamic Properties
+
+@dynamic ytContent;
+
+- ( void ) setYtContent: ( GTLObject* )_New
+    {
+    if ( ytContent_ != _New )
+        ytContent_ = _New;
+    }
+
+- ( GTLObject* ) ytContent
+    {
+    return ytContent_;
+    }
+
 @end // TauAbstractYouTubeBadge class
 
 // PriTauBadgeTextInternalCell_ class
@@ -48,9 +64,11 @@
 - ( void ) drawWithFrame: ( NSRect )_DirtyRect inView: ( NSView* )_ControlView
     {
     if ( !drawingAttrs_ )
+        {
         drawingAttrs_ = @{ NSForegroundColorAttributeName : [ NSColor whiteColor ]
                          , NSFontAttributeName : [ NSFont fontWithName: @"Helvetica Neue" size: 12 ]
                          };
+        }
 
     [ [ NSColor colorWithSRGBRed: 81.f / 255 green: 81.f / 255 blue: 81.f / 255 alpha: 1.f ] set ];
     NSRectFill( _ControlView.bounds );
