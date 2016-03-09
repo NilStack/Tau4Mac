@@ -11,10 +11,12 @@
 // TauEntryMosEnteredInteractionView class
 @implementation TauEntryMosEnteredInteractionView
 
+#pragma mark - Initializations
+
 - ( instancetype ) initWithGTLObject: ( GTLObject* )_GTLObject host: ( TauYouTubeEntryView* )_EntryView
     {
     if ( self = [ super initWithGTLObject: _GTLObject host: _EntryView ] )
-        self.layer.backgroundColor = [ [ NSColor blackColor ] colorWithAlphaComponent: .6f ].CGColor;
+        self.layer.backgroundColor = [ [ NSColor blackColor ] colorWithAlphaComponent: .8f ].CGColor;
 
     return self;
     }

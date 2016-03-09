@@ -56,6 +56,16 @@
                 [ plistSummaryView autoMatchDimension: ALDimensionWidth toDimension: ALDimensionWidth ofView: self withMultiplier: 0.4f ];
                 [ plistSummaryView setYtObject: self.ytContent ];
                 } break;
+
+            case TauYouTubeVideoView:
+                {
+
+                } break;
+
+            default:
+                {
+                DDLogWarn( @"Host entry view has an unknown type" );
+                } break;
             }
         }
 
