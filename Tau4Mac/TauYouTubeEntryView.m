@@ -12,6 +12,8 @@
 #import "TauYouTubePlaylistSummaryView.h"
 #import "TauChannelBadge.h"
 #import "TauPlayerStackPanelBaseViewController.h"
+#import "TauEntryMosEnteredInteractionView.h"
+#import "TauEntryMosExitedInteractionView.h"
 
 #import "NSImage+Tau.h"
 
@@ -19,7 +21,20 @@
 
 // Private Interfaces
 @interface TauYouTubeEntryView ()
+
+@property ( assign, readwrite, setter = setMosEnteredInteractionViewHidden_: ) BOOL isMosEnteredInteractionViewHidden_;
+@property ( assign, readwrite, setter = setMosExitedInteractionViewHidden_: ) BOOL isMosExitedInteractionViewHidden_;
+
+// Mouse Entered
+@property ( strong, readonly ) TauEntryMosEnteredInteractionView* mosEnteredInteractionView_;
+@property ( strong, readonly ) NSMutableArray <NSLayoutConstraint*>* mosEnteredLayoutConstraintsCache_;
+
+// Mouse Exited
+@property ( strong, readonly ) TauEntryMosExitedInteractionView* mosExitedInteractionView_;
+@property ( strong, readonly ) NSMutableArray <NSLayoutConstraint*>* mosExitedLayoutConstraintsCache_;
+
 - ( void ) cleanUp_;
+
 @end // Private Interfaces
 
 // TauYouTubeEntryView class
@@ -29,7 +44,13 @@
     NSImage __strong* thumbnailImage_;
     GTLObject __strong* ytContent_;
 
-    NSMutableArray <NSLayoutConstraint*>* layoutConstraintsCache_;
+    // Mouse Entered
+    TauEntryMosEnteredInteractionView __strong*     priMosEnteredInteractionView_;
+    NSMutableArray <NSLayoutConstraint*> __strong*  priMosEnteredLayoutConstraintsCache_;
+
+    // Mouse Exited
+    TauEntryMosExitedInteractionView __strong*      priMosExitedInteractionView_;
+    NSMutableArray <NSLayoutConstraint*>__strong*   priMosExitedLayoutConstraintsCache_;
     }
 
 #pragma mark - Initializations
@@ -131,14 +152,130 @@
     [ self.target performSelectorOnMainThread: self.action withObject: self waitUntilDone: NO ];
     }
 
+- ( void ) mouseEntered: ( NSEvent* )_Event
+    {
+    self.isMosExitedInteractionViewHidden_ = YES;
+    self.isMosEnteredInteractionViewHidden_ = NO;
+
+//    [ NSLayoutConstraint activateConstraints: self.mos ];
+
+//    for ( NSView* _View in self.mouseEnteredInteractionSubViews_ )
+//        [ _View setHidden: NO ];
+    }
+
+- ( void ) mouseExited: ( NSEvent* )_Event
+    {
+    self.isMosExitedInteractionViewHidden_ = NO;
+    self.isMosEnteredInteractionViewHidden_ = YES;
+
+//    [ NSLayoutConstraint deactivateConstraints: self.mouseEnteredLayoutConstraintsCache_ ];
+//
+//    for ( NSView* _View in self.mouseEnteredInteractionSubViews_ )
+//        [ _View setHidden: YES ];
+    }
+
 #pragma mark - Private Interfaces
+
+@dynamic isMosEnteredInteractionViewHidden_;
+@dynamic isMosExitedInteractionViewHidden_;
+
+- ( void ) setMosEnteredInteractionViewHidden_: ( BOOL )_Flag
+    {
+    [ self.mosEnteredInteractionView_ setHidden: _Flag ];
+
+    _Flag ? [ NSLayoutConstraint deactivateConstraints: self.mosEnteredLayoutConstraintsCache_ ]
+          : [ NSLayoutConstraint activateConstraints: self.mosEnteredLayoutConstraintsCache_ ];
+    }
+
+- ( BOOL ) isMosEnteredInteractionViewHidden_
+    {
+    return self.mosEnteredInteractionView_.hidden;
+    }
+
+- ( void ) setMosExitedInteractionViewHidden_: ( BOOL )_Flag
+    {
+    [ self.mosExitedInteractionView_ setHidden: _Flag ];
+
+    _Flag ? [ NSLayoutConstraint deactivateConstraints: self.mosExitedLayoutConstraintsCache_ ]
+          : [ NSLayoutConstraint activateConstraints: self.mosExitedLayoutConstraintsCache_ ];
+    }
+
+- ( BOOL ) isMosExitedInteractionViewHidden_
+    {
+    return self.mosExitedInteractionView_.hidden;
+    }
+
+// Mouse Entered
+@dynamic mosEnteredInteractionView_;
+@dynamic mosEnteredLayoutConstraintsCache_;
+
+- ( TauEntryMosEnteredInteractionView* ) mosEnteredInteractionView_
+    {
+    if ( !priMosEnteredInteractionView_ )
+        {
+        priMosEnteredInteractionView_ = [ [ TauEntryMosEnteredInteractionView alloc ] initWithGTLObject: ytContent_ host: self ];
+
+        [ self addSubview: priMosEnteredInteractionView_ ];
+
+        [ self.mosEnteredLayoutConstraintsCache_ removeAllObjects ];
+        [ self.mosEnteredLayoutConstraintsCache_ addObjectsFromArray: [ priMosEnteredInteractionView_ autoPinEdgesToSuperviewEdges ] ];
+
+        [ priMosEnteredInteractionView_ setHidden: YES ];
+        [ NSLayoutConstraint deactivateConstraints: self.mosEnteredLayoutConstraintsCache_ ];
+        }
+
+    return priMosEnteredInteractionView_;
+    }
+
+- ( NSMutableArray <NSLayoutConstraint*>* ) mosEnteredLayoutConstraintsCache_
+    {
+    if ( !priMosEnteredLayoutConstraintsCache_ )
+        priMosEnteredLayoutConstraintsCache_ = [ NSMutableArray array ];
+
+    return priMosEnteredLayoutConstraintsCache_;
+    }
+
+// Mouse Exited
+@dynamic mosExitedInteractionView_;
+@dynamic mosExitedLayoutConstraintsCache_;
+
+- ( TauEntryMosExitedInteractionView* ) mosExitedInteractionView_
+    {
+    if ( !priMosExitedInteractionView_ )
+        {
+        priMosExitedInteractionView_ = [ [ TauEntryMosExitedInteractionView alloc ] initWithGTLObject: ytContent_ host: self thumbnail: thumbnailImage_ ];
+
+        [ self addSubview: priMosExitedInteractionView_ ];
+
+        [ self.mosExitedLayoutConstraintsCache_ removeAllObjects ];
+        [ self.mosExitedLayoutConstraintsCache_ addObjectsFromArray: [ priMosExitedInteractionView_ autoPinEdgesToSuperviewEdges ] ];
+
+        [ priMosExitedInteractionView_ setHidden: YES ];
+        [ NSLayoutConstraint deactivateConstraints: self.mosExitedLayoutConstraintsCache_ ];
+        }
+
+    return priMosExitedInteractionView_;
+    }
+
+- ( NSMutableArray <NSLayoutConstraint*>* ) mosExitedLayoutConstraintsCache_
+    {
+    if ( !priMosExitedLayoutConstraintsCache_ )
+        priMosExitedLayoutConstraintsCache_ = [ NSMutableArray array ];
+
+    return priMosExitedLayoutConstraintsCache_;
+    }
 
 - ( void ) cleanUp_
     {
-    if ( layoutConstraintsCache_.count > 0 )
-        [ layoutConstraintsCache_ removeAllObjects ];
+    [ self.mosEnteredLayoutConstraintsCache_ removeAllObjects ];
+    priMosEnteredLayoutConstraintsCache_ = nil;
+    [ self.mosExitedLayoutConstraintsCache_ removeAllObjects ];
+    priMosExitedLayoutConstraintsCache_ = nil;
 
-    [ self setSubviews: @[] ];
+    [ self.mosEnteredInteractionView_ removeFromSuperview ];
+    priMosEnteredInteractionView_ = nil;
+    [ self.mosExitedInteractionView_ removeFromSuperview ];
+    priMosExitedInteractionView_ = nil;
 
     thumbnailImage_ = nil;
     [ self.layer setNeedsDisplay ];
@@ -160,6 +297,13 @@
     [ self configureForAutoLayout ];
     [ self autoSetDimension: ALDimensionWidth toSize: 200 relation: NSLayoutRelationGreaterThanOrEqual ];
     [ self autoMatchDimension: ALDimensionHeight toDimension: ALDimensionWidth ofView: self withMultiplier: 0.56f ];
+
+    NSTrackingArea* mouseEventTrackingArea =
+        [ [ NSTrackingArea alloc ] initWithRect: self.bounds
+                                        options: NSTrackingMouseEnteredAndExited | NSTrackingActiveInActiveApp | NSTrackingInVisibleRect
+                                          owner: self
+                                       userInfo: nil ];
+    [ self addTrackingArea: mouseEventTrackingArea ];
     }
 
 NSString* const kPreferredThumbKey = @"kPreferredThumbKey";
@@ -294,60 +438,8 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
     [ self.layer setContents: nil ];
     [ self.layer setNeedsDisplay ];
 
-    if ( !layoutConstraintsCache_ )
-        layoutConstraintsCache_ = [ NSMutableArray array ];
-    else
-        [ layoutConstraintsCache_ removeAllObjects ];
-
-    switch ( self.type )
-        {
-        case TauYouTubeChannelView:
-            {
-            TauChannelBadge* channelBadge = [ [ TauChannelBadge alloc ] initWithFrame: NSZeroRect ];
-            [ self addSubview: channelBadge ];
-
-            [ layoutConstraintsCache_ addObject:
-                [ channelBadge autoPinEdge: ALEdgeTop toEdge: ALEdgeTop ofView: channelBadge.superview withOffset: 5.f ] ];
-
-            [ layoutConstraintsCache_ addObject:
-                [ channelBadge autoPinEdge: ALEdgeTrailing toEdge: ALEdgeTrailing ofView: channelBadge.superview withOffset: -5.f ] ];
-
-            NSImageView* imageView = [ [ NSImageView alloc ] initWithFrame: NSZeroRect ];
-            [ imageView setImageFrameStyle: NSImageFrameNone ];
-            [ imageView setImage: thumbnailImage_ ];
-
-            [ self addSubview: imageView ];
-
-            [ layoutConstraintsCache_ addObjectsFromArray:
-                [ imageView autoSetDimensionsToSize: NSMakeSize( 80.f, 80.f ) ] ];
-
-            [ layoutConstraintsCache_ addObject:
-                [ imageView autoAlignAxisToSuperviewAxis: ALAxisHorizontal ] ];
-
-            [ layoutConstraintsCache_ addObject:
-                [ imageView autoMatchDimension: ALDimensionHeight toDimension: ALDimensionWidth ofView: imageView ] ];
-
-            [ layoutConstraintsCache_ addObject:
-                [ imageView autoPinEdge: ALEdgeLeading toEdge: ALEdgeLeading ofView: imageView.superview withOffset: 15.f ] ];
-            } break;
-
-        case TauYouTubePlayListView:
-            {
-            TauYouTubePlaylistSummaryView* plSummaryView = [ [ TauYouTubePlaylistSummaryView alloc ] initWithFrame: NSZeroRect ];
-            [ self addSubview: plSummaryView ];
-
-            [ layoutConstraintsCache_ addObjectsFromArray:
-                [ plSummaryView autoPinEdgesToSuperviewEdgesWithInsets: NSEdgeInsetsZero excludingEdge: ALEdgeLeading ] ];
-
-            [ plSummaryView autoMatchDimension: ALDimensionWidth toDimension: ALDimensionWidth ofView: self withMultiplier: 0.4f ];
-            [ plSummaryView setYtObject: ytContent_ ];
-            } break;
-
-        default:
-            {
-
-            } break;
-        }
+    self.isMosExitedInteractionViewHidden_ = NO;
+    self.isMosEnteredInteractionViewHidden_ = YES;
     }
 
 @end // TauYouTubeEntryView + PriTauYouTubeContentView_

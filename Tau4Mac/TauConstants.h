@@ -22,6 +22,15 @@ typedef NS_ENUM ( NSInteger, TauMeTubeSubPanelSwitcherSegmentTag )
     , TauMeTubeSubPanelSwitcherWatchLaterTag = 3
     };
 
+typedef NS_ENUM ( NSUInteger, TauYouTubeContentViewType )
+    { TauYouTubeVideoView           = 1
+    , TauYouTubeChannelView         = 2
+    , TauYouTubePlayListView        = 3
+    , TauYouTubePlayListItemView    = 4
+
+    , TauYouTubeUnknownView         = 0
+    };
+
 #define TAU_PAGEER_PREV 0
 #define TAU_PAGEER_NEXT 1
 

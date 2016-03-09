@@ -8,15 +8,6 @@
 
 // TauYouTubeEntryView class
 
-typedef NS_ENUM ( NSUInteger, TauYouTubeContentViewType )
-    { TauYouTubeVideoView           = 1
-    , TauYouTubeChannelView         = 2
-    , TauYouTubePlayListView        = 3
-    , TauYouTubePlayListItemView    = 4
-
-    , TauYouTubeUnknownView         = 0
-    };
-
 @interface TauYouTubeEntryView : NSControl
 
 #pragma mark - Initializations
