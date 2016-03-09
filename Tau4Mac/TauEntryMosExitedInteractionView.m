@@ -7,7 +7,7 @@
 //
 
 #import "TauEntryMosExitedInteractionView.h"
-#import "TauChannelBadge.h"
+#import "TauYouTubeChannelBadge.h"
 #import "TauYouTubePlaylistSummaryView.h"
 
 // TauEntryMosExitedInteractionView class
@@ -28,7 +28,7 @@
             {
             case TauYouTubeChannelView:
                 {
-                TauChannelBadge* channelBadge = [ [ TauChannelBadge alloc ] initWithFrame: NSZeroRect ];
+                TauYouTubeChannelBadge* channelBadge = [ [ TauYouTubeChannelBadge alloc ] initWithFrame: NSZeroRect ];
                 [ self addSubview: channelBadge ];
 
                 [ channelBadge autoPinEdge: ALEdgeTop toEdge: ALEdgeTop ofView: channelBadge.superview withOffset: 5.f ];

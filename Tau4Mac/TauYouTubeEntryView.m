@@ -10,7 +10,7 @@
 #import "OAuthSigningConstants.h"
 #import "TauYouTubeEntryLayer.h"
 #import "TauYouTubePlaylistSummaryView.h"
-#import "TauChannelBadge.h"
+#import "TauYouTubeChannelBadge.h"
 #import "TauPlayerStackPanelBaseViewController.h"
 #import "TauEntryMosEnteredInteractionView.h"
 #import "TauEntryMosExitedInteractionView.h"

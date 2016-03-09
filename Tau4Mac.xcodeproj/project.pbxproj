@@ -24,7 +24,7 @@
 		8321F6B61C8ACADC00D11FE0 /* TauResultsCollectionToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6B51C8ACADC00D11FE0 /* TauResultsCollectionToolbar.m */; };
 		8321F6B91C8AEA3900D11FE0 /* TauResultsCollectionSummaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6B81C8AEA3900D11FE0 /* TauResultsCollectionSummaryView.m */; };
 		8321F6BC1C8BE62C00D11FE0 /* TauYouTubePlaylistSummaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6BB1C8BE62C00D11FE0 /* TauYouTubePlaylistSummaryView.m */; };
-		8321F6BF1C8C3DDC00D11FE0 /* TauChannelBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6BE1C8C3DDC00D11FE0 /* TauChannelBadge.m */; };
+		8321F6BF1C8C3DDC00D11FE0 /* TauYouTubeChannelBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6BE1C8C3DDC00D11FE0 /* TauYouTubeChannelBadge.m */; };
 		8349D3DF1C899444000D091F /* NSImage+Tau.m in Sources */ = {isa = PBXBuildFile; fileRef = 8349D3DE1C899444000D091F /* NSImage+Tau.m */; };
 		83765ADF1C8811DD00D93554 /* TauAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765ADE1C8811DD00D93554 /* TauAppDelegate.m */; };
 		83765AE21C8811DD00D93554 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AE11C8811DD00D93554 /* main.m */; };
@@ -396,8 +396,8 @@
 		8321F6B81C8AEA3900D11FE0 /* TauResultsCollectionSummaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauResultsCollectionSummaryView.m; sourceTree = "<group>"; };
 		8321F6BA1C8BE62C00D11FE0 /* TauYouTubePlaylistSummaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauYouTubePlaylistSummaryView.h; sourceTree = "<group>"; };
 		8321F6BB1C8BE62C00D11FE0 /* TauYouTubePlaylistSummaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauYouTubePlaylistSummaryView.m; sourceTree = "<group>"; };
-		8321F6BD1C8C3DDC00D11FE0 /* TauChannelBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauChannelBadge.h; sourceTree = "<group>"; };
-		8321F6BE1C8C3DDC00D11FE0 /* TauChannelBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauChannelBadge.m; sourceTree = "<group>"; };
+		8321F6BD1C8C3DDC00D11FE0 /* TauYouTubeChannelBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauYouTubeChannelBadge.h; sourceTree = "<group>"; };
+		8321F6BE1C8C3DDC00D11FE0 /* TauYouTubeChannelBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauYouTubeChannelBadge.m; sourceTree = "<group>"; };
 		8349D3991C8983D8000D091F /* PriTauYouTubeContentView_.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriTauYouTubeContentView_.h; sourceTree = "<group>"; };
 		8349D3DD1C899444000D091F /* NSImage+Tau.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+Tau.h"; sourceTree = "<group>"; };
 		8349D3DE1C899444000D091F /* NSImage+Tau.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+Tau.m"; sourceTree = "<group>"; };
@@ -600,8 +600,8 @@
 				83EB74411C8FCCA7004EB117 /* TauEntryMosExitedInteractionView.m */,
 				8318A5461C89205700F3E9CD /* TauYouTubeEntryLayer.h */,
 				8318A5471C89205700F3E9CD /* TauYouTubeEntryLayer.m */,
-				8321F6BD1C8C3DDC00D11FE0 /* TauChannelBadge.h */,
-				8321F6BE1C8C3DDC00D11FE0 /* TauChannelBadge.m */,
+				8321F6BD1C8C3DDC00D11FE0 /* TauYouTubeChannelBadge.h */,
+				8321F6BE1C8C3DDC00D11FE0 /* TauYouTubeChannelBadge.m */,
 				8321F6BA1C8BE62C00D11FE0 /* TauYouTubePlaylistSummaryView.h */,
 				8321F6BB1C8BE62C00D11FE0 /* TauYouTubePlaylistSummaryView.m */,
 				83EB74461C8FF2B0004EB117 /* TauYouTubeVideoDurationBadge.h */,
@@ -1253,7 +1253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8321F6BF1C8C3DDC00D11FE0 /* TauChannelBadge.m in Sources */,
+				8321F6BF1C8C3DDC00D11FE0 /* TauYouTubeChannelBadge.m in Sources */,
 				8321F68D1C8AA19B00D11FE0 /* TauAbstractStackPanelController.m in Sources */,
 				83765AE51C8811DD00D93554 /* TauMainViewController.m in Sources */,
 				8399E21A1C88231400A42C44 /* TauMainWindowController.m in Sources */,

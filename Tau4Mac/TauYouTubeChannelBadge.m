@@ -1,20 +1,20 @@
 //
-//  TauChannelBadge.m
+//  TauYouTubeChannelBadge.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/6/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauChannelBadge.h"
+#import "TauYouTubeChannelBadge.h"
 
 // BadgeTextInternalView_ class
 @interface BadgeTextInternalView_ : NSView
 
 @end // BadgeTextInternalView_ class
 
-// TauChannelBadge class
-@implementation TauChannelBadge
+// TauYouTubeChannelBadge class
+@implementation TauYouTubeChannelBadge
     {
     BadgeTextInternalView_ __strong* internalView_;
     }
@@ -34,7 +34,7 @@
     return self;
     }
 
-@end // TauChannelBadge class
+@end // TauYouTubeChannelBadge class
 
 // BadgeTextInternalView_ class
 @implementation BadgeTextInternalView_
