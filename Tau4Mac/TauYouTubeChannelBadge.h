@@ -6,7 +6,9 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
+#import "TauAbstractYouTubeBadge.h"
+
 // TauYouTubeChannelBadge class
-@interface TauYouTubeChannelBadge : NSView
+@interface TauYouTubeChannelBadge : TauAbstractYouTubeBadge
 
 @end // TauYouTubeChannelBadge class

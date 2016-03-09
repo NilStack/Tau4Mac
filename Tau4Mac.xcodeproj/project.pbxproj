@@ -70,6 +70,7 @@
 		83EB74421C8FCCA7004EB117 /* TauEntryMosExitedInteractionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB74411C8FCCA7004EB117 /* TauEntryMosExitedInteractionView.m */; };
 		83EB74451C8FCDF6004EB117 /* TauAbstractEntryMosInteractionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB74441C8FCDF6004EB117 /* TauAbstractEntryMosInteractionView.m */; };
 		83EB74481C8FF2B0004EB117 /* TauYouTubeVideoDurationBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB74471C8FF2B0004EB117 /* TauYouTubeVideoDurationBadge.m */; };
+		83EB744B1C8FF5D7004EB117 /* TauAbstractYouTubeBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB744A1C8FF5D7004EB117 /* TauAbstractYouTubeBadge.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -476,6 +477,9 @@
 		83EB74441C8FCDF6004EB117 /* TauAbstractEntryMosInteractionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAbstractEntryMosInteractionView.m; sourceTree = "<group>"; };
 		83EB74461C8FF2B0004EB117 /* TauYouTubeVideoDurationBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauYouTubeVideoDurationBadge.h; sourceTree = "<group>"; };
 		83EB74471C8FF2B0004EB117 /* TauYouTubeVideoDurationBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauYouTubeVideoDurationBadge.m; sourceTree = "<group>"; };
+		83EB74491C8FF5D7004EB117 /* TauAbstractYouTubeBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauAbstractYouTubeBadge.h; sourceTree = "<group>"; };
+		83EB744A1C8FF5D7004EB117 /* TauAbstractYouTubeBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAbstractYouTubeBadge.m; sourceTree = "<group>"; };
+		83EB744C1C8FF7B9004EB117 /* PriTauBadgeTextInternalCell_.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PriTauBadgeTextInternalCell_.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -527,6 +531,7 @@
 			isa = PBXGroup;
 			children = (
 				8349D3991C8983D8000D091F /* PriTauYouTubeContentView_.h */,
+				83EB744C1C8FF7B9004EB117 /* PriTauBadgeTextInternalCell_.h */,
 			);
 			name = pri;
 			sourceTree = "<group>";
@@ -600,12 +605,14 @@
 				83EB74411C8FCCA7004EB117 /* TauEntryMosExitedInteractionView.m */,
 				8318A5461C89205700F3E9CD /* TauYouTubeEntryLayer.h */,
 				8318A5471C89205700F3E9CD /* TauYouTubeEntryLayer.m */,
+				83EB74491C8FF5D7004EB117 /* TauAbstractYouTubeBadge.h */,
+				83EB744A1C8FF5D7004EB117 /* TauAbstractYouTubeBadge.m */,
+				83EB74461C8FF2B0004EB117 /* TauYouTubeVideoDurationBadge.h */,
+				83EB74471C8FF2B0004EB117 /* TauYouTubeVideoDurationBadge.m */,
 				8321F6BD1C8C3DDC00D11FE0 /* TauYouTubeChannelBadge.h */,
 				8321F6BE1C8C3DDC00D11FE0 /* TauYouTubeChannelBadge.m */,
 				8321F6BA1C8BE62C00D11FE0 /* TauYouTubePlaylistSummaryView.h */,
 				8321F6BB1C8BE62C00D11FE0 /* TauYouTubePlaylistSummaryView.m */,
-				83EB74461C8FF2B0004EB117 /* TauYouTubeVideoDurationBadge.h */,
-				83EB74471C8FF2B0004EB117 /* TauYouTubeVideoDurationBadge.m */,
 				8321F6661C8AA0A500D11FE0 /* TauViewsStack.h */,
 				8321F6671C8AA0A500D11FE0 /* TauViewsStack.m */,
 				8321F68A1C8AA19B00D11FE0 /* TauAbstractStackPanelController.h */,
@@ -1274,6 +1281,7 @@
 				83EB73531C8D5076004EB117 /* TauMeTubeStackPanelBaseView.m in Sources */,
 				8399E2141C88200000A42C44 /* GTLYouTube_Sources.m in Sources */,
 				83EB73491C8D33BC004EB117 /* TauAbstractBeautifulView.m in Sources */,
+				83EB744B1C8FF5D7004EB117 /* TauAbstractYouTubeBadge.m in Sources */,
 				83DA1C461C8864C0007B084F /* TauAbstractLogFormatter.m in Sources */,
 				831BD6DB1C88434500122AF6 /* TauYouTubeEntriesCollectionViewController.m in Sources */,
 				83EB74451C8FCDF6004EB117 /* TauAbstractEntryMosInteractionView.m in Sources */,

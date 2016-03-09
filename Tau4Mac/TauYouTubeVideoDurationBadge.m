@@ -7,8 +7,19 @@
 //
 
 #import "TauYouTubeVideoDurationBadge.h"
+#import "PriTauBadgeTextInternalCell_.h"
 
 // TauYouTubeVideoDurationBadge class
 @implementation TauYouTubeVideoDurationBadge
+
+#pragma mark - Initializations
+
+- ( instancetype ) initWithFrame: ( NSRect )_FrameRect
+    {
+    if ( self = [ super initWithFrame: _FrameRect ] )
+        [ self.cell setBadgeText: NSLocalizedString( @"CHANNEL", nil ) ];
+
+    return self;
+    }
 
 @end // TauYouTubeVideoDurationBadge class
