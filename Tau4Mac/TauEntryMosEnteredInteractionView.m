@@ -7,6 +7,7 @@
 //
 
 #import "TauEntryMosEnteredInteractionView.h"
+#import "TauMosEnteredInteractionButton.h"
 
 // TauEntryMosEnteredInteractionView class
 @implementation TauEntryMosEnteredInteractionView
@@ -14,7 +15,7 @@
     NSTextFieldCell __strong* titleLabelCell_;
     NSTextFieldCell __strong* descLabelCell_;
 
-    NSButton __strong* playButton_;
+    TauMosEnteredInteractionButton __strong* playButton_;
     }
 
 #pragma mark - Initializations
@@ -44,7 +45,7 @@
         descLabelCell_.font = [ NSFont fontWithName: @"PingFang SC Light" size: 9.f ];
         descLabelCell_.stringValue = @"...";
 
-        playButton_ = [ [ NSButton alloc ] initWithFrame: NSZeroRect ];
+        playButton_ = [ [ TauMosEnteredInteractionButton alloc ] initWithFrame: NSZeroRect ];
 
 
         [ self addSubview: playButton_ ];
