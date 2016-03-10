@@ -72,7 +72,11 @@
         for ( int _Index = 0; _Index < TAU_ROW_COUNT * TAU_COL_COUNT; _Index++ )
             {
             TauYouTubeEntryView* videoView = [ [ TauYouTubeEntryView alloc ] initWithFrame: NSZeroRect ];
+
+TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_BEGIN
             [ videoView setAction: @selector( ytEntryViewUserInteraction: ) ];
+TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
+
             [ videoView setTarget: self.parentViewController ];
             [ self.view addSubview: videoView ];
 

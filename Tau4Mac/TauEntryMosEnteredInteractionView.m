@@ -15,7 +15,7 @@
     NSTextFieldCell __strong* titleLabelCell_;
     NSTextFieldCell __strong* descLabelCell_;
 
-    TauMosEnteredInteractionButton __strong* playButton_;
+    TauMosEnteredInteractionButton __strong* interactionButton_;
     }
 
 #pragma mark - Initializations
@@ -38,19 +38,16 @@
         titleLabelCell_ = [ [ NSTextFieldCell alloc ] init ];
         titleLabelCell_.truncatesLastVisibleLine = YES;
         titleLabelCell_.font = [ NSFont fontWithName: @"PingFang SC Light" size: 13.f ];
-        titleLabelCell_.stringValue = @"...";
 
         descLabelCell_ = [ [ NSTextFieldCell alloc ] init ];
         descLabelCell_.truncatesLastVisibleLine = YES;
         descLabelCell_.font = [ NSFont fontWithName: @"PingFang SC Light" size: 9.f ];
-        descLabelCell_.stringValue = @"...";
 
-        playButton_ = [ [ TauMosEnteredInteractionButton alloc ] initWithFrame: NSZeroRect ];
+        interactionButton_ = [ [ TauMosEnteredInteractionButton alloc ] initWithFrame: NSZeroRect ];
 
-
-        [ self addSubview: playButton_ ];
-        [ playButton_ autoAlignAxisToSuperviewAxis: ALAxisVertical ];
-        [ playButton_ autoPinEdgeToSuperviewEdge: ALEdgeBottom withInset: GEN_GAP ];
+        [ self addSubview: interactionButton_ ];
+        [ interactionButton_ autoAlignAxisToSuperviewAxis: ALAxisVertical ];
+        [ interactionButton_ autoPinEdgeToSuperviewEdge: ALEdgeBottom withInset: GEN_GAP ];
 
         NSString* titleString = nil;
         switch ( self.type )
@@ -62,13 +59,13 @@
             default:                         titleString = @"...";
             }
 
-        [ playButton_ setTitle: titleString ];
-        [ playButton_ sizeToFit ];
-        [ playButton_ autoSetDimensionsToSize: CGSizeMake( NSWidth( NSInsetRect( playButton_.frame, -5.f, 0.f ) ), PLAY_BUTTON_HEI ) ];
+        [ interactionButton_ setTitle: titleString ];
+        [ interactionButton_ sizeToFit ];
+        [ interactionButton_ autoSetDimensionsToSize: CGSizeMake( NSWidth( NSInsetRect( interactionButton_.frame, -5.f, 0.f ) ), PLAY_BUTTON_HEI ) ];
 
         GTLYouTubePlaylistItem* object = ( GTLYouTubePlaylistItem* )self.ytContent;
-        titleLabelCell_.stringValue = [ object snippet ].title;
-        descLabelCell_.stringValue = [ object snippet ].descriptionProperty;
+        titleLabelCell_.stringValue = [ object snippet ].title ?: @"...";
+        descLabelCell_.stringValue = [ object snippet ].descriptionProperty ?: @"...";
         }
 
     return self;
@@ -92,6 +89,13 @@
                   , NSWidth( self.bounds ) - ORIGIN_X * 2
                   , NSHeight( self.bounds ) - GEN_GAP * 2 - ( GEN_GAP + TITLE_LABEL_HEIGHT ) - PLAY_BUTTON_HEI
                   ) inView: self ];
+    }
+
+@dynamic interactionButton;
+
+- ( TauMosEnteredInteractionButton* ) interactionButton
+    {
+    return interactionButton_;
     }
 
 @end // TauEntryMosEnteredInteractionView class

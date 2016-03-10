@@ -8,7 +8,11 @@
 
 #import "TauAbstractEntryMosInteractionView.h"
 
+@class TauMosEnteredInteractionButton;
+
 // TauEntryMosEnteredInteractionView class
 @interface TauEntryMosEnteredInteractionView : TauAbstractEntryMosInteractionView
+
+@property ( strong, readonly ) TauMosEnteredInteractionButton* interactionButton;
 
 @end // TauEntryMosEnteredInteractionView class

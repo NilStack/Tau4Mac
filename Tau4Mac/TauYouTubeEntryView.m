@@ -14,6 +14,7 @@
 #import "TauPlayerStackPanelBaseViewController.h"
 #import "TauEntryMosEnteredInteractionView.h"
 #import "TauEntryMosExitedInteractionView.h"
+#import "TauMosEnteredInteractionButton.h"
 
 #import "NSImage+Tau.h"
 
@@ -34,6 +35,9 @@
 @property ( strong, readonly ) NSMutableArray <NSLayoutConstraint*>* mosExitedLayoutConstraintsCache_;
 
 - ( void ) cleanUp_;
+
+// Actions
+- ( void ) forwardActionOfInteractionButton_: ( id )_Sender;
 
 @end // Private Interfaces
 
@@ -146,10 +150,16 @@
 
 #pragma mark - Events
 
-- ( void ) mouseDown: ( NSEvent* )_Event
+- ( void ) setAction: ( SEL )_Action
     {
-    [ super mouseDown: _Event ];
-    [ self.target performSelectorOnMainThread: self.action withObject: self waitUntilDone: NO ];
+    [ super setAction: _Action ];
+    [ self.mosEnteredInteractionView_.interactionButton setAction: @selector( forwardActionOfInteractionButton_: ) ];
+    }
+
+- ( void ) setTarget: ( id )_Target
+    {
+    [ super setTarget: _Target ];
+    [ self.mosEnteredInteractionView_.interactionButton setTarget: self ];
     }
 
 - ( void ) mouseEntered: ( NSEvent* )_Event
@@ -275,6 +285,12 @@
 
     thumbnailImage_ = nil;
     [ self.layer setNeedsDisplay ];
+    }
+
+// Actions
+- ( void ) forwardActionOfInteractionButton_: ( id )_Sender
+    {
+    [ self.target performSelectorOnMainThread: self.action withObject: self waitUntilDone: NO ];
     }
 
 @end // TauYouTubeEntryView class

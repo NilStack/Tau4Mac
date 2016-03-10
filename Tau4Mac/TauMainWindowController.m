@@ -86,13 +86,11 @@ NSString* const kRequester = @"kRequester";
 
     kvoController_ = [ [ FBKVOController alloc ] initWithObserver: self.contentViewController ];
 
-#pragma clang diagnostic push
-// Get rid of the 'undeclared selector' warning
-#pragma clang diagnostic ignored "-Wundeclared-selector"
+TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_BEGIN
     [ kvoController_ observe: segSwitcher_ keyPath: @"cell.selectedSegment"
                      options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
                       action: @selector( selectedSegmentDidChange:observing: ) ];
-#pragma clang diagnostic pop
+TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 
     [ segSwitcher_ selectSegmentWithTag: TauPanelsSwitcherSearchTag ];
 

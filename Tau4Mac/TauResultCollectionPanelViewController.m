@@ -80,7 +80,11 @@
 
     @try {
         if ( [ ytCollectionObject_ respondsToSelector: pageSelector ] )
-            TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING( pageToken = [ ytCollectionObject_ performSelector: pageSelector ] );
+            {
+TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_BEGIN
+            pageToken = [ ytCollectionObject_ performSelector: pageSelector ];
+TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT
+            }
 
         if ( pageToken )
             {

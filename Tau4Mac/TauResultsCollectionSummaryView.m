@@ -56,7 +56,11 @@
                     {
                     NSString* playlistID = nil;
                     if ( [ relatedPlaylists respondsToSelector: sels[ _Index ] ] )
-                        playlistID = TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING( [ relatedPlaylists performSelector: sels[ _Index ] ] );
+                        {
+TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_BEGIN
+                        playlistID = [ relatedPlaylists performSelector: sels[ _Index ] ];
+TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT
+                        }
                     else
                         // TODO: Change log method from DDLogWarn() to DDLogUnexpected()
                         DDLogWarn( @"%@ does not respond to %@", relatedPlaylists, NSStringFromSelector( sels[ _Index ] ) );

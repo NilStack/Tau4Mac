@@ -35,10 +35,19 @@ typedef NS_ENUM ( NSUInteger, TauYouTubeContentViewType )
 #define TAU_PAGEER_NEXT 1
 
 // To suppress the "PerformSelector may cause a leak because its selector is unknown" warning
-#define TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING( _CodeFragment )\
+#define TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_BEGIN\
     _Pragma("clang diagnostic push")\
-    _Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"")\
-    _CodeFragment\
+    _Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"")
+    
+#define TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT\
+    _Pragma("clang diagnostic pop")
+
+// Get rid of the 'undeclared selector' warning
+#define TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_BEGIN\
+    _Pragma("clang diagnostic push")\
+    _Pragma("clang diagnostic ignored \"-Wundeclared-selector\"")
+
+#define TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT\
     _Pragma("clang diagnostic pop")
 
 // Notification Names
