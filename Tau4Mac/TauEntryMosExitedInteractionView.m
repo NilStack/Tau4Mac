@@ -100,6 +100,15 @@
                 } break;
             }
         }
+    else
+        {
+        priThumbnailView_ = nil;
+        priChannelBadge_ = nil;
+        priPlistSummaryView_ = nil;
+
+        [ self removeConstraints: self.constraints ];
+        [ self setSubviews: @[] ];
+        }
     }
 
 #pragma mark - Private Interfaces

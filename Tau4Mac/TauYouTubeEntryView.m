@@ -23,8 +23,12 @@
 // Private Interfaces
 @interface TauYouTubeEntryView ()
 
+@property ( assign, readwrite, setter = setProgressIndicatorHidden_: ) BOOL isProgressIndicatorHidden_;
+
 @property ( assign, readwrite, setter = setMosEnteredInteractionViewHidden_: ) BOOL isMosEnteredInteractionViewHidden_;
 @property ( assign, readwrite, setter = setMosExitedInteractionViewHidden_: ) BOOL isMosExitedInteractionViewHidden_;
+
+@property ( strong, readonly ) NSProgressIndicator* progressIndicator_;
 
 // Mouse Entered
 @property ( strong, readonly ) TauEntryMosEnteredInteractionView* mosEnteredInteractionView_;
@@ -47,6 +51,8 @@
 @protected
     NSImage __strong* thumbnailImage_;
     GTLObject __strong* ytContent_;
+
+    NSProgressIndicator __strong* priProgressIndicator_;
 
     // Mouse Entered
     TauEntryMosEnteredInteractionView __strong*     priMosEnteredInteractionView_;
@@ -150,18 +156,6 @@
 
 #pragma mark - Events
 
-- ( void ) setAction: ( SEL )_Action
-    {
-    [ super setAction: _Action ];
-    [ self.mosEnteredInteractionView_.interactionButton setAction: @selector( forwardActionOfInteractionButton_: ) ];
-    }
-
-- ( void ) setTarget: ( id )_Target
-    {
-    [ super setTarget: _Target ];
-    [ self.mosEnteredInteractionView_.interactionButton setTarget: self ];
-    }
-
 - ( void ) mouseEntered: ( NSEvent* )_Event
     {
     if ( thumbnailImage_ )
@@ -182,8 +176,42 @@
 
 #pragma mark - Private Interfaces
 
+@dynamic progressIndicator_;
+
+@dynamic isProgressIndicatorHidden_;
 @dynamic isMosEnteredInteractionViewHidden_;
 @dynamic isMosExitedInteractionViewHidden_;
+
+- ( NSProgressIndicator* ) progressIndicator_
+    {
+    if ( !priProgressIndicator_ )
+        {
+        priProgressIndicator_ = [ [ NSProgressIndicator alloc ] initWithFrame: NSZeroRect ];
+        priProgressIndicator_.style = NSProgressIndicatorBarStyle;
+
+        [ self addSubview: [ priProgressIndicator_ configureForAutoLayout ] ];
+        [ priProgressIndicator_ autoSetDimensionsToSize: NSMakeSize( 60.f, 20.f ) ];
+        [ priProgressIndicator_ autoAlignAxisToSuperviewAxis: ALAxisHorizontal ];
+        [ priProgressIndicator_ autoAlignAxisToSuperviewAxis: ALAxisVertical ];
+
+        self.isProgressIndicatorHidden_ = YES;
+        }
+
+    return priProgressIndicator_;
+    }
+
+- ( void ) setProgressIndicatorHidden_: ( BOOL )_Flag
+    {
+    [ self.progressIndicator_ setHidden: _Flag ];
+TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_BEGIN
+    [ self.progressIndicator_ performSelector: _Flag ? @selector( stopAnimation: ) : @selector( startAnimation: ) withObject: self ];
+TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT
+    }
+
+- ( BOOL ) isProgressIndicator_
+    {
+    return self.progressIndicator_.isHidden;
+    }
 
 - ( void ) setMosEnteredInteractionViewHidden_: ( BOOL )_Flag
     {
@@ -230,6 +258,9 @@
         [ NSLayoutConstraint deactivateConstraints: self.mosEnteredLayoutConstraintsCache_ ];
         }
 
+    priMosEnteredInteractionView_.interactionButton.action = @selector( forwardActionOfInteractionButton_: );
+    priMosEnteredInteractionView_.interactionButton.target = self;
+
     return priMosEnteredInteractionView_;
     }
 
@@ -273,15 +304,8 @@
 
 - ( void ) cleanUp_
     {
-    [ self.mosEnteredLayoutConstraintsCache_ removeAllObjects ];
-    priMosEnteredLayoutConstraintsCache_ = nil;
-    [ self.mosExitedLayoutConstraintsCache_ removeAllObjects ];
-    priMosExitedLayoutConstraintsCache_ = nil;
-
-    [ self.mosEnteredInteractionView_ removeFromSuperview ];
-    priMosEnteredInteractionView_ = nil;
-    [ self.mosExitedInteractionView_ removeFromSuperview ];
-    priMosExitedInteractionView_ = nil;
+    priMosEnteredInteractionView_.ytContent = nil;
+    priMosExitedInteractionView_.ytContent = nil;
 
     thumbnailImage_ = nil;
     [ self.layer setNeedsDisplay ];
@@ -290,7 +314,8 @@
 // Actions
 - ( void ) forwardActionOfInteractionButton_: ( id )_Sender
     {
-    [ self.target performSelectorOnMainThread: self.action withObject: self waitUntilDone: NO ];
+    if ( self.action )
+        [ self.target performSelectorOnMainThread: self.action withObject: self waitUntilDone: NO ];
     }
 
 @end // TauYouTubeEntryView class
@@ -333,9 +358,6 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
             [ self cleanUp_ ];
             return;
             }
-
-        [ self.mosEnteredInteractionView_ setYtContent: ytContent_ ];
-        [ self.mosExitedInteractionView_ setYtContent: ytContent_ ];
 
         NSURL* backingThumb = nil;
         NSURL* preferredThumb = nil;
@@ -411,6 +433,7 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
                                 , kPreferredThumbKey : preferredThumb
                                 } ];
 
+        self.isProgressIndicatorHidden_ = NO;
         [ fetcher beginFetchWithCompletionHandler:
         ^( NSData* _Nullable _Data, NSError* _Nullable _Error )
             {
@@ -444,6 +467,8 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
                                 } ];
                         }
                     }
+
+                self.isProgressIndicatorHidden_ = YES;
                 }
             } ];
         }
@@ -456,6 +481,11 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
 
     self.isMosExitedInteractionViewHidden_ = NO;
     self.isMosEnteredInteractionViewHidden_ = YES;
+
+    [ self.mosEnteredInteractionView_ setYtContent: ytContent_ ];
+    [ self.mosExitedInteractionView_ setYtContent: ytContent_ ];
+
+    self.isProgressIndicatorHidden_ = YES;
     }
 
 @end // TauYouTubeEntryView + PriTauYouTubeContentView_

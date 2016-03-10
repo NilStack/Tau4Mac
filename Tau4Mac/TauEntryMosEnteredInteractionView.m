@@ -21,9 +21,9 @@
 @implementation TauEntryMosEnteredInteractionView
     {
     NSTextFieldCell __strong* priTitleLabelCell_;
-    NSTextFieldCell __strong* priTdescLabelCell_;
+    NSTextFieldCell __strong* priDescLabelCell_;
 
-    TauMosEnteredInteractionButton __strong* interactionButton_;
+    TauMosEnteredInteractionButton __strong* priInteractionButton_;
     }
 
 #pragma mark - Initializations
@@ -40,13 +40,7 @@
 - ( instancetype ) initWithGTLObject: ( GTLObject* )_GTLObject host: ( TauYouTubeEntryView* )_EntryView
     {
     if ( self = [ super initWithGTLObject: _GTLObject host: _EntryView ] )
-        {
         self.layer.backgroundColor = [ [ NSColor blackColor ] colorWithAlphaComponent: .8f ].CGColor;
-
-        [ self addSubview: self.interactionButton ];
-        [ self.interactionButton autoAlignAxisToSuperviewAxis: ALAxisVertical ];
-        [ self.interactionButton autoPinEdgeToSuperviewEdge: ALEdgeBottom withInset: GEN_GAP ];
-        }
 
     return self;
     }
@@ -77,10 +71,16 @@
 
 - ( TauMosEnteredInteractionButton* ) interactionButton
     {
-    if ( !interactionButton_ )
-        interactionButton_ = [ [ TauMosEnteredInteractionButton alloc ] initWithFrame: NSZeroRect ];
+    if ( !priInteractionButton_ )
+        {
+        priInteractionButton_ = [ [ [ TauMosEnteredInteractionButton alloc ] initWithFrame: NSZeroRect ] configureForAutoLayout ];
 
-    return interactionButton_;
+        [ self addSubview: priInteractionButton_ ];
+        [ priInteractionButton_ autoAlignAxisToSuperviewAxis: ALAxisVertical ];
+        [ priInteractionButton_ autoPinEdgeToSuperviewEdge: ALEdgeBottom withInset: GEN_GAP ];
+        }
+
+    return priInteractionButton_;
     }
 
 #pragma mark - Overrides
@@ -102,15 +102,25 @@
             default:                         titleString = @"...";
             }
 
-        [ interactionButton_ setTitle: titleString ];
-        [ interactionButton_ sizeToFit ];
-        [ interactionButton_ removeConstraints: interactionButton_.constraints ];
-        [ interactionButton_ autoSetDimensionsToSize: CGSizeMake( NSWidth( NSInsetRect( interactionButton_.frame, -5.f, 0.f ) ), PLAY_BUTTON_HEI ) ];
+        TauMosEnteredInteractionButton* weakInteractionButton = self.interactionButton;
+        [ weakInteractionButton setTitle: titleString ];
+        [ weakInteractionButton sizeToFit ];
+        [ weakInteractionButton removeConstraints: weakInteractionButton.constraints ];
+        [ weakInteractionButton autoSetDimensionsToSize: CGSizeMake( NSWidth( NSInsetRect( weakInteractionButton.frame, -5.f, 0.f ) ), PLAY_BUTTON_HEI ) ];
 
         // FIXIT: Duplicate
         GTLYouTubePlaylistItem* object = ( GTLYouTubePlaylistItem* )self.ytContent;
         self.titleLabelCell_.stringValue = [ object snippet ].title ?: @"...";
         self.descLabelCell_.stringValue = [ object snippet ].descriptionProperty ?: @"...";
+        }
+    else
+        {
+        priTitleLabelCell_ = nil;
+        priDescLabelCell_ = nil;
+        priInteractionButton_ = nil;
+
+        [ self removeConstraints: self.constraints ];
+        [ self setSubviews: @[] ];
         }
     }
 
@@ -134,15 +144,15 @@
 
 - ( NSTextFieldCell* ) descLabelCell_
     {
-    if ( !priTdescLabelCell_ )
+    if ( !priDescLabelCell_ )
         {
-        priTdescLabelCell_ = [ [ NSTextFieldCell alloc ] init ];
-        priTdescLabelCell_.truncatesLastVisibleLine = YES;
-        priTdescLabelCell_.font = [ NSFont fontWithName: @"PingFang SC Light" size: 9.f ];
-        priTdescLabelCell_.stringValue = @"...";
+        priDescLabelCell_ = [ [ NSTextFieldCell alloc ] init ];
+        priDescLabelCell_.truncatesLastVisibleLine = YES;
+        priDescLabelCell_.font = [ NSFont fontWithName: @"PingFang SC Light" size: 9.f ];
+        priDescLabelCell_.stringValue = @"...";
         }
 
-    return priTdescLabelCell_;
+    return priDescLabelCell_;
     }
 
 @end // TauEntryMosEnteredInteractionView class
