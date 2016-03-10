@@ -42,6 +42,12 @@
     return ytContent_;
     }
 
+- ( void ) setYtContent: ( GTLObject* )_New
+    {
+    if ( ytContent_ != _New )
+        ytContent_ = _New;
+    }
+
 - ( TauYouTubeContentViewType ) type
     {
     return host_.type;

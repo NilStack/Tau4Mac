@@ -334,6 +334,9 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
             return;
             }
 
+        [ self.mosEnteredInteractionView_ setYtContent: ytContent_ ];
+        [ self.mosExitedInteractionView_ setYtContent: ytContent_ ];
+
         NSURL* backingThumb = nil;
         NSURL* preferredThumb = nil;
 
@@ -409,39 +412,40 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
                                 } ];
 
         [ fetcher beginFetchWithCompletionHandler:
-            ^( NSData* _Nullable _Data, NSError* _Nullable _Error )
+        ^( NSData* _Nullable _Data, NSError* _Nullable _Error )
+            {
+            if ( _Data && !_Error )
                 {
-                if ( _Data && !_Error )
+                DDLogDebug( @"Finished fetching thumbnail %@", fetchID );
+                thumbnailImage_ = [ [ NSImage alloc ] initWithData: _Data ];
+                [ self.mosExitedInteractionView_ setThumbnail: thumbnailImage_ ];
+                [ self updateUI_ ];
+                }
+            else
+                {
+                if ( [ _Error.domain isEqualToString: kGTMSessionFetcherStatusDomain ] )
                     {
-                    DDLogDebug( @"Finished fetching thumbnail %@", fetchID );
-                    thumbnailImage_ = [ [ NSImage alloc ] initWithData: _Data ];
-                    [ self updateUI_ ];
-                    }
-                else
-                    {
-                    if ( [ _Error.domain isEqualToString: kGTMSessionFetcherStatusDomain ] )
+                    if ( _Error.code == 404 )
                         {
-                        if ( _Error.code == 404 )
-                            {
-                            DDLogError( @"404 NOT FOUND! There is no specific thumb (%@) %@ %@\n"
-                                         "attempting to fetch the backing thumbnail…"
-                                      , fetcher.userData[ kPreferredThumbKey ]
-                                      , _Error
-                                      , fetcher.comment
-                                      );
+                        DDLogError( @"404 NOT FOUND! There is no specific thumb (%@) %@ %@\n"
+                                     "attempting to fetch the backing thumbnail…"
+                                  , fetcher.userData[ kPreferredThumbKey ]
+                                  , _Error
+                                  , fetcher.comment
+                                  );
 
-                            [ [ GTMSessionFetcher fetcherWithURL: fetcher.userData[ kBackingThumbKey ] ]
-                                beginFetchWithCompletionHandler:
-                                ^( NSData* _Nullable _Data, NSError* _Nullable _Error )
-                                    {
-                                    DDLogDebug( @"Congrats! Finished fetching backing thumbnail" );
-                                    thumbnailImage_ = [ [ NSImage alloc ] initWithData: _Data ];
-                                    [ self updateUI_ ];
-                                    } ];
-                            }
+                        [ [ GTMSessionFetcher fetcherWithURL: fetcher.userData[ kBackingThumbKey ] ]
+                            beginFetchWithCompletionHandler:
+                            ^( NSData* _Nullable _Data, NSError* _Nullable _Error )
+                                {
+                                DDLogDebug( @"Congrats! Finished fetching backing thumbnail" );
+                                thumbnailImage_ = [ [ NSImage alloc ] initWithData: _Data ];
+                                [ self updateUI_ ];
+                                } ];
                         }
                     }
-                } ];
+                }
+            } ];
         }
     }
 

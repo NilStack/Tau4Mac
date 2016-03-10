@@ -15,4 +15,6 @@
 
 - ( instancetype ) initWithGTLObject: ( GTLObject* )_GTLObject host: ( TauYouTubeEntryView* )_EntryView thumbnail: ( NSImage* )_Thumbnail;
 
+@property ( strong, readwrite ) NSImage* thumbnail;
+
 @end // TauEntryMosExitedInteractionView class

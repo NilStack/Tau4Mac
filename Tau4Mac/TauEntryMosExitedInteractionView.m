@@ -11,10 +11,21 @@
 #import "TauYouTubeChannelBadge.h"
 #import "TauYouTubePlaylistSummaryView.h"
 
+// Private Interfaces
+@interface TauEntryMosExitedInteractionView ()
+
+@property ( strong, readonly ) TauYouTubeChannelBadge*          channelBadge_;
+@property ( strong, readonly ) NSImageView*                     thumbnailView_;
+@property ( strong, readonly ) TauYouTubePlaylistSummaryView*   plistSummaryView_;
+
+@end // Private Interfaces
+
 // TauEntryMosExitedInteractionView class
 @implementation TauEntryMosExitedInteractionView
     {
-    NSImage __strong* thumbnailImage_;
+    TauYouTubeChannelBadge __strong*        priChannelBadge_;
+    NSImageView __strong*                   priThumbnailView_;
+    TauYouTubePlaylistSummaryView __strong* priPlistSummaryView_;
     }
 
 #pragma mark - Initializations
@@ -23,39 +34,28 @@
     {
     if ( self = [ super initWithGTLObject: _GTLObject host: _EntryView ] )
         {
-        thumbnailImage_ = _Thumbnail;
+        NSView* superview = self;
+        self.thumbnail = _Thumbnail;
 
         switch ( self.type )
             {
             case TauYouTubeChannelView:
                 {
-                TauYouTubeChannelBadge* channelBadge = [ [ TauYouTubeChannelBadge alloc ] initWithFrame: NSZeroRect ];
-                [ self addSubview: channelBadge ];
+                [ superview addSubview: self.channelBadge_ ];
+                [ self.channelBadge_ autoPinEdge: ALEdgeTop toEdge: ALEdgeTop ofView: superview withOffset: 5.f ];
+                [ self.channelBadge_ autoPinEdge: ALEdgeTrailing toEdge: ALEdgeTrailing ofView: superview withOffset: -5.f ];
 
-                [ channelBadge autoPinEdge: ALEdgeTop toEdge: ALEdgeTop ofView: channelBadge.superview withOffset: 5.f ];
-
-                [ channelBadge autoPinEdge: ALEdgeTrailing toEdge: ALEdgeTrailing ofView: channelBadge.superview withOffset: -5.f ];
-
-                NSImageView* imageView = [ [ NSImageView alloc ] initWithFrame: NSZeroRect ];
-                [ imageView setImageFrameStyle: NSImageFrameNone ];
-                [ imageView setImage: thumbnailImage_ ];
-
-                [ self addSubview: imageView ];
-
-                [ imageView autoSetDimensionsToSize: NSMakeSize( 80.f, 80.f ) ];
-                [ imageView autoAlignAxisToSuperviewAxis: ALAxisHorizontal ];
-                [ imageView autoMatchDimension: ALDimensionHeight toDimension: ALDimensionWidth ofView: imageView ];
-                [ imageView autoPinEdge: ALEdgeLeading toEdge: ALEdgeLeading ofView: imageView.superview withOffset: 15.f ];
+                [ superview addSubview: self.thumbnailView_ ];
+                [ self.thumbnailView_ autoAlignAxisToSuperviewAxis: ALAxisHorizontal ];
+                [ self.thumbnailView_ autoMatchDimension: ALDimensionHeight toDimension: ALDimensionWidth ofView: priThumbnailView_ ];
+                [ self.thumbnailView_ autoPinEdge: ALEdgeLeading toEdge: ALEdgeLeading ofView: superview withOffset: 15.f ];
                 } break;
 
             case TauYouTubePlayListView:
                 {
-                TauYouTubePlaylistSummaryView* plistSummaryView = [ [ TauYouTubePlaylistSummaryView alloc ] initWithFrame: NSZeroRect ];
-                [ self addSubview: plistSummaryView ];
-
-                [ plistSummaryView autoPinEdgesToSuperviewEdgesWithInsets: NSEdgeInsetsZero excludingEdge: ALEdgeLeading ];
-                [ plistSummaryView autoMatchDimension: ALDimensionWidth toDimension: ALDimensionWidth ofView: self withMultiplier: 0.4f ];
-                [ plistSummaryView setYtObject: self.ytContent ];
+                [ superview addSubview: self.plistSummaryView_ ];
+                [ self.plistSummaryView_ autoPinEdgesToSuperviewEdgesWithInsets: NSEdgeInsetsZero excludingEdge: ALEdgeLeading ];
+                [ self.plistSummaryView_ autoMatchDimension: ALDimensionWidth toDimension: ALDimensionWidth ofView: self withMultiplier: 0.4f ];
                 } break;
 
             case TauYouTubeVideoView:
@@ -77,6 +77,73 @@
         }
 
     return self;
+    }
+
+#pragma mark - Dynamic Properties
+
+@dynamic thumbnail;
+
+- ( void ) setThumbnail: ( NSImage* )_Thumbnail
+    {
+    if ( self.thumbnail != _Thumbnail )
+        [ self.thumbnailView_ setImage: _Thumbnail ];
+    }
+
+- ( NSImage* ) thumbnail
+    {
+    return self.thumbnailView_.image;
+    }
+
+#pragma mark - Overrides
+
+- ( void ) setYtContent: ( GTLObject* )_Content
+    {
+    [ super setYtContent: _Content ];
+
+    if ( self.ytContent )
+        {
+//        self.thumbnail = 
+        // FIXIT: Duplicate
+        GTLYouTubePlaylistItem* object = ( GTLYouTubePlaylistItem* )self.ytContent;
+        }
+    }
+
+#pragma mark - Private Interfaces
+
+@dynamic channelBadge_;
+@dynamic thumbnailView_;
+@dynamic plistSummaryView_;
+
+- ( TauYouTubeChannelBadge* ) channelBadge_
+    {
+    if ( !priChannelBadge_ )
+        priChannelBadge_ = [ [ TauYouTubeChannelBadge alloc ] initWithFrame: NSZeroRect ];
+
+    return priChannelBadge_;
+    }
+
+- ( NSImageView* ) thumbnailView_
+    {
+    if ( !priThumbnailView_ )
+        {
+        priThumbnailView_ = [ [ NSImageView alloc ] initWithFrame: NSZeroRect ];
+        [ priThumbnailView_ setImageFrameStyle: NSImageFrameNone ];
+
+        [ priThumbnailView_ autoSetDimensionsToSize: NSMakeSize( 80.f, 80.f ) ];
+        }
+
+    return priThumbnailView_;
+    }
+
+- ( TauYouTubePlaylistSummaryView* ) plistSummaryView_
+    {
+    if ( !priPlistSummaryView_ )
+        {
+        priPlistSummaryView_ = [ [ TauYouTubePlaylistSummaryView alloc ] initWithFrame: NSZeroRect ];
+        [ priPlistSummaryView_ setYtObject: self.ytContent ];
+        }
+
+    return priPlistSummaryView_;
     }
 
 @end // TauEntryMosExitedInteractionView class

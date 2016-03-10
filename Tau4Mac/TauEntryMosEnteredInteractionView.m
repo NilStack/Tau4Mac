@@ -9,11 +9,19 @@
 #import "TauEntryMosEnteredInteractionView.h"
 #import "TauMosEnteredInteractionButton.h"
 
+// Private Interfaces
+@interface TauEntryMosEnteredInteractionView ()
+
+@property ( strong, readonly ) NSTextFieldCell* titleLabelCell_;
+@property ( strong, readonly ) NSTextFieldCell* descLabelCell_;
+
+@end // Private Interfaces
+
 // TauEntryMosEnteredInteractionView class
 @implementation TauEntryMosEnteredInteractionView
     {
-    NSTextFieldCell __strong* titleLabelCell_;
-    NSTextFieldCell __strong* descLabelCell_;
+    NSTextFieldCell __strong* priTitleLabelCell_;
+    NSTextFieldCell __strong* priTdescLabelCell_;
 
     TauMosEnteredInteractionButton __strong* interactionButton_;
     }
@@ -35,37 +43,8 @@
         {
         self.layer.backgroundColor = [ [ NSColor blackColor ] colorWithAlphaComponent: .8f ].CGColor;
 
-        titleLabelCell_ = [ [ NSTextFieldCell alloc ] init ];
-        titleLabelCell_.truncatesLastVisibleLine = YES;
-        titleLabelCell_.font = [ NSFont fontWithName: @"PingFang SC Light" size: 13.f ];
-
-        descLabelCell_ = [ [ NSTextFieldCell alloc ] init ];
-        descLabelCell_.truncatesLastVisibleLine = YES;
-        descLabelCell_.font = [ NSFont fontWithName: @"PingFang SC Light" size: 9.f ];
-
-        interactionButton_ = [ [ TauMosEnteredInteractionButton alloc ] initWithFrame: NSZeroRect ];
-
-        [ self addSubview: interactionButton_ ];
-        [ interactionButton_ autoAlignAxisToSuperviewAxis: ALAxisVertical ];
-        [ interactionButton_ autoPinEdgeToSuperviewEdge: ALEdgeBottom withInset: GEN_GAP ];
-
-        NSString* titleString = nil;
-        switch ( self.type )
-            {
-            case TauYouTubeVideoView:
-            case TauYouTubePlayListItemView: titleString = NSLocalizedString( @"Play", nil );           break;
-            case TauYouTubeChannelView:      titleString = NSLocalizedString( @"View Channel", nil );   break;
-            case TauYouTubePlayListView:     titleString = NSLocalizedString( @"Playlist", nil );       break;
-            default:                         titleString = @"...";
-            }
-
-        [ interactionButton_ setTitle: titleString ];
-        [ interactionButton_ sizeToFit ];
-        [ interactionButton_ autoSetDimensionsToSize: CGSizeMake( NSWidth( NSInsetRect( interactionButton_.frame, -5.f, 0.f ) ), PLAY_BUTTON_HEI ) ];
-
-        GTLYouTubePlaylistItem* object = ( GTLYouTubePlaylistItem* )self.ytContent;
-        titleLabelCell_.stringValue = [ object snippet ].title ?: @"...";
-        descLabelCell_.stringValue = [ object snippet ].descriptionProperty ?: @"...";
+        [ self.interactionButton autoAlignAxisToSuperviewAxis: ALAxisVertical ];
+        [ self.interactionButton autoPinEdgeToSuperviewEdge: ALEdgeBottom withInset: GEN_GAP ];
         }
 
     return self;
@@ -80,10 +59,10 @@
     {
     [ super drawRect: _DirtyRect ];
 
-    [ titleLabelCell_ drawWithFrame:
+    [ self.titleLabelCell_ drawWithFrame:
         NSMakeRect( ORIGIN_X, ORIGIN_Y, NSWidth( self.bounds ) - ORIGIN_X * 2, TITLE_LABEL_HEIGHT ) inView: self ];
 
-    [ descLabelCell_ drawWithFrame:
+    [ self.descLabelCell_ drawWithFrame:
         NSMakeRect( ORIGIN_X
                   , ORIGIN_Y + TITLE_LABEL_HEIGHT
                   , NSWidth( self.bounds ) - ORIGIN_X * 2
@@ -91,11 +70,97 @@
                   ) inView: self ];
     }
 
+#pragma mark - Dynamic Properties
+
 @dynamic interactionButton;
 
 - ( TauMosEnteredInteractionButton* ) interactionButton
     {
+    if ( !interactionButton_ )
+        {
+        interactionButton_ = [ [ TauMosEnteredInteractionButton alloc ] initWithFrame: NSZeroRect ];
+
+        [ self addSubview: interactionButton_ ];
+
+        NSString* titleString = nil;
+        switch ( self.type )
+            {
+            case TauYouTubeVideoView:
+            case TauYouTubePlayListItemView: titleString = NSLocalizedString( @"Play", nil );           break;
+            case TauYouTubeChannelView:      titleString = NSLocalizedString( @"View Channel", nil );   break;
+            case TauYouTubePlayListView:     titleString = NSLocalizedString( @"Playlist", nil );       break;
+            default:                         titleString = @"...";
+            }
+
+        [ interactionButton_ setTitle: titleString ];
+        [ interactionButton_ sizeToFit ];
+        [ interactionButton_ removeConstraints: interactionButton_.constraints ];
+        [ interactionButton_ autoSetDimensionsToSize: CGSizeMake( NSWidth( NSInsetRect( interactionButton_.frame, -5.f, 0.f ) ), PLAY_BUTTON_HEI ) ];
+        }
+
     return interactionButton_;
+    }
+
+#pragma mark - Overrides
+
+- ( void ) setYtContent: ( GTLObject* )_Content
+    {
+    [ super setYtContent: _Content ];
+
+    if ( self.ytContent )
+        {
+        // FIXIT: Duplicate
+        NSString* titleString = nil;
+        switch ( self.type )
+            {
+            case TauYouTubeVideoView:
+            case TauYouTubePlayListItemView: titleString = NSLocalizedString( @"Play", nil );           break;
+            case TauYouTubeChannelView:      titleString = NSLocalizedString( @"View Channel", nil );   break;
+            case TauYouTubePlayListView:     titleString = NSLocalizedString( @"Playlist", nil );       break;
+            default:                         titleString = @"...";
+            }
+
+        [ interactionButton_ setTitle: titleString ];
+        [ interactionButton_ sizeToFit ];
+        [ interactionButton_ removeConstraints: interactionButton_.constraints ];
+        [ interactionButton_ autoSetDimensionsToSize: CGSizeMake( NSWidth( NSInsetRect( interactionButton_.frame, -5.f, 0.f ) ), PLAY_BUTTON_HEI ) ];
+
+        // FIXIT: Duplicate
+        GTLYouTubePlaylistItem* object = ( GTLYouTubePlaylistItem* )self.ytContent;
+        self.titleLabelCell_.stringValue = [ object snippet ].title ?: @"...";
+        self.descLabelCell_.stringValue = [ object snippet ].descriptionProperty ?: @"...";
+        }
+    }
+
+#pragma mark - Private Interfaces
+
+@dynamic titleLabelCell_;
+@dynamic descLabelCell_;
+
+- ( NSTextFieldCell* ) titleLabelCell_
+    {
+    if ( !priTitleLabelCell_ )
+        {
+        priTitleLabelCell_ = [ [ NSTextFieldCell alloc ] init ];
+        priTitleLabelCell_.truncatesLastVisibleLine = YES;
+        priTitleLabelCell_.font = [ NSFont fontWithName: @"PingFang SC Light" size: 13.f ];
+        priTitleLabelCell_.stringValue = @"...";
+        }
+
+    return priTitleLabelCell_;
+    }
+
+- ( NSTextFieldCell* ) descLabelCell_
+    {
+    if ( !priTdescLabelCell_ )
+        {
+        priTdescLabelCell_ = [ [ NSTextFieldCell alloc ] init ];
+        priTdescLabelCell_.truncatesLastVisibleLine = YES;
+        priTdescLabelCell_.font = [ NSFont fontWithName: @"PingFang SC Light" size: 9.f ];
+        priTdescLabelCell_.stringValue = @"...";
+        }
+
+    return priTdescLabelCell_;
     }
 
 @end // TauEntryMosEnteredInteractionView class
