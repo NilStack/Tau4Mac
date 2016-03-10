@@ -43,6 +43,7 @@
         {
         self.layer.backgroundColor = [ [ NSColor blackColor ] colorWithAlphaComponent: .8f ].CGColor;
 
+        [ self addSubview: self.interactionButton ];
         [ self.interactionButton autoAlignAxisToSuperviewAxis: ALAxisVertical ];
         [ self.interactionButton autoPinEdgeToSuperviewEdge: ALEdgeBottom withInset: GEN_GAP ];
         }
@@ -77,26 +78,7 @@
 - ( TauMosEnteredInteractionButton* ) interactionButton
     {
     if ( !interactionButton_ )
-        {
         interactionButton_ = [ [ TauMosEnteredInteractionButton alloc ] initWithFrame: NSZeroRect ];
-
-        [ self addSubview: interactionButton_ ];
-
-        NSString* titleString = nil;
-        switch ( self.type )
-            {
-            case TauYouTubeVideoView:
-            case TauYouTubePlayListItemView: titleString = NSLocalizedString( @"Play", nil );           break;
-            case TauYouTubeChannelView:      titleString = NSLocalizedString( @"View Channel", nil );   break;
-            case TauYouTubePlayListView:     titleString = NSLocalizedString( @"Playlist", nil );       break;
-            default:                         titleString = @"...";
-            }
-
-        [ interactionButton_ setTitle: titleString ];
-        [ interactionButton_ sizeToFit ];
-        [ interactionButton_ removeConstraints: interactionButton_.constraints ];
-        [ interactionButton_ autoSetDimensionsToSize: CGSizeMake( NSWidth( NSInsetRect( interactionButton_.frame, -5.f, 0.f ) ), PLAY_BUTTON_HEI ) ];
-        }
 
     return interactionButton_;
     }

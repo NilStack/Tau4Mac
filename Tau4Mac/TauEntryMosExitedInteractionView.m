@@ -14,8 +14,8 @@
 // Private Interfaces
 @interface TauEntryMosExitedInteractionView ()
 
-@property ( strong, readonly ) TauYouTubeChannelBadge*          channelBadge_;
 @property ( strong, readonly ) NSImageView*                     thumbnailView_;
+@property ( strong, readonly ) TauYouTubeChannelBadge*          channelBadge_;
 @property ( strong, readonly ) TauYouTubePlaylistSummaryView*   plistSummaryView_;
 
 @end // Private Interfaces
@@ -23,8 +23,8 @@
 // TauEntryMosExitedInteractionView class
 @implementation TauEntryMosExitedInteractionView
     {
-    TauYouTubeChannelBadge __strong*        priChannelBadge_;
     NSImageView __strong*                   priThumbnailView_;
+    TauYouTubeChannelBadge __strong*        priChannelBadge_;
     TauYouTubePlaylistSummaryView __strong* priPlistSummaryView_;
     }
 
@@ -33,10 +33,35 @@
 - ( instancetype ) initWithGTLObject: ( GTLObject* )_GTLObject host: ( TauYouTubeEntryView* )_EntryView thumbnail: ( NSImage* )_Thumbnail
     {
     if ( self = [ super initWithGTLObject: _GTLObject host: _EntryView ] )
-        {
-        NSView* superview = self;
         self.thumbnail = _Thumbnail;
 
+    return self;
+    }
+
+#pragma mark - Dynamic Properties
+
+@dynamic thumbnail;
+
+- ( void ) setThumbnail: ( NSImage* )_Thumbnail
+    {
+    if ( self.thumbnail != _Thumbnail )
+        [ self.thumbnailView_ setImage: _Thumbnail ];
+    }
+
+- ( NSImage* ) thumbnail
+    {
+    return self.thumbnailView_.image;
+    }
+
+#pragma mark - Overrides
+
+- ( void ) setYtContent: ( GTLObject* )_Content
+    {
+    [ super setYtContent: _Content ];
+
+    if ( self.ytContent )
+        {
+        NSView* superview = self;
         switch ( self.type )
             {
             case TauYouTubeChannelView:
@@ -75,52 +100,13 @@
                 } break;
             }
         }
-
-    return self;
-    }
-
-#pragma mark - Dynamic Properties
-
-@dynamic thumbnail;
-
-- ( void ) setThumbnail: ( NSImage* )_Thumbnail
-    {
-    if ( self.thumbnail != _Thumbnail )
-        [ self.thumbnailView_ setImage: _Thumbnail ];
-    }
-
-- ( NSImage* ) thumbnail
-    {
-    return self.thumbnailView_.image;
-    }
-
-#pragma mark - Overrides
-
-- ( void ) setYtContent: ( GTLObject* )_Content
-    {
-    [ super setYtContent: _Content ];
-
-    if ( self.ytContent )
-        {
-//        self.thumbnail = 
-        // FIXIT: Duplicate
-        GTLYouTubePlaylistItem* object = ( GTLYouTubePlaylistItem* )self.ytContent;
-        }
     }
 
 #pragma mark - Private Interfaces
 
-@dynamic channelBadge_;
 @dynamic thumbnailView_;
+@dynamic channelBadge_;
 @dynamic plistSummaryView_;
-
-- ( TauYouTubeChannelBadge* ) channelBadge_
-    {
-    if ( !priChannelBadge_ )
-        priChannelBadge_ = [ [ TauYouTubeChannelBadge alloc ] initWithFrame: NSZeroRect ];
-
-    return priChannelBadge_;
-    }
 
 - ( NSImageView* ) thumbnailView_
     {
@@ -133,6 +119,14 @@
         }
 
     return priThumbnailView_;
+    }
+
+- ( TauYouTubeChannelBadge* ) channelBadge_
+    {
+    if ( !priChannelBadge_ )
+        priChannelBadge_ = [ [ TauYouTubeChannelBadge alloc ] initWithFrame: NSZeroRect ];
+
+    return priChannelBadge_;
     }
 
 - ( TauYouTubePlaylistSummaryView* ) plistSummaryView_
