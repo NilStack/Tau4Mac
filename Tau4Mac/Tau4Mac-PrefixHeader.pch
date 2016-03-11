@@ -43,5 +43,8 @@ DDLogLevelOff
 #import "TauDataService.h"
 
 #import "TauConstants.h"
+#import "NSObject+TauDataServiceConsumer.h"
+
+#import <objc/runtime.h>
 
 #endif /* Tau4Mac_PrefixHeader_pch */
