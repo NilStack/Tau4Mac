@@ -23,7 +23,7 @@
     GTLCollectionObject __strong* ytCollectionObject_;
     GTLServiceTicket __strong* ytTicket_;
 
-    NSMutableArray __strong* mutVideoViews_;
+    NSMutableArray <TauYouTubeEntryView*> __strong* mutVideoViews_;
     }
 
 #pragma mark - Initializations
@@ -60,7 +60,14 @@
     [ super setRepresentedObject: _RepresentedObject ];
 
     if ( ![ _RepresentedObject isKindOfClass: [ GTLCollectionObject class ] ] )
+        {
+        [ mutVideoViews_ makeObjectsPerformSelector: @selector( removeFromSuperview ) ];
+        mutVideoViews_ = nil;
+
+        ytTicket_ = nil;
+
         return;
+        }
 
     if ( !mutVideoViews_ )
         {
@@ -216,10 +223,13 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
         [ _EntryView setYtContent: nil ];
         } ];
 
-    [ videoObjects enumerateObjectsUsingBlock:
-    ^( GTLObject* _Nonnull _SearchResult, NSUInteger _Index, BOOL* _Nonnull _Stop )
+    [ mutVideoViews_ enumerateObjectsUsingBlock:
+    ^( TauYouTubeEntryView* _Nonnull _VideoView, NSUInteger _Index, BOOL* _Nonnull _Stop )
         {
-        [ mutVideoViews_[ _Index ] setYtContent: _SearchResult ];
+        if ( _Index < videoObjects.count )
+            [ _VideoView setYtContent: [ videoObjects objectAtIndex: _Index ] ];
+        else
+            *_Stop = YES;
         } ];
     }
 

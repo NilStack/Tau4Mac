@@ -27,6 +27,18 @@
 
 #pragma mark - Stack Operations
 
+- ( void ) cleanUp
+    {
+    [ viewsStack_ popAll ];
+
+    [ self.view setSubviews: @[] ];
+    [ self.view removeConstraints: self.view.constraints ];
+
+    // FIXIT: Duplicate
+    [ self.view addSubview: viewsStack_.baseViewController.view ];
+    constraintsCache_ = [ viewsStack_.currentView.view autoPinEdgesToSuperviewEdges ];
+    }
+
 - ( void ) pushView: ( TauAbstractStackViewItem* )_NewItem
     {
     if ( constraintsCache_ )

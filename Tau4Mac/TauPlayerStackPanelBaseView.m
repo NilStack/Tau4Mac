@@ -101,6 +101,11 @@
             // TODO: Change log method from DDLogWarn() to DDLogUnexpected()
             DDLogWarn( @"videoID has an unexpected value: %@", videoID );
         }
+    else
+        {
+        if ( playerView_ )
+            self.playerView_.player = nil;
+        }
     }
 
 - ( GTLObject* ) ytContent

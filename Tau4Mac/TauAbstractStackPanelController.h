@@ -19,6 +19,8 @@
 
 #pragma mark - Stack Operations
 
+- ( void ) cleanUp;
+
 - ( void ) pushView: ( TauAbstractStackViewItem* )_NewItem;
 - ( void ) popView;
 

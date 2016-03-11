@@ -11,5 +11,9 @@
 
 // TauAbstractStackViewItem class
 @interface TauAbstractStackViewItem : NSViewController
+
 @property ( weak, readwrite ) TauAbstractStackPanelController* hostStack;
+
+- ( void ) cleanUp;
+
 @end // TauAbstractStackViewItem class

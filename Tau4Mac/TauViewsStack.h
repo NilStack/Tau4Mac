@@ -14,6 +14,7 @@
 
 - ( void ) pushView: ( NSViewController* )_ViewController;
 - ( void ) popView;
+- ( void ) popAll;
 
 - ( NSViewController* ) currentView;
 - ( NSViewController* ) viewBeforeCurrentView;

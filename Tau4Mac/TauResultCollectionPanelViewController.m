@@ -205,6 +205,11 @@ TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT
                     } ];
                 }
             } break;
+
+        case TauYouTubeUnknownView:
+            {
+            DDLogError( @"Unkown View" );
+            } break;
         }
     }
 
@@ -223,6 +228,8 @@ TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT
     if ( ytCollectionObject_ != _CollectionObject )
         {
         ytCollectionObject_ = _CollectionObject;
+        [ self.ytTicket cancelTicket ];
+        self.ytTicket = nil;
         entriesCollectionViewController_.ytCollectionObject = ytCollectionObject_;
 
         self.toolbarView.ytCollectionObject = ytCollectionObject_;

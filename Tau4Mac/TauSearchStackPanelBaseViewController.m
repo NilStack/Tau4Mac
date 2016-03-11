@@ -57,4 +57,9 @@
         }
     }
 
+- ( void ) cleanUp
+    {
+    self.searchField.stringValue = @"";
+    }
+
 @end // TauSearchStackPanelBaseViewController class

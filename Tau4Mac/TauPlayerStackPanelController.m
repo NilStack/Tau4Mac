@@ -32,4 +32,9 @@
     constraintsCache_ = [ viewsStack_.currentView.view autoPinEdgesToSuperviewEdges ];
     }
 
+- ( void ) cleanUp
+    {
+    [ super cleanUp ];
+    }
+
 @end // TauPlayerStackPanelController class

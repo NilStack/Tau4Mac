@@ -44,6 +44,11 @@ NSString* const TauShouldPlayVideoNotif = @"Should.PlayVideo.Notif";
     self.playerView_.ytContent = _Notif.userInfo[ kGTLObject ];
     }
 
+- ( void ) cleanUp
+    {
+    [ self.playerView_ setYtContent: nil ];
+    }
+
 #pragma mark - Private Interfaces
 
 - ( TauPlayerStackPanelBaseView* ) playerView_

@@ -123,6 +123,22 @@
     [ self fetchPlaylistIDs_ ];
     }
 
+- ( void ) cleanUp
+    {
+    [ likesC_.view removeFromSuperview ];
+    [ uploadsC_.view removeFromSuperview ];
+    [ historyC_.view removeFromSuperview ];
+    [ watchLaterC_.view removeFromSuperview ];
+
+    [ self.view removeConstraints: layoutConstraintsCache_ ];
+    layoutConstraintsCache_ = nil;
+
+//    self.likesCollectionSubPanelController_.ytCollectionObject = nil;
+//    self.uploadsCollectionSubPanelController_.ytCollectionObject = nil;
+//    self.historyCollectionSubPanelController_.ytCollectionObject = nil;
+//    self.watchLaterCollectionSubPanelController_.ytCollectionObject = nil;
+    }
+
 #pragma mark - Private Interfaces
 
 @dynamic likesCollectionSubPanelController_;

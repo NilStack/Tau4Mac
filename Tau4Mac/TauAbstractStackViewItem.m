@@ -15,4 +15,9 @@
 // TauAbstractStackViewItem class
 @implementation TauAbstractStackViewItem
 
+- ( void ) cleanUp
+    {
+    // TODO:
+    }
+
 @end // TauAbstractStackViewItem class

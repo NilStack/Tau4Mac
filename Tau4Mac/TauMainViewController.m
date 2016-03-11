@@ -46,15 +46,19 @@
 
 - ( void ) cleanUp
     {
-    [ self.view removeConstraints: layoutConstraintsCache_ ];
-    [ priSearchPanelStackViewController_.view removeFromSuperview ];
-    [ priMeTubePanelStackViewController_.view removeFromSuperview ];
-    [ priPlayerPanelStackViewController_.view removeFromSuperview ];
+//    [ self.view removeConstraints: layoutConstraintsCache_ ];
+//    [ priSearchPanelStackViewController_.view removeFromSuperview ];
+//    [ priMeTubePanelStackViewController_.view removeFromSuperview ];
+//    [ priPlayerPanelStackViewController_.view removeFromSuperview ];
 
-    layoutConstraintsCache_ = nil;
-    priSearchPanelStackViewController_ = nil;
-    priMeTubePanelStackViewController_ = nil;
-    priPlayerPanelStackViewController_ = nil;
+    [ self.searchPanelStackViewController_ cleanUp ];
+    [ self.meTubePanelStackViewController_ cleanUp ];
+    [ self.playerPanelStackViewController_ cleanUp ];
+
+//    layoutConstraintsCache_ = nil;
+//    priSearchPanelStackViewController_ = nil;
+//    priMeTubePanelStackViewController_ = nil;
+//    priPlayerPanelStackViewController_ = nil;
     }
 
 #pragma mark - KVO Notifications

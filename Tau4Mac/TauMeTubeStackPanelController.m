@@ -30,4 +30,10 @@
     constraintsCache_ = [ viewsStack_.currentView.view autoPinEdgesToSuperviewEdges ];
     }
 
+- ( void ) cleanUp
+    {
+    [ super cleanUp ];
+    [ self.baseViewController_ cleanUp ];
+    }
+
 @end // TauMeTubeStackPanelController class

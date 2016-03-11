@@ -57,6 +57,11 @@
         [ self->_viewsStack removeLastObject ];
     }
 
+- ( void ) popAll
+    {
+    [ self->_viewsStack removeAllObjects ];
+    }
+
 - ( NSViewController* ) currentView
     {
     return [ self _currentView ];
