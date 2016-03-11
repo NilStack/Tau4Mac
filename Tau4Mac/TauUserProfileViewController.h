@@ -14,7 +14,6 @@
 @property ( weak ) IBOutlet NSProgressIndicator* spinningIndicator;
 @property ( weak ) IBOutlet NSTextField* accountLabel;
 
-@property ( weak ) IBOutlet NSButton* signInButton;
 @property ( weak ) IBOutlet NSButton* signOutButton;
 
 @property ( strong, readwrite ) GTMOAuth2Authentication* authorizer;

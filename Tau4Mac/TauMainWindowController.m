@@ -9,6 +9,7 @@
 #import "TauMainWindowController.h"
 #import "TauYouTubeEntryView.h"
 #import "TauUserProfileViewController.h"
+#import "TauMainViewController.h"
 
 #import "GTL/GTMOAuth2WindowController.h"
 
@@ -17,11 +18,13 @@
 // Private Interfaces
 @interface TauMainWindowController ()
 
+@property ( strong, readonly ) GTMOAuth2WindowController* authWindow_;
+
 @property ( strong, readonly ) NSSegmentedControl* segSwitcher_;
 @property ( strong, readonly ) NSButton* userProfilePopUpButton_;
 @property ( strong, readonly ) NSPopover* userProfilePopover_;;
 
-// Signning in
+// Signning In
 - ( void ) runSignInThenHandler_: ( void (^)( void ) )_Handler;
 
 // Logging
@@ -209,9 +212,25 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
 
 #pragma mark - Private Interfaces
 
+@dynamic authWindow_;
+
 @dynamic segSwitcher_;
 @dynamic userProfilePopUpButton_;
 @dynamic userProfilePopover_;
+
+- ( GTMOAuth2WindowController* ) authWindow_
+    {
+    NSBundle* frameworkBundle = [ NSBundle bundleForClass: [ GTMOAuth2WindowController class ] ];
+
+    GTMOAuth2WindowController* authWindow = [ GTMOAuth2WindowController
+        controllerWithScope: TauManageAuthScope
+                   clientID: TauClientID
+               clientSecret: TauClientSecret
+           keychainItemName: TauKeychainItemName
+             resourceBundle: frameworkBundle ];
+
+    return authWindow;
+    }
 
 - ( NSSegmentedControl* ) segSwitcher_
     {
@@ -293,16 +312,7 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
 // Signning in
 - ( void ) runSignInThenHandler_: ( void (^)( void ) )_Handler
     {
-    NSBundle* frameworkBundle = [ NSBundle bundleForClass: [ GTMOAuth2WindowController class ] ];
-
-    GTMOAuth2WindowController* authWindow = [ GTMOAuth2WindowController
-        controllerWithScope: TauManageAuthScope
-                   clientID: TauClientID
-               clientSecret: TauClientSecret
-           keychainItemName: TauKeychainItemName
-             resourceBundle: frameworkBundle ];
-
-    [ authWindow signInSheetModalForWindow: self.window completionHandler:
+    [ self.authWindow_ signInSheetModalForWindow: self.window completionHandler:
         ^( GTMOAuth2Authentication* _Auth, NSError* _Error )
             {
             if ( _Auth && !_Error )
@@ -316,6 +326,16 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
                 [ self.window orderOut: self ];
                 }
             } ];
+    }
+
+// Signing Out
+- ( void ) signOutAction: ( id )_Sender
+    {
+    [ ( ( TauMainViewController* )self.contentViewController ) cleanUp ];
+
+    [ TauDataService sharedService ].ytService.authorizer = nil;
+    [ GTMOAuth2WindowController removeAuthFromKeychainForName: TauKeychainItemName ];
+    [ self runSignInThenHandler_: nil ];
     }
 
 // Logging

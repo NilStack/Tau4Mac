@@ -12,6 +12,8 @@
 @interface TauMainWindowController : NSWindowController
     <NSApplicationDelegate, NSToolbarDelegate>
 
+- ( IBAction ) signOutAction: ( id )_Sender;
+
 @property ( weak ) IBOutlet NSToolbar* toolbar;
 
 @end // TauMainWindowController class

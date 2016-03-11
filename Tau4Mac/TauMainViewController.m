@@ -27,6 +27,10 @@
 @implementation TauMainViewController
     {
     NSArray <NSLayoutConstraint*>* layoutConstraintsCache_;
+
+    TauSearchStackPanelController __strong* priSearchPanelStackViewController_;
+    TauMeTubeStackPanelController __strong* priMeTubePanelStackViewController_;
+    TauPlayerStackPanelController __strong* priPlayerPanelStackViewController_;
     }
 
 #pragma mark - Initializations
@@ -38,6 +42,19 @@
     [ self.view configureForAutoLayout ];
     [ self.view autoSetDimension: ALDimensionWidth toSize: 200 * 4 relation: NSLayoutRelationGreaterThanOrEqual ];
     [ self.view autoSetDimension: ALDimensionHeight toSize: 200 * 0.56 * 5 relation: NSLayoutRelationGreaterThanOrEqual ];
+    }
+
+- ( void ) cleanUp
+    {
+    [ self.view removeConstraints: layoutConstraintsCache_ ];
+    [ priSearchPanelStackViewController_.view removeFromSuperview ];
+    [ priMeTubePanelStackViewController_.view removeFromSuperview ];
+    [ priPlayerPanelStackViewController_.view removeFromSuperview ];
+
+    layoutConstraintsCache_ = nil;
+    priSearchPanelStackViewController_ = nil;
+    priMeTubePanelStackViewController_ = nil;
+    priPlayerPanelStackViewController_ = nil;
     }
 
 #pragma mark - KVO Notifications
@@ -85,47 +102,26 @@
 
 - ( TauAbstractStackPanelController* ) searchPanelStackViewController_
     {
-    TauAbstractStackPanelController static* sSearchC;
+    if ( !priSearchPanelStackViewController_ )
+        priSearchPanelStackViewController_ = [ [ TauSearchStackPanelController alloc ] initWithNibName: nil bundle: nil ];
 
-    dispatch_once_t static onceToken;
-    dispatch_once( &onceToken
-                 , ( dispatch_block_t )
-    ^( void )
-        {
-        sSearchC = [ [ TauSearchStackPanelController alloc ] initWithNibName: nil bundle: nil ];
-        } );
-
-    return sSearchC;
+    return priSearchPanelStackViewController_;
     }
 
 - ( TauMeTubeStackPanelController* ) meTubePanelStackViewController_
     {
-    TauMeTubeStackPanelController static* sMeTubeC;
+    if ( !priMeTubePanelStackViewController_ )
+        priMeTubePanelStackViewController_ = [ [ TauMeTubeStackPanelController alloc ] initWithNibName: nil bundle: nil ];
 
-    dispatch_once_t static onceToken;
-    dispatch_once( &onceToken
-                 , ( dispatch_block_t )
-    ^( void )
-        {
-        sMeTubeC = [ [ TauMeTubeStackPanelController alloc ] initWithNibName: nil bundle: nil ];
-        } );
-
-    return sMeTubeC;
+    return priMeTubePanelStackViewController_;
     }
 
 - ( TauPlayerStackPanelController* ) playerPanelStackViewController_
     {
-    TauPlayerStackPanelController static* sPlayerC;
+    if ( !priPlayerPanelStackViewController_ )
+        priPlayerPanelStackViewController_ = [ [ TauPlayerStackPanelController alloc ] initWithNibName: nil bundle: nil ];
 
-    dispatch_once_t static onceToken;
-    dispatch_once( &onceToken
-                 , ( dispatch_block_t )
-    ^( void )
-        {
-        sPlayerC = [ [ TauPlayerStackPanelController alloc ] initWithNibName: nil bundle: nil ];
-        } );
-
-    return sPlayerC;
+    return priPlayerPanelStackViewController_;
     }
 
 @end // TauMainViewController class
