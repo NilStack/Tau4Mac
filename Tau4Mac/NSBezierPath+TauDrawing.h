@@ -24,7 +24,7 @@
 
 @import Cocoa;
 
-@interface NSBezierPath ( TwipokerDrawing )
+@interface NSBezierPath ( TauDrawing )
 
 + ( NSBezierPath* ) bezierPathWithRoundedRect: ( NSRect )_BaseRect
                     withRadiusOfTopLeftCorner: ( CGFloat )_TopLeft

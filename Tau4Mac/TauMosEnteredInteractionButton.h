@@ -6,8 +6,6 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-
 // TauMosEnteredInteractionButton class
 @interface TauMosEnteredInteractionButton : NSButton
 

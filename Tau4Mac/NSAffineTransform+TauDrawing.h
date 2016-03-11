@@ -22,20 +22,13 @@
   ████████████████████████████████████████████████████████████████████████████████
   ██████████████████████████████████████████████████████████████████████████████*/
 
-#import "NSAffineTransform+TwipokerDrawing.h"
 
-@implementation NSAffineTransform ( TwipokerDrawing )
+// NSAffineTransform + TauDrawing
+@interface NSAffineTransform ( TauDrawing )
 
 + ( NSAffineTransform* ) flipTransformForRect: ( NSRect )_Rect;
-    {
-    NSAffineTransform* flipTransform = [ NSAffineTransform transform ];
-    [ flipTransform translateXBy: 0.f yBy: _Rect.size.height ];
-    [ flipTransform scaleXBy: 1.0f yBy: -1.0 ];
 
-    return flipTransform;
-    }
-
-@end // NSAffineTransform + TwipokerDrawing
+@end // NSAffineTransform + TauDrawing
 
 /*=============================================================================┐
 |                                                                              |

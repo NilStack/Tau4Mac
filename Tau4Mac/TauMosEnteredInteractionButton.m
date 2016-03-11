@@ -7,7 +7,7 @@
 //
 
 #import "TauMosEnteredInteractionButton.h"
-#import "NSBezierPath+TwipokerDrawing.h"
+#import "NSBezierPath+TauDrawing.h"
 
 // TauMosEnteredInteractionButton class
 @implementation TauMosEnteredInteractionButton
