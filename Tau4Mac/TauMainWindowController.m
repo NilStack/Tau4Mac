@@ -97,6 +97,20 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
         [ self runSignInThenHandler_: nil ];
     }
 
+- ( BOOL ) applicationShouldHandleReopen: ( NSApplication* )_Sender
+                       hasVisibleWindows: ( BOOL )_Flag
+    {
+    if ( _Flag )
+        [ self.window orderFront: self ];
+    else
+        [ self.window makeKeyAndOrderFront: self ];
+
+    if ( !( [ TauDataService sharedService ].isSignedIn ) )
+        [ self runSignInThenHandler_: nil ];
+
+    return YES;
+    }
+
 #pragma mark - Conforms to <NSToolbarDelegate>
 
 NSString* const kPanelsSwitcher = @"kPanelsSwitcher";
@@ -291,8 +305,16 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
     [ authWindow signInSheetModalForWindow: self.window completionHandler:
         ^( GTMOAuth2Authentication* _Auth, NSError* _Error )
             {
-            [ [ TauDataService sharedService ].ytService setAuthorizer: _Auth ];
-            if ( _Handler ) _Handler();
+            if ( _Auth && !_Error )
+                {
+                [ [ TauDataService sharedService ].ytService setAuthorizer: _Auth ];
+                if ( _Handler ) _Handler();
+                }
+            else
+                {
+                DDLogError( @"Auth Window was prematurely closed" );
+                [ self.window orderOut: self ];
+                }
             } ];
     }
 

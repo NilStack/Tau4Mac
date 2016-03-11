@@ -42,6 +42,8 @@ NSString extern* const TauPartnerChannelAuditAuthScope;
 @property ( strong, readonly ) NSString* signedInUsername;
 @property ( assign, readonly ) BOOL isSignedIn;
 
+//- ( void ) 
+
 #pragma mark - Singleton Instance
 
 + ( instancetype ) sharedService;

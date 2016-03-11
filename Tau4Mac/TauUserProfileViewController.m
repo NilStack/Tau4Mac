@@ -40,7 +40,6 @@
         NSString* userEmail = authorizer_.userEmail;
         BOOL isSignedIn = ( userEmail != nil );
 
-        NSLog( @"%@", self.spinningIndicator );
 TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_BEGIN
         [ self.spinningIndicator performSelector: isSignedIn ? @selector( stopAnimation: ) : @selector( startAnimation: ) withObject: self ];
 TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT
