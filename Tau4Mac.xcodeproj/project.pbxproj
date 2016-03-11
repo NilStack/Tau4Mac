@@ -714,7 +714,6 @@
 		83765B121C88173300D93554 /* Deps */ = {
 			isa = PBXGroup;
 			children = (
-				83EB732D1C8C6B6E004EB117 /* FBKVOController */,
 				83DA1C591C8893D5007B084F /* libcommonCrypto.tbd */,
 				83765B101C88171400D93554 /* QuartzCore.framework */,
 				83765B0E1C88170F00D93554 /* Cocoa.framework */,
@@ -723,6 +722,7 @@
 				83DA1C411C886138007B084F /* WebKit.framework */,
 				8399E2151C88201F00A42C44 /* GTL */,
 				83DA1C551C8893BF007B084F /* OAuthSigningConstants */,
+				83EB732D1C8C6B6E004EB117 /* FBKVOController */,
 				83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */,
 				83765B351C881A5700D93554 /* Lumberjack.xcodeproj */,
 				83765B131C8818F500D93554 /* PureLayout.xcodeproj */,
