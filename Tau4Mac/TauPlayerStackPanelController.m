@@ -35,6 +35,8 @@
 - ( void ) cleanUp
     {
     [ super cleanUp ];
+
+    [ self.baseViewController_ cleanUp ];
     }
 
 @end // TauPlayerStackPanelController class

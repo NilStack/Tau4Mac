@@ -130,8 +130,11 @@
     [ historyC_.view removeFromSuperview ];
     [ watchLaterC_.view removeFromSuperview ];
 
-    [ self.view removeConstraints: layoutConstraintsCache_ ];
-    layoutConstraintsCache_ = nil;
+    if ( layoutConstraintsCache_ )
+        {
+        [ self.view removeConstraints: layoutConstraintsCache_ ];
+        layoutConstraintsCache_ = nil;
+        }
 
 //    self.likesCollectionSubPanelController_.ytCollectionObject = nil;
 //    self.uploadsCollectionSubPanelController_.ytCollectionObject = nil;
