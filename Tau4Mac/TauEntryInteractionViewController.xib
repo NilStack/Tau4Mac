@@ -37,7 +37,7 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" fixedFrame="YES" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="4f4-ok-VeL">
-                    <rect key="frame" x="10" y="8" width="81" height="25"/>
+                    <rect key="frame" x="10" y="8" width="81" height="95"/>
                     <buttonCell key="cell" type="roundTextured" title="Play" bezelStyle="texturedRounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hXk-ft-3Xn">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>

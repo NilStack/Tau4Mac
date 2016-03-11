@@ -8,6 +8,7 @@
 
 #import "TauMainWindowController.h"
 #import "TauYouTubeEntryView.h"
+#import "TauUserProfileViewController.h"
 
 #import "GTL/GTMOAuth2WindowController.h"
 
@@ -15,6 +16,10 @@
 
 // Private Interfaces
 @interface TauMainWindowController ()
+
+@property ( strong, readonly ) NSSegmentedControl* segSwitcher_;
+@property ( strong, readonly ) NSButton* userProfilePopUpButton_;
+@property ( strong, readonly ) NSPopover* userProfilePopover_;;
 
 // Signning in
 - ( void ) runSignInThenHandler_: ( void (^)( void ) )_Handler;
@@ -32,7 +37,11 @@ NSString* const kRequester = @"kRequester";
 
 @implementation TauMainWindowController
     {
-    NSSegmentedControl __strong* segSwitcher_;
+    NSSegmentedControl __strong* priSegSwitcher_;
+
+    NSButton __strong* priUserProfilePopUpButton_;
+    NSPopover __strong* priUserProfilePopover_;
+
     FBKVOController __strong* kvoController_;
     }
 
@@ -41,37 +50,7 @@ NSString* const kRequester = @"kRequester";
 - ( instancetype ) initWithCoder: ( NSCoder* )_Coder
     {
     if ( self = [ super initWithCoder: _Coder] )
-        {
-        NSUInteger segmentCount = 3;
-        CGFloat segmentFixedWidth = 80.f;
-        segSwitcher_ = [ [ NSSegmentedControl alloc ] initWithFrame: NSMakeRect( 0, 0, 248.f, 21.f ) ];
-        [ segSwitcher_ setSegmentCount: 3 ];
-        [ segSwitcher_ setTrackingMode: NSSegmentSwitchTrackingSelectOne ];
-
-        for ( int _Index = 0; _Index < segmentCount; _Index++ )
-            {
-            [ segSwitcher_ setWidth: segmentFixedWidth forSegment: _Index ];
-            [ segSwitcher_.cell setTag: ( TauPanelsSwitcherSegmentTag )_Index forSegment: _Index ];
-
-            switch ( [ segSwitcher_.cell tagForSegment: _Index ] )
-                {
-                case TauPanelsSwitcherSearchTag:
-                    {
-                    [ segSwitcher_ setLabel: NSLocalizedString( @"Search", nil ) forSegment: _Index ];
-                    } break;
-
-                case TauPanelsSwitcherMeTubeTag:
-                    {
-                    [ segSwitcher_ setLabel: NSLocalizedString( @"MeTube", nil ) forSegment: _Index ];
-                    } break;
-
-                case TauPanelsSwitcherPlayerTag:
-                    {
-                    [ segSwitcher_ setLabel: NSLocalizedString( @"Player", nil ) forSegment: _Index ];
-                    } break;
-                }
-            }
-        }
+        ;
 
     return self;
     }
@@ -87,12 +66,12 @@ NSString* const kRequester = @"kRequester";
     kvoController_ = [ [ FBKVOController alloc ] initWithObserver: self.contentViewController ];
 
 TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_BEGIN
-    [ kvoController_ observe: segSwitcher_ keyPath: @"cell.selectedSegment"
+    [ kvoController_ observe: self.segSwitcher_ keyPath: @"cell.selectedSegment"
                      options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
                       action: @selector( selectedSegmentDidChange:observing: ) ];
 TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 
-    [ segSwitcher_ selectSegmentWithTag: TauPanelsSwitcherSearchTag ];
+    [ self.segSwitcher_ selectSegmentWithTag: TauPanelsSwitcherSearchTag ];
 
     [ [ NSNotificationCenter defaultCenter ]
         addObserver: self selector: @selector( shouldSwitch2PlayerSegment_: ) name: TauShouldSwitch2PlayerSegmentNotif object: nil ];
@@ -100,7 +79,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 
 - ( void ) shouldSwitch2PlayerSegment_: ( NSNotification* )_Notif
     {
-    [ segSwitcher_ selectSegmentWithTag: TauPanelsSwitcherPlayerTag ];
+    [ self.segSwitcher_ selectSegmentWithTag: TauPanelsSwitcherPlayerTag ];
 
     TauYouTubeEntryView* requester = _Notif.userInfo[ kRequester ];
 
@@ -121,12 +100,14 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 #pragma mark - Conforms to <NSToolbarDelegate>
 
 NSString* const kPanelsSwitcher = @"kPanelsSwitcher";
+NSString* const kUserProfileButton = @"kUserProfileButton";
 
 - ( NSArray <NSString*>* ) toolbarAllowedItemIdentifiers: ( NSToolbar* )_Toolbar
     {
     return @[ NSToolbarFlexibleSpaceItemIdentifier
             , kPanelsSwitcher
             , NSToolbarFlexibleSpaceItemIdentifier
+            , kUserProfileButton
             ];
     }
 
@@ -135,6 +116,7 @@ NSString* const kPanelsSwitcher = @"kPanelsSwitcher";
     return @[ NSToolbarFlexibleSpaceItemIdentifier
             , kPanelsSwitcher
             , NSToolbarFlexibleSpaceItemIdentifier
+            , kUserProfileButton
             ];
     }
 
@@ -155,9 +137,10 @@ NSString* const kPanelsSwitcher = @"kPanelsSwitcher";
     NSMenu* repMenu = nil;
 
     if ( ( should = [ _ItemIdentifier isEqualToString: kPanelsSwitcher ] ) )
-        {
-        content = segSwitcher_;
-        }
+        content = self.segSwitcher_;
+
+    else if ( ( should = [ _ItemIdentifier isEqualToString: kUserProfileButton ] ) )
+        content = self.userProfilePopUpButton_;
 
     if ( should )
         {
@@ -211,6 +194,87 @@ NSString* const kPanelsSwitcher = @"kPanelsSwitcher";
     }
 
 #pragma mark - Private Interfaces
+
+@dynamic segSwitcher_;
+@dynamic userProfilePopUpButton_;
+@dynamic userProfilePopover_;
+
+- ( NSSegmentedControl* ) segSwitcher_
+    {
+    if ( !priSegSwitcher_ )
+        {
+        NSUInteger segmentCount = 3;
+        CGFloat segmentFixedWidth = 80.f;
+        priSegSwitcher_ = [ [ NSSegmentedControl alloc ] initWithFrame: NSMakeRect( 0, 0, 248.f, 21.f ) ];
+        [ priSegSwitcher_ setSegmentCount: 3 ];
+        [ priSegSwitcher_ setTrackingMode: NSSegmentSwitchTrackingSelectOne ];
+
+        for ( int _Index = 0; _Index < segmentCount; _Index++ )
+            {
+            [ priSegSwitcher_ setWidth: segmentFixedWidth forSegment: _Index ];
+            [ priSegSwitcher_.cell setTag: ( TauPanelsSwitcherSegmentTag )_Index forSegment: _Index ];
+
+            switch ( [ priSegSwitcher_.cell tagForSegment: _Index ] )
+                {
+                case TauPanelsSwitcherSearchTag:
+                    {
+                    [ priSegSwitcher_ setLabel: NSLocalizedString( @"Search", nil ) forSegment: _Index ];
+                    } break;
+
+                case TauPanelsSwitcherMeTubeTag:
+                    {
+                    [ priSegSwitcher_ setLabel: NSLocalizedString( @"MeTube", nil ) forSegment: _Index ];
+                    } break;
+
+                case TauPanelsSwitcherPlayerTag:
+                    {
+                    [ priSegSwitcher_ setLabel: NSLocalizedString( @"Player", nil ) forSegment: _Index ];
+                    } break;
+                }
+            }
+        }
+
+    return priSegSwitcher_;
+    }
+
+- ( NSButton* ) userProfilePopUpButton_
+    {
+    if ( !priUserProfilePopUpButton_ )
+        {
+        priUserProfilePopUpButton_ = [ [ NSButton alloc ] initWithFrame: NSMakeRect( 0, 0, 40.f, 22.f ) ];
+
+        priUserProfilePopUpButton_.bezelStyle = NSTexturedRoundedBezelStyle;
+        NSImage* image = [ NSImage imageNamed: @"tau-user-profile" ];
+        image.size = NSMakeSize( 18.f, 18.f );
+        priUserProfilePopUpButton_.image = image;
+        priUserProfilePopUpButton_.imagePosition = NSImageOnly;
+        priUserProfilePopUpButton_.action = @selector( pullDownContextMenuAction_: );
+        priUserProfilePopUpButton_.target = self;
+        }
+
+    return priUserProfilePopUpButton_;
+    }
+
+- ( NSPopover* ) userProfilePopover_
+    {
+    if ( !priUserProfilePopover_ )
+        {
+        priUserProfilePopover_ = [ [ NSPopover alloc ] init ];
+        priUserProfilePopover_.animates = YES;
+        priUserProfilePopover_.behavior = NSPopoverBehaviorTransient;
+
+        TauUserProfileViewController* userProfileViewController = [ [ TauUserProfileViewController alloc ] initWithNibName: nil bundle: nil ];
+        [ userProfileViewController setAuthorizer: [ TauDataService sharedService ].ytService.authorizer ];
+        priUserProfilePopover_.contentViewController = userProfileViewController;
+        }
+
+    return priUserProfilePopover_;
+    }
+
+- ( IBAction ) pullDownContextMenuAction_: ( id )_Sender;
+    {
+    [ self.userProfilePopover_ showRelativeToRect: NSZeroRect ofView: _Sender preferredEdge: NSRectEdgeMaxY ];
+    }
 
 // Signning in
 - ( void ) runSignInThenHandler_: ( void (^)( void ) )_Handler
