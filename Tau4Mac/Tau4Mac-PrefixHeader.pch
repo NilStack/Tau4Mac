@@ -22,12 +22,13 @@
 #endif
 
 @import CocoaLumberjack;
+#import "TauLog.h"
 
 static const DDLogLevel ddLogLevel =
 #if DEBUG
 DDLogLevelDebug
 #elif RELEASE
-DDLogLevelInfo
+DDLogLevelNotice
 #elif ANALYSIS
 DDLogLevelAll
 #else
@@ -46,7 +47,5 @@ DDLogLevelOff
 #import "NSObject+TauDataServiceConsumer.h"
 
 #import <objc/runtime.h>
-
-#import "TauLog.h"
 
 #endif /* Tau4Mac_PrefixHeader_pch */
