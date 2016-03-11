@@ -32,7 +32,17 @@
         GTLQueryYouTube* ytSearchListQuery = [ GTLQueryYouTube queryForSearchListWithPart: @"snippet" ];
         [ ytSearchListQuery setQ: userInput ];
         [ ytSearchListQuery setMaxResults: 20 ];
-//        [ ytSearchListQuery setType: @"channel" ];
+
+        NSString* typeString = nil;
+        if ( self.videoRadioButton.state )
+            typeString = @"video";
+        else if ( self.playlistRadioButton.state )
+            typeString = @"playlist";
+        else if ( self.channelRadioButton.state )
+            typeString = @"channel";
+
+        if ( typeString )
+            [ ytSearchListQuery setType: typeString ];
 
         if ( ytSearchListTicket_ )
             [ ytSearchListTicket_ cancelTicket ];
@@ -55,6 +65,11 @@
                 DDLogError( @"%@", _Error );
             } ];
         }
+    }
+
+- ( IBAction ) radioSwitchedAction: ( NSButton* )_Sender
+    {
+    DDLogDebug( @"Radio was switched by %@ (%@ state:%ld)", _Sender, _Sender.title, _Sender.state );
     }
 
 - ( void ) cleanUp

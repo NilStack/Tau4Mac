@@ -15,6 +15,11 @@
 
 @property ( weak ) IBOutlet NSSearchField* searchField;
 
+@property ( weak ) IBOutlet NSButton* allRadioButton;
+@property ( weak ) IBOutlet NSButton* videoRadioButton;
+@property ( weak ) IBOutlet NSButton* playlistRadioButton;
+@property ( weak ) IBOutlet NSButton* channelRadioButton;
+
 #pragma mark - IBActions
 
 - ( IBAction ) searchUserInputAction: ( id )_Sender;
