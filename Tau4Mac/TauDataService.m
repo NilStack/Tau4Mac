@@ -95,7 +95,7 @@ TauDataService static* sDataService_;
             [ userAgent appendString: [ NSString stringWithFormat: @" GTL/%ld.%ld.%ld", majorVer, minorVer, release ] ];
             service.userAgent = GTMFetcherCleanedUserAgentString( userAgent );
 
-            DDLogVerbose( @"Current user-agent is \"%@\"", service.userAgent );
+            DDLogDebug( @"Current user-agent is \"%@\"", service.userAgent );
             } );
 
     return service;

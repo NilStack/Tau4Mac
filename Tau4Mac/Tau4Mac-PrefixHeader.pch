@@ -35,6 +35,8 @@ DDLogLevelOff
 #endif
 ;
 
+#import "TauLog.h"
+
 @import XCDYouTubeKit;
 @import PureLayout;
 #import "FBKVOController.h"
