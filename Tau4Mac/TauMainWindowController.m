@@ -376,7 +376,7 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
 
     [ DDLog addLogger: sharedTTYLogger ];
     [ DDLog addLogger: sharedASLLogger ];
-    [ DDLog addLogger: fileLogger withLevel: DDLogLevelError | DDLogLevelWarning ];
+    [ DDLog addLogger: fileLogger withLevel: DDLogLevelWarn ];
     }
 
 @end

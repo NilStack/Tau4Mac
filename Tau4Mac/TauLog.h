@@ -6,8 +6,8 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#ifndef XCDLog_h
-#define XCDLog_h
+#ifndef TauLog_h
+#define TauLog_h
 
 // We want to use the following log levels:
 // 
@@ -80,6 +80,18 @@
 #define DDLogLevelDebug        ( DDLogFlagDebug | DDLogLevelInfo  )
 #define DDLogLevelVerbose      ( DDLogFlagVerbose | DDLogFlagDebug )
 
+static const DDLogLevel ddLogLevel =
+#if DEBUG
+DDLogLevelDebug
+#elif RELEASE
+DDLogLevelNotice
+#elif ANALYSIS
+DDLogLevelAll
+#else
+DDLogLevelOff
+#endif
+;
+
 #define LOG_FATAL         ( ddLogLevel & DDLogFlagFatal )
 #define LOG_RECOVERABLE   ( ddLogLevel & DDLogFlagRecoverable )
 #define LOG_LOCAL_ERROR   ( ddLogLevel & DDLogFlagRecoverable )
@@ -116,4 +128,4 @@
 #define DDLogDebugToDDLog( ddlog, frmt, ... )        LOG_MAYBE_TO_DDLOG( ddlog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagDebug, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
 #define DDLogVerboseToDDLog( ddlog, frmt, ... )      LOG_MAYBE_TO_DDLOG( ddlog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagVerbose, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
 
-#endif /* XCDLog_h */
+#endif /* TauLog_h */
