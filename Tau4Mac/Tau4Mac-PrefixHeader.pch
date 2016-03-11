@@ -35,8 +35,6 @@ DDLogLevelOff
 #endif
 ;
 
-#import "TauLog.h"
-
 @import XCDYouTubeKit;
 @import PureLayout;
 #import "FBKVOController.h"
@@ -48,5 +46,7 @@ DDLogLevelOff
 #import "NSObject+TauDataServiceConsumer.h"
 
 #import <objc/runtime.h>
+
+#import "TauLog.h"
 
 #endif /* Tau4Mac_PrefixHeader_pch */

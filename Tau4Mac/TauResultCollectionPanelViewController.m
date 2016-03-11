@@ -106,7 +106,7 @@ TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT
                     self.toolbarView.ytCollectionObject = _CollectionObject;
                     }
                 else
-                    DDLogError( @"%@", _Error );
+                    DDLogRecoverable( @"%@", _Error );
                 } ];
             }
         } @catch ( NSException* _Ex )
@@ -119,8 +119,7 @@ TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT
     {
     if ( !_ytPlistID )
         {
-        // TODO: Change log method from DDLogWarn() to DDLogUnexpected()
-        DDLogWarn( @"YouTube play list ID must be not nil" );
+        DDLogUnexpected( @"YouTube play list ID must be not nil" );
         return;
         }
 
@@ -148,7 +147,7 @@ TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT
     {
     if ( !_Sender )
         {
-        DDLogError( @"%@ must not be nil", _Sender);
+        DDLogRecoverable( @"%@ must not be nil", _Sender);
         return;
         }
 
@@ -167,8 +166,7 @@ TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT
             Class expectedClass = [ GTLYouTubeSearchResult class ];
             if ( ![ _Sender.ytContent isKindOfClass: expectedClass ] )
                 {
-                // TODO: Change log method from DDLogWarn() to DDLogUnexpected()
-                DDLogWarn( @"Sender's ytContent property must be kind of %@", NSStringFromClass( expectedClass ) );
+                DDLogUnexpected( @"Sender's ytContent property must be kind of %@", NSStringFromClass( expectedClass ) );
                 break;
                 }
 
@@ -201,14 +199,14 @@ TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT
                         [ self whateverWithYouTubePlaylistID_: uploadsPlaylistID hint: channelContentDetails ];
                         }
                     else
-                        DDLogError( @"Failed to execute %@ due to: <%@>", _Ticket.originalQuery, _Error );
+                        DDLogRecoverable( @"Failed to execute %@ due to: <%@>", _Ticket.originalQuery, _Error );
                     } ];
                 }
             } break;
 
         case TauYouTubeUnknownView:
             {
-            DDLogError( @"Unkown View" );
+            DDLogRecoverable( @"Unkown View" );
             } break;
         }
     }

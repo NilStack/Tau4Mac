@@ -212,7 +212,7 @@
                 }
             else
                 {
-                DDLogError( @"%@", _Error );
+                DDLogRecoverable( @"%@", _Error );
                 isFetchRelatedPlaylistsSuccess_ = NO;
                 ytChannelMineListTicket_ = nil;
                 }
@@ -271,7 +271,7 @@
                 resultC.ytTicket = _Ticket;
                 }
             else
-                DDLogError( @"%@", _Error );
+                DDLogRecoverable( @"%@", _Error );
             } ];
 
         switch ( ivarTag )

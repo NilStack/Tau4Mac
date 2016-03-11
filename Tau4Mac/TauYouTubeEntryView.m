@@ -450,7 +450,7 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
                     {
                     if ( _Error.code == 404 )
                         {
-                        DDLogError( @"404 NOT FOUND! There is no specific thumb (%@) %@ %@\n"
+                        DDLogRecoverable( @"404 NOT FOUND! There is no specific thumb (%@) %@ %@\n"
                                      "attempting to fetch the backing thumbnail…"
                                   , fetcher.userData[ kPreferredThumbKey ]
                                   , _Error

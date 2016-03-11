@@ -62,7 +62,7 @@
                 DDLogInfo( @"%@", ytSearchListTicket_ );
                 }
             else
-                DDLogError( @"%@", _Error );
+                DDLogRecoverable( @"%@", _Error );
             } ];
         }
     }

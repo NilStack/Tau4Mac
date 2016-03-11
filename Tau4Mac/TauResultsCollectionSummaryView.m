@@ -62,8 +62,7 @@ TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_BEGIN
 TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT
                         }
                     else
-                        // TODO: Change log method from DDLogWarn() to DDLogUnexpected()
-                        DDLogWarn( @"%@ does not respond to %@", relatedPlaylists, NSStringFromSelector( sels[ _Index ] ) );
+                        DDLogUnexpected( @"%@ does not respond to %@", relatedPlaylists, NSStringFromSelector( sels[ _Index ] ) );
 
                     GTLYouTubePlaylistItemSnippet* snippet = [ ( GTLYouTubePlaylistItem* )( resp.items.firstObject ) snippet ];
                     if ( snippet /* snippet may be nil */ && [ playlistID isEqualToString: snippet.playlistId ] )
@@ -86,8 +85,7 @@ TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT
                 auxiliarySummaryText_ = @"";
                 }
             else
-                // TODO: Change log method from DDLogError() to DDLogUnexpected()
-                DDLogError( @"Expecting a hint details, what's the hell with you?" );
+                DDLogUnexpected( @"Expecting a hint details, what's the hell with you?" );
             }
 
         [ self setNeedsDisplay: YES ];

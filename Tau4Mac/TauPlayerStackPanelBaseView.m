@@ -98,8 +98,7 @@
                 } ];
             }
         else
-            // TODO: Change log method from DDLogWarn() to DDLogUnexpected()
-            DDLogWarn( @"videoID has an unexpected value: %@", videoID );
+            DDLogUnexpected( @"videoID has an unexpected value: %@", videoID );
         }
     else
         {
@@ -151,7 +150,7 @@
     {
     // Force to load the AVPlayerView
     if ( !self.playerView_ )
-        DDLogError( @"Goddamn it! Failed to load AVPlayerView" );
+        DDLogRecoverable( @"Goddamn it! Failed to load AVPlayerView" );
     }
 
 @end // TauPlayerStackPanelBaseView class

@@ -178,7 +178,7 @@
                 [ self setNeedsDisplay: YES ];
                 }
             else
-                DDLogError( @"%@", _Error );
+                DDLogRecoverable( @"%@", _Error );
             } ];
 
         self.needsDisplay = YES;

@@ -23,17 +23,17 @@
 
 // First undefine the default stuff we don't want to use.
 
-#undef LOG_FLAG_ERROR
-#undef LOG_FLAG_WARN 
-#undef LOG_FLAG_INFO
-#undef LOG_FLAG_DEBUG
-#undef LOG_FLAG_VERBOSE
+#undef DDLogFlagError
+#undef DDLogFlagWarning
+#undef DDLogFlagInfo
+#undef DDLogFlagDebug
+#undef DDLogFlagVerbose
 
-#undef LOG_LEVEL_ERROR
-#undef LOG_LEVEL_WARN
-#undef LOG_LEVEL_INFO
-#undef LOG_LEVEL_DEBUG
-#undef LOG_LEVEL_VERBOSE
+#undef DDLogLevelError
+#undef DDLogLevelWarning
+#undef DDLogLevelInfo
+#undef DDLogLevelDebug
+#undef DDLogLevelVerbose
 
 #undef LOG_ERROR
 #undef LOG_WARN
@@ -49,46 +49,47 @@
 
 #undef DDLogErrorToDDLog
 #undef DDLogWarnToDDLog
-#undef DDLogCInfo
+#undef DDLogNoticeToDDLog
 #undef DDLogInfoToDDLog
 #undef DDLogDebugToDDLog
+#undef DDLogVerboseToDDLog
 
 // Now define everything how we want it
 
-#define LOG_FLAG_FATAL   ( 1 << 0 )  // 0...000001
-#define LOG_FLAG_ERROR   ( 1 << 1 )  // 0...000010
-#define LOG_FLAG_WARN    ( 1 << 2 )  // 0...000100
-#define LOG_FLAG_NOTICE  ( 1 << 3 )  // 0...001000
-#define LOG_FLAG_INFO    ( 1 << 4 )  // 0...010000
-#define LOG_FLAG_DEBUG   ( 1 << 5 )  // 0...100000
+#define DDLogFlagFatal       ( 1 << 0 )  // 0000 0000 0001
+#define DDLogFlagRecoverable ( 1 << 1 )  // 0000 0000 0010
+#define DDLogFlagUnexpected  ( 1 << 7 )  // 0000 1000 0000
+#define DDLogFlagWarning     ( 1 << 2 )  // 0000 0000 0100
+#define DDLogFlagNotice      ( 1 << 3 )  // 0000 0000 1000
+#define DDLogFlagInfo        ( 1 << 4 )  // 0000 0001 0000
+#define DDLogFlagDebug       ( 1 << 5 )  // 0000 0010 0000
+#define DDLogFlagVerbose     ( 1 << 6 )  // 0000 0100 0000
 
-#define LOG_LEVEL_FATAL   ( LOG_FLAG_FATAL )                    // 0...000001
-#define LOG_LEVEL_ERROR   ( LOG_FLAG_ERROR  | LOG_LEVEL_FATAL ) // 0...000011
-#define LOG_LEVEL_WARN    ( LOG_FLAG_WARN   | LOG_LEVEL_ERROR ) // 0...000111
-#define LOG_LEVEL_NOTICE  ( LOG_FLAG_NOTICE | LOG_LEVEL_WARN  ) // 0...001111
-#define LOG_LEVEL_INFO    ( LOG_FLAG_INFO   | LOG_LEVEL_NOTICE) // 0...011111
-#define LOG_LEVEL_DEBUG   ( LOG_FLAG_DEBUG  | LOG_LEVEL_INFO  ) // 0...111111
+#define DDLogLevelFatal       ( DDLogFlagFatal )                                        // 0000 0000 0001
+#define DDLogLevelRecoverable ( DDLogFlagRecoverable | DDLogLevelFatal )               // 0000 0000 0011
+#define DDLogLevelUnexpected  ( DDLogFlagUnexpected | DDLogFlagRecoverable )
+#define DDLogLevelWarn        ( DDLogFlagWarning | DDLogFlagUnexpected )                  // 0000 0000 0111
+#define DDLogLevelNotice      ( DDLogFlagNotice | DDLogLevelWarn  )                     // 0000 0000 1111
+#define DDLogLevelInfo        ( DDLogFlagInfo | DDLogLevelNotice)                     // 0000 0001 1111
+#define DDLogLevelDebug       ( DDLogFlagDebug | DDLogLevelInfo  )                     // 0000 0011 1111
+#define DDLogLevelVerbose     ( DDLogFlagVerbose | DDLogFlagDebug )  // 0000 0111 1111
 
-#define LOG_FATAL   ( ddLogLevel & LOG_FLAG_FATAL )
-#define LOG_ERROR   ( ddLogLevel & LOG_FLAG_ERROR )
-#define LOG_WARN    ( ddLogLevel & LOG_FLAG_WARN  )
-#define LOG_NOTICE  ( ddLogLevel & LOG_FLAG_NOTICE)
-#define LOG_INFO    ( ddLogLevel & LOG_FLAG_INFO  )
-#define LOG_DEBUG   ( ddLogLevel & LOG_FLAG_DEBUG )
+#define DDLogFatal( frmt, ... )       LOG_MAYBE( NO,                LOG_LEVEL_DEF, DDLogFlagFatal, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
+#define DDLogRecoverable( frmt, ... ) LOG_MAYBE( NO,                LOG_LEVEL_DEF, DDLogFlagRecoverable, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
+#define DDLogUnexpected( frmt, ... )  LOG_MAYBE( NO,                LOG_LEVEL_DEF, DDLogFlagUnexpected, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
+#define DDLogWarn( frmt, ... )        LOG_MAYBE( LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagWarning, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
+#define DDLogNotice( frmt, ... )      LOG_MAYBE( LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagNotice, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
+#define DDLogInfo( frmt, ... )        LOG_MAYBE( LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagInfo, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
+#define DDLogDebug( frmt, ... )       LOG_MAYBE( LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagDebug, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
+#define DDLogVerbose( frmt, ... )     LOG_MAYBE( LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagVerbose, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
 
-#define DDLogFatal( frmt, ...)   LOG_MAYBE( NO,                LOG_LEVEL_DEF, LOG_FLAG_FATAL,  0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
-#define DDLogError( frmt, ...)   LOG_MAYBE( NO,                LOG_LEVEL_DEF, LOG_FLAG_ERROR,  0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
-#define DDLogWarn( frmt, ...)    LOG_MAYBE( LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, LOG_FLAG_WARN,   0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
-#define DDLogNotice( frmt, ...)  LOG_MAYBE( LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, LOG_FLAG_NOTICE, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
-#define DDLogInfo( frmt, ...)    LOG_MAYBE( LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, LOG_FLAG_INFO,   0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
-#define DDLogDebug( frmt, ...)   LOG_MAYBE( LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, LOG_FLAG_DEBUG,  0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
-
-#define DDLogFatalToDDLog( ddlog, frmt, ...)   LOG_MAYBE_TO_DDLOG( ddlog, NO,                LOG_LEVEL_DEF, LOG_FLAG_FATAL,  0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
-#define DDLogErrorToDDLog( ddlog, frmt, ...)   LOG_MAYBE_TO_DDLOG( ddlog, NO,                LOG_LEVEL_DEF, LOG_FLAG_ERROR,  0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
-#define DDLogWarnToDDLog( ddlog, frmt, ...)    LOG_MAYBE_TO_DDLOG( ddlog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, LOG_FLAG_WARN,   0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
-#define DDLogNoticeToDDLog( ddlog, frmt, ...)  LOG_MAYBE_TO_DDLOG( ddlog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, LOG_FLAG_NOTICE, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
-#define DDLogInfoToDDLog( ddlog, frmt, ...)    LOG_MAYBE_TO_DDLOG( ddlog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, LOG_FLAG_INFO,   0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
-#define DDLogDebugToDDLog( ddlog, frmt, ...)   LOG_MAYBE_TO_DDLOG( ddlog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, LOG_FLAG_DEBUG,  0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
-
+#define DDLogFatalToDDLog( ddlog, frmt, ... )       LOG_MAYBE_TO_DDLOG( ddlog, NO,                LOG_LEVEL_DEF, DDLogFlagFatal, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
+#define DDLogRecoverableToDDLog( ddlog, frmt, ... ) LOG_MAYBE_TO_DDLOG( ddlog, NO,                LOG_LEVEL_DEF, DDLogFlagRecoverable, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
+#define DDLogUnexpectedToDDLog( ddlog, frmt, ... )  LOG_MAYBE_TO_DDLOG( ddlog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagUnexpected, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
+#define DDLogWarnToDDLog( ddlog, frmt, ... )        LOG_MAYBE_TO_DDLOG( ddlog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagWarning, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
+#define DDLogNoticeToDDLog( ddlog, frmt, ... )      LOG_MAYBE_TO_DDLOG( ddlog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagNotice, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
+#define DDLogInfoToDDLog( ddlog, frmt, ... )        LOG_MAYBE_TO_DDLOG( ddlog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagInfo, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
+#define DDLogDebugToDDLog( ddlog, frmt, ... )       LOG_MAYBE_TO_DDLOG( ddlog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagDebug, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
+#define DDLogVerboseToDDLog( ddlog, frmt, ... )     LOG_MAYBE_TO_DDLOG( ddlog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagVerbose, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
 
 #endif /* XCDLog_h */

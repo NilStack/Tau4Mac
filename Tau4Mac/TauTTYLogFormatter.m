@@ -17,9 +17,9 @@
     {
     NSString* logLevel = nil;
 
-    switch ( _LogMsg.flag )
+    switch ( ( uint32 )( _LogMsg.flag ) )
         {
-        case DDLogFlagError:   logLevel = @"ERROR";            break;
+        case DDLogFlagRecoverable:   logLevel = @"ERROR";            break;
         case DDLogFlagWarning: logLevel = @"WARNING";          break;
         case DDLogFlagDebug:   logLevel = @"DEBUG";            break;
         case DDLogFlagInfo:    logLevel = @"INFO";             break;
