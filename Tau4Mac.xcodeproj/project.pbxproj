@@ -615,6 +615,12 @@
 				8349D39A1C8986E2000D091F /* pri */,
 				8349D3DD1C899444000D091F /* NSImage+Tau.h */,
 				8349D3DE1C899444000D091F /* NSImage+Tau.m */,
+				830F55861C92CE20005E431B /* NSObject+TauDataServiceConsumer.h */,
+				830F55871C92CE20005E431B /* NSObject+TauDataServiceConsumer.m */,
+				83EB745A1C90590F004EB117 /* NSAffineTransform+TauDrawing.h */,
+				83EB745B1C90590F004EB117 /* NSAffineTransform+TauDrawing.m */,
+				83EB74571C9058C4004EB117 /* NSBezierPath+TauDrawing.h */,
+				83EB74581C9058C4004EB117 /* NSBezierPath+TauDrawing.m */,
 			);
 			name = extensions;
 			sourceTree = "<group>";
@@ -644,14 +650,8 @@
 			isa = PBXGroup;
 			children = (
 				83EB743C1C8EA78C004EB117 /* TauConstants.h */,
-				830F55861C92CE20005E431B /* NSObject+TauDataServiceConsumer.h */,
-				830F55871C92CE20005E431B /* NSObject+TauDataServiceConsumer.m */,
 				83765ADD1C8811DD00D93554 /* TauAppDelegate.h */,
 				83765ADE1C8811DD00D93554 /* TauAppDelegate.m */,
-				83EB745A1C90590F004EB117 /* NSAffineTransform+TauDrawing.h */,
-				83EB745B1C90590F004EB117 /* NSAffineTransform+TauDrawing.m */,
-				83EB74571C9058C4004EB117 /* NSBezierPath+TauDrawing.h */,
-				83EB74581C9058C4004EB117 /* NSBezierPath+TauDrawing.m */,
 				8349D3DC1C899420000D091F /* extensions */,
 				83DA1C431C8864AC007B084F /* logging */,
 				831BD6E01C88480800122AF6 /* yt */,
