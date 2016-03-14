@@ -1,0 +1,25 @@
+//
+//  Tau4MacTestsPrefixHeader.pch
+//  Tau4Mac
+//
+//  Created by Tong G. on 3/14/16.
+//  Copyright © 2016 Tong Kuo. All rights reserved.
+//
+
+#ifndef Tau4MacTestsPrefixHeader_pch
+#define Tau4MacTestsPrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+@import XCTest;
+@import CocoaLumberjack;
+
+#import "TauLog.h"
+
+#import "FBKVOController.h"
+#import "GTLYouTube.h"
+
+#import <objc/runtime.h>
+
+#endif /* Tau4MacTestsPrefixHeader_pch */

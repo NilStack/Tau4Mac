@@ -44,6 +44,8 @@
 		83765B691C881A6800D93554 /* CocoaLumberjack.framework in Copy Third-Party Frameworks (4 items) */ = {isa = PBXBuildFile; fileRef = 83765B491C881A5700D93554 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83765B941C881E2300D93554 /* GTL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B8B1C881E1700D93554 /* GTL.framework */; };
 		83765B971C881EA900D93554 /* GTL.framework in Copy Third-Party Frameworks (4 items) */ = {isa = PBXBuildFile; fileRef = 83765B8B1C881E1700D93554 /* GTL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		838342E61C96D59800BE6378 /* GTL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B8B1C881E1700D93554 /* GTL.framework */; };
+		838342E91C96D74900BE6378 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B491C881A5700D93554 /* CocoaLumberjack.framework */; };
 		8399E2141C88200000A42C44 /* GTLYouTube_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2121C88200000A42C44 /* GTLYouTube_Sources.m */; };
 		8399E21A1C88231400A42C44 /* TauMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2191C88231400A42C44 /* TauMainWindowController.m */; };
 		8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E21C1C88232E00A42C44 /* TauMainWindow.m */; };
@@ -439,6 +441,7 @@
 		83765B6A1C881B3200D93554 /* Tau4Mac-PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tau4Mac-PrefixHeader.pch"; sourceTree = "<group>"; };
 		83765B821C881E1700D93554 /* GTLCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GTLCore.xcodeproj; path = ../Deps/GTL/Source/GTLCore.xcodeproj; sourceTree = "<group>"; };
 		83765B991C881EBC00D93554 /* Tau.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Tau.entitlements; sourceTree = "<group>"; };
+		838342E71C96D62E00BE6378 /* Tau4MacTestsPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tau4MacTestsPrefixHeader.pch; sourceTree = "<group>"; };
 		8399E2121C88200000A42C44 /* GTLYouTube_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLYouTube_Sources.m; path = ../Deps/GTL/Source/Services/YouTube/Generated/GTLYouTube_Sources.m; sourceTree = "<group>"; };
 		8399E2131C88200000A42C44 /* GTLYouTube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLYouTube.h; path = ../Deps/GTL/Source/Services/YouTube/Generated/GTLYouTube.h; sourceTree = "<group>"; };
 		8399E2181C88231400A42C44 /* TauMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauMainWindowController.h; sourceTree = "<group>"; };
@@ -529,6 +532,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				838342E91C96D74900BE6378 /* CocoaLumberjack.framework in Frameworks */,
+				838342E61C96D59800BE6378 /* GTL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,7 +693,7 @@
 			isa = PBXGroup;
 			children = (
 				83765AF41C8811DE00D93554 /* Tau4MacTests.m */,
-				83765AF61C8811DE00D93554 /* Info.plist */,
+				838342E81C96D6B200BE6378 /* Supporting Files */,
 			);
 			path = Tau4MacTests;
 			sourceTree = "<group>";
@@ -786,6 +791,15 @@
 				83765B931C881E1700D93554 /* OSXDevTool */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		838342E81C96D6B200BE6378 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				838342E71C96D62E00BE6378 /* Tau4MacTestsPrefixHeader.pch */,
+				83765AF61C8811DE00D93554 /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		8399E2151C88201F00A42C44 /* GTL */ = {
@@ -1560,8 +1574,11 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Tau4MacTests/Tau4MacTestsPrefixHeader.pch;
 				INFOPLIST_FILE = Tau4MacTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4MacTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tau4Mac.app/Contents/MacOS/Tau4Mac";
@@ -1574,8 +1591,11 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Tau4MacTests/Tau4MacTestsPrefixHeader.pch;
 				INFOPLIST_FILE = Tau4MacTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4MacTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tau4Mac.app/Contents/MacOS/Tau4Mac";
@@ -1691,8 +1711,11 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Tau4MacTests/Tau4MacTestsPrefixHeader.pch;
 				INFOPLIST_FILE = Tau4MacTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4MacTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tau4Mac.app/Contents/MacOS/Tau4Mac";
