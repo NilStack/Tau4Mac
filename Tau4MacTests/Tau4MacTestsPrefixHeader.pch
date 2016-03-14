@@ -20,6 +20,8 @@
 #import "FBKVOController.h"
 #import "GTLYouTube.h"
 
+#import "GTL/GTMOAuth2Authentication.h"
+
 #import <objc/runtime.h>
 
 #endif /* Tau4MacTestsPrefixHeader_pch */

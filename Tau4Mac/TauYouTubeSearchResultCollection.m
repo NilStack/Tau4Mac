@@ -21,12 +21,12 @@
     return [ NSSet setWithObjects: kYtBackingCollectionObjectKey, nil ];
     }
 
-- ( NSArray <GTLYouTubeSearchResult*>* ) searchListResponse
+- ( NSArray <GTLYouTubeSearchResult*>* ) searchListResults
     {
     return ( NSArray <GTLYouTubeSearchResult*>* )( ytBackingCollectionObject_.items );
     }
 
-- ( NSUInteger ) countOfSearchListResponse
+- ( NSUInteger ) countOfSearchListResults
     {
     return ytBackingCollectionObject_.items.count;
     }
