@@ -1506,7 +1506,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Tau4Mac/Tau.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tau4Mac/Tau4Mac-PrefixHeader.pch";
@@ -1526,6 +1526,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4Mac;
 				PRODUCT_NAME = Tau;
 				VERSION_INFO_PREFIX = "";
+				VERSION_INFO_SUFFIX = "";
 			};
 			name = Debug;
 		};
@@ -1534,7 +1535,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Tau4Mac/Tau.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tau4Mac/Tau4Mac-PrefixHeader.pch";
@@ -1550,6 +1551,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4Mac;
 				PRODUCT_NAME = Tau;
 				VERSION_INFO_PREFIX = "";
+				VERSION_INFO_SUFFIX = "";
 			};
 			name = Release;
 		};
@@ -1660,7 +1662,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Tau4Mac/Tau.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(SYMROOT)/Debug$(EFFECTIVE_PLATFORM_NAME)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1680,6 +1682,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4Mac;
 				PRODUCT_NAME = Tau;
 				VERSION_INFO_PREFIX = "";
+				VERSION_INFO_SUFFIX = "";
 			};
 			name = Analysis;
 		};
