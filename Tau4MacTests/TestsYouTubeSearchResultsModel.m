@@ -10,26 +10,28 @@
 #import "TauDataService.h"
 
 // Tau4MacTests class
-@interface Tau4MacTests : XCTestCase
+@interface TestsYouTubeSearchResultsModel : XCTestCase
 
 @property ( strong, readwrite ) TauYouTubeSearchResultCollection* sampleSearchResultCollection;
 
 @end // Tau4MacTests class
 
 // Private Interfaces
-@interface Tau4MacTests ()
+@interface TestsYouTubeSearchResultsModel ()
 @end // Private Interfaces
 
 uint64_t static const kTestsYouTubeSearchListCollectionKVOCtx;
 
 static const NSString* kYTSearchListQs[] =
-    { @"vevo", @"GitHub", @"一梦如是", @"張國榮", @"goPro", @"Microsoft" };
+    { @"vevo", @"GitHub", @"一梦如是", @"張國榮", @"goPro", @"Microsoft", @"announamous"
+    , @"あべしんぞう", @"Park Geun-hye", @"박근혜", @"まつもとゆきひろ", @"بو القاسم محمد .."
+    };
 
 static const NSString* kYTSearchResultsCollectionKVOPaths[] =
     { @"searchListResults", @"resultsPerPage", @"totalResults", @"prevPageToken", @"nextPageToken" };
 
 // Tau4MacTests class
-@implementation Tau4MacTests
+@implementation TestsYouTubeSearchResultsModel
     {
     TauDataService __weak* sharedDataSerivce_;
     GTLServiceYouTube __strong* ytService_;
@@ -53,6 +55,7 @@ static const NSString* kYTSearchResultsCollectionKVOPaths[] =
     [ oauth setUserEmailIsVerified: @"1" ];
     [ oauth setUserID: @"109727319630804378943" ];
     [ ytService_ setAuthorizer: oauth ];
+    [ ytService_ setUserAgent: @"home.bedroom.TongKuo.Tau4Mac.UnitTests" ];
 
     XCTAssertNotNil( ytService_ );
 
@@ -66,6 +69,12 @@ static const NSString* kYTSearchResultsCollectionKVOPaths[] =
 
     for ( int _Index = 0; _Index < ( sizeof( kYTSearchResultsCollectionKVOPaths ) / sizeof( *kYTSearchResultsCollectionKVOPaths ) ); _Index++ )
         [ self.sampleSearchResultCollection removeObserver: self forKeyPath: ( NSString* )kYTSearchResultsCollectionKVOPaths[ _Index ] ];
+    }
+
+- ( void ) observeValueForKeyPath: ( NSString* )_KeyPath ofObject: ( id )_Object change: ( NSDictionary <NSString*, id>* )_Change context: ( void* )_Ctx
+    {
+    if ( _Ctx == &kTestsYouTubeSearchListCollectionKVOCtx )
+        DDLogVerbose( @"{%@} of %@ new: %@ old: %@ ctx: %p", _KeyPath, _Object, _Change[ NSKeyValueChangeNewKey ], _Change[ NSKeyValueChangeOldKey ], _Ctx );
     }
 
 #pragma mark - Tests KVO Compliance of TauYouTubeSearchResultCollection
@@ -117,23 +126,25 @@ static const NSString* kYTSearchResultsCollectionKVOPaths[] =
 
                 GTLQueryYouTube* nextPageQuery = searchListQuery;
                 nextPageQuery.pageToken = self.sampleSearchResultCollection.nextPageToken;
-                nextPageQuery.maxResults += ( _Index < 4 ) ? 10 : -10;
+                nextPageQuery.maxResults += ( _Index < PAGE_LOOP / 2 ) ? 10 : -10;
 
                 GTLServiceTicket* ticket = [ ytService_ executeQuery: nextPageQuery completionHandler: nil ];
                 XCTAssert( ( ticket ) );
 
                 GTLCollectionObject* resp = nil;
-                [ ytService_ waitForTicket: ticket timeout: 5.f fetchedObject: &resp error: &err ];
 
-                XCTAssertNotNil( resp );
-                XCTAssertNil( err );
+                // Wait synchronously for fetch to complete (strongly discouraged)
+                [ ytService_ waitForTicket: ticket timeout: TAU_TEST_ASYNC_TIMEOUT fetchedObject: &resp error: &err ];
+
+                XCTAssertNotNil( resp, @"%@ may time out", ticket );
+                XCTAssertNil( err, @"%@", err );
                 self.sampleSearchResultCollection.ytCollectionObject = resp;
                 }
 
             [ expec fulfill ];
             } ];
 
-        [ self waitForExpectationsWithTimeout: ( PAGE_LOOP + 1 ) * 5
+        [ self waitForExpectationsWithTimeout: ( PAGE_LOOP + 1 ) * TAU_TEST_ASYNC_TIMEOUT
                                      handler:
         ^( NSError* _Nullable _Error )
             {
@@ -141,12 +152,6 @@ static const NSString* kYTSearchResultsCollectionKVOPaths[] =
                 DDLogFatal( @"%@", _Error );
             } ];
         }
-    }
-
-- ( void ) observeValueForKeyPath: ( NSString* )_KeyPath ofObject: ( id )_Object change: ( NSDictionary <NSString*, id>* )_Change context: ( void* )_Ctx
-    {
-    if ( _Ctx == &kTestsYouTubeSearchListCollectionKVOCtx )
-        NSLog( @"{%@} of %@ new: %@ old: %@ ctx: %p", _KeyPath, _Object, _Change[ NSKeyValueChangeNewKey ], _Change[ NSKeyValueChangeOldKey ], _Ctx );
     }
 
 @end // Tau4MacTests class

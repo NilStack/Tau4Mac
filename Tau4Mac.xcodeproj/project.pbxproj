@@ -447,6 +447,7 @@
 		83765B821C881E1700D93554 /* GTLCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GTLCore.xcodeproj; path = ../Deps/GTL/Source/GTLCore.xcodeproj; sourceTree = "<group>"; };
 		83765B991C881EBC00D93554 /* Tau.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Tau.entitlements; sourceTree = "<group>"; };
 		838342E71C96D62E00BE6378 /* Tau4MacTestsPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tau4MacTestsPrefixHeader.pch; sourceTree = "<group>"; };
+		838342F31C9710FD00BE6378 /* TestsConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestsConstants.h; sourceTree = "<group>"; };
 		8399E2121C88200000A42C44 /* GTLYouTube_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLYouTube_Sources.m; path = ../Deps/GTL/Source/Services/YouTube/Generated/GTLYouTube_Sources.m; sourceTree = "<group>"; };
 		8399E2131C88200000A42C44 /* GTLYouTube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLYouTube.h; path = ../Deps/GTL/Source/Services/YouTube/Generated/GTLYouTube.h; sourceTree = "<group>"; };
 		8399E2181C88231400A42C44 /* TauMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauMainWindowController.h; sourceTree = "<group>"; };
@@ -698,6 +699,7 @@
 			isa = PBXGroup;
 			children = (
 				83765AF41C8811DE00D93554 /* TestsYouTubeSearchResultsModel.m */,
+				838342F31C9710FD00BE6378 /* TestsConstants.h */,
 				838342E81C96D6B200BE6378 /* Supporting Files */,
 			);
 			path = Tau4MacTests;
@@ -1721,6 +1723,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "$(SYMROOT)/Debug$(EFFECTIVE_PLATFORM_NAME)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tau4MacTests/Tau4MacTestsPrefixHeader.pch;
 				INFOPLIST_FILE = Tau4MacTests/Info.plist;
