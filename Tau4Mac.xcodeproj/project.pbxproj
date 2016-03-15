@@ -54,6 +54,9 @@
 		838342F61C98189B00BE6378 /* TauYouTubeChannelListsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 838342F51C98189B00BE6378 /* TauYouTubeChannelListsCollection.m */; };
 		838342F91C98198F00BE6378 /* TauYouTubePlaylistsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 838342F81C98198F00BE6378 /* TauYouTubePlaylistsCollection.m */; };
 		838342FC1C981C2400BE6378 /* TauYouTubePlaylistItemsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 838342FB1C981C2400BE6378 /* TauYouTubePlaylistItemsCollection.m */; };
+		838342FD1C98409C00BE6378 /* TauYouTubeChannelListsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 838342F51C98189B00BE6378 /* TauYouTubeChannelListsCollection.m */; };
+		838342FE1C98409F00BE6378 /* TauYouTubePlaylistsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 838342F81C98198F00BE6378 /* TauYouTubePlaylistsCollection.m */; };
+		838342FF1C9840A200BE6378 /* TauYouTubePlaylistItemsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 838342FB1C981C2400BE6378 /* TauYouTubePlaylistItemsCollection.m */; };
 		8399E2141C88200000A42C44 /* GTLYouTube_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2121C88200000A42C44 /* GTLYouTube_Sources.m */; };
 		8399E21A1C88231400A42C44 /* TauMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2191C88231400A42C44 /* TauMainWindowController.m */; };
 		8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E21C1C88232E00A42C44 /* TauMainWindow.m */; };
@@ -1415,9 +1418,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				838342FE1C98409F00BE6378 /* TauYouTubePlaylistsCollection.m in Sources */,
 				83765AF51C8811DE00D93554 /* TestsYouTubeSearchResultsModel.m in Sources */,
 				838342F11C96EFB800BE6378 /* TauYouTubeSearchResultCollection.m in Sources */,
+				838342FD1C98409C00BE6378 /* TauYouTubeChannelListsCollection.m in Sources */,
 				838342EE1C96E9AB00BE6378 /* GTLYouTube_Sources.m in Sources */,
+				838342FF1C9840A200BE6378 /* TauYouTubePlaylistItemsCollection.m in Sources */,
 				838342F21C96EFC100BE6378 /* TauAbstractResultCollection.m in Sources */,
 				838342EF1C96E9CD00BE6378 /* TauDataService.m in Sources */,
 			);
