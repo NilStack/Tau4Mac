@@ -1,5 +1,5 @@
 //
-//  TauYouTubeSearchResultCollection.h
+//  TauYouTubeSearchResultsCollection.h
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/14/16.
@@ -8,9 +8,9 @@
 
 #import "TauAbstractResultCollection.h"
 
-// TauYouTubeSearchResultCollection class
-@interface TauYouTubeSearchResultCollection : TauAbstractResultCollection
+// TauYouTubeSearchResultsCollection class
+@interface TauYouTubeSearchResultsCollection : TauAbstractResultCollection
 
 @property ( strong, readonly ) NSArray <GTLYouTubeSearchResult*>* searchResults;   // KVO-Observable
 
-@end // TauYouTubeSearchResultCollection class
+@end // TauYouTubeSearchResultsCollection class

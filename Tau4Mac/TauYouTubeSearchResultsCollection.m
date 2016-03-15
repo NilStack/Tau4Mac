@@ -1,15 +1,15 @@
 //
-//  TauYouTubeSearchResultCollection.m
+//  TauYouTubeSearchResultsCollection.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/14/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauYouTubeSearchResultCollection.h"
+#import "TauYouTubeSearchResultsCollection.h"
 
-// TauYouTubeSearchResultCollection class
-@implementation TauYouTubeSearchResultCollection
+// TauYouTubeSearchResultsCollection class
+@implementation TauYouTubeSearchResultsCollection
 
 @dynamic searchResults;
 
@@ -42,4 +42,4 @@
     [ ytBackingCollectionObject_.items getObjects: _Buffer range: _InRange ];
     }
 
-@end // TauYouTubeSearchResultCollection class
+@end // TauYouTubeSearchResultsCollection class

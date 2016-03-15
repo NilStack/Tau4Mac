@@ -6,7 +6,7 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauYouTubeSearchResultCollection.h"
+#import "TauYouTubeSearchResultsCollection.h"
 #import "TauYouTubeChannelsCollection.h"
 #import "TauYouTubePlaylistsCollection.h"
 #import "TauYouTubePlaylistItemsCollection.h"
@@ -16,7 +16,7 @@
 // Tau4MacTests class
 @interface TestsYouTubeSearchResultsModel : XCTestCase
 
-@property ( strong, readwrite ) TauYouTubeSearchResultCollection*  sampleSearchResultCollection;
+@property ( strong, readwrite ) TauYouTubeSearchResultsCollection* sampleSearchResultsCollection;
 @property ( strong, readwrite ) TauYouTubeChannelsCollection*      sampleChannelsCollection;
 @property ( strong, readwrite ) TauYouTubePlaylistsCollection*     samplePlaylistsCollection;
 @property ( strong, readwrite ) TauYouTubePlaylistItemsCollection* samplePlaylistItemsCollection;
@@ -93,7 +93,7 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
     [ super tearDown ];
 
     for ( int _Index = 0; _Index < ( sizeof( kYTGenModelCollectionKVOPaths ) / sizeof( *kYTGenModelCollectionKVOPaths ) ); _Index++ )
-        [ self.sampleSearchResultCollection removeObserver: self forKeyPath: ( NSString* )kYTGenModelCollectionKVOPaths[ _Index ] ];
+        [ self.sampleSearchResultsCollection removeObserver: self forKeyPath: ( NSString* )kYTGenModelCollectionKVOPaths[ _Index ] ];
     }
 
 - ( void ) observeValueForKeyPath: ( NSString* )_KeyPath ofObject: ( id )_Object change: ( NSDictionary <NSString*, id>* )_Change context: ( void* )_Ctx
@@ -102,9 +102,9 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
         DDLogVerbose( @"{%@} of %@ new: %@ old: %@ ctx: %p", _KeyPath, _Object, _Change[ NSKeyValueChangeNewKey ], _Change[ NSKeyValueChangeOldKey ], _Ctx );
     }
 
-#pragma mark - Tests KVO Compliance of TauYouTubeSearchResultCollection
+#pragma mark - Tests KVO Compliance of TauYouTubeSearchResultsCollection
 
-@synthesize sampleSearchResultCollection;
+@synthesize sampleSearchResultsCollection;
 
 #define PAGE_LOOP 8
 
@@ -115,7 +115,7 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
 
     GTLQueryYouTube* ytQuery = nil;
 
-    if ( _ModelClass == [ TauYouTubeSearchResultCollection class ] )
+    if ( _ModelClass == [ TauYouTubeSearchResultsCollection class ] )
         {
         ytQuery = [ GTLQueryYouTube queryForSearchListWithPart: @"snippet" ];
         ytQuery.q = kYTSearchListQs[ _RollingCount ];
@@ -152,7 +152,7 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
     NSString* descTemplate = @"tests-youtube.%@.%@";
     NSString* desc = nil;
 
-    if ( _ModelClass == [ TauYouTubeSearchResultCollection class ] )
+    if ( _ModelClass == [ TauYouTubeSearchResultsCollection class ] )
         desc = [ NSString stringWithFormat: descTemplate, @"search", @"list" ];
 
     else if ( _ModelClass == [ TauYouTubeChannelsCollection class ] )
@@ -176,8 +176,8 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
 
     NSString* kvcKey = nil;
 
-    if ( _ModelClass == [ TauYouTubeSearchResultCollection class ] )
-        kvcKey = @"sampleSearchResultCollection";
+    if ( _ModelClass == [ TauYouTubeSearchResultsCollection class ] )
+        kvcKey = @"sampleSearchResultsCollection";
 
     else if ( _ModelClass == [ TauYouTubeChannelsCollection class ] )
         kvcKey = @"sampleChannelsCollection";
@@ -197,7 +197,7 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
 
     NSMutableSet* kvoPaths = [ NSMutableSet setWithObjects: kYTGenModelCollectionKVOPaths count: ( sizeof( kYTGenModelCollectionKVOPaths ) / sizeof( *kYTGenModelCollectionKVOPaths ) ) ];
 
-    if ( _ModelClass == [ TauYouTubeSearchResultCollection class ] )
+    if ( _ModelClass == [ TauYouTubeSearchResultsCollection class ] )
         [ kvoPaths addObject: @"searchResults" ];
 
     else if ( _ModelClass == [ TauYouTubeChannelsCollection class ] )
@@ -214,7 +214,7 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
 
 - ( void ) testYTSearchListResultsModel
     {
-    [ self testModelClass_: [ TauYouTubeSearchResultCollection class ] ];
+    [ self testModelClass_: [ TauYouTubeSearchResultsCollection class ] ];
     }
 
 - ( void ) testYTChannelResultsModel
