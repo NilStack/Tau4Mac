@@ -246,7 +246,7 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
         ^( GTLServiceTicket* _Ticket, GTLCollectionObject* _Resp, NSError* _Error )
             {
             XCTAssertNotNil( _Resp );
-            XCTAssertNil( _Error );
+            XCTAssertNil( _Error, @"%@", _Error );
 
             DDLogInfo( @"%@", _Resp );
 
@@ -261,10 +261,11 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
                 NSSet* kvoPaths = [ self kvoPathsForCollectionOfModelClass_: _ModelClass ];
                 for ( NSString* _KVOPath in kvoPaths )
                     {
-                    [ [ self valueForKey: modelKVCKey ] addObserver: self
-                                                         forKeyPath: _KVOPath
-                                                            options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial
-                                                            context: ( void* )&kTestsYouTubeSearchListCollectionKVOCtx ];
+                    [ [ self valueForKey: modelKVCKey ]
+                        addObserver: self forKeyPath: _KVOPath options: NSKeyValueObservingOptionNew
+                                                                            | NSKeyValueObservingOptionOld
+                                                                            | NSKeyValueObservingOptionInitial
+                            context: ( void* )&kTestsYouTubeSearchListCollectionKVOCtx ];
                     }
                 }
             else
