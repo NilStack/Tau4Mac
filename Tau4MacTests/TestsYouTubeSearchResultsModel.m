@@ -198,7 +198,7 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
     NSMutableSet* kvoPaths = [ NSMutableSet setWithObjects: kYTGenModelCollectionKVOPaths count: ( sizeof( kYTGenModelCollectionKVOPaths ) / sizeof( *kYTGenModelCollectionKVOPaths ) ) ];
 
     if ( _ModelClass == [ TauYouTubeSearchResultCollection class ] )
-        [ kvoPaths addObject: @"searchListResults" ];
+        [ kvoPaths addObject: @"searchResults" ];
 
     else if ( _ModelClass == [ TauYouTubeChannelsCollection class ] )
         [ kvoPaths addObject: @"channels" ];

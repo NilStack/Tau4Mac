@@ -11,33 +11,33 @@
 // TauYouTubeSearchResultCollection class
 @implementation TauYouTubeSearchResultCollection
 
-@dynamic searchListResults;
+@dynamic searchResults;
 
-// An object observing the searchListResults property must be notified
+// An object observing the searchResults property must be notified
 // when super's ytCollectionObject properties change,
 // as it affects the value of the property
-+ ( NSSet <NSString*>* ) keyPathsForValuesAffectingSearchListResults
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingSearchResults
     {
     return [ NSSet setWithObjects: kYtBackingCollectionObjectKey, nil ];
     }
 
-- ( NSArray <GTLYouTubeSearchResult*>* ) searchListResults
+- ( NSArray <GTLYouTubeSearchResult*>* ) searchResults
     {
     return ( NSArray <GTLYouTubeSearchResult*>* )( ytBackingCollectionObject_.items );
     }
 
-- ( NSUInteger ) countOfSearchListResults
+- ( NSUInteger ) countOfSearchResults
     {
     return ytBackingCollectionObject_.items.count;
     }
 
-- ( NSArray* ) searchListResultsAtIndexes: ( NSIndexSet* )_Indexes
+- ( NSArray* ) searchResultsAtIndexes: ( NSIndexSet* )_Indexes
     {
     return [ ytBackingCollectionObject_.items objectsAtIndexes: _Indexes ];
     }
 
-- ( void ) getSearchListResults: ( GTLYouTubeSearchResult* __unsafe_unretained* )_Buffer
-                          range: ( NSRange )_InRange
+- ( void ) getSearchResults: ( GTLYouTubeSearchResult* __unsafe_unretained* )_Buffer
+                      range: ( NSRange )_InRange
     {
     [ ytBackingCollectionObject_.items getObjects: _Buffer range: _InRange ];
     }

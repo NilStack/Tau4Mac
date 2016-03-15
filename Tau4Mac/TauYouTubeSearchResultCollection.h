@@ -11,6 +11,6 @@
 // TauYouTubeSearchResultCollection class
 @interface TauYouTubeSearchResultCollection : TauAbstractResultCollection
 
-@property ( strong, readonly ) NSArray <GTLYouTubeSearchResult*>* searchListResults;   // KVO-Observable
+@property ( strong, readonly ) NSArray <GTLYouTubeSearchResult*>* searchResults;   // KVO-Observable
 
 @end // TauYouTubeSearchResultCollection class
