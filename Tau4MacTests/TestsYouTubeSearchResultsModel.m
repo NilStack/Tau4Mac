@@ -7,7 +7,7 @@
 //
 
 #import "TauYouTubeSearchResultCollection.h"
-#import "TauYouTubeChannelListsCollection.h"
+#import "TauYouTubeChannelsCollection.h"
 #import "TauYouTubePlaylistsCollection.h"
 #import "TauYouTubePlaylistItemsCollection.h"
 
@@ -17,7 +17,7 @@
 @interface TestsYouTubeSearchResultsModel : XCTestCase
 
 @property ( strong, readwrite ) TauYouTubeSearchResultCollection*  sampleSearchResultCollection;
-@property ( strong, readwrite ) TauYouTubeChannelListsCollection*  sampleChannelsCollection;
+@property ( strong, readwrite ) TauYouTubeChannelsCollection*      sampleChannelsCollection;
 @property ( strong, readwrite ) TauYouTubePlaylistsCollection*     samplePlaylistsCollection;
 @property ( strong, readwrite ) TauYouTubePlaylistItemsCollection* samplePlaylistItemsCollection;
 
@@ -121,7 +121,7 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
         ytQuery.q = kYTSearchListQs[ _RollingCount ];
         }
 
-    else if ( _ModelClass == [ TauYouTubeChannelListsCollection class ] )
+    else if ( _ModelClass == [ TauYouTubeChannelsCollection class ] )
         {
         ytQuery = [ GTLQueryYouTube queryForChannelsListWithPart: @"snippet,contentDetails" ];
         ytQuery.identifier = kYTChannelIDs[ _RollingCount ];
@@ -155,7 +155,7 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
     if ( _ModelClass == [ TauYouTubeSearchResultCollection class ] )
         desc = [ NSString stringWithFormat: descTemplate, @"search", @"list" ];
 
-    else if ( _ModelClass == [ TauYouTubeChannelListsCollection class ] )
+    else if ( _ModelClass == [ TauYouTubeChannelsCollection class ] )
         desc = [ NSString stringWithFormat: descTemplate, @"channels", @"list" ];
 
     else if ( _ModelClass == [ TauYouTubePlaylistsCollection class ] )
@@ -179,7 +179,7 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
     if ( _ModelClass == [ TauYouTubeSearchResultCollection class ] )
         kvcKey = @"sampleSearchResultCollection";
 
-    else if ( _ModelClass == [ TauYouTubeChannelListsCollection class ] )
+    else if ( _ModelClass == [ TauYouTubeChannelsCollection class ] )
         kvcKey = @"sampleChannelsCollection";
 
     else if ( _ModelClass == [ TauYouTubePlaylistsCollection class ] )
@@ -200,8 +200,8 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
     if ( _ModelClass == [ TauYouTubeSearchResultCollection class ] )
         [ kvoPaths addObject: @"searchListResults" ];
 
-    else if ( _ModelClass == [ TauYouTubeChannelListsCollection class ] )
-        [ kvoPaths addObject: @"channelLists" ];
+    else if ( _ModelClass == [ TauYouTubeChannelsCollection class ] )
+        [ kvoPaths addObject: @"channels" ];
 
     else if ( _ModelClass == [ TauYouTubePlaylistsCollection class ] )
         [ kvoPaths addObject: @"playlists" ];
@@ -219,7 +219,7 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
 
 - ( void ) testYTChannelResultsModel
     {
-    [ self testModelClass_: [ TauYouTubeChannelListsCollection class ] ];
+    [ self testModelClass_: [ TauYouTubeChannelsCollection class ] ];
     }
 
 - ( void ) testYTPlaylistResultsModel

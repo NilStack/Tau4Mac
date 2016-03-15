@@ -26,7 +26,7 @@
     return ( NSArray <GTLYouTubePlaylist*>* )( ytBackingCollectionObject_.items );
     }
 
-- ( NSUInteger ) countOfSearchListResults
+- ( NSUInteger ) countOfPlaylists
     {
     return ytBackingCollectionObject_.items.count;
     }
