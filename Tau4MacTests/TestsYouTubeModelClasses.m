@@ -29,8 +29,6 @@
 
 uint64_t static const kTestsYouTubeSearchListCollectionKVOCtx;
 
-#define TAU_UNITTEST_SAMPLES_COUNT 15
-
 static NSString* const kYTSearchListQs[ TAU_UNITTEST_SAMPLES_COUNT ] =
     { @"vevo",           @"GitHub",           @"一梦如是",          @"張國榮",        @"goPro"
     , @"Microsoft",      @"announamous",      @"あべしんぞう",      @"Park Geun-hye", @"박근혜"

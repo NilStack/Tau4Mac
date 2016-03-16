@@ -12,33 +12,54 @@
 // TestsCentralDataServiceMachanism class
 @interface TestsCentralDataServiceMachanism : TauTestCase <TauYTDataServiceConsumer>
 @property ( strong, readwrite ) NSArray <GTLYouTubeSearchResult*>* searchResults;
+@property ( strong, readwrite ) NSArray <GTLYouTubeChannel*>* channels;
 @end // TestsCentralDataServiceMachanism class
 
 // TestsCentralDataServiceMachanism class
 @implementation TestsCentralDataServiceMachanism
     {
     TauYTDataService __weak* sharedDataService_;
-
     TauYTDataServiceCredential __strong* credential_;
 
-    NSArray <GTLYouTubeSearchResult*>* _searchResults;
+    NSArray <GTLYouTubeSearchResult*>* searchResults_;
+    NSArray <GTLYouTubeChannel*>* channels_;
+
+    NSArray <NSDictionary*> __strong* posInitialOperations_;
+    NSArray <NSDictionary*> __strong* negInitialOperations_;
     }
 
-@synthesize searchResults = _searchResults;
+@synthesize searchResults = searchResults_;
 
 - ( NSUInteger ) countOfSearchResults
     {
-    return _searchResults.count;
+    return searchResults_.count;
     }
 
 - ( NSArray* ) searchResultsAtIndexes: ( NSIndexSet* )_Indexes
     {
-    return [ _searchResults objectsAtIndexes: _Indexes ];
+    return [ searchResults_ objectsAtIndexes: _Indexes ];
     }
 
 - ( void ) getSearchResults: ( GTLYouTubeSearchResult * __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
     {
-    [ _searchResults getObjects: _Buffer range: _InRange ];
+    [ searchResults_ getObjects: _Buffer range: _InRange ];
+    }
+
+@synthesize channels = channels_;
+
+- ( NSUInteger ) countOfChannels
+    {
+    return channels_.count;
+    }
+
+- ( NSArray* ) channelsAtIndexes: ( NSIndexSet* )_Indexes
+    {
+    return [ channels_ objectsAtIndexes: _Indexes ];
+    }
+
+- ( void ) getChannels:( GTLYouTubeChannel* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
+    {
+    [ channels_ getObjects: _Buffer range: _InRange ];
     }
 
 - ( void ) setUp
@@ -59,6 +80,33 @@
     XCTAssertNotNil( credential_.applyingMethodSignature );
     XCTAssertNotEqual( credential_.consumptionType, 0 );
     XCTAssertNotEqual( credential_.consumerFingerprint, 0 );
+
+    posInitialOperations_ =
+        @[ @{ TauYTDataServiceDataActionMaxResultsPerPage : @10
+            , TauYTDataServiceDataActionRequirements :
+                @{ TauYTDataServiceDataActionRequirementQ : @"Evernote" }
+            }
+
+         , @{ TauYTDataServiceDataActionMaxResultsPerPage : @30
+            , TauYTDataServiceDataActionRequirements :
+                @{ TauYTDataServiceDataActionRequirementQ : @"Vevo" }
+            }
+
+         , @{ TauYTDataServiceDataActionRequirements :
+                @{ TauYTDataServiceDataActionRequirementQ : @"GoPro" }
+            }
+
+         , @{ TauYTDataServiceDataActionRequirements :
+                @{ TauYTDataServiceDataActionRequirementQ : @"Apple" }
+            , TauYTDataServiceDataActionMaxResultsPerPage : @4
+            }
+         ];
+
+    negInitialOperations_ =
+        @[ @{ TauYTDataServiceDataActionRequirements : @{} }
+         , @{ TauYTDataServiceDataActionMaxResultsPerPage : @20 }
+         , @{ TauYTDataServiceDataActionRequirements : @[ @"Microsoft" ] }
+         ];
     }
 
 - ( void ) tearDown
@@ -68,7 +116,7 @@
 
 #define PAGE_LOOP 8 * 2
 
-- ( void ) executeConsumerOperations_: ( NSDictionary* )_OperationsDict expec_: ( XCTestExpectation* )_Expec neg: ( BOOL )_IsNeg
+- ( void ) executeConsumerOperations_: ( NSDictionary* )_OperationsDict expec_: ( XCTestExpectation* )_Expec onBehalfOf: ( SEL )_Sel
     {
     int static recursionCount;
 
@@ -79,7 +127,7 @@
         {
         recursionCount++;
 
-        DDLogInfo( @"{prevPageToken:%@} {nextPageToken:%@}\n%@", _PrevPageToken, _NextPageToken, _searchResults );
+        DDLogInfo( @"{prevPageToken:%@} {nextPageToken:%@}\n%@", _PrevPageToken, _NextPageToken, searchResults_ );
 
         // Paging Down
         if ( _NextPageToken && recursionCount < ( PAGE_LOOP / 2 ) )
@@ -87,7 +135,7 @@
             NSMutableDictionary* newOperationsDict = [ _OperationsDict mutableCopy ];
             newOperationsDict[ TauYTDataServiceDataActionPageToken ] = _NextPageToken;
 
-            [ self executeConsumerOperations_: newOperationsDict expec_: _Expec neg: _IsNeg ];
+            [ self executeConsumerOperations_: newOperationsDict expec_: _Expec onBehalfOf: _Sel ];
             }
         // Paging Up
         else if ( _PrevPageToken && ( recursionCount >= ( PAGE_LOOP / 2 ) ) && ( recursionCount < PAGE_LOOP ) )
@@ -95,16 +143,22 @@
             NSMutableDictionary* newOperationsDict = [ _OperationsDict mutableCopy ];
             newOperationsDict[ TauYTDataServiceDataActionPageToken ] = _PrevPageToken;
 
-            [ self executeConsumerOperations_: newOperationsDict expec_: _Expec neg: _IsNeg ];
+            [ self executeConsumerOperations_: newOperationsDict expec_: _Expec onBehalfOf: _Sel ];
             }
         else
+            {
+            recursionCount = 0;
             [ _Expec fulfill ];
+
+            // Get rid of recursion
+            }
         } failure:
             ^( NSError* _Error )
                 {
-                if ( _IsNeg )
+                // In positive test, &_Error ref should be populated
+                if ( [ [ self class ] isTestMethodNegative: _Sel ] )
                     {
-                    XCTAssertNotNil( _Error );
+                    XCTAssertNotNil( _Error, @"Error parameter {%@} must not be nil in a nagative test", _Error );
                     XCTAssert( [ _Error.domain isEqualToString: TauGeneralErrorDomain ] || [ _Error.domain isEqualToString: TauCentralDataServiceErrorDomain ] );
 
                     DDLogInfo( @"Expected error: {%@}", _Error );
@@ -112,46 +166,64 @@
                 else
                     XCTFail( @"%@ {currentOperationsDict:%@}", _Error, _OperationsDict );
 
+                recursionCount = 0;
                 [ _Expec fulfill ];
                 } ];
     }
 
+#pragma mark - Positive Test
+
 - ( void ) testDataServiceDataAction_pos0
     {
-    XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
-
-    NSDictionary* operationsDict = @{ TauYTDataServiceDataActionMaxResultsPerPage : @10
-                                    , TauYTDataServiceDataActionRequirements :
-                                        @{ TauYTDataServiceDataActionRequirementQ : @"Evernote" }
-                                    };
-
-    [ self executeConsumerOperations_: operationsDict expec_: expec neg: NO ];
-
-    [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
-    ^( NSError* _Nullable _Error )
+    for ( NSDictionary* _OperationsCombination in posInitialOperations_ )
         {
-        DDLogUnexpected( @"%@", _Error );
-        } ];
+        XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
+        [ self executeConsumerOperations_: _OperationsCombination expec_: expec onBehalfOf: _cmd ];
+
+        [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
+        ^( NSError* _Nullable _Error )
+            {
+            DDLogFatal( @"%@", _Error );
+            } ];
+        }
     }
+
+#pragma mark - Negative Test
 
 - ( void ) testDataServiceDataAction_neg0
     {
     [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: credential_ ];
 
-    XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
-
-    NSDictionary* operationsDict = @{ TauYTDataServiceDataActionMaxResultsPerPage : @10
-                                    , TauYTDataServiceDataActionRequirements :
-                                        @{ TauYTDataServiceDataActionRequirementQ : @"Evernote" }
-                                    };
-
-    [ self executeConsumerOperations_: operationsDict expec_: expec neg: YES ];
-
-    [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
-    ^( NSError* _Nullable _Error )
+    for ( NSDictionary* _OperationsCombination in posInitialOperations_ )
         {
-        DDLogUnexpected( @"%@", _Error );
-        } ];
+        XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
+        [ self executeConsumerOperations_: _OperationsCombination expec_: expec onBehalfOf: _cmd ];
+
+        [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
+        ^( NSError* _Nullable _Error )
+            {
+            DDLogFatal( @"%@", _Error );
+            } ];
+        }
+
+    [ [ TauYTDataService sharedService ] registerConsumer: self
+                                      withMethodSignature: [ self methodSignatureForSelector: _cmd ]
+                                          consumptionType: TauYTDataServiceConsumptionSearchResultsType ];
+    }
+
+- ( void ) testDataServiceDataAction_neg1
+    {
+    for ( NSDictionary* _OperationsCombination in negInitialOperations_ )
+        {
+        XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
+        [ self executeConsumerOperations_: _OperationsCombination expec_: expec onBehalfOf: _cmd ];
+
+        [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
+        ^( NSError* _Nullable _Error )
+            {
+            DDLogFatal( @"%@", _Error );
+            } ];
+        }
     }
 
 @end // TestsCentralDataServiceMachanism class

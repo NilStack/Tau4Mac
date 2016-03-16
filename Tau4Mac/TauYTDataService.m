@@ -20,6 +20,10 @@
 
 // Privvate Interfaces
 @interface TauYTDataService ()
+
+- ( TauYTDataServiceCredential* ) registerConsumer: ( id <TauYTDataServiceConsumer> )_Consumer
+                               withMethodSignature: ( NSMethodSignature* )_Sig
+                                   consumptionType: ( TauYTDataServiceConsumptionType )_ConsumptionType;
 @end // Privvate Interfaces
 
 #pragma mark - Keychain Item Name
@@ -171,7 +175,9 @@ TauYTDataService static* sYTDataService_;
                                withMethodSignature: ( NSMethodSignature* )_Sig
                                    consumptionType: ( TauYTDataServiceConsumptionType )_ConsumptionType
     {
-    // TODO: To determine whether _Consumer conforms <TauYTDataServiceCredential> protocol
+    Protocol* protocol = @protocol( TauYTDataServiceConsumer );
+    if ( ![ _Consumer conformsToProtocol: protocol ] )
+        DDLogUnexpected( @"Consumer registering should conform to <%@> protocol", NSStringFromProtocol( protocol ) );
 
     TauYTDataServiceCredential* credential =
         [ [ TauYTDataServiceCredential alloc ] initWithConsumer: _Consumer applyingMethodSignature: _Sig consumptionType: _ConsumptionType ];
@@ -186,6 +192,12 @@ TauYTDataService static* sYTDataService_;
 
 - ( void ) unregisterConsumer: ( id <TauYTDataServiceConsumer> )_UnregisteringConsumer withCredential: ( TauYTDataServiceCredential* )_Credential
     {
+    if ( !_UnregisteringConsumer )
+        {
+        DDLogNotice( @"Do nothing. Unregistering consumer must not be nil" );
+        return;
+        }
+
     if ( _Credential )
         [ mapTable_ removeObjectForKey: _Credential ];
     else
@@ -209,19 +221,20 @@ TauYTDataService static* sYTDataService_;
                              failure: ( void (^)( NSError* _Error ) )_FailureHandler
     {
     NSError* error = nil;
-    // TODO: Expecting operations dictionary validation
-
-    if ( _OperationsDict && _Credential )
+    if ( [ self validateOperationsCombination_: _OperationsDict hostSel_: _cmd error_: &error ] )
         {
-        TauYTDataServiceConsumerDataUnit* dataUnit = [ mapTable_ objectForKey: _Credential ];
+        if ( _OperationsDict && _Credential )
+            {
+            TauYTDataServiceConsumerDataUnit* dataUnit = [ mapTable_ objectForKey: _Credential ];
 
-        if ( dataUnit )
-            [ dataUnit executeConsumerOperations: _OperationsDict success: _CompletionHandler failure: _FailureHandler ];
+            if ( dataUnit )
+                [ dataUnit executeConsumerOperations: _OperationsDict success: _CompletionHandler failure: _FailureHandler ];
+            else
+                error = [ NSError errorWithDomain: TauCentralDataServiceErrorDomain code: TauCentralDataServiceInvalidCredentialError userInfo: nil ];
+            }
         else
-            error = [ NSError errorWithDomain: TauCentralDataServiceErrorDomain code: TauCentralDataServiceInvalidCredentialError userInfo: nil ];
+            error = [ NSError errorWithDomain: TauGeneralErrorDomain code: TauGeneralInvalidArgument userInfo: nil ];
         }
-    else
-        error = [ NSError errorWithDomain: TauGeneralErrorDomain code: TauGeneralInvalidArgument userInfo: nil ];
 
     if ( error )
         {
@@ -230,6 +243,68 @@ TauYTDataService static* sYTDataService_;
         else
             DDLogUnexpected( @"Failed to execute consumer operations due to: {%@}", error );
         }
+    }
+
+#pragma mark - Private Interfaces
+
+- ( BOOL ) validateOperationsCombination_: ( NSDictionary* )_OperationsDict
+                                 hostSel_: ( SEL )_HostSEL
+                                   error_: ( NSError** )_Error
+    {
+    NSError* error = nil;
+    NSString* errorDomain = nil;
+    NSInteger errorCode = 0;
+    NSDictionary* userInfo = nil;
+
+    if ( _OperationsDict )
+        {
+        id requirementsField = _OperationsDict[ TauYTDataServiceDataActionRequirements ];
+        if ( !requirementsField )
+            {
+            errorDomain = TauCentralDataServiceErrorDomain;
+            errorCode = TauCentralDataServiceInvalidOrConflictingOperationsCombination;
+
+            userInfo = @{ NSLocalizedDescriptionKey :
+                            [ NSString stringWithFormat: @"Data service operations combination must contain TauYTDataServiceDataActionRequirements{%@} field.", TauYTDataServiceDataActionRequirements ] };
+            }
+        else if ( requirementsField && ![ requirementsField isKindOfClass: [ NSDictionary class ]] )
+            {
+            errorDomain = TauCentralDataServiceErrorDomain;
+            errorCode = TauCentralDataServiceInvalidOrConflictingOperationsCombination;
+
+            userInfo = @{ NSLocalizedDescriptionKey :
+                            [ NSString stringWithFormat: @"Value of TauYTDataServiceDataActionRequirements{%@} must be a dictionary", TauYTDataServiceDataActionRequirements ] };
+            }
+        else if ( [ _OperationsDict[ TauYTDataServiceDataActionRequirements ] count ] == 0 )
+            {
+            errorDomain = TauCentralDataServiceErrorDomain;
+            userInfo = @{ NSLocalizedDescriptionKey :
+                            [ NSString stringWithFormat: @"TauYTDataServiceDataActionRequirements{%@} in operations combination must contain least one valid field."
+                                                       , TauYTDataServiceDataActionRequirements ] };
+            errorCode = TauCentralDataServiceInvalidOrConflictingOperationsCombination;
+            }
+
+        if ( !( _OperationsDict[ TauYTDataServiceDataActionMaxResultsPerPage ] ) )
+            DDLogNotice( @"There is no TauYTDataServiceDataActionMaxResultsPerPage{%@} field found within operations combination. "
+                          "Tau Data Service will select the default value that is subject to the change made by Google and this behavior may be not your expectation."
+                       , TauYTDataServiceDataActionMaxResultsPerPage
+                       );
+        }
+    else
+        {
+        errorDomain = TauGeneralErrorDomain;
+        errorCode = TauGeneralInvalidArgument;
+        userInfo = @{ NSLocalizedDescriptionKey : [ NSString stringWithFormat: @"Operation combination parameter of {%@} must not be nil", NSStringFromSelector( _HostSEL ) ] };
+        }
+
+    if ( errorDomain )
+        error = [ NSError errorWithDomain: errorDomain code: errorCode userInfo: userInfo ];
+
+    if ( error )
+        if ( _Error )
+            *_Error = error;
+
+    return ( error == nil );
     }
 
 @end // TauYTDataService class

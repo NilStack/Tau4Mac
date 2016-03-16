@@ -9,4 +9,11 @@
 // TauTestCase class
 @interface TauTestCase : XCTestCase
 
+#define TAU_UNITTEST_SAMPLES_COUNT 15
+
+#pragma mark - Testing
+
++ ( BOOL ) isTestMethodPositive: ( SEL )_TestMethodSel;
++ ( BOOL ) isTestMethodNegative: ( SEL )_TestMethodSel;
+
 @end // TauTestCase class
