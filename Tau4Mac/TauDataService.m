@@ -15,42 +15,6 @@
 #import "GTL/GTMOAuth2WindowController.h"
 #import "GTL/GTMSessionFetcher.h"
 
-#pragma mark - Keychain Item Name
-
-NSString* const TauKeychainItemName =
-#if RELEASE // Production keychain item name
-@"home.bedroom.TongKuo.Tau4Mac"
-#else
-@"home.bedroom.TongKuo.Tau4Mac-dev"
-#endif
-;
-
-#pragma mark - Client Credentials
-
-NSString* const TauClientID =
-#if RELEASE // Production client ID
-@"889656423754-okdcqp9ujnlpc4ob5eno7l0658seoqo4.apps.googleusercontent.com"
-#else
-@"889656423754-5pv89v7i9jqf1is237n36apq2tue8m0k.apps.googleusercontent.com"
-#endif
-;
-
-NSString* const TauClientSecret =
-#if RELEASE // Production client secret
-@"C8tMCJMqle9fFtuBnMwODope"
-#else
-@"jo-g8Pry9aR4jDy-osXLQeqK"
-#endif
-;
-
-#pragma mark - Auth Scopes
-
-// Auth Scopes
-NSString* const TauManageAuthScope =                @"https://www.googleapis.com/auth/youtube.force-ssl";
-NSString* const TauReadonlyAuthScope =              @"https://www.googleapis.com/auth/youtube.readonly";
-NSString* const TauUploadAuthScope =                @"https://www.googleapis.com/auth/youtube.upload";
-NSString* const TauPartnerChannelAuditAuthScope =   @"https://www.googleapis.com/auth/youtubepartner-channel-audit";
-
 // TauDataService class
 @implementation TauDataService
 
