@@ -25,9 +25,21 @@
 
 // Private Interfaces
 @interface TestsYouTubeModelClasses ()
+
+// Utilities
+- ( GTLQueryYouTube* ) queryForTestingModelClass_: ( Class )_ModelClass rollingCount: ( NSUInteger )_RollingCount;
+- ( XCTestExpectation* ) asyncExpecForModelClass_: ( Class )_ModelClass;
+- ( NSString* ) kvcKeyForSampleCollectionOfModelClass_: ( Class )_ModelClass;
+- ( NSSet <NSString*>* ) kvoPathsForCollectionOfModelClass_: ( Class )_ModelClass;
+
+// Extraction
+- ( void ) executeTestModelClass_: ( Class )_ModelClass;
+
 @end // Private Interfaces
 
 uint64_t static const kTestsYouTubeSearchListCollectionKVOCtx;
+
+/// Samples Block Begin ----------------------------------------------------------------------------------------------------------------------
 
 static NSString* const kYTSearchListQs[ TAU_UNITTEST_SAMPLES_COUNT ] =
     { @"vevo",           @"GitHub",           @"一梦如是",          @"張國榮",        @"goPro"
@@ -52,6 +64,8 @@ static NSString* const kYTPlaylistIDs[ TAU_UNITTEST_SAMPLES_COUNT ] =
 // KVO
 static const NSString* kYTGenModelCollectionKVOPaths[] =
     { @"resultsPerPage", @"totalResults", @"prevPageToken", @"nextPageToken" };
+
+/// Samples Block End ------------------------------------------------------------------------------------------------------------------------
 
 // TestsYouTubeModelClasses class
 @implementation TestsYouTubeModelClasses
@@ -102,7 +116,31 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
 
 @synthesize sampleSearchResultsCollection;
 
+- ( void ) testYTSearchListResultsModel_pos0
+    {
+    [ self executeTestModelClass_: [ TauYouTubeSearchResultsCollection class ] ];
+    }
+
+- ( void ) testYTChannelResultsModel_pos0
+    {
+    [ self executeTestModelClass_: [ TauYouTubeChannelsCollection class ] ];
+    }
+
+- ( void ) testYTPlaylistResultsModel_pos0
+    {
+    [ self executeTestModelClass_: [ TauYouTubePlaylistsCollection class ] ];
+    }
+
+- ( void ) testYTPlaylistItemResultsModel_pos0
+    {
+    [ self executeTestModelClass_: [ TauYouTubePlaylistItemsCollection class ] ];
+    }
+
+#pragma mark - Private Interfaces
+
 #define PAGE_LOOP 8
+
+// Utilities
 
 - ( GTLQueryYouTube* ) queryForTestingModelClass_: ( Class )_ModelClass rollingCount: ( NSUInteger )_RollingCount
     {
@@ -208,27 +246,9 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
     return [ kvoPaths copy ];
     }
 
-- ( void ) testYTSearchListResultsModel
-    {
-    [ self testModelClass_: [ TauYouTubeSearchResultsCollection class ] ];
-    }
+// Extraction
 
-- ( void ) testYTChannelResultsModel
-    {
-    [ self testModelClass_: [ TauYouTubeChannelsCollection class ] ];
-    }
-
-- ( void ) testYTPlaylistResultsModel
-    {
-    [ self testModelClass_: [ TauYouTubePlaylistsCollection class ] ];
-    }
-
-- ( void ) testYTPlaylistItemResultsModel
-    {
-    [ self testModelClass_: [ TauYouTubePlaylistItemsCollection class ] ];
-    }
-
-- ( void ) testModelClass_: ( Class )_ModelClass
+- ( void ) executeTestModelClass_: ( Class )_ModelClass
     {
     NSParameterAssert( ( _ModelClass != nil ) );
 
@@ -268,6 +288,7 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
                 [ [ self valueForKey: modelKVCKey ] setYtCollectionObject: _Resp ];
 
 
+            // Paging down to test the KVO-compatibility of model classes
             for ( int _Index = 0; _Index < PAGE_LOOP; _Index++ )
                 {
                 if ( [ [ self valueForKey: modelKVCKey ] nextPageToken ] )

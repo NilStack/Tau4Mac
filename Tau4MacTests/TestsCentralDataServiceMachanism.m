@@ -19,13 +19,20 @@
 @implementation TestsCentralDataServiceMachanism
     {
     TauYTDataService __weak* sharedDataService_;
-    TauYTDataServiceCredential __strong* credential_;
+
+    TauYTDataServiceCredential __strong* searchResultsConsCredential_;
+    TauYTDataServiceCredential __strong* channelsConsCredential_;
+//    TauYTDataServiceCredential __strong* searchResultsConsCredential_;
+//    TauYTDataServiceCredential __strong* searchResultsConsCredential_;
 
     NSArray <GTLYouTubeSearchResult*>* searchResults_;
     NSArray <GTLYouTubeChannel*>* channels_;
 
-    NSArray <NSDictionary*> __strong* posInitialOperations_;
-    NSArray <NSDictionary*> __strong* negInitialOperations_;
+    NSArray <NSDictionary*> __strong* posSearchResultsInitialOperations_;
+    NSArray <NSDictionary*> __strong* negSearchResultsInitialOperations_;
+
+    NSArray <NSDictionary*> __strong* posChannelsInitialOperations_;
+    NSArray <NSDictionary*> __strong* negChannelsInitialOperations_;
     }
 
 @synthesize searchResults = searchResults_;
@@ -74,14 +81,16 @@
     // Make it think of we have previously saved one
     [ [ NSUserDefaults standardUserDefaults ] setBool: YES forKey: @"OAuth2: home.bedroom.TongKuo.Tau4Mac-dev" ];
 
-    credential_ = [ sharedDataService_ registerConsumer: self withMethodSignature: sig consumptionType: TauYTDataServiceConsumptionSearchResultsType ];
-    XCTAssertNotNil( credential_ );
-    XCTAssertNotNil( credential_.identifier );
-    XCTAssertNotNil( credential_.applyingMethodSignature );
-    XCTAssertNotEqual( credential_.consumptionType, 0 );
-    XCTAssertNotEqual( credential_.consumerFingerprint, 0 );
+    searchResultsConsCredential_ = [ sharedDataService_ registerConsumer: self withMethodSignature: sig consumptionType: TauYTDataServiceConsumptionSearchResultsType ];
+    channelsConsCredential_ = [ sharedDataService_ registerConsumer: self withMethodSignature: sig consumptionType: TauYTDataServiceConsumptionChannelsType ];
 
-    posInitialOperations_ =
+//    XCTAssertNotNil( searchResultsConsCredential_ );
+//    XCTAssertNotNil( searchResultsConsCredential_.identifier );
+//    XCTAssertNotNil( searchResultsConsCredential_.applyingMethodSignature );
+//    XCTAssertNotEqual( searchResultsConsCredential_.consumptionType, 0 );
+//    XCTAssertNotEqual( searchResultsConsCredential_.consumerFingerprint, 0 );
+
+    posSearchResultsInitialOperations_ =
         @[ @{ TauYTDataServiceDataActionMaxResultsPerPage : @10
             , TauYTDataServiceDataActionRequirements :
                 @{ TauYTDataServiceDataActionRequirementQ : @"Evernote" }
@@ -102,26 +111,36 @@
             }
          ];
 
-    negInitialOperations_ =
+    negSearchResultsInitialOperations_ =
         @[ @{ TauYTDataServiceDataActionRequirements : @{} }
          , @{ TauYTDataServiceDataActionMaxResultsPerPage : @20 }
          , @{ TauYTDataServiceDataActionRequirements : @[ @"Microsoft" ] }
+         ];
+
+    posChannelsInitialOperations_ =
+        @[ @{ TauYTDataServiceDataActionMaxResultsPerPage : @10
+            , TauYTDataServiceDataActionRequirements :
+                @{ TauYTDataServiceDataActionRequirementChannelID : @"UCqhnX4jA0A5paNd1v-zEysw" }
+            }
          ];
     }
 
 - ( void ) tearDown
     {
-    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: credential_ ];
+    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: searchResultsConsCredential_ ];
     }
 
 #define PAGE_LOOP 8 * 2
 
-- ( void ) executeConsumerOperations_: ( NSDictionary* )_OperationsDict expec_: ( XCTestExpectation* )_Expec onBehalfOf: ( SEL )_Sel
+- ( void ) executeConsumerOperations_: ( NSDictionary* )_OperationsDict
+                          credential_: ( TauYTDataServiceCredential* )_Credential
+                               expec_: ( XCTestExpectation* )_Expec
+                          onBehalfOf_: ( SEL )_Sel
     {
     int static recursionCount;
 
     [ sharedDataService_ executeConsumerOperations: _OperationsDict
-                                    withCredential: credential_
+                                    withCredential: _Credential
                                            success:
     ^( NSString* _PrevPageToken, NSString* _NextPageToken )
         {
@@ -135,7 +154,7 @@
             NSMutableDictionary* newOperationsDict = [ _OperationsDict mutableCopy ];
             newOperationsDict[ TauYTDataServiceDataActionPageToken ] = _NextPageToken;
 
-            [ self executeConsumerOperations_: newOperationsDict expec_: _Expec onBehalfOf: _Sel ];
+            [ self executeConsumerOperations_: newOperationsDict credential_: _Credential expec_: _Expec onBehalfOf_: _Sel ];
             }
         // Paging Up
         else if ( _PrevPageToken && ( recursionCount >= ( PAGE_LOOP / 2 ) ) && ( recursionCount < PAGE_LOOP ) )
@@ -143,7 +162,7 @@
             NSMutableDictionary* newOperationsDict = [ _OperationsDict mutableCopy ];
             newOperationsDict[ TauYTDataServiceDataActionPageToken ] = _PrevPageToken;
 
-            [ self executeConsumerOperations_: newOperationsDict expec_: _Expec onBehalfOf: _Sel ];
+            [ self executeConsumerOperations_: newOperationsDict credential_: _Credential expec_: _Expec onBehalfOf_: _Sel ];
             }
         else
             {
@@ -173,12 +192,12 @@
 
 #pragma mark - Positive Test
 
-- ( void ) testDataServiceDataAction_pos0
+- ( void ) testDataServiceDataSearchResultsListAction_pos0
     {
-    for ( NSDictionary* _OperationsCombination in posInitialOperations_ )
+    for ( NSDictionary* _OperationsCombination in posSearchResultsInitialOperations_ )
         {
         XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
-        [ self executeConsumerOperations_: _OperationsCombination expec_: expec onBehalfOf: _cmd ];
+        [ self executeConsumerOperations_: _OperationsCombination credential_: searchResultsConsCredential_ expec_: expec onBehalfOf_: _cmd ];
 
         [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
         ^( NSError* _Nullable _Error )
@@ -188,16 +207,30 @@
         }
     }
 
+- ( void ) testDataServiceDataChannelsListAction_pos0
+    {
+    for ( NSDictionary* _OperationsCombination in posChannelsInitialOperations_ )
+        {
+        XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
+        [ self executeConsumerOperations_: _OperationsCombination credential_: channelsConsCredential_ expec_: expec onBehalfOf_: _cmd ];
+
+        [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
+        ^( NSError* _Nullable _Error )
+            {
+            DDLogFatal( @"%@", _Error );
+            } ];
+        }
+    }
 #pragma mark - Negative Test
 
 - ( void ) testDataServiceDataAction_neg0
     {
-    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: credential_ ];
+    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: searchResultsConsCredential_ ];
 
-    for ( NSDictionary* _OperationsCombination in posInitialOperations_ )
+    for ( NSDictionary* _OperationsCombination in posSearchResultsInitialOperations_ )
         {
         XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
-        [ self executeConsumerOperations_: _OperationsCombination expec_: expec onBehalfOf: _cmd ];
+        [ self executeConsumerOperations_: _OperationsCombination credential_: searchResultsConsCredential_ expec_: expec onBehalfOf_: _cmd ];
 
         [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
         ^( NSError* _Nullable _Error )
@@ -213,10 +246,10 @@
 
 - ( void ) testDataServiceDataAction_neg1
     {
-    for ( NSDictionary* _OperationsCombination in negInitialOperations_ )
+    for ( NSDictionary* _OperationsCombination in negSearchResultsInitialOperations_ )
         {
         XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
-        [ self executeConsumerOperations_: _OperationsCombination expec_: expec onBehalfOf: _cmd ];
+        [ self executeConsumerOperations_: _OperationsCombination credential_: searchResultsConsCredential_ expec_: expec onBehalfOf_: _cmd ];
 
         [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
         ^( NSError* _Nullable _Error )
