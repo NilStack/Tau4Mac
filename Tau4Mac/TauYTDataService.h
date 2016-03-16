@@ -35,8 +35,10 @@ NSString extern* const TauYTDataServiceDataActionRequirements;
 - ( TauYTDataServiceCredential* ) registerConsumer: ( id <TauYTDataServiceConsumer> )_Consumer withMethodSignature: ( NSMethodSignature* )_Sig consumptionType: ( TauYTDataServiceConsumptionType )_ConsumptionType;
 - ( void ) unregisterConsumer: ( id <TauYTDataServiceConsumer> )_Consumer withCredential: ( TauYTDataServiceCredential* )_Credential;
 
-- ( void ) executeConsumerOperations: ( NSDictionary* )_OperationsDict withCredential: ( TauYTDataServiceCredential* )_Credential
-                             success: ( void (^)() )_CompletionHandler failure: ( void (^)( NSError* _Error ) )_FailureHandler;
+- ( void ) executeConsumerOperations: ( NSDictionary* )_OperationsDict
+                      withCredential: ( TauYTDataServiceCredential* )_Credential
+                             success: ( void (^)( NSString* _PrevPageToken, NSString* _NextPageToken ) )_CompletionHandler
+                             failure: ( void (^)( NSError* _Error ) )_FailureHandler;
 
 #pragma mark - Singleton Instance
 

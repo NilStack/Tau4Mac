@@ -45,6 +45,8 @@
     {
     [ super setUp ];
 
+    [ DDLog addLogger: [ DDTTYLogger sharedInstance ] ];
+
     sharedDataService_ = [ TauYTDataService sharedService ];
     NSMethodSignature* sig = [ self methodSignatureForSelector: _cmd ];
 
@@ -66,7 +68,48 @@
     // TODO:
     }
 
-- ( void ) testWhatever
+#define PAGE_LOOP 8 * 2
+
+- ( void ) loop: ( NSDictionary* )_OperationsDict expec: ( XCTestExpectation* )_Expec
+    {
+    int static recursionCount;
+
+    [ sharedDataService_ executeConsumerOperations: _OperationsDict
+                                    withCredential: credential_
+                                           success:
+    ^( NSString* _PrevPageToken, NSString* _NextPageToken )
+        {
+        recursionCount++;
+
+        DDLogInfo( @"{prevPageToken:%@} {nextPageToken:%@}\n%@", _PrevPageToken, _NextPageToken, _searchResults );
+
+        // Paging Down
+        if ( _NextPageToken && recursionCount < ( PAGE_LOOP / 2 ) )
+            {
+            NSMutableDictionary* newOperationsDict = [ _OperationsDict mutableCopy ];
+            newOperationsDict[ TauYTDataServiceDataActionPageToken ] = _NextPageToken;
+
+            [ self loop: newOperationsDict expec: _Expec ];
+            }
+        // Paging Up
+        else if ( _PrevPageToken && ( recursionCount >= ( PAGE_LOOP / 2 ) ) && ( recursionCount < PAGE_LOOP ) )
+            {
+            NSMutableDictionary* newOperationsDict = [ _OperationsDict mutableCopy ];
+            newOperationsDict[ TauYTDataServiceDataActionPageToken ] = _PrevPageToken;
+
+            [ self loop: newOperationsDict expec: _Expec ];
+            }
+        else
+            [ _Expec fulfill ];
+        } failure:
+            ^( NSError* _Error )
+                {
+                XCTFail( @"%@ {currentOperationsDict:%@}", _Error, _OperationsDict );
+                [ _Expec fulfill ];
+                } ];
+    }
+
+- ( void ) testDataServiceDataAction
     {
     XCTestExpectation* expec = [ self expectationWithDescription: @"expec" ];
 
@@ -75,19 +118,9 @@
                                         @{ TauYTDataServiceDataActionRequirementQ : @"Evernote" }
                                     };
 
-    [ sharedDataService_ executeConsumerOperations: operationsDict withCredential: credential_
-                                           success:
-    ^( void )
-        {
-        DDLogInfo( @"%@", _searchResults );
-        [ expec fulfill ];
-        } failure:
-            ^( NSError* _Error )
-                {
-                XCTFail( @"%@", _Error );
-                } ];
+    [ self loop: operationsDict expec: expec ];
 
-    [ self waitForExpectationsWithTimeout: 10.f handler:
+    [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
     ^( NSError* _Nullable _Error )
         {
         DDLogUnexpected( @"%@", _Error );

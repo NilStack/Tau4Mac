@@ -202,7 +202,7 @@ TauYTDataService static* sYTDataService_;
 
 - ( void ) executeConsumerOperations: ( NSDictionary* )_OperationsDict
                       withCredential: ( TauYTDataServiceCredential* )_Credential
-                             success: ( void (^)() )_CompletionHandler
+                             success: ( void (^)( NSString* _PrevPageToken, NSString* _NextPageToken ) )_CompletionHandler
                              failure: ( void (^)( NSError* _Error ) )_FailureHandler
     {
     // TODO: Expecting operations dictionary validation

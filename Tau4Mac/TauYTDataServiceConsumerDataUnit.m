@@ -68,7 +68,9 @@
     [ ( NSObject* )consumer_ unbind: bindKeyPath ];
     }
 
-- ( void ) executeConsumerOperations: ( NSDictionary* )_OperationsDict success: ( void (^)() )_CompletionHandler failure: ( void (^)( NSError* _Error ) )_FailureHandler
+- ( void ) executeConsumerOperations: ( NSDictionary* )_OperationsDict
+                             success: ( void (^)( NSString* _PrevPageToken, NSString* _NextPageToken ) )_CompletionHandler
+                             failure: ( void (^)( NSError* _Error ) )_FailureHandler
     {
     if ( ytTicket_ )
         [ ytTicket_ cancelTicket ];
@@ -95,7 +97,8 @@
                 [ resultCollection_ setYtCollectionObject: _Resp ];
 
             if ( _CompletionHandler )
-                _CompletionHandler();
+                _CompletionHandler( [ resultCollection_ valueForKey: @"prevPageToken" ]
+                                  , [ resultCollection_ valueForKey: @"nextPageToken" ]);
             }
         else
             {
