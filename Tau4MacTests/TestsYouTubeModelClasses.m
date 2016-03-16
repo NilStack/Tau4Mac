@@ -1,6 +1,6 @@
 //
-//  Tau4MacTests.m
-//  Tau4MacTests
+//  TestsYouTubeModelClasses.m
+//  TestsYouTubeModelClasses
 //
 //  Created by Tong G. on 3/3/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
@@ -13,18 +13,18 @@
 
 #import "TauDataService.h"
 
-// Tau4MacTests class
-@interface TestsYouTubeSearchResultsModel : XCTestCase
+// TestsYouTubeModelClasses class
+@interface TestsYouTubeModelClasses : XCTestCase
 
 @property ( strong, readwrite ) TauYouTubeSearchResultsCollection* sampleSearchResultsCollection;
 @property ( strong, readwrite ) TauYouTubeChannelsCollection*      sampleChannelsCollection;
 @property ( strong, readwrite ) TauYouTubePlaylistsCollection*     samplePlaylistsCollection;
 @property ( strong, readwrite ) TauYouTubePlaylistItemsCollection* samplePlaylistItemsCollection;
 
-@end // Tau4MacTests class
+@end // TestsYouTubeModelClasses class
 
 // Private Interfaces
-@interface TestsYouTubeSearchResultsModel ()
+@interface TestsYouTubeModelClasses ()
 @end // Private Interfaces
 
 uint64_t static const kTestsYouTubeSearchListCollectionKVOCtx;
@@ -55,8 +55,8 @@ static NSString* const kYTPlaylistIDs[ TAU_UNITTEST_SAMPLES_COUNT ] =
 static const NSString* kYTGenModelCollectionKVOPaths[] =
     { @"resultsPerPage", @"totalResults", @"prevPageToken", @"nextPageToken" };
 
-// Tau4MacTests class
-@implementation TestsYouTubeSearchResultsModel
+// TestsYouTubeModelClasses class
+@implementation TestsYouTubeModelClasses
     {
     TauDataService __weak* sharedDataSerivce_;
     GTLServiceYouTube __strong* ytService_;
@@ -311,4 +311,4 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
         }
     }
 
-@end // Tau4MacTests class
+@end // TestsYouTubeModelClasses class

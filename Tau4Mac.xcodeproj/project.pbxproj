@@ -34,7 +34,7 @@
 		83765AE51C8811DD00D93554 /* TauMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AE41C8811DD00D93554 /* TauMainViewController.m */; };
 		83765AE71C8811DD00D93554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83765AE61C8811DD00D93554 /* Assets.xcassets */; };
 		83765AEA1C8811DD00D93554 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83765AE81C8811DD00D93554 /* Main.storyboard */; };
-		83765AF51C8811DE00D93554 /* TestsYouTubeSearchResultsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AF41C8811DE00D93554 /* TestsYouTubeSearchResultsModel.m */; };
+		83765AF51C8811DE00D93554 /* TestsYouTubeModelClasses.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AF41C8811DE00D93554 /* TestsYouTubeModelClasses.m */; };
 		83765B001C8811DE00D93554 /* Tau4MacUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AFF1C8811DE00D93554 /* Tau4MacUITests.m */; };
 		83765B0F1C88170F00D93554 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B0E1C88170F00D93554 /* Cocoa.framework */; };
 		83765B111C88171400D93554 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B101C88171400D93554 /* QuartzCore.framework */; };
@@ -66,6 +66,10 @@
 		83B174931C98F14800F6578B /* TauYTDataServiceCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B174921C98F14800F6578B /* TauYTDataServiceCredential.m */; };
 		83B174961C98F19800F6578B /* TauYTDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B174951C98F19800F6578B /* TauYTDataService.m */; };
 		83B1749B1C99071700F6578B /* TauYTDataServiceConsumerDataUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1749A1C99071700F6578B /* TauYTDataServiceConsumerDataUnit.m */; };
+		83B1749C1C990B7100F6578B /* TauYTDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B174951C98F19800F6578B /* TauYTDataService.m */; };
+		83B1749D1C990BCA00F6578B /* TauYTDataServiceConsumerDataUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1749A1C99071700F6578B /* TauYTDataServiceConsumerDataUnit.m */; };
+		83B1749E1C990BCD00F6578B /* TauYTDataServiceCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B174921C98F14800F6578B /* TauYTDataServiceCredential.m */; };
+		83B1749F1C990E0E00F6578B /* OAuthSigningConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C571C8893BF007B084F /* OAuthSigningConstants.m */; };
 		83DA1C3E1C885216007B084F /* TauDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C3D1C885216007B084F /* TauDataService.m */; };
 		83DA1C421C886138007B084F /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DA1C411C886138007B084F /* WebKit.framework */; };
 		83DA1C461C8864C0007B084F /* TauAbstractLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C451C8864C0007B084F /* TauAbstractLogFormatter.m */; };
@@ -443,7 +447,7 @@
 		83765AE91C8811DD00D93554 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		83765AEB1C8811DD00D93554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83765AF01C8811DE00D93554 /* Tau4MacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tau4MacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		83765AF41C8811DE00D93554 /* TestsYouTubeSearchResultsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestsYouTubeSearchResultsModel.m; sourceTree = "<group>"; };
+		83765AF41C8811DE00D93554 /* TestsYouTubeModelClasses.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestsYouTubeModelClasses.m; sourceTree = "<group>"; };
 		83765AF61C8811DE00D93554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83765AFB1C8811DE00D93554 /* Tau4MacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tau4MacUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		83765AFF1C8811DE00D93554 /* Tau4MacUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tau4MacUITests.m; sourceTree = "<group>"; };
@@ -635,12 +639,6 @@
 				831BD6E21C88482200122AF6 /* TauCollectionObject.m */,
 				83DA1C3C1C885216007B084F /* TauDataService.h */,
 				83DA1C3D1C885216007B084F /* TauDataService.m */,
-				83B174941C98F19800F6578B /* TauYTDataService.h */,
-				83B174951C98F19800F6578B /* TauYTDataService.m */,
-				83B174991C99071700F6578B /* TauYTDataServiceConsumerDataUnit.h */,
-				83B1749A1C99071700F6578B /* TauYTDataServiceConsumerDataUnit.m */,
-				83B174911C98F14800F6578B /* TauYTDataServiceCredential.h */,
-				83B174921C98F14800F6578B /* TauYTDataServiceCredential.m */,
 			);
 			name = yt;
 			sourceTree = "<group>";
@@ -727,7 +725,7 @@
 		83765AF31C8811DE00D93554 /* Tau4MacTests */ = {
 			isa = PBXGroup;
 			children = (
-				83765AF41C8811DE00D93554 /* TestsYouTubeSearchResultsModel.m */,
+				83765AF41C8811DE00D93554 /* TestsYouTubeModelClasses.m */,
 				838342F31C9710FD00BE6378 /* TestsConstants.h */,
 				838342E81C96D6B200BE6378 /* Supporting Files */,
 			);
@@ -861,6 +859,12 @@
 				838342F81C98198F00BE6378 /* TauYouTubePlaylistsCollection.m */,
 				838342FA1C981C2400BE6378 /* TauYouTubePlaylistItemsCollection.h */,
 				838342FB1C981C2400BE6378 /* TauYouTubePlaylistItemsCollection.m */,
+				83B174941C98F19800F6578B /* TauYTDataService.h */,
+				83B174951C98F19800F6578B /* TauYTDataService.m */,
+				83B174991C99071700F6578B /* TauYTDataServiceConsumerDataUnit.h */,
+				83B1749A1C99071700F6578B /* TauYTDataServiceConsumerDataUnit.m */,
+				83B174911C98F14800F6578B /* TauYTDataServiceCredential.h */,
+				83B174921C98F14800F6578B /* TauYTDataServiceCredential.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -1439,13 +1443,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				838342FE1C98409F00BE6378 /* TauYouTubePlaylistsCollection.m in Sources */,
-				83765AF51C8811DE00D93554 /* TestsYouTubeSearchResultsModel.m in Sources */,
+				83765AF51C8811DE00D93554 /* TestsYouTubeModelClasses.m in Sources */,
 				838342F11C96EFB800BE6378 /* TauYouTubeSearchResultsCollection.m in Sources */,
+				83B1749F1C990E0E00F6578B /* OAuthSigningConstants.m in Sources */,
 				838342FD1C98409C00BE6378 /* TauYouTubeChannelsCollection.m in Sources */,
+				83B1749C1C990B7100F6578B /* TauYTDataService.m in Sources */,
+				83B1749D1C990BCA00F6578B /* TauYTDataServiceConsumerDataUnit.m in Sources */,
 				838342EE1C96E9AB00BE6378 /* GTLYouTube_Sources.m in Sources */,
 				838342FF1C9840A200BE6378 /* TauYouTubePlaylistItemsCollection.m in Sources */,
 				838342F21C96EFC100BE6378 /* TauAbstractResultCollection.m in Sources */,
 				838342EF1C96E9CD00BE6378 /* TauDataService.m in Sources */,
+				83B1749E1C990BCD00F6578B /* TauYTDataServiceCredential.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

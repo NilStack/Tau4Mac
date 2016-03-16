@@ -19,11 +19,13 @@
 
 #import "FBKVOController.h"
 #import "GTLYouTube.h"
+#import "OAuthSigningConstants.h"
 
 #import "GTL/GTMOAuth2Authentication.h"
 
 #import <objc/runtime.h>
 
+#import "TauConstants.h"
 #import "TestsConstants.h"
 
 #endif /* Tau4MacTestsPrefixHeader_pch */

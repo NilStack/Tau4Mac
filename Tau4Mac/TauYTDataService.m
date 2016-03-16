@@ -8,6 +8,7 @@
 
 #import "TauYTDataService.h"
 #import "TauCollectionObject.h"
+#import "TauYTDataServiceConsumerDataUnit.h"
 
 #import "GTL/GTLUtilities.h"
 #import "GTL/GTMSessionFetcher.h"
@@ -157,26 +158,35 @@ TauYTDataService static* sYTDataService_;
                                withMethodSignature: ( NSMethodSignature* )_Sig
                                    consumptionType: ( TauYTDataServiceConsumptionType )_ConsumptionType
     {
-    // TODO: To determine whether _Consumer conforms <TauYTDataServiceCredential> protoco;
+    // TODO: To determine whether _Consumer conforms <TauYTDataServiceCredential> protocol
 
     TauYTDataServiceCredential* credential =
         [ [ TauYTDataServiceCredential alloc ] initWithConsumer: _Consumer applyingMethodSignature: _Sig consumptionType: _ConsumptionType ];
 
-    [ mapTable_ setObject: nil forKey: credential ];
+    TauYTDataServiceConsumerDataUnit* dataUnit =
+        [ [ TauYTDataServiceConsumerDataUnit alloc ] initWithConsumer: _Consumer credential: credential ];
 
-    return nil;
+    [ mapTable_ setObject: dataUnit forKey: credential ];
+
+    return credential;
     }
 
-- ( void ) unregisterConsumer: ( id <TauYTDataServiceConsumer> )_Consumer withCredential: ( TauYTDataServiceCredential* )_Credential
+- ( void ) unregisterConsumer: ( id <TauYTDataServiceConsumer> )_UnregisteringConsumer withCredential: ( TauYTDataServiceCredential* )_Credential
     {
     if ( _Credential )
         [ mapTable_ removeObjectForKey: _Credential ];
     else
         {
+        NSMutableArray* unregisteringCredentials = [ @[] mutableCopy ];
         for ( TauYTDataServiceCredential* _Credential in mapTable_ )
             {
-//            if ( _Credential.consumerFingerprint == ( uint64_t )_
+            TauYTDataServiceConsumerDataUnit* dataUnit = [ mapTable_ objectForKey: _Credential ];
+            if ( dataUnit.consumer == _UnregisteringConsumer )
+                [ unregisteringCredentials addObject: _Credential ];
             }
+
+        for ( TauYTDataServiceCredential* _Credential in unregisteringCredentials )
+            [ mapTable_ removeObjectForKey: _Credential ];
         }
     }
 

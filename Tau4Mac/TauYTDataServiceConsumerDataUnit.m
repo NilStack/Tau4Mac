@@ -30,6 +30,19 @@
     return NO;
     }
 
+@dynamic consumer;
+@dynamic credential;
+
+- ( id <TauYTDataServiceConsumer> ) consumer
+    {
+    return consumer_;
+    }
+
+- ( TauYTDataServiceCredential* ) credential
+    {
+    return credential_;
+    }
+
 #pragma mark - Initializations
 
 - ( instancetype ) initWithConsumer: ( id <TauYTDataServiceConsumer> )_Consumer credential: ( TauYTDataServiceCredential* )_Credential
@@ -47,6 +60,11 @@
         }
 
     return self;
+    }
+
+- ( void ) dealloc
+    {
+    
     }
 
 @end // TauYTDataServiceConsumerDataUnit class

@@ -12,6 +12,9 @@
 // TauYTDataServiceConsumerDataUnit class
 @interface TauYTDataServiceConsumerDataUnit : NSObject
 
+@property ( strong, readonly ) id <TauYTDataServiceConsumer> consumer;
+@property ( strong, readonly ) TauYTDataServiceCredential* credential;
+
 #pragma mark - Initializations
 
 - ( instancetype ) initWithConsumer: ( id <TauYTDataServiceConsumer> )_Consumer credential: ( TauYTDataServiceCredential* )_Credential;
