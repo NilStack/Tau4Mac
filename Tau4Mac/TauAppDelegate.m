@@ -17,5 +17,4 @@ NSString* const kGTLObject = @"kGTLObject";
 
 // TauAppDelegate class
 @implementation TauAppDelegate
-
 @end // TauAppDelegate class

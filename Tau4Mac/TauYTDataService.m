@@ -68,6 +68,9 @@ NSString* const TauYTDataServiceDataActionRequirements = @"TauYTDataServiceDataA
     NSString* const TauYTDataServiceDataActionRequirementPlaylistID = @"playlistId";
     NSString* const TauYTDataServiceDataActionRequirementMine       = @"mine";
 
+NSString* const TauGeneralErrorDomain = @"home.bedroom.TongKuo.Tau4Mac.GeneralErrorDomain";
+NSString* const TauCentralDataServiceErrorDomain = @"home.bedroom.TongKuo.Tau4Mac.CentralDataServiceErrorDomain";
+
 // TauYTDataService class
 @implementation TauYTDataService
     {
@@ -205,19 +208,28 @@ TauYTDataService static* sYTDataService_;
                              success: ( void (^)( NSString* _PrevPageToken, NSString* _NextPageToken ) )_CompletionHandler
                              failure: ( void (^)( NSError* _Error ) )_FailureHandler
     {
+    NSError* error = nil;
     // TODO: Expecting operations dictionary validation
 
-    if ( _Credential )
+    if ( _OperationsDict && _Credential )
         {
         TauYTDataServiceConsumerDataUnit* dataUnit = [ mapTable_ objectForKey: _Credential ];
 
         if ( dataUnit )
             [ dataUnit executeConsumerOperations: _OperationsDict success: _CompletionHandler failure: _FailureHandler ];
         else
-            ; // TODO: Populate _Error param
+            error = [ NSError errorWithDomain: TauCentralDataServiceErrorDomain code: TauCentralDataServiceInvalidCredentialError userInfo: nil ];
         }
     else
-        ; // TODO: Populate _Error param
+        error = [ NSError errorWithDomain: TauGeneralErrorDomain code: TauGeneralInvalidArgument userInfo: nil ];
+
+    if ( error )
+        {
+        if ( _FailureHandler )
+            _FailureHandler( error );
+        else
+            DDLogUnexpected( @"Failed to execute consumer operations due to: {%@}", error );
+        }
     }
 
 @end // TauYTDataService class

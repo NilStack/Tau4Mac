@@ -28,4 +28,6 @@
 #import "TauConstants.h"
 #import "TestsConstants.h"
 
+#import "TauTestCase.h"
+
 #endif /* Tau4MacTestsPrefixHeader_pch */

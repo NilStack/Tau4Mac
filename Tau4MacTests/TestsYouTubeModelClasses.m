@@ -14,7 +14,7 @@
 #import "TauDataService.h"
 
 // TestsYouTubeModelClasses class
-@interface TestsYouTubeModelClasses : XCTestCase
+@interface TestsYouTubeModelClasses : TauTestCase
 
 @property ( strong, readwrite ) TauYouTubeSearchResultsCollection* sampleSearchResultsCollection;
 @property ( strong, readwrite ) TauYouTubeChannelsCollection*      sampleChannelsCollection;
@@ -83,8 +83,6 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
     [ ytService_ setUserAgent: @"home.bedroom.TongKuo.Tau4Mac.UnitTests" ];
 
     XCTAssertNotNil( ytService_ );
-
-    [ DDLog addLogger: [ DDTTYLogger sharedInstance ] ];
     }
 
 - ( void ) tearDown

@@ -92,4 +92,21 @@ NSString extern* const TauShouldPlayVideoNotif;
 NSString extern* const kGTLObject;
 NSString extern* const kRequester;
 
+// General Error domains
+NSString extern* const TauGeneralErrorDomain;
+
+typedef NS_ENUM ( NSInteger, TauGeneralErrorCode )
+    { TauGeneralUnknownError = -1
+    , TauGeneralInvalidArgument = -1000
+    };
+
+// Error domains that is specific to central data service mechanism
+NSString extern* const TauCentralDataServiceErrorDomain;
+
+typedef NS_ENUM ( NSInteger, TauCentralDataServiceErrorCode )
+    { TauCentralDataServiceUnknownError = -1
+    , TauCentralDataServiceInvalidCredentialError   = -1000
+    , TauCentralDataServiceInvalidOrConflictingOperationsCombination = -1001
+    };
+
 #endif /* TauConstants_h */

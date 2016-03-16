@@ -10,7 +10,7 @@
 #import "TauYTDataServiceCredential.h"
 
 // TestsCentralDataServiceMachanism class
-@interface TestsCentralDataServiceMachanism : XCTestCase <TauYTDataServiceConsumer>
+@interface TestsCentralDataServiceMachanism : TauTestCase <TauYTDataServiceConsumer>
 @property ( strong, readwrite ) NSArray <GTLYouTubeSearchResult*>* searchResults;
 @end // TestsCentralDataServiceMachanism class
 
@@ -45,8 +45,6 @@
     {
     [ super setUp ];
 
-    [ DDLog addLogger: [ DDTTYLogger sharedInstance ] ];
-
     sharedDataService_ = [ TauYTDataService sharedService ];
     NSMethodSignature* sig = [ self methodSignatureForSelector: _cmd ];
 
@@ -65,12 +63,12 @@
 
 - ( void ) tearDown
     {
-    // TODO:
+    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: credential_ ];
     }
 
 #define PAGE_LOOP 8 * 2
 
-- ( void ) loop: ( NSDictionary* )_OperationsDict expec: ( XCTestExpectation* )_Expec
+- ( void ) executeConsumerOperations_: ( NSDictionary* )_OperationsDict expec_: ( XCTestExpectation* )_Expec neg: ( BOOL )_IsNeg
     {
     int static recursionCount;
 
@@ -89,7 +87,7 @@
             NSMutableDictionary* newOperationsDict = [ _OperationsDict mutableCopy ];
             newOperationsDict[ TauYTDataServiceDataActionPageToken ] = _NextPageToken;
 
-            [ self loop: newOperationsDict expec: _Expec ];
+            [ self executeConsumerOperations_: newOperationsDict expec_: _Expec neg: _IsNeg ];
             }
         // Paging Up
         else if ( _PrevPageToken && ( recursionCount >= ( PAGE_LOOP / 2 ) ) && ( recursionCount < PAGE_LOOP ) )
@@ -97,28 +95,57 @@
             NSMutableDictionary* newOperationsDict = [ _OperationsDict mutableCopy ];
             newOperationsDict[ TauYTDataServiceDataActionPageToken ] = _PrevPageToken;
 
-            [ self loop: newOperationsDict expec: _Expec ];
+            [ self executeConsumerOperations_: newOperationsDict expec_: _Expec neg: _IsNeg ];
             }
         else
             [ _Expec fulfill ];
         } failure:
             ^( NSError* _Error )
                 {
-                XCTFail( @"%@ {currentOperationsDict:%@}", _Error, _OperationsDict );
+                if ( _IsNeg )
+                    {
+                    XCTAssertNotNil( _Error );
+                    XCTAssert( [ _Error.domain isEqualToString: TauGeneralErrorDomain ] || [ _Error.domain isEqualToString: TauCentralDataServiceErrorDomain ] );
+
+                    DDLogInfo( @"Expected error: {%@}", _Error );
+                    }
+                else
+                    XCTFail( @"%@ {currentOperationsDict:%@}", _Error, _OperationsDict );
+
                 [ _Expec fulfill ];
                 } ];
     }
 
-- ( void ) testDataServiceDataAction
+- ( void ) testDataServiceDataAction_pos0
     {
-    XCTestExpectation* expec = [ self expectationWithDescription: @"expec" ];
+    XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
 
     NSDictionary* operationsDict = @{ TauYTDataServiceDataActionMaxResultsPerPage : @10
                                     , TauYTDataServiceDataActionRequirements :
                                         @{ TauYTDataServiceDataActionRequirementQ : @"Evernote" }
                                     };
 
-    [ self loop: operationsDict expec: expec ];
+    [ self executeConsumerOperations_: operationsDict expec_: expec neg: NO ];
+
+    [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
+    ^( NSError* _Nullable _Error )
+        {
+        DDLogUnexpected( @"%@", _Error );
+        } ];
+    }
+
+- ( void ) testDataServiceDataAction_neg0
+    {
+    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: credential_ ];
+
+    XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
+
+    NSDictionary* operationsDict = @{ TauYTDataServiceDataActionMaxResultsPerPage : @10
+                                    , TauYTDataServiceDataActionRequirements :
+                                        @{ TauYTDataServiceDataActionRequirementQ : @"Evernote" }
+                                    };
+
+    [ self executeConsumerOperations_: operationsDict expec_: expec neg: YES ];
 
     [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
     ^( NSError* _Nullable _Error )
