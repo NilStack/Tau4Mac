@@ -20,7 +20,6 @@
 
 // Privvate Interfaces
 @interface TauYTDataService ()
-@property ( strong, readonly ) GTLServiceYouTube* ytService_;
 @end // Privvate Interfaces
 
 #pragma mark - Keychain Item Name
@@ -59,6 +58,22 @@ NSString* const TauReadonlyAuthScope =              @"https://www.googleapis.com
 NSString* const TauUploadAuthScope =                @"https://www.googleapis.com/auth/youtube.upload";
 NSString* const TauPartnerChannelAuditAuthScope =   @"https://www.googleapis.com/auth/youtubepartner-channel-audit";
 
+NSString* const TauYTDataServiceDataActionType = @"TauYTDataServiceDataActionType";
+    NSString* const TauYTDataServiceDataListSearchResultsAction = @"youtube.search.list";
+    NSString* const TauYTDataServiceDataListChannelsAction      = @"youtube.channels.list";
+    NSString* const TauYTDataServiceDataListPlaylistsAction     = @"youtube.playlists.list";
+    NSString* const TauYTDataServiceDataListPlaylistItemsAction = @"youtube.playlistItems.list";
+
+NSString* const TauYTDataServiceDataActionMaxResultsPerPage = @"maxResults";
+NSString* const TauYTDataServiceDataActionPageToken = @"pageToken";
+
+NSString* const TauYTDataServiceDataActionRequirements = @"TauYTDataServiceDataActionRequirements";
+    NSString* const TauYTDataServiceDataActionRequirementQ          = @"q";
+    NSString* const TauYTDataServiceDataActionRequirementID         = @"id";
+    NSString* const TauYTDataServiceDataActionRequirementChannelID  = @"channelId";
+    NSString* const TauYTDataServiceDataActionRequirementPlaylistID = @"playlistId";
+    NSString* const TauYTDataServiceDataActionRequirementMine       = @"mine";
+
 // TauYTDataService class
 @implementation TauYTDataService
     {
@@ -94,10 +109,11 @@ TauYTDataService static* sYTDataService_;
 
 #pragma mark - Core
 
+@dynamic ytService;
 @dynamic signedInUsername;
 @dynamic isSignedIn;
 
-- ( GTLServiceYouTube* ) ytService_
+- ( GTLServiceYouTube* ) ytService
     {
     GTLServiceYouTube static* service;
 
@@ -141,7 +157,7 @@ TauYTDataService static* sYTDataService_;
 
 - ( NSString* ) signedInUsername
     {
-    GTMOAuth2Authentication* auth = self.ytService_.authorizer;
+    GTMOAuth2Authentication* auth = self.ytService.authorizer;
 
     NSString* userName = auth.userEmail ?: nil;
     return userName;
@@ -188,6 +204,27 @@ TauYTDataService static* sYTDataService_;
         for ( TauYTDataServiceCredential* _Credential in unregisteringCredentials )
             [ mapTable_ removeObjectForKey: _Credential ];
         }
+    }
+
+- ( void ) executeConsumerOperations: ( NSDictionary* )_OperationsDict
+                      withCredential: ( TauYTDataServiceCredential* )_Credential
+                             failure: ( void (^)( NSError* _Error ) )_FailureHandler
+    {
+    NSError* error = nil;
+
+    // TODO: Expecting operations dictionary validation
+
+    if ( _Credential )
+        {
+        TauYTDataServiceConsumerDataUnit* dataUnit = [ mapTable_ objectForKey: _Credential ];
+
+        if ( dataUnit )
+            [ dataUnit executeConsumerOperations: _OperationsDict failure: _FailureHandler ];
+        else
+            ; // TODO: Populate _Error param
+        }
+    else
+        ; // TODO: Populate _Error param
     }
 
 @end // TauYTDataService class

@@ -37,6 +37,8 @@
 @dynamic identifier;
 @dynamic applyingMethodSignature;
 
+@synthesize maxResultPerPage;
+
 - ( uint64_t ) consumerFingerprint
     {
     return fingerprint_;

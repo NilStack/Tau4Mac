@@ -19,4 +19,6 @@
 
 - ( instancetype ) initWithConsumer: ( id <TauYTDataServiceConsumer> )_Consumer credential: ( TauYTDataServiceCredential* )_Credential;
 
+- ( void ) executeConsumerOperations: ( NSDictionary* )_OperationsDict failure: ( void (^)( NSError* _Error ) )_FailureHandler;
+
 @end // TauYTDataServiceConsumerDataUnit class

@@ -15,6 +15,8 @@
 @property ( copy, readonly ) NSString* identifier;
 @property ( strong, readonly ) NSMethodSignature* applyingMethodSignature;
 
+@property ( assign, readwrite ) NSUInteger maxResultPerPage;
+
 #pragma mark - Comparing
 
 - ( BOOL ) isEqualToCredential: ( TauYTDataServiceCredential* )_Rhs;
