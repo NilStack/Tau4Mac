@@ -51,6 +51,11 @@
                BlueprintName = "Tau4MacTests"
                ReferencedContainer = "container:Tau4Mac.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "TestsYouTubeModelClasses">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

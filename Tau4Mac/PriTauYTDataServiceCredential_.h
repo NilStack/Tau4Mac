@@ -11,4 +11,9 @@
 // TauYTDataServiceCredential + PriTau_
 @interface TauYTDataServiceCredential ( PriTau_ )
 - ( instancetype ) initWithConsumer: ( id )_Consumer applyingMethodSignature: ( NSMethodSignature* )_Sig consumptionType: ( TauYTDataServiceConsumptionType )_Type;
+
+// Prepare for copying
+@property ( copy, readwrite ) NSString* identifier;
+@property ( assign, readwrite ) uint64_t consumerFingerprint;
+
 @end // TauYTDataServiceCredential + PriTau_

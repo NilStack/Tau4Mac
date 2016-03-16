@@ -64,10 +64,11 @@
 
 - ( void ) dealloc
     {
-    
+    NSString* bindKeyPath = [ self bindKeyPathForConsumptionType_: credential_.consumptionType ];
+    [ ( NSObject* )consumer_ unbind: bindKeyPath ];
     }
 
-- ( void ) executeConsumerOperations: ( NSDictionary* )_OperationsDict failure: ( void (^)( NSError* _Error ) )_FailureHandler
+- ( void ) executeConsumerOperations: ( NSDictionary* )_OperationsDict success: ( void (^)() )_CompletionHandler failure: ( void (^)( NSError* _Error ) )_FailureHandler
     {
     if ( ytTicket_ )
         [ ytTicket_ cancelTicket ];
@@ -92,6 +93,9 @@
                 // when super's ytCollectionObject properties change,
                 // as it affects the value of the property
                 [ resultCollection_ setYtCollectionObject: _Resp ];
+
+            if ( _CompletionHandler )
+                _CompletionHandler();
             }
         else
             {
@@ -107,10 +111,10 @@
 
     switch ( _ConsumptionType )
         {
-        case TauYTDataServiceConsumptionSearchResultsType: key = @"self.searchResults"; break;
-        case TauYTDataServiceConsumptionChannelsType:      key = @"self.channels";      break;
-        case TauYTDataServiceConsumptionPlaylistsType:     key = @"self.playlists";     break;
-        case TauYTDataServiceConsumptionPlaylistItemsType: key = @"self.playlistItems"; break;
+        case TauYTDataServiceConsumptionSearchResultsType: key = @"searchResults"; break;
+        case TauYTDataServiceConsumptionChannelsType:      key = @"channels";      break;
+        case TauYTDataServiceConsumptionPlaylistsType:     key = @"playlists";     break;
+        case TauYTDataServiceConsumptionPlaylistItemsType: key = @"playlistItems"; break;
         }
 
     return key;
@@ -122,10 +126,10 @@
 
     switch ( _ConsumptionType )
         {
-        case TauYTDataServiceConsumptionSearchResultsType: modelClass = [ TauYouTubeSearchResultsCollection class ];    break;
-        case TauYTDataServiceConsumptionChannelsType:      modelClass = [ TauYouTubeChannelsCollection class ];         break;
-        case TauYTDataServiceConsumptionPlaylistsType:     modelClass = [ TauYouTubePlaylistsCollection class ];        break;
-        case TauYTDataServiceConsumptionPlaylistItemsType: modelClass = [ TauYouTubePlaylistItemsCollection class ];    break;
+        case TauYTDataServiceConsumptionSearchResultsType: modelClass = [ TauYouTubeSearchResultsCollection class ]; break;
+        case TauYTDataServiceConsumptionChannelsType:      modelClass = [ TauYouTubeChannelsCollection class ];      break;
+        case TauYTDataServiceConsumptionPlaylistsType:     modelClass = [ TauYouTubePlaylistsCollection class ];     break;
+        case TauYTDataServiceConsumptionPlaylistItemsType: modelClass = [ TauYouTubePlaylistItemsCollection class ]; break;
         }
 
     return modelClass;
@@ -160,8 +164,19 @@
             ytQuery = [ GTLQueryYouTube queryForPlaylistItemsListWithPart: @"contentDetails,id,snippet,status" ];
             ytQuery.playlistId = _Dict[ TauYTDataServiceDataActionRequirements ][ TauYTDataServiceDataActionRequirementPlaylistID ];
             } break;
+        }
 
-    ytQuery.maxResults = [ _Dict[ TauYTDataServiceDataActionMaxResultsPerPage ] unsignedIntegerValue ];
+    NSNumber* maxResults = _Dict[ TauYTDataServiceDataActionMaxResultsPerPage ];
+    if ( maxResults )
+        ytQuery.maxResults = [ maxResults unsignedIntegerValue ];
+
+    NSString* pageToken = _Dict[ TauYTDataServiceDataActionPageToken ];
+    if ( pageToken )
+        ytQuery.pageToken = pageToken;
+
+    NSNumber* mine = _Dict[ TauYTDataServiceDataActionRequirements ][ TauYTDataServiceDataActionRequirementMine ];
+    if ( mine )
+        ytQuery.mine = [ mine boolValue ];
 
     return ytQuery;
     }

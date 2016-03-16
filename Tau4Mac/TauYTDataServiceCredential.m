@@ -11,20 +11,16 @@
 
 // Private Interfaces
 @interface TauYTDataServiceCredential ()
-
-// Prepare for copying
-@property ( copy, readwrite ) NSString* identifier;
-@property ( assign, readwrite ) uint64_t consumerFingerprint;
-
 @end // Private Interfaces
 
 // TauYTDataServiceCredential class
 @implementation TauYTDataServiceCredential
     {
+    TauYTDataServiceConsumptionType consumptionType_;
+
     NSString __strong* id_;
 
     uint64_t fingerprint_;
-    TauYTDataServiceConsumptionType consumptionType_;
     NSMethodSignature __strong* applyingMethodSig_;
     }
 
@@ -33,11 +29,15 @@
     return NO;
     }
 
+@dynamic consumptionType;
 @dynamic consumerFingerprint;
 @dynamic identifier;
 @dynamic applyingMethodSignature;
 
-@synthesize maxResultPerPage;
+- ( TauYTDataServiceConsumptionType ) consumptionType
+    {
+    return consumptionType_;
+    }
 
 - ( uint64_t ) consumerFingerprint
     {
@@ -92,6 +92,22 @@
 
 // TauYTDataServiceCredential + PriTau_
 @implementation TauYTDataServiceCredential ( PriTau_ )
+
+@dynamic identifier;
+@dynamic consumerFingerprint;
+
+- ( void ) setIdentifier: ( NSString* )_New
+    {
+    if ( id_ != _New )
+        id_ = _New;
+    }
+
+- ( void ) setConsumerFingerprint: ( uint64_t )_New
+    {
+    if ( fingerprint_ != _New )
+        fingerprint_ = _New;
+    }
+
 
 - ( instancetype ) initWithConsumer: ( id )_Consumer applyingMethodSignature: ( NSMethodSignature* )_Sig consumptionType: ( TauYTDataServiceConsumptionType )_Type
     {

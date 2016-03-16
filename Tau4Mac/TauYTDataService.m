@@ -58,12 +58,6 @@ NSString* const TauReadonlyAuthScope =              @"https://www.googleapis.com
 NSString* const TauUploadAuthScope =                @"https://www.googleapis.com/auth/youtube.upload";
 NSString* const TauPartnerChannelAuditAuthScope =   @"https://www.googleapis.com/auth/youtubepartner-channel-audit";
 
-NSString* const TauYTDataServiceDataActionType = @"TauYTDataServiceDataActionType";
-    NSString* const TauYTDataServiceDataListSearchResultsAction = @"youtube.search.list";
-    NSString* const TauYTDataServiceDataListChannelsAction      = @"youtube.channels.list";
-    NSString* const TauYTDataServiceDataListPlaylistsAction     = @"youtube.playlists.list";
-    NSString* const TauYTDataServiceDataListPlaylistItemsAction = @"youtube.playlistItems.list";
-
 NSString* const TauYTDataServiceDataActionMaxResultsPerPage = @"maxResults";
 NSString* const TauYTDataServiceDataActionPageToken = @"pageToken";
 
@@ -208,10 +202,9 @@ TauYTDataService static* sYTDataService_;
 
 - ( void ) executeConsumerOperations: ( NSDictionary* )_OperationsDict
                       withCredential: ( TauYTDataServiceCredential* )_Credential
+                             success: ( void (^)() )_CompletionHandler
                              failure: ( void (^)( NSError* _Error ) )_FailureHandler
     {
-    NSError* error = nil;
-
     // TODO: Expecting operations dictionary validation
 
     if ( _Credential )
@@ -219,7 +212,7 @@ TauYTDataService static* sYTDataService_;
         TauYTDataServiceConsumerDataUnit* dataUnit = [ mapTable_ objectForKey: _Credential ];
 
         if ( dataUnit )
-            [ dataUnit executeConsumerOperations: _OperationsDict failure: _FailureHandler ];
+            [ dataUnit executeConsumerOperations: _OperationsDict success: _CompletionHandler failure: _FailureHandler ];
         else
             ; // TODO: Populate _Error param
         }
