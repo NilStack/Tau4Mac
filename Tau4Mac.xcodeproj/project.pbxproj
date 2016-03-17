@@ -548,6 +548,19 @@
 			name = wysiwyg;
 			sourceTree = "<group>";
 		};
+		836D26F51C9ACD2A00290BE7 /* tds */ = {
+			isa = PBXGroup;
+			children = (
+				83B174941C98F19800F6578B /* TauYTDataService.h */,
+				83B174951C98F19800F6578B /* TauYTDataService.m */,
+				83B174991C99071700F6578B /* TauYTDataServiceConsumerDataUnit.h */,
+				83B1749A1C99071700F6578B /* TauYTDataServiceConsumerDataUnit.m */,
+				83B174911C98F14800F6578B /* TauYTDataServiceCredential.h */,
+				83B174921C98F14800F6578B /* TauYTDataServiceCredential.m */,
+			);
+			name = tds;
+			sourceTree = "<group>";
+		};
 		83765AD11C8811DD00D93554 = {
 			isa = PBXGroup;
 			children = (
@@ -733,6 +746,7 @@
 		83B0202E1C96B1A5006333CB /* models */ = {
 			isa = PBXGroup;
 			children = (
+				836D26F51C9ACD2A00290BE7 /* tds */,
 				83B020541C96B1B8006333CB /* TauAbstractResultCollection.h */,
 				83B020551C96B1B8006333CB /* TauAbstractResultCollection.m */,
 				83B020571C96B2C9006333CB /* TauYouTubeSearchResultsCollection.h */,
@@ -743,12 +757,6 @@
 				838342F81C98198F00BE6378 /* TauYouTubePlaylistsCollection.m */,
 				838342FA1C981C2400BE6378 /* TauYouTubePlaylistItemsCollection.h */,
 				838342FB1C981C2400BE6378 /* TauYouTubePlaylistItemsCollection.m */,
-				83B174941C98F19800F6578B /* TauYTDataService.h */,
-				83B174951C98F19800F6578B /* TauYTDataService.m */,
-				83B174991C99071700F6578B /* TauYTDataServiceConsumerDataUnit.h */,
-				83B1749A1C99071700F6578B /* TauYTDataServiceConsumerDataUnit.m */,
-				83B174911C98F14800F6578B /* TauYTDataServiceCredential.h */,
-				83B174921C98F14800F6578B /* TauYTDataServiceCredential.m */,
 			);
 			name = models;
 			sourceTree = "<group>";

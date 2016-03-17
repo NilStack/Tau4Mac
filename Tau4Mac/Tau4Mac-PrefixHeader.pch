@@ -33,6 +33,7 @@
 #import "OAuthSigningConstants.h"
 
 #import "TauConstants.h"
+#import "TauYTDataService.h"
 #import "NSObject+TauDataServiceConsumer.h"
 
 #import <objc/runtime.h>

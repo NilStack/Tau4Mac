@@ -8,7 +8,6 @@
 
 #import "TauMainWindowController.h"
 #import "TauYouTubeEntryView.h"
-#import "TauYTDataService.h"
 
 #import "GTL/GTMOAuth2WindowController.h"
 

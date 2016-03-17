@@ -7,7 +7,6 @@
 //
 
 #import "TauYTDataServiceConsumerDataUnit.h"
-#import "TauYTDataService.h"
 #import "TauYTDataServiceCredential.h"
 
 #import "TauYouTubeSearchResultsCollection.h"

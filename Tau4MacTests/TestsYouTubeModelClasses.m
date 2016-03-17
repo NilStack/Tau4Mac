@@ -11,8 +11,6 @@
 #import "TauYouTubePlaylistsCollection.h"
 #import "TauYouTubePlaylistItemsCollection.h"
 
-#import "TauDataService.h"
-
 // TestsYouTubeModelClasses class
 @interface TestsYouTubeModelClasses : TauTestCase
 
@@ -70,7 +68,6 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
 // TestsYouTubeModelClasses class
 @implementation TestsYouTubeModelClasses
     {
-    TauDataService __weak* sharedDataSerivce_;
     GTLServiceYouTube __strong* ytService_;
     }
 

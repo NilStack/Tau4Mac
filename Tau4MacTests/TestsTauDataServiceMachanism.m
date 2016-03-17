@@ -6,7 +6,6 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauYTDataService.h"
 #import "TauYTDataServiceCredential.h"
 
 #define searchResults  searchResults
