@@ -30,10 +30,14 @@
     TauYTDataServiceCredential __strong* playlistItemsConsCredential_;
 
     NSArray <NSDictionary*> __strong* posSearchResultsInitialOperations_;
-    NSArray <NSDictionary*> __strong* negSearchResultsInitialOperations_;
-
     NSArray <NSDictionary*> __strong* posChannelsInitialOperations_;
+    NSArray <NSDictionary*> __strong* posPlaylistsInitialOperations_;
+    NSArray <NSDictionary*> __strong* posPlaylistItemsInitialOperations_;
+
+    NSArray <NSDictionary*> __strong* negSearchResultsInitialOperations_;
     NSArray <NSDictionary*> __strong* negChannelsInitialOperations_;
+    NSArray <NSDictionary*> __strong* negPlaylistsInitialOperations_;
+    NSArray <NSDictionary*> __strong* negPlaylistItemsInitialOperations_;
     }
 
 /// KVO Observable End ----------------------------------------------------------------------------------
@@ -190,7 +194,7 @@
 
          , @{ TauYTDataServiceDataActionRequirements :
                 @{ TauYTDataServiceDataActionRequirementID : @"UC2rCynaFhWz7MeRoqJLvcow" }
-            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails,brandingSettings,contentOwnerDetails,statistics,topicDetails"
+            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails"
             }
          ];
 
@@ -200,6 +204,66 @@
          ];
 
     // Playlists
+    posPlaylistsInitialOperations_ =
+        @[ @{ TauYTDataServiceDataActionMaxResultsPerPage : @10
+            , TauYTDataServiceDataActionRequirements :
+                @{ TauYTDataServiceDataActionRequirementChannelID : @"UCqhnX4jA0A5paNd1v-zEysw" }
+            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails"
+            }
+
+         , @{ TauYTDataServiceDataActionRequirements :
+                @{ TauYTDataServiceDataActionRequirementChannelID : @"UC2pmfLm7iq6Ov1UwYrWYkZA" }
+            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails"
+            , TauYTDataServiceDataActionFieldsFilter : @"items( id ), items( snippet( title, description) )"
+            }
+
+         , @{ TauYTDataServiceDataActionRequirements :
+                @{ TauYTDataServiceDataActionRequirementChannelID : @"UC2pmfLm7iq6Ov1UwYrWYkZA" }
+            , TauYTDataServiceDataActionPartFilter : @"contentDetails"
+            , TauYTDataServiceDataActionFieldsFilter : @"items( id ), items( snippet( title, description) )"
+            }
+
+         , @{ TauYTDataServiceDataActionRequirements :
+                @{ TauYTDataServiceDataActionRequirementChannelID : @"UC2rCynaFhWz7MeRoqJLvcow" }
+            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails"
+            }
+         ];
+
+    negPlaylistsInitialOperations_ =
+        @[ @{}
+         , @{ TauYTDataServiceDataActionRequirements : @[ @"Microsoft" ] }
+         ];
+
+    // Playlist Items
+    posPlaylistItemsInitialOperations_ =
+        @[ @{ TauYTDataServiceDataActionMaxResultsPerPage : @10
+            , TauYTDataServiceDataActionRequirements :
+                @{ TauYTDataServiceDataActionRequirementPlaylistID : @"PLFCZYV79qT1G7xZCY47q2njj262r3GvR3" }
+            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails"
+            }
+
+         , @{ TauYTDataServiceDataActionRequirements :
+                @{ TauYTDataServiceDataActionRequirementPlaylistID : @"PLSvNPF6CgrdhmLFEd9rjZeFDs9E6Htqlj" }
+            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails"
+            , TauYTDataServiceDataActionFieldsFilter : @"items( id ), items( snippet( title, description) )"
+            }
+
+         , @{ TauYTDataServiceDataActionRequirements :
+                @{ TauYTDataServiceDataActionRequirementPlaylistID : @"PLhKFRV3-UgpeA_3wzRHF8AS8T7ppKvm9O" }
+            , TauYTDataServiceDataActionPartFilter : @"contentDetails"
+            , TauYTDataServiceDataActionFieldsFilter : @"items( id ), items( snippet( title, description) )"
+            }
+
+         , @{ TauYTDataServiceDataActionRequirements :
+                @{ TauYTDataServiceDataActionRequirementPlaylistID : @"PL2Qq6_3SVp4P4N0Wyusc_-256lXZ3DVsw" }
+            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails"
+            }
+         ];
+
+    negPlaylistItemsInitialOperations_ =
+        @[ @{}
+         , @{ TauYTDataServiceDataActionRequirements : @[ @"Microsoft" ] }
+         ];
     }
 
 - ( void ) tearDown
@@ -275,6 +339,8 @@
 
 #pragma mark - Positive Test
 
+// Search Results
+
 - ( void ) testDataServiceDataSearchResultsListAction_pos0
     {
     for ( NSDictionary* _OperationsCombination in posSearchResultsInitialOperations_ )
@@ -290,6 +356,8 @@
         }
     }
 
+// Channels
+
 - ( void ) testDataServiceDataChannelsListAction_pos0
     {
     for ( NSDictionary* _OperationsCombination in posChannelsInitialOperations_ )
@@ -304,7 +372,44 @@
             } ];
         }
     }
+
+// Playlists
+
+- ( void ) testDataServiceDataPlaylistsListAction_pos0
+    {
+    for ( NSDictionary* _OperationsCombination in posPlaylistsInitialOperations_ )
+        {
+        XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
+        [ self executeConsumerOperations_: _OperationsCombination credential_: playlistsConsCredential_ expec_: expec onBehalfOf_: _cmd ];
+
+        [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
+        ^( NSError* _Nullable _Error )
+            {
+            DDLogFatal( @"%@", _Error );
+            } ];
+        }
+    }
+
+// Playlist Items
+
+- ( void ) testDataServiceDataPlaylistItemsListAction_pos0
+    {
+    for ( NSDictionary* _OperationsCombination in posPlaylistItemsInitialOperations_ )
+        {
+        XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
+        [ self executeConsumerOperations_: _OperationsCombination credential_: playlistItemsConsCredential_ expec_: expec onBehalfOf_: _cmd ];
+
+        [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
+        ^( NSError* _Nullable _Error )
+            {
+            DDLogFatal( @"%@", _Error );
+            } ];
+        }
+    }
+
 #pragma mark - Negative Test
+
+// Search Results
 
 - ( void ) testDataServiceDataResultsListAction_neg0
     {
@@ -343,12 +448,48 @@
         }
     }
 
+// Channels
+
 - ( void ) testDataServiceDataChannelsListAction_neg0
     {
     for ( NSDictionary* _OperationsCombination in negChannelsInitialOperations_ )
         {
         XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
         [ self executeConsumerOperations_: _OperationsCombination credential_: channelsConsCredential_ expec_: expec onBehalfOf_: _cmd ];
+
+        [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
+        ^( NSError* _Nullable _Error )
+            {
+            DDLogFatal( @"%@", _Error );
+            } ];
+        }
+    }
+
+// Playlists
+
+- ( void ) testDataServiceDataPlaylistsListAction_neg0
+    {
+    for ( NSDictionary* _OperationsCombination in negPlaylistsInitialOperations_ )
+        {
+        XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
+        [ self executeConsumerOperations_: _OperationsCombination credential_: playlistsConsCredential_ expec_: expec onBehalfOf_: _cmd ];
+
+        [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
+        ^( NSError* _Nullable _Error )
+            {
+            DDLogFatal( @"%@", _Error );
+            } ];
+        }
+    }
+
+// Playlists
+
+- ( void ) testDataServiceDataPlaylistItemsListAction_neg0
+    {
+    for ( NSDictionary* _OperationsCombination in negPlaylistItemsInitialOperations_ )
+        {
+        XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
+        [ self executeConsumerOperations_: _OperationsCombination credential_: playlistItemsConsCredential_ expec_: expec onBehalfOf_: _cmd ];
 
         [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
         ^( NSError* _Nullable _Error )

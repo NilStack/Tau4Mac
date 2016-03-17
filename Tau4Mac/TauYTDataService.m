@@ -82,7 +82,7 @@ NSString* const TauUnderlyingErrorDomain = @"home.bedroom.TongKuo.Tau4Mac.Underl
 // TauYTDataService class
 @implementation TauYTDataService
     {
-    NSMutableDictionary __strong* mapTable_;
+    NSMapTable __strong* mapTable_;
     }
 
 + ( BOOL ) accessInstanceVariablesDirectly
@@ -104,8 +104,7 @@ TauYTDataService static* sYTDataService_;
         {
         if ( self = [ super init ] )
             {
-            mapTable_ = [ NSMutableDictionary dictionary ];
-
+            mapTable_ = [ [ NSMapTable alloc ] initWithKeyOptions: NSMapTableCopyIn valueOptions: NSMapTableStrongMemory capacity: 0 ];
             sYTDataService_ = self;
             }
         }
@@ -228,11 +227,9 @@ TauYTDataService static* sYTDataService_;
     NSError* error = nil;
     if ( [ self validateOperationsCombination_: _OperationsDict hostSel_: _cmd error_: &error ] )
         {
-        if ( _OperationsDict && _Credential )
+        if ( _Credential )
             {
-            TauYTDataServiceConsumerDataUnit* dataUnit = mapTable_[ _Credential ];
-
-            DDLogDebug( @"%@", _Credential );
+            TauYTDataServiceConsumerDataUnit* dataUnit = [ mapTable_ objectForKey: _Credential ];
 
             if ( dataUnit )
                 [ dataUnit executeConsumerOperations: _OperationsDict success: _CompletionHandler failure: _FailureHandler ];
@@ -243,10 +240,6 @@ TauYTDataService static* sYTDataService_;
                                                     , NSLocalizedRecoverySuggestionErrorKey : @"You can re-register a consumer to fetch a new valid credential from Tau Data Service."
                                                     } ];
             }
-        else
-            error = [ NSError errorWithDomain: TauGeneralErrorDomain
-                                         code: TauGeneralInvalidArgument
-                                     userInfo: @{ NSLocalizedDescriptionKey : @"Operations combination and credential parameters must not be nil" } ];
         }
 
     if ( error )

@@ -74,7 +74,8 @@
     if ( self == _Rhs )
         return YES;
 
-    return [ self.identifier isEqualToString: _Rhs.identifier ];
+    BOOL isEqual = [ self.identifier isEqualToString: _Rhs.identifier ];
+    return isEqual;
     }
 
 - ( BOOL ) isEqual: ( id )_Object
@@ -107,7 +108,7 @@
 - ( void ) setIdentifier: ( NSString* )_New
     {
     if ( id_ != _New )
-        id_ = _New;
+        id_ = [ _New copy ];
     }
 
 - ( void ) setConsumerFingerprint: ( uint64_t )_New
