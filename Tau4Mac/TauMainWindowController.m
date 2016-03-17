@@ -27,9 +27,6 @@
 // Signning In
 - ( void ) runSignInThenHandler_: ( void (^)( void ) )_Handler;
 
-// Logging
-- ( void ) configureLogging_;
-
 @end // Private Interfaces
 
 NSString* const TauShouldSwitch2SearchSegmentNotif = @"Should.Switch2SearchSegment.Notif";
@@ -94,8 +91,6 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 
 - ( void ) applicationDidFinishLaunching: ( NSNotification* )_Notif
     {
-    [ self configureLogging_ ];
-
     if ( ![ [ TauDataService sharedService ] isSignedIn ] )
         [ self runSignInThenHandler_: nil ];
     }
@@ -336,47 +331,6 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
     [ TauDataService sharedService ].ytService.authorizer = nil;
     [ GTMOAuth2WindowController removeAuthFromKeychainForName: TauKeychainItemName ];
     [ self runSignInThenHandler_: nil ];
-    }
-
-// Logging
-- ( void ) configureLogging_
-    {
-    // Configuring TTY Logger
-    DDTTYLogger* sharedTTYLogger = [ DDTTYLogger sharedInstance ];
-    DDASLLogger* sharedASLLogger = [ DDASLLogger sharedInstance ];
-
-    [ sharedTTYLogger setLogFormatter: [ [ TauTTYLogFormatter alloc ] init ] ];
-    [ sharedASLLogger setLogFormatter: [ [ TauTTYLogFormatter alloc ] init ] ];
-
-    // Light Red
-    NSColor* recoverableErrOutputColor = [ NSColor colorWithRed: 248 / 255.f green: 98 / 255.0 blue: 98 / 255.0 alpha: 1.f ];
-
-    // Light Green
-    NSColor* debugOutputColor = [ NSColor colorWithRed: 151 / 255.f green: 204 / 255.0 blue: 245 / 255.0 alpha: 1.f ];
-
-    // Light Blue
-    NSColor* infoOutputColor = [ NSColor colorWithRed: 184 / 255.f green: 233 / 255.0 blue: 134 / 255.0 alpha: 1.f ];
-
-    // Light Orange
-    NSColor* warningOutputColor = [ NSColor colorWithRed: 246 / 255.f green: 174 / 255.0 blue: 55 / 255.0 alpha: 1.f ];
-    NSColor* verboseOutputColor = [ NSColor lightGrayColor ];
-
-    [ sharedTTYLogger setColorsEnabled: YES ];
-    [ sharedTTYLogger setForegroundColor: recoverableErrOutputColor backgroundColor: nil forFlag: DDLogFlagRecoverable ];
-    [ sharedTTYLogger setForegroundColor: debugOutputColor backgroundColor: nil forFlag: DDLogFlagDebug ];
-    [ sharedTTYLogger setForegroundColor: infoOutputColor backgroundColor: nil forFlag: DDLogFlagInfo ];
-    [ sharedTTYLogger setForegroundColor: warningOutputColor backgroundColor: nil forFlag: DDLogFlagWarning ];
-    [ sharedTTYLogger setForegroundColor: verboseOutputColor backgroundColor: nil forFlag: DDLogFlagVerbose ];
-
-    // Configuring file logger
-    DDFileLogger* fileLogger = [ [ DDFileLogger alloc ] init ];
-
-    fileLogger.rollingFrequency = 60 * 60 * 24 * 3; // Three day
-    fileLogger.logFileManager.maximumNumberOfLogFiles = 10;
-
-    [ DDLog addLogger: sharedTTYLogger ];
-    [ DDLog addLogger: sharedASLLogger ];
-    [ DDLog addLogger: fileLogger withLevel: DDLogLevelWarn ];
     }
 
 @end

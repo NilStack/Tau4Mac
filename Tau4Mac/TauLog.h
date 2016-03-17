@@ -74,9 +74,9 @@
 #define DDLogLevelFatal        ( DDLogFlagFatal )
 
 #define DDLogLevelRecoverable  ( DDLogFlagRecoverable | DDLogLevelFatal )
-#define DDLogLevelLocalError   ( DDLogLevelRecoverable )    // Local error is essentially recoverable
-#define DDLogLevelNetworkError ( DDLogLevelRecoverable )    // Network error is essentially recoverable
-#define DDLogLevelUserError    ( DDLogLevelRecoverable )    // User error is essentially recoverable
+#define DDLogLevelLocalError   ( DDLogFlagLocalError | DDLogLevelRecoverable )      // Local error is essentially recoverable
+#define DDLogLevelNetworkError ( DDLogFlagNetworkError | DDLogLevelRecoverable )    // Network error is essentially recoverable
+#define DDLogLevelUserError    ( DDLogFlagUserError | DDLogLevelRecoverable )       // User error is essentially recoverable
 
 #define DDLogLevelUnexpected   ( DDLogFlagUnexpected | DDLogLevelRecoverable )
 #define DDLogLevelWarn         ( DDLogFlagWarning | DDLogLevelUnexpected )
@@ -100,9 +100,9 @@ DDLogLevelOff
 
 #define LOG_FATAL         ( ddLogLevel & DDLogFlagFatal )
 #define LOG_RECOVERABLE   ( ddLogLevel & DDLogFlagRecoverable )
-#define LOG_LOCAL_ERROR   ( ddLogLevel & DDLogFlagRecoverable )
-#define LOG_NETWORK_ERROR ( ddLogLevel & DDLogFlagRecoverable )
-#define LOG_USER_ERROR    ( ddLogLevel & DDLogFlagRecoverable )
+#define LOG_LOCAL_ERROR   ( ddLogLevel & DDLogFlagLocalError )
+#define LOG_NETWORK_ERROR ( ddLogLevel & DDLogFlagNetworkError )
+#define LOG_USER_ERROR    ( ddLogLevel & DDLogFlagUserError )
 #define LOG_UNEXPECTED    ( ddLogLevel & DDLogFlagUnexpected )
 #define LOG_WARN          ( ddLogLevel & DDLogFlagWarning )
 #define LOG_NOTICE        ( ddLogLevel & DDLogFlagNotice )

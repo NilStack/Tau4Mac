@@ -452,10 +452,10 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
                         {
                         DDLogRecoverable( @"404 NOT FOUND! There is no specific thumb (%@) %@ %@\n"
                                           "attempting to fetch the backing thumbnail…"
-                                        , fetcher.userData[ kPreferredThumbKey ]
-                                        , _Error
-                                        , fetcher.comment
-                                        );
+                                         , fetcher.userData[ kPreferredThumbKey ]
+                                         , _Error
+                                         , fetcher.comment
+                                         );
 
                         [ [ GTMSessionFetcher fetcherWithURL: fetcher.userData[ kBackingThumbKey ] ]
                             beginFetchWithCompletionHandler:

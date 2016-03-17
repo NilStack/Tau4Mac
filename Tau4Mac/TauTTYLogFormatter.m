@@ -35,7 +35,7 @@
         case DDLogFlagVerbose:      logLevel = @"VVVVVVVERBOSE";     break;
         }
 
-    return [ NSString stringWithFormat: @">>>> %@ (%@) (%@) ~ %@, L%lu (%@)\n"
+    return [ NSString stringWithFormat: @">>>> %@ (%@) (%@) ~ %@, L%lu (%@)"
            , logLevel
            , _LogMsg.timestamp
            , _LogMsg.message
