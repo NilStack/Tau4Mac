@@ -88,6 +88,14 @@
     return [ super isEqual: _Object ];
     }
 
+#pragma mark - Degbugging
+
+- ( NSString* ) description
+    {
+    return [ NSString stringWithFormat: @"Credential %p {id:%@ consumptionType:%ld consumerFingerprint:%llu applyingMethodSig:%@}"
+                                      , self, self.identifier, self.consumptionType, self.consumerFingerprint, self.applyingMethodSignature ];
+    }
+
 @end // TauYTDataServiceCredential class
 
 // TauYTDataServiceCredential + PriTau_

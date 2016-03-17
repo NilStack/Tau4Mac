@@ -82,7 +82,7 @@ NSString* const TauUnderlyingErrorDomain = @"home.bedroom.TongKuo.Tau4Mac.Underl
 // TauYTDataService class
 @implementation TauYTDataService
     {
-    NSMapTable __strong* mapTable_;
+    NSMutableDictionary __strong* mapTable_;
     }
 
 + ( BOOL ) accessInstanceVariablesDirectly
@@ -104,7 +104,8 @@ TauYTDataService static* sYTDataService_;
         {
         if ( self = [ super init ] )
             {
-            mapTable_ = [ [ NSMapTable alloc ] initWithKeyOptions: NSMapTableCopyIn valueOptions: NSMapTableStrongMemory capacity: 0 ];
+            mapTable_ = [ NSMutableDictionary dictionary ];
+
             sYTDataService_ = self;
             }
         }
@@ -229,15 +230,23 @@ TauYTDataService static* sYTDataService_;
         {
         if ( _OperationsDict && _Credential )
             {
-            TauYTDataServiceConsumerDataUnit* dataUnit = [ mapTable_ objectForKey: _Credential ];
+            TauYTDataServiceConsumerDataUnit* dataUnit = mapTable_[ _Credential ];
+
+            DDLogDebug( @"%@", _Credential );
 
             if ( dataUnit )
                 [ dataUnit executeConsumerOperations: _OperationsDict success: _CompletionHandler failure: _FailureHandler ];
             else
-                error = [ NSError errorWithDomain: TauCentralDataServiceErrorDomain code: TauCentralDataServiceInvalidCredentialError userInfo: nil ];
+                error = [ NSError errorWithDomain: TauCentralDataServiceErrorDomain
+                                             code: TauCentralDataServiceInvalidCredentialError
+                                         userInfo: @{ NSLocalizedDescriptionKey : [ NSString stringWithFormat: @"Credential {%@} is invalid. It may be already revoked.", _Credential ]
+                                                    , NSLocalizedRecoverySuggestionErrorKey : @"You can re-register a consumer to fetch a new valid credential from Tau Data Service."
+                                                    } ];
             }
         else
-            error = [ NSError errorWithDomain: TauGeneralErrorDomain code: TauGeneralInvalidArgument userInfo: nil ];
+            error = [ NSError errorWithDomain: TauGeneralErrorDomain
+                                         code: TauGeneralInvalidArgument
+                                     userInfo: @{ NSLocalizedDescriptionKey : @"Operations combination and credential parameters must not be nil" } ];
         }
 
     if ( error )

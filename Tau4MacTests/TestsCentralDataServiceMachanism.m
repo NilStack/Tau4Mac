@@ -11,8 +11,12 @@
 
 // TestsCentralDataServiceMachanism class
 @interface TestsCentralDataServiceMachanism : TauTestCase <TauYTDataServiceConsumer>
+
 @property ( strong, readwrite ) NSArray <GTLYouTubeSearchResult*>* searchResults;
 @property ( strong, readwrite ) NSArray <GTLYouTubeChannel*>* channels;
+@property ( strong, readwrite ) NSArray <GTLYouTubePlaylist*>* playlists;
+@property ( strong, readwrite ) NSArray <GTLYouTubePlaylistItem*>* playlistItems;
+
 @end // TestsCentralDataServiceMachanism class
 
 // TestsCentralDataServiceMachanism class
@@ -22,11 +26,8 @@
 
     TauYTDataServiceCredential __strong* searchResultsConsCredential_;
     TauYTDataServiceCredential __strong* channelsConsCredential_;
-//    TauYTDataServiceCredential __strong* searchResultsConsCredential_;
-//    TauYTDataServiceCredential __strong* searchResultsConsCredential_;
-
-    NSArray <GTLYouTubeSearchResult*>* searchResults_;
-    NSArray <GTLYouTubeChannel*>* channels_;
+    TauYTDataServiceCredential __strong* playlistsConsCredential_;
+    TauYTDataServiceCredential __strong* playlistItemsConsCredential_;
 
     NSArray <NSDictionary*> __strong* posSearchResultsInitialOperations_;
     NSArray <NSDictionary*> __strong* negSearchResultsInitialOperations_;
@@ -34,6 +35,8 @@
     NSArray <NSDictionary*> __strong* posChannelsInitialOperations_;
     NSArray <NSDictionary*> __strong* negChannelsInitialOperations_;
     }
+
+/// KVO Observable End ----------------------------------------------------------------------------------
 
 @synthesize searchResults = searchResults_;
 
@@ -69,6 +72,42 @@
     [ channels_ getObjects: _Buffer range: _InRange ];
     }
 
+@synthesize playlists = playlists_;
+
+- ( NSUInteger ) countOfPlaylists
+    {
+    return playlists_.count;
+    }
+
+- ( NSArray* ) playlistsAtIndexes: ( NSIndexSet* )_Indexes
+    {
+    return [ playlists_ objectsAtIndexes: _Indexes ];
+    }
+
+- ( void ) getPlaylists:( GTLYouTubePlaylist* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
+    {
+    [ playlists_ getObjects: _Buffer range: _InRange ];
+    }
+
+@synthesize playlistItems = playlistItems_;
+
+- ( NSUInteger ) countOfPlaylistItems
+    {
+    return playlistItems_.count;
+    }
+
+- ( NSArray* ) playlistItemsAtIndexes: ( NSIndexSet* )_Indexes
+    {
+    return [ playlistItems_ objectsAtIndexes: _Indexes ];
+    }
+
+- ( void ) getPlaylistItems:( GTLYouTubePlaylistItem* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
+    {
+    [ playlistItems_ getObjects: _Buffer range: _InRange ];
+    }
+
+/// KVO Observable End ----------------------------------------------------------------------------------
+
 - ( void ) setUp
     {
     [ super setUp ];
@@ -83,6 +122,8 @@
 
     searchResultsConsCredential_ = [ sharedDataService_ registerConsumer: self withMethodSignature: sig consumptionType: TauYTDataServiceConsumptionSearchResultsType ];
     channelsConsCredential_ = [ sharedDataService_ registerConsumer: self withMethodSignature: sig consumptionType: TauYTDataServiceConsumptionChannelsType ];
+    playlistsConsCredential_ = [ sharedDataService_ registerConsumer: self withMethodSignature: sig consumptionType: TauYTDataServiceConsumptionPlaylistsType ];
+    playlistItemsConsCredential_ = [ sharedDataService_ registerConsumer: self withMethodSignature: sig consumptionType: TauYTDataServiceConsumptionPlaylistItemsType ];
 
 //    XCTAssertNotNil( searchResultsConsCredential_ );
 //    XCTAssertNotNil( searchResultsConsCredential_.identifier );
@@ -90,6 +131,7 @@
 //    XCTAssertNotEqual( searchResultsConsCredential_.consumptionType, 0 );
 //    XCTAssertNotEqual( searchResultsConsCredential_.consumerFingerprint, 0 );
 
+    // Search Results
     posSearchResultsInitialOperations_ =
         @[ @{ TauYTDataServiceDataActionMaxResultsPerPage : @10
             , TauYTDataServiceDataActionRequirements :
@@ -126,6 +168,7 @@
             }
          ];
 
+    // Channels
     posChannelsInitialOperations_ =
         @[ @{ TauYTDataServiceDataActionMaxResultsPerPage : @10
             , TauYTDataServiceDataActionRequirements :
@@ -150,11 +193,21 @@
             , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails,brandingSettings,contentOwnerDetails,statistics,topicDetails"
             }
          ];
+
+    negChannelsInitialOperations_ =
+        @[ @{}
+         , @{ TauYTDataServiceDataActionRequirements : @[ @"Microsoft" ] }
+         ];
+
+    // Playlists
     }
 
 - ( void ) tearDown
     {
     [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: searchResultsConsCredential_ ];
+    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: channelsConsCredential_ ];
+    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: playlistsConsCredential_ ];
+    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: playlistItemsConsCredential_ ];
     }
 
 #define PAGE_LOOP 8 * 2
@@ -253,7 +306,7 @@
     }
 #pragma mark - Negative Test
 
-- ( void ) testDataServiceDataAction_neg0
+- ( void ) testDataServiceDataResultsListAction_neg0
     {
     [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: searchResultsConsCredential_ ];
 
@@ -269,17 +322,33 @@
             } ];
         }
 
-    [ [ TauYTDataService sharedService ] registerConsumer: self
-                                      withMethodSignature: [ self methodSignatureForSelector: _cmd ]
-                                          consumptionType: TauYTDataServiceConsumptionSearchResultsType ];
+    searchResultsConsCredential_ =
+        [ [ TauYTDataService sharedService ] registerConsumer: self
+                                          withMethodSignature: [ self methodSignatureForSelector: _cmd ]
+                                              consumptionType: TauYTDataServiceConsumptionSearchResultsType ];
     }
 
-- ( void ) testDataServiceDataAction_neg1
+- ( void ) testDataServiceDataResultsListAction_neg1
     {
     for ( NSDictionary* _OperationsCombination in negSearchResultsInitialOperations_ )
         {
         XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
         [ self executeConsumerOperations_: _OperationsCombination credential_: searchResultsConsCredential_ expec_: expec onBehalfOf_: _cmd ];
+
+        [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
+        ^( NSError* _Nullable _Error )
+            {
+            DDLogFatal( @"%@", _Error );
+            } ];
+        }
+    }
+
+- ( void ) testDataServiceDataChannelsListAction_neg0
+    {
+    for ( NSDictionary* _OperationsCombination in negChannelsInitialOperations_ )
+        {
+        XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
+        [ self executeConsumerOperations_: _OperationsCombination credential_: channelsConsCredential_ expec_: expec onBehalfOf_: _cmd ];
 
         [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
         ^( NSError* _Nullable _Error )
