@@ -7,7 +7,6 @@
 //
 
 #import "TauYTDataService.h"
-#import "TauCollectionObject.h"
 #import "TauYTDataServiceConsumerDataUnit.h"
 
 #import "GTL/GTLUtilities.h"

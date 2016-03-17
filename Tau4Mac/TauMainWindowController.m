@@ -8,7 +8,7 @@
 
 #import "TauMainWindowController.h"
 #import "TauYouTubeEntryView.h"
-#import "TauMainViewController.h"
+#import "TauYTDataService.h"
 
 #import "GTL/GTMOAuth2WindowController.h"
 
@@ -65,9 +65,10 @@ NSString* const kRequester = @"kRequester";
     kvoController_ = [ [ FBKVOController alloc ] initWithObserver: self.contentViewController ];
 
 TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_BEGIN
-//    [ kvoController_ observe: self.segSwitcher_ keyPath: @"cell.selectedSegment"
-//                     options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
-//                      action: @selector( selectedSegmentDidChange:observing: ) ];
+    [ kvoController_ observe: self.segSwitcher_
+                     keyPath: @"cell.selectedSegment"
+                     options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                      action: @selector( selectedSegmentDidChange:observing: /* This selector was declared and implemented in TauMainWindowController class */ ) ];
 TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 
     [ self.segSwitcher_ selectSegmentWithTag: TauPanelsSwitcherSearchTag ];
@@ -90,7 +91,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 
 - ( void ) applicationDidFinishLaunching: ( NSNotification* )_Notif
     {
-    if ( ![ [ TauDataService sharedService ] isSignedIn ] )
+    if ( ![ [ TauYTDataService sharedService ] isSignedIn ] )
         [ self runSignInThenHandler_: nil ];
     }
 
@@ -102,7 +103,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
     else
         [ self.window makeKeyAndOrderFront: self ];
 
-    if ( !( [ TauDataService sharedService ].isSignedIn ) )
+    if ( !( [ TauYTDataService sharedService ].isSignedIn ) )
         [ self runSignInThenHandler_: nil ];
 
     return YES;
@@ -278,7 +279,7 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
             {
             if ( _Auth && !_Error )
                 {
-                [ [ TauDataService sharedService ].ytService setAuthorizer: _Auth ];
+                [ [ TauYTDataService sharedService ].ytService setAuthorizer: _Auth ];
                 if ( _Handler ) _Handler();
                 }
             else
@@ -292,7 +293,7 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
 // Signing Out
 - ( void ) signOutAction: ( id )_Sender
     {
-    [ TauDataService sharedService ].ytService.authorizer = nil;
+    [ TauYTDataService sharedService ].ytService.authorizer = nil;
     [ GTMOAuth2WindowController removeAuthFromKeychainForName: TauKeychainItemName ];
     [ self runSignInThenHandler_: nil ];
     }

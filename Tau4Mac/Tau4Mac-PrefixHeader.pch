@@ -30,7 +30,6 @@
 #import "FBKVOController.h"
 
 #import "GTLYouTube.h"
-#import "TauDataService.h"
 #import "OAuthSigningConstants.h"
 
 #import "TauConstants.h"

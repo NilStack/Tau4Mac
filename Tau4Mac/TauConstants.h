@@ -62,6 +62,9 @@ typedef NS_ENUM ( NSUInteger, TauYTDataServiceConsumptionType )
     , TauYTDataServiceConsumptionPlaylistItemsType = 4
     };
 
+#define TAU_APP_MIN_WIDTH  500.f
+#define TAU_APP_MIN_HEIGHT 200.f
+
 #define TAU_PAGEER_PREV 0
 #define TAU_PAGEER_NEXT 1
 
