@@ -15,7 +15,7 @@
 // Private
 @interface TauMainContentViewController ()
 
-@property ( strong, readonly ) FBKVOController* kvoController_;
+@property ( strong, readonly ) FBKVOController* selfObservKVOController_;
 @property ( assign, readwrite ) TauContentViewTag activedSegment_;
 
 @end // Private
@@ -26,7 +26,7 @@
 // TauMainContentViewController class
 @implementation TauMainContentViewController
     {
-    FBKVOController __strong* priKVOController_;
+    FBKVOController __strong* priSelfObservKVOController_;
 
     TauSearchContentViewController __strong*  priSearchContentViewController_;
     TauExploreContentViewController __strong* priExploreContentViewController_;
@@ -39,10 +39,10 @@
 - ( void ) viewDidLoad
     {
     // self-observing to react to the change of activedContentViewController property
-    [ self.kvoController_ observe: self
-                          keyPath: activedContentViewController_kvoKey
-                          options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial
-                            block:
+    [ self.selfObservKVOController_ observe: self
+                                    keyPath: activedContentViewController_kvoKey
+                                    options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial
+                                      block:
     ^( id _Nullable _Observer, id _Nonnull _Object, NSDictionary <NSString*, id>* _Nonnull _Change )
         {
         TauAbstractContentViewController* oldActived = _Change[ NSKeyValueChangeOldKey ];
@@ -95,12 +95,12 @@
     return priPlayerContentViewController_;
     }
 
-@dynamic kvoController_;
-- ( FBKVOController* ) kvoController_
+@dynamic selfObservKVOController_;
+- ( FBKVOController* ) selfObservKVOController_
     {
-    if ( !priKVOController_ )
-        priKVOController_ = [ [ FBKVOController alloc ] initWithObserver: self ];
-    return priKVOController_;
+    if ( !priSelfObservKVOController_ )
+        priSelfObservKVOController_ = [ [ FBKVOController alloc ] initWithObserver: self ];
+    return priSelfObservKVOController_;
     }
 
 @dynamic activedContentViewController;
