@@ -54,31 +54,37 @@
 #undef DDLogDebugToDDLog
 #undef DDLogVerboseToDDLog
 
-// Now define everything how we want it
-
+// Flags
 #define DDLogFlagFatal        ( 1 << 0 )
+
 #define DDLogFlagRecoverable  ( 1 << 1 )
 #define DDLogFlagLocalError   ( 1 << 2 )
 #define DDLogFlagNetworkError ( 1 << 3 )
 #define DDLogFlagUserError    ( 1 << 4 )
+
 #define DDLogFlagUnexpected   ( 1 << 5 )
 #define DDLogFlagWarning      ( 1 << 6 )
 #define DDLogFlagNotice       ( 1 << 7 )
+
 #define DDLogFlagInfo         ( 1 << 8 )
 #define DDLogFlagDebug        ( 1 << 9 )
 #define DDLogFlagVerbose      ( 1 << 10 )
 
+// Levels
 #define DDLogLevelFatal        ( DDLogFlagFatal )
+
 #define DDLogLevelRecoverable  ( DDLogFlagRecoverable | DDLogLevelFatal )
 #define DDLogLevelLocalError   ( DDLogLevelRecoverable )    // Local error is essentially recoverable
 #define DDLogLevelNetworkError ( DDLogLevelRecoverable )    // Network error is essentially recoverable
 #define DDLogLevelUserError    ( DDLogLevelRecoverable )    // User error is essentially recoverable
-#define DDLogLevelUnexpected   ( DDLogFlagUnexpected | DDLogFlagRecoverable )
-#define DDLogLevelWarn         ( DDLogFlagWarning | DDLogFlagUnexpected )
+
+#define DDLogLevelUnexpected   ( DDLogFlagUnexpected | DDLogLevelRecoverable )
+#define DDLogLevelWarn         ( DDLogFlagWarning | DDLogLevelUnexpected )
 #define DDLogLevelNotice       ( DDLogFlagNotice | DDLogLevelWarn  )
+
 #define DDLogLevelInfo         ( DDLogFlagInfo | DDLogLevelNotice)
 #define DDLogLevelDebug        ( DDLogFlagDebug | DDLogLevelInfo  )
-#define DDLogLevelVerbose      ( DDLogFlagVerbose | DDLogFlagDebug )
+#define DDLogLevelVerbose      ( DDLogFlagVerbose | DDLogLevelDebug )
 
 static const DDLogLevel ddLogLevel =
 #if DEBUG

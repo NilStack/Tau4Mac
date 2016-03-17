@@ -72,6 +72,10 @@
 		83B1749F1C990E0E00F6578B /* OAuthSigningConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C571C8893BF007B084F /* OAuthSigningConstants.m */; };
 		83B174A21C990F0E00F6578B /* TestsCentralDataServiceMachanism.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B174A11C990F0E00F6578B /* TestsCentralDataServiceMachanism.m */; };
 		83B174A51C996B8500F6578B /* TauTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B174A41C996B8500F6578B /* TauTestCase.m */; };
+		83B174FF1C9A75ED00F6578B /* TauTTYLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C481C8864E9007B084F /* TauTTYLogFormatter.m */; };
+		83B175001C9A765200F6578B /* TauAbstractLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C451C8864C0007B084F /* TauAbstractLogFormatter.m */; };
+		83B175031C9A7ADF00F6578B /* NSColor+TauDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B175021C9A7ADF00F6578B /* NSColor+TauDrawing.m */; };
+		83B175041C9A7ADF00F6578B /* NSColor+TauDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B175021C9A7ADF00F6578B /* NSColor+TauDrawing.m */; };
 		83DA1C3E1C885216007B084F /* TauDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C3D1C885216007B084F /* TauDataService.m */; };
 		83DA1C421C886138007B084F /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DA1C411C886138007B084F /* WebKit.framework */; };
 		83DA1C461C8864C0007B084F /* TauAbstractLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C451C8864C0007B084F /* TauAbstractLogFormatter.m */; };
@@ -491,6 +495,8 @@
 		83B174A11C990F0E00F6578B /* TestsCentralDataServiceMachanism.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestsCentralDataServiceMachanism.m; sourceTree = "<group>"; };
 		83B174A31C996B8500F6578B /* TauTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauTestCase.h; sourceTree = "<group>"; };
 		83B174A41C996B8500F6578B /* TauTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauTestCase.m; sourceTree = "<group>"; };
+		83B175011C9A7ADF00F6578B /* NSColor+TauDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+TauDrawing.h"; sourceTree = "<group>"; };
+		83B175021C9A7ADF00F6578B /* NSColor+TauDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+TauDrawing.m"; sourceTree = "<group>"; };
 		83DA1C3C1C885216007B084F /* TauDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauDataService.h; sourceTree = "<group>"; };
 		83DA1C3D1C885216007B084F /* TauDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauDataService.m; sourceTree = "<group>"; };
 		83DA1C411C886138007B084F /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -670,6 +676,8 @@
 				83EB745B1C90590F004EB117 /* NSAffineTransform+TauDrawing.m */,
 				83EB74571C9058C4004EB117 /* NSBezierPath+TauDrawing.h */,
 				83EB74581C9058C4004EB117 /* NSBezierPath+TauDrawing.m */,
+				83B175011C9A7ADF00F6578B /* NSColor+TauDrawing.h */,
+				83B175021C9A7ADF00F6578B /* NSColor+TauDrawing.m */,
 			);
 			name = extensions;
 			sourceTree = "<group>";
@@ -1443,6 +1451,7 @@
 				83DA1C581C8893BF007B084F /* OAuthSigningConstants.m in Sources */,
 				83EB73461C8D1D3F004EB117 /* TauMeTubeStackPanelController.m in Sources */,
 				83EB73341C8C6B6E004EB117 /* NSObject+FBKVOController.m in Sources */,
+				83B175031C9A7ADF00F6578B /* NSColor+TauDrawing.m in Sources */,
 				83765ADF1C8811DD00D93554 /* TauAppDelegate.m in Sources */,
 				8399E2201C88235500A42C44 /* TauSearchStackPanelBaseView.m in Sources */,
 				8318A5481C89205700F3E9CD /* TauYouTubeEntryLayer.m in Sources */,
@@ -1458,6 +1467,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83B175041C9A7ADF00F6578B /* NSColor+TauDrawing.m in Sources */,
 				838342FE1C98409F00BE6378 /* TauYouTubePlaylistsCollection.m in Sources */,
 				83B174A21C990F0E00F6578B /* TestsCentralDataServiceMachanism.m in Sources */,
 				83765AF51C8811DE00D93554 /* TestsYouTubeModelClasses.m in Sources */,
@@ -1466,6 +1476,8 @@
 				838342FD1C98409C00BE6378 /* TauYouTubeChannelsCollection.m in Sources */,
 				83B174A51C996B8500F6578B /* TauTestCase.m in Sources */,
 				83B1749C1C990B7100F6578B /* TauYTDataService.m in Sources */,
+				83B175001C9A765200F6578B /* TauAbstractLogFormatter.m in Sources */,
+				83B174FF1C9A75ED00F6578B /* TauTTYLogFormatter.m in Sources */,
 				83B1749D1C990BCA00F6578B /* TauYTDataServiceConsumerDataUnit.m in Sources */,
 				838342EE1C96E9AB00BE6378 /* GTLYouTube_Sources.m in Sources */,
 				838342FF1C9840A200BE6378 /* TauYouTubePlaylistItemsCollection.m in Sources */,

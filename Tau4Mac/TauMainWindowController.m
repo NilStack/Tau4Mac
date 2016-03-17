@@ -341,6 +341,13 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
 // Logging
 - ( void ) configureLogging_
     {
+    // Configuring TTY Logger
+    DDTTYLogger* sharedTTYLogger = [ DDTTYLogger sharedInstance ];
+    DDASLLogger* sharedASLLogger = [ DDASLLogger sharedInstance ];
+
+    [ sharedTTYLogger setLogFormatter: [ [ TauTTYLogFormatter alloc ] init ] ];
+    [ sharedASLLogger setLogFormatter: [ [ TauTTYLogFormatter alloc ] init ] ];
+
     // Light Red
     NSColor* recoverableErrOutputColor = [ NSColor colorWithRed: 248 / 255.f green: 98 / 255.0 blue: 98 / 255.0 alpha: 1.f ];
 
@@ -353,13 +360,6 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
     // Light Orange
     NSColor* warningOutputColor = [ NSColor colorWithRed: 246 / 255.f green: 174 / 255.0 blue: 55 / 255.0 alpha: 1.f ];
     NSColor* verboseOutputColor = [ NSColor lightGrayColor ];
-
-    // Configuring TTY Logger
-    DDTTYLogger* sharedTTYLogger = [ DDTTYLogger sharedInstance ];
-    DDASLLogger* sharedASLLogger = [ DDASLLogger sharedInstance ];
-
-    [ sharedTTYLogger setLogFormatter: [ [ TauTTYLogFormatter alloc ] init ] ];
-    [ sharedASLLogger setLogFormatter: [ [ TauTTYLogFormatter alloc ] init ] ];
 
     [ sharedTTYLogger setColorsEnabled: YES ];
     [ sharedTTYLogger setForegroundColor: recoverableErrOutputColor backgroundColor: nil forFlag: DDLogFlagRecoverable ];

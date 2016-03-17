@@ -7,6 +7,8 @@
 //
 
 #import "TauTestCase.h"
+#import "TauTTYLogFormatter.h"
+#import "NSColor+TauDrawing.h"
 
 // TauTestCase class
 @implementation TauTestCase
@@ -17,7 +19,34 @@
     {
     [ super setUp ];
 
-    [ DDLog addLogger: [ DDTTYLogger sharedInstance ] ];
+    DDTTYLogger* sharedTTYLogger = [ DDTTYLogger sharedInstance ];
+
+    // Light Red
+    NSColor* fatalErrOutputColor = [ NSColor colorWithHTMLColor: @"cc0066" ];
+    NSColor* recoverableErrOutputColor = [ NSColor colorWithHTMLColor: @"FE6262" ];
+
+    // Light Blue
+    NSColor* infoOutputColor = [ NSColor colorWithHTMLColor: @"D5FBFF" ];
+
+    // Light Orange
+    NSColor* warningOutputColor = [ NSColor colorWithHTMLColor: @"FEFEA4" ];
+    NSColor* verboseOutputColor = [ NSColor colorWithHTMLColor: @"CACBCE" ];
+
+    [ sharedTTYLogger setColorsEnabled: YES ];
+    [ sharedTTYLogger setForegroundColor: fatalErrOutputColor backgroundColor: [ NSColor whiteColor ] forFlag: DDLogFlagFatal ];
+    [ sharedTTYLogger setForegroundColor: recoverableErrOutputColor backgroundColor: nil forFlag: DDLogFlagRecoverable ];
+
+    [ sharedTTYLogger setForegroundColor: infoOutputColor backgroundColor: nil forFlag: DDLogFlagInfo ];
+    [ sharedTTYLogger setForegroundColor: infoOutputColor backgroundColor: nil forFlag: DDLogFlagDebug ];
+
+    [ sharedTTYLogger setForegroundColor: warningOutputColor backgroundColor: nil forFlag: DDLogFlagWarning ];
+    [ sharedTTYLogger setForegroundColor: warningOutputColor backgroundColor: nil forFlag: DDLogFlagNotice ];
+    [ sharedTTYLogger setForegroundColor: warningOutputColor backgroundColor: nil forFlag: DDLogFlagUnexpected ];
+
+    [ sharedTTYLogger setForegroundColor: verboseOutputColor backgroundColor: nil forFlag: DDLogFlagVerbose ];
+
+    [ sharedTTYLogger setLogFormatter: [ [ TauTTYLogFormatter alloc ] init ] ];
+    [ DDLog addLogger: sharedTTYLogger ];
     }
 
 #pragma mark - Testing

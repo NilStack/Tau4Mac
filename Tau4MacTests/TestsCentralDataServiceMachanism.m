@@ -129,12 +129,6 @@
     playlistsConsCredential_ = [ sharedDataService_ registerConsumer: self withMethodSignature: sig consumptionType: TauYTDataServiceConsumptionPlaylistsType ];
     playlistItemsConsCredential_ = [ sharedDataService_ registerConsumer: self withMethodSignature: sig consumptionType: TauYTDataServiceConsumptionPlaylistItemsType ];
 
-//    XCTAssertNotNil( searchResultsConsCredential_ );
-//    XCTAssertNotNil( searchResultsConsCredential_.identifier );
-//    XCTAssertNotNil( searchResultsConsCredential_.applyingMethodSignature );
-//    XCTAssertNotEqual( searchResultsConsCredential_.consumptionType, 0 );
-//    XCTAssertNotEqual( searchResultsConsCredential_.consumerFingerprint, 0 );
-
     // Search Results
     posSearchResultsInitialOperations_ =
         @[ @{ TauYTDataServiceDataActionMaxResultsPerPage : @10
@@ -290,7 +284,7 @@
         {
         recursionCount++;
 
-        DDLogInfo( @"{prevPageToken:%@} {nextPageToken:%@}\n%@", _PrevPageToken, _NextPageToken, searchResults_ );
+        DDLogVerbose( @"{prevPageToken:%@} {nextPageToken:%@}\n%@", _PrevPageToken, _NextPageToken, searchResults_ );
 
         // Paging Down
         if ( _NextPageToken && recursionCount < ( PAGE_LOOP / 2 ) )
@@ -351,7 +345,10 @@
         [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
         ^( NSError* _Nullable _Error )
             {
-            DDLogFatal( @"%@", _Error );
+            if ( _Error )
+                DDLogFatal( @"%@", _Error );
+            else
+                DDLogInfo( @"Finished expectation {expec}" );
             } ];
         }
     }
@@ -368,7 +365,10 @@
         [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
         ^( NSError* _Nullable _Error )
             {
-            DDLogFatal( @"%@", _Error );
+            if ( _Error )
+                DDLogFatal( @"%@", _Error );
+            else
+                DDLogInfo( @"Finished expectation {expec}" );
             } ];
         }
     }
@@ -385,7 +385,10 @@
         [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
         ^( NSError* _Nullable _Error )
             {
-            DDLogFatal( @"%@", _Error );
+            if ( _Error )
+                DDLogFatal( @"%@", _Error );
+            else
+                DDLogInfo( @"Finished expectation {expec}" );
             } ];
         }
     }
@@ -402,7 +405,10 @@
         [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
         ^( NSError* _Nullable _Error )
             {
-            DDLogFatal( @"%@", _Error );
+            if ( _Error )
+                DDLogFatal( @"%@", _Error );
+            else
+                DDLogInfo( @"Finished expectation {expec}" );
             } ];
         }
     }
@@ -423,7 +429,10 @@
         [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
         ^( NSError* _Nullable _Error )
             {
-            DDLogFatal( @"%@", _Error );
+            if ( _Error )
+                DDLogFatal( @"%@", _Error );
+            else
+                DDLogInfo( @"Finished expectation {expec}" );
             } ];
         }
 
@@ -443,7 +452,10 @@
         [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
         ^( NSError* _Nullable _Error )
             {
-            DDLogFatal( @"%@", _Error );
+            if ( _Error )
+                DDLogFatal( @"%@", _Error );
+            else
+                DDLogInfo( @"Finished expectation {expec}" );
             } ];
         }
     }
@@ -460,7 +472,10 @@
         [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
         ^( NSError* _Nullable _Error )
             {
-            DDLogFatal( @"%@", _Error );
+            if ( _Error )
+                DDLogFatal( @"%@", _Error );
+            else
+                DDLogInfo( @"Finished expectation {expec}" );
             } ];
         }
     }
@@ -477,7 +492,10 @@
         [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
         ^( NSError* _Nullable _Error )
             {
-            DDLogFatal( @"%@", _Error );
+            if ( _Error )
+                DDLogFatal( @"%@", _Error );
+            else
+                DDLogInfo( @"Finished expectation {expec}" );
             } ];
         }
     }
@@ -494,7 +512,10 @@
         [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
         ^( NSError* _Nullable _Error )
             {
-            DDLogFatal( @"%@", _Error );
+            if ( _Error )
+                DDLogFatal( @"%@", _Error );
+            else
+                DDLogInfo( @"Finished expectation {expec}" );
             } ];
         }
     }

@@ -324,6 +324,8 @@ static const NSString* kYTGenModelCollectionKVOPaths[] =
             {
             if ( _Error )
                 DDLogFatal( @"%@", _Error );
+            else
+                DDLogInfo( @"Finished expectation {expec}" );
             } ];
         }
     }
