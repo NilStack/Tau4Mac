@@ -9,12 +9,6 @@
 #import "TauYouTubeEntryView.h"
 #import "OAuthSigningConstants.h"
 #import "TauYouTubeEntryLayer.h"
-#import "TauYouTubePlaylistSummaryView.h"
-#import "TauYouTubeChannelBadge.h"
-#import "TauPlayerStackPanelBaseViewController.h"
-#import "TauEntryMosEnteredInteractionView.h"
-#import "TauEntryMosExitedInteractionView.h"
-#import "TauMosEnteredInteractionButton.h"
 
 #import "NSImage+Tau.h"
 
@@ -22,26 +16,6 @@
 
 // Private Interfaces
 @interface TauYouTubeEntryView ()
-
-@property ( assign, readwrite, setter = setProgressIndicatorHidden_: ) BOOL isProgressIndicatorHidden_;
-
-@property ( assign, readwrite, setter = setMosEnteredInteractionViewHidden_: ) BOOL isMosEnteredInteractionViewHidden_;
-@property ( assign, readwrite, setter = setMosExitedInteractionViewHidden_: ) BOOL isMosExitedInteractionViewHidden_;
-
-@property ( strong, readonly ) NSProgressIndicator* progressIndicator_;
-
-// Mouse Entered
-@property ( strong, readonly ) TauEntryMosEnteredInteractionView* mosEnteredInteractionView_;
-@property ( strong, readonly ) NSMutableArray <NSLayoutConstraint*>* mosEnteredLayoutConstraintsCache_;
-
-// Mouse Exited
-@property ( strong, readonly ) TauEntryMosExitedInteractionView* mosExitedInteractionView_;
-@property ( strong, readonly ) NSMutableArray <NSLayoutConstraint*>* mosExitedLayoutConstraintsCache_;
-
-- ( void ) cleanUp_;
-
-// Actions
-- ( void ) forwardActionOfInteractionButton_: ( id )_Sender;
 
 @end // Private Interfaces
 
@@ -51,16 +25,6 @@
 @protected
     NSImage __strong* thumbnailImage_;
     GTLObject __strong* ytContent_;
-
-    NSProgressIndicator __strong* priProgressIndicator_;
-
-    // Mouse Entered
-    TauEntryMosEnteredInteractionView __strong*     priMosEnteredInteractionView_;
-    NSMutableArray <NSLayoutConstraint*> __strong*  priMosEnteredLayoutConstraintsCache_;
-
-    // Mouse Exited
-    TauEntryMosExitedInteractionView __strong*      priMosExitedInteractionView_;
-    NSMutableArray <NSLayoutConstraint*>__strong*   priMosExitedLayoutConstraintsCache_;
     }
 
 #pragma mark - Initializations
@@ -154,170 +118,6 @@
     return type;
     }
 
-#pragma mark - Events
-
-- ( void ) mouseEntered: ( NSEvent* )_Event
-    {
-    if ( thumbnailImage_ )
-        {
-        self.isMosExitedInteractionViewHidden_ = YES;
-        self.isMosEnteredInteractionViewHidden_ = NO;
-        }
-    }
-
-- ( void ) mouseExited: ( NSEvent* )_Event
-    {
-    if ( thumbnailImage_ )
-        {
-        self.isMosExitedInteractionViewHidden_ = NO;
-        self.isMosEnteredInteractionViewHidden_ = YES;
-        }
-    }
-
-#pragma mark - Private Interfaces
-
-@dynamic progressIndicator_;
-
-@dynamic isProgressIndicatorHidden_;
-@dynamic isMosEnteredInteractionViewHidden_;
-@dynamic isMosExitedInteractionViewHidden_;
-
-- ( NSProgressIndicator* ) progressIndicator_
-    {
-    if ( !priProgressIndicator_ )
-        {
-        priProgressIndicator_ = [ [ NSProgressIndicator alloc ] initWithFrame: NSZeroRect ];
-        priProgressIndicator_.style = NSProgressIndicatorBarStyle;
-
-        [ self addSubview: [ priProgressIndicator_ configureForAutoLayout ] ];
-        [ priProgressIndicator_ autoSetDimensionsToSize: NSMakeSize( 60.f, 20.f ) ];
-        [ priProgressIndicator_ autoAlignAxisToSuperviewAxis: ALAxisHorizontal ];
-        [ priProgressIndicator_ autoAlignAxisToSuperviewAxis: ALAxisVertical ];
-
-        self.isProgressIndicatorHidden_ = YES;
-        }
-
-    return priProgressIndicator_;
-    }
-
-- ( void ) setProgressIndicatorHidden_: ( BOOL )_Flag
-    {
-    [ self.progressIndicator_ setHidden: _Flag ];
-TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_BEGIN
-    [ self.progressIndicator_ performSelector: _Flag ? @selector( stopAnimation: ) : @selector( startAnimation: ) withObject: self ];
-TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT
-    }
-
-- ( BOOL ) isProgressIndicator_
-    {
-    return self.progressIndicator_.isHidden;
-    }
-
-- ( void ) setMosEnteredInteractionViewHidden_: ( BOOL )_Flag
-    {
-    [ self.mosEnteredInteractionView_ setHidden: _Flag ];
-
-    _Flag ? [ NSLayoutConstraint deactivateConstraints: self.mosEnteredLayoutConstraintsCache_ ]
-          : [ NSLayoutConstraint activateConstraints: self.mosEnteredLayoutConstraintsCache_ ];
-    }
-
-- ( BOOL ) isMosEnteredInteractionViewHidden_
-    {
-    return self.mosEnteredInteractionView_.hidden;
-    }
-
-- ( void ) setMosExitedInteractionViewHidden_: ( BOOL )_Flag
-    {
-    [ self.mosExitedInteractionView_ setHidden: _Flag ];
-
-    _Flag ? [ NSLayoutConstraint deactivateConstraints: self.mosExitedLayoutConstraintsCache_ ]
-          : [ NSLayoutConstraint activateConstraints: self.mosExitedLayoutConstraintsCache_ ];
-    }
-
-- ( BOOL ) isMosExitedInteractionViewHidden_
-    {
-    return self.mosExitedInteractionView_.hidden;
-    }
-
-// Mouse Entered
-@dynamic mosEnteredInteractionView_;
-@dynamic mosEnteredLayoutConstraintsCache_;
-
-- ( TauEntryMosEnteredInteractionView* ) mosEnteredInteractionView_
-    {
-    if ( !priMosEnteredInteractionView_ )
-        {
-        priMosEnteredInteractionView_ = [ [ TauEntryMosEnteredInteractionView alloc ] initWithGTLObject: ytContent_ host: self ];
-
-        [ self addSubview: priMosEnteredInteractionView_ ];
-
-        [ self.mosEnteredLayoutConstraintsCache_ removeAllObjects ];
-        [ self.mosEnteredLayoutConstraintsCache_ addObjectsFromArray: [ priMosEnteredInteractionView_ autoPinEdgesToSuperviewEdges ] ];
-
-        [ priMosEnteredInteractionView_ setHidden: YES ];
-        [ NSLayoutConstraint deactivateConstraints: self.mosEnteredLayoutConstraintsCache_ ];
-        }
-
-    priMosEnteredInteractionView_.interactionButton.action = @selector( forwardActionOfInteractionButton_: );
-    priMosEnteredInteractionView_.interactionButton.target = self;
-
-    return priMosEnteredInteractionView_;
-    }
-
-- ( NSMutableArray <NSLayoutConstraint*>* ) mosEnteredLayoutConstraintsCache_
-    {
-    if ( !priMosEnteredLayoutConstraintsCache_ )
-        priMosEnteredLayoutConstraintsCache_ = [ NSMutableArray array ];
-
-    return priMosEnteredLayoutConstraintsCache_;
-    }
-
-// Mouse Exited
-@dynamic mosExitedInteractionView_;
-@dynamic mosExitedLayoutConstraintsCache_;
-
-- ( TauEntryMosExitedInteractionView* ) mosExitedInteractionView_
-    {
-    if ( !priMosExitedInteractionView_ )
-        {
-        priMosExitedInteractionView_ = [ [ TauEntryMosExitedInteractionView alloc ] initWithGTLObject: ytContent_ host: self thumbnail: thumbnailImage_ ];
-
-        [ self addSubview: priMosExitedInteractionView_ ];
-
-        [ self.mosExitedLayoutConstraintsCache_ removeAllObjects ];
-        [ self.mosExitedLayoutConstraintsCache_ addObjectsFromArray: [ priMosExitedInteractionView_ autoPinEdgesToSuperviewEdges ] ];
-
-        [ priMosExitedInteractionView_ setHidden: YES ];
-        [ NSLayoutConstraint deactivateConstraints: self.mosExitedLayoutConstraintsCache_ ];
-        }
-
-    return priMosExitedInteractionView_;
-    }
-
-- ( NSMutableArray <NSLayoutConstraint*>* ) mosExitedLayoutConstraintsCache_
-    {
-    if ( !priMosExitedLayoutConstraintsCache_ )
-        priMosExitedLayoutConstraintsCache_ = [ NSMutableArray array ];
-
-    return priMosExitedLayoutConstraintsCache_;
-    }
-
-- ( void ) cleanUp_
-    {
-    priMosEnteredInteractionView_.ytContent = nil;
-    priMosExitedInteractionView_.ytContent = nil;
-
-    thumbnailImage_ = nil;
-    [ self.layer setNeedsDisplay ];
-    }
-
-// Actions
-- ( void ) forwardActionOfInteractionButton_: ( id )_Sender
-    {
-    if ( self.action )
-        [ self.target performSelectorOnMainThread: self.action withObject: self waitUntilDone: NO ];
-    }
-
 @end // TauYouTubeEntryView class
 
 // TauYouTubeEntryView + PriTauYouTubeContentView_
@@ -355,7 +155,7 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
 
         if ( !ytContent_ )
             {
-            [ self cleanUp_ ];
+//            [ self cleanUp_ ];
             return;
             }
 
@@ -433,7 +233,6 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
                                 , kPreferredThumbKey : preferredThumb
                                 } ];
 
-        self.isProgressIndicatorHidden_ = NO;
         [ fetcher beginFetchWithCompletionHandler:
         ^( NSData* _Nullable _Data, NSError* _Nullable _Error )
             {
@@ -441,7 +240,6 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
                 {
                 DDLogDebug( @"Finished fetching thumbnail %@", fetchID );
                 thumbnailImage_ = [ [ NSImage alloc ] initWithData: _Data ];
-                [ self.mosExitedInteractionView_ setThumbnail: thumbnailImage_ ];
                 [ self updateUI_ ];
                 }
             else
@@ -467,8 +265,6 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
                                 } ];
                         }
                     }
-
-                self.isProgressIndicatorHidden_ = YES;
                 }
             } ];
         }
@@ -478,14 +274,6 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
     {
     [ self.layer setContents: nil ];
     [ self.layer setNeedsDisplay ];
-
-    self.isMosExitedInteractionViewHidden_ = NO;
-    self.isMosEnteredInteractionViewHidden_ = YES;
-
-    [ self.mosEnteredInteractionView_ setYtContent: ytContent_ ];
-    [ self.mosExitedInteractionView_ setYtContent: ytContent_ ];
-
-    self.isProgressIndicatorHidden_ = YES;
     }
 
 @end // TauYouTubeEntryView + PriTauYouTubeContentView_

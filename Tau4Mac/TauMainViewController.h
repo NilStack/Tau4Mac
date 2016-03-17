@@ -9,6 +9,4 @@
 // TauMainViewController class
 @interface TauMainViewController : NSViewController
 
-- ( void ) cleanUp;
-
 @end // TauMainViewController class

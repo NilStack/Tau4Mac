@@ -8,7 +8,6 @@
 
 #import "TauMainWindowController.h"
 #import "TauYouTubeEntryView.h"
-#import "TauUserProfileViewController.h"
 #import "TauMainViewController.h"
 
 #import "GTL/GTMOAuth2WindowController.h"
@@ -21,8 +20,6 @@
 @property ( strong, readonly ) GTMOAuth2WindowController* authWindow_;
 
 @property ( strong, readonly ) NSSegmentedControl* segSwitcher_;
-@property ( strong, readonly ) NSButton* userProfilePopUpButton_;
-@property ( strong, readonly ) NSPopover* userProfilePopover_;;
 
 // Signning In
 - ( void ) runSignInThenHandler_: ( void (^)( void ) )_Handler;
@@ -32,6 +29,8 @@
 NSString* const TauShouldSwitch2SearchSegmentNotif = @"Should.Switch2SearchSegment.Notif";
 NSString* const TauShouldSwitch2MeTubeSegmentNotif = @"Should.Switch2MeTubeSegment.Notif";
 NSString* const TauShouldSwitch2PlayerSegmentNotif = @"Should.Switch2PlayerSegment.Notif";
+
+NSString* const TauShouldPlayVideoNotif = @"Should.PlayVideo.Notif";
 
 NSString* const kRequester = @"kRequester";
 
@@ -66,9 +65,9 @@ NSString* const kRequester = @"kRequester";
     kvoController_ = [ [ FBKVOController alloc ] initWithObserver: self.contentViewController ];
 
 TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_BEGIN
-    [ kvoController_ observe: self.segSwitcher_ keyPath: @"cell.selectedSegment"
-                     options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
-                      action: @selector( selectedSegmentDidChange:observing: ) ];
+//    [ kvoController_ observe: self.segSwitcher_ keyPath: @"cell.selectedSegment"
+//                     options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+//                      action: @selector( selectedSegmentDidChange:observing: ) ];
 TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 
     [ self.segSwitcher_ selectSegmentWithTag: TauPanelsSwitcherSearchTag ];
@@ -149,9 +148,6 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
     if ( ( should = [ _ItemIdentifier isEqualToString: kPanelsSwitcher ] ) )
         content = self.segSwitcher_;
 
-    else if ( ( should = [ _ItemIdentifier isEqualToString: kUserProfileButton ] ) )
-        content = self.userProfilePopUpButton_;
-
     if ( should )
         {
         toolbarItem = [ self _toolbarWithIdentifier: identifier
@@ -208,8 +204,6 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
 @dynamic authWindow_;
 
 @dynamic segSwitcher_;
-@dynamic userProfilePopUpButton_;
-@dynamic userProfilePopover_;
 
 - ( GTMOAuth2WindowController* ) authWindow_
     {
@@ -275,44 +269,6 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
     return priSegSwitcher_;
     }
 
-- ( NSButton* ) userProfilePopUpButton_
-    {
-    if ( !priUserProfilePopUpButton_ )
-        {
-        priUserProfilePopUpButton_ = [ [ NSButton alloc ] initWithFrame: NSMakeRect( 0, 0, 40.f, 22.f ) ];
-
-        priUserProfilePopUpButton_.bezelStyle = NSTexturedRoundedBezelStyle;
-        NSImage* image = [ NSImage imageNamed: @"tau-user-profile" ];
-        image.size = NSMakeSize( 18.f, 18.f );
-        priUserProfilePopUpButton_.image = image;
-        priUserProfilePopUpButton_.imagePosition = NSImageOnly;
-        priUserProfilePopUpButton_.action = @selector( pullDownContextMenuAction_: );
-        priUserProfilePopUpButton_.target = self;
-        }
-
-    return priUserProfilePopUpButton_;
-    }
-
-- ( NSPopover* ) userProfilePopover_
-    {
-    if ( !priUserProfilePopover_ )
-        {
-        priUserProfilePopover_ = [ [ NSPopover alloc ] init ];
-        priUserProfilePopover_.animates = YES;
-        priUserProfilePopover_.behavior = NSPopoverBehaviorTransient;
-
-        TauUserProfileViewController* userProfileViewController = [ [ TauUserProfileViewController alloc ] initWithNibName: nil bundle: nil ];
-        [ userProfileViewController setAuthorizer: [ TauDataService sharedService ].ytService.authorizer ];
-        priUserProfilePopover_.contentViewController = userProfileViewController;
-        }
-
-    return priUserProfilePopover_;
-    }
-
-- ( IBAction ) pullDownContextMenuAction_: ( id )_Sender;
-    {
-    [ self.userProfilePopover_ showRelativeToRect: NSZeroRect ofView: _Sender preferredEdge: NSRectEdgeMaxY ];
-    }
 
 // Signning in
 - ( void ) runSignInThenHandler_: ( void (^)( void ) )_Handler
@@ -336,8 +292,6 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
 // Signing Out
 - ( void ) signOutAction: ( id )_Sender
     {
-    [ ( ( TauMainViewController* )self.contentViewController ) cleanUp ];
-
     [ TauDataService sharedService ].ytService.authorizer = nil;
     [ GTMOAuth2WindowController removeAuthFromKeychainForName: TauKeychainItemName ];
     [ self runSignInThenHandler_: nil ];
