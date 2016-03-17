@@ -61,14 +61,13 @@
     {
     switch ( self.type )
         {
-        case TauYouTubeVideoView:
-        case TauYouTubePlayListView:
-        case TauYouTubePlayListItemView:
+        case TauYouTubeVideo:
+        case TauYouTubePlayList:
             {
             self.layer.contents = thumbnailImage_;
             } break;
 
-        case TauYouTubeChannelView:
+        case TauYouTubeChannel:
             {
             self.layer.contents = [ thumbnailImage_ gaussianBluredOfRadius: 10.f ];
             } break;
@@ -93,27 +92,27 @@
     return ytContent_;
     }
 
-- ( TauYouTubeContentViewType ) type
+- ( TauYouTubeContentType ) type
     {
-    TauYouTubeContentViewType type = TauYouTubeUnknownView;
+    TauYouTubeContentType type = TauYouTubeUnknownContent;
 
     if ( [ ytContent_ isKindOfClass: [ GTLYouTubeVideo class ] ]
             || ( [ ytContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ]
                     && [ [ ( GTLYouTubeSearchResult* )ytContent_ identifier ].kind isEqualToString: @"youtube#video" ] ) )
-        type = TauYouTubeVideoView;
+        type = TauYouTubeVideo;
 
     else if ( [ ytContent_ isKindOfClass: [ GTLYouTubeChannel class ] ]
             || ( [ ytContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ]
                     && [ [ ( GTLYouTubeSearchResult* )ytContent_ identifier ].kind isEqualToString: @"youtube#channel" ] ) )
-        type = TauYouTubeChannelView;
+        type = TauYouTubeChannel;
 
     else if ( [ ytContent_ isKindOfClass: [ GTLYouTubePlaylist class ] ]
             || ( [ ytContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ]
                     && [ [ ( GTLYouTubeSearchResult* )ytContent_ identifier ].kind isEqualToString: @"youtube#playlist" ] ) )
-        type = TauYouTubePlayListView;
+        type = TauYouTubePlayList;
 
-    else if ( [ ytContent_ isKindOfClass: [ GTLYouTubePlaylistItem class ] ] )
-        type = TauYouTubePlayListItemView;
+//    else if ( [ ytContent_ isKindOfClass: [ GTLYouTubePlaylistItem class ] ] )
+//        type = TauYouTubePlayListItemView;
 
     return type;
     }

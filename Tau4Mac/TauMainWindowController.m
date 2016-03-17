@@ -70,7 +70,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_BEGIN
                       action: @selector( selectedSegmentDidChange:observing: /* This selector was declared and implemented in TauMainWindowController class */ ) ];
 TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 
-    [ self.segSwitcher_ selectSegmentWithTag: TauPanelsSwitcherSearchTag ];
+    [ self.segSwitcher_ selectSegmentWithTag: TauSearchContentViewTag ];
 
     [ [ NSNotificationCenter defaultCenter ]
         addObserver: self selector: @selector( shouldSwitch2PlayerSegment_: ) name: TauShouldSwitch2PlayerSegmentNotif object: nil ];
@@ -78,7 +78,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 
 - ( void ) shouldSwitch2PlayerSegment_: ( NSNotification* )_Notif
     {
-    [ self.segSwitcher_ selectSegmentWithTag: TauPanelsSwitcherPlayerTag ];
+    [ self.segSwitcher_ selectSegmentWithTag: TauPlayerContentViewTag ];
 
     TauYouTubeEntryView* requester = _Notif.userInfo[ kRequester ];
 
@@ -232,11 +232,11 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
         for ( int _Index = 0; _Index < segmentCount; _Index++ )
             {
             [ priSegSwitcher_ setWidth: segmentFixedWidth forSegment: _Index ];
-            [ priSegSwitcher_.cell setTag: ( TauSwitcherSegmentTag )_Index forSegment: _Index ];
+            [ priSegSwitcher_.cell setTag: ( TauContentViewTag )_Index forSegment: _Index ];
 
             switch ( [ priSegSwitcher_.cell tagForSegment: _Index ] )
                 {
-                case TauPanelsSwitcherSearchTag:
+                case TauSearchContentViewTag:
                     {
                     NSImage* image = [ NSImage imageNamed: @"tau-search-dark" ];
                     [ image setTemplate: YES ];
@@ -245,7 +245,7 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
                     [ priSegSwitcher_.cell setToolTip: NSLocalizedString( @"Search", nil ) forSegment: _Index ];
                     } break;
 
-                case TauPanelsSwitcherExploreTag:
+                case TauExploreContentViewTag:
                     {
                     NSImage* image = [ NSImage imageNamed: @"tau-explore-dark" ];
                     [ image setTemplate: YES ];
@@ -254,7 +254,7 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
                     [ priSegSwitcher_.cell setToolTip: NSLocalizedString( @"Search", nil ) forSegment: _Index ];
                     } break;
 
-                case TauPanelsSwitcherPlayerTag:
+                case TauPlayerContentViewTag:
                     {
                     NSImage* image = [ NSImage imageNamed: @"tau-player-dark" ];
                     [ image setTemplate: YES ];

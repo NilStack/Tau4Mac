@@ -33,26 +33,27 @@ NSString extern* const TauUploadAuthScope;
 /** Retrieve the auditDetails part in a channel resource. */
 NSString extern* const TauPartnerChannelAuditAuthScope;
 
-typedef NS_ENUM ( NSInteger, TauSwitcherSegmentTag )
-    { TauPanelsSwitcherSearchTag = 0
-    , TauPanelsSwitcherExploreTag = 1
-    , TauPanelsSwitcherPlayerTag = 2
+typedef NS_ENUM ( NSInteger, TauContentViewTag )
+    { TauSearchContentViewTag  = 0
+    , TauExploreContentViewTag = 1
+    , TauPlayerContentViewTag  = 2
+
+    , TauUnknownContentViewTag = -1
     };
 
-typedef NS_ENUM ( NSInteger, TauMeTubeSubPanelSwitcherSegmentTag )
-    { TauMeTubeSubPanelSwitcherLikesTag      = 0
-    , TauMeTubeSubPanelSwitcherUploadsTag    = 1
-    , TauMeTubeSubPanelSwitcherHistoryTag    = 2
-    , TauMeTubeSubPanelSwitcherWatchLaterTag = 3
+typedef NS_ENUM ( NSInteger, TauExploreSubContentViewTag )
+    { TauExploreLikesSubContentViewTag      = 0
+    , TauExploreUploadsSubContentViewTag    = 1
+    , TauExploreHistorySubContentViewTag    = 2
+    , TauExploreWatchLaterSubContentViewTag = 3
     };
 
-typedef NS_ENUM ( NSUInteger, TauYouTubeContentViewType )
-    { TauYouTubeVideoView           = 1
-    , TauYouTubeChannelView         = 2
-    , TauYouTubePlayListView        = 3
-    , TauYouTubePlayListItemView    = 4
+typedef NS_ENUM ( NSUInteger, TauYouTubeContentType )
+    { TauYouTubeVideo           = 1
+    , TauYouTubeChannel         = 2
+    , TauYouTubePlayList        = 3
 
-    , TauYouTubeUnknownView         = 0
+    , TauYouTubeUnknownContent         = 0
     };
 
 typedef NS_ENUM ( NSUInteger, TauYTDataServiceConsumptionType )
@@ -63,7 +64,7 @@ typedef NS_ENUM ( NSUInteger, TauYTDataServiceConsumptionType )
     };
 
 #define TAU_APP_MIN_WIDTH  500.f
-#define TAU_APP_MIN_HEIGHT 200.f
+#define TAU_APP_MIN_HEIGHT ( TAU_APP_MIN_WIDTH * ( 9.f / 16.f ) )
 
 #define TAU_PAGEER_PREV 0
 #define TAU_PAGEER_NEXT 1

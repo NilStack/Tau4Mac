@@ -16,7 +16,7 @@
 @interface TauMainContentViewController ()
 
 @property ( strong, readonly ) FBKVOController* kvoController_;
-@property ( assign, readwrite ) TauSwitcherSegmentTag activedSegment_;
+@property ( assign, readwrite ) TauContentViewTag activedSegment_;
 
 @end // Private
 
@@ -109,9 +109,15 @@
     {
     switch ( activedSegment_ )
         {
-        case TauPanelsSwitcherSearchTag:  return self.searchContentViewController;
-        case TauPanelsSwitcherExploreTag: return self.exploreContentViewController;
-        case TauPanelsSwitcherPlayerTag:  return self.playerContentViewController;
+        case TauSearchContentViewTag:  return self.searchContentViewController;
+        case TauExploreContentViewTag: return self.exploreContentViewController;
+        case TauPlayerContentViewTag:  return self.playerContentViewController;
+
+        case TauUnknownContentViewTag:
+            {
+            DDLogUnexpected( @"Encountered unknown content view tag" );
+            return nil;
+            }
         }
     }
 
@@ -123,7 +129,7 @@
     return NO;
     }
 
-- ( void ) setActivedSegment_: ( TauSwitcherSegmentTag )_New
+- ( void ) setActivedSegment_: ( TauContentViewTag )_New
     {
     if ( activedSegment_ != _New )
         {
@@ -133,7 +139,7 @@
         }
     }
 
-- ( TauSwitcherSegmentTag ) activedSegment_
+- ( TauContentViewTag ) activedSegment_
     {
     return activedSegment_;
     }

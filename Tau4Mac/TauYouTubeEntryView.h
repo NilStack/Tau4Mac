@@ -17,6 +17,6 @@
 #pragma mark - Properties
 
 @property ( strong, readwrite ) GTLObject* ytContent;
-@property ( assign, readonly ) TauYouTubeContentViewType type;
+@property ( assign, readonly ) TauYouTubeContentType type;
 
 @end // TauYouTubeEntryView class
