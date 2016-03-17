@@ -28,7 +28,11 @@ static void sConfigureLogging()
 
         [ sharedTTYLogger setColorsEnabled: YES ];
         [ sharedTTYLogger setForegroundColor: fatalColor backgroundColor: [ NSColor whiteColor ] forFlag: DDLogFlagFatal ];
+
         [ sharedTTYLogger setForegroundColor: recoverableErrColor backgroundColor: nil forFlag: DDLogFlagRecoverable ];
+        [ sharedTTYLogger setForegroundColor: recoverableErrColor backgroundColor: nil forFlag: DDLogFlagLocalError ];
+        [ sharedTTYLogger setForegroundColor: recoverableErrColor backgroundColor: nil forFlag: DDLogFlagNetworkError ];
+        [ sharedTTYLogger setForegroundColor: recoverableErrColor backgroundColor: nil forFlag: DDLogFlagUserError ];
 
         [ sharedTTYLogger setForegroundColor: warningColor backgroundColor: nil forFlag: DDLogFlagWarning ];
         [ sharedTTYLogger setForegroundColor: warningColor backgroundColor: nil forFlag: DDLogFlagNotice ];
