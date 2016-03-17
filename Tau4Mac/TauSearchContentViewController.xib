@@ -16,15 +16,25 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <searchField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SbD-cY-M05">
-                    <rect key="frame" x="20" y="230" width="440" height="22"/>
-                    <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="mhT-0e-7P8">
+                <searchField wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SbD-cY-M05">
+                    <rect key="frame" x="96" y="230" width="289" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="LFn-oo-l0h"/>
+                        <constraint firstAttribute="height" constant="22" id="V4C-LI-wbU"/>
+                    </constraints>
+                    <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" sendsWholeSearchString="YES" id="mhT-0e-7P8">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </searchFieldCell>
                 </searchField>
             </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="SbD-cY-M05" secondAttribute="trailing" constant="95" id="Dja-vu-k4X"/>
+                <constraint firstItem="SbD-cY-M05" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="96" id="kkd-ja-ZtB"/>
+                <constraint firstItem="SbD-cY-M05" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="pyS-Vf-Dr5"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="SbD-cY-M05" secondAttribute="bottom" id="xch-P8-6B4"/>
+            </constraints>
         </customView>
     </objects>
 </document>
