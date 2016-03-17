@@ -10,6 +10,8 @@
 
 @protocol TauYTDataServiceConsumer;
 
+NSString extern* const TauYTDataServiceDataActionPartFilter;
+NSString extern* const TauYTDataServiceDataActionFieldsFilter;
 NSString extern* const TauYTDataServiceDataActionMaxResultsPerPage;
 NSString extern* const TauYTDataServiceDataActionPageToken;
 
@@ -19,6 +21,7 @@ NSString extern* const TauYTDataServiceDataActionRequirements;
     NSString extern* const TauYTDataServiceDataActionRequirementChannelID;
     NSString extern* const TauYTDataServiceDataActionRequirementPlaylistID;
     NSString extern* const TauYTDataServiceDataActionRequirementMine;
+    NSString extern* const TauYTDataServiceDataActionRequirementType;
 
 // TauYTDataService class
 @interface TauYTDataService : NSObject

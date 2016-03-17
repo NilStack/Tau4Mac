@@ -94,15 +94,18 @@
         @[ @{ TauYTDataServiceDataActionMaxResultsPerPage : @10
             , TauYTDataServiceDataActionRequirements :
                 @{ TauYTDataServiceDataActionRequirementQ : @"Evernote" }
+            , TauYTDataServiceDataActionPartFilter : @"snippet"
             }
 
          , @{ TauYTDataServiceDataActionMaxResultsPerPage : @30
             , TauYTDataServiceDataActionRequirements :
                 @{ TauYTDataServiceDataActionRequirementQ : @"Vevo" }
+            , TauYTDataServiceDataActionPartFilter : @"snippet"
             }
 
          , @{ TauYTDataServiceDataActionRequirements :
                 @{ TauYTDataServiceDataActionRequirementQ : @"GoPro" }
+            , TauYTDataServiceDataActionPartFilter : @"snippet"
             }
 
          , @{ TauYTDataServiceDataActionRequirements :
@@ -115,12 +118,36 @@
         @[ @{ TauYTDataServiceDataActionRequirements : @{} }
          , @{ TauYTDataServiceDataActionMaxResultsPerPage : @20 }
          , @{ TauYTDataServiceDataActionRequirements : @[ @"Microsoft" ] }
+
+         , @{ TauYTDataServiceDataActionMaxResultsPerPage : @10
+            , TauYTDataServiceDataActionRequirements :
+                @{ TauYTDataServiceDataActionRequirementQ : @"Evernote" }
+            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails"
+            }
          ];
 
     posChannelsInitialOperations_ =
         @[ @{ TauYTDataServiceDataActionMaxResultsPerPage : @10
             , TauYTDataServiceDataActionRequirements :
-                @{ TauYTDataServiceDataActionRequirementChannelID : @"UCqhnX4jA0A5paNd1v-zEysw" }
+                @{ TauYTDataServiceDataActionRequirementID : @"UCqhnX4jA0A5paNd1v-zEysw" }
+            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails"
+            }
+
+         , @{ TauYTDataServiceDataActionRequirements :
+                @{ TauYTDataServiceDataActionRequirementID : @"UC2pmfLm7iq6Ov1UwYrWYkZA" }
+            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails"
+            , TauYTDataServiceDataActionFieldsFilter : @"items( id ), items( snippet( title, description) )"
+            }
+
+         , @{ TauYTDataServiceDataActionRequirements :
+                @{ TauYTDataServiceDataActionRequirementID : @"UC2pmfLm7iq6Ov1UwYrWYkZA" }
+            , TauYTDataServiceDataActionPartFilter : @"contentDetails"
+            , TauYTDataServiceDataActionFieldsFilter : @"items( id ), items( snippet( title, description) )"
+            }
+
+         , @{ TauYTDataServiceDataActionRequirements :
+                @{ TauYTDataServiceDataActionRequirementID : @"UC2rCynaFhWz7MeRoqJLvcow" }
+            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails,brandingSettings,contentOwnerDetails,statistics,topicDetails"
             }
          ];
     }
@@ -178,7 +205,10 @@
                 if ( [ [ self class ] isTestMethodNegative: _Sel ] )
                     {
                     XCTAssertNotNil( _Error, @"Error parameter {%@} must not be nil in a nagative test", _Error );
-                    XCTAssert( [ _Error.domain isEqualToString: TauGeneralErrorDomain ] || [ _Error.domain isEqualToString: TauCentralDataServiceErrorDomain ] );
+                    XCTAssert( [ _Error.domain isEqualToString: TauGeneralErrorDomain ]
+                                    || [ _Error.domain isEqualToString: TauCentralDataServiceErrorDomain ]
+                                    || [ _Error.domain isEqualToString: TauUnderlyingErrorDomain ]
+                             , "Unexpected error domain {%@}", _Error.domain );
 
                     DDLogInfo( @"Expected error: {%@}", _Error );
                     }

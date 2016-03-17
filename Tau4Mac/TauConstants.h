@@ -109,4 +109,11 @@ typedef NS_ENUM ( NSInteger, TauCentralDataServiceErrorCode )
     , TauCentralDataServiceInvalidOrConflictingOperationsCombination = -1001
     };
 
+NSString extern* const TauUnderlyingErrorDomain;
+
+typedef NS_ENUM ( NSInteger, TauUnderlyingErrorCode )
+    { TauUnderlyingUnknownError = -1
+    , TauUnderlyingGTLError = -1000
+    };
+
 #endif /* TauConstants_h */

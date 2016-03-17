@@ -62,6 +62,8 @@ NSString* const TauReadonlyAuthScope =              @"https://www.googleapis.com
 NSString* const TauUploadAuthScope =                @"https://www.googleapis.com/auth/youtube.upload";
 NSString* const TauPartnerChannelAuditAuthScope =   @"https://www.googleapis.com/auth/youtubepartner-channel-audit";
 
+NSString* const TauYTDataServiceDataActionPartFilter = @"part";
+NSString* const TauYTDataServiceDataActionFieldsFilter = @"fields";
 NSString* const TauYTDataServiceDataActionMaxResultsPerPage = @"maxResults";
 NSString* const TauYTDataServiceDataActionPageToken = @"pageToken";
 
@@ -71,9 +73,11 @@ NSString* const TauYTDataServiceDataActionRequirements = @"TauYTDataServiceDataA
     NSString* const TauYTDataServiceDataActionRequirementChannelID  = @"channelId";
     NSString* const TauYTDataServiceDataActionRequirementPlaylistID = @"playlistId";
     NSString* const TauYTDataServiceDataActionRequirementMine       = @"mine";
+    NSString* const TauYTDataServiceDataActionRequirementType       = @"type";
 
 NSString* const TauGeneralErrorDomain = @"home.bedroom.TongKuo.Tau4Mac.GeneralErrorDomain";
 NSString* const TauCentralDataServiceErrorDomain = @"home.bedroom.TongKuo.Tau4Mac.CentralDataServiceErrorDomain";
+NSString* const TauUnderlyingErrorDomain = @"home.bedroom.TongKuo.Tau4Mac.UnderlyingErrorDomain";
 
 // TauYTDataService class
 @implementation TauYTDataService
@@ -284,8 +288,14 @@ TauYTDataService static* sYTDataService_;
             errorCode = TauCentralDataServiceInvalidOrConflictingOperationsCombination;
             }
 
+        if ( !( _OperationsDict[ TauYTDataServiceDataActionPartFilter ] ) )
+            DDLogNotice( @"Tau Data Service noticed that there is no TauYTDataServiceDataActionPartFilter{%@} field found within operations combination. "
+                         @"Tau Data Service will select the default {part} filter that may cause the absense of your expecting data fregments."
+                       , TauYTDataServiceDataActionPartFilter
+                       );
+
         if ( !( _OperationsDict[ TauYTDataServiceDataActionMaxResultsPerPage ] ) )
-            DDLogNotice( @"There is no TauYTDataServiceDataActionMaxResultsPerPage{%@} field found within operations combination. "
+            DDLogNotice( @"Tau Data Service noticed that there is no TauYTDataServiceDataActionMaxResultsPerPage{%@} field found within operations combination. "
                           "Tau Data Service will select the default value that is subject to the change made by Google and this behavior may be not your expectation."
                        , TauYTDataServiceDataActionMaxResultsPerPage
                        );

@@ -102,8 +102,20 @@
             }
         else
             {
+            NSError* error = _Error;
+
+            if ( [ _Error.domain isEqualToString: kGTLServiceErrorDomain ]
+                    || [ _Error.domain isEqualToString: kGTLJSONRPCErrorDomain ] )
+                error = [ NSError
+                    errorWithDomain: TauUnderlyingErrorDomain code: TauUnderlyingGTLError userInfo:
+                        @{ NSUnderlyingErrorKey : _Error
+                         , NSLocalizedDescriptionKey
+                            : [ NSString stringWithFormat: @"Error thrown by underlying frameworks or librarys, for details, check the {%@} field within UserDict out."
+                                                         , NSUnderlyingErrorKey ]
+                         } ];
+
             if ( _FailureHandler )
-                _FailureHandler( _Error );
+                _FailureHandler( error );
             }
         } ];
     }
@@ -142,29 +154,30 @@
     {
     GTLQueryYouTube* ytQuery = nil;
 
+    NSString* partFilter = _Dict[ TauYTDataServiceDataActionPartFilter ];
     switch ( _ConsumptionType )
         {
         case TauYTDataServiceConsumptionSearchResultsType:
             {
-            ytQuery = [ GTLQueryYouTube queryForSearchListWithPart: @"snippet" ];
+            ytQuery = [ GTLQueryYouTube queryForSearchListWithPart: partFilter ?: @"snippet" ];
             ytQuery.q = _Dict[ TauYTDataServiceDataActionRequirements ][ TauYTDataServiceDataActionRequirementQ ];
             } break;
 
         case TauYTDataServiceConsumptionChannelsType:
             {
-            ytQuery = [ GTLQueryYouTube queryForChannelsListWithPart: @"snippet,contentDetails" ];
+            ytQuery = [ GTLQueryYouTube queryForChannelsListWithPart: partFilter ?:  @"snippet,contentDetails" ];
             ytQuery.identifier = _Dict[ TauYTDataServiceDataActionRequirements ][ TauYTDataServiceDataActionRequirementID ];
             } break;
 
         case TauYTDataServiceConsumptionPlaylistsType:
             {
-            ytQuery = [ GTLQueryYouTube queryForPlaylistsListWithPart: @"snippet,contentDetails" ];
+            ytQuery = [ GTLQueryYouTube queryForPlaylistsListWithPart: partFilter ?: @"snippet,contentDetails" ];
             ytQuery.channelId = _Dict[ TauYTDataServiceDataActionRequirements ][ TauYTDataServiceDataActionRequirementChannelID ];
             } break;
 
         case TauYTDataServiceConsumptionPlaylistItemsType:
             {
-            ytQuery = [ GTLQueryYouTube queryForPlaylistItemsListWithPart: @"contentDetails,id,snippet,status" ];
+            ytQuery = [ GTLQueryYouTube queryForPlaylistItemsListWithPart: partFilter ?: @"contentDetails,id,snippet,status" ];
             ytQuery.playlistId = _Dict[ TauYTDataServiceDataActionRequirements ][ TauYTDataServiceDataActionRequirementPlaylistID ];
             } break;
         }
@@ -180,6 +193,14 @@
     NSNumber* mine = _Dict[ TauYTDataServiceDataActionRequirements ][ TauYTDataServiceDataActionRequirementMine ];
     if ( mine )
         ytQuery.mine = [ mine boolValue ];
+
+    NSString* type = _Dict[ TauYTDataServiceDataActionRequirements ][ TauYTDataServiceDataActionRequirementType ];
+    if ( type )
+        ytQuery.type = type;
+
+    NSString* fieldsFilter = _Dict[ TauYTDataServiceDataActionFieldsFilter ];
+    if ( fieldsFilter )
+        ytQuery.fields = fieldsFilter;
 
     return ytQuery;
     }
