@@ -131,132 +131,132 @@
 
     // Search Results
     posSearchResultsInitialOperations_ =
-        @[ @{ TauYTDataServiceDataActionMaxResultsPerPage : @10
-            , TauYTDataServiceDataActionRequirements :
-                @{ TauYTDataServiceDataActionRequirementQ : @"Evernote" }
-            , TauYTDataServiceDataActionPartFilter : @"snippet"
+        @[ @{ TauTDSOperationMaxResultsPerPage : @10
+            , TauTDSOperationRequirements :
+                @{ TauTDSOperationRequirementQ : @"Evernote" }
+            , TauTDSOperationPartFilter : @"snippet"
             }
 
-         , @{ TauYTDataServiceDataActionMaxResultsPerPage : @30
-            , TauYTDataServiceDataActionRequirements :
-                @{ TauYTDataServiceDataActionRequirementQ : @"Vevo" }
-            , TauYTDataServiceDataActionPartFilter : @"snippet"
+         , @{ TauTDSOperationMaxResultsPerPage : @30
+            , TauTDSOperationRequirements :
+                @{ TauTDSOperationRequirementQ : @"Vevo" }
+            , TauTDSOperationPartFilter : @"snippet"
             }
 
-         , @{ TauYTDataServiceDataActionRequirements :
-                @{ TauYTDataServiceDataActionRequirementQ : @"GoPro" }
-            , TauYTDataServiceDataActionPartFilter : @"snippet"
+         , @{ TauTDSOperationRequirements :
+                @{ TauTDSOperationRequirementQ : @"GoPro" }
+            , TauTDSOperationPartFilter : @"snippet"
             }
 
-         , @{ TauYTDataServiceDataActionRequirements :
-                @{ TauYTDataServiceDataActionRequirementQ : @"Apple" }
-            , TauYTDataServiceDataActionMaxResultsPerPage : @4
+         , @{ TauTDSOperationRequirements :
+                @{ TauTDSOperationRequirementQ : @"Apple" }
+            , TauTDSOperationMaxResultsPerPage : @4
             }
          ];
 
     negSearchResultsInitialOperations_ =
-        @[ @{ TauYTDataServiceDataActionRequirements : @{} }
-         , @{ TauYTDataServiceDataActionMaxResultsPerPage : @20 }
-         , @{ TauYTDataServiceDataActionRequirements : @[ @"Microsoft" ] }
+        @[ @{ TauTDSOperationRequirements : @{} }
+         , @{ TauTDSOperationMaxResultsPerPage : @20 }
+         , @{ TauTDSOperationRequirements : @[ @"Microsoft" ] }
 
-         , @{ TauYTDataServiceDataActionMaxResultsPerPage : @10
-            , TauYTDataServiceDataActionRequirements :
-                @{ TauYTDataServiceDataActionRequirementQ : @"Evernote" }
-            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails"
+         , @{ TauTDSOperationMaxResultsPerPage : @10
+            , TauTDSOperationRequirements :
+                @{ TauTDSOperationRequirementQ : @"Evernote" }
+            , TauTDSOperationPartFilter : @"snippet,contentDetails"
             }
          ];
 
     // Channels
     posChannelsInitialOperations_ =
-        @[ @{ TauYTDataServiceDataActionMaxResultsPerPage : @10
-            , TauYTDataServiceDataActionRequirements :
-                @{ TauYTDataServiceDataActionRequirementID : @"UCqhnX4jA0A5paNd1v-zEysw" }
-            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails"
+        @[ @{ TauTDSOperationMaxResultsPerPage : @10
+            , TauTDSOperationRequirements :
+                @{ TauTDSOperationRequirementID : @"UCqhnX4jA0A5paNd1v-zEysw" }
+            , TauTDSOperationPartFilter : @"snippet,contentDetails"
             }
 
-         , @{ TauYTDataServiceDataActionRequirements :
-                @{ TauYTDataServiceDataActionRequirementID : @"UC2pmfLm7iq6Ov1UwYrWYkZA" }
-            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails"
-            , TauYTDataServiceDataActionFieldsFilter : @"items( id ), items( snippet( title, description) )"
+         , @{ TauTDSOperationRequirements :
+                @{ TauTDSOperationRequirementID : @"UC2pmfLm7iq6Ov1UwYrWYkZA" }
+            , TauTDSOperationPartFilter : @"snippet,contentDetails"
+            , TauTDSOperationFieldsFilter : @"items( id ), items( snippet( title, description) )"
             }
 
-         , @{ TauYTDataServiceDataActionRequirements :
-                @{ TauYTDataServiceDataActionRequirementID : @"UC2pmfLm7iq6Ov1UwYrWYkZA" }
-            , TauYTDataServiceDataActionPartFilter : @"contentDetails"
-            , TauYTDataServiceDataActionFieldsFilter : @"items( id ), items( snippet( title, description) )"
+         , @{ TauTDSOperationRequirements :
+                @{ TauTDSOperationRequirementID : @"UC2pmfLm7iq6Ov1UwYrWYkZA" }
+            , TauTDSOperationPartFilter : @"contentDetails"
+            , TauTDSOperationFieldsFilter : @"items( id ), items( snippet( title, description) )"
             }
 
-         , @{ TauYTDataServiceDataActionRequirements :
-                @{ TauYTDataServiceDataActionRequirementID : @"UC2rCynaFhWz7MeRoqJLvcow" }
-            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails"
+         , @{ TauTDSOperationRequirements :
+                @{ TauTDSOperationRequirementID : @"UC2rCynaFhWz7MeRoqJLvcow" }
+            , TauTDSOperationPartFilter : @"snippet,contentDetails"
             }
          ];
 
     negChannelsInitialOperations_ =
         @[ @{}
-         , @{ TauYTDataServiceDataActionRequirements : @[ @"Microsoft" ] }
+         , @{ TauTDSOperationRequirements : @[ @"Microsoft" ] }
          ];
 
     // Playlists
     posPlaylistsInitialOperations_ =
-        @[ @{ TauYTDataServiceDataActionMaxResultsPerPage : @10
-            , TauYTDataServiceDataActionRequirements :
-                @{ TauYTDataServiceDataActionRequirementChannelID : @"UCqhnX4jA0A5paNd1v-zEysw" }
-            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails"
+        @[ @{ TauTDSOperationMaxResultsPerPage : @10
+            , TauTDSOperationRequirements :
+                @{ TauTDSOperationRequirementChannelID : @"UCqhnX4jA0A5paNd1v-zEysw" }
+            , TauTDSOperationPartFilter : @"snippet,contentDetails"
             }
 
-         , @{ TauYTDataServiceDataActionRequirements :
-                @{ TauYTDataServiceDataActionRequirementChannelID : @"UC2pmfLm7iq6Ov1UwYrWYkZA" }
-            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails"
-            , TauYTDataServiceDataActionFieldsFilter : @"items( id ), items( snippet( title, description) )"
+         , @{ TauTDSOperationRequirements :
+                @{ TauTDSOperationRequirementChannelID : @"UC2pmfLm7iq6Ov1UwYrWYkZA" }
+            , TauTDSOperationPartFilter : @"snippet,contentDetails"
+            , TauTDSOperationFieldsFilter : @"items( id ), items( snippet( title, description) )"
             }
 
-         , @{ TauYTDataServiceDataActionRequirements :
-                @{ TauYTDataServiceDataActionRequirementChannelID : @"UC2pmfLm7iq6Ov1UwYrWYkZA" }
-            , TauYTDataServiceDataActionPartFilter : @"contentDetails"
-            , TauYTDataServiceDataActionFieldsFilter : @"items( id ), items( snippet( title, description) )"
+         , @{ TauTDSOperationRequirements :
+                @{ TauTDSOperationRequirementChannelID : @"UC2pmfLm7iq6Ov1UwYrWYkZA" }
+            , TauTDSOperationPartFilter : @"contentDetails"
+            , TauTDSOperationFieldsFilter : @"items( id ), items( snippet( title, description) )"
             }
 
-         , @{ TauYTDataServiceDataActionRequirements :
-                @{ TauYTDataServiceDataActionRequirementChannelID : @"UC2rCynaFhWz7MeRoqJLvcow" }
-            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails"
+         , @{ TauTDSOperationRequirements :
+                @{ TauTDSOperationRequirementChannelID : @"UC2rCynaFhWz7MeRoqJLvcow" }
+            , TauTDSOperationPartFilter : @"snippet,contentDetails"
             }
          ];
 
     negPlaylistsInitialOperations_ =
         @[ @{}
-         , @{ TauYTDataServiceDataActionRequirements : @[ @"Microsoft" ] }
+         , @{ TauTDSOperationRequirements : @[ @"Microsoft" ] }
          ];
 
     // Playlist Items
     posPlaylistItemsInitialOperations_ =
-        @[ @{ TauYTDataServiceDataActionMaxResultsPerPage : @10
-            , TauYTDataServiceDataActionRequirements :
-                @{ TauYTDataServiceDataActionRequirementPlaylistID : @"PLFCZYV79qT1G7xZCY47q2njj262r3GvR3" }
-            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails"
+        @[ @{ TauTDSOperationMaxResultsPerPage : @10
+            , TauTDSOperationRequirements :
+                @{ TauTDSOperationRequirementPlaylistID : @"PLFCZYV79qT1G7xZCY47q2njj262r3GvR3" }
+            , TauTDSOperationPartFilter : @"snippet,contentDetails"
             }
 
-         , @{ TauYTDataServiceDataActionRequirements :
-                @{ TauYTDataServiceDataActionRequirementPlaylistID : @"PLSvNPF6CgrdhmLFEd9rjZeFDs9E6Htqlj" }
-            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails"
-            , TauYTDataServiceDataActionFieldsFilter : @"items( id ), items( snippet( title, description) )"
+         , @{ TauTDSOperationRequirements :
+                @{ TauTDSOperationRequirementPlaylistID : @"PLSvNPF6CgrdhmLFEd9rjZeFDs9E6Htqlj" }
+            , TauTDSOperationPartFilter : @"snippet,contentDetails"
+            , TauTDSOperationFieldsFilter : @"items( id ), items( snippet( title, description) )"
             }
 
-         , @{ TauYTDataServiceDataActionRequirements :
-                @{ TauYTDataServiceDataActionRequirementPlaylistID : @"PLhKFRV3-UgpeA_3wzRHF8AS8T7ppKvm9O" }
-            , TauYTDataServiceDataActionPartFilter : @"contentDetails"
-            , TauYTDataServiceDataActionFieldsFilter : @"items( id ), items( snippet( title, description) )"
+         , @{ TauTDSOperationRequirements :
+                @{ TauTDSOperationRequirementPlaylistID : @"PLhKFRV3-UgpeA_3wzRHF8AS8T7ppKvm9O" }
+            , TauTDSOperationPartFilter : @"contentDetails"
+            , TauTDSOperationFieldsFilter : @"items( id ), items( snippet( title, description) )"
             }
 
-         , @{ TauYTDataServiceDataActionRequirements :
-                @{ TauYTDataServiceDataActionRequirementPlaylistID : @"PL2Qq6_3SVp4P4N0Wyusc_-256lXZ3DVsw" }
-            , TauYTDataServiceDataActionPartFilter : @"snippet,contentDetails"
+         , @{ TauTDSOperationRequirements :
+                @{ TauTDSOperationRequirementPlaylistID : @"PL2Qq6_3SVp4P4N0Wyusc_-256lXZ3DVsw" }
+            , TauTDSOperationPartFilter : @"snippet,contentDetails"
             }
          ];
 
     negPlaylistItemsInitialOperations_ =
         @[ @{}
-         , @{ TauYTDataServiceDataActionRequirements : @[ @"Microsoft" ] }
+         , @{ TauTDSOperationRequirements : @[ @"Microsoft" ] }
          ];
     }
 
@@ -290,7 +290,7 @@
         if ( _NextPageToken && recursionCount < ( PAGE_LOOP / 2 ) )
             {
             NSMutableDictionary* newOperationsDict = [ _OperationsDict mutableCopy ];
-            newOperationsDict[ TauYTDataServiceDataActionPageToken ] = _NextPageToken;
+            newOperationsDict[ TauTDSOperationPageToken ] = _NextPageToken;
 
             [ self executeConsumerOperations_: newOperationsDict credential_: _Credential expec_: _Expec onBehalfOf_: _Sel ];
             }
@@ -298,7 +298,7 @@
         else if ( _PrevPageToken && ( recursionCount >= ( PAGE_LOOP / 2 ) ) && ( recursionCount < PAGE_LOOP ) )
             {
             NSMutableDictionary* newOperationsDict = [ _OperationsDict mutableCopy ];
-            newOperationsDict[ TauYTDataServiceDataActionPageToken ] = _PrevPageToken;
+            newOperationsDict[ TauTDSOperationPageToken ] = _PrevPageToken;
 
             [ self executeConsumerOperations_: newOperationsDict credential_: _Credential expec_: _Expec onBehalfOf_: _Sel ];
             }

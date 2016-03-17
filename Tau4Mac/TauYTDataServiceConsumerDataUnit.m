@@ -154,51 +154,51 @@
     {
     GTLQueryYouTube* ytQuery = nil;
 
-    NSString* partFilter = _Dict[ TauYTDataServiceDataActionPartFilter ];
+    NSString* partFilter = _Dict[ TauTDSOperationPartFilter ];
     switch ( _ConsumptionType )
         {
         case TauYTDataServiceConsumptionSearchResultsType:
             {
             ytQuery = [ GTLQueryYouTube queryForSearchListWithPart: partFilter ?: @"snippet" ];
-            ytQuery.q = _Dict[ TauYTDataServiceDataActionRequirements ][ TauYTDataServiceDataActionRequirementQ ];
+            ytQuery.q = _Dict[ TauTDSOperationRequirements ][ TauTDSOperationRequirementQ ];
             } break;
 
         case TauYTDataServiceConsumptionChannelsType:
             {
             ytQuery = [ GTLQueryYouTube queryForChannelsListWithPart: partFilter ?:  @"snippet,contentDetails" ];
-            ytQuery.identifier = _Dict[ TauYTDataServiceDataActionRequirements ][ TauYTDataServiceDataActionRequirementID ];
+            ytQuery.identifier = _Dict[ TauTDSOperationRequirements ][ TauTDSOperationRequirementID ];
             } break;
 
         case TauYTDataServiceConsumptionPlaylistsType:
             {
             ytQuery = [ GTLQueryYouTube queryForPlaylistsListWithPart: partFilter ?: @"snippet,contentDetails" ];
-            ytQuery.channelId = _Dict[ TauYTDataServiceDataActionRequirements ][ TauYTDataServiceDataActionRequirementChannelID ];
+            ytQuery.channelId = _Dict[ TauTDSOperationRequirements ][ TauTDSOperationRequirementChannelID ];
             } break;
 
         case TauYTDataServiceConsumptionPlaylistItemsType:
             {
             ytQuery = [ GTLQueryYouTube queryForPlaylistItemsListWithPart: partFilter ?: @"contentDetails,id,snippet,status" ];
-            ytQuery.playlistId = _Dict[ TauYTDataServiceDataActionRequirements ][ TauYTDataServiceDataActionRequirementPlaylistID ];
+            ytQuery.playlistId = _Dict[ TauTDSOperationRequirements ][ TauTDSOperationRequirementPlaylistID ];
             } break;
         }
 
-    NSNumber* maxResults = _Dict[ TauYTDataServiceDataActionMaxResultsPerPage ];
+    NSNumber* maxResults = _Dict[ TauTDSOperationMaxResultsPerPage ];
     if ( maxResults )
         ytQuery.maxResults = [ maxResults unsignedIntegerValue ];
 
-    NSString* pageToken = _Dict[ TauYTDataServiceDataActionPageToken ];
+    NSString* pageToken = _Dict[ TauTDSOperationPageToken ];
     if ( pageToken )
         ytQuery.pageToken = pageToken;
 
-    NSNumber* mine = _Dict[ TauYTDataServiceDataActionRequirements ][ TauYTDataServiceDataActionRequirementMine ];
+    NSNumber* mine = _Dict[ TauTDSOperationRequirements ][ TauTDSOperationRequirementMine ];
     if ( mine )
         ytQuery.mine = [ mine boolValue ];
 
-    NSString* type = _Dict[ TauYTDataServiceDataActionRequirements ][ TauYTDataServiceDataActionRequirementType ];
+    NSString* type = _Dict[ TauTDSOperationRequirements ][ TauTDSOperationRequirementType ];
     if ( type )
         ytQuery.type = type;
 
-    NSString* fieldsFilter = _Dict[ TauYTDataServiceDataActionFieldsFilter ];
+    NSString* fieldsFilter = _Dict[ TauTDSOperationFieldsFilter ];
     if ( fieldsFilter )
         ytQuery.fields = fieldsFilter;
 

@@ -62,18 +62,18 @@ NSString* const TauReadonlyAuthScope =              @"https://www.googleapis.com
 NSString* const TauUploadAuthScope =                @"https://www.googleapis.com/auth/youtube.upload";
 NSString* const TauPartnerChannelAuditAuthScope =   @"https://www.googleapis.com/auth/youtubepartner-channel-audit";
 
-NSString* const TauYTDataServiceDataActionPartFilter = @"part";
-NSString* const TauYTDataServiceDataActionFieldsFilter = @"fields";
-NSString* const TauYTDataServiceDataActionMaxResultsPerPage = @"maxResults";
-NSString* const TauYTDataServiceDataActionPageToken = @"pageToken";
+NSString* const TauTDSOperationPartFilter = @"part";
+NSString* const TauTDSOperationFieldsFilter = @"fields";
+NSString* const TauTDSOperationMaxResultsPerPage = @"maxResults";
+NSString* const TauTDSOperationPageToken = @"pageToken";
 
-NSString* const TauYTDataServiceDataActionRequirements = @"TauYTDataServiceDataActionRequirements";
-    NSString* const TauYTDataServiceDataActionRequirementQ          = @"q";
-    NSString* const TauYTDataServiceDataActionRequirementID         = @"id";
-    NSString* const TauYTDataServiceDataActionRequirementChannelID  = @"channelId";
-    NSString* const TauYTDataServiceDataActionRequirementPlaylistID = @"playlistId";
-    NSString* const TauYTDataServiceDataActionRequirementMine       = @"mine";
-    NSString* const TauYTDataServiceDataActionRequirementType       = @"type";
+NSString* const TauTDSOperationRequirements = @"TauTDSOperationRequirements";
+    NSString* const TauTDSOperationRequirementQ          = @"q";
+    NSString* const TauTDSOperationRequirementID         = @"id";
+    NSString* const TauTDSOperationRequirementChannelID  = @"channelId";
+    NSString* const TauTDSOperationRequirementPlaylistID = @"playlistId";
+    NSString* const TauTDSOperationRequirementMine       = @"mine";
+    NSString* const TauTDSOperationRequirementType       = @"type";
 
 NSString* const TauGeneralErrorDomain = @"home.bedroom.TongKuo.Tau4Mac.GeneralErrorDomain";
 NSString* const TauCentralDataServiceErrorDomain = @"home.bedroom.TongKuo.Tau4Mac.CentralDataServiceErrorDomain";
@@ -264,14 +264,14 @@ TauYTDataService static* sYTDataService_;
 
     if ( _OperationsDict )
         {
-        id requirementsField = _OperationsDict[ TauYTDataServiceDataActionRequirements ];
+        id requirementsField = _OperationsDict[ TauTDSOperationRequirements ];
         if ( !requirementsField )
             {
             errorDomain = TauCentralDataServiceErrorDomain;
             errorCode = TauCentralDataServiceInvalidOrConflictingOperationsCombination;
 
             userInfo = @{ NSLocalizedDescriptionKey :
-                            [ NSString stringWithFormat: @"Data service operations combination must contain TauYTDataServiceDataActionRequirements{%@} field.", TauYTDataServiceDataActionRequirements ] };
+                            [ NSString stringWithFormat: @"Data service operations combination must contain TauTDSOperationRequirements{%@} field.", TauTDSOperationRequirements ] };
             }
         else if ( requirementsField && ![ requirementsField isKindOfClass: [ NSDictionary class ]] )
             {
@@ -279,27 +279,27 @@ TauYTDataService static* sYTDataService_;
             errorCode = TauCentralDataServiceInvalidOrConflictingOperationsCombination;
 
             userInfo = @{ NSLocalizedDescriptionKey :
-                            [ NSString stringWithFormat: @"Value of TauYTDataServiceDataActionRequirements{%@} must be a dictionary", TauYTDataServiceDataActionRequirements ] };
+                            [ NSString stringWithFormat: @"Value of TauTDSOperationRequirements{%@} must be a dictionary", TauTDSOperationRequirements ] };
             }
-        else if ( [ _OperationsDict[ TauYTDataServiceDataActionRequirements ] count ] == 0 )
+        else if ( [ _OperationsDict[ TauTDSOperationRequirements ] count ] == 0 )
             {
             errorDomain = TauCentralDataServiceErrorDomain;
             userInfo = @{ NSLocalizedDescriptionKey :
-                            [ NSString stringWithFormat: @"TauYTDataServiceDataActionRequirements{%@} in operations combination must contain least one valid field."
-                                                       , TauYTDataServiceDataActionRequirements ] };
+                            [ NSString stringWithFormat: @"TauTDSOperationRequirements{%@} in operations combination must contain least one valid field."
+                                                       , TauTDSOperationRequirements ] };
             errorCode = TauCentralDataServiceInvalidOrConflictingOperationsCombination;
             }
 
-        if ( !( _OperationsDict[ TauYTDataServiceDataActionPartFilter ] ) )
-            DDLogNotice( @"Tau Data Service noticed that there is no TauYTDataServiceDataActionPartFilter{%@} field found within operations combination. "
+        if ( !( _OperationsDict[ TauTDSOperationPartFilter ] ) )
+            DDLogNotice( @"Tau Data Service noticed that there is no TauTDSOperationPartFilter{%@} field found within operations combination. "
                          @"Tau Data Service will select the default {part} filter that may cause the absense of your expecting data fregments."
-                       , TauYTDataServiceDataActionPartFilter
+                       , TauTDSOperationPartFilter
                        );
 
-        if ( !( _OperationsDict[ TauYTDataServiceDataActionMaxResultsPerPage ] ) )
-            DDLogNotice( @"Tau Data Service noticed that there is no TauYTDataServiceDataActionMaxResultsPerPage{%@} field found within operations combination. "
+        if ( !( _OperationsDict[ TauTDSOperationMaxResultsPerPage ] ) )
+            DDLogNotice( @"Tau Data Service noticed that there is no TauTDSOperationMaxResultsPerPage{%@} field found within operations combination. "
                           "Tau Data Service will select the default value that is subject to the change made by Google and this behavior may be not your expectation."
-                       , TauYTDataServiceDataActionMaxResultsPerPage
+                       , TauTDSOperationMaxResultsPerPage
                        );
         }
     else
