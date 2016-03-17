@@ -15,7 +15,7 @@
 
 - ( void ) awakeFromNib
     {
-    self.appearance = [ NSAppearance appearanceNamed: NSAppearanceNameVibrantDark ];
+    self.appearance = [ NSAppearance appearanceNamed: NSAppearanceNameVibrantLight ];
     self.titleVisibility = NSWindowTitleHidden;
     }
 

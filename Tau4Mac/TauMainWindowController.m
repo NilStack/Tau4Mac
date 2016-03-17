@@ -116,8 +116,7 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
 
 - ( NSArray <NSString*>* ) toolbarAllowedItemIdentifiers: ( NSToolbar* )_Toolbar
     {
-    return @[ NSToolbarFlexibleSpaceItemIdentifier
-            , kPanelsSwitcher
+    return @[ kPanelsSwitcher
             , NSToolbarFlexibleSpaceItemIdentifier
             , kUserProfileButton
             ];
@@ -125,8 +124,7 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
 
 - ( NSArray <NSString*>* ) toolbarDefaultItemIdentifiers: ( NSToolbar* )_Toolbar
     {
-    return @[ NSToolbarFlexibleSpaceItemIdentifier
-            , kPanelsSwitcher
+    return @[ kPanelsSwitcher
             , NSToolbarFlexibleSpaceItemIdentifier
             , kUserProfileButton
             ];
@@ -232,8 +230,8 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
     if ( !priSegSwitcher_ )
         {
         NSUInteger segmentCount = 3;
-        CGFloat segmentFixedWidth = 80.f;
-        priSegSwitcher_ = [ [ NSSegmentedControl alloc ] initWithFrame: NSMakeRect( 0, 0, 248.f, 21.f ) ];
+        CGFloat segmentFixedWidth = 34.f;
+        priSegSwitcher_ = [ [ NSSegmentedControl alloc ] initWithFrame: NSMakeRect( 0, 0, 108.f, 22.f ) ];
         [ priSegSwitcher_ setSegmentCount: 3 ];
         [ priSegSwitcher_ setTrackingMode: NSSegmentSwitchTrackingSelectOne ];
 
@@ -246,17 +244,29 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
                 {
                 case TauPanelsSwitcherSearchTag:
                     {
-                    [ priSegSwitcher_ setLabel: NSLocalizedString( @"Search", nil ) forSegment: _Index ];
+                    NSImage* image = [ NSImage imageNamed: @"tau-search-dark" ];
+                    [ image setTemplate: YES ];
+                    [ image setSize: NSMakeSize( 17.f, 15.f ) ];
+                    [ priSegSwitcher_ setImage: image forSegment: _Index ];
+                    [ priSegSwitcher_.cell setToolTip: NSLocalizedString( @"Search", nil ) forSegment: _Index ];
                     } break;
 
                 case TauPanelsSwitcherMeTubeTag:
                     {
-                    [ priSegSwitcher_ setLabel: NSLocalizedString( @"MeTube", nil ) forSegment: _Index ];
+                    NSImage* image = [ NSImage imageNamed: @"tau-explore-dark" ];
+                    [ image setTemplate: YES ];
+                    [ image setSize: NSMakeSize( 17.f, 17.f ) ];
+                    [ priSegSwitcher_ setImage: image forSegment: _Index ];
+                    [ priSegSwitcher_.cell setToolTip: NSLocalizedString( @"Search", nil ) forSegment: _Index ];
                     } break;
 
                 case TauPanelsSwitcherPlayerTag:
                     {
-                    [ priSegSwitcher_ setLabel: NSLocalizedString( @"Player", nil ) forSegment: _Index ];
+                    NSImage* image = [ NSImage imageNamed: @"tau-player-dark" ];
+                    [ image setTemplate: YES ];
+                    [ image setSize: NSMakeSize( 17.f, 14.f ) ];
+                    [ priSegSwitcher_ setImage: image forSegment: _Index ];
+                    [ priSegSwitcher_.cell setToolTip: NSLocalizedString( @"Search", nil ) forSegment: _Index ];
                     } break;
                 }
             }

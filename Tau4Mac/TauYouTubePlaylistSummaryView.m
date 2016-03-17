@@ -45,7 +45,7 @@
 
 - ( void ) doPlistSumViewInit_
     {
-    self.blendingMode = NSVisualEffectBlendingModeWithinWindow;
+//    self.blendingMode = NSVisualEffectBlendingModeWithinWindow;
 
     internalView_ = [ [ InternalView_ alloc ] initWithFrame: NSZeroRect ];
     [ self addSubview: internalView_ ];

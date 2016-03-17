@@ -655,7 +655,7 @@
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
                         <windowPositionMask key="initialPositionMask" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="403" width="480" height="270"/>
+                        <rect key="contentRect" x="196" y="363" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <toolbar key="toolbar" implicitIdentifier="805F59D8-3781-4F6F-8A6C-EBBBAFF1DD50" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="uok-aL-qNv">
                             <allowedToolbarItems>
@@ -684,9 +684,24 @@
         <scene sceneID="hIz-AP-VOD">
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="TauMainViewController" sceneMemberID="viewController">
-                    <view key="view" id="m2S-Jp-Qdl" customClass="NSVisualEffectView">
+                    <view key="view" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F7o-b9-FqO">
+                                <rect key="frame" x="321" y="175" width="110" height="25"/>
+                                <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedRounded" trackingMode="selectOne" id="SbM-TL-ceN">
+                                    <font key="font" metaFont="system"/>
+                                    <segments>
+                                        <segment width="34"/>
+                                        <segment width="34" selected="YES" tag="1"/>
+                                        <segment width="34">
+                                            <nil key="label"/>
+                                        </segment>
+                                    </segments>
+                                </segmentedCell>
+                            </segmentedControl>
+                        </subviews>
                     </view>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
