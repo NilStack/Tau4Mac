@@ -232,7 +232,7 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
         for ( int _Index = 0; _Index < segmentCount; _Index++ )
             {
             [ priSegSwitcher_ setWidth: segmentFixedWidth forSegment: _Index ];
-            [ priSegSwitcher_.cell setTag: ( TauPanelsSwitcherSegmentTag )_Index forSegment: _Index ];
+            [ priSegSwitcher_.cell setTag: ( TauSwitcherSegmentTag )_Index forSegment: _Index ];
 
             switch ( [ priSegSwitcher_.cell tagForSegment: _Index ] )
                 {
@@ -245,7 +245,7 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
                     [ priSegSwitcher_.cell setToolTip: NSLocalizedString( @"Search", nil ) forSegment: _Index ];
                     } break;
 
-                case TauPanelsSwitcherMeTubeTag:
+                case TauPanelsSwitcherExploreTag:
                     {
                     NSImage* image = [ NSImage imageNamed: @"tau-explore-dark" ];
                     [ image setTemplate: YES ];

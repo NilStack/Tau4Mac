@@ -33,9 +33,9 @@ NSString extern* const TauUploadAuthScope;
 /** Retrieve the auditDetails part in a channel resource. */
 NSString extern* const TauPartnerChannelAuditAuthScope;
 
-typedef NS_ENUM ( NSInteger, TauPanelsSwitcherSegmentTag )
+typedef NS_ENUM ( NSInteger, TauSwitcherSegmentTag )
     { TauPanelsSwitcherSearchTag = 0
-    , TauPanelsSwitcherMeTubeTag = 1
+    , TauPanelsSwitcherExploreTag = 1
     , TauPanelsSwitcherPlayerTag = 2
     };
 
