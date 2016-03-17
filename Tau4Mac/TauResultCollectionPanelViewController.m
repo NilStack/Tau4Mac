@@ -7,9 +7,8 @@
 //
 
 #import "TauResultCollectionPanelViewController.h"
-#import "TauYouTubeEntriesCollectionViewController.h"
+#import "TauEntriesCollectionViewController.h.h"
 #import "TauAbstractStackPanelController.h"
-#import "TauResultsCollectionToolbar.h"
 #import "TauPlayerStackPanelBaseViewController.h"
 #import "TauYouTubeEntryView.h"
 
@@ -21,7 +20,7 @@
 // TauResultCollectionPanelViewController class
 @implementation TauResultCollectionPanelViewController
     {
-    TauYouTubeEntriesCollectionViewController __strong* entriesCollectionViewController_;
+    TauEntriesCollectionViewController __strong* entriesCollectionViewController_;
     
     GTLCollectionObject __strong* ytCollectionObject_;
     GTLServiceTicket __strong* ytTicket_;
@@ -40,7 +39,7 @@
         ytTicket_ = _Ticket;
 
         entriesCollectionViewController_ =
-            [ [ TauYouTubeEntriesCollectionViewController alloc ] initWithGTLCollectionObject: ytCollectionObject_ ticket: _Ticket ];
+            [ [ TauEntriesCollectionViewController alloc ] initWithGTLCollectionObject: ytCollectionObject_ ticket: _Ticket ];
         }
 
     return self;
@@ -52,10 +51,7 @@
 
     [ self addChildViewController: entriesCollectionViewController_ ];
     [ self.view addSubview: entriesCollectionViewController_.view ];
-    [ entriesCollectionViewController_.view autoPinEdgesToSuperviewEdgesWithInsets: NSEdgeInsetsZero excludingEdge: ALEdgeTop ];
-    [ entriesCollectionViewController_.view autoPinEdge: ALEdgeTop toEdge: ALEdgeBottom ofView: self.toolbarView ];
-
-    self.toolbarView.ytCollectionObject = ytCollectionObject_;
+    [ entriesCollectionViewController_.view autoPinEdgesToSuperviewEdges ];
     }
 
 #pragma mark - IBAction
@@ -102,8 +98,6 @@ TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT
 
                     entriesCollectionViewController_.ytCollectionObject = ytCollectionObject_;
                     entriesCollectionViewController_.ytTicket = ytTicket_;
-
-                    self.toolbarView.ytCollectionObject = _CollectionObject;
                     }
                 else
                     DDLogRecoverable( @"%@", _Error );
@@ -229,8 +223,6 @@ TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT
         [ self.ytTicket cancelTicket ];
         self.ytTicket = nil;
         entriesCollectionViewController_.ytCollectionObject = ytCollectionObject_;
-
-        self.toolbarView.ytCollectionObject = ytCollectionObject_;
         }
     }
 

@@ -7,7 +7,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TauResultCollectionPanelViewController">
             <connections>
-                <outlet property="toolbarView" destination="MzW-W0-JMa" id="BFc-ls-eyL"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -16,83 +15,6 @@
         <customView wantsLayer="YES" alphaValue="0.90000000000000002" id="Hz6-mo-xeY">
             <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="MzW-W0-JMa" customClass="TauResultsCollectionToolbar">
-                    <rect key="frame" x="0.0" y="240" width="480" height="32"/>
-                    <subviews>
-                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ewq-CW-Hf5">
-                            <rect key="frame" x="396" y="3" width="69" height="25"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="22" id="DXW-Xc-Ht0"/>
-                                <constraint firstAttribute="width" constant="69" id="dsV-Fx-eLd"/>
-                            </constraints>
-                            <buttonCell key="cell" type="roundTextured" title="Cancel" bezelStyle="texturedRounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PGc-hl-3LP">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="dismissAction:" target="-2" id="txh-X5-Loc"/>
-                            </connections>
-                        </button>
-                        <segmentedControl hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="C39-pw-mzU">
-                            <rect key="frame" x="15" y="3" width="67" height="25"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="22" id="ZR0-xS-etV"/>
-                                <constraint firstAttribute="width" constant="67" id="bBp-gg-rQW"/>
-                            </constraints>
-                            <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedRounded" trackingMode="momentary" id="56C-8S-e8G">
-                                <font key="font" metaFont="system"/>
-                                <segments>
-                                    <segment image="NSGoLeftTemplate" width="30" enabled="NO">
-                                        <nil key="label"/>
-                                    </segment>
-                                    <segment image="NSGoRightTemplate" width="30" enabled="NO" tag="1">
-                                        <nil key="label"/>
-                                    </segment>
-                                </segments>
-                            </segmentedCell>
-                            <connections>
-                                <action selector="pageAction:" target="-2" id="55F-hL-sTo"/>
-                            </connections>
-                        </segmentedControl>
-                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="JyQ-Ek-OnU" customClass="TauResultsCollectionSummaryView">
-                            <rect key="frame" x="88" y="1" width="302" height="30"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="30" id="ats-3M-XC2"/>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="302" id="btQ-wH-7JU"/>
-                            </constraints>
-                        </customView>
-                    </subviews>
-                    <constraints>
-                        <constraint firstItem="Ewq-CW-Hf5" firstAttribute="top" secondItem="MzW-W0-JMa" secondAttribute="top" constant="5" id="63A-px-iSt"/>
-                        <constraint firstItem="JyQ-Ek-OnU" firstAttribute="top" secondItem="MzW-W0-JMa" secondAttribute="top" constant="1" id="8uf-os-Mis"/>
-                        <constraint firstAttribute="bottom" secondItem="Ewq-CW-Hf5" secondAttribute="bottom" constant="5" id="CER-3s-KVC"/>
-                        <constraint firstItem="C39-pw-mzU" firstAttribute="leading" secondItem="MzW-W0-JMa" secondAttribute="leading" constant="15" id="OLs-1F-gdI"/>
-                        <constraint firstAttribute="height" constant="32" id="P5b-Un-tAQ"/>
-                        <constraint firstAttribute="trailing" secondItem="Ewq-CW-Hf5" secondAttribute="trailing" constant="15" id="QKk-6G-K0C"/>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="480" id="Rhg-ML-2ho"/>
-                        <constraint firstAttribute="bottom" secondItem="JyQ-Ek-OnU" secondAttribute="bottom" constant="1" id="Wlt-Qj-pp7"/>
-                        <constraint firstItem="JyQ-Ek-OnU" firstAttribute="leading" secondItem="C39-pw-mzU" secondAttribute="trailing" constant="6" id="eyE-qB-fBq"/>
-                        <constraint firstItem="C39-pw-mzU" firstAttribute="top" secondItem="MzW-W0-JMa" secondAttribute="top" constant="5" id="qsH-pk-t6H"/>
-                        <constraint firstItem="Ewq-CW-Hf5" firstAttribute="leading" secondItem="JyQ-Ek-OnU" secondAttribute="trailing" constant="6" id="vcL-pj-wBj"/>
-                        <constraint firstAttribute="bottom" secondItem="C39-pw-mzU" secondAttribute="bottom" constant="5" id="yJ4-sP-e9g"/>
-                    </constraints>
-                    <connections>
-                        <outlet property="dismissButton" destination="Ewq-CW-Hf5" id="1US-UT-fhS"/>
-                        <outlet property="segPager" destination="C39-pw-mzU" id="apA-9z-jic"/>
-                        <outlet property="titleView" destination="JyQ-Ek-OnU" id="KQz-n1-yej"/>
-                    </connections>
-                </customView>
-            </subviews>
-            <constraints>
-                <constraint firstItem="MzW-W0-JMa" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="73o-4F-6FM"/>
-                <constraint firstItem="MzW-W0-JMa" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="P8p-fy-yB0"/>
-                <constraint firstAttribute="trailing" secondItem="MzW-W0-JMa" secondAttribute="trailing" id="pJd-OJ-yKu"/>
-            </constraints>
         </customView>
     </objects>
-    <resources>
-        <image name="NSGoLeftTemplate" width="9" height="12"/>
-        <image name="NSGoRightTemplate" width="9" height="12"/>
-    </resources>
 </document>

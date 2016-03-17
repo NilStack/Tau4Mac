@@ -332,8 +332,8 @@ TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT
     self.layerContentsPlacement = NSViewLayerContentsPlacementScaleProportionallyToFill;
 
     [ self configureForAutoLayout ];
-    [ self autoSetDimension: ALDimensionWidth toSize: 200 relation: NSLayoutRelationGreaterThanOrEqual ];
-    [ self autoMatchDimension: ALDimensionHeight toDimension: ALDimensionWidth ofView: self withMultiplier: 0.56f ];
+//    [ self autoSetDimension: ALDimensionWidth toSize: 200 relation: NSLayoutRelationGreaterThanOrEqual ];
+//    [ self autoMatchDimension: ALDimensionHeight toDimension: ALDimensionWidth ofView: self withMultiplier: 0.56f ];
 
     NSTrackingArea* mouseEventTrackingArea =
         [ [ NSTrackingArea alloc ] initWithRect: self.bounds

@@ -1,5 +1,5 @@
 //
-//  TauYouTubeEntriesCollectionViewController.h
+//  TauEntriesCollectionViewController.h
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/3/16.
@@ -8,8 +8,8 @@
 
 @class TauResultCollectionPanelViewController;
 
-// TauYouTubeEntriesCollectionViewController class
-@interface TauYouTubeEntriesCollectionViewController : NSViewController
+// TauEntriesCollectionViewController class
+@interface TauEntriesCollectionViewController : NSViewController <NSCollectionViewDelegate, NSCollectionViewDataSource>
 
 #pragma mark - Initializations
 
@@ -20,4 +20,4 @@
 @property ( strong, readwrite ) GTLCollectionObject* ytCollectionObject;
 @property ( strong, readwrite ) GTLServiceTicket* ytTicket;
 
-@end // TauYouTubeEntriesCollectionViewController class
+@end // TauEntriesCollectionViewController class

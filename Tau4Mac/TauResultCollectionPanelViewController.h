@@ -22,10 +22,6 @@
 @property ( strong, readwrite ) GTLCollectionObject* ytCollectionObject;
 @property ( strong, readwrite ) GTLServiceTicket* ytTicket;
 
-#pragma mark - Outlets
-
-@property ( weak ) IBOutlet TauResultsCollectionToolbar* toolbarView;
-
 #pragma mark - IBAction
 
 - ( IBAction ) pageAction: ( id )_Sender;
