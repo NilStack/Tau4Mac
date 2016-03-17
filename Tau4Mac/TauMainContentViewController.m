@@ -38,22 +38,26 @@
 
 - ( void ) viewDidLoad
     {
+    // self-observing to react to the change of activedContentViewController property
     [ self.kvoController_ observe: self
                           keyPath: activedContentViewController_kvoKey
                           options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial
                             block:
     ^( id _Nullable _Observer, id _Nonnull _Object, NSDictionary <NSString*, id>* _Nonnull _Change )
         {
-        TauAbstractContentViewController* newActived = _Change[ NSKeyValueChangeNewKey ];
         TauAbstractContentViewController* oldActived = _Change[ NSKeyValueChangeOldKey ];
+        TauAbstractContentViewController* newActived = _Change[ NSKeyValueChangeNewKey ];
 
-        [ oldActived removeFromParentViewController ];
-        [ oldActived.view removeFromSuperview ];
-
-        if ( activedPinEdgesCache_ )
+        if ( oldActived )
             {
-            [ self.view removeConstraints: activedPinEdgesCache_ ];
-            activedPinEdgesCache_ = nil;
+            [ oldActived removeFromParentViewController ];
+            [ oldActived.view removeFromSuperview ];
+
+            if ( activedPinEdgesCache_ )
+                {
+                [ self.view removeConstraints: activedPinEdgesCache_ ];
+                activedPinEdgesCache_ = nil;
+                }
             }
 
         [ self addChildViewController: newActived ];
