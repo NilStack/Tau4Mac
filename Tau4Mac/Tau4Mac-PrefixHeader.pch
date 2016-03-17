@@ -23,7 +23,7 @@
 
 @import CocoaLumberjack;
 
-#import "TauLog.h"
+#import "TauLogging.h"
 
 @import XCDYouTubeKit;
 @import PureLayout;

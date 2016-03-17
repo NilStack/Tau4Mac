@@ -1,12 +1,12 @@
 //
-//  TauLog.m
+//  TauLogging.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/17/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauLog.h"
+#import "TauLogging.h"
 #import "TauTTYLogFormatter.h"
 #import "NSColor+TauDrawing.h"
 

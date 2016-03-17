@@ -1,5 +1,5 @@
 //
-//  TestsCentralDataServiceMachanism.m
+//  TestsTauDataServiceMachanism.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/16/16.
@@ -9,18 +9,18 @@
 #import "TauYTDataService.h"
 #import "TauYTDataServiceCredential.h"
 
-// TestsCentralDataServiceMachanism class
-@interface TestsCentralDataServiceMachanism : TauTestCase <TauYTDataServiceConsumer>
+// TestsTauDataServiceMachanism class
+@interface TestsTauDataServiceMachanism : TauTestCase <TauYTDataServiceConsumer>
 
 @property ( strong, readwrite ) NSArray <GTLYouTubeSearchResult*>* searchResults;
 @property ( strong, readwrite ) NSArray <GTLYouTubeChannel*>* channels;
 @property ( strong, readwrite ) NSArray <GTLYouTubePlaylist*>* playlists;
 @property ( strong, readwrite ) NSArray <GTLYouTubePlaylistItem*>* playlistItems;
 
-@end // TestsCentralDataServiceMachanism class
+@end // TestsTauDataServiceMachanism class
 
-// TestsCentralDataServiceMachanism class
-@implementation TestsCentralDataServiceMachanism
+// TestsTauDataServiceMachanism class
+@implementation TestsTauDataServiceMachanism
     {
     TauYTDataService __weak* sharedDataService_;
 
@@ -520,4 +520,4 @@
         }
     }
 
-@end // TestsCentralDataServiceMachanism class
+@end // TestsTauDataServiceMachanism class
