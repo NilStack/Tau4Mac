@@ -225,21 +225,20 @@ TauYTDataService static* sYTDataService_;
                              failure: ( void (^)( NSError* _Error ) )_FailureHandler
     {
     NSError* error = nil;
-    if ( [ self validateOperationsCombination_: _OperationsDict hostSel_: _cmd error_: &error ] )
+    if ( _Credential )
         {
-        if ( _Credential )
+        TauYTDataServiceConsumerDataUnit* dataUnit = [ mapTable_ objectForKey: _Credential ];
+        if ( dataUnit )
             {
-            TauYTDataServiceConsumerDataUnit* dataUnit = [ mapTable_ objectForKey: _Credential ];
-
-            if ( dataUnit )
+            if ( [ self validateOperationsCombination_: _OperationsDict hostSel_: _cmd error_: &error ] )
                 [ dataUnit executeConsumerOperations: _OperationsDict success: _CompletionHandler failure: _FailureHandler ];
-            else
-                error = [ NSError errorWithDomain: TauCentralDataServiceErrorDomain
-                                             code: TauCentralDataServiceInvalidCredentialError
-                                         userInfo: @{ NSLocalizedDescriptionKey : [ NSString stringWithFormat: @"Credential {%@} is invalid. It may be already revoked.", _Credential ]
-                                                    , NSLocalizedRecoverySuggestionErrorKey : @"You can re-register a consumer to fetch a new valid credential from Tau Data Service."
-                                                    } ];
             }
+        else
+            error = [ NSError errorWithDomain: TauCentralDataServiceErrorDomain
+                                         code: TauCentralDataServiceInvalidCredentialError
+                                     userInfo: @{ NSLocalizedDescriptionKey : [ NSString stringWithFormat: @"Credential {%@} is invalid. It may be already revoked.", _Credential ]
+                                                , NSLocalizedRecoverySuggestionErrorKey : @"You can re-register a consumer to fetch a new valid credential from Tau Data Service."
+                                                } ];
         }
 
     if ( error )

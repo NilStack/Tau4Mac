@@ -9,15 +9,31 @@
 #import "TauYTDataService.h"
 #import "TauYTDataServiceCredential.h"
 
+#define searchResults  searchResults
+#define channels       channels
+#define playlists      playlists
+#define playlistItems  playlistItems
+
 // TestsTauDataServiceMachanism class
 @interface TestsTauDataServiceMachanism : TauTestCase <TauYTDataServiceConsumer>
 
-@property ( strong, readwrite ) NSArray <GTLYouTubeSearchResult*>* searchResults;
-@property ( strong, readwrite ) NSArray <GTLYouTubeChannel*>* channels;
-@property ( strong, readwrite ) NSArray <GTLYouTubePlaylist*>* playlists;
-@property ( strong, readwrite ) NSArray <GTLYouTubePlaylistItem*>* playlistItems;
+@property ( strong, readwrite ) NSArray <GTLYouTubeSearchResult*>*  searchResults;
+@property ( strong, readwrite ) NSArray <GTLYouTubeChannel*>*       channels;
+@property ( strong, readwrite ) NSArray <GTLYouTubePlaylist*>*      playlists;
+@property ( strong, readwrite ) NSArray <GTLYouTubePlaylistItem*>*  playlistItems;
 
 @end // TestsTauDataServiceMachanism class
+
+// Private
+@interface TestsTauDataServiceMachanism ()
+
+- ( void ) loop_: ( NSString* )_ModelKey onBehalfOf_: ( SEL )_Sel;
+
+- ( void ) executeTDSOperations_: ( NSDictionary* )_OperationsDict
+                     credential_: ( TauYTDataServiceCredential* )_Credential
+                          expec_: ( XCTestExpectation* )_Expec
+                     onBehalfOf_: ( SEL )_Sel;
+@end // Private
 
 // TestsTauDataServiceMachanism class
 @implementation TestsTauDataServiceMachanism
@@ -131,96 +147,35 @@
 
     // Search Results
     posSearchResultsInitialOperations_ =
-        @[ @{ TauTDSOperationMaxResultsPerPage : @10
-            , TauTDSOperationRequirements :
-                @{ TauTDSOperationRequirementQ : @"Evernote" }
-            , TauTDSOperationPartFilter : @"snippet"
-            }
-
-         , @{ TauTDSOperationMaxResultsPerPage : @30
-            , TauTDSOperationRequirements :
-                @{ TauTDSOperationRequirementQ : @"Vevo" }
-            , TauTDSOperationPartFilter : @"snippet"
-            }
-
-         , @{ TauTDSOperationRequirements :
-                @{ TauTDSOperationRequirementQ : @"GoPro" }
-            , TauTDSOperationPartFilter : @"snippet"
-            }
-
-         , @{ TauTDSOperationRequirements :
-                @{ TauTDSOperationRequirementQ : @"Apple" }
-            , TauTDSOperationMaxResultsPerPage : @4
-            }
+        @[ @{ TauTDSOperationMaxResultsPerPage : @10, TauTDSOperationRequirements : @{ TauTDSOperationRequirementQ : @"Evernote" }, TauTDSOperationPartFilter : @"snippet" }
+         , @{ TauTDSOperationMaxResultsPerPage : @30, TauTDSOperationRequirements : @{ TauTDSOperationRequirementQ : @"Vevo" }, TauTDSOperationPartFilter : @"snippet" }
+         , @{ TauTDSOperationRequirements : @{ TauTDSOperationRequirementQ : @"GoPro" }, TauTDSOperationPartFilter : @"snippet" }
+         , @{ TauTDSOperationRequirements : @{ TauTDSOperationRequirementQ : @"Apple" }, TauTDSOperationMaxResultsPerPage : @4 }
          ];
 
     negSearchResultsInitialOperations_ =
-        @[ @{ TauTDSOperationRequirements : @{} }
-         , @{ TauTDSOperationMaxResultsPerPage : @20 }
-         , @{ TauTDSOperationRequirements : @[ @"Microsoft" ] }
-
-         , @{ TauTDSOperationMaxResultsPerPage : @10
-            , TauTDSOperationRequirements :
-                @{ TauTDSOperationRequirementQ : @"Evernote" }
-            , TauTDSOperationPartFilter : @"snippet,contentDetails"
-            }
+        @[ @{ TauTDSOperationRequirements : @{} }, @{ TauTDSOperationMaxResultsPerPage : @20 }, @{ TauTDSOperationRequirements : @[ @"Microsoft" ] }
+         , @{ TauTDSOperationMaxResultsPerPage : @10, TauTDSOperationRequirements : @{ TauTDSOperationRequirementQ : @"Evernote" }, TauTDSOperationPartFilter : @"snippet,contentDetails" }
          ];
 
     // Channels
     posChannelsInitialOperations_ =
-        @[ @{ TauTDSOperationMaxResultsPerPage : @10
-            , TauTDSOperationRequirements :
-                @{ TauTDSOperationRequirementID : @"UCqhnX4jA0A5paNd1v-zEysw" }
-            , TauTDSOperationPartFilter : @"snippet,contentDetails"
-            }
-
-         , @{ TauTDSOperationRequirements :
-                @{ TauTDSOperationRequirementID : @"UC2pmfLm7iq6Ov1UwYrWYkZA" }
-            , TauTDSOperationPartFilter : @"snippet,contentDetails"
-            , TauTDSOperationFieldsFilter : @"items( id ), items( snippet( title, description) )"
-            }
-
-         , @{ TauTDSOperationRequirements :
-                @{ TauTDSOperationRequirementID : @"UC2pmfLm7iq6Ov1UwYrWYkZA" }
-            , TauTDSOperationPartFilter : @"contentDetails"
-            , TauTDSOperationFieldsFilter : @"items( id ), items( snippet( title, description) )"
-            }
-
-         , @{ TauTDSOperationRequirements :
-                @{ TauTDSOperationRequirementID : @"UC2rCynaFhWz7MeRoqJLvcow" }
-            , TauTDSOperationPartFilter : @"snippet,contentDetails"
-            }
+        @[ @{ TauTDSOperationMaxResultsPerPage : @10, TauTDSOperationRequirements : @{ TauTDSOperationRequirementID : @"UCqhnX4jA0A5paNd1v-zEysw" }, TauTDSOperationPartFilter : @"snippet,contentDetails" }
+         , @{ TauTDSOperationRequirements : @{ TauTDSOperationRequirementID : @"UC2pmfLm7iq6Ov1UwYrWYkZA" }, TauTDSOperationPartFilter : @"snippet,contentDetails", TauTDSOperationFieldsFilter : @"items( id ), items( snippet( title, description) )" }
+         , @{ TauTDSOperationRequirements : @{ TauTDSOperationRequirementID : @"UC2pmfLm7iq6Ov1UwYrWYkZA" }, TauTDSOperationPartFilter : @"contentDetails", TauTDSOperationFieldsFilter : @"items( id ), items( snippet( title, description) )" }
+         , @{ TauTDSOperationRequirements : @{ TauTDSOperationRequirementID : @"UC2rCynaFhWz7MeRoqJLvcow" }, TauTDSOperationPartFilter : @"snippet,contentDetails" }
          ];
 
     negChannelsInitialOperations_ =
-        @[ @{}
-         , @{ TauTDSOperationRequirements : @[ @"Microsoft" ] }
+        @[ @{}, @{ TauTDSOperationRequirements : @[ @"Microsoft" ] }
          ];
 
     // Playlists
     posPlaylistsInitialOperations_ =
-        @[ @{ TauTDSOperationMaxResultsPerPage : @10
-            , TauTDSOperationRequirements :
-                @{ TauTDSOperationRequirementChannelID : @"UCqhnX4jA0A5paNd1v-zEysw" }
-            , TauTDSOperationPartFilter : @"snippet,contentDetails"
-            }
-
-         , @{ TauTDSOperationRequirements :
-                @{ TauTDSOperationRequirementChannelID : @"UC2pmfLm7iq6Ov1UwYrWYkZA" }
-            , TauTDSOperationPartFilter : @"snippet,contentDetails"
-            , TauTDSOperationFieldsFilter : @"items( id ), items( snippet( title, description) )"
-            }
-
-         , @{ TauTDSOperationRequirements :
-                @{ TauTDSOperationRequirementChannelID : @"UC2pmfLm7iq6Ov1UwYrWYkZA" }
-            , TauTDSOperationPartFilter : @"contentDetails"
-            , TauTDSOperationFieldsFilter : @"items( id ), items( snippet( title, description) )"
-            }
-
-         , @{ TauTDSOperationRequirements :
-                @{ TauTDSOperationRequirementChannelID : @"UC2rCynaFhWz7MeRoqJLvcow" }
-            , TauTDSOperationPartFilter : @"snippet,contentDetails"
-            }
+        @[ @{ TauTDSOperationMaxResultsPerPage : @10, TauTDSOperationRequirements : @{ TauTDSOperationRequirementChannelID : @"UCqhnX4jA0A5paNd1v-zEysw" }, TauTDSOperationPartFilter : @"snippet,contentDetails" }
+         , @{ TauTDSOperationRequirements : @{ TauTDSOperationRequirementChannelID : @"UC2pmfLm7iq6Ov1UwYrWYkZA" }, TauTDSOperationPartFilter : @"snippet,contentDetails", TauTDSOperationFieldsFilter : @"items( id ), items( snippet( title, description) )" }
+         , @{ TauTDSOperationRequirements : @{ TauTDSOperationRequirementChannelID : @"UC2pmfLm7iq6Ov1UwYrWYkZA" }, TauTDSOperationPartFilter : @"contentDetails", TauTDSOperationFieldsFilter : @"items( id ), items( snippet( title, description) )" }
+         , @{ TauTDSOperationRequirements : @{ TauTDSOperationRequirementChannelID : @"UC2rCynaFhWz7MeRoqJLvcow" }, TauTDSOperationPartFilter : @"snippet,contentDetails" }
          ];
 
     negPlaylistsInitialOperations_ =
@@ -230,28 +185,10 @@
 
     // Playlist Items
     posPlaylistItemsInitialOperations_ =
-        @[ @{ TauTDSOperationMaxResultsPerPage : @10
-            , TauTDSOperationRequirements :
-                @{ TauTDSOperationRequirementPlaylistID : @"PLFCZYV79qT1G7xZCY47q2njj262r3GvR3" }
-            , TauTDSOperationPartFilter : @"snippet,contentDetails"
-            }
-
-         , @{ TauTDSOperationRequirements :
-                @{ TauTDSOperationRequirementPlaylistID : @"PLSvNPF6CgrdhmLFEd9rjZeFDs9E6Htqlj" }
-            , TauTDSOperationPartFilter : @"snippet,contentDetails"
-            , TauTDSOperationFieldsFilter : @"items( id ), items( snippet( title, description) )"
-            }
-
-         , @{ TauTDSOperationRequirements :
-                @{ TauTDSOperationRequirementPlaylistID : @"PLhKFRV3-UgpeA_3wzRHF8AS8T7ppKvm9O" }
-            , TauTDSOperationPartFilter : @"contentDetails"
-            , TauTDSOperationFieldsFilter : @"items( id ), items( snippet( title, description) )"
-            }
-
-         , @{ TauTDSOperationRequirements :
-                @{ TauTDSOperationRequirementPlaylistID : @"PL2Qq6_3SVp4P4N0Wyusc_-256lXZ3DVsw" }
-            , TauTDSOperationPartFilter : @"snippet,contentDetails"
-            }
+        @[ @{ TauTDSOperationMaxResultsPerPage : @10, TauTDSOperationRequirements : @{ TauTDSOperationRequirementPlaylistID : @"PLFCZYV79qT1G7xZCY47q2njj262r3GvR3" }, TauTDSOperationPartFilter : @"snippet,contentDetails" }
+         , @{ TauTDSOperationRequirements : @{ TauTDSOperationRequirementPlaylistID : @"PLSvNPF6CgrdhmLFEd9rjZeFDs9E6Htqlj" }, TauTDSOperationPartFilter : @"snippet,contentDetails", TauTDSOperationFieldsFilter : @"items( id ), items( snippet( title, description) )" }
+         , @{ TauTDSOperationRequirements : @{ TauTDSOperationRequirementPlaylistID : @"PLhKFRV3-UgpeA_3wzRHF8AS8T7ppKvm9O" }, TauTDSOperationPartFilter : @"contentDetails", TauTDSOperationFieldsFilter : @"items( id ), items( snippet( title, description) )" }
+         , @{ TauTDSOperationRequirements : @{ TauTDSOperationRequirementPlaylistID : @"PL2Qq6_3SVp4P4N0Wyusc_-256lXZ3DVsw" }, TauTDSOperationPartFilter : @"snippet,contentDetails" }
          ];
 
     negPlaylistItemsInitialOperations_ =
@@ -268,12 +205,124 @@
     [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: playlistItemsConsCredential_ ];
     }
 
+#pragma mark - Positive Test
+
+// Search Results
+
+- ( void ) testTDS_searchResults_operationsCombination_pos0
+    {
+    [ self loop_: @"searchResults" onBehalfOf_: _cmd ];
+    }
+
+// Channels
+
+- ( void ) testTDS_channels_operationsCombination_pos0
+    {
+    [ self loop_: @"channels" onBehalfOf_: _cmd ];
+    }
+
+// Playlists
+
+- ( void ) testTDS_playlists_operationsCombination_pos0
+    {
+    [ self loop_: @"playlists" onBehalfOf_: _cmd ];
+    }
+
+// Playlist Items
+
+- ( void ) testTDS_playlistItems_operationsCombination_pos0
+    {
+    [ self loop_: @"playlistItems" onBehalfOf_: _cmd ];
+    }
+
+#pragma mark - Negative Test
+
+// Search Results
+
+- ( void ) testTDS_searchResults_operationsCombination_neg0
+    {
+    [ self loop_: @"playlistItems" onBehalfOf_: _cmd ];
+    }
+
+// Channels
+
+- ( void ) testTDS_channels_operationsCombination_neg0
+    {
+    [ self loop_: @"channels" onBehalfOf_: _cmd ];
+    }
+
+// Playlists
+
+- ( void ) testTDS_playlists_operationsCombination_neg0
+    {
+    [ self loop_: @"playlists" onBehalfOf_: _cmd ];    }
+
+// Playlists
+
+- ( void ) testTDS_playlistItems_operationsCombination_neg0
+    {
+    [ self loop_: @"playlistItems" onBehalfOf_: _cmd ];
+    }
+
+// Consumer Registration
+
+- ( void ) testTDSConsumerRegistration_neg0
+    {
+    NSString* credentialKey = [ self credentialKeyWithModelKey_: @"searchResults" ];
+
+    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: [ self valueForKey: credentialKey ] ];
+    [ self loop_: @"searchResults" onBehalfOf_: _cmd ];
+
+    [ self setValue: [ [ TauYTDataService sharedService ] registerConsumer: self withMethodSignature: [ self methodSignatureForSelector: _cmd ] consumptionType: TauYTDataServiceConsumptionSearchResultsType ]
+             forKey: credentialKey ];
+    }
+
+#pragma mark - Private
+
 #define PAGE_LOOP 8 * 2
 
-- ( void ) executeConsumerOperations_: ( NSDictionary* )_OperationsDict
-                          credential_: ( TauYTDataServiceCredential* )_Credential
-                               expec_: ( XCTestExpectation* )_Expec
-                          onBehalfOf_: ( SEL )_Sel
+- ( void ) loop_: ( NSString* )_ModelKey onBehalfOf_: ( SEL )_Sel
+    {
+    BOOL isNeg = [ [ self class ] isTestMethodNegative: _Sel ];
+    NSArray* initialOperationsCombinations = [ self valueForKey: [ self initialOperationsKeyWithModelKey_: _ModelKey isNeg_: isNeg ] ];
+
+    for ( NSDictionary* _OperationsCombination in initialOperationsCombinations )
+        {
+        XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
+        [ self executeTDSOperations_: _OperationsCombination credential_: [ self valueForKey: [ self credentialKeyWithModelKey_: _ModelKey ] ] expec_: expec onBehalfOf_: _Sel ];
+
+        [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
+        ^( NSError* _Nullable _Error )
+            {
+            if ( _Error )
+                DDLogFatal( @"%@", _Error );
+            else
+                DDLogInfo( @"Finished expectation {expec}" );
+            } ];
+        }
+    }
+
+- ( NSString* ) credentialKeyWithModelKey_: ( NSString* )_ModelKey
+    {
+    return [ _ModelKey stringByAppendingString: @"ConsCredential_" ];
+    }
+
+- ( NSString* ) initialOperationsKeyWithModelKey_: ( NSString* )_ModelKey isNeg_: ( BOOL )_IsNeg
+    {
+    NSMutableString* key = [ NSMutableString stringWithString: _ModelKey ];
+    NSString* firstChar = [ key substringWithRange: NSMakeRange( 0, 1 ) ];
+    [ key replaceCharactersInRange: NSMakeRange( 0, 1 ) withString: firstChar.uppercaseString ];
+
+    [ key insertString: _IsNeg ? @"neg" : @"pos" atIndex: 0 ];
+    [ key appendString: @"InitialOperations_" ];
+
+    return [ key copy ];
+    }
+
+- ( void ) executeTDSOperations_: ( NSDictionary* )_OperationsDict
+                     credential_: ( TauYTDataServiceCredential* )_Credential
+                          expec_: ( XCTestExpectation* )_Expec
+                     onBehalfOf_: ( SEL )_Sel
     {
     int static recursionCount;
 
@@ -292,7 +341,7 @@
             NSMutableDictionary* newOperationsDict = [ _OperationsDict mutableCopy ];
             newOperationsDict[ TauTDSOperationPageToken ] = _NextPageToken;
 
-            [ self executeConsumerOperations_: newOperationsDict credential_: _Credential expec_: _Expec onBehalfOf_: _Sel ];
+            [ self executeTDSOperations_: newOperationsDict credential_: _Credential expec_: _Expec onBehalfOf_: _Sel ];
             }
         // Paging Up
         else if ( _PrevPageToken && ( recursionCount >= ( PAGE_LOOP / 2 ) ) && ( recursionCount < PAGE_LOOP ) )
@@ -300,7 +349,7 @@
             NSMutableDictionary* newOperationsDict = [ _OperationsDict mutableCopy ];
             newOperationsDict[ TauTDSOperationPageToken ] = _PrevPageToken;
 
-            [ self executeConsumerOperations_: newOperationsDict credential_: _Credential expec_: _Expec onBehalfOf_: _Sel ];
+            [ self executeTDSOperations_: newOperationsDict credential_: _Credential expec_: _Expec onBehalfOf_: _Sel ];
             }
         else
             {
@@ -329,195 +378,6 @@
                 recursionCount = 0;
                 [ _Expec fulfill ];
                 } ];
-    }
-
-#pragma mark - Positive Test
-
-// Search Results
-
-- ( void ) testDataServiceDataSearchResultsListAction_pos0
-    {
-    for ( NSDictionary* _OperationsCombination in posSearchResultsInitialOperations_ )
-        {
-        XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
-        [ self executeConsumerOperations_: _OperationsCombination credential_: searchResultsConsCredential_ expec_: expec onBehalfOf_: _cmd ];
-
-        [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
-        ^( NSError* _Nullable _Error )
-            {
-            if ( _Error )
-                DDLogFatal( @"%@", _Error );
-            else
-                DDLogInfo( @"Finished expectation {expec}" );
-            } ];
-        }
-    }
-
-// Channels
-
-- ( void ) testDataServiceDataChannelsListAction_pos0
-    {
-    for ( NSDictionary* _OperationsCombination in posChannelsInitialOperations_ )
-        {
-        XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
-        [ self executeConsumerOperations_: _OperationsCombination credential_: channelsConsCredential_ expec_: expec onBehalfOf_: _cmd ];
-
-        [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
-        ^( NSError* _Nullable _Error )
-            {
-            if ( _Error )
-                DDLogFatal( @"%@", _Error );
-            else
-                DDLogInfo( @"Finished expectation {expec}" );
-            } ];
-        }
-    }
-
-// Playlists
-
-- ( void ) testDataServiceDataPlaylistsListAction_pos0
-    {
-    for ( NSDictionary* _OperationsCombination in posPlaylistsInitialOperations_ )
-        {
-        XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
-        [ self executeConsumerOperations_: _OperationsCombination credential_: playlistsConsCredential_ expec_: expec onBehalfOf_: _cmd ];
-
-        [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
-        ^( NSError* _Nullable _Error )
-            {
-            if ( _Error )
-                DDLogFatal( @"%@", _Error );
-            else
-                DDLogInfo( @"Finished expectation {expec}" );
-            } ];
-        }
-    }
-
-// Playlist Items
-
-- ( void ) testDataServiceDataPlaylistItemsListAction_pos0
-    {
-    for ( NSDictionary* _OperationsCombination in posPlaylistItemsInitialOperations_ )
-        {
-        XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
-        [ self executeConsumerOperations_: _OperationsCombination credential_: playlistItemsConsCredential_ expec_: expec onBehalfOf_: _cmd ];
-
-        [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
-        ^( NSError* _Nullable _Error )
-            {
-            if ( _Error )
-                DDLogFatal( @"%@", _Error );
-            else
-                DDLogInfo( @"Finished expectation {expec}" );
-            } ];
-        }
-    }
-
-#pragma mark - Negative Test
-
-// Search Results
-
-- ( void ) testDataServiceDataResultsListAction_neg0
-    {
-    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: searchResultsConsCredential_ ];
-
-    for ( NSDictionary* _OperationsCombination in posSearchResultsInitialOperations_ )
-        {
-        XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
-        [ self executeConsumerOperations_: _OperationsCombination credential_: searchResultsConsCredential_ expec_: expec onBehalfOf_: _cmd ];
-
-        [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
-        ^( NSError* _Nullable _Error )
-            {
-            if ( _Error )
-                DDLogFatal( @"%@", _Error );
-            else
-                DDLogInfo( @"Finished expectation {expec}" );
-            } ];
-        }
-
-    searchResultsConsCredential_ =
-        [ [ TauYTDataService sharedService ] registerConsumer: self
-                                          withMethodSignature: [ self methodSignatureForSelector: _cmd ]
-                                              consumptionType: TauYTDataServiceConsumptionSearchResultsType ];
-    }
-
-- ( void ) testDataServiceDataResultsListAction_neg1
-    {
-    for ( NSDictionary* _OperationsCombination in negSearchResultsInitialOperations_ )
-        {
-        XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
-        [ self executeConsumerOperations_: _OperationsCombination credential_: searchResultsConsCredential_ expec_: expec onBehalfOf_: _cmd ];
-
-        [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
-        ^( NSError* _Nullable _Error )
-            {
-            if ( _Error )
-                DDLogFatal( @"%@", _Error );
-            else
-                DDLogInfo( @"Finished expectation {expec}" );
-            } ];
-        }
-    }
-
-// Channels
-
-- ( void ) testDataServiceDataChannelsListAction_neg0
-    {
-    for ( NSDictionary* _OperationsCombination in negChannelsInitialOperations_ )
-        {
-        XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
-        [ self executeConsumerOperations_: _OperationsCombination credential_: channelsConsCredential_ expec_: expec onBehalfOf_: _cmd ];
-
-        [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
-        ^( NSError* _Nullable _Error )
-            {
-            if ( _Error )
-                DDLogFatal( @"%@", _Error );
-            else
-                DDLogInfo( @"Finished expectation {expec}" );
-            } ];
-        }
-    }
-
-// Playlists
-
-- ( void ) testDataServiceDataPlaylistsListAction_neg0
-    {
-    for ( NSDictionary* _OperationsCombination in negPlaylistsInitialOperations_ )
-        {
-        XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
-        [ self executeConsumerOperations_: _OperationsCombination credential_: playlistsConsCredential_ expec_: expec onBehalfOf_: _cmd ];
-
-        [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
-        ^( NSError* _Nullable _Error )
-            {
-            if ( _Error )
-                DDLogFatal( @"%@", _Error );
-            else
-                DDLogInfo( @"Finished expectation {expec}" );
-            } ];
-        }
-    }
-
-// Playlists
-
-- ( void ) testDataServiceDataPlaylistItemsListAction_neg0
-    {
-    for ( NSDictionary* _OperationsCombination in negPlaylistItemsInitialOperations_ )
-        {
-        XCTestExpectation* expec = [ self expectationWithDescription: NSStringFromSelector( _cmd ) ];
-        [ self executeConsumerOperations_: _OperationsCombination credential_: playlistItemsConsCredential_ expec_: expec onBehalfOf_: _cmd ];
-
-        [ self waitForExpectationsWithTimeout: PAGE_LOOP * 20.f handler:
-        ^( NSError* _Nullable _Error )
-            {
-            if ( _Error )
-                DDLogFatal( @"%@", _Error );
-            else
-                DDLogInfo( @"Finished expectation {expec}" );
-            } ];
-        }
     }
 
 @end // TestsTauDataServiceMachanism class
