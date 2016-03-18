@@ -32,8 +32,8 @@
     TauExploreContentViewController __strong* priExploreContentViewController_;
     TauPlayerContentViewController __strong*  priPlayerContentViewController_;
 
-    // Layout Caches
-    NSArray* activedPinEdgesCache_;
+    // Layout caches
+    NSArray __strong* activedPinEdgesCache_;
     }
 
 - ( void ) viewDidLoad

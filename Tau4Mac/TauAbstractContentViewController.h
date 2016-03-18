@@ -6,14 +6,32 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
+@protocol TauContentSubViewController;
+
+@class TauViewsStack;
+
+#define activedSubViewController_kvoKey @"activedSubViewController"
+
 // TauAbstractContentViewController class
 @interface TauAbstractContentViewController : NSViewController
+    {
+@protected
+    TauViewsStack __strong* viewsStack_;
+
+    // Layout caches
+    NSArray __strong* activedPinEdgesCache_;
+    }
+
+#pragma mark - KVO Observable External Properties
+
+@property ( weak, readonly ) NSViewController <TauContentSubViewController>* activedSubViewController;
 
 @end // TauAbstractContentViewController class
 
 // TauContentSubViewController protocol
 @protocol TauContentSubViewController <NSObject>
 
+@optional
 @property ( strong, readonly ) NSAppearance* windowAppearanceWhileActive;
 
 @property ( strong, readonly ) NSArray <NSString*>* exposedToolbarItemIdentifiersWhileActive;
