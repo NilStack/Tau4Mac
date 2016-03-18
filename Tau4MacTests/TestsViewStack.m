@@ -17,9 +17,21 @@
 
 @property ( strong, readonly ) NSBundle* sampleViewContorllerBundle_;
 
+- ( NSBundle* ) sampleViewContorllerBundle_;
+
+- ( void ) observeKeyPathOfViewStack_: ( NSString* )_KeyPath;
+- ( void ) cancelObserveKeyPathOfViewStack_: ( NSString* )_KeyPath;
+
+- ( void ) filledUpViewStack_;
+- ( void ) popViewStackOneByOne_;
+- ( void ) popViewStackAtOnce_;
+
 @end // TestsViewStack class
 
 int static const kCurrentViewKVOCtx;
+int static const kViewBeforeCurrentViewKVOCtx;
+
+int static const kPriViewStackKVOCtx;
 
 #define PUSH_ONE_BY_ONE_CUTTING printf( "\n\n\n======== Push One by One =========\n\n\n" )
 #define POP_ONE_BY_ONE_CUTTING  printf( "\n\n\n======== Pop One by One =========\n\n\n" )
@@ -40,43 +52,70 @@ int static const kCurrentViewKVOCtx;
     bgViewContorller_ = [ [ BgViewController alloc ] initWithNibName: nil bundle: nil ];
 
     viewStack_.backgroundViewController = bgViewContorller_;
-
-    [ viewStack_ addObserver: self forKeyPath: @"currentView" options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial context: ( void* )&kCurrentViewKVOCtx ];
     }
 
 - ( void ) observeValueForKeyPath: ( NSString* )_KeyPath ofObject: ( id )_Object change: ( NSDictionary <NSString*, id>* )_Change context: ( void* )_Context
     {
-    if ( _Context == &kCurrentViewKVOCtx )
-        DDLogInfo( @"Change of \"%@\"'s value %@", _KeyPath, _Change );
+    DDLogInfo( @"Change of \"%@\"'s value %@", _KeyPath, _Change );
     }
+
+#pragma mark - Positive Tests
+
+// KVO compatibility of priViewsStack_
+
+- ( void ) testOperation2PriViewStack_pos0
+    {
+    [ self observeKeyPathOfViewStack_: @"priViewsStack_" ];
+        {
+        [ self filledUpViewStack_ ];
+        [ self popViewStackOneByOne_ ];
+        }
+    [ self cancelObserveKeyPathOfViewStack_: @"priViewsStack_" ];
+    }
+
+- ( void ) testOperation2PriViewStack_pos1
+    {
+    [ self observeKeyPathOfViewStack_: @"priViewsStack_" ];
+        {
+        [ self filledUpViewStack_ ];
+        [ self popViewStackAtOnce_ ];
+        }
+    [ self cancelObserveKeyPathOfViewStack_: @"priViewsStack_" ];
+    }
+
+// KVO compatibility of external properties
 
 - ( void ) testMixedStackOperations_pos0
     {
-    PUSH_ONE_BY_ONE_CUTTING;
-    for ( int _Index = 0; _Index < TAU_UNITTEST_SAMPLES_COUNT; _Index++ )
+    [ self observeKeyPathOfViewStack_: @"currentView" ];
+    [ self observeKeyPathOfViewStack_: @"viewBeforeCurrentView" ];
         {
-        ViewStackItem* stackItem = [ [ ViewStackItem alloc ] initWithNibName: nil bundle: self.sampleViewContorllerBundle_ ];
-        [ stackItem setIdentifier: [ NSString stringWithFormat: @"pop0-rolling-out-%@", @( _Index ) ] ];
-        [ viewStack_ pushView: stackItem ];
+        [ self filledUpViewStack_ ];
+        [ self popViewStackOneByOne_ ];
         }
-
-    POP_ONE_BY_ONE_CUTTING;
-    for ( int _Index = 0; _Index < TAU_UNITTEST_SAMPLES_COUNT; _Index++ )
-        [ viewStack_ popView ];
+    [ self cancelObserveKeyPathOfViewStack_: @"viewBeforeCurrentView" ];
+    [ self cancelObserveKeyPathOfViewStack_: @"currentView" ];
     }
 
 - ( void ) testMixedStackOperations_pos1
     {
-    PUSH_ONE_BY_ONE_CUTTING;
-    for ( int _Index = 0; _Index < TAU_UNITTEST_SAMPLES_COUNT; _Index++ )
+    [ self observeKeyPathOfViewStack_: @"currentView" ];
+    [ self observeKeyPathOfViewStack_: @"viewBeforeCurrentView" ];
         {
-        ViewStackItem* stackItem = [ [ ViewStackItem alloc ] initWithNibName: nil bundle: self.sampleViewContorllerBundle_ ];
-        [ stackItem setIdentifier: [ NSString stringWithFormat: @"pos1-rolling-out-%@", @( _Index ) ] ];
-        [ viewStack_ pushView: stackItem ];
+        [ self filledUpViewStack_ ];
+        [ self popViewStackAtOnce_ ];
         }
+    [ self cancelObserveKeyPathOfViewStack_: @"viewBeforeCurrentView" ];
+    [ self cancelObserveKeyPathOfViewStack_: @"currentView" ];
+    }
 
-    POP_ALL_CUTTING;
-    [ viewStack_ popAll ];
+#pragma mark - Negative Tests
+
+- ( void ) testPushStackOperation_neg0
+    {
+    XCTAssertThrowsSpecificNamed( [ viewStack_ pushView: nil ], NSException, NSInvalidArgumentException
+                                , @"Expecting a thrown exception instance of <%@> with NSInvalidArgumentException (\"%@\") description.", [ NSException class ], NSInvalidArgumentException
+                                );
     }
 
 #pragma mark - Private
@@ -86,6 +125,50 @@ int static const kCurrentViewKVOCtx;
     if ( !priSampleViewContorllerBundle_ )
         priSampleViewContorllerBundle_ = [ NSBundle bundleForClass: [ ViewStackItem class ] ];
     return priSampleViewContorllerBundle_;
+    }
+
+- ( void ) observeKeyPathOfViewStack_: ( NSString* )_KeyPath
+    {
+    void* ctx = nil;
+
+    if ( [ _KeyPath isEqualToString: @"priViewsStack_" ] )
+        ctx = ( void* )&kPriViewStackKVOCtx;
+    else if ( [ _KeyPath isEqualToString: @"currentView" ] )
+        ctx = ( void* )&kCurrentViewKVOCtx;
+    else if ( [ _KeyPath isEqualToString: @"viewBeforeCurrentView" ] )
+        ctx = ( void* )&kViewBeforeCurrentViewKVOCtx;
+
+    [ viewStack_ addObserver: self forKeyPath: _KeyPath options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial context: ctx ];
+    }
+
+- ( void ) cancelObserveKeyPathOfViewStack_: ( NSString* )_KeyPath
+    {
+    [ viewStack_ removeObserver: self forKeyPath: _KeyPath ];
+    }
+
+- ( void ) filledUpViewStack_
+    {
+    PUSH_ONE_BY_ONE_CUTTING;
+    for ( int _Index = 0; _Index < TAU_UNITTEST_SAMPLES_COUNT; _Index++ )
+        {
+        ViewStackItem* stackItem = [ [ ViewStackItem alloc ] initWithNibName: nil bundle: self.sampleViewContorllerBundle_ ];
+        [ stackItem setIdentifier: [ NSString stringWithFormat: @"pos0-rolling-out-%@", @( _Index ) ] ];
+
+        XCTAssertNoThrow( [ viewStack_ pushView: stackItem ] );
+        }
+    }
+
+- ( void ) popViewStackOneByOne_
+    {
+    POP_ONE_BY_ONE_CUTTING;
+    for ( int _Index = 0; _Index < TAU_UNITTEST_SAMPLES_COUNT; _Index++ )
+        [ viewStack_ popView ];
+    }
+
+- ( void ) popViewStackAtOnce_
+    {
+    POP_ALL_CUTTING;
+    [ viewStack_ popAll ];
     }
 
 @end // TestsViewStack class
