@@ -677,7 +677,11 @@
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <customObject id="NI0-Jl-Hea" customClass="TauToolbarController"/>
+                <customObject id="NI0-Jl-Hea" customClass="TauToolbarController">
+                    <connections>
+                        <outlet property="managedToolbar" destination="uok-aL-qNv" id="RqA-xl-wjF"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="89" y="404"/>
         </scene>

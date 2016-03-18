@@ -33,9 +33,6 @@ NSString* const TauShouldPlayVideoNotif = @"Should.PlayVideo.Notif";
 NSString* const kRequester = @"kRequester";
 
 @implementation TauMainWindowController
-    {
-    FBKVOController __strong* kvoController_;
-    }
 
 #pragma mark - Initializations
 
@@ -50,12 +47,7 @@ NSString* const kRequester = @"kRequester";
 - ( void ) windowDidLoad
     {
     [ super windowDidLoad ];
-
-    [ self.toolbar setAllowsUserCustomization: NO ];
-
     [ NSApp setDelegate: self ];
-
-    kvoController_ = [ [ FBKVOController alloc ] initWithObserver: self.contentViewController ];
 
     [ [ TauToolbarController sharedController ].segSwitcher selectSegmentWithTag: TauSearchContentViewTag ];
 //    [ [ NSNotificationCenter defaultCenter ]

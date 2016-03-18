@@ -9,6 +9,8 @@
 // TauToolbarController class
 @interface TauToolbarController : NSObject <NSToolbarDelegate>
 
+@property ( weak ) IBOutlet NSToolbar* managedToolbar;
+
 @property ( strong, readonly ) NSSegmentedControl* segSwitcher;
 
 + ( instancetype ) sharedController;

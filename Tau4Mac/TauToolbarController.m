@@ -35,6 +35,11 @@ TauToolbarController static* sShared_;
     return sShared_;
     }
 
+- ( void ) awakeFromNib
+    {
+    [ self.managedToolbar setAllowsUserCustomization: NO ];
+    }
+
 #pragma mark - Conforms to <NSToolbarDelegate>
 
 NSString* const kPanelsSwitcher = @"kPanelsSwitcher";
