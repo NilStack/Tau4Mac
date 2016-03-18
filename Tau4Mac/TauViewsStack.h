@@ -1,12 +1,12 @@
 
-#define currentView_kvoKey @"currentView"
+#define currentView_kvoKey           @"currentView"
 #define viewBeforeCurrentView_kvoKey @"viewBeforeCurrentView"
 
 // TauViewsStack class
 @interface TauViewsStack : NSObject
 
 // Base View
-@property ( weak ) NSViewController* baseViewController;
+@property ( weak ) NSViewController* backgroundViewController;
 
 #pragma mark - Stack Operations
 

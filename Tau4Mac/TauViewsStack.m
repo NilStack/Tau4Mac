@@ -13,7 +13,7 @@
 // TauViewsStack class
 @implementation TauViewsStack
 
-@synthesize baseViewController = _baseViewController;
+@synthesize backgroundViewController = backgroundViewController_;
 
 #pragma mark - Initializations
 
@@ -51,7 +51,7 @@
 #pragma mark - KVO-Observable External Properties
 
 @dynamic currentView;
-+ ( NSSet* ) keyPathsForValuesAffectingCurrentView
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingCurrentView
     {
     return [ NSSet setWithObjects: priViewsStack_kvoKey, nil ];
     }
@@ -63,7 +63,7 @@
     if ( priViewsStack_.count > 0 )
         currentViewController = priViewsStack_.lastObject;
     else
-        currentViewController = self.baseViewController;
+        currentViewController = backgroundViewController_;
 
     return currentViewController;
     }
@@ -83,7 +83,7 @@
     if ( ( currentIndex > 0 ) && ( currentIndex != NSNotFound ) )
         interestingViewController = [ priViewsStack_ objectAtIndex: currentIndex - 1 ];
     else
-        interestingViewController = self.baseViewController;
+        interestingViewController = backgroundViewController_;
 
     return interestingViewController;
     }
@@ -101,7 +101,7 @@
     return [ priViewsStack_ objectsAtIndexes: _Indexes ];
     }
 
-- ( void ) getPriViewsStack_:( NSViewController * __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
+- ( void ) getPriViewsStack_: ( NSViewController * __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
     {
     return [ priViewsStack_ getObjects: _Buffer range: _InRange ];
     }
