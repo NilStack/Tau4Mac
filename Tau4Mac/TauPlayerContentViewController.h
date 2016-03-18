@@ -8,6 +8,7 @@
 
 #import "TauAbstractContentViewController.h"
 
+// TauPlayerContentViewController class
 @interface TauPlayerContentViewController : TauAbstractContentViewController
 
-@end
+@end // TauPlayerContentViewController class

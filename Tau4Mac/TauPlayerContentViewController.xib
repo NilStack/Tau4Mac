@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TauPlayerContentViewController">
             <connections>
+                <outlet property="initialPlayerContentSubViewController_" destination="KRf-4S-3Vc" id="H5a-tA-E8p"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -16,22 +17,32 @@
         <customView id="Hz6-mo-xeY">
             <rect key="frame" x="0.0" y="0.0" width="559" height="319"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <point key="canvasLocation" x="515.5" y="607.5"/>
+        </customView>
+        <customView id="Lq8-Ey-Wii">
+            <rect key="frame" x="0.0" y="0.0" width="559" height="319"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <avPlayerView controlsStyle="inline" translatesAutoresizingMaskIntoConstraints="NO" id="IWp-7W-evh">
                     <rect key="frame" x="0.0" y="0.0" width="559" height="319"/>
                     <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="PFJ-kc-NBT"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" id="ahp-dM-DGh"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="6sT-Es-08w"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" id="d5n-ig-GLH"/>
                     </constraints>
                 </avPlayerView>
             </subviews>
             <constraints>
-                <constraint firstItem="IWp-7W-evh" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="1BQ-VJ-aUj"/>
-                <constraint firstItem="IWp-7W-evh" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="3mo-Yd-9rw"/>
-                <constraint firstAttribute="trailing" secondItem="IWp-7W-evh" secondAttribute="trailing" id="BfJ-nv-OLH"/>
-                <constraint firstAttribute="bottom" secondItem="IWp-7W-evh" secondAttribute="bottom" id="eaQ-Lt-QgJ"/>
+                <constraint firstAttribute="trailing" secondItem="IWp-7W-evh" secondAttribute="trailing" id="6M7-Gt-8zK"/>
+                <constraint firstItem="IWp-7W-evh" firstAttribute="leading" secondItem="Lq8-Ey-Wii" secondAttribute="leading" id="hTC-sU-Lom"/>
+                <constraint firstItem="IWp-7W-evh" firstAttribute="top" secondItem="Lq8-Ey-Wii" secondAttribute="top" id="oPV-EN-VrQ"/>
+                <constraint firstAttribute="bottom" secondItem="IWp-7W-evh" secondAttribute="bottom" id="pRA-TR-udy"/>
             </constraints>
-            <point key="canvasLocation" x="515.5" y="607.5"/>
+            <point key="canvasLocation" x="441.5" y="34.5"/>
         </customView>
+        <viewController id="KRf-4S-3Vc" customClass="TauPlayerContentSubViewController">
+            <connections>
+                <outlet property="view" destination="Lq8-Ey-Wii" id="X6I-pd-ZbR"/>
+            </connections>
+        </viewController>
     </objects>
 </document>

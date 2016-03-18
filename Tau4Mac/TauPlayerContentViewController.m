@@ -7,16 +7,44 @@
 //
 
 #import "TauPlayerContentViewController.h"
+#import "TauViewsStack.h"
 
+// TauPlayerContentSubViewController class
+@interface TauPlayerContentSubViewController : NSViewController <TauContentSubViewController>
+@end // TauPlayerContentSubViewController class
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+// Private
 @interface TauPlayerContentViewController ()
+@property ( weak ) IBOutlet TauPlayerContentSubViewController* initialPlayerContentSubViewController_;
+@end // Private
 
-@end
 
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
+// TauPlayerContentViewController class
 @implementation TauPlayerContentViewController
 
 - ( void ) viewDidLoad
     {
     [ super viewDidLoad ];
+    [ self.viewsStack setBackgroundViewController: self.initialPlayerContentSubViewController_ ];
     }
 
-@end
+@end // TauPlayerContentViewController class
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
+// TauPlayerContentSubViewController class
+@implementation TauPlayerContentSubViewController
+@end // TauPlayerContentSubViewController class
