@@ -7,6 +7,7 @@
 //
 
 #import "TauMainContentViewController.h"
+#import "TauToolbarController.h"
 
 #import "TauSearchContentViewController.h"
 #import "TauExploreContentViewController.h"
@@ -16,6 +17,8 @@
 @interface TauMainContentViewController ()
 
 @property ( strong, readonly ) FBKVOController* selfObservKVOController_;
+@property ( strong, readonly ) FBKVOController* observSharedToolbarCtrlKVOController_;
+
 @property ( assign, readwrite ) TauContentViewTag activedSegment_;
 
 @end // Private
@@ -27,6 +30,7 @@
 @implementation TauMainContentViewController
     {
     FBKVOController __strong* priSelfObservKVOController_;
+    FBKVOController __strong* priObservSharedToolbarCtrlKVOController_;
 
     TauSearchContentViewController __strong*  priSearchContentViewController_;
     TauExploreContentViewController __strong* priExploreContentViewController_;
@@ -38,6 +42,15 @@
 
 - ( void ) viewDidLoad
     {
+    [ self.observSharedToolbarCtrlKVOController_ observe: [ TauToolbarController sharedController ].segSwitcher
+                                                 keyPath: @"cell.selectedSegment"
+                                                 options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                                                   block:
+    ^( id _Nullable _Observer, NSSegmentedControl* _Nonnull _Object, NSDictionary <NSString*, id>* _Nonnull _Change )
+        {
+        self.activedSegment_ = _Object.selectedSegment;
+        } ];
+
     // self-observing to react to the change of activedContentViewController property
     [ self.selfObservKVOController_ observe: self
                                     keyPath: activedContentViewController_kvoKey
@@ -108,6 +121,14 @@
     return priSelfObservKVOController_;
     }
 
+@dynamic observSharedToolbarCtrlKVOController_;
+- ( FBKVOController* ) observSharedToolbarCtrlKVOController_
+    {
+    if ( !priObservSharedToolbarCtrlKVOController_ )
+        priObservSharedToolbarCtrlKVOController_ = [ [ FBKVOController alloc ] initWithObserver: self ];
+    return priObservSharedToolbarCtrlKVOController_;
+    }
+
 @dynamic activedContentViewController;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingActivedContentViewController
     {
@@ -151,12 +172,6 @@
 - ( TauContentViewTag ) activedSegment_
     {
     return activedSegment_;
-    }
-
-- ( void ) selectedSegmentDidChange: ( NSDictionary * )_ChangeDict observing: ( NSSegmentedControl* )_Observing
-    {
-    // Observers of self.activedContentViewController will be notified
-    self.activedSegment_ = _Observing.selectedSegment;
     }
 
 @end // TauMainContentViewController class

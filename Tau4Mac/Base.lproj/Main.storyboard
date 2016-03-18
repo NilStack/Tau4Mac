@@ -667,7 +667,7 @@
                             </allowedToolbarItems>
                             <defaultToolbarItems/>
                             <connections>
-                                <outlet property="delegate" destination="B8D-0N-5wS" id="wnE-BI-mep"/>
+                                <outlet property="delegate" destination="NI0-Jl-Hea" id="cQE-Ao-1oK"/>
                             </connections>
                         </toolbar>
                     </window>
@@ -677,6 +677,7 @@
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="NI0-Jl-Hea" customClass="TauToolbarController"/>
             </objects>
             <point key="canvasLocation" x="89" y="404"/>
         </scene>
