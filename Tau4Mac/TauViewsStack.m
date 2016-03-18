@@ -8,8 +8,6 @@
 @property ( strong, readwrite ) NSMutableArray <NSViewController*>* priViewsStack_;         // KVO_Observable
 @property ( strong, readwrite ) NSMutableArray <NSViewController*>* proxyOfPriViewsStack_;
 
-- ( NSViewController* ) _currentView;
-
 @end // Private Interfaces
 
 // TauViewsStack class
@@ -60,7 +58,14 @@
 
 - ( NSViewController* ) currentView
     {
-    return [ self _currentView ];
+    NSViewController* currentViewController = nil;
+
+    if ( priViewsStack_.count > 0 )
+        currentViewController = priViewsStack_.lastObject;
+    else
+        currentViewController = self.baseViewController;
+
+    return currentViewController;
     }
 
 @dynamic viewBeforeCurrentView;
@@ -71,15 +76,16 @@
 
 - ( NSViewController* ) viewBeforeCurrentView
     {
-    NSViewController* interestingView = nil;
-    NSViewController* current = [ self _currentView ];
-    NSUInteger currentIndex = [ priViewsStack_ indexOfObject: current ];
-    if ( currentIndex > 0 && currentIndex != NSNotFound )
-        interestingView = [ priViewsStack_ objectAtIndex: currentIndex - 1 ];
-    else
-        interestingView = self.baseViewController;
+    NSViewController* interestingViewController = nil;
+    NSViewController* current = self.currentView;
 
-    return interestingView;
+    NSUInteger currentIndex = [ priViewsStack_ indexOfObject: current ];
+    if ( ( currentIndex > 0 ) && ( currentIndex != NSNotFound ) )
+        interestingViewController = [ priViewsStack_ objectAtIndex: currentIndex - 1 ];
+    else
+        interestingViewController = self.baseViewController;
+
+    return interestingViewController;
     }
 
 #pragma mark Private Interfaces
@@ -119,18 +125,6 @@
 - ( NSMutableArray <NSViewController*>* ) proxyOfPriViewsStack_
     {
     return [ self mutableArrayValueForKey: priViewsStack_kvoKey ];
-    }
-
-- ( NSViewController* ) _currentView
-    {
-    NSViewController* currentViewController = nil;
-
-    if ( priViewsStack_.count > 0 )
-        currentViewController = priViewsStack_.lastObject;
-    else
-        currentViewController = self.baseViewController;
-
-    return currentViewController;
     }
 
 @end // TauViewsStack class
