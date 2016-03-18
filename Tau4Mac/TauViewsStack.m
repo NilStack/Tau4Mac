@@ -12,14 +12,45 @@
 // TauViewsStack class
 @implementation TauViewsStack
 
+#define THROW_ARGUMENTS_MUST_NO_BE_NIL_EX \
+do { \
+@throw [ NSException \
+    exceptionWithName: NSInvalidArgumentException \
+               reason: [ NSString stringWithFormat: @"Argument of %@ must not be nil", THIS_METHOD ] \
+             userInfo: @{ @"file" : THIS_FILE, @"method" : THIS_METHOD, @"line" : @( __LINE__ ) } ]; \
+} while( 0 )
+
 @synthesize backgroundViewController = backgroundViewController_;
+
+- ( void ) setBackgroundViewController: ( NSViewController* )_New
+    {
+    if ( !_New )
+        THROW_ARGUMENTS_MUST_NO_BE_NIL_EX;
+
+    if ( backgroundViewController_ != _New )
+        backgroundViewController_ = _New;
+    }
+
+- ( NSViewController* ) backgroundViewController
+    {
+    return backgroundViewController_;
+    }
 
 #pragma mark - Initializations
 
-- ( instancetype ) init
+- ( instancetype ) initWithBackgroundViewController: ( NSViewController* )_BgViewController
     {
     if ( self = [ super init ] )
+        {
+        @try {
+        self.backgroundViewController = _BgViewController;
         self.priViewsStack_ = [ NSMutableArray array ];
+        } @catch ( NSException* _Ex )
+            {
+            DDLogUnexpected( @"Could finish the initialization due to the exception: {%@ %@}", _Ex, _Ex.userInfo );
+            self = nil;
+            }
+        }
 
     return self;
     }
@@ -37,9 +68,7 @@
         [ self didChange: NSKeyValueChangeInsertion valuesAtIndexes: affectedIndexes forKey: priViewsStack_kvoKey ];
         }
     else
-        @throw [ NSException exceptionWithName: NSInvalidArgumentException
-                                        reason: [ NSString stringWithFormat: @"Parameter of %@ must not be nil", THIS_METHOD ]
-                                      userInfo: @{ @"file" : THIS_FILE, @"method" : THIS_METHOD, @"line" : @( __LINE__ ) } ];
+        THROW_ARGUMENTS_MUST_NO_BE_NIL_EX;
     }
 
 - ( void ) popView

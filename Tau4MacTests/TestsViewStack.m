@@ -40,7 +40,7 @@ int static const kPriViewStackKVOCtx;
 // TestsViewStack class
 @implementation TestsViewStack
     {
-    NSViewController* bgViewContorller_;
+    NSViewController __strong* bgViewContorller_;
     TauViewsStack __strong* viewStack_;
 
     NSBundle __strong* priSampleViewContorllerBundle_;
@@ -48,10 +48,8 @@ int static const kPriViewStackKVOCtx;
 
 - ( void ) setUp
     {
-    viewStack_ = [ [ TauViewsStack alloc ] init ];
     bgViewContorller_ = [ [ BgViewController alloc ] initWithNibName: nil bundle: nil ];
-
-    viewStack_.backgroundViewController = bgViewContorller_;
+    viewStack_ = [ [ TauViewsStack alloc ] initWithBackgroundViewController: bgViewContorller_ ];
     }
 
 - ( void ) observeValueForKeyPath: ( NSString* )_KeyPath ofObject: ( id )_Object change: ( NSDictionary <NSString*, id>* )_Change context: ( void* )_Context

@@ -8,6 +8,10 @@
 // Base View
 @property ( weak ) NSViewController* backgroundViewController;
 
+#pragma mark - Initializations
+
+- ( instancetype ) initWithBackgroundViewController: ( NSViewController* )_BgViewController;
+
 #pragma mark - Stack Operations
 
 - ( void ) pushView: ( NSViewController* )_ViewController;

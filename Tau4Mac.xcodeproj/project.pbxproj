@@ -604,6 +604,8 @@
 		836D27081C9ACEC800290BE7 /* abstract */ = {
 			isa = PBXGroup;
 			children = (
+				8321F6661C8AA0A500D11FE0 /* TauViewsStack.h */,
+				8321F6671C8AA0A500D11FE0 /* TauViewsStack.m */,
 				836D27051C9ACEC200290BE7 /* TauAbstractContentViewController.h */,
 				836D27061C9ACEC200290BE7 /* TauAbstractContentViewController.m */,
 			);
@@ -661,8 +663,6 @@
 				836D26F31C9ACB1E00290BE7 /* TauMainContentViewController.m */,
 				836D26EE1C9AC8DE00290BE7 /* TauMainContentView.h */,
 				836D26EF1C9AC8DE00290BE7 /* TauMainContentView.m */,
-				8321F6661C8AA0A500D11FE0 /* TauViewsStack.h */,
-				8321F6671C8AA0A500D11FE0 /* TauViewsStack.m */,
 				83B0202E1C96B1A5006333CB /* models */,
 				83765B0D1C8816F300D93554 /* views */,
 				831BD6CA1C883FA300122AF6 /* TauYouTubeEntryView.h */,

@@ -11,16 +11,11 @@
 
 // Private
 @interface TauAbstractContentViewController ()
-
 - ( void ) doAbstractContentViewInit_;
-
 @end // Private
 
 // TauAbstractContentViewController class
 @implementation TauAbstractContentViewController
-    {
-    NSViewController <TauContentSubViewController> __weak* activedSubViewController_;
-    }
 
 #pragma mark - Initializations
 
@@ -47,32 +42,7 @@
 
 #pragma mark - KVO Observable External Properties
 
-@synthesize activedSubViewController = activedSubViewController_;
-+ ( BOOL ) automaticallyNotifiesObserversOfActivedSubViewController
-    {
-    return NO;
-    }
-
-- ( void ) setActivedSubViewController: ( NSViewController <TauContentSubViewController>* )_New
-    {
-    if ( activedSubViewController_ != _New )
-        {
-        if ( activedSubViewController_ )
-            {
-            [ activedSubViewController_ removeFromParentViewController ];
-            [ activedSubViewController_.view removeFromSuperview ];
-            [ self.view removeConstraints: activedPinEdgesCache_ ];
-            }
-
-        [ self addChildViewController: _New ];
-        [ self.view addSubview: _New.view ];
-        activedPinEdgesCache_ = [ _New.view autoPinEdgesToSuperviewEdges ];
-
-        [ self willChangeValueForKey: activedSubViewController_kvoKey ];
-        activedSubViewController_ = _New;
-        [ self didChangeValueForKey: activedSubViewController_kvoKey ];
-        }
-    }
+@synthesize activedSubViewController;
 
 - ( void ) viewDidLoad
     {
@@ -82,8 +52,8 @@
     self.view.layer.backgroundColor = [ NSColor whiteColor ].CGColor;
 
     [ self.view configureForAutoLayout ];
-    [ self.view autoSetDimension: ALDimensionWidth toSize: TAU_APP_MIN_WIDTH relation: NSLayoutRelationGreaterThanOrEqual ];
-    [ self.view autoSetDimension: ALDimensionHeight toSize: TAU_APP_MIN_HEIGHT relation: NSLayoutRelationGreaterThanOrEqual ];
+    [ self.view autoSetDimension: ALDimensionWidth toSize: 0 relation: NSLayoutRelationGreaterThanOrEqual ];
+    [ self.view autoSetDimension: ALDimensionHeight toSize: 0 relation: NSLayoutRelationGreaterThanOrEqual ];
     }
 
 #pragma mark - Private
