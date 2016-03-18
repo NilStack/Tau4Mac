@@ -7,6 +7,7 @@
 //
 
 #import "TauSearchContentViewController.h"
+#import "TauViewsStack.h"
 
 // TauSearchContentSubViewController class
 @interface TauSearchContentSubViewController : NSViewController <TauContentSubViewController>
@@ -32,14 +33,8 @@
     {
     [ super viewDidLoad ];
 
-    }
-
-- ( void ) active_: ( NSViewController <TauContentSubViewController>* )_ContentSubViewController
-    {
-//    [ 
-    [ self addChildViewController: _ContentSubViewController ];
-    [ self.view addSubview: self.initialSearchContentSubViewController_.view ];
-    activedPinEdgesCache_ = [ self.initialSearchContentSubViewController_.view autoPinEdgesToSuperviewEdges ];
+//    self.viewsStack = [ [ TauViewsStack alloc ] initWithBackgroundViewController: self.initialSearchContentSubViewController_ ];
+    [ self.viewsStack setBackgroundViewController: self.initialSearchContentSubViewController_ ];
     }
 
 @end // TauSearchContentViewController class

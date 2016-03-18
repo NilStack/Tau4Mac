@@ -16,14 +16,13 @@
 @interface TauAbstractContentViewController : NSViewController
     {
 @protected
-    TauViewsStack __strong* viewsStack_;
-
     // Layout caches
     NSArray __strong* activedPinEdgesCache_;
     }
 
 #pragma mark - KVO Observable External Properties
 
+@property ( strong, readonly ) TauViewsStack* viewsStack;
 @property ( weak, readonly ) NSViewController <TauContentSubViewController>* activedSubViewController;
 
 @end // TauAbstractContentViewController class

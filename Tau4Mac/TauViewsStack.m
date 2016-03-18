@@ -40,17 +40,24 @@ do { \
 
 - ( instancetype ) initWithBackgroundViewController: ( NSViewController* )_BgViewController
     {
-    if ( self = [ super init ] )
+    if ( self = [ self init ] )
         {
         @try {
         self.backgroundViewController = _BgViewController;
-        self.priViewsStack_ = [ NSMutableArray array ];
         } @catch ( NSException* _Ex )
             {
             DDLogUnexpected( @"Could finish the initialization due to the exception: {%@ %@}", _Ex, _Ex.userInfo );
             self = nil;
             }
         }
+
+    return self;
+    }
+
+- ( instancetype ) init
+    {
+    if ( self = [ super init ] )
+        self.priViewsStack_ = [ NSMutableArray array ];
 
     return self;
     }

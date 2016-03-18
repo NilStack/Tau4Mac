@@ -50,6 +50,11 @@ int static const kPriViewStackKVOCtx;
     {
     bgViewContorller_ = [ [ BgViewController alloc ] initWithNibName: nil bundle: nil ];
     viewStack_ = [ [ TauViewsStack alloc ] initWithBackgroundViewController: bgViewContorller_ ];
+    XCTAssertNotNil( viewStack_ );
+
+    viewStack_ = [ [ TauViewsStack alloc ] init ];
+    viewStack_.backgroundViewController = bgViewContorller_;
+    XCTAssertNotNil( viewStack_ );
     }
 
 - ( void ) observeValueForKeyPath: ( NSString* )_KeyPath ofObject: ( id )_Object change: ( NSDictionary <NSString*, id>* )_Change context: ( void* )_Context
