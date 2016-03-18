@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TauExploreContentViewController">
             <connections>
+                <outlet property="initialExploreContentSubViewController_" destination="RBY-3w-LKH" id="YPd-2B-WoU"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -15,16 +16,30 @@
         <customView id="Hz6-mo-xeY">
             <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+        </customView>
+        <customView id="gBJ-9h-XI3">
+            <rect key="frame" x="0.0" y="0.0" width="277" height="165"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SQK-Hx-r8C">
-                    <rect key="frame" x="215" y="128" width="50" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Explore" id="G4A-qQ-mMz">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8qN-7I-fcV">
+                    <rect key="frame" x="113" y="74" width="50" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Explore" id="DnJ-bD-dKC">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
             </subviews>
+            <constraints>
+                <constraint firstItem="8qN-7I-fcV" firstAttribute="centerX" secondItem="gBJ-9h-XI3" secondAttribute="centerX" id="9g5-Ci-t6n"/>
+                <constraint firstItem="8qN-7I-fcV" firstAttribute="centerY" secondItem="gBJ-9h-XI3" secondAttribute="centerY" id="twY-Kp-mhd"/>
+            </constraints>
+            <point key="canvasLocation" x="244.5" y="-60.5"/>
         </customView>
+        <viewController id="RBY-3w-LKH" customClass="TauExploreContentSubViewController">
+            <connections>
+                <outlet property="view" destination="gBJ-9h-XI3" id="dGn-h8-8Bc"/>
+            </connections>
+        </viewController>
     </objects>
 </document>

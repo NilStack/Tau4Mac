@@ -9,8 +9,8 @@
 
 @end // Private Interfaces
 
-// TauViewsStack class
-@implementation TauViewsStack
+
+// ------------------------------------------------------------------------------------------------------------ //
 
 #define THROW_ARGUMENTS_MUST_NO_BE_NIL_EX \
 do { \
@@ -19,6 +19,9 @@ do { \
                reason: [ NSString stringWithFormat: @"Argument of %@ must not be nil", THIS_METHOD ] \
              userInfo: @{ @"file" : THIS_FILE, @"method" : THIS_METHOD, @"line" : @( __LINE__ ) } ]; \
 } while( 0 )
+
+// TauViewsStack class
+@implementation TauViewsStack
 
 #pragma mark - Initializations
 

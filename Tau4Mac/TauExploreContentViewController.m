@@ -7,16 +7,45 @@
 //
 
 #import "TauExploreContentViewController.h"
+#import "TauViewsStack.h"
 
+// TauExploreContentSubViewController class
+@interface TauExploreContentSubViewController : NSViewController <TauContentSubViewController>
+@end // TauExploreContentSubViewController class
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
+// Private
 @interface TauExploreContentViewController ()
+@property ( weak ) IBOutlet TauExploreContentSubViewController* initialExploreContentSubViewController_;
+@end // Private
 
-@end
 
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
+// TauExploreContentViewController class
 @implementation TauExploreContentViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do view setup here.
-}
+- ( void ) viewDidLoad
+    {
+    [ super viewDidLoad ];
+    [ self.viewsStack setBackgroundViewController: self.initialExploreContentSubViewController_ ];
+    }
 
-@end
+@end // TauExploreContentViewController class
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
+// TauExploreContentSubViewController class
+@implementation TauExploreContentSubViewController
+@end // TauExploreContentSubViewController class

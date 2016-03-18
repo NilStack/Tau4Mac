@@ -8,6 +8,7 @@
 
 #import "TauAbstractContentViewController.h"
 
+// TauExploreContentViewController class
 @interface TauExploreContentViewController : TauAbstractContentViewController
 
-@end
+@end // TauExploreContentViewController class
