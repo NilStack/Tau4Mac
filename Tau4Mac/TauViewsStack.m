@@ -1,65 +1,61 @@
-/*=============================================================================┐
-|             _  _  _       _                                                  |  
-|            (_)(_)(_)     | |                            _                    |██
-|             _  _  _ _____| | ____ ___  ____  _____    _| |_ ___              |██
-|            | || || | ___ | |/ ___) _ \|    \| ___ |  (_   _) _ \             |██
-|            | || || | ____| ( (__| |_| | | | | ____|    | || |_| |            |██
-|             \_____/|_____)\_)____)___/|_|_|_|_____)     \__)___/             |██
-|                                                                              |██
-|                 _______    _             _                 _                 |██
-|                (_______)  (_)           | |               | |                |██
-|                    _ _ _ _ _ ____   ___ | |  _ _____  ____| |                |██
-|                   | | | | | |  _ \ / _ \| |_/ ) ___ |/ ___)_|                |██
-|                   | | | | | | |_| | |_| |  _ (| ____| |    _                 |██
-|                   |_|\___/|_|  __/ \___/|_| \_)_____)_|   |_|                |██
-|                             |_|                                              |██
-|                                                                              |██
-|                         Copyright (c) 2015 Tong Kuo                          |██
-|                                                                              |██
-|                             ALL RIGHTS RESERVED.                             |██
-|                                                                              |██
-└==============================================================================┘██
-  ████████████████████████████████████████████████████████████████████████████████
-  ██████████████████████████████████████████████████████████████████████████████*/
-
 #import "TauViewsStack.h"
+
+#define priViewsStack_kvoKey @"priViewsStack_"
 
 // Private Interfaces
 @interface TauViewsStack ()
+
+@property ( strong, readwrite ) NSMutableArray <NSViewController*>* priViewsStack_;         // KVO_Observable
+@property ( strong, readwrite ) NSMutableArray <NSViewController*>* proxyOfPriViewsStack_;
+
 - ( NSViewController* ) _currentView;
+
 @end // Private Interfaces
 
 // TauViewsStack class
 @implementation TauViewsStack
 
 @synthesize baseViewController = _baseViewController;
-@synthesize viewsStack = _viewsStack;
+
+#pragma mark - Initializations
 
 - ( instancetype ) init
     {
     if ( self = [ super init ] )
-        self->_viewsStack = [ NSMutableArray array ];
+        self.priViewsStack_ = [ NSMutableArray array ];
 
     return self;
     }
 
+#pragma mark - Stack Operations
+
 - ( void ) pushView: ( NSViewController* )_ViewController
     {
     if ( _ViewController.view )
-        [ self->_viewsStack addObject: _ViewController ];
-
-    // TODO: Handling error: _ViewController.view must not be nil
+        [ self.proxyOfPriViewsStack_ addObject: _ViewController ];
+    else
+        @throw [ NSException exceptionWithName: NSInvalidArgumentException
+                                        reason: [ NSString stringWithFormat: @"Parameter of %@ must not be nil", THIS_METHOD ]
+                                      userInfo: @{ @"file" : THIS_FILE, @"method" : THIS_METHOD, @"line" : @( __LINE__ ) } ];
     }
 
 - ( void ) popView
     {
-    if ( self->_viewsStack.count > 0 )
-        [ self->_viewsStack removeLastObject ];
+    if ( priViewsStack_.count > 0 )
+        [ self.proxyOfPriViewsStack_ removeLastObject ];
     }
 
 - ( void ) popAll
     {
-    [ self->_viewsStack removeAllObjects ];
+    [ self.proxyOfPriViewsStack_ removeAllObjects ];
+    }
+
+#pragma mark - KVO-Observable External Properties
+
+@dynamic currentView;
++ ( NSSet* ) keyPathsForValuesAffectingCurrentView
+    {
+    return [ NSSet setWithObjects: priViewsStack_kvoKey, nil ];
     }
 
 - ( NSViewController* ) currentView
@@ -67,13 +63,19 @@
     return [ self _currentView ];
     }
 
+@dynamic viewBeforeCurrentView;
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingViewBeforeCurrentView
+    {
+    return [ NSSet setWithObjects: currentView_kvoKey, nil ];
+    }
+
 - ( NSViewController* ) viewBeforeCurrentView
     {
     NSViewController* interestingView = nil;
     NSViewController* current = [ self _currentView ];
-    NSUInteger currentIndex = [ self->_viewsStack indexOfObject: current ];
+    NSUInteger currentIndex = [ priViewsStack_ indexOfObject: current ];
     if ( currentIndex > 0 && currentIndex != NSNotFound )
-        interestingView = [ self->_viewsStack objectAtIndex: currentIndex - 1 ];
+        interestingView = [ priViewsStack_ objectAtIndex: currentIndex - 1 ];
     else
         interestingView = self.baseViewController;
 
@@ -81,12 +83,50 @@
     }
 
 #pragma mark Private Interfaces
+
+@synthesize priViewsStack_;
+- ( NSUInteger ) countOfPriViewsStack_
+    {
+    return priViewsStack_.count;
+    }
+
+- ( NSArray <NSViewController*>* ) priViewsStack_AtIndexes: ( NSIndexSet* )_Indexes
+    {
+    return [ priViewsStack_ objectsAtIndexes: _Indexes ];
+    }
+
+- ( void ) getPriViewsStack_:( NSViewController * __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
+    {
+    return [ priViewsStack_ getObjects: _Buffer range: _InRange ];
+    }
+
+- ( void ) insertPriViewsStack_: ( NSArray* )_Array atIndexes: ( NSIndexSet* )_Indexes
+    {
+    [ priViewsStack_ insertObjects: _Array atIndexes: _Indexes ];
+    }
+
+- ( void ) removePriViewsStack_AtIndexes: ( NSIndexSet* )_Indexes
+    {
+    [ priViewsStack_ removeObjectsAtIndexes: _Indexes ];
+    }
+
+- ( void ) replacePriViewsStack_AtIndexes: ( NSIndexSet* )_Indexes withPriViewsStack_: ( NSArray* )_Array
+    {
+    [ priViewsStack_ replaceObjectsAtIndexes: _Indexes withObjects: _Array ];
+    }
+
+@dynamic proxyOfPriViewsStack_;
+- ( NSMutableArray <NSViewController*>* ) proxyOfPriViewsStack_
+    {
+    return [ self mutableArrayValueForKey: priViewsStack_kvoKey ];
+    }
+
 - ( NSViewController* ) _currentView
     {
     NSViewController* currentViewController = nil;
 
-    if ( self->_viewsStack.count > 0 )
-        currentViewController = self->_viewsStack.lastObject;
+    if ( priViewsStack_.count > 0 )
+        currentViewController = priViewsStack_.lastObject;
     else
         currentViewController = self.baseViewController;
 
@@ -94,24 +134,3 @@
     }
 
 @end // TauViewsStack class
-
-/*=============================================================================┐
-|                                                                              |
-|                                        `-://++/:-`    ..                     |
-|                    //.                :+++++++++++///+-                      |
-|                    .++/-`            /++++++++++++++/:::`                    |
-|                    `+++++/-`        -++++++++++++++++:.                      |
-|                     -+++++++//:-.`` -+++++++++++++++/                        |
-|                      ``./+++++++++++++++++++++++++++/                        |
-|                   `++/++++++++++++++++++++++++++++++-                        |
-|                    -++++++++++++++++++++++++++++++++`                        |
-|                     `:+++++++++++++++++++++++++++++-                         |
-|                      `.:/+++++++++++++++++++++++++-                          |
-|                         :++++++++++++++++++++++++-                           |
-|                           `.:++++++++++++++++++/.                            |
-|                              ..-:++++++++++++/-                              |
-|                             `../+++++++++++/.                                |
-|                       `.:/+++++++++++++/:-`                                  |
-|                          `--://+//::-.`                                      |
-|                                                                              |
-└=============================================================================*/
