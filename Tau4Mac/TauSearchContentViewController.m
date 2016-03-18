@@ -32,8 +32,6 @@
 - ( void ) viewDidLoad
     {
     [ super viewDidLoad ];
-
-//    self.viewsStack = [ [ TauViewsStack alloc ] initWithBackgroundViewController: self.initialSearchContentSubViewController_ ];
     [ self.viewsStack setBackgroundViewController: self.initialSearchContentSubViewController_ ];
     }
 

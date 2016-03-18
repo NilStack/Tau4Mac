@@ -19,21 +19,32 @@
         </customView>
         <viewController id="kSU-tu-Iji" customClass="TauSearchContentSubViewController">
             <connections>
-                <outlet property="view" destination="SbD-cY-M05" id="Krt-LD-ZSz"/>
+                <outlet property="view" destination="6cY-mM-JgI" id="XZ9-2A-29w"/>
             </connections>
         </viewController>
-        <searchField wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SbD-cY-M05">
-            <rect key="frame" x="0.0" y="0.0" width="289" height="22"/>
+        <customView id="6cY-mM-JgI">
+            <rect key="frame" x="0.0" y="0.0" width="443" height="246"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <searchField wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SbD-cY-M05">
+                    <rect key="frame" x="77" y="204" width="289" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="0zG-LL-eWC"/>
+                    </constraints>
+                    <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" sendsWholeSearchString="YES" id="mhT-0e-7P8">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </searchFieldCell>
+                </searchField>
+            </subviews>
             <constraints>
-                <constraint firstAttribute="width" relation="greaterThanOrEqual" id="LFn-oo-l0h"/>
-                <constraint firstAttribute="height" constant="22" id="V4C-LI-wbU"/>
+                <constraint firstAttribute="trailing" secondItem="SbD-cY-M05" secondAttribute="trailing" constant="77" id="2NF-AF-LcE"/>
+                <constraint firstItem="SbD-cY-M05" firstAttribute="leading" secondItem="6cY-mM-JgI" secondAttribute="leading" constant="77" id="H9a-WD-uHx"/>
+                <constraint firstItem="SbD-cY-M05" firstAttribute="top" secondItem="6cY-mM-JgI" secondAttribute="top" constant="20" id="JXx-zd-2Hh"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="SbD-cY-M05" secondAttribute="bottom" id="rzQ-xE-EUr"/>
             </constraints>
-            <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" sendsWholeSearchString="YES" id="mhT-0e-7P8">
-                <font key="font" metaFont="system"/>
-                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-            </searchFieldCell>
-            <point key="canvasLocation" x="359.5" y="202"/>
-        </searchField>
+            <point key="canvasLocation" x="225.5" y="112"/>
+        </customView>
     </objects>
 </document>

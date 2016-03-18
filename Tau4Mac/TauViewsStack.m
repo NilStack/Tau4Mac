@@ -20,39 +20,7 @@ do { \
              userInfo: @{ @"file" : THIS_FILE, @"method" : THIS_METHOD, @"line" : @( __LINE__ ) } ]; \
 } while( 0 )
 
-@synthesize backgroundViewController = backgroundViewController_;
-
-- ( void ) setBackgroundViewController: ( NSViewController* )_New
-    {
-    if ( !_New )
-        THROW_ARGUMENTS_MUST_NO_BE_NIL_EX;
-
-    if ( backgroundViewController_ != _New )
-        backgroundViewController_ = _New;
-    }
-
-- ( NSViewController* ) backgroundViewController
-    {
-    return backgroundViewController_;
-    }
-
 #pragma mark - Initializations
-
-- ( instancetype ) initWithBackgroundViewController: ( NSViewController* )_BgViewController
-    {
-    if ( self = [ self init ] )
-        {
-        @try {
-        self.backgroundViewController = _BgViewController;
-        } @catch ( NSException* _Ex )
-            {
-            DDLogUnexpected( @"Could finish the initialization due to the exception: {%@ %@}", _Ex, _Ex.userInfo );
-            self = nil;
-            }
-        }
-
-    return self;
-    }
 
 - ( instancetype ) init
     {
@@ -104,10 +72,34 @@ do { \
 
 #pragma mark - KVO-Observable External Properties
 
+@synthesize backgroundViewController = backgroundViewController_;
++ ( BOOL ) automaticallyNotifiesObserversOfBackgroundViewController
+    {
+    return NO;
+    }
+
+- ( void ) setBackgroundViewController: ( NSViewController* )_New
+    {
+    if ( !_New )
+        THROW_ARGUMENTS_MUST_NO_BE_NIL_EX;
+
+    if ( backgroundViewController_ != _New )
+        {
+        [ self willChangeValueForKey: @"backgroundViewController" ];
+        backgroundViewController_ = _New;
+        [ self didChangeValueForKey: @"backgroundViewController" ];
+        }
+    }
+
+- ( NSViewController* ) backgroundViewController
+    {
+    return backgroundViewController_;
+    }
+
 @dynamic currentView;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingCurrentView
     {
-    return [ NSSet setWithObjects: priViewsStack_kvoKey, nil ];
+    return [ NSSet setWithObjects: priViewsStack_kvoKey, @"backgroundViewController", nil ];
     }
 
 - ( NSViewController* ) currentView

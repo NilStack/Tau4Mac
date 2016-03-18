@@ -30,6 +30,7 @@
 
 int static const kCurrentViewKVOCtx;
 int static const kViewBeforeCurrentViewKVOCtx;
+int static const kBackgroundViewControllerKVOCtx;
 
 int static const kPriViewStackKVOCtx;
 
@@ -48,8 +49,9 @@ int static const kPriViewStackKVOCtx;
 
 - ( void ) setUp
     {
+    viewStack_ = [ [ TauViewsStack alloc ] init ];
     bgViewContorller_ = [ [ BgViewController alloc ] initWithNibName: nil bundle: nil ];
-    viewStack_ = [ [ TauViewsStack alloc ] initWithBackgroundViewController: bgViewContorller_ ];
+    viewStack_.backgroundViewController = bgViewContorller_;
     XCTAssertNotNil( viewStack_ );
 
     viewStack_ = [ [ TauViewsStack alloc ] init ];
@@ -63,6 +65,20 @@ int static const kPriViewStackKVOCtx;
     }
 
 #pragma mark - Positive Tests
+
+// KVO compatibility of backgroundViewController
+
+- ( void ) testBgViewController_pos0
+    {
+    TauViewsStack* newViewStack_ = [ [ TauViewsStack alloc ] init ];
+
+    [ newViewStack_ addObserver: self forKeyPath: @"currentView" options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial context: nil ];
+    
+    BgViewController __strong* newBgViewController = [ [ BgViewController alloc ] initWithNibName: nil bundle: nil ];
+    newViewStack_.backgroundViewController = newBgViewController;
+
+    [ newViewStack_ removeObserver: self forKeyPath: @"currentView" ];
+    }
 
 // KVO compatibility of priViewsStack_
 
@@ -92,10 +108,16 @@ int static const kPriViewStackKVOCtx;
     {
     [ self observeKeyPathOfViewStack_: @"currentView" ];
     [ self observeKeyPathOfViewStack_: @"viewBeforeCurrentView" ];
+    [ self observeKeyPathOfViewStack_: @"backgroundViewController" ];
         {
+        NSViewController* tmp = [ viewStack_ backgroundViewController ];
+        [ viewStack_ setBackgroundViewController: [ [ ViewStackItem alloc ] initWithNibName: nil bundle: nil ] ];
+        [ viewStack_ setBackgroundViewController: tmp ];
+
         [ self filledUpViewStack_ ];
         [ self popViewStackOneByOne_ ];
         }
+    [ self cancelObserveKeyPathOfViewStack_: @"backgroundViewController" ];
     [ self cancelObserveKeyPathOfViewStack_: @"viewBeforeCurrentView" ];
     [ self cancelObserveKeyPathOfViewStack_: @"currentView" ];
     }
@@ -140,6 +162,8 @@ int static const kPriViewStackKVOCtx;
         ctx = ( void* )&kCurrentViewKVOCtx;
     else if ( [ _KeyPath isEqualToString: @"viewBeforeCurrentView" ] )
         ctx = ( void* )&kViewBeforeCurrentViewKVOCtx;
+    else if ( [ _KeyPath isEqualToString: @"backgroundViewController" ] )
+        ctx = ( void* )&kBackgroundViewControllerKVOCtx;
 
     [ viewStack_ addObserver: self forKeyPath: _KeyPath options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial context: ctx ];
     }

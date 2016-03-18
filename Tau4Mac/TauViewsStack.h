@@ -5,13 +5,6 @@
 // TauViewsStack class
 @interface TauViewsStack : NSObject
 
-// Base View
-@property ( weak ) NSViewController* backgroundViewController;
-
-#pragma mark - Initializations
-
-- ( instancetype ) initWithBackgroundViewController: ( NSViewController* )_BgViewController;
-
 #pragma mark - Stack Operations
 
 - ( void ) pushView: ( NSViewController* )_ViewController;
@@ -19,6 +12,9 @@
 - ( void ) popAll;
 
 #pragma mark - KVO-Observable External Properties
+
+// Background View
+@property ( weak ) NSViewController* backgroundViewController;          // KVO-Observable
 
 @property ( strong, readonly ) NSViewController* currentView;           // KVO-Observable
 @property ( strong, readonly ) NSViewController* viewBeforeCurrentView; // KVO-Observable

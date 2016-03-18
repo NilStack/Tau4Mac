@@ -48,7 +48,7 @@
         TauAbstractContentViewController* oldActived = _Change[ NSKeyValueChangeOldKey ];
         TauAbstractContentViewController* newActived = _Change[ NSKeyValueChangeNewKey ];
 
-        if ( oldActived )
+        if ( oldActived && ( ( __bridge void* )oldActived != ( __bridge void* )[ NSNull null ] ) )
             {
             [ oldActived removeFromParentViewController ];
             [ oldActived.view removeFromSuperview ];
@@ -60,9 +60,14 @@
                 }
             }
 
-        [ self addChildViewController: newActived ];
-        [ self.view addSubview: newActived.view ];
-        activedPinEdgesCache_ = [ newActived.view autoPinEdgesToSuperviewEdges ];
+        if ( newActived && ( ( __bridge void* )newActived != ( __bridge void* )[ NSNull null ] ) )
+            {
+            [ self addChildViewController: newActived ];
+            [ self.view addSubview: newActived.view ];
+            activedPinEdgesCache_ = [ newActived.view autoPinEdgesToSuperviewEdges ];
+            }
+        else
+            DDLogUnexpected( @"Unexpected new value: {%@}", newActived );
         } ];
     }
 
