@@ -43,6 +43,22 @@ TauToolbarController static* sShared_;
     [ self.managedToolbar setAllowsUserCustomization: NO ];
     }
 
+@dynamic contentViewAffiliatedTo;
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingContentViewAffiliatedTo
+    {
+    return [ NSSet setWithObjects: @"segSwitcher.cell.selectedSegment", nil ];
+    }
+
+- ( void ) setContentViewAffiliatedTo: ( TauContentViewTag )_New
+    {
+    [ self.segSwitcher selectSegmentWithTag: _New ];
+    }
+
+- ( TauContentViewTag ) contentViewAffiliatedTo
+    {
+    return [ self.segSwitcher selectedSegment ];
+    }
+
 #pragma mark - Conforms to <NSToolbarDelegate>
 
 - ( NSArray <NSString*>* ) toolbarAllowedItemIdentifiers: ( NSToolbar* )_Toolbar
@@ -144,6 +160,7 @@ TauToolbarController static* sShared_;
         NSUInteger segmentCount = 3;
         CGFloat segmentFixedWidth = 34.f;
         priSegSwitcher_ = [ [ NSSegmentedControl alloc ] initWithFrame: NSMakeRect( 0, 0, 108.f, 22.f ) ];
+
         [ priSegSwitcher_ setSegmentCount: 3 ];
         [ priSegSwitcher_ setTrackingMode: NSSegmentSwitchTrackingSelectOne ];
 

@@ -42,13 +42,14 @@
 
 - ( void ) viewDidLoad
     {
-    [ self.observSharedToolbarCtrlKVOController_ observe: [ TauToolbarController sharedController ].segSwitcher
-                                                 keyPath: @"cell.selectedSegment"
+    [ self.observSharedToolbarCtrlKVOController_ observe: [ TauToolbarController sharedController ]
+                                                 keyPath: @"contentViewAffiliatedTo"
                                                  options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
                                                    block:
-    ^( id _Nullable _Observer, NSSegmentedControl* _Nonnull _Object, NSDictionary <NSString*, id>* _Nonnull _Change )
+    ^( id _Nullable _Observer, TauToolbarController* _Nonnull _Object, NSDictionary <NSString*, id>* _Nonnull _Change )
         {
-        self.activedSegment_ = _Object.selectedSegment;
+        DDLogDebug( @"%@", _Change );
+        self.activedSegment_ = _Object.contentViewAffiliatedTo;
         } ];
 
     // self-observing to react to the change of activedContentViewController property
