@@ -10,6 +10,7 @@
 #import "TauViewsStack.h"
 #import "TauToolbarController.h"
 #import "TauAbstractContentSubViewController.h"
+#import "AccessoryBarViewController.h"
 
 // TauSearchContentSubViewController class
 @interface TauSearchContentSubViewController : TauAbstractContentSubViewController
@@ -75,4 +76,10 @@
 
 // TauSearchContentSubViewController class
 @implementation TauSearchContentSubViewController
+
+- ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
+    {
+    return [ [ AccessoryBarViewController alloc ] initWithNibName: nil bundle: nil ];
+    }
+
 @end // TauSearchContentSubViewController class

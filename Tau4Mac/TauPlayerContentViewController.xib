@@ -23,7 +23,7 @@
             <rect key="frame" x="0.0" y="0.0" width="559" height="319"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <avPlayerView controlsStyle="inline" translatesAutoresizingMaskIntoConstraints="NO" id="IWp-7W-evh">
+                <avPlayerView controlsStyle="floating" translatesAutoresizingMaskIntoConstraints="NO" id="IWp-7W-evh">
                     <rect key="frame" x="0.0" y="0.0" width="559" height="319"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" id="6sT-Es-08w"/>
