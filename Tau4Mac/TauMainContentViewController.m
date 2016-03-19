@@ -86,7 +86,7 @@
 
 - ( void ) contentViewsMenuItemSwitchedAction_: ( NSMenuItem* )_Sender
     {
-    self.activedContentViewTag = _Sender.tag - 1000;
+    self.activedContentViewTag = TauAppViewSubMenuItemTag2TauContentViewTag( _Sender.tag );
     }
 
 #pragma mark - Dynamic Properties

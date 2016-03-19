@@ -130,10 +130,18 @@ typedef NS_ENUM ( NSInteger, TauAppMenuItemTag )
     , TauAppHelpMenuItem   = 6
     };
 
+#define TauAppViewSubMenuItemTag2TauContentViewTag( _Tag ) \
+( _Tag - 1000 )
+
+#define TauAppViewSubMenuItemTagFromTauContentViewTag( _Tag ) \
+( ( _Tag != TauUnknownContentViewTag ) ? ( _Tag + 1000 ) : TauAppViewSubMenuUnknownItemTag )
+
 typedef NS_ENUM ( NSInteger, TauAppViewSubMenuItemTag )
     { TauAppViewSubMenuSearchItemTag  = TauSearchContentViewTag + 1000
     , TauAppViewSubMenuExploreItemTag = TauExploreContentViewTag + 1000
     , TauAppViewSubMenuPlayerItemTag  = TauPlayerContentViewTag + 1000
+
+    , TauAppViewSubMenuUnknownItemTag = -1
     };
 
 #endif /* TauConstants_h */
