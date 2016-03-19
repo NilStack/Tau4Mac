@@ -53,7 +53,7 @@ typedef NS_ENUM ( NSUInteger, TauYouTubeContentType )
     , TauYouTubeChannel         = 2
     , TauYouTubePlayList        = 3
 
-    , TauYouTubeUnknownContent         = 0
+    , TauYouTubeUnknownContent  = 0
     };
 
 typedef NS_ENUM ( NSUInteger, TauYTDataServiceConsumptionType )
@@ -118,6 +118,22 @@ NSString extern* const TauUnderlyingErrorDomain;
 typedef NS_ENUM ( NSInteger, TauUnderlyingErrorCode )
     { TauUnderlyingUnknownError = -1
     , TauUnderlyingGTLError = -1000
+    };
+
+typedef NS_ENUM ( NSInteger, TauAppMenuItemTag )
+    { TauAppMenuItem    = 0
+    , TauAppFileMenuItem   = 1
+    , TauAppEditMenuItem   = 2
+    , TauAppEditFormatItem = 3
+    , TauAppViewMenuItem   = 4
+    , TauAppWindowMenuItem = 5
+    , TauAppHelpMenuItem   = 6
+    };
+
+typedef NS_ENUM ( NSInteger, TauAppViewSubMenuItemTag )
+    { TauAppViewSubMenuSearchItemTag  = TauSearchContentViewTag + 1000
+    , TauAppViewSubMenuExploreItemTag = TauExploreContentViewTag + 1000
+    , TauAppViewSubMenuPlayerItemTag  = TauPlayerContentViewTag + 1000
     };
 
 #endif /* TauConstants_h */

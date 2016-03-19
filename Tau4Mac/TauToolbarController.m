@@ -23,6 +23,12 @@ NSString* const TauToolbarUserProfileButtonItemIdentifier   = @"home.bedroom.Ton
     NSButton __strong* priUserProfilePopUpButton_;
     }
 
++ ( void ) initialize
+    {
+    if ( self == [ TauToolbarController class ] )
+        [ self exposeBinding: contentViewAffiliatedTo_kvoKey ];
+    }
+
 TauToolbarController static* sShared_;
 + ( instancetype ) sharedController
     {
@@ -169,7 +175,7 @@ TauToolbarController static* sShared_;
             [ priSegSwitcher_ setWidth: segmentFixedWidth forSegment: _Index ];
             [ priSegSwitcher_.cell setTag: ( TauContentViewTag )_Index forSegment: _Index ];
 
-            switch ( [ priSegSwitcher_.cell tagForSegment: _Index ] )
+            switch ( _Index )
                 {
                 case TauSearchContentViewTag:
                     {

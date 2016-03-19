@@ -49,7 +49,8 @@ NSString* const kRequester = @"kRequester";
     [ super windowDidLoad ];
     [ NSApp setDelegate: self ];
 
-    [ [ TauToolbarController sharedController ].segSwitcher selectSegmentWithTag: TauSearchContentViewTag ];
+    [ [ TauToolbarController sharedController ] setContentViewAffiliatedTo: TauSearchContentViewTag ];
+    
 //    [ [ NSNotificationCenter defaultCenter ]
 //        addObserver: self selector: @selector( shouldSwitch2PlayerSegment_: ) name: TauShouldSwitch2PlayerSegmentNotif object: nil ];
     }

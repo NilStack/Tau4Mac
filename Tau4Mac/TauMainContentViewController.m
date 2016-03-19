@@ -15,6 +15,17 @@
 
 // Private
 @interface TauMainContentViewController ()
+
+@property ( weak, readonly ) NSMenuItem* appViewMenuItem_;
+
+@property ( weak, readonly ) NSMenuItem* appViewSubMenuSearchItem_;
+@property ( weak, readonly ) NSMenuItem* appViewSubMenuExploreItem_;
+@property ( weak, readonly ) NSMenuItem* appViewSubMenuPlayerItem_;
+
+// Actions
+
+- ( void ) contentViewsMenuItemSwitchedAction_: ( NSMenuItem* )_Sender;
+
 @end // Private
 
 #define activedContentViewController_kvoKey @"activedContentViewController"
@@ -31,10 +42,51 @@
     NSArray __strong* activedPinEdgesCache_;
     }
 
++ ( void ) initialize
+    {
+    if ( self == [ TauMainContentViewController class ] )
+        [ self exposeBinding: activedContentViewTag_kvoKey ];
+    }
+
 - ( void ) viewDidLoad
     {
+    // Initialize activedContentViewTag_ without any notification
     activedContentViewTag_ = TauUnknownContentViewTag;
-    [ self bind: activedContentViewTag_kvoKey toObject: [ TauToolbarController sharedController ] withKeyPath: @"contentViewAffiliatedTo" options: nil ];
+
+    TauToolbarController* sharedToolbarController = [ TauToolbarController sharedController ];
+    [ self bind: activedContentViewTag_kvoKey toObject: sharedToolbarController withKeyPath: contentViewAffiliatedTo_kvoKey options: nil ];
+    [ sharedToolbarController bind: contentViewAffiliatedTo_kvoKey toObject: self withKeyPath: activedContentViewTag_kvoKey options: nil ];
+
+    SEL action = @selector( contentViewsMenuItemSwitchedAction_: );
+    self.appViewSubMenuSearchItem_.action = action;
+    self.appViewSubMenuExploreItem_.action = action;
+    self.appViewSubMenuPlayerItem_.action = action;
+    }
+
+- ( void ) dealloc
+    {
+    [ self unbind: activedContentViewTag_kvoKey ];
+    [ [ TauToolbarController sharedController ] unbind: contentViewAffiliatedTo_kvoKey ];
+    }
+
+#pragma mark - Menu Items Validation
+
+- ( BOOL ) validateMenuItem: ( NSMenuItem* )_MenuItem
+    {
+    if ( [ _MenuItem action ] == @selector( contentViewsMenuItemSwitchedAction_: ) )
+        {
+        [ _MenuItem setState: ( [ _MenuItem tag ] == self.activedContentViewTag + 1000 ) ? NSOnState : NSOffState ];
+        return YES;
+        }
+
+    return [ super validateMenuItem: _MenuItem ];
+    }
+
+#pragma mark - Actions
+
+- ( void ) contentViewsMenuItemSwitchedAction_: ( NSMenuItem* )_Sender
+    {
+    self.activedContentViewTag = _Sender.tag - 1000;
     }
 
 #pragma mark - Dynamic Properties
@@ -107,7 +159,7 @@
             activedPinEdgesCache_ = [ newActived.view autoPinEdgesToSuperviewEdges ];
             }
         else
-            DDLogUnexpected( @"Unexpected new value: {%@}", newActived );
+            DDLogUnexpected( @"Unexpected new value: {%@}.", newActived );
         }
     }
 
@@ -124,7 +176,7 @@
 
 - ( TauAbstractContentViewController* ) activedContentViewController
     {
-    switch ( self.activedContentViewTag )
+    switch ( activedContentViewTag_ )
         {
         case TauSearchContentViewTag:  return self.searchContentViewController;
         case TauExploreContentViewTag: return self.exploreContentViewController;
@@ -132,7 +184,7 @@
 
         case TauUnknownContentViewTag:
             {
-            DDLogDebug( @"Encountered unknown content view tag" );
+            DDLogDebug( @"Encountered unknown content view tag." );
             return nil;
             }
         }
@@ -140,6 +192,32 @@
 
 #pragma mark - Private Interfaces
 
-//
+@dynamic appViewMenuItem_;
+
+@dynamic appViewSubMenuSearchItem_;
+@dynamic appViewSubMenuExploreItem_;
+@dynamic appViewSubMenuPlayerItem_;
+
+- ( NSMenuItem* ) appViewMenuItem_
+    {
+    NSMenu* appMenu = [ NSApp menu ];
+    NSMenuItem* item = [ appMenu itemWithTag: TauAppViewMenuItem ];
+    return item;
+    }
+
+- ( NSMenuItem* ) appViewSubMenuSearchItem_
+    {
+    return [ [ self.appViewMenuItem_ submenu ] itemWithTag: TauAppViewSubMenuSearchItemTag ];
+    }
+
+- ( NSMenuItem* ) appViewSubMenuExploreItem_
+    {
+    return [ [ self.appViewMenuItem_ submenu ] itemWithTag: TauAppViewSubMenuExploreItemTag ];
+    }
+
+- ( NSMenuItem* ) appViewSubMenuPlayerItem_
+    {
+    return [ [ self.appViewMenuItem_ submenu ] itemWithTag: TauAppViewSubMenuPlayerItemTag ];
+    }
 
 @end // TauMainContentViewController class
