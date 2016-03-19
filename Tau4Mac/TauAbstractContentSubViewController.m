@@ -36,7 +36,12 @@
     NSViewController <TauContentSubViewController>* actived = self.masterContentViewController.activedSubViewController;
 
     if ( actived == self )
-        [ self.masterContentViewController popContentSubView ];
+        {
+        if ( self != self.masterContentViewController.backgroundViewController )
+            [ self.masterContentViewController popContentSubView ];
+        else
+            DDLogNotice( @"Attempting to pop the holly background view, you are not able to get rid of it." );
+        }
     else
         DDLogUnexpected( @"My master content view controller (%@)'s current actived subview controller should be me rather than this guy: {%@}"
                        , NSStringFromClass( [ TauAbstractContentViewController class ] )

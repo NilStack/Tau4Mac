@@ -23,6 +23,8 @@
 #pragma mark - KVO Observable External Properties
 
 @property ( strong, readonly ) TauViewsStack* viewsStack;
+
+@property ( weak, readonly ) NSViewController <TauContentSubViewController>* backgroundViewController;  // KVO-Observable
 @property ( weak, readonly ) NSViewController <TauContentSubViewController>* activedSubViewController;  // KVO-Observable
 
 #pragma mark - View Stack Operations

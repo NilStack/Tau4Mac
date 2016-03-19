@@ -75,6 +75,18 @@
 #pragma mark - KVO Observable External Properties
 
 @synthesize viewsStack;
+
+@dynamic backgroundViewController;
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingBackgroundViewController
+    {
+    return [ NSSet setWithObjects: @"viewsStack.backgroundViewController", nil ];
+    }
+
+- ( NSViewController <TauContentSubViewController>* ) backgroundViewController
+    {
+    return ( NSViewController <TauContentSubViewController>* )( self.viewsStack.backgroundViewController );
+    }
+
 @dynamic activedSubViewController;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingActivedSubViewController
     {
