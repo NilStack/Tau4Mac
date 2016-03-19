@@ -63,7 +63,14 @@
 // Subclasses override this method to provide Tau Toolbar Controller with toolbar item identifiers
 - ( NSArray <NSString*>* ) exposedToolbarItemIdentifiersWhileActive
     {
-    return nil;
+    return @[];
+    }
+
+@dynamic exposedToolbarItemsWhileActive;
+// Subclasses override this method to provide Tau Toolbar Controller with toolbar item
+- ( NSArray <NSToolbarItem*>* ) exposedToolbarItemsWhileActive
+    {
+    return @[];
     }
 
 @dynamic titlebarAccessoryViewControllerWhileActive;

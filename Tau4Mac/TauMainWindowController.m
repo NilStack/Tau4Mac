@@ -58,7 +58,8 @@ NSString* const kRequester = @"kRequester";
 
     [ sharedToolbarController bind: @"appearance" toObject: self.contentViewController withKeyPath: @"activedContentViewController.activedSubViewController.windowAppearanceWhileActive" options: nil ];
     [ sharedToolbarController bind: @"accessoryViewController" toObject: self.contentViewController withKeyPath: @"activedContentViewController.activedSubViewController.titlebarAccessoryViewControllerWhileActive" options: nil ];
-    [ sharedToolbarController bind: @"toolbarItemIdentifiers" toObject: self.contentViewController withKeyPath: @"activedContentViewController.activedSubViewController.titlebarAccessoryViewControllerWhileActive" options: nil ];
+    [ sharedToolbarController bind: @"toolbarItemIdentifiers" toObject: self.contentViewController withKeyPath: @"activedContentViewController.activedSubViewController.exposedToolbarItemIdentifiersWhileActive" options: nil ];
+    [ sharedToolbarController bind: @"toolbarItems" toObject: self.contentViewController withKeyPath: @"activedContentViewController.activedSubViewController.exposedToolbarItemsWhileActive" options: nil ];
     }
 
 - ( void ) applicationWillTerminate: ( NSNotification* )_Notif

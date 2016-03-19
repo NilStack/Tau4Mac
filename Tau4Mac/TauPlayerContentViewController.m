@@ -10,6 +10,7 @@
 #import "TauViewsStack.h"
 #import "TauAbstractContentSubViewController.h"
 //#import "AccessoryBarViewController.h"
+#import "TauToolbarController.h"
 
 // TauPlayerContentSubViewController class
 @interface TauPlayerContentSubViewController : TauAbstractContentSubViewController
@@ -59,5 +60,13 @@
 //    {
 //    return [ [ AccessoryBarViewController alloc ] initWithNibName: nil bundle: nil ];
 //    }
+
+- ( NSArray <NSString*>* ) exposedToolbarItemIdentifiersWhileActive
+    {
+    return @[ TauToolbarSwitcherItemIdentifier
+            , NSToolbarFlexibleSpaceItemIdentifier
+            , TauToolbarUserProfileButtonItemIdentifier
+            ];
+    }
 
 @end // TauPlayerContentSubViewController class

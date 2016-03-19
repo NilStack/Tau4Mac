@@ -9,6 +9,7 @@
 #import "TauExploreContentViewController.h"
 #import "TauViewsStack.h"
 #import "TauAbstractContentSubViewController.h"
+#import "TauToolbarController.h"
 
 // TauExploreContentSubViewController class
 @interface TauExploreContentSubViewController : TauAbstractContentSubViewController
@@ -49,4 +50,13 @@
 
 // TauExploreContentSubViewController class
 @implementation TauExploreContentSubViewController
+
+- ( NSArray <NSString*>* ) exposedToolbarItemIdentifiersWhileActive
+    {
+    return @[ TauToolbarSwitcherItemIdentifier
+            , NSToolbarFlexibleSpaceItemIdentifier
+            , TauToolbarUserProfileButtonItemIdentifier
+            ];
+    }
+
 @end // TauExploreContentSubViewController class
