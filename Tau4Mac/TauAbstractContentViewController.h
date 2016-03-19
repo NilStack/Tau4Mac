@@ -25,6 +25,11 @@
 @property ( strong, readonly ) TauViewsStack* viewsStack;
 @property ( weak, readonly ) NSViewController <TauContentSubViewController>* activedSubViewController;  // KVO-Observable
 
+#pragma mark - View Stack Operations
+
+- ( void ) pushContentSubView: ( NSViewController <TauContentSubViewController>* )_New;
+- ( void ) popContentSubView;
+
 @end // TauAbstractContentViewController class
 
 // TauContentSubViewController protocol

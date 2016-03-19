@@ -8,9 +8,10 @@
 
 #import "TauExploreContentViewController.h"
 #import "TauViewsStack.h"
+#import "TauAbstractContentSubViewController.h"
 
 // TauExploreContentSubViewController class
-@interface TauExploreContentSubViewController : NSViewController <TauContentSubViewController>
+@interface TauExploreContentSubViewController : TauAbstractContentSubViewController
 @end // TauExploreContentSubViewController class
 
 

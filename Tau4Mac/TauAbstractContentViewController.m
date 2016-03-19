@@ -86,6 +86,18 @@
     return ( NSViewController <TauContentSubViewController>* )( self.viewsStack.currentView );
     }
 
+#pragma mark - View Stack Operations
+
+- ( void ) pushContentSubView: ( NSViewController <TauContentSubViewController>* )_New
+    {
+    [ self.viewsStack pushView: _New ];
+    }
+
+- ( void ) popContentSubView
+    {
+    [ self.viewsStack popView ];
+    }
+
 #pragma mark - Private
 
 // Invoked in viewDidLoad
@@ -120,7 +132,9 @@
         if ( new && ( ( __bridge void* )new != ( __bridge void* )[ NSNull null ] ) )
             {
             [ self addChildViewController: new ];
-            [ self.view addSubview: new.view ];
+
+            [ new.view setWantsLayer: YES ];
+            [ self.view addSubview: [ new.view configureForAutoLayout ] ];
             activedPinEdgesCache_ = [ new.view autoPinEdgesToSuperviewEdges ];
             }
         else
