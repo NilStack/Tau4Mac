@@ -91,6 +91,28 @@ TauToolbarController static* sShared_;
     return appearance_;
     }
 
+@synthesize toolbarItemIdentifiers = toolbarItemIdentifiers_;
++ ( BOOL ) automaticallyNotifiesObserversOfToolbarItemIdentifiers
+    {
+    return NO;
+    }
+
+- ( void ) setToolbarItemIdentifiers: ( NSArray* )_New
+    {
+    if ( toolbarItemIdentifiers_ != _New )
+        {
+        [ self willChangeValueForKey: @"toolbarItemIdentifiers" ];
+        toolbarItemIdentifiers_ = _New;
+        // TODO:
+        [ self didChangeValueForKey: @"toolbarItemIdentifiers" ];
+        }
+    }
+
+- ( NSArray* ) toolbarItemIdentifiers
+    {
+    return toolbarItemIdentifiers_;
+    }
+
 @synthesize accessoryViewController = accessoryViewController_;
 + ( BOOL ) automaticallyNotifiesObserversOfAccessoryViewController
     {

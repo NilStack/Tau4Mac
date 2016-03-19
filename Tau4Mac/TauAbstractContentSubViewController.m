@@ -52,7 +52,6 @@
 #pragma mark - Conforms to <TauContentSubViewController>
 
 @dynamic windowAppearanceWhileActive;
-
 // Subclasses override this method to provide Tau Toolbar Controller with custom appearance
 - ( NSAppearance* ) windowAppearanceWhileActive
     {
@@ -60,8 +59,15 @@
     return self.view.window.appearance;
     }
 
-@dynamic titlebarAccessoryViewControllerWhileActive;
+@dynamic exposedToolbarItemIdentifiersWhileActive;
+// Subclasses override this method to provide Tau Toolbar Controller with toolbar item identifiers
+- ( NSArray <NSString*>* ) exposedToolbarItemIdentifiersWhileActive
+    {
+    return nil;
+    }
 
+@dynamic titlebarAccessoryViewControllerWhileActive;
+// Subclasses override this method to provide Tau Toolbar Controller with titlebar accessory view controller
 - ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
     {
     return nil;

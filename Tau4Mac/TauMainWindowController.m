@@ -48,11 +48,17 @@ NSString* const kRequester = @"kRequester";
     {
     [ super windowDidLoad ];
     [ NSApp setDelegate: self ];
-
-    [ [ TauToolbarController sharedController ] setContentViewAffiliatedTo: TauPlayerContentViewTag ];
     }
 
 #pragma mark - Conforms to <NSApplicationDelegate>
+
+- ( void ) applicationWillFinishLaunching: ( NSNotification* )_Notif
+    {
+    TauToolbarController* sharedToolbarController = [ TauToolbarController sharedController ];
+    [ sharedToolbarController bind: @"appearance" toObject: self.contentViewController withKeyPath: @"activedContentViewController.activedSubViewController.windowAppearanceWhileActive" options: nil ];
+    [ sharedToolbarController bind: @"accessoryViewController" toObject: self.contentViewController withKeyPath: @"activedContentViewController.activedSubViewController.exposedToolbarItemIdentifiersWhileActive" options: nil ];
+    [ sharedToolbarController bind: @"toolbarItemIdentifiers" toObject: self.contentViewController withKeyPath: @"activedContentViewController.activedSubViewController.titlebarAccessoryViewControllerWhileActive" options: nil ];
+    }
 
 - ( void ) applicationDidFinishLaunching: ( NSNotification* )_Notif
     {

@@ -22,6 +22,7 @@ NSString extern* const TauToolbarUserProfileButtonItemIdentifier;
 
 @property ( assign, readwrite ) TauContentViewTag contentViewAffiliatedTo;  // KVB compliant
 @property ( weak, readwrite ) NSAppearance* appearance;   // KVB compliant
+@property ( weak, readwrite ) NSArray* toolbarItemIdentifiers;  // KVB compliant
 @property ( weak, readwrite ) NSTitlebarAccessoryViewController* accessoryViewController;   // KVO compliant
 
 
