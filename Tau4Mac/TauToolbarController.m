@@ -283,10 +283,22 @@ TauToolbarController static* sShared_;
     return priSegSwitcher_;
     }
 
+NSString static* const kMainWindowIdentifier = @"tau-main-window";
+
 @dynamic hostingMainWindow_;
 - ( NSWindow* ) hostingMainWindow_
     {
-    return NSApp.mainWindow;
+    NSWindow* interestedWindow = nil;
+    for ( NSWindow* _Window in NSApp.windows )
+        {
+        if ( [ _Window.identifier isEqualToString: kMainWindowIdentifier ] )
+            {
+            interestedWindow = _Window;
+            break;
+            }
+        }
+
+    return interestedWindow;
     }
 
 @end // TauToolbarController class

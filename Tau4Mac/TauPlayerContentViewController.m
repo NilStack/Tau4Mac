@@ -9,6 +9,7 @@
 #import "TauPlayerContentViewController.h"
 #import "TauViewsStack.h"
 #import "TauAbstractContentSubViewController.h"
+#import "AccessoryBarViewController.h"
 
 // TauPlayerContentSubViewController class
 @interface TauPlayerContentSubViewController : TauAbstractContentSubViewController
@@ -52,6 +53,11 @@
 - ( NSAppearance* ) windowAppearanceWhileActive
     {
     return [ NSAppearance appearanceNamed: NSAppearanceNameVibrantDark ];
+    }
+
+- ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
+    {
+    return [ [ AccessoryBarViewController alloc ] initWithNibName: nil bundle: nil ];
     }
 
 @end // TauPlayerContentSubViewController class
