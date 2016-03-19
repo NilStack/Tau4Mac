@@ -66,6 +66,28 @@ TauToolbarController static* sShared_;
     return [ self.segSwitcher_ selectedSegment ];
     }
 
+@synthesize appearance = appearance_;
++ ( BOOL ) automaticallyNotifiesObserversOfAppearance
+    {
+    return NO;
+    }
+
+- ( void ) setAppearance: ( NSAppearance* )_New
+    {
+    if ( appearance_ != _New )
+        {
+        [ self willChangeValueForKey: @"appearance" ];
+        appearance_ = _New;
+        NSApp.mainWindow.appearance = appearance_;
+        [ self didChangeValueForKey: @"appearance" ];
+        }
+    }
+
+- ( NSAppearance* ) appearance
+    {
+    return appearance_;
+    }
+
 #pragma mark - Conforms to <NSToolbarDelegate>
 
 - ( NSArray <NSString*>* ) toolbarAllowedItemIdentifiers: ( NSToolbar* )_Toolbar

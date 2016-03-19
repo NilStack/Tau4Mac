@@ -49,4 +49,15 @@
                        );
     }
 
+#pragma mark - Conforms to <TauContentSubViewController>
+
+@dynamic windowAppearanceWhileActive;
+
+// Subclasses override this method to provide Tau Toolbar Controller with custom appearance
+- ( NSAppearance* ) windowAppearanceWhileActive
+    {
+    // Simply returns the appearance of the hosting window
+    return self.view.window.appearance;
+    }
+
 @end // TauAbstractContentSubViewController class

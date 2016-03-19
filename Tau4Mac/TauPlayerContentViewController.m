@@ -48,4 +48,10 @@
 
 // TauPlayerContentSubViewController class
 @implementation TauPlayerContentSubViewController
+
+- ( NSAppearance* ) windowAppearanceWhileActive
+    {
+    return [ NSAppearance appearanceNamed: NSAppearanceNameVibrantDark ];
+    }
+
 @end // TauPlayerContentSubViewController class
