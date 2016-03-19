@@ -634,11 +634,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="dU9-ee-IL5" customClass="TauToolbarController">
-                    <connections>
-                        <outlet property="managedToolbar" destination="uok-aL-qNv" id="nVp-KB-LHa"/>
-                    </connections>
-                </customObject>
+                <customObject id="dU9-ee-IL5" customClass="TauToolbarController"/>
                 <customObject id="Voe-Tx-rLC" customClass="TauAppDelegate"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController representsSharedInstance="YES" id="jWc-aw-5QW"/>
@@ -655,31 +651,13 @@
                         <windowPositionMask key="initialPositionMask" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="363" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <toolbar key="toolbar" implicitIdentifier="805F59D8-3781-4F6F-8A6C-EBBBAFF1DD50" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="uok-aL-qNv">
-                            <allowedToolbarItems>
-                                <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="KQY-LM-Kao"/>
-                                <toolbarItem implicitItemIdentifier="NSToolbarShowFontsItem" id="8uu-ZJ-bMV"/>
-                                <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="yy5-zs-GWe"/>
-                                <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="CjM-s2-s8D"/>
-                                <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="mYd-8M-maa"/>
-                            </allowedToolbarItems>
-                            <defaultToolbarItems/>
-                            <connections>
-                                <outlet property="delegate" destination="NI0-Jl-Hea" id="cQE-Ao-1oK"/>
-                            </connections>
-                        </toolbar>
                     </window>
                     <connections>
-                        <outlet property="toolbar" destination="uok-aL-qNv" id="opr-II-V6j"/>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <customObject id="NI0-Jl-Hea" customClass="TauToolbarController">
-                    <connections>
-                        <outlet property="managedToolbar" destination="uok-aL-qNv" id="RqA-xl-wjF"/>
-                    </connections>
-                </customObject>
+                <customObject id="NI0-Jl-Hea" customClass="TauToolbarController"/>
             </objects>
             <point key="canvasLocation" x="89" y="404"/>
         </scene>
@@ -693,11 +671,7 @@
                     </view>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <customObject id="JHl-nl-rU3" customClass="TauToolbarController">
-                    <connections>
-                        <outlet property="managedToolbar" destination="uok-aL-qNv" id="vU2-xR-UdB"/>
-                    </connections>
-                </customObject>
+                <customObject id="JHl-nl-rU3" customClass="TauToolbarController"/>
             </objects>
             <point key="canvasLocation" x="89" y="865"/>
         </scene>

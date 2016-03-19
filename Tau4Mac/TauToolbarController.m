@@ -51,7 +51,6 @@ TauToolbarController static* sShared_;
 
 - ( void ) awakeFromNib
     {
-    [ self.managedToolbar setAllowsUserCustomization: NO ];
     }
 
 @dynamic contentViewAffiliatedTo;
@@ -104,6 +103,14 @@ TauToolbarController static* sShared_;
         {
         [ self willChangeValueForKey: @"toolbarItems" ];
         toolbarItems_ = _New;
+
+        if ( !self.managedToolbar )
+            {
+            self.managedToolbar = [ [ NSToolbar alloc ] initWithIdentifier: @"fuckyou" ];
+            [ self.managedToolbar setAllowsUserCustomization: NO ];
+            [ self.managedToolbar setDelegate: self ];
+            [ self.hostingMainWindow_ setToolbar: self.managedToolbar ];
+            }
         [ self didChangeValueForKey: @"toolbarItems" ];
         }
     }

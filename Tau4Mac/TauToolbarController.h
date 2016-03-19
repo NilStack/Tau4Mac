@@ -17,7 +17,7 @@ NSString extern* const TauToolbarUserProfileButtonItemIdentifier;
 // TauToolbarController class
 @interface TauToolbarController : NSObject <NSToolbarDelegate>
 
-@property ( weak ) IBOutlet NSToolbar* managedToolbar;
+@property ( strong ) NSToolbar* managedToolbar;
 
 // --------------------------------------------------------------------------------------------
 
