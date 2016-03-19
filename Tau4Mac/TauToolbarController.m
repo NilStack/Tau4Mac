@@ -17,12 +17,15 @@
 
 @end // Private
 
+NSString* const TauToolbarIdentifier                        = @"home.bedroom.TongKuo.Tau.Toolbar";
+
 NSString* const TauToolbarSwitcherItemIdentifier            = @"home.bedroom.TongKuo.Tau.Toolbar.SwitcherItem";
 NSString* const TauToolbarUserProfileButtonItemIdentifier   = @"home.bedroom.TongKuo.Tau.Toolbar.UserProfileButtonItem";
 
 // TauToolbarController class
 @implementation TauToolbarController
     {
+    NSToolbar __strong* priManagedToolbar_;
     NSSegmentedControl __strong* priSegSwitcher_;
 
     NSButton __strong* priUserProfilePopUpButton_;
@@ -104,13 +107,29 @@ TauToolbarController static* sShared_;
         [ self willChangeValueForKey: @"toolbarItems" ];
         toolbarItems_ = _New;
 
-        if ( !self.managedToolbar )
+        if ( !priManagedToolbar_ )
             {
-            self.managedToolbar = [ [ NSToolbar alloc ] initWithIdentifier: @"fuckyou" ];
-            [ self.managedToolbar setAllowsUserCustomization: NO ];
-            [ self.managedToolbar setDelegate: self ];
-            [ self.hostingMainWindow_ setToolbar: self.managedToolbar ];
+            priManagedToolbar_ = [ [ NSToolbar alloc ] initWithIdentifier: TauToolbarIdentifier ];
+            [ priManagedToolbar_ setAllowsUserCustomization: NO ];
+            [ priManagedToolbar_ setDelegate: self ];
+            [ self.hostingMainWindow_ setToolbar: priManagedToolbar_ ];
             }
+        else
+            {
+            // Removing all items
+            while ( true )
+                {
+                if ( priManagedToolbar_.items.count )
+                    [ priManagedToolbar_ removeItemAtIndex: 0 ];
+                else
+                    break;
+                }
+
+            // Re-arrange
+            for ( int _Index = 0; _Index < toolbarItems_.count; _Index++ )
+                [ priManagedToolbar_ insertItemWithItemIdentifier: toolbarItems_[ _Index ].itemIdentifier atIndex: _Index ];
+            }
+
         [ self didChangeValueForKey: @"toolbarItems" ];
         }
     }

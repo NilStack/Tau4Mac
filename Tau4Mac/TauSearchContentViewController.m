@@ -11,6 +11,7 @@
 #import "TauToolbarController.h"
 #import "TauAbstractContentSubViewController.h"
 #import "AccessoryBarViewController.h"
+#import "TauToolbarItem.h"
 
 // TauSearchContentSubViewController class
 @interface TauSearchContentSubViewController : TauAbstractContentSubViewController
@@ -80,6 +81,11 @@
 - ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
     {
     return [ [ AccessoryBarViewController alloc ] initWithNibName: nil bundle: nil ];
+    }
+
+- ( NSArray <TauToolbarItem*>* ) exposedToolbarItemsWhileActive
+    {
+    return @[];
     }
 
 @end // TauSearchContentSubViewController class

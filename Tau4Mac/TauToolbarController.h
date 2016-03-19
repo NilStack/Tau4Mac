@@ -6,6 +6,8 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
+NSString extern* const TauToolbarIdentifier;
+
 NSString extern* const TauToolbarSwitcherItemIdentifier;
 NSString extern* const TauToolbarUserProfileButtonItemIdentifier;
 
@@ -16,8 +18,6 @@ NSString extern* const TauToolbarUserProfileButtonItemIdentifier;
 
 // TauToolbarController class
 @interface TauToolbarController : NSObject <NSToolbarDelegate>
-
-@property ( strong ) NSToolbar* managedToolbar;
 
 // --------------------------------------------------------------------------------------------
 

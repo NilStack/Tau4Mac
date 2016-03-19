@@ -9,6 +9,12 @@
 #ifndef TauConstants_h
 #define TauConstants_h
 
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
 NSString extern* const TauKeychainItemName;
 
 #pragma mark - Client Credentials
@@ -32,6 +38,12 @@ NSString extern* const TauUploadAuthScope;
 
 /** Retrieve the auditDetails part in a channel resource. */
 NSString extern* const TauPartnerChannelAuditAuthScope;
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
 
 typedef NS_ENUM ( NSInteger, TauContentViewTag )
     { TauSearchContentViewTag  = 0
@@ -69,6 +81,12 @@ typedef NS_ENUM ( NSUInteger, TauYTDataServiceConsumptionType )
 #define TAU_PAGEER_PREV 0
 #define TAU_PAGEER_NEXT 1
 
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
 // To suppress the "PerformSelector may cause a leak because its selector is unknown" warning
 #define TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_BEGIN\
     _Pragma("clang diagnostic push")\
@@ -85,6 +103,12 @@ typedef NS_ENUM ( NSUInteger, TauYTDataServiceConsumptionType )
 #define TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT\
     _Pragma("clang diagnostic pop")
 
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
 // Notification Names
 NSString extern* const TauShouldSwitch2SearchSegmentNotif;
 NSString extern* const TauShouldSwitch2MeTubeSegmentNotif;
@@ -95,6 +119,12 @@ NSString extern* const TauShouldPlayVideoNotif;
 // User Info Keys
 NSString extern* const kGTLObject;
 NSString extern* const kRequester;
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
 
 // General Error domains
 NSString extern* const TauGeneralErrorDomain;
@@ -119,6 +149,12 @@ typedef NS_ENUM ( NSInteger, TauUnderlyingErrorCode )
     { TauUnderlyingUnknownError = -1
     , TauUnderlyingGTLError = -1000
     };
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
 
 typedef NS_ENUM ( NSInteger, TauAppMenuItemTag )
     { TauAppMenuItem    = 0

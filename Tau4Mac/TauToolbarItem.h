@@ -15,7 +15,7 @@
 @interface TauToolbarItem : NSObject
 
 @property ( copy, readwrite ) NSString* itemIdentifier;
-@property ( weak, readwrite ) NSToolbarItem* item;
+@property ( strong, readwrite ) NSToolbarItem* item;
 
 #pragma mark - Common Items
 
