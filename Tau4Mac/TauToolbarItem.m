@@ -103,3 +103,33 @@ TauToolbarUserProfileItem static* sUserProfileItem_;
     }
 
 @end // TauUserProfileItem class
+
+// NSArray + TauToolbarItem
+@implementation NSArray ( TauToolbarItem )
+
+- ( NSArray <NSString*>* ) cocoaToolbarIdentifiers
+    {
+    NSMutableArray <NSString*>* identifiers = [ NSMutableArray arrayWithCapacity: self.count ];
+
+    for ( TauToolbarItem* _Item in self )
+        {
+        if ( [ _Item isMemberOfClass: [ TauToolbarItem class ] ] )
+            [ identifiers addObject: _Item.itemIdentifier ];
+
+        else if ( [ _Item isMemberOfClass: [ TauToolbarSwitcherItem class ] ] )
+            [ identifiers addObject: TauToolbarSwitcherItemIdentifier ];
+
+        else if ( [ _Item isMemberOfClass: [ TauToolbarFlexibleSpaceItem class ] ] )
+            [ identifiers addObject: NSToolbarFlexibleSpaceItemIdentifier ];
+
+        else if ( [ _Item isMemberOfClass: [ TauToolbarFixedSpaceItem class ] ] )
+            [ identifiers addObject: NSToolbarSpaceItemIdentifier ];
+
+        else if ( [ _Item isMemberOfClass: [ TauToolbarUserProfileItem class ] ] )
+            [ identifiers addObject: TauToolbarUserProfileButtonItemIdentifier ];
+        }
+
+    return [ identifiers copy ];
+    }
+
+@end // NSArray + TauToolbarItem

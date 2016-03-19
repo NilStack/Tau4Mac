@@ -7,6 +7,7 @@
 //
 
 #import "TauToolbarController.h"
+#import "TauToolbarItem.h"
 
 // Private
 @interface TauToolbarController ()
@@ -91,52 +92,23 @@ TauToolbarController static* sShared_;
     return appearance_;
     }
 
-@synthesize toolbarItemIdentifiers = toolbarItemIdentifiers_;
-+ ( BOOL ) automaticallyNotifiesObserversOfToolbarItemIdentifiers
-    {
-    return NO;
-    }
-
-- ( void ) setToolbarItemIdentifiers: ( NSArray* )_New
-    {
-    if ( toolbarItemIdentifiers_ != _New )
-        {
-        [ self willChangeValueForKey: @"toolbarItemIdentifiers" ];
-        toolbarItemIdentifiers_ = _New;
-
-        for ( int _Index = 0; _Index < self.managedToolbar.items.count; _Index++ )
-            [ self.managedToolbar removeItemAtIndex: _Index ];
-
-        for ( int _Index = 0; _Index < toolbarItemIdentifiers_.count; _Index++ )
-            [ self.managedToolbar insertItemWithItemIdentifier: toolbarItemIdentifiers_[ _Index ] atIndex: _Index ];
-        // TODO:
-        [ self didChangeValueForKey: @"toolbarItemIdentifiers" ];
-        }
-    }
-
-- ( NSArray <NSString*>* ) toolbarItemIdentifiers
-    {
-    return toolbarItemIdentifiers_;
-    }
-
 @synthesize toolbarItems = toolbarItems_;
 + ( BOOL ) automaticallyNotifiesObserversOfToolbarItems
     {
     return NO;
     }
 
-- ( void ) setToolbarItems: ( NSArray <NSToolbarItem*>* )_New
+- ( void ) setToolbarItems: ( NSArray <TauToolbarItem*>* )_New
     {
     if ( toolbarItems_ != _New )
         {
         [ self willChangeValueForKey: @"toolbarItems" ];
         toolbarItems_ = _New;
-        // TODO:
         [ self didChangeValueForKey: @"toolbarItems" ];
         }
     }
 
-- ( NSArray <NSToolbarItem*>* ) toolbarItems
+- ( NSArray <TauToolbarItem*>* ) toolbarItems
     {
     return toolbarItems_;
     }
@@ -171,23 +143,19 @@ TauToolbarController static* sShared_;
 
 - ( NSArray <NSString*>* ) toolbarAllowedItemIdentifiers: ( NSToolbar* )_Toolbar
     {
-//    return self.toolbarItemIdentifiers;
     return @[ // Items defined by Tau
               TauToolbarSwitcherItemIdentifier
             , TauToolbarUserProfileButtonItemIdentifier
 
               // Items defined by Cocoa
+            , NSToolbarSpaceItemIdentifier
             , NSToolbarFlexibleSpaceItemIdentifier
             ];
     }
 
 - ( NSArray <NSString*>* ) toolbarDefaultItemIdentifiers: ( NSToolbar* )_Toolbar
     {
-    return self.toolbarItemIdentifiers;
-//    return @[ TauToolbarSwitcherItemIdentifier
-//            , NSToolbarFlexibleSpaceItemIdentifier
-//            , TauToolbarUserProfileButtonItemIdentifier
-//            ];
+    return [ self.toolbarItems cocoaToolbarIdentifiers ];
     }
 
 - ( NSToolbarItem* )  toolbar: ( NSToolbar* )_Toolbar

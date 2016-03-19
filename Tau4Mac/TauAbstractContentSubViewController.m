@@ -8,6 +8,7 @@
 
 #import "TauAbstractContentSubViewController.h"
 #import "TauToolbarController.h"
+#import "TauToolbarItem.h"
 
 // Private
 @interface TauAbstractContentSubViewController ()
@@ -60,21 +61,13 @@
     return self.view.window.appearance;
     }
 
-@dynamic exposedToolbarItemIdentifiersWhileActive;
-// Subclasses override this method to provide Tau Toolbar Controller with toolbar item identifiers
-- ( NSArray <NSString*>* ) exposedToolbarItemIdentifiersWhileActive
-    {
-    return @[ TauToolbarSwitcherItemIdentifier
-            , NSToolbarFlexibleSpaceItemIdentifier
-            , TauToolbarUserProfileButtonItemIdentifier
-            ];
-    }
-
 @dynamic exposedToolbarItemsWhileActive;
 // Subclasses override this method to provide Tau Toolbar Controller with toolbar item
-- ( NSArray <NSToolbarItem*>* ) exposedToolbarItemsWhileActive
+- ( NSArray <TauToolbarItem*>* ) exposedToolbarItemsWhileActive
     {
-    return @[];
+    return @[ [ TauToolbarItem switcherItem ]
+            , [ TauToolbarItem flexibleSpaceItem ]
+            ];
     }
 
 @dynamic titlebarAccessoryViewControllerWhileActive;

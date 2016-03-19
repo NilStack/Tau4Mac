@@ -9,6 +9,7 @@
 @protocol TauContentSubViewController;
 
 @class TauViewsStack;
+@class TauToolbarItem;
 
 #define activedSubViewController_kvoKey @"activedSubViewController"
 
@@ -39,10 +40,7 @@
 
 @optional
 @property ( strong, readonly ) NSAppearance* windowAppearanceWhileActive;
-
-@property ( strong, readonly ) NSArray <NSString*>* exposedToolbarItemIdentifiersWhileActive;
-@property ( strong, readonly ) NSArray <NSToolbarItem*>* exposedToolbarItemsWhileActive;
-
+@property ( strong, readonly ) NSArray <TauToolbarItem*>* exposedToolbarItemsWhileActive;
 @property ( strong, readonly ) NSTitlebarAccessoryViewController* titlebarAccessoryViewControllerWhileActive;
 
 @end // TauContentSubViewController protocol

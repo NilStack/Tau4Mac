@@ -41,3 +41,8 @@
 // TauUserProfileItem class
 @interface TauToolbarUserProfileItem : TauToolbarItem
 @end // TauUserProfileItem class
+
+// NSArray + TauToolbarItem
+@interface NSArray ( TauToolbarItem )
+- ( NSArray <NSString*>* ) cocoaToolbarIdentifiers;
+@end // NSArray + TauToolbarItem
