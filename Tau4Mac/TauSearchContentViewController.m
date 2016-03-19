@@ -82,12 +82,4 @@
     return [ [ AccessoryBarViewController alloc ] initWithNibName: nil bundle: nil ];
     }
 
-- ( NSArray <NSString*>* ) exposedToolbarItemIdentifiersWhileActive
-    {
-    return @[ TauToolbarSwitcherItemIdentifier
-            , NSToolbarFlexibleSpaceItemIdentifier
-            , TauToolbarUserProfileButtonItemIdentifier
-            ];
-    }
-
 @end // TauSearchContentSubViewController class

@@ -7,6 +7,7 @@
 //
 
 #import "TauAbstractContentSubViewController.h"
+#import "TauToolbarController.h"
 
 // Private
 @interface TauAbstractContentSubViewController ()
@@ -63,7 +64,10 @@
 // Subclasses override this method to provide Tau Toolbar Controller with toolbar item identifiers
 - ( NSArray <NSString*>* ) exposedToolbarItemIdentifiersWhileActive
     {
-    return @[];
+    return @[ TauToolbarSwitcherItemIdentifier
+            , NSToolbarFlexibleSpaceItemIdentifier
+            , TauToolbarUserProfileButtonItemIdentifier
+            ];
     }
 
 @dynamic exposedToolbarItemsWhileActive;

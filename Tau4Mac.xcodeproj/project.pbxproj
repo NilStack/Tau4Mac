@@ -13,6 +13,7 @@
 		8321F6681C8AA0A500D11FE0 /* TauViewsStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6671C8AA0A500D11FE0 /* TauViewsStack.m */; };
 		834458A21C9D63E0001A8603 /* AccessoryBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 834458A01C9D63E0001A8603 /* AccessoryBarViewController.m */; };
 		834458A31C9D63E0001A8603 /* AccessoryBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 834458A11C9D63E0001A8603 /* AccessoryBarViewController.xib */; };
+		834458CB1C9D9CB6001A8603 /* TauToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 834458CA1C9D9CB6001A8603 /* TauToolbarItem.m */; };
 		8349D3DF1C899444000D091F /* NSImage+Tau.m in Sources */ = {isa = PBXBuildFile; fileRef = 8349D3DE1C899444000D091F /* NSImage+Tau.m */; };
 		8356B1D11C9BA6CB00AC4B36 /* BgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8356B1CF1C9BA6CB00AC4B36 /* BgViewController.m */; };
 		8356B1FB1C9BA77000AC4B36 /* ViewStackItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8356B1F91C9BA77000AC4B36 /* ViewStackItem.m */; };
@@ -400,6 +401,8 @@
 		8344589F1C9D63E0001A8603 /* AccessoryBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessoryBarViewController.h; sourceTree = "<group>"; };
 		834458A01C9D63E0001A8603 /* AccessoryBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessoryBarViewController.m; sourceTree = "<group>"; };
 		834458A11C9D63E0001A8603 /* AccessoryBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccessoryBarViewController.xib; sourceTree = "<group>"; };
+		834458C91C9D9CB6001A8603 /* TauToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauToolbarItem.h; sourceTree = "<group>"; };
+		834458CA1C9D9CB6001A8603 /* TauToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauToolbarItem.m; sourceTree = "<group>"; };
 		8349D3991C8983D8000D091F /* PriTauYouTubeContentView_.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriTauYouTubeContentView_.h; sourceTree = "<group>"; };
 		8349D3DD1C899444000D091F /* NSImage+Tau.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+Tau.h"; sourceTree = "<group>"; };
 		8349D3DE1C899444000D091F /* NSImage+Tau.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+Tau.m"; sourceTree = "<group>"; };
@@ -681,6 +684,8 @@
 				836D26EF1C9AC8DE00290BE7 /* TauMainContentView.m */,
 				8356B1FE1C9C11C300AC4B36 /* TauToolbarController.h */,
 				8356B1FF1C9C11C300AC4B36 /* TauToolbarController.m */,
+				834458C91C9D9CB6001A8603 /* TauToolbarItem.h */,
+				834458CA1C9D9CB6001A8603 /* TauToolbarItem.m */,
 				83B0202E1C96B1A5006333CB /* models */,
 				83765B0D1C8816F300D93554 /* views */,
 				831BD6CA1C883FA300122AF6 /* TauYouTubeEntryView.h */,
@@ -1337,6 +1342,7 @@
 				83B174961C98F19800F6578B /* TauYTDataService.m in Sources */,
 				8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */,
 				83DA1C491C8864E9007B084F /* TauTTYLogFormatter.m in Sources */,
+				834458CB1C9D9CB6001A8603 /* TauToolbarItem.m in Sources */,
 				8399E2141C88200000A42C44 /* GTLYouTube_Sources.m in Sources */,
 				83EB73491C8D33BC004EB117 /* TauAbstractBeautifulView.m in Sources */,
 				836D26F01C9AC8DE00290BE7 /* TauMainContentView.m in Sources */,

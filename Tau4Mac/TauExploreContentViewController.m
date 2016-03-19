@@ -50,13 +50,4 @@
 
 // TauExploreContentSubViewController class
 @implementation TauExploreContentSubViewController
-
-- ( NSArray <NSString*>* ) exposedToolbarItemIdentifiersWhileActive
-    {
-    return @[ TauToolbarSwitcherItemIdentifier
-            , NSToolbarFlexibleSpaceItemIdentifier
-            , TauToolbarUserProfileButtonItemIdentifier
-            ];
-    }
-
 @end // TauExploreContentSubViewController class
