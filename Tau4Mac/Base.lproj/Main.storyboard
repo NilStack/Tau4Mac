@@ -596,6 +596,10 @@
                                                 <action selector="runToolbarCustomizationPalette:" target="Ady-hI-5gd" id="pQI-g3-MTW"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="5a4-g1-Huy"/>
+                                        <menuItem title="Search" keyEquivalent="S" id="SLY-85-oz6"/>
+                                        <menuItem title="Explore" keyEquivalent="E" id="02g-a1-7Kt"/>
+                                        <menuItem title="Player" keyEquivalent="P" id="GtU-Qw-Wah"/>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -642,8 +646,14 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
+                <customObject id="dU9-ee-IL5" customClass="TauToolbarController">
+                    <connections>
+                        <outlet property="managedToolbar" destination="uok-aL-qNv" id="nVp-KB-LHa"/>
+                    </connections>
+                </customObject>
                 <customObject id="Voe-Tx-rLC" customClass="TauAppDelegate"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController representsSharedInstance="YES" id="jWc-aw-5QW"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
         </scene>

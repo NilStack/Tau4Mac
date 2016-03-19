@@ -17,7 +17,6 @@
 @interface TauMainContentViewController ()
 
 @property ( strong, readonly ) FBKVOController* selfObservKVOController_;
-@property ( strong, readonly ) FBKVOController* observSharedToolbarCtrlKVOController_;
 
 @property ( assign, readwrite ) TauContentViewTag activedSegment_;
 
@@ -30,7 +29,6 @@
 @implementation TauMainContentViewController
     {
     FBKVOController __strong* priSelfObservKVOController_;
-    FBKVOController __strong* priObservSharedToolbarCtrlKVOController_;
 
     TauSearchContentViewController __strong*  priSearchContentViewController_;
     TauExploreContentViewController __strong* priExploreContentViewController_;
@@ -42,15 +40,7 @@
 
 - ( void ) viewDidLoad
     {
-    [ self.observSharedToolbarCtrlKVOController_ observe: [ TauToolbarController sharedController ]
-                                                 keyPath: @"contentViewAffiliatedTo"
-                                                 options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
-                                                   block:
-    ^( id _Nullable _Observer, TauToolbarController* _Nonnull _Object, NSDictionary <NSString*, id>* _Nonnull _Change )
-        {
-        DDLogDebug( @"%@", _Change );
-        self.activedSegment_ = _Object.contentViewAffiliatedTo;
-        } ];
+    [ self bind: @"activedContentViewTag" toObject: [ TauToolbarController sharedController ] withKeyPath: @"contentViewAffiliatedTo" options: nil ];
 
     // self-observing to react to the change of activedContentViewController property
     [ self.selfObservKVOController_ observe: self
@@ -122,12 +112,29 @@
     return priSelfObservKVOController_;
     }
 
-@dynamic observSharedToolbarCtrlKVOController_;
-- ( FBKVOController* ) observSharedToolbarCtrlKVOController_
+@dynamic activedContentViewTag;
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingActivedContentViewTag
     {
-    if ( !priObservSharedToolbarCtrlKVOController_ )
-        priObservSharedToolbarCtrlKVOController_ = [ [ FBKVOController alloc ] initWithObserver: self ];
-    return priObservSharedToolbarCtrlKVOController_;
+    return [ NSSet setWithObjects: @"activedContentViewController_kvoKey", nil ];
+    }
+
+- ( TauContentViewTag ) activedContentViewTag
+    {
+    TauContentViewTag tag = TauUnknownContentViewTag;
+
+    if ( self.activedContentViewController == self.searchContentViewController )
+        tag = TauSearchContentViewTag;
+    else if ( self.activedContentViewController == self.exploreContentViewController )
+        tag = TauExploreContentViewTag;
+    else if ( self.activedContentViewController == self.playerContentViewController )
+        tag = TauPlayerContentViewTag;
+
+    return tag;
+    }
+
+- ( void ) setActivedContentViewTag: ( TauContentViewTag )_New
+    {
+    self.activedSegment_ = _New;
     }
 
 @dynamic activedContentViewController;

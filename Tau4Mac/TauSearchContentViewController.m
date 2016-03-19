@@ -42,11 +42,6 @@
     [ self.viewsStack setBackgroundViewController: self.initialSearchContentSubViewController_ ];
     }
 
-- ( IBAction ) clickedAction: ( id )_Sender
-    {
-    [ [ TauToolbarController sharedController ] setValue: @2 forKey: @"contentViewAffiliatedTo" ];
-    }
-
 @end // TauSearchContentViewController class
 
 

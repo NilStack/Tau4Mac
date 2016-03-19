@@ -37,16 +37,6 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </searchFieldCell>
                 </searchField>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uL5-uI-lkN">
-                    <rect key="frame" x="163" y="81" width="81" height="32"/>
-                    <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZB2-fY-Lzr">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="clickedAction:" target="-2" id="R67-jC-2PI"/>
-                    </connections>
-                </button>
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="SbD-cY-M05" secondAttribute="trailing" constant="77" id="2NF-AF-LcE"/>
