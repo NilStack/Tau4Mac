@@ -42,19 +42,6 @@
     [ self.viewsStack setBackgroundViewController: self.initialSearchContentSubViewController_ ];
     }
 
-- ( IBAction ) clickedAction: ( id )_Sender
-    {
-    NSToolbar* toolbar = [ TauToolbarController sharedController ].managedToolbar;
-    if ( toolbar.items.count > 0 )
-        {
-        [ [ TauToolbarController sharedController ].managedToolbar removeItemAtIndex: 0 ];
-        }
-    else
-        {
-        [ [ TauToolbarController sharedController ].managedToolbar insertItemWithItemIdentifier: TauToolbarSwitcherItemIdentifier atIndex: 0 ];
-        }
-    }
-
 @end // TauSearchContentViewController class
 
 

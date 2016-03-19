@@ -47,9 +47,12 @@ TauToolbarController static* sShared_;
 
 - ( NSArray <NSString*>* ) toolbarAllowedItemIdentifiers: ( NSToolbar* )_Toolbar
     {
-    return @[ TauToolbarSwitcherItemIdentifier
-            , NSToolbarFlexibleSpaceItemIdentifier
+    return @[ // Items defined by Tau
+              TauToolbarSwitcherItemIdentifier
             , TauToolbarUserProfileButtonItemIdentifier
+
+              // Items defined by Cocoa
+            , NSToolbarFlexibleSpaceItemIdentifier
             ];
     }
 
