@@ -44,7 +44,7 @@
     [ self.viewsStack setBackgroundViewController: self.initialSearchContentSubViewController_ ];
 
 //    [ ( TauSearchContentSubViewController* )( self.activedSubViewController ) popMe ];
-
+//
 //    TauAbstractContentSubViewController* newViewCtrl = [ [ TauAbstractContentSubViewController alloc ] init ];
 //    NSView* newView = [ [ NSView alloc ] initWithFrame: NSZeroRect ];
 //    [ newView setWantsLayer: YES ];
@@ -57,13 +57,13 @@
 //    button.action = @selector( popMeAction: );
 //
 //    [ newView addSubview: button ];
-//
+
 //    [ newViewCtrl popMe ];
     }
 
 //- ( void ) popMeAction: ( id )_Sender
 //    {
-//
+//    [ self popContentSubView ];
 //    }
 
 @end // TauSearchContentViewController class

@@ -55,9 +55,17 @@ NSString* const kRequester = @"kRequester";
 - ( void ) applicationWillFinishLaunching: ( NSNotification* )_Notif
     {
     TauToolbarController* sharedToolbarController = [ TauToolbarController sharedController ];
+
     [ sharedToolbarController bind: @"appearance" toObject: self.contentViewController withKeyPath: @"activedContentViewController.activedSubViewController.windowAppearanceWhileActive" options: nil ];
     [ sharedToolbarController bind: @"accessoryViewController" toObject: self.contentViewController withKeyPath: @"activedContentViewController.activedSubViewController.titlebarAccessoryViewControllerWhileActive" options: nil ];
     [ sharedToolbarController bind: @"toolbarItemIdentifiers" toObject: self.contentViewController withKeyPath: @"activedContentViewController.activedSubViewController.titlebarAccessoryViewControllerWhileActive" options: nil ];
+    }
+
+- ( void ) applicationWillTerminate: ( NSNotification* )_Notif
+    {
+    [ [ TauToolbarController sharedController ] unbind: @"appearance" ];
+    [ [ TauToolbarController sharedController ] unbind: @"accessoryViewController" ];
+    [ [ TauToolbarController sharedController ] unbind: @"toolbarItemIdentifiers" ];
     }
 
 - ( void ) applicationDidFinishLaunching: ( NSNotification* )_Notif
