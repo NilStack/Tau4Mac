@@ -19,6 +19,19 @@
 @property ( strong, readonly ) TauExploreContentViewController* exploreContentViewController;
 @property ( strong, readonly ) TauPlayerContentViewController* playerContentViewController;
 
+
+
+// --------------------------------------------------------------------------------------------
+
+
+
+@property ( assign, readwrite ) TauContentViewTag activedContentViewTag;  // KVB compliant
 @property ( strong, readonly ) TauAbstractContentViewController* activedContentViewController;  // KVO-Observable
+
+
+
+// --------------------------------------------------------------------------------------------
+
+
 
 @end // TauMainContentViewController class

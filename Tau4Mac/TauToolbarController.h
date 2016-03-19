@@ -14,9 +14,16 @@ NSString extern* const TauToolbarUserProfileButtonItemIdentifier;
 
 @property ( weak ) IBOutlet NSToolbar* managedToolbar;
 
-@property ( strong, readonly ) NSSegmentedControl* segSwitcher;
+// --------------------------------------------------------------------------------------------
+
+
 
 @property ( assign, readwrite ) TauContentViewTag contentViewAffiliatedTo;  // KVB compliant
+@property ( strong, readonly ) NSSegmentedControl* segSwitcher;
+
+
+
+// --------------------------------------------------------------------------------------------
 
 + ( instancetype ) sharedController;
 
