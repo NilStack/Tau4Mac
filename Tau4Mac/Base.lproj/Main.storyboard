@@ -695,6 +695,11 @@
                     </view>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="JHl-nl-rU3" customClass="TauToolbarController">
+                    <connections>
+                        <outlet property="managedToolbar" destination="uok-aL-qNv" id="vU2-xR-UdB"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="89" y="865"/>
         </scene>

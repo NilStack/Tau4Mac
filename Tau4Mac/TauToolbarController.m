@@ -12,6 +12,9 @@
 @interface TauToolbarController ()
 @end // Private
 
+NSString* const TauToolbarSwitcherItemIdentifier            = @"home.bedroom.TongKuo.Tau.Toolbar.SwitcherItem";
+NSString* const TauToolbarUserProfileButtonItemIdentifier   = @"home.bedroom.TongKuo.Tau.Toolbar.UserProfileButtonItem";
+
 // TauToolbarController class
 @implementation TauToolbarController
     {
@@ -42,22 +45,19 @@ TauToolbarController static* sShared_;
 
 #pragma mark - Conforms to <NSToolbarDelegate>
 
-NSString* const kPanelsSwitcher = @"kPanelsSwitcher";
-NSString* const kUserProfileButton = @"kUserProfileButton";
-
 - ( NSArray <NSString*>* ) toolbarAllowedItemIdentifiers: ( NSToolbar* )_Toolbar
     {
-    return @[ kPanelsSwitcher
+    return @[ TauToolbarSwitcherItemIdentifier
             , NSToolbarFlexibleSpaceItemIdentifier
-            , kUserProfileButton
+            , TauToolbarUserProfileButtonItemIdentifier
             ];
     }
 
 - ( NSArray <NSString*>* ) toolbarDefaultItemIdentifiers: ( NSToolbar* )_Toolbar
     {
-    return @[ kPanelsSwitcher
+    return @[ TauToolbarSwitcherItemIdentifier
             , NSToolbarFlexibleSpaceItemIdentifier
-            , kUserProfileButton
+            , TauToolbarUserProfileButtonItemIdentifier
             ];
     }
 
@@ -77,7 +77,7 @@ NSString* const kUserProfileButton = @"kUserProfileButton";
     SEL action = nil;
     NSMenu* repMenu = nil;
 
-    if ( ( should = [ _ItemIdentifier isEqualToString: kPanelsSwitcher ] ) )
+    if ( ( should = [ _ItemIdentifier isEqualToString: TauToolbarSwitcherItemIdentifier ] ) )
         content = self.segSwitcher;
 
     if ( should )
