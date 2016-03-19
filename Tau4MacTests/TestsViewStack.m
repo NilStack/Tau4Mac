@@ -143,6 +143,16 @@ int static const kPriViewStackKVOCtx;
                                 );
     }
 
+- ( void ) testPushStackOperation_neg1
+    {
+    [ viewStack_ setBackgroundViewController: nil ];
+    XCTAssertThrowsSpecificNamed( [ viewStack_ pushView: nil ], NSException, NSInternalInconsistencyException
+                                , @"Expecting a thrown exception instance of <%@> with NSInternalInconsistencyException (\"%@\") description.", [ NSException class ], NSInternalInconsistencyException
+                                );
+                                
+    [ viewStack_ setBackgroundViewController: bgViewContorller_ ];
+    }
+
 #pragma mark - Private
 
 - ( NSBundle* ) sampleViewContorllerBundle_

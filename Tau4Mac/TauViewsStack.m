@@ -20,6 +20,14 @@ do { \
              userInfo: @{ @"file" : THIS_FILE, @"method" : THIS_METHOD, @"line" : @( __LINE__ ) } ]; \
 } while( 0 )
 
+#define THROW_BG_VIEW_IS_REQUIRED_EX \
+do { \
+@throw [ NSException \
+    exceptionWithName: NSInternalInconsistencyException \
+               reason: [ NSString stringWithFormat: @"Background view is required" ] \
+             userInfo: @{ @"file" : THIS_FILE, @"method" : THIS_METHOD, @"line" : @( __LINE__ ) } ]; \
+} while( 0 )
+
 // TauViewsStack class
 @implementation TauViewsStack
 
@@ -37,6 +45,9 @@ do { \
 
 - ( void ) pushView: ( NSViewController* )_ViewController
     {
+    if ( !self.backgroundViewController )
+        THROW_BG_VIEW_IS_REQUIRED_EX;
+
     if ( _ViewController.view )
         {
         NSIndexSet* affectedIndexes = [ NSIndexSet indexSetWithIndex: priViewsStack_.count ];
@@ -51,6 +62,9 @@ do { \
 
 - ( void ) popView
     {
+    if ( !self.backgroundViewController )
+        THROW_BG_VIEW_IS_REQUIRED_EX;
+
     if ( priViewsStack_.count > 0 )
         {
         NSIndexSet* affectedIndexes = [ NSIndexSet indexSetWithIndex: [ priViewsStack_ indexOfObject: priViewsStack_.lastObject ] ];
@@ -63,6 +77,9 @@ do { \
 
 - ( void ) popAll
     {
+    if ( !self.backgroundViewController )
+        THROW_BG_VIEW_IS_REQUIRED_EX;
+
     if ( priViewsStack_.count > 0 )
         {
         NSIndexSet* affectedIndexes = [ NSIndexSet indexSetWithIndexesInRange: NSMakeRange( 0, priViewsStack_.count ) ];
@@ -83,9 +100,6 @@ do { \
 
 - ( void ) setBackgroundViewController: ( NSViewController* )_New
     {
-    if ( !_New )
-        THROW_ARGUMENTS_MUST_NO_BE_NIL_EX;
-
     if ( backgroundViewController_ != _New )
         {
         [ self willChangeValueForKey: @"backgroundViewController" ];
