@@ -600,6 +600,7 @@
                                         <menuItem title="Search" keyEquivalent="S" id="SLY-85-oz6"/>
                                         <menuItem title="Explore" keyEquivalent="E" id="02g-a1-7Kt"/>
                                         <menuItem title="Player" keyEquivalent="P" id="GtU-Qw-Wah"/>
+                                        <menuItem isSeparatorItem="YES" id="il3-T6-cKd"/>
                                     </items>
                                 </menu>
                             </menuItem>

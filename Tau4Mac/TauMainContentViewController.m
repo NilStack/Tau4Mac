@@ -15,21 +15,14 @@
 
 // Private
 @interface TauMainContentViewController ()
-
-@property ( strong, readonly ) FBKVOController* selfObservKVOController_;
-
-@property ( assign, readwrite ) TauContentViewTag activedSegment_;
-
 @end // Private
 
 #define activedContentViewController_kvoKey @"activedContentViewController"
-#define activedSegment_kvoKey               @"activedSegment_"
+#define activedContentViewTag_kvoKey        @"activedContentViewTag"
 
 // TauMainContentViewController class
 @implementation TauMainContentViewController
     {
-    FBKVOController __strong* priSelfObservKVOController_;
-
     TauSearchContentViewController __strong*  priSearchContentViewController_;
     TauExploreContentViewController __strong* priExploreContentViewController_;
     TauPlayerContentViewController __strong*  priPlayerContentViewController_;
@@ -40,39 +33,8 @@
 
 - ( void ) viewDidLoad
     {
-    [ self bind: @"activedContentViewTag" toObject: [ TauToolbarController sharedController ] withKeyPath: @"contentViewAffiliatedTo" options: nil ];
-
-    // self-observing to react to the change of activedContentViewController property
-    [ self.selfObservKVOController_ observe: self
-                                    keyPath: activedContentViewController_kvoKey
-                                    options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial
-                                      block:
-    ^( id _Nullable _Observer, id _Nonnull _Object, NSDictionary <NSString*, id>* _Nonnull _Change )
-        {
-        TauAbstractContentViewController* oldActived = _Change[ NSKeyValueChangeOldKey ];
-        TauAbstractContentViewController* newActived = _Change[ NSKeyValueChangeNewKey ];
-
-        if ( oldActived && ( ( __bridge void* )oldActived != ( __bridge void* )[ NSNull null ] ) )
-            {
-            [ oldActived removeFromParentViewController ];
-            [ oldActived.view removeFromSuperview ];
-
-            if ( activedPinEdgesCache_ )
-                {
-                [ self.view removeConstraints: activedPinEdgesCache_ ];
-                activedPinEdgesCache_ = nil;
-                }
-            }
-
-        if ( newActived && ( ( __bridge void* )newActived != ( __bridge void* )[ NSNull null ] ) )
-            {
-            [ self addChildViewController: newActived ];
-            [ self.view addSubview: newActived.view ];
-            activedPinEdgesCache_ = [ newActived.view autoPinEdgesToSuperviewEdges ];
-            }
-        else
-            DDLogUnexpected( @"Unexpected new value: {%@}", newActived );
-        } ];
+    activedContentViewTag_ = TauUnknownContentViewTag;
+    [ self bind: activedContentViewTag_kvoKey toObject: [ TauToolbarController sharedController ] withKeyPath: @"contentViewAffiliatedTo" options: nil ];
     }
 
 #pragma mark - Dynamic Properties
@@ -104,48 +66,65 @@
     return priPlayerContentViewController_;
     }
 
-@dynamic selfObservKVOController_;
-- ( FBKVOController* ) selfObservKVOController_
+@synthesize activedContentViewTag = activedContentViewTag_;
++ ( BOOL ) automaticallyNotifiesObserversOfActivedContentViewTag
     {
-    if ( !priSelfObservKVOController_ )
-        priSelfObservKVOController_ = [ [ FBKVOController alloc ] initWithObserver: self ];
-    return priSelfObservKVOController_;
-    }
-
-@dynamic activedContentViewTag;
-+ ( NSSet <NSString*>* ) keyPathsForValuesAffectingActivedContentViewTag
-    {
-    return [ NSSet setWithObjects: @"activedContentViewController_kvoKey", nil ];
-    }
-
-- ( TauContentViewTag ) activedContentViewTag
-    {
-    TauContentViewTag tag = TauUnknownContentViewTag;
-
-    if ( self.activedContentViewController == self.searchContentViewController )
-        tag = TauSearchContentViewTag;
-    else if ( self.activedContentViewController == self.exploreContentViewController )
-        tag = TauExploreContentViewTag;
-    else if ( self.activedContentViewController == self.playerContentViewController )
-        tag = TauPlayerContentViewTag;
-
-    return tag;
+    return NO;
     }
 
 - ( void ) setActivedContentViewTag: ( TauContentViewTag )_New
     {
-    self.activedSegment_ = _New;
+    if ( activedContentViewTag_ != _New )
+        {
+        [ self willChangeValueForKey: activedContentViewTag_kvoKey ];
+
+        TauAbstractContentViewController* oldActived = self.activedContentViewController;
+
+        if ( oldActived )
+            {
+            [ oldActived removeFromParentViewController ];
+            [ oldActived.view removeFromSuperview ];
+
+            if ( activedPinEdgesCache_ )
+                {
+                [ self.view removeConstraints: activedPinEdgesCache_ ];
+                activedPinEdgesCache_ = nil;
+                }
+            }
+
+        activedContentViewTag_ = _New;
+
+        [ self didChangeValueForKey: activedContentViewTag_kvoKey ];
+
+        // Value of self.activedContentViewController is derived from activedContentViewTag_ var.
+        // We just assigned a new value to activedContentViewTag_,
+        // so invocation of self.activedContentViewController results in a new value.
+        TauAbstractContentViewController* newActived = self.activedContentViewController;
+        if ( newActived )
+            {
+            [ self addChildViewController: newActived ];
+            [ self.view addSubview: newActived.view ];
+            activedPinEdgesCache_ = [ newActived.view autoPinEdgesToSuperviewEdges ];
+            }
+        else
+            DDLogUnexpected( @"Unexpected new value: {%@}", newActived );
+        }
+    }
+
+- ( TauContentViewTag ) activedContentViewTag
+    {
+    return activedContentViewTag_;
     }
 
 @dynamic activedContentViewController;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingActivedContentViewController
     {
-    return [ NSSet setWithObjects: activedSegment_kvoKey, nil ];
+    return [ NSSet setWithObjects: activedContentViewTag_kvoKey, nil ];
     }
 
 - ( TauAbstractContentViewController* ) activedContentViewController
     {
-    switch ( activedSegment_ )
+    switch ( self.activedContentViewTag )
         {
         case TauSearchContentViewTag:  return self.searchContentViewController;
         case TauExploreContentViewTag: return self.exploreContentViewController;
@@ -153,7 +132,7 @@
 
         case TauUnknownContentViewTag:
             {
-            DDLogUnexpected( @"Encountered unknown content view tag" );
+            DDLogDebug( @"Encountered unknown content view tag" );
             return nil;
             }
         }
@@ -161,25 +140,6 @@
 
 #pragma mark - Private Interfaces
 
-@synthesize activedSegment_;
-+ ( BOOL ) automaticallyNotifiesObserversOfActivedSegment_
-    {
-    return NO;
-    }
-
-- ( void ) setActivedSegment_: ( TauContentViewTag )_New
-    {
-    if ( activedSegment_ != _New )
-        {
-        [ self willChangeValueForKey: activedSegment_kvoKey ];
-        activedSegment_ = _New;
-        [ self didChangeValueForKey: activedSegment_kvoKey ];
-        }
-    }
-
-- ( TauContentViewTag ) activedSegment_
-    {
-    return activedSegment_;
-    }
+//
 
 @end // TauMainContentViewController class
