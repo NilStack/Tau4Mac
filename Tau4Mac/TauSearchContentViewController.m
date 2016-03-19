@@ -44,20 +44,20 @@
 
 //    [ ( TauSearchContentSubViewController* )( self.activedSubViewController ) popMe ];
 
-    TauAbstractContentSubViewController* newViewCtrl = [ [ TauAbstractContentSubViewController alloc ] init ];
-    NSView* newView = [ [ NSView alloc ] initWithFrame: NSZeroRect ];
-    [ newView setWantsLayer: YES ];
-    [ newView.layer setBackgroundColor: [ NSColor orangeColor ].CGColor ];
-    [ newViewCtrl setView: newView ];
-    [ self pushContentSubView: newViewCtrl ];
-
-    NSButton* button = [ [ NSButton alloc ] initWithFrame: NSMakeRect( 50, 50, 60, 22 ) ];
-    button.target = self;
-    button.action = @selector( popMeAction: );
-
-    [ newView addSubview: button ];
-
-    [ newViewCtrl popMe ];
+//    TauAbstractContentSubViewController* newViewCtrl = [ [ TauAbstractContentSubViewController alloc ] init ];
+//    NSView* newView = [ [ NSView alloc ] initWithFrame: NSZeroRect ];
+//    [ newView setWantsLayer: YES ];
+//    [ newView.layer setBackgroundColor: [ NSColor orangeColor ].CGColor ];
+//    [ newViewCtrl setView: newView ];
+//    [ self pushContentSubView: newViewCtrl ];
+//
+//    NSButton* button = [ [ NSButton alloc ] initWithFrame: NSMakeRect( 50, 50, 60, 22 ) ];
+//    button.target = self;
+//    button.action = @selector( popMeAction: );
+//
+//    [ newView addSubview: button ];
+//
+//    [ newViewCtrl popMe ];
     }
 
 //- ( void ) popMeAction: ( id )_Sender

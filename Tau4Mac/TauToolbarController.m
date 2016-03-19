@@ -10,7 +10,10 @@
 
 // Private
 @interface TauToolbarController ()
+
 @property ( strong, readonly ) NSSegmentedControl* segSwitcher_;
+@property ( weak, readonly ) NSWindow* hostingMainWindow_;
+
 @end // Private
 
 NSString* const TauToolbarSwitcherItemIdentifier            = @"home.bedroom.TongKuo.Tau.Toolbar.SwitcherItem";
@@ -78,7 +81,7 @@ TauToolbarController static* sShared_;
         {
         [ self willChangeValueForKey: @"appearance" ];
         appearance_ = _New;
-        NSApp.mainWindow.appearance = appearance_;
+        self.hostingMainWindow_.appearance = appearance_;
         [ self didChangeValueForKey: @"appearance" ];
         }
     }
@@ -86,6 +89,32 @@ TauToolbarController static* sShared_;
 - ( NSAppearance* ) appearance
     {
     return appearance_;
+    }
+
+@synthesize accessoryViewController = accessoryViewController_;
++ ( BOOL ) automaticallyNotifiesObserversOfAccessoryViewController
+    {
+    return NO;
+    }
+
+- ( void ) setAccessoryViewController: ( NSTitlebarAccessoryViewController* )_New
+    {
+    if ( accessoryViewController_ != _New )
+        {
+        [ self willChangeValueForKey: @"accessoryViewController" ];
+        accessoryViewController_ = _New;
+
+        if ( self.hostingMainWindow_.titlebarAccessoryViewControllers.count > 0 )
+            [ self.hostingMainWindow_ removeTitlebarAccessoryViewControllerAtIndex: 0 ];
+
+        [ self.hostingMainWindow_ insertTitlebarAccessoryViewController: accessoryViewController_ atIndex: 0 ];
+        [ self didChangeValueForKey: @"accessoryViewController" ];
+        }
+    }
+
+- ( NSTitlebarAccessoryViewController* ) accessoryViewController
+    {
+    return accessoryViewController_;
     }
 
 #pragma mark - Conforms to <NSToolbarDelegate>
@@ -181,7 +210,6 @@ TauToolbarController static* sShared_;
     }
 
 @dynamic segSwitcher_;
-
 - ( NSSegmentedControl* ) segSwitcher_
     {
     if ( !priSegSwitcher_ )
@@ -231,6 +259,12 @@ TauToolbarController static* sShared_;
         }
 
     return priSegSwitcher_;
+    }
+
+@dynamic hostingMainWindow_;
+- ( NSWindow* ) hostingMainWindow_
+    {
+    return NSApp.mainWindow;
     }
 
 @end // TauToolbarController class

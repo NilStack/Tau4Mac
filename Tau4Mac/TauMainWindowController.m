@@ -49,7 +49,7 @@ NSString* const kRequester = @"kRequester";
     [ super windowDidLoad ];
     [ NSApp setDelegate: self ];
 
-    [ [ TauToolbarController sharedController ] setContentViewAffiliatedTo: TauSearchContentViewTag ];
+    [ [ TauToolbarController sharedController ] setContentViewAffiliatedTo: TauPlayerContentViewTag ];
     }
 
 #pragma mark - Conforms to <NSApplicationDelegate>

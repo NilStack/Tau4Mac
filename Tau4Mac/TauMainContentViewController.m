@@ -55,8 +55,9 @@
 
     TauToolbarController* sharedToolbarController = [ TauToolbarController sharedController ];
     [ self bind: activedContentViewTag_kvoKey toObject: sharedToolbarController withKeyPath: contentViewAffiliatedTo_kvoKey options: nil ];
-    [ sharedToolbarController bind: @"appearance" toObject: self withKeyPath: @"activedContentViewController.activedSubViewController.windowAppearanceWhileActive" options: nil ];
     [ sharedToolbarController bind: contentViewAffiliatedTo_kvoKey toObject: self withKeyPath: activedContentViewTag_kvoKey options: nil ];
+    [ sharedToolbarController bind: @"appearance" toObject: self withKeyPath: @"activedContentViewController.activedSubViewController.windowAppearanceWhileActive" options: nil ];
+    [ sharedToolbarController bind: @"accessoryViewController" toObject: self withKeyPath: @"activedContentViewController.activedSubViewController.titlebarAccessoryViewControllerWhileActive" options: nil ];
 
     SEL action = @selector( contentViewsMenuItemSwitchedAction_: );
     self.appViewSubMenuSearchItem_.action = action;
@@ -68,6 +69,7 @@
     {
     [ self unbind: activedContentViewTag_kvoKey ];
     [ [ TauToolbarController sharedController ] unbind: contentViewAffiliatedTo_kvoKey ];
+    [ [ TauToolbarController sharedController ] unbind: @"appearance" ];
     }
 
 #pragma mark - Menu Items Validation

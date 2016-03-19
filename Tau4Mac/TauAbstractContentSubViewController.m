@@ -60,4 +60,11 @@
     return self.view.window.appearance;
     }
 
+@dynamic titlebarAccessoryViewControllerWhileActive;
+
+- ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
+    {
+    return nil;
+    }
+
 @end // TauAbstractContentSubViewController class
