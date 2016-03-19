@@ -50,20 +50,7 @@ NSString* const kRequester = @"kRequester";
     [ NSApp setDelegate: self ];
 
     [ [ TauToolbarController sharedController ] setContentViewAffiliatedTo: TauSearchContentViewTag ];
-    
-//    [ [ NSNotificationCenter defaultCenter ]
-//        addObserver: self selector: @selector( shouldSwitch2PlayerSegment_: ) name: TauShouldSwitch2PlayerSegmentNotif object: nil ];
     }
-
-//- ( void ) shouldSwitch2PlayerSegment_: ( NSNotification* )_Notif
-//    {
-//    [ [ TauToolbarController sharedController ].segSwitcher selectSegmentWithTag: TauPlayerContentViewTag ];
-//
-//    TauYouTubeEntryView* requester = _Notif.userInfo[ kRequester ];
-//
-//    NSNotification* shouldPlayVideoNotif = [ NSNotification notificationWithName: TauShouldPlayVideoNotif object: self userInfo: @{ kGTLObject : requester.ytContent } ];
-//    [ [ NSNotificationCenter defaultCenter ] postNotification: shouldPlayVideoNotif ];
-//    }
 
 #pragma mark - Conforms to <NSApplicationDelegate>
 

@@ -10,6 +10,7 @@
 
 // Private
 @interface TauToolbarController ()
+@property ( strong, readonly ) NSSegmentedControl* segSwitcher_;
 @end // Private
 
 NSString* const TauToolbarSwitcherItemIdentifier            = @"home.bedroom.TongKuo.Tau.Toolbar.SwitcherItem";
@@ -52,17 +53,17 @@ TauToolbarController static* sShared_;
 @dynamic contentViewAffiliatedTo;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingContentViewAffiliatedTo
     {
-    return [ NSSet setWithObjects: @"segSwitcher.cell.selectedSegment", nil ];
+    return [ NSSet setWithObjects: @"segSwitcher_.cell.selectedSegment", nil ];
     }
 
 - ( void ) setContentViewAffiliatedTo: ( TauContentViewTag )_New
     {
-    [ self.segSwitcher selectSegmentWithTag: _New ];
+    [ self.segSwitcher_ selectSegmentWithTag: _New ];
     }
 
 - ( TauContentViewTag ) contentViewAffiliatedTo
     {
-    return [ self.segSwitcher selectedSegment ];
+    return [ self.segSwitcher_ selectedSegment ];
     }
 
 #pragma mark - Conforms to <NSToolbarDelegate>
@@ -103,7 +104,7 @@ TauToolbarController static* sShared_;
     NSMenu* repMenu = nil;
 
     if ( ( should = [ _ItemIdentifier isEqualToString: TauToolbarSwitcherItemIdentifier ] ) )
-        content = self.segSwitcher;
+        content = self.segSwitcher_;
 
     if ( should )
         {
@@ -157,9 +158,9 @@ TauToolbarController static* sShared_;
     return newToolbarItem;
     }
 
-@dynamic segSwitcher;
+@dynamic segSwitcher_;
 
-- ( NSSegmentedControl* ) segSwitcher
+- ( NSSegmentedControl* ) segSwitcher_
     {
     if ( !priSegSwitcher_ )
         {

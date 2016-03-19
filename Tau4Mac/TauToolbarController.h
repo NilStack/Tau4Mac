@@ -21,7 +21,7 @@ NSString extern* const TauToolbarUserProfileButtonItemIdentifier;
 
 
 @property ( assign, readwrite ) TauContentViewTag contentViewAffiliatedTo;  // KVB compliant
-@property ( strong, readonly ) NSSegmentedControl* segSwitcher;
+@property ( strong, readwrite ) NSAppearance* appearance;
 
 
 
