@@ -7,6 +7,7 @@
 //
 
 #import "TauContentCollectionItem.h"
+#import "TauContentCollectionItemView.h"
 
 // Private
 @interface TauContentCollectionItem ()
@@ -20,6 +21,11 @@
     {
     [ super viewDidLoad ];
     // Do view setup here.
+    }
+
+- ( void ) setRepresentedObject: ( id )_RepresentedObject
+    {
+    [ ( TauContentCollectionItemView* )( self.view ) setYtContent: _RepresentedObject ];
     }
 
 @end // TauContentCollectionItem class

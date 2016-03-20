@@ -22,13 +22,13 @@
 
     if ( self.contents )
         {
-        self.borderColor = [ NSColor blackColor ].CGColor;
-        self.borderWidth = .7f;
+//        self.borderColor = [ NSColor blackColor ].CGColor;
+//        self.borderWidth = .7f;
         }
     else
         {
-        self.borderColor = [ NSColor clearColor ].CGColor;
-        self.borderWidth = 0.f;
+//        self.borderColor = [ NSColor clearColor ].CGColor;
+//        self.borderWidth = 0.f;
         }
 
     [ CATransaction commit ];

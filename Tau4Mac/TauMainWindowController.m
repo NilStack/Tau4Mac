@@ -7,7 +7,7 @@
 //
 
 #import "TauMainWindowController.h"
-#import "TauYouTubeEntryView.h"
+#import "TauContentCollectionItemView.h"
 #import "TauToolbarController.h"
 
 #import "GTL/GTMOAuth2WindowController.h"
