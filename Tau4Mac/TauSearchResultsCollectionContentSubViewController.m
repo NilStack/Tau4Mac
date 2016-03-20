@@ -22,8 +22,6 @@
 // Private
 @interface TauSearchResultsCollectionContentSubViewController ()
 
-@property ( strong, readonly ) TauYTDataServiceCredential* credential_;
-
 // Model: Feed me, if you dare.
 @property ( strong, readwrite ) NSArray <GTLYouTubeSearchResult*>* searchResults;   // KVB-compliant
 @property ( strong, readwrite ) NSString* prevToken_;   // KVB-compliant
@@ -31,6 +29,8 @@
 @property ( assign, readwrite, setter = setPaging: ) BOOL isPaging;   // KVB compliant
 
 @property ( weak ) IBOutlet TauSearchResultsAccessoryBarViewController* accessoryBarViewController_;
+
+@property ( strong, readonly ) TauYTDataServiceCredential* credential_;
 
 - ( void ) executeSearchWithPageToken_: ( NSString* )_PageToken;
 
@@ -47,68 +47,6 @@
     {
     TauYTDataServiceCredential __strong* priCredential_;
     NSDictionary __strong* priOriginalOperationsCombination_;
-    }
-
-@synthesize searchContent = searchContent_;
-- ( void ) setSearchContent: ( NSString* )_New
-    {
-    if ( searchContent_ != _New )
-        {
-        searchContent_ = _New;
-        priOriginalOperationsCombination_ =
-            @{ TauTDSOperationMaxResultsPerPage : @10, TauTDSOperationRequirements : @{ TauTDSOperationRequirementQ : searchContent_ }, TauTDSOperationPartFilter : @"snippet" };
-
-        [ self executeSearchWithPageToken_: nil ];
-        }
-    }
-
-- ( void ) executeSearchWithPageToken_: ( NSString* )_PageToken
-    {
-    NSDictionary* operationsCombination = nil;
-    if ( _PageToken && ( _PageToken.length > 0 ) )
-        {
-        NSMutableDictionary* modified = [ NSMutableDictionary dictionaryWithDictionary: priOriginalOperationsCombination_ ];
-        [ modified setObject: _PageToken forKey: TauTDSOperationPageToken ];
-        operationsCombination = modified;
-        }
-    else
-        operationsCombination = priOriginalOperationsCombination_;
-
-    self.isPaging = ( _PageToken != nil );
-    [ [ TauYTDataService sharedService ] executeConsumerOperations: operationsCombination
-                                                    withCredential: self.credential_
-                                                           success:
-    ^( NSString* _PrevPageToken, NSString* _NextPageToken )
-        {
-        DDLogInfo( @"%@", self.searchResults );
-
-        self.prevToken_ = _PrevPageToken;
-        self.nextToken_ = _NextPageToken;
-        self.isPaging = NO;
-        } failure: ^( NSError* _Error )
-            {
-            DDLogRecoverable( @"%@", _Error );
-            self.isPaging = NO;
-            } ];
-    }
-
-- ( NSString* ) searchContent
-    {
-    return searchContent_;
-    }
-
-@dynamic credential_;
-- ( TauYTDataServiceCredential* ) credential_
-    {
-    if ( !priCredential_ )
-        {
-        priCredential_ =
-            [ [ TauYTDataService sharedService ] registerConsumer: self
-                                              withMethodSignature: [ self methodSignatureForSelector: _cmd ]
-                                                  consumptionType: TauYTDataServiceConsumptionSearchResultsType ];
-        }
-
-    return priCredential_;
     }
 
 #pragma mark - Actions
@@ -137,6 +75,32 @@
     }
 
 #pragma mark - External KVB Compliant
+
+@synthesize searchText = searchText_;
++ ( BOOL ) automaticallyNotifiesObserversOfSearchText
+    {
+    return NO;
+    }
+
+- ( void ) setSearchText: ( NSString* )_New
+    {
+    if ( searchText_ != _New )
+        {
+        [ self willChangeValueForKey: @"searchText" ];
+        searchText_ = _New;
+
+        priOriginalOperationsCombination_ =
+            @{ TauTDSOperationMaxResultsPerPage : @10, TauTDSOperationRequirements : @{ TauTDSOperationRequirementQ : searchText_ }, TauTDSOperationPartFilter : @"snippet" };
+
+        [ self executeSearchWithPageToken_: nil ];
+        [ self didChangeValueForKey: @"searchText" ];
+        }
+    }
+
+- ( NSString* ) searchText
+    {
+    return searchText_;
+    }
 
 @dynamic hasPrev;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingHasPrev
@@ -201,6 +165,52 @@
 
 @synthesize prevToken_;
 @synthesize nextToken_;
+
+#pragma mark - Private
+
+@dynamic credential_;
+- ( TauYTDataServiceCredential* ) credential_
+    {
+    if ( !priCredential_ )
+        {
+        priCredential_ =
+            [ [ TauYTDataService sharedService ] registerConsumer: self
+                                              withMethodSignature: [ self methodSignatureForSelector: _cmd ]
+                                                  consumptionType: TauYTDataServiceConsumptionSearchResultsType ];
+        }
+
+    return priCredential_;
+    }
+
+- ( void ) executeSearchWithPageToken_: ( NSString* )_PageToken
+    {
+    NSDictionary* operationsCombination = nil;
+    if ( _PageToken && ( _PageToken.length > 0 ) )
+        {
+        NSMutableDictionary* modified = [ NSMutableDictionary dictionaryWithDictionary: priOriginalOperationsCombination_ ];
+        [ modified setObject: _PageToken forKey: TauTDSOperationPageToken ];
+        operationsCombination = modified;
+        }
+    else
+        operationsCombination = priOriginalOperationsCombination_;
+
+    self.isPaging = ( _PageToken != nil );
+    [ [ TauYTDataService sharedService ] executeConsumerOperations: operationsCombination
+                                                    withCredential: self.credential_
+                                                           success:
+    ^( NSString* _PrevPageToken, NSString* _NextPageToken )
+        {
+        DDLogDebug( @"%@", self.searchResults );
+
+        self.prevToken_ = _PrevPageToken;
+        self.nextToken_ = _NextPageToken;
+        self.isPaging = NO;
+        } failure: ^( NSError* _Error )
+            {
+            DDLogRecoverable( @"Failed to execute the searching due to {%@}.", _Error );
+            self.isPaging = NO;
+            } ];
+    }
 
 @end // TauSearchResultsCollectionContentSubViewController class
 

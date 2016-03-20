@@ -64,7 +64,7 @@
 
     TauSearchResultsCollectionContentSubViewController* searchResultsCollectionContentSubView = [ [ TauSearchResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
     [ self pushContentSubView: searchResultsCollectionContentSubView ];
-    [ searchResultsCollectionContentSubView setSearchContent: userInput ];
+    [ searchResultsCollectionContentSubView setSearchText: userInput ];
     }
 
 @end // TauSearchContentViewController class

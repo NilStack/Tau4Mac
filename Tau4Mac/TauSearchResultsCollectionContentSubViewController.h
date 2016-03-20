@@ -11,7 +11,7 @@
 // TauSearchResultsCollectionContentSubViewController class
 @interface TauSearchResultsCollectionContentSubViewController : TauAbstractContentSubViewController <TauYTDataServiceConsumer>
 
-@property ( strong, readwrite ) NSString* searchContent;
+@property ( strong, readwrite ) NSString* searchText;   // KVB compliant
 
 @property ( assign, readonly ) BOOL hasPrev;    // KVB compliant
 @property ( assign, readonly ) BOOL hasNext;    // KVB compliant
