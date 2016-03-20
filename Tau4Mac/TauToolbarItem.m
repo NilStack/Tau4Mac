@@ -9,36 +9,183 @@
 #import "TauToolbarItem.h"
 #import "TauToolbarController.h"
 
+// Private
+@interface TauToolbarItem ()
+
+@property ( strong, readwrite ) id content_;
+
+@end // Private
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
 // TauToolbarItem class
 @implementation TauToolbarItem
 
-@synthesize itemIdentifier, label, paleteLabel, toolTip, target, action, content;
+#pragma mark - Initializations
 
-- ( instancetype ) initWithIdentifier: ( NSString*)_Id label: ( NSString* )_Label toolTip: ( NSString* )_Tooltip target: ( id )_Target action: ( SEL )_Action
+// Internal Designed Initializer
+- ( instancetype ) initWithKeyValueDict: ( NSDictionary* )_KeyValueDict
     {
     if ( self = [ super init ] )
         {
-        self.itemIdentifier = _Id;
-        self.label = _Label;
-        self.toolTip = _Tooltip;
-        self.target = _Target;
-        self.action = _Action;
+        NSError* err = nil;
+        for ( NSString* _Key in _KeyValueDict )
+            {
+            id validatedVal = [ _KeyValueDict objectForKey: _Key ];
+
+            // val of _Key may be [ NSNull null ].
+            // Replace them with nil in validation method
+            if ( [ self validateValue: &validatedVal forKey: _Key error: &err ] )
+                [ self setValue: validatedVal forKey: _Key ];
+            else
+                {
+                if ( err )
+                    DDLogFatal( @"Failure in validation of value of \"%@\" key: {%@}", _Key, err );
+                }
+            }
         }
 
     return self;
     }
 
-- ( instancetype ) initWithIdentifier: ( NSString*)_Id label: ( NSString* )_Label toolTip: ( NSString* )_Tooltip content: ( id )_Content
+- ( instancetype ) initWithIdentifier: ( NSString* )_Id label: ( NSString* )_Label image: ( NSImage* )_Image toolTip: ( NSString* )_Tooltip invocation: ( NSInvocation* )_Invocation
     {
-    if ( self = [ super init ] )
+    return [ self initWithKeyValueDict:
+        @{ @"identifier" : _Id ?: [ NSNull null ]
+         , @"label" : _Label ?: [ NSNull null ]
+         , @"image" : _Image ?: [ NSNull null ]
+         , @"toolTip" : _Tooltip ?: [ NSNull null ]
+         , @"invocation" : _Invocation ?: [ NSNull null ]
+         } ];
+    }
+
+- ( instancetype ) initWithIdentifier: ( NSString* )_Id label: ( NSString* )_Label view: ( NSView* )_View
+    {
+    return [ self initWithKeyValueDict:
+        @{ @"identifier" : _Id ?: [ NSNull null ]
+         , @"label" : _Label ?: [ NSNull null ]
+         , @"view" : _View ?: [ NSNull null ]
+         } ];
+    }
+
+- ( BOOL ) validateValue: ( inout id _Nullable __autoreleasing* )_IOValue
+                  forKey: ( NSString* )_Key
+                   error: ( out NSError* _Nullable __autoreleasing* )_OutError
+    {
+    BOOL isUnspecified = !( *_IOValue ) || ( *_IOValue == [ NSNull null ] );
+
+    // identifier is required for TauToolbarController,
+    // so its validation is more complicated
+    if ( [ _Key isEqualToString: @"identifier" ] )
         {
-        self.itemIdentifier = _Id;
-        self.label = _Label;
-        self.toolTip = _Tooltip;
-        self.content = _Content;
+        // if value of "identifier" key is either nil or [ NSNull null ]
+        if ( isUnspecified )
+            {
+            NSString* nounceID = TKNonce();
+
+            DDLogNotice( @"Value of \"%@\" key was unspecified. %@ will use an automatic identifier for you: {%@}"
+                       , _Key, NSStringFromClass( [ self class ] )
+                       , nounceID
+                       );
+
+            *_IOValue = nounceID;
+            return YES;
+            }
+
+        // if value of "identifier" key is not kind of NSString
+        else if ( ![ ( *_IOValue ) isKindOfClass: [ NSString class ] ] && [ ( *_IOValue ) isKindOfClass: [ NSObject class ] ] )
+            {
+            DDLogNotice( @"Value of \"%@\" key doesn't have a value with correct type.", _Key );
+            *_IOValue = [ *_IOValue description ] ?: @"";
+            return YES;
+            }
         }
 
-    return self;
+    else if ( isUnspecified )
+        {
+        *_IOValue = nil;
+        return YES;
+        }
+
+    return [ super validateValue: _IOValue forKey: _Key error: _OutError ];
+    }
+
+#pragma mark - Properties
+
+@synthesize identifier, label, paleteLabel, toolTip, invocation;
+
+@dynamic view;
+@dynamic image;
+
+- ( void ) setView: ( NSView* )_View
+    {
+    self.content_ = _View;
+    }
+
+- ( NSView* ) view
+    {
+    if ( [ content_ isKindOfClass: [ NSView class ] ] )
+        return ( NSView* )( content_ );
+
+    return nil;
+    }
+
+- ( void ) setImage: ( NSImage* )_Image
+    {
+    self.content_ = _Image;
+    }
+
+- ( NSImage* ) image
+    {
+    if ( [ content_ isKindOfClass: [ NSImage class ] ] )
+        return ( NSImage* )( content_ );
+
+    return nil;
+    }
+
+@dynamic cocoaToolbarItemRep;
+- ( NSToolbarItem* ) cocoaToolbarItemRep
+    {
+    return [ self _toolbarWithIdentifier: identifier label: label paleteLabel: paleteLabel toolTip: toolTip target: invocation.target action: invocation.selector itemContent: content_ repMenu: nil ];
+    }
+
+- ( NSToolbarItem* ) _toolbarWithIdentifier: ( NSString* )_Identifier
+                                      label: ( NSString* )_Label
+                                paleteLabel: ( NSString* )_PaleteLabel
+                                    toolTip: ( NSString* )_ToolTip
+                                     target: ( id )_Target
+                                     action: ( SEL )_ActionSEL
+                                itemContent: ( id )_ImageOrView
+                                    repMenu: ( NSMenu* )_Menu
+    {
+    NSToolbarItem* newToolbarItem = [ [ NSToolbarItem alloc ] initWithItemIdentifier: _Identifier ];
+
+    [ newToolbarItem setLabel: _Label ];
+    [ newToolbarItem setPaletteLabel: _PaleteLabel ];
+    [ newToolbarItem setToolTip: _ToolTip ];
+
+    [ newToolbarItem setTarget: _Target ];
+    [ newToolbarItem setAction: _ActionSEL ];
+
+    if ( [ _ImageOrView isKindOfClass: [ NSImage class ] ] )
+        [ newToolbarItem setImage: ( NSImage* )_ImageOrView ];
+
+    else if ( [ _ImageOrView isKindOfClass: [ NSView class ] ] )
+        [ newToolbarItem setView: ( NSView* )_ImageOrView ];
+
+    if ( _Menu )
+        {
+        NSMenuItem* repMenuItem = [ [ NSMenuItem alloc ] init ];
+        [ repMenuItem setSubmenu: _Menu ];
+        [ repMenuItem setTitle: _Label ];
+        [ newToolbarItem setMenuFormRepresentation: repMenuItem ];
+        }
+
+    return newToolbarItem;
     }
 
 #pragma mark - Common Items
@@ -48,7 +195,17 @@
 + ( TauToolbarFixedSpaceItem* ) fixedSpaceItem { return [ [ TauToolbarFixedSpaceItem alloc ] init ]; }
 + ( TauToolbarUserProfileItem* ) userProfileItem { return [ [ TauToolbarUserProfileItem alloc ] init ]; }
 
+#pragma mark - Private
+
+@synthesize content_;
+
 @end // TauToolbarItem class
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
 
 // TauToolbarSwitcherItem class
 @implementation TauToolbarSwitcherItem : TauToolbarItem
@@ -60,7 +217,7 @@ TauToolbarSwitcherItem static* sSwitcherItem_;
         {
         if ( self = [ super init ] )
             {
-            self.itemIdentifier = TauToolbarSwitcherItemIdentifier;
+            self.identifier = TauToolbarSwitcherItemIdentifier;
             sSwitcherItem_ = self;
             }
         }
@@ -80,7 +237,7 @@ TauToolbarFlexibleSpaceItem static* sFlexibleSpaceItem_;
         {
         if ( self = [ super init ] )
             {
-            self.itemIdentifier = NSToolbarFlexibleSpaceItemIdentifier;
+            self.identifier = NSToolbarFlexibleSpaceItemIdentifier;
             sFlexibleSpaceItem_ = self;
             }
         }
@@ -100,7 +257,7 @@ TauToolbarFixedSpaceItem static* sFixedSpaceItem_;
         {
         if ( self = [ super init ] )
             {
-            self.itemIdentifier = NSToolbarSpaceItemIdentifier;
+            self.identifier = NSToolbarSpaceItemIdentifier;
             sFixedSpaceItem_ = self;
             }
         }
@@ -120,7 +277,7 @@ TauToolbarUserProfileItem static* sUserProfileItem_;
         {
         if ( self = [ super init ] )
             {
-            self.itemIdentifier = TauToolbarUserProfileButtonItemIdentifier;
+            self.identifier = TauToolbarUserProfileButtonItemIdentifier;
             sUserProfileItem_ = self;
             }
         }
@@ -140,7 +297,7 @@ TauToolbarUserProfileItem static* sUserProfileItem_;
     for ( TauToolbarItem* _Item in self )
         {
         if ( [ _Item isMemberOfClass: [ TauToolbarItem class ] ] )
-            [ identifiers addObject: _Item.itemIdentifier ];
+            [ identifiers addObject: _Item.identifier ];
 
         else if ( [ _Item isMemberOfClass: [ TauToolbarSwitcherItem class ] ] )
             [ identifiers addObject: TauToolbarSwitcherItemIdentifier ];
@@ -161,7 +318,7 @@ TauToolbarUserProfileItem static* sUserProfileItem_;
 - ( TauToolbarItem* ) itemWithIdentifier: ( NSString* )_Identifier
     {
     for ( TauToolbarItem* _Item in self )
-        if ( [ _Item.itemIdentifier isEqualToString: _Identifier ] )
+        if ( [ _Item.identifier isEqualToString: _Identifier ] )
             return _Item;
 
     return nil;
@@ -170,7 +327,7 @@ TauToolbarUserProfileItem static* sUserProfileItem_;
 - ( BOOL ) containsItemWithIdentifier: ( NSString* )_Identifier
     {
     for ( TauToolbarItem* _Item in self )
-        if ( [ _Item.itemIdentifier isEqualToString: _Identifier ] )
+        if ( [ _Item.identifier isEqualToString: _Identifier ] )
             return YES;
 
     return NO;

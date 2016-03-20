@@ -92,7 +92,12 @@
     [ button setImage: [ NSImage imageNamed: @"NSGoLeftTemplate" ] ];
     [ button setToolTip: @"fuckingtest" ];
 
-    TauToolbarItem* toolbarItem = [ [ TauToolbarItem alloc ] initWithIdentifier: @"fucking.identifier" label: @"Test" toolTip: @"TestButton" content: button ];
+    TauToolbarItem* toolbarItem = [ [ TauToolbarItem alloc ] initWithIdentifier: nil label: nil view: button ];
+//    NSInvocation* inv = [ NSInvocation invocationWithMethodSignature: [ self methodSignatureForSelector: @selector( testAction: ) ] ];
+//    [ inv setTarget: self ];
+//    [ inv setSelector: @selector( testAction: ) ];
+
+//    TauToolbarItem* toolbarItem = [ [ TauToolbarItem alloc ] initWithIdentifier: nil label: nil image: nil toolTip: nil invocation: nil ];
     return @[ toolbarItem, [ TauToolbarItem switcherItem ] ];
     }
 

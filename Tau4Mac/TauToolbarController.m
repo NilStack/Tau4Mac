@@ -127,7 +127,7 @@ TauToolbarController static* sShared_;
 
             // Re-arrange
             for ( int _Index = 0; _Index < toolbarItems_.count; _Index++ )
-                [ priManagedToolbar_ insertItemWithItemIdentifier: toolbarItems_[ _Index ].itemIdentifier atIndex: _Index ];
+                [ priManagedToolbar_ insertItemWithItemIdentifier: toolbarItems_[ _Index ].identifier atIndex: _Index ];
             }
 
         [ self didChangeValueForKey: @"toolbarItems" ];
@@ -174,14 +174,7 @@ TauToolbarController static* sShared_;
 
 - ( NSArray <NSString*>* ) toolbarAllowedItemIdentifiers: ( NSToolbar* )_Toolbar
     {
-    return @[ // Items defined by Tau
-              TauToolbarSwitcherItemIdentifier
-            , TauToolbarUserProfileButtonItemIdentifier
-
-              // Items defined by Cocoa
-            , NSToolbarSpaceItemIdentifier
-            , NSToolbarFlexibleSpaceItemIdentifier
-            ];
+    return [ self.toolbarItems cocoaToolbarIdentifiers ];
     }
 
 - ( NSArray <NSString*>* ) toolbarDefaultItemIdentifiers: ( NSToolbar* )_Toolbar
@@ -193,46 +186,19 @@ TauToolbarController static* sShared_;
         itemForItemIdentifier: ( NSString* )_ItemIdentifier
     willBeInsertedIntoToolbar: ( BOOL )_Flag
     {
-    NSToolbarItem* toolbarItem = nil;
-    BOOL should = NO;
+    TauToolbarItem* tauToolbarItem = [ toolbarItems_ itemWithIdentifier: _ItemIdentifier ];
 
-    NSString* identifier = _ItemIdentifier;
-    NSString* label = nil;
-    NSString* paleteLabel = nil;
-    NSString* toolTip = nil;
-    id content = nil;
-    id target = self;
-    SEL action = nil;
-    NSMenu* repMenu = nil;
-
-    if ( ( should = [ _ItemIdentifier isEqualToString: TauToolbarSwitcherItemIdentifier ] ) )
-        content = self.segSwitcher_;
-
-    else if ( ( should = [ toolbarItems_ containsItemWithIdentifier: _ItemIdentifier ] ) )
+    if ( tauToolbarItem )
         {
-        TauToolbarItem* tauToolbarItem = [ toolbarItems_ itemWithIdentifier: _ItemIdentifier ];
-        identifier = tauToolbarItem.itemIdentifier;
-        label = tauToolbarItem.label;
-        paleteLabel = tauToolbarItem.paleteLabel;
-        toolTip = tauToolbarItem.toolTip;
-        content = tauToolbarItem.content;
-        target = tauToolbarItem.target;
-        action = tauToolbarItem.action;
+        if ( [ tauToolbarItem isMemberOfClass: [ TauToolbarSwitcherItem class ] ] )
+            tauToolbarItem.view = self.segSwitcher_;
+        else if ( [ tauToolbarItem isMemberOfClass: [ TauToolbarUserProfileButtonItemIdentifier class ] ] )
+            ; // TODO: tauToolbarItem.view = whatever;
+
+        return tauToolbarItem.cocoaToolbarItemRep;
         }
 
-    if ( should )
-        {
-        toolbarItem = [ self _toolbarWithIdentifier: identifier
-                                              label: label
-                                        paleteLabel: paleteLabel
-                                            toolTip: toolTip
-                                             target: target
-                                             action: action
-                                        itemContent: content
-                                            repMenu: repMenu ];
-        }
-
-    return toolbarItem;
+    return nil;
     }
 
 #pragma mark - Private Interfaces

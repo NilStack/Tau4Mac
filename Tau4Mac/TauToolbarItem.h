@@ -14,17 +14,23 @@
 // TauToolbarItem class
 @interface TauToolbarItem : NSObject
 
-@property ( copy, readwrite ) NSString* itemIdentifier;
+#pragma mark - Initializations
+
+- ( instancetype ) initWithIdentifier: ( NSString*)_Id label: ( NSString* )_Label image: ( NSImage* )_Image toolTip: ( NSString* )_Tooltip invocation: ( NSInvocation* )_Invocation;
+- ( instancetype ) initWithIdentifier: ( NSString*)_Id label: ( NSString* )_Label view: ( NSView* )_View;
+
+#pragma mark - Properties
+
+@property ( copy, readwrite ) NSString* identifier;
 
 @property ( copy, readwrite ) NSString* label;
 @property ( copy, readwrite ) NSString* paleteLabel;
 @property ( copy, readwrite ) NSString* toolTip;
-@property ( weak, readwrite ) id target;
-@property ( assign, readwrite ) SEL action;
-@property ( strong, readwrite ) id content;
+@property ( strong, readwrite ) NSInvocation* invocation;
+@property ( weak, readwrite ) NSView* view;
+@property ( weak, readwrite ) NSImage* image;
 
-- ( instancetype ) initWithIdentifier: ( NSString*)_Id label: ( NSString* )_Label toolTip: ( NSString* )_Tooltip target: ( id )_Target action: ( SEL )_Action;
-- ( instancetype ) initWithIdentifier: ( NSString*)_Id label: ( NSString* )_Label toolTip: ( NSString* )_Tooltip content: ( id )_Content;
+@property ( weak, readonly ) NSToolbarItem* cocoaToolbarItemRep;
 
 #pragma mark - Common Items
 
