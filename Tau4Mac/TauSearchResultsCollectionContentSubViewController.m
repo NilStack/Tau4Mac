@@ -24,10 +24,15 @@
 
 @property ( strong, readonly ) TauYTDataServiceCredential* credential_;
 
-// Model
+// Model: Feed me, if you dare.
 @property ( strong, readwrite ) NSArray <GTLYouTubeSearchResult*>* searchResults;   // KVB-compliant
+@property ( strong, readwrite ) NSString* prevToken_;   // KVB-compliant
+@property ( strong, readwrite ) NSString* nextToken_;   // KVB-compliant
+@property ( assign, readwrite, setter = setPaging: ) BOOL isPaging;   // KVB compliant
 
 @property ( weak ) IBOutlet TauSearchResultsAccessoryBarViewController* accessoryBarViewController_;
+
+- ( void ) executeSearchWithPageToken_: ( NSString* )_PageToken;
 
 @end // Private
 
@@ -53,18 +58,38 @@
         priOriginalOperationsCombination_ =
             @{ TauTDSOperationMaxResultsPerPage : @10, TauTDSOperationRequirements : @{ TauTDSOperationRequirementQ : searchContent_ }, TauTDSOperationPartFilter : @"snippet" };
 
-        [ [ TauYTDataService sharedService ] executeConsumerOperations: priOriginalOperationsCombination_
-                                                        withCredential: self.credential_
-                                                               success:
-        ^( NSString* _PrevPageToken, NSString* _NextPageToken )
-            {
-            DDLogInfo( @"%@ vs. %@", _PrevPageToken, _NextPageToken );
-            DDLogInfo( @"%@", self.searchResults );
-            } failure: ^( NSError* _Error )
-                {
-                DDLogFatal( @"%@", _Error );
-                } ];
+        [ self executeSearchWithPageToken_: nil ];
         }
+    }
+
+- ( void ) executeSearchWithPageToken_: ( NSString* )_PageToken
+    {
+    NSDictionary* operationsCombination = nil;
+    if ( _PageToken && ( _PageToken.length > 0 ) )
+        {
+        NSMutableDictionary* modified = [ NSMutableDictionary dictionaryWithDictionary: priOriginalOperationsCombination_ ];
+        [ modified setObject: _PageToken forKey: TauTDSOperationPageToken ];
+        operationsCombination = modified;
+        }
+    else
+        operationsCombination = priOriginalOperationsCombination_;
+
+    self.isPaging = ( _PageToken != nil );
+    [ [ TauYTDataService sharedService ] executeConsumerOperations: operationsCombination
+                                                    withCredential: self.credential_
+                                                           success:
+    ^( NSString* _PrevPageToken, NSString* _NextPageToken )
+        {
+        DDLogInfo( @"%@", self.searchResults );
+
+        self.prevToken_ = _PrevPageToken;
+        self.nextToken_ = _NextPageToken;
+        self.isPaging = NO;
+        } failure: ^( NSError* _Error )
+            {
+            DDLogRecoverable( @"%@", _Error );
+            self.isPaging = NO;
+            } ];
     }
 
 - ( NSString* ) searchContent
@@ -86,11 +111,16 @@
     return priCredential_;
     }
 
-#pragma mark - Overrides
+#pragma mark - Actions
 
-- ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
+- ( IBAction ) loadPrevPageAction: ( id )_Sender
     {
-    return self.accessoryBarViewController_;
+    [ self executeSearchWithPageToken_: self.prevToken_ ];
+    }
+
+- ( IBAction ) loadNextPageAction: ( id )_Sender
+    {
+    [ self executeSearchWithPageToken_: self.nextToken_ ];
     }
 
 - ( IBAction ) cancelAction: ( id )_Sender
@@ -98,6 +128,79 @@
     [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: priCredential_ ];
     [ self popMe ];
     }
+
+#pragma mark - Overrides
+
+- ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
+    {
+    return self.accessoryBarViewController_;
+    }
+
+#pragma mark - External KVB Compliant
+
+@dynamic hasPrev;
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingHasPrev
+    {
+    return [ NSSet setWithObjects: @"prevToken_", nil ];
+    }
+
+- ( BOOL ) hasPrev
+    {
+    return ( self.prevToken_ != nil );
+    }
+
+@dynamic hasNext;
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingHasNext
+    {
+    return [ NSSet setWithObjects: @"nextToken_", nil ];
+    }
+
+- ( BOOL ) hasNext
+    {
+    return ( self.nextToken_ != nil );
+    }
+
+@synthesize isPaging = isPaging_;
++ ( BOOL ) automaticallyNotifiesObserversOfIsPaging
+    {
+    return NO;
+    }
+
+- ( void ) setPaging: ( BOOL )_Flag
+    {
+    if ( isPaging_ != _Flag )
+        {
+        [ self willChangeValueForKey: @"isPaging" ];
+        isPaging_ = _Flag;
+        [ self didChangeValueForKey: @"isPaging" ];
+        }
+    }
+
+- ( BOOL ) isPaging
+    {
+    return isPaging_;
+    }
+
+#pragma mark - Internal KVB Compliant
+
+@synthesize searchResults = searchResults_;
+- ( NSUInteger ) countOfSearchResults
+    {
+    return searchResults_.count;
+    }
+
+- ( NSArray <GTLYouTubeSearchResult*>* ) searchResultsAtIndexes: ( NSIndexSet* )_Indexes
+    {
+    return [ searchResults_ objectsAtIndexes: _Indexes ];
+    }
+
+- ( void ) getSearchResults:( GTLYouTubeSearchResult* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
+    {
+    [ searchResults_ getObjects: _Buffer range: _InRange ];
+    }
+
+@synthesize prevToken_;
+@synthesize nextToken_;
 
 @end // TauSearchResultsCollectionContentSubViewController class
 

@@ -43,6 +43,10 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="loadPrevPageAction:" target="-2" id="MK5-cx-vUl"/>
+                        <binding destination="-2" name="enabled" keyPath="self.hasPrev" id="UqV-2M-NvF"/>
+                    </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1tf-uT-dx9">
                     <rect key="frame" x="32" y="-1" width="39" height="32"/>
@@ -50,11 +54,43 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="loadNextPageAction:" target="-2" id="FVk-qb-zxz"/>
+                        <binding destination="-2" name="enabled" keyPath="self.hasNext" id="cRv-t5-v8d"/>
+                    </connections>
                 </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="76B-XA-L4x">
+                    <rect key="frame" x="71" y="8" width="428" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="QKd-BM-Xhg"/>
+                        <constraint firstAttribute="height" constant="17" id="qTl-TK-2vf"/>
+                    </constraints>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="FSw-Et-ABC">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="nEM-Kg-xwo" name="value" keyPath="selection.snippet.title" id="2G8-54-vJz"/>
+                    </connections>
+                </textField>
+                <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="FTy-RW-j21">
+                    <rect key="frame" x="73" y="8" width="16" height="16"/>
+                    <connections>
+                        <binding destination="-2" name="animate" keyPath="self.isPaging" id="g9A-Hb-owl"/>
+                        <binding destination="-2" name="hidden" keyPath="self.isPaging" id="aIB-3W-54K">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </progressIndicator>
             </subviews>
             <constraints>
+                <constraint firstItem="76B-XA-L4x" firstAttribute="centerY" secondItem="kKm-4n-HO3" secondAttribute="centerY" id="1YN-72-atc"/>
                 <constraint firstAttribute="trailing" secondItem="yIE-e3-hD2" secondAttribute="trailing" constant="10" id="HvM-nZ-d51"/>
                 <constraint firstItem="yIE-e3-hD2" firstAttribute="centerY" secondItem="kKm-4n-HO3" secondAttribute="centerY" id="cwh-dC-FDh"/>
+                <constraint firstItem="76B-XA-L4x" firstAttribute="centerX" secondItem="kKm-4n-HO3" secondAttribute="centerX" id="wBl-2e-L29"/>
             </constraints>
             <point key="canvasLocation" x="636" y="622"/>
         </customView>
@@ -63,6 +99,12 @@
                 <outlet property="view" destination="kKm-4n-HO3" id="Ube-c1-sMb"/>
             </connections>
         </viewController>
+        <arrayController objectClassName="GTLYouTubeSearchResult" id="nEM-Kg-xwo" userLabel="Search Results Model">
+            <connections>
+                <binding destination="-2" name="contentArray" keyPath="self.searchResults" id="SMt-bK-mrv"/>
+            </connections>
+        </arrayController>
+        <userDefaultsController representsSharedInstance="YES" id="2it-FF-7y6"/>
     </objects>
     <resources>
         <image name="NSGoLeftTemplate" width="9" height="12"/>
