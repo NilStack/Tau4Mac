@@ -11,7 +11,6 @@
 // TauSearchResultsCollectionContentSubViewController class
 @interface TauSearchResultsCollectionContentSubViewController : TauAbstractContentSubViewController <TauYTDataServiceConsumer>
 
-@property ( strong, readwrite ) NSDictionary <NSString*, NSString*>* originalOperationsCombination;
-@property ( strong, readwrite ) TauYTDataServiceCredential* credential;
+@property ( strong, readwrite ) NSString* searchContent;
 
 @end // TauSearchResultsCollectionContentSubViewController class

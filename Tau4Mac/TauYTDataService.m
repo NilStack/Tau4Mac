@@ -201,19 +201,26 @@ TauYTDataService static* sYTDataService_;
         }
 
     if ( _Credential )
+        {
         [ mapTable_ removeObjectForKey: _Credential ];
+        DDLogDebug( @"Removed consumer with credential {%@}.\nCurrent consumers in TDS: {%@}", _Credential, mapTable_ );
+        }
     else
         {
         NSMutableArray* unregisteringCredentials = [ @[] mutableCopy ];
         for ( TauYTDataServiceCredential* _Credential in mapTable_ )
             {
+            // FIXME: Faield to search for consumer
             TauYTDataServiceConsumerDataUnit* dataUnit = [ mapTable_ objectForKey: _Credential ];
             if ( dataUnit.consumer == _UnregisteringConsumer )
                 [ unregisteringCredentials addObject: _Credential ];
             }
 
         for ( TauYTDataServiceCredential* _Credential in unregisteringCredentials )
+            {
             [ mapTable_ removeObjectForKey: _Credential ];
+            DDLogDebug( @"Batch Removing... Removed consumer with credential {%@}.\nCurrent consumers in TDS: {%@}", _Credential, mapTable_ );
+            }
         }
     }
 

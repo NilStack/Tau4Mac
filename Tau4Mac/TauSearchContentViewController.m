@@ -61,16 +61,10 @@
 - ( IBAction ) searchAction: ( id )_Sender
     {
     NSString* userInput = self.searchField.stringValue;
-    NSDictionary* originalOperationCombinations =
-        @{ TauTDSOperationMaxResultsPerPage : @10, TauTDSOperationRequirements : @{ TauTDSOperationRequirementQ : userInput }, TauTDSOperationPartFilter : @"snippet" };
 
     TauSearchResultsCollectionContentSubViewController* searchResultsCollectionContentSubView = [ [ TauSearchResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
-
-    TauYTDataServiceCredential* credential = [ [ TauYTDataService sharedService ] registerConsumer: searchResultsCollectionContentSubView withMethodSignature: [ self methodSignatureForSelector: _cmd ] consumptionType: TauYTDataServiceConsumptionSearchResultsType ];
-    [ searchResultsCollectionContentSubView setOriginalOperationsCombination: originalOperationCombinations ];
-    [ searchResultsCollectionContentSubView setCredential: credential ];
-
     [ self pushContentSubView: searchResultsCollectionContentSubView ];
+    [ searchResultsCollectionContentSubView setSearchContent: userInput ];
     }
 
 @end // TauSearchContentViewController class

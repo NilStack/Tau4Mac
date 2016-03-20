@@ -9,36 +9,57 @@
 #import "TauSearchResultsCollectionContentSubViewController.h"
 #import "TauToolbarItem.h"
 
+// TauSearchResultsAccessoryBarViewController class
+@interface TauSearchResultsAccessoryBarViewController : NSTitlebarAccessoryViewController
+@end // TauSearchResultsAccessoryBarViewController class
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
 // Private
 @interface TauSearchResultsCollectionContentSubViewController ()
+
+@property ( strong, readonly ) TauYTDataServiceCredential* credential_;
+
+// Model
 @property ( strong, readwrite ) NSArray <GTLYouTubeSearchResult*>* searchResults;   // KVB-compliant
+
+@property ( weak ) IBOutlet TauSearchResultsAccessoryBarViewController* accessoryBarViewController_;
+
 @end // Private
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
 
 // TauSearchResultsCollectionContentSubViewController class
 @implementation TauSearchResultsCollectionContentSubViewController
-
-- ( void ) viewDidLoad
     {
-    [ super viewDidLoad ];
-    // Do view setup here.
+    TauYTDataServiceCredential __strong* priCredential_;
+    NSDictionary __strong* priOriginalOperationsCombination_;
     }
 
-@synthesize searchResults;
-@synthesize originalOperationsCombination = originalOperationsCombination_;
-@synthesize credential = credential_;
-
-- ( void ) setCredential: ( TauYTDataServiceCredential* )_New
+@synthesize searchContent = searchContent_;
+- ( void ) setSearchContent: ( NSString* )_New
     {
-    if ( credential_ != _New )
+    if ( searchContent_ != _New )
         {
-        credential_ = _New;
+        searchContent_ = _New;
+        priOriginalOperationsCombination_ =
+            @{ TauTDSOperationMaxResultsPerPage : @10, TauTDSOperationRequirements : @{ TauTDSOperationRequirementQ : searchContent_ }, TauTDSOperationPartFilter : @"snippet" };
 
-        [ [ TauYTDataService sharedService ] executeConsumerOperations: originalOperationsCombination_
-                                                        withCredential: credential_
+        [ [ TauYTDataService sharedService ] executeConsumerOperations: priOriginalOperationsCombination_
+                                                        withCredential: self.credential_
                                                                success:
         ^( NSString* _PrevPageToken, NSString* _NextPageToken )
             {
             DDLogInfo( @"%@ vs. %@", _PrevPageToken, _NextPageToken );
+            DDLogInfo( @"%@", self.searchResults );
             } failure: ^( NSError* _Error )
                 {
                 DDLogFatal( @"%@", _Error );
@@ -46,30 +67,46 @@
         }
     }
 
-- ( TauYTDataServiceCredential* ) credential
+- ( NSString* ) searchContent
     {
-    return credential_;
+    return searchContent_;
+    }
+
+@dynamic credential_;
+- ( TauYTDataServiceCredential* ) credential_
+    {
+    if ( !priCredential_ )
+        {
+        priCredential_ =
+            [ [ TauYTDataService sharedService ] registerConsumer: self
+                                              withMethodSignature: [ self methodSignatureForSelector: _cmd ]
+                                                  consumptionType: TauYTDataServiceConsumptionSearchResultsType ];
+        }
+
+    return priCredential_;
     }
 
 #pragma mark - Overrides
 
-- ( NSArray <TauToolbarItem*>* ) exposedToolbarItemsWhileActive
+- ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
     {
-    NSButton* button = [ [ NSButton alloc ] initWithFrame: NSMakeRect( 0, 0, 30, 22 ) ];
-    [ button setBezelStyle: NSTexturedRoundedBezelStyle ];
-    [ button setAction: @selector( goBackAction: ) ];
-    [ button setTarget: self ];
-    [ button setImage: [ NSImage imageNamed: @"NSGoLeftTemplate" ] ];
-    [ button setToolTip: @"fuckingtest" ];
-
-    TauToolbarItem* goBackToolbarItem = [ [ TauToolbarItem alloc ] initWithIdentifier: nil label: nil view: button ];
-    return @[ goBackToolbarItem, [ TauToolbarItem switcherItem ] ];
+    return self.accessoryBarViewController_;
     }
 
-- ( void ) goBackAction: ( id )_Sender
+- ( IBAction ) cancelAction: ( id )_Sender
     {
-    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: credential_ ];
+    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: priCredential_ ];
     [ self popMe ];
     }
 
 @end // TauSearchResultsCollectionContentSubViewController class
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
+// TauSearchResultsAccessoryBarViewController class
+@implementation TauSearchResultsAccessoryBarViewController
+@end // TauSearchResultsAccessoryBarViewController class
