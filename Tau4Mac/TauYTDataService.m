@@ -270,7 +270,7 @@ NSString static* const kBackingThumbKey = @"kBackingThumbKey";
     NSError* err = nil;
     NSURL* cacheURL = [ [ NSFileManager defaultManager ] URLForDirectory: NSCachesDirectory inDomain: NSUserDomainMask appropriateForURL: nil create: YES error: &err ];
     cacheURL = [ cacheURL URLByAppendingPathComponent: hashedCacheName.description ];
-    if ( cacheURL )
+    if ( !cacheURL )
         DDLogFatal( @"Failed to create the cache dir due to {%@}.", err );
 
     return cacheURL;
@@ -288,7 +288,7 @@ NSString static* const kBackingThumbKey = @"kBackingThumbKey";
     return awakenImage;
     }
 
-- ( void ) fetchPreferredThumbnailFrom: ( GTLYouTubeThumbnailDetails* )thumbnailDetails success: ( void (^)( NSImage* _Image ) )_CompletionHandler failure: ( void (^)( NSError* _Error ) )_FailureHandler
+- ( void ) getThumbs: ( NSDictionary** )_ThumbsDictRef fromThumbnails: ( GTLYouTubeThumbnailDetails* )thumbnailDetails
     {
     // Pick up the thumbnail that has the highest definition
     GTLYouTubeThumbnail* preferThumbnail =
@@ -304,13 +304,36 @@ NSString static* const kBackingThumbKey = @"kBackingThumbKey";
             ?: thumbnailDetails.defaultProperty
              ;
 
+    NSMutableDictionary* dict = [ NSMutableDictionary dictionary ];
+
     NSURL* backingThumb = nil;
     NSURL* preferredThumb = nil;
+
     backingThumb = [ NSURL URLWithString: preferThumbnail.url ];
+    if ( backingThumb )
+        [ dict addEntriesFromDictionary: @{ kBackingThumbKey : backingThumb } ];
 
     NSString* maxresName = @"maxresdefault.jpg";
     if ( ![ [ backingThumb.lastPathComponent stringByDeletingPathExtension ] isEqualToString: maxresName ] )
         preferredThumb = [ [ backingThumb URLByDeletingLastPathComponent ] URLByAppendingPathComponent: maxresName ];
+
+    if ( preferredThumb )
+        [ dict addEntriesFromDictionary: @{ kPreferredThumbKey : preferredThumb } ];
+
+    if ( dict.count > 0 )
+        if ( _ThumbsDictRef )
+            *_ThumbsDictRef = [ dict copy ];
+    }
+
+- ( void ) fetchPreferredThumbnailFrom: ( GTLYouTubeThumbnailDetails* )_ThumbnailDetails
+                               success: ( void (^)( NSImage* _Image ) )_CompletionHandler
+                               failure: ( void (^)( NSError* _Error ) )_FailureHandler
+    {
+    NSDictionary* thumbsDict = nil;
+    [ self getThumbs: &thumbsDict fromThumbnails: _ThumbnailDetails ];
+
+    NSURL* backingThumb = [ thumbsDict objectForKey: kBackingThumbKey ];
+    NSURL* preferredThumb = [ thumbsDict objectForKey: kPreferredThumbKey ];
 
     NSImage* image = [ self loadCacheForImageURL_: preferredThumb ];
     if ( image )
@@ -322,7 +345,7 @@ NSString static* const kBackingThumbKey = @"kBackingThumbKey";
         }
 
     NSString* fetchID = [ NSString stringWithFormat: @"(fetchID: %@)", TKNonce() ];
-    DDLogVerbose( @"Begin fetching thumbnail... %@", fetchID );
+    DDLogDebug( @"Could not detect the cache, begin fetching thumbnail... %@", fetchID );
 
     GTMSessionFetcher* fetcher = [ GTMSessionFetcher fetcherWithURL: preferredThumb ];
     [ fetcher setComment: fetchID ];
@@ -335,10 +358,10 @@ NSString static* const kBackingThumbKey = @"kBackingThumbKey";
         {
         if ( _Data && !_Error )
             {
-            DDLogVerbose( @"Finished fetching thumbnail %@", fetchID );
+            DDLogDebug( @"Finished fetching thumbnail %@", fetchID );
 
             NSImage* image = [ [ NSImage alloc ] initWithData: _Data ];
-            [ image.TIFFRepresentation writeToURL: [ self imageCacheURL_: preferredThumb ] atomically: YES ];
+            [ _Data writeToURL: [ self imageCacheURL_: preferredThumb ] atomically: YES ];
 
             if ( _CompletionHandler )
                 _CompletionHandler( image );
@@ -360,10 +383,10 @@ NSString static* const kBackingThumbKey = @"kBackingThumbKey";
                         beginFetchWithCompletionHandler:
                         ^( NSData* _Nullable _Data, NSError* _Nullable _Error )
                             {
-                            DDLogVerbose( @"Congrats! Finished fetching backing thumbnail" );
+                            DDLogDebug( @"Finished fetching backing thumbnail" );
 
                             NSImage* image = [ [ NSImage alloc ] initWithData: _Data ];
-                            [ image.TIFFRepresentation writeToURL: [ self imageCacheURL_: preferredThumb ] atomically: YES ];
+                            [ _Data writeToURL: [ self imageCacheURL_: preferredThumb ] atomically: YES ];
 
                             if ( _CompletionHandler )
                                 _CompletionHandler( image );
