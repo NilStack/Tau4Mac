@@ -19,6 +19,12 @@
 
 @end // Private Interfaces
 
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
 // TauContentCollectionItemView class
 @implementation TauContentCollectionItemView
     {
@@ -119,6 +125,12 @@
 
 @end // TauContentCollectionItemView class
 
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
 // TauContentCollectionItemView + PriTauYouTubeContentView_
 @implementation TauContentCollectionItemView ( PriTauYouTubeContentView_ )
 
@@ -140,24 +152,21 @@
     [ self addTrackingArea: mouseEventTrackingArea ];
     }
 
-NSString* const kPreferredThumbKey = @"kPreferredThumbKey";
-NSString* const kBackingThumbKey = @"kBackingThumbKey";
+NSString static* const kPreferredThumbKey = @"kPreferredThumbKey";
+NSString static* const kBackingThumbKey = @"kBackingThumbKey";
 
 // Content
-- ( void ) updateYtContent_: ( GTLObject* )_ytContent
+- ( void ) updateYtContent_: ( GTLObject* )_New
     {
-    if ( ytContent_ != _ytContent )
+    if ( ytContent_ != _New )
         {
-        ytContent_ = _ytContent;
+        ytContent_ = _New;
 
         if ( !ytContent_ )
             {
 //            [ self cleanUp_ ];
             return;
             }
-
-        NSURL* backingThumb = nil;
-        NSURL* preferredThumb = nil;
 
         GTLObject* snippet = nil;
         if ( [ ytContent_ isKindOfClass: [ GTLYouTubeVideo class ] ] )
@@ -201,69 +210,17 @@ NSString* const kBackingThumbKey = @"kBackingThumbKey";
             return;
             }
 
-        // Pick up the thumbnail that has the highest definition
-        GTLYouTubeThumbnail* preferThumbnail =
-                /* 1280x720 px */
-            thumbnailDetails.maxres
-                /* 640x480 px */
-                ?: thumbnailDetails.standard
-                /* 480x360 px */
-                ?: thumbnailDetails.high
-                /* 320x180 px */
-                ?: thumbnailDetails.medium
-                /* 120x90 px */
-                ?: thumbnailDetails.defaultProperty
-                 ;
-
-        backingThumb = [ NSURL URLWithString: preferThumbnail.url ];
-
-        NSString* maxresName = @"maxresdefault.jpg";
-        if ( ![ [ backingThumb.lastPathComponent stringByDeletingPathExtension ] isEqualToString: maxresName ] )
-            preferredThumb = [ [ backingThumb URLByDeletingLastPathComponent ] URLByAppendingPathComponent: maxresName ];
-
-        NSString* fetchID = [ NSString stringWithFormat: @"(fetchID: %@)", TKNonce() ];
-        DDLogDebug( @"Begin fetching thumbnail... %@", fetchID );
-
-        GTMSessionFetcher* fetcher = [ GTMSessionFetcher fetcherWithURL: preferredThumb ];
-        [ fetcher setComment: fetchID ];
-        [ fetcher setUserData: @{ kBackingThumbKey : backingThumb
-                                , kPreferredThumbKey : preferredThumb
-                                } ];
-
-        [ fetcher beginFetchWithCompletionHandler:
-        ^( NSData* _Nullable _Data, NSError* _Nullable _Error )
+        [ [ TauYTDataService sharedService ] fetchPreferredThumbnailFrom: thumbnailDetails
+                                                                 success:
+        ^( NSImage* _Image )
             {
-            if ( _Data && !_Error )
-                {
-                DDLogDebug( @"Finished fetching thumbnail %@", fetchID );
-                thumbnailImage_ = [ [ NSImage alloc ] initWithData: _Data ];
-                [ self updateUI_ ];
-                }
-            else
-                {
-                if ( [ _Error.domain isEqualToString: kGTMSessionFetcherStatusDomain ] )
+            thumbnailImage_ = _Image;
+            [ self updateUI_ ];
+            } failure:
+                ^( NSError* _Error )
                     {
-                    if ( _Error.code == 404 )
-                        {
-                        DDLogRecoverable( @"404 NOT FOUND! There is no specific thumb (%@) %@ %@\n"
-                                          "attempting to fetch the backing thumbnail…"
-                                         , fetcher.userData[ kPreferredThumbKey ]
-                                         , _Error
-                                         , fetcher.comment
-                                         );
-
-                        [ [ GTMSessionFetcher fetcherWithURL: fetcher.userData[ kBackingThumbKey ] ]
-                            beginFetchWithCompletionHandler:
-                            ^( NSData* _Nullable _Data, NSError* _Nullable _Error )
-                                {
-                                DDLogDebug( @"Congrats! Finished fetching backing thumbnail" );
-                                thumbnailImage_ = [ [ NSImage alloc ] initWithData: _Data ];
-                                [ self updateUI_ ];
-                                } ];
-                        }
-                    }
-                }
-            } ];
+                    DDLogFatal( @"%@", _Error );
+                    } ];
         }
     }
 

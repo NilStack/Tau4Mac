@@ -255,6 +255,130 @@ TauYTDataService static* sYTDataService_;
         }
     }
 
+#pragma mark - Remote Image & Video Fetching
+
+NSString static* const kPreferredThumbKey = @"kPreferredThumbKey";
+NSString static* const kBackingThumbKey = @"kBackingThumbKey";
+
+- ( NSURL* ) imageCacheURL_: ( NSURL* )_ImageURL
+    {
+    NSData* cacheNameData = [ [ _ImageURL.path stringByRemovingPercentEncoding ] dataUsingEncoding: NSUTF8StringEncoding ];
+    unsigned char buffer[ CC_SHA1_DIGEST_LENGTH ];
+    CC_SHA1( cacheNameData.bytes, ( unsigned int )( cacheNameData.length ), buffer );
+
+    NSData* hashedCacheName = [ NSData dataWithBytes: buffer length: CC_SHA1_DIGEST_LENGTH ];
+    NSError* err = nil;
+    NSURL* cacheURL = [ [ NSFileManager defaultManager ] URLForDirectory: NSCachesDirectory inDomain: NSUserDomainMask appropriateForURL: nil create: YES error: &err ];
+    cacheURL = [ cacheURL URLByAppendingPathComponent: hashedCacheName.description ];
+    if ( cacheURL )
+        DDLogFatal( @"Failed to create the cache dir due to {%@}.", err );
+
+    return cacheURL;
+    }
+
+- ( NSImage* ) loadCacheForImageURL_: ( NSURL* )_ImageURL
+    {
+    NSImage* awakenImage = nil;
+
+    NSURL* cacheURL = [ self imageCacheURL_: _ImageURL ];
+    BOOL isDir = NO;
+    if ( [ [ NSFileManager defaultManager ] fileExistsAtPath: cacheURL.path isDirectory: &isDir ] && !isDir )
+        awakenImage = [ [ NSImage alloc ] initWithContentsOfURL: cacheURL ];
+
+    return awakenImage;
+    }
+
+- ( void ) fetchPreferredThumbnailFrom: ( GTLYouTubeThumbnailDetails* )thumbnailDetails success: ( void (^)( NSImage* _Image ) )_CompletionHandler failure: ( void (^)( NSError* _Error ) )_FailureHandler
+    {
+    // Pick up the thumbnail that has the highest definition
+    GTLYouTubeThumbnail* preferThumbnail =
+            /* 1280x720 px */
+        thumbnailDetails.maxres
+            /* 640x480 px */
+            ?: thumbnailDetails.standard
+            /* 480x360 px */
+            ?: thumbnailDetails.high
+            /* 320x180 px */
+            ?: thumbnailDetails.medium
+            /* 120x90 px */
+            ?: thumbnailDetails.defaultProperty
+             ;
+
+    NSURL* backingThumb = nil;
+    NSURL* preferredThumb = nil;
+    backingThumb = [ NSURL URLWithString: preferThumbnail.url ];
+
+    NSString* maxresName = @"maxresdefault.jpg";
+    if ( ![ [ backingThumb.lastPathComponent stringByDeletingPathExtension ] isEqualToString: maxresName ] )
+        preferredThumb = [ [ backingThumb URLByDeletingLastPathComponent ] URLByAppendingPathComponent: maxresName ];
+
+    NSImage* image = [ self loadCacheForImageURL_: preferredThumb ];
+    if ( image )
+        {
+        if ( _CompletionHandler )
+            _CompletionHandler( image );
+
+        return;
+        }
+
+    NSString* fetchID = [ NSString stringWithFormat: @"(fetchID: %@)", TKNonce() ];
+    DDLogVerbose( @"Begin fetching thumbnail... %@", fetchID );
+
+    GTMSessionFetcher* fetcher = [ GTMSessionFetcher fetcherWithURL: preferredThumb ];
+    [ fetcher setComment: fetchID ];
+    [ fetcher setUserData: @{ kBackingThumbKey : backingThumb
+                            , kPreferredThumbKey : preferredThumb
+                            } ];
+
+    [ fetcher beginFetchWithCompletionHandler:
+    ^( NSData* _Nullable _Data, NSError* _Nullable _Error )
+        {
+        if ( _Data && !_Error )
+            {
+            DDLogVerbose( @"Finished fetching thumbnail %@", fetchID );
+
+            NSImage* image = [ [ NSImage alloc ] initWithData: _Data ];
+            [ image.TIFFRepresentation writeToURL: [ self imageCacheURL_: preferredThumb ] atomically: YES ];
+
+            if ( _CompletionHandler )
+                _CompletionHandler( image );
+            }
+        else
+            {
+            if ( [ _Error.domain isEqualToString: kGTMSessionFetcherStatusDomain ] )
+                {
+                if ( _Error.code == 404 )
+                    {
+                    DDLogRecoverable( @"404 NOT FOUND! There is no specific thumb (%@) %@ %@\n"
+                                      "attempting to fetch the backing thumbnail…"
+                                     , fetcher.userData[ kPreferredThumbKey ]
+                                     , _Error
+                                     , fetcher.comment
+                                     );
+
+                    [ [ GTMSessionFetcher fetcherWithURL: fetcher.userData[ kBackingThumbKey ] ]
+                        beginFetchWithCompletionHandler:
+                        ^( NSData* _Nullable _Data, NSError* _Nullable _Error )
+                            {
+                            DDLogVerbose( @"Congrats! Finished fetching backing thumbnail" );
+
+                            NSImage* image = [ [ NSImage alloc ] initWithData: _Data ];
+                            [ image.TIFFRepresentation writeToURL: [ self imageCacheURL_: preferredThumb ] atomically: YES ];
+
+                            if ( _CompletionHandler )
+                                _CompletionHandler( image );
+                            } ];
+                    }
+                else
+                    {
+                    if ( _FailureHandler )
+                        _FailureHandler( _Error );
+                    }
+                }
+            }
+        } ];
+    }
+
 #pragma mark - Private Interfaces
 
 - ( BOOL ) validateOperationsCombination_: ( NSDictionary* )_OperationsDict
