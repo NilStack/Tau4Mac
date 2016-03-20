@@ -85,7 +85,20 @@
 
 - ( NSArray <TauToolbarItem*>* ) exposedToolbarItemsWhileActive
     {
-    return @[];
+    NSButton* button = [ [ NSButton alloc ] initWithFrame: NSMakeRect( 0, 0, 22, 40 ) ];
+    [ button setAction: @selector( testAction: ) ];
+    [ button setTarget: self ];
+
+    TauToolbarItem* toolbarItem = [ [ TauToolbarItem alloc ] init ];
+    toolbarItem.itemIdentifier = @"fucking.identifier";
+    toolbarItem.item = [ [ NSToolbarItem alloc ] initWithItemIdentifier: toolbarItem.itemIdentifier ];
+    [ toolbarItem.item setView: button ];
+    return @[ toolbarItem ];
+    }
+
+- ( void ) testAction: ( id )_Sender
+    {
+    NSLog( @"%@", _Sender );
     }
 
 @end // TauSearchContentSubViewController class

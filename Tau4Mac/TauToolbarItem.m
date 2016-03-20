@@ -132,4 +132,29 @@ TauToolbarUserProfileItem static* sUserProfileItem_;
     return [ identifiers copy ];
     }
 
+- ( TauToolbarItem* ) itemWithIdentifier: ( NSString* )_Identifier
+    {
+    for ( TauToolbarItem* _Item in self )
+        if ( [ _Item.itemIdentifier isEqualToString: _Identifier ] )
+            return _Item;
+
+    return nil;
+    }
+
+- ( BOOL ) containsItemWithIdentifier: ( NSString* )_Identifier
+    {
+    BOOL contains = NO;
+
+    for ( TauToolbarItem* _Item in self )
+        {
+        if ( [ _Item.itemIdentifier isEqualToString: _Identifier ] )
+            {
+            contains = YES;
+            break;
+            }
+        }
+
+    return contains;
+    }
+
 @end // NSArray + TauToolbarItem

@@ -152,11 +152,16 @@ TauToolbarController static* sShared_;
         [ self willChangeValueForKey: @"accessoryViewController" ];
         accessoryViewController_ = _New;
 
+        @try {
         if ( self.hostingMainWindow_.titlebarAccessoryViewControllers.count > 0 )
             [ self.hostingMainWindow_ removeTitlebarAccessoryViewControllerAtIndex: 0 ];
 
         [ self.hostingMainWindow_ insertTitlebarAccessoryViewController: accessoryViewController_ atIndex: 0 ];
         [ self didChangeValueForKey: @"accessoryViewController" ];
+        } @catch ( NSException* _Ex )
+            {
+            DDLogUnexpected( @"%@", _Ex );
+            }
         }
     }
 
@@ -202,6 +207,9 @@ TauToolbarController static* sShared_;
 
     if ( ( should = [ _ItemIdentifier isEqualToString: TauToolbarSwitcherItemIdentifier ] ) )
         content = self.segSwitcher_;
+
+    else if ( ( should = [ toolbarItems_ containsItemWithIdentifier: _ItemIdentifier ] ) )
+        content = [ toolbarItems_ itemWithIdentifier: _ItemIdentifier ].item.view;
 
     if ( should )
         {

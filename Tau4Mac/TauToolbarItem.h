@@ -44,5 +44,9 @@
 
 // NSArray + TauToolbarItem
 @interface NSArray ( TauToolbarItem )
+
 - ( NSArray <NSString*>* ) cocoaToolbarIdentifiers;
+- ( TauToolbarItem* ) itemWithIdentifier: ( NSString* )_Identifier;
+- ( BOOL ) containsItemWithIdentifier: ( NSString* )_Identifier;
+
 @end // NSArray + TauToolbarItem
