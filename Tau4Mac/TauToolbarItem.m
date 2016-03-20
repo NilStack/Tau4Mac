@@ -152,17 +152,17 @@
 @dynamic cocoaToolbarItemRep;
 - ( NSToolbarItem* ) cocoaToolbarItemRep
     {
-    return [ self _toolbarWithIdentifier: identifier label: label paleteLabel: paleteLabel toolTip: toolTip target: invocation.target action: invocation.selector itemContent: content_ repMenu: self.repMenu ];
+    return [ self _toolbarItemWithIdentifier: identifier label: label paleteLabel: paleteLabel toolTip: toolTip target: invocation.target action: invocation.selector itemContent: content_ repMenu: self.repMenu ];
     }
 
-- ( NSToolbarItem* ) _toolbarWithIdentifier: ( NSString* )_Identifier
-                                      label: ( NSString* )_Label
-                                paleteLabel: ( NSString* )_PaleteLabel
-                                    toolTip: ( NSString* )_ToolTip
-                                     target: ( id )_Target
-                                     action: ( SEL )_ActionSEL
-                                itemContent: ( id )_ImageOrView
-                                    repMenu: ( NSMenu* )_Menu
+- ( NSToolbarItem* ) _toolbarItemWithIdentifier: ( NSString* )_Identifier
+                                          label: ( NSString* )_Label
+                                    paleteLabel: ( NSString* )_PaleteLabel
+                                        toolTip: ( NSString* )_ToolTip
+                                         target: ( id )_Target
+                                         action: ( SEL )_ActionSEL
+                                    itemContent: ( id )_ImageOrView
+                                        repMenu: ( NSMenu* )_Menu
     {
     NSToolbarItem* newToolbarItem = [ [ NSToolbarItem alloc ] initWithItemIdentifier: _Identifier ];
 

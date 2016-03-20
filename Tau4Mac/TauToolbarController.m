@@ -110,8 +110,9 @@ TauToolbarController static* sShared_;
         if ( !priManagedToolbar_ )
             {
             priManagedToolbar_ = [ [ NSToolbar alloc ] initWithIdentifier: TauToolbarIdentifier ];
-            [ priManagedToolbar_ setAllowsUserCustomization: NO ];
             [ priManagedToolbar_ setDelegate: self ];
+            [ priManagedToolbar_ setDisplayMode: NSToolbarDisplayModeIconOnly ];
+            [ priManagedToolbar_ setAllowsUserCustomization: NO ];
             [ self.hostingMainWindow_ setToolbar: priManagedToolbar_ ];
             }
         else
@@ -202,41 +203,6 @@ TauToolbarController static* sShared_;
     }
 
 #pragma mark - Private Interfaces
-
-- ( NSToolbarItem* ) _toolbarWithIdentifier: ( NSString* )_Identifier
-                                      label: ( NSString* )_Label
-                                paleteLabel: ( NSString* )_PaleteLabel
-                                    toolTip: ( NSString* )_ToolTip
-                                     target: ( id )_Target
-                                     action: ( SEL )_ActionSEL
-                                itemContent: ( id )_ImageOrView
-                                    repMenu: ( NSMenu* )_Menu
-    {
-    NSToolbarItem* newToolbarItem = [ [ NSToolbarItem alloc ] initWithItemIdentifier: _Identifier ];
-
-    [ newToolbarItem setLabel: _Label ];
-    [ newToolbarItem setPaletteLabel: _PaleteLabel ];
-    [ newToolbarItem setToolTip: _ToolTip ];
-
-    [ newToolbarItem setTarget: _Target ];
-    [ newToolbarItem setAction: _ActionSEL ];
-
-    if ( [ _ImageOrView isKindOfClass: [ NSImage class ] ] )
-        [ newToolbarItem setImage: ( NSImage* )_ImageOrView ];
-
-    else if ( [ _ImageOrView isKindOfClass: [ NSView class ] ] )
-        [ newToolbarItem setView: ( NSView* )_ImageOrView ];
-
-    if ( _Menu )
-        {
-        NSMenuItem* repMenuItem = [ [ NSMenuItem alloc ] init ];
-        [ repMenuItem setSubmenu: _Menu ];
-        [ repMenuItem setTitle: _Label ];
-        [ newToolbarItem setMenuFormRepresentation: repMenuItem ];
-        }
-
-    return newToolbarItem;
-    }
 
 @dynamic segSwitcher_;
 - ( NSSegmentedControl* ) segSwitcher_
