@@ -14,6 +14,14 @@
 
 @property ( strong, readwrite ) id content_;
 
+- ( NSToolbarItem* ) _toolbarItemWithIdentifier: ( NSString* )_Identifier
+                                          label: ( NSString* )_Label
+                                    paleteLabel: ( NSString* )_PaleteLabel
+                                        toolTip: ( NSString* )_ToolTip
+                                         target: ( id )_Target
+                                         action: ( SEL )_ActionSEL
+                                    itemContent: ( id )_ImageOrView
+                                        repMenu: ( NSMenu* )_Menu;
 @end // Private
 
 
@@ -155,6 +163,17 @@
     return [ self _toolbarItemWithIdentifier: identifier label: label paleteLabel: paleteLabel toolTip: toolTip target: invocation.target action: invocation.selector itemContent: content_ repMenu: self.repMenu ];
     }
 
+#pragma mark - Common Items
+
++ ( TauToolbarSwitcherItem* ) switcherItem { return [ [ TauToolbarSwitcherItem alloc ] init ]; }
++ ( TauToolbarFlexibleSpaceItem* ) flexibleSpaceItem { return [ [ TauToolbarFlexibleSpaceItem alloc ] init ]; }
++ ( TauToolbarFixedSpaceItem* ) fixedSpaceItem { return [ [ TauToolbarFixedSpaceItem alloc ] init ]; }
++ ( TauToolbarUserProfileItem* ) userProfileItem { return [ [ TauToolbarUserProfileItem alloc ] init ]; }
+
+#pragma mark - Private
+
+@synthesize content_;
+
 - ( NSToolbarItem* ) _toolbarItemWithIdentifier: ( NSString* )_Identifier
                                           label: ( NSString* )_Label
                                     paleteLabel: ( NSString* )_PaleteLabel
@@ -189,17 +208,6 @@
 
     return newToolbarItem;
     }
-
-#pragma mark - Common Items
-
-+ ( TauToolbarSwitcherItem* ) switcherItem { return [ [ TauToolbarSwitcherItem alloc ] init ]; }
-+ ( TauToolbarFlexibleSpaceItem* ) flexibleSpaceItem { return [ [ TauToolbarFlexibleSpaceItem alloc ] init ]; }
-+ ( TauToolbarFixedSpaceItem* ) fixedSpaceItem { return [ [ TauToolbarFixedSpaceItem alloc ] init ]; }
-+ ( TauToolbarUserProfileItem* ) userProfileItem { return [ [ TauToolbarUserProfileItem alloc ] init ]; }
-
-#pragma mark - Private
-
-@synthesize content_;
 
 @end // TauToolbarItem class
 
