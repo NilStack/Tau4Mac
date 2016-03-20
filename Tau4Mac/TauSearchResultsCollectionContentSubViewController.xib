@@ -8,7 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TauSearchResultsCollectionContentSubViewController">
             <connections>
                 <outlet property="accessoryBarViewController_" destination="Ted-8S-pxa" id="gDo-gX-7XQ"/>
-                <outlet property="arrayController" destination="nEM-Kg-xwo" id="hOq-Du-Uht"/>
+                <outlet property="contentCollectionView_" destination="KgR-Jf-ebh" id="Wm0-7d-Rnr"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -28,7 +28,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="Zoh-qo-gWt">
-                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="itemSize" width="200" height="112"/>
                                 </collectionViewFlowLayout>
                                 <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <connections>

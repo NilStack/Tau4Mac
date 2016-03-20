@@ -8,6 +8,7 @@
 
 #import "TauSearchResultsCollectionContentSubViewController.h"
 #import "TauToolbarItem.h"
+#import "TauContentCollectionItem.h"
 
 // TauSearchResultsAccessoryBarViewController class
 @interface TauSearchResultsAccessoryBarViewController : NSTitlebarAccessoryViewController
@@ -28,6 +29,7 @@
 @property ( strong, readwrite ) NSString* nextToken_;   // KVB-compliant
 @property ( assign, readwrite, setter = setPaging: ) BOOL isPaging;   // KVB compliant
 
+@property ( weak ) IBOutlet NSCollectionView* contentCollectionView_;
 @property ( weak ) IBOutlet TauSearchResultsAccessoryBarViewController* accessoryBarViewController_;
 
 @property ( strong, readonly ) TauYTDataServiceCredential* credential_;
@@ -47,6 +49,37 @@
     {
     TauYTDataServiceCredential __strong* priCredential_;
     NSDictionary __strong* priOriginalOperationsCombination_;
+    }
+
+#pragma mark - Initializations
+
+NSString* const kContentCollectionItemID = @"kContentCollectionItemID";
+
+- ( void ) viewDidLoad
+    {
+    [ self.contentCollectionView_ registerClass: [ TauContentCollectionItem class ] forItemWithIdentifier: kContentCollectionItemID ];
+    }
+
+#pragma mark - Conforms to <NSCollectionViewDataSource>
+
+- ( NSInteger ) numberOfSectionsInCollectionView: ( NSCollectionView* )_CollectionView
+    {
+    return 1;
+    }
+
+- ( NSInteger ) collectionView: ( NSCollectionView* )_CollectionView numberOfItemsInSection: ( NSInteger )_Section
+    {
+    return self.searchResults.count;
+    }
+
+- ( NSCollectionViewItem* ) collectionView: ( NSCollectionView* )_CollectionView itemForRepresentedObjectAtIndexPath: ( NSIndexPath* )_IndexPath
+    {
+    NSCollectionViewItem* item = [ _CollectionView makeItemWithIdentifier: kContentCollectionItemID forIndexPath: _IndexPath ];
+
+//    NSLog( @"Section %ld and Item %ld", indexPath.section, indexPath.item );
+    item.representedObject = [ self.searchResults objectAtIndex: [ _IndexPath item ] ];
+
+    return item;
     }
 
 #pragma mark - Actions
@@ -205,6 +238,8 @@
         self.prevToken_ = _PrevPageToken;
         self.nextToken_ = _NextPageToken;
         self.isPaging = NO;
+
+        [ self.contentCollectionView_ reloadData ];
         } failure: ^( NSError* _Error )
             {
             DDLogRecoverable( @"Failed to execute the searching due to {%@}.", _Error );

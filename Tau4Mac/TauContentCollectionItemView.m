@@ -8,11 +8,17 @@
 
 #import "TauContentCollectionItemView.h"
 
+// TauContentCollectionItemView class
 @implementation TauContentCollectionItemView
+
+- ( void ) awakeFromNib
+    {
+    [ self configureForAutoLayout ];
+    }
 
 - ( void ) drawRect: ( NSRect )_DirtyRect
     {
-    [ super drawRect: dirtyRect ];
+    [ super drawRect: _DirtyRect ];
     
     [ [ NSColor orangeColor ] set ];
     NSRectFill( _DirtyRect );
@@ -21,4 +27,4 @@
     NSFrameRect( _DirtyRect );
     }
 
-@end
+@end // TauContentCollectionItemView class

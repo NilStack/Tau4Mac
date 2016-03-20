@@ -1,15 +1,15 @@
 //
-//  TauYouTubeEntryLayer.m
+//  TauContentCollectionItemLayer.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/4/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauYouTubeEntryLayer.h"
+#import "TauContentCollectionItemLayer.h"
 
-// TauYouTubeEntryLayer class
-@implementation TauYouTubeEntryLayer
+// TauContentCollectionItemLayer class
+@implementation TauContentCollectionItemLayer
 
 #pragma mark - Overrides
 
@@ -34,4 +34,4 @@
     [ CATransaction commit ];
     }
 
-@end // TauYouTubeEntryLayer class
+@end // TauContentCollectionItemLayer class

@@ -6,8 +6,7 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-
+// TauContentCollectionItemView class
 @interface TauContentCollectionItemView : NSView
 
-@end
+@end // TauContentCollectionItemView class

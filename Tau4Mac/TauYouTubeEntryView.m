@@ -8,7 +8,7 @@
 
 #import "TauYouTubeEntryView.h"
 #import "OAuthSigningConstants.h"
-#import "TauYouTubeEntryLayer.h"
+#import "TauContentCollectionItemLayer.h"
 
 #import "NSImage+Tau.h"
 
@@ -54,7 +54,7 @@
 
 - ( CALayer* ) makeBackingLayer
     {
-    return [ [ TauYouTubeEntryLayer alloc ] init ];
+    return [ [ TauContentCollectionItemLayer alloc ] init ];
     }
 
 - ( void ) displayLayer: ( CALayer* )_Layer
