@@ -17,6 +17,47 @@
         <customView id="Hz6-mo-xeY">
             <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5yt-m5-j1R">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+                    <clipView key="contentView" id="hXQ-Xa-tC0">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView id="KgR-Jf-ebh">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="Zoh-qo-gWt">
+                                    <size key="itemSize" width="50" height="50"/>
+                                </collectionViewFlowLayout>
+                                <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="-2" id="IQM-sG-ey6"/>
+                                    <outlet property="delegate" destination="-2" id="PcP-CY-OL4"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                    </clipView>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="3UF-9W-Rrx"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" id="w5V-yF-ZTr"/>
+                    </constraints>
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="PwM-No-iD3">
+                        <rect key="frame" x="1" y="144" width="233" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="aab-9i-Ur2">
+                        <rect key="frame" x="234" y="1" width="15" height="143"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="5yt-m5-j1R" secondAttribute="trailing" id="IDQ-Hf-PEt"/>
+                <constraint firstAttribute="bottom" secondItem="5yt-m5-j1R" secondAttribute="bottom" id="eiw-Do-qgD"/>
+                <constraint firstItem="5yt-m5-j1R" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="uPX-g7-5j1"/>
+                <constraint firstItem="5yt-m5-j1R" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="xaH-7f-fcE"/>
+            </constraints>
         </customView>
         <customView id="kKm-4n-HO3" userLabel="Accessory Bar View">
             <rect key="frame" x="0.0" y="0.0" width="584" height="32"/>
@@ -93,7 +134,7 @@
                 <constraint firstItem="yIE-e3-hD2" firstAttribute="centerY" secondItem="kKm-4n-HO3" secondAttribute="centerY" id="cwh-dC-FDh"/>
                 <constraint firstItem="76B-XA-L4x" firstAttribute="centerX" secondItem="kKm-4n-HO3" secondAttribute="centerX" id="wBl-2e-L29"/>
             </constraints>
-            <point key="canvasLocation" x="636" y="622"/>
+            <point key="canvasLocation" x="578" y="928"/>
         </customView>
         <viewController id="Ted-8S-pxa" customClass="TauSearchResultsAccessoryBarViewController">
             <connections>
