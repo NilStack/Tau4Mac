@@ -72,6 +72,8 @@
          } ];
     }
 
+#pragma mark - KVC
+
 - ( BOOL ) validateValue: ( inout id _Nullable __autoreleasing* )_IOValue
                   forKey: ( NSString* )_Key
                    error: ( out NSError* _Nullable __autoreleasing* )_OutError
@@ -116,7 +118,7 @@
 
 #pragma mark - Properties
 
-@synthesize identifier, label, paleteLabel, toolTip, invocation;
+@synthesize identifier, label, paleteLabel, toolTip, invocation, repMenu;
 
 @dynamic view;
 @dynamic image;
@@ -150,7 +152,7 @@
 @dynamic cocoaToolbarItemRep;
 - ( NSToolbarItem* ) cocoaToolbarItemRep
     {
-    return [ self _toolbarWithIdentifier: identifier label: label paleteLabel: paleteLabel toolTip: toolTip target: invocation.target action: invocation.selector itemContent: content_ repMenu: nil ];
+    return [ self _toolbarWithIdentifier: identifier label: label paleteLabel: paleteLabel toolTip: toolTip target: invocation.target action: invocation.selector itemContent: content_ repMenu: self.repMenu ];
     }
 
 - ( NSToolbarItem* ) _toolbarWithIdentifier: ( NSString* )_Identifier

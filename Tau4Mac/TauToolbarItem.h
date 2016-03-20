@@ -27,8 +27,10 @@
 @property ( copy, readwrite ) NSString* paleteLabel;
 @property ( copy, readwrite ) NSString* toolTip;
 @property ( strong, readwrite ) NSInvocation* invocation;
-@property ( weak, readwrite ) NSView* view;
-@property ( weak, readwrite ) NSImage* image;
+@property ( strong, readwrite ) NSMenu* repMenu;
+
+@property ( strong, readwrite ) NSView* view;
+@property ( strong, readwrite ) NSImage* image;
 
 @property ( weak, readonly ) NSToolbarItem* cocoaToolbarItemRep;
 
