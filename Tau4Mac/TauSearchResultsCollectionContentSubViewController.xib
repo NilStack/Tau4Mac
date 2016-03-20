@@ -71,7 +71,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="nEM-Kg-xwo" name="value" keyPath="selection.snippet.title" id="2G8-54-vJz"/>
+                        <binding destination="nEM-Kg-xwo" name="value" keyPath="selection.snippet.title" id="yVK-Rz-GXU"/>
                     </connections>
                 </textField>
                 <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="FTy-RW-j21">
