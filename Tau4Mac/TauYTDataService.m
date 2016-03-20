@@ -208,12 +208,12 @@ TauYTDataService static* sYTDataService_;
     else
         {
         NSMutableArray* unregisteringCredentials = [ @[] mutableCopy ];
-        for ( TauYTDataServiceCredential* _Credential in mapTable_ )
+        for ( TauYTDataServiceCredential* _Cred in mapTable_ )
             {
             // FIXME: Faield to search for consumer
-            TauYTDataServiceConsumerDataUnit* dataUnit = [ mapTable_ objectForKey: _Credential ];
+            TauYTDataServiceConsumerDataUnit* dataUnit = [ mapTable_ objectForKey: _Cred ];
             if ( dataUnit.consumer == _UnregisteringConsumer )
-                [ unregisteringCredentials addObject: _Credential ];
+                [ unregisteringCredentials addObject: _Cred ];
             }
 
         for ( TauYTDataServiceCredential* _Credential in unregisteringCredentials )

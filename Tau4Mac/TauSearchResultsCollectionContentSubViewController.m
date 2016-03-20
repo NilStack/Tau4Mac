@@ -63,7 +63,7 @@
 
 - ( IBAction ) cancelAction: ( id )_Sender
     {
-    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: priCredential_ ];
+    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: nil ];
     [ self popMe ];
     }
 

@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TauSearchResultsCollectionContentSubViewController">
             <connections>
                 <outlet property="accessoryBarViewController_" destination="Ted-8S-pxa" id="gDo-gX-7XQ"/>
+                <outlet property="arrayController" destination="nEM-Kg-xwo" id="hOq-Du-Uht"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -60,7 +61,7 @@
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="76B-XA-L4x">
-                    <rect key="frame" x="71" y="8" width="428" height="17"/>
+                    <rect key="frame" x="78" y="8" width="428" height="17"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" id="QKd-BM-Xhg"/>
                         <constraint firstAttribute="height" constant="17" id="qTl-TK-2vf"/>
@@ -71,7 +72,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="nEM-Kg-xwo" name="value" keyPath="selection.snippet.title" id="yVK-Rz-GXU"/>
+                        <binding destination="nEM-Kg-xwo" name="value" keyPath="selection.snippet.title" id="w4Z-tT-IJh"/>
                     </connections>
                 </textField>
                 <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="FTy-RW-j21">
