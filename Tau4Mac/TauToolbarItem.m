@@ -12,8 +12,34 @@
 // TauToolbarItem class
 @implementation TauToolbarItem
 
-@synthesize itemIdentifier;
-@synthesize item;
+@synthesize itemIdentifier, label, paleteLabel, toolTip, target, action, content;
+
+- ( instancetype ) initWithIdentifier: ( NSString*)_Id label: ( NSString* )_Label toolTip: ( NSString* )_Tooltip target: ( id )_Target action: ( SEL )_Action
+    {
+    if ( self = [ super init ] )
+        {
+        self.itemIdentifier = _Id;
+        self.label = _Label;
+        self.toolTip = _Tooltip;
+        self.target = _Target;
+        self.action = _Action;
+        }
+
+    return self;
+    }
+
+- ( instancetype ) initWithIdentifier: ( NSString*)_Id label: ( NSString* )_Label toolTip: ( NSString* )_Tooltip content: ( id )_Content
+    {
+    if ( self = [ super init ] )
+        {
+        self.itemIdentifier = _Id;
+        self.label = _Label;
+        self.toolTip = _Tooltip;
+        self.content = _Content;
+        }
+
+    return self;
+    }
 
 #pragma mark - Common Items
 
@@ -143,18 +169,11 @@ TauToolbarUserProfileItem static* sUserProfileItem_;
 
 - ( BOOL ) containsItemWithIdentifier: ( NSString* )_Identifier
     {
-    BOOL contains = NO;
-
     for ( TauToolbarItem* _Item in self )
-        {
         if ( [ _Item.itemIdentifier isEqualToString: _Identifier ] )
-            {
-            contains = YES;
-            break;
-            }
-        }
+            return YES;
 
-    return contains;
+    return NO;
     }
 
 @end // NSArray + TauToolbarItem

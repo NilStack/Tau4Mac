@@ -15,7 +15,16 @@
 @interface TauToolbarItem : NSObject
 
 @property ( copy, readwrite ) NSString* itemIdentifier;
-@property ( strong, readwrite ) NSToolbarItem* item;
+
+@property ( copy, readwrite ) NSString* label;
+@property ( copy, readwrite ) NSString* paleteLabel;
+@property ( copy, readwrite ) NSString* toolTip;
+@property ( weak, readwrite ) id target;
+@property ( assign, readwrite ) SEL action;
+@property ( strong, readwrite ) id content;
+
+- ( instancetype ) initWithIdentifier: ( NSString*)_Id label: ( NSString* )_Label toolTip: ( NSString* )_Tooltip target: ( id )_Target action: ( SEL )_Action;
+- ( instancetype ) initWithIdentifier: ( NSString*)_Id label: ( NSString* )_Label toolTip: ( NSString* )_Tooltip content: ( id )_Content;
 
 #pragma mark - Common Items
 

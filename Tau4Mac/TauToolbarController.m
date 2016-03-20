@@ -209,7 +209,16 @@ TauToolbarController static* sShared_;
         content = self.segSwitcher_;
 
     else if ( ( should = [ toolbarItems_ containsItemWithIdentifier: _ItemIdentifier ] ) )
-        content = [ toolbarItems_ itemWithIdentifier: _ItemIdentifier ].item.view;
+        {
+        TauToolbarItem* tauToolbarItem = [ toolbarItems_ itemWithIdentifier: _ItemIdentifier ];
+        identifier = tauToolbarItem.itemIdentifier;
+        label = tauToolbarItem.label;
+        paleteLabel = tauToolbarItem.paleteLabel;
+        toolTip = tauToolbarItem.toolTip;
+        content = tauToolbarItem.content;
+        target = tauToolbarItem.target;
+        action = tauToolbarItem.action;
+        }
 
     if ( should )
         {
