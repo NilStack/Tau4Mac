@@ -63,6 +63,9 @@
 
 - ( void ) dealloc
     {
+    if ( ytTicket_ )
+        [ ytTicket_ cancelTicket ];
+
     NSString* bindKeyPath = [ self bindKeyPathForConsumptionType_: credential_.consumptionType ];
     [ ( NSObject* )consumer_ unbind: bindKeyPath ];
     }

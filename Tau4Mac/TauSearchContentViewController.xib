@@ -8,6 +8,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TauSearchContentViewController">
             <connections>
                 <outlet property="initialSearchContentSubViewController_" destination="kSU-tu-Iji" id="onu-Lm-XcC"/>
+                <outlet property="searchButton" destination="PCp-oD-XHi" id="xyU-i4-kA7"/>
+                <outlet property="searchField" destination="SbD-cY-M05" id="fTb-4W-fsB"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -26,25 +28,48 @@
             <rect key="frame" x="0.0" y="0.0" width="443" height="246"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <searchField wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SbD-cY-M05">
-                    <rect key="frame" x="77" y="204" width="289" height="22"/>
+                <searchField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SbD-cY-M05">
+                    <rect key="frame" x="80" y="204" width="206" height="22"/>
                     <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="0zG-LL-eWC"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="OiS-le-AUo"/>
                     </constraints>
-                    <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" sendsWholeSearchString="YES" id="mhT-0e-7P8">
+                    <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" focusRingType="none" usesSingleLineMode="YES" bezelStyle="round" sendsWholeSearchString="YES" id="mhT-0e-7P8">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </searchFieldCell>
+                    <connections>
+                        <outlet property="delegate" destination="-2" id="anu-0a-ThT"/>
+                    </connections>
                 </searchField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PCp-oD-XHi">
+                    <rect key="frame" x="288" y="198" width="81" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="IPX-EP-86x"/>
+                        <constraint firstAttribute="width" constant="69" id="hgD-Vd-ymn"/>
+                    </constraints>
+                    <buttonCell key="cell" type="push" title="Search" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ilg-wC-g75">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                    </buttonCell>
+                    <connections>
+                        <action selector="searchAction:" target="-2" id="TVR-7Z-YUG"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="SbD-cY-M05" secondAttribute="trailing" constant="77" id="2NF-AF-LcE"/>
-                <constraint firstItem="SbD-cY-M05" firstAttribute="leading" secondItem="6cY-mM-JgI" secondAttribute="leading" constant="77" id="H9a-WD-uHx"/>
-                <constraint firstItem="SbD-cY-M05" firstAttribute="top" secondItem="6cY-mM-JgI" secondAttribute="top" constant="20" id="JXx-zd-2Hh"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="SbD-cY-M05" secondAttribute="bottom" id="rzQ-xE-EUr"/>
+                <constraint firstItem="SbD-cY-M05" firstAttribute="top" secondItem="6cY-mM-JgI" secondAttribute="top" constant="20" id="DgB-4X-N1g"/>
+                <constraint firstItem="SbD-cY-M05" firstAttribute="leading" secondItem="6cY-mM-JgI" secondAttribute="leading" constant="80" id="MSm-Xn-T2N"/>
+                <constraint firstItem="PCp-oD-XHi" firstAttribute="leading" secondItem="SbD-cY-M05" secondAttribute="trailing" constant="8" id="eec-Ce-Aco"/>
+                <constraint firstItem="PCp-oD-XHi" firstAttribute="top" secondItem="6cY-mM-JgI" secondAttribute="top" constant="20" id="eyy-qa-q1a"/>
+                <constraint firstAttribute="trailing" secondItem="SbD-cY-M05" secondAttribute="trailing" constant="157" id="g4Q-pv-OWt"/>
+                <constraint firstAttribute="trailing" secondItem="PCp-oD-XHi" secondAttribute="trailing" constant="80" id="vLt-Cb-gqY"/>
             </constraints>
             <point key="canvasLocation" x="225.5" y="112"/>
         </customView>
+        <userDefaultsController representsSharedInstance="YES" id="Dia-np-IVh"/>
     </objects>
 </document>

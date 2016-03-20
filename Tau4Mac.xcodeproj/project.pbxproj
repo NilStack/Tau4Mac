@@ -57,6 +57,8 @@
 		838342FD1C98409C00BE6378 /* TauYouTubeChannelsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 838342F51C98189B00BE6378 /* TauYouTubeChannelsCollection.m */; };
 		838342FE1C98409F00BE6378 /* TauYouTubePlaylistsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 838342F81C98198F00BE6378 /* TauYouTubePlaylistsCollection.m */; };
 		838342FF1C9840A200BE6378 /* TauYouTubePlaylistItemsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 838342FB1C981C2400BE6378 /* TauYouTubePlaylistItemsCollection.m */; };
+		838D405A1C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 838D40581C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.m */; };
+		838D405B1C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 838D40591C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.xib */; };
 		8399E2141C88200000A42C44 /* GTLYouTube_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2121C88200000A42C44 /* GTLYouTube_Sources.m */; };
 		8399E21A1C88231400A42C44 /* TauMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2191C88231400A42C44 /* TauMainWindowController.m */; };
 		8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E21C1C88232E00A42C44 /* TauMainWindow.m */; };
@@ -459,6 +461,9 @@
 		838342F81C98198F00BE6378 /* TauYouTubePlaylistsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauYouTubePlaylistsCollection.m; sourceTree = "<group>"; };
 		838342FA1C981C2400BE6378 /* TauYouTubePlaylistItemsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauYouTubePlaylistItemsCollection.h; sourceTree = "<group>"; };
 		838342FB1C981C2400BE6378 /* TauYouTubePlaylistItemsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauYouTubePlaylistItemsCollection.m; sourceTree = "<group>"; };
+		838D40571C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauSearchResultsCollectionContentSubViewController.h; sourceTree = "<group>"; };
+		838D40581C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauSearchResultsCollectionContentSubViewController.m; sourceTree = "<group>"; };
+		838D40591C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TauSearchResultsCollectionContentSubViewController.xib; sourceTree = "<group>"; };
 		8399E2121C88200000A42C44 /* GTLYouTube_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLYouTube_Sources.m; path = ../Deps/GTL/Source/Services/YouTube/Generated/GTLYouTube_Sources.m; sourceTree = "<group>"; };
 		8399E2131C88200000A42C44 /* GTLYouTube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLYouTube.h; path = ../Deps/GTL/Source/Services/YouTube/Generated/GTLYouTube.h; sourceTree = "<group>"; };
 		8399E2181C88231400A42C44 /* TauMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauMainWindowController.h; sourceTree = "<group>"; };
@@ -627,6 +632,9 @@
 				836D27061C9ACEC200290BE7 /* TauAbstractContentViewController.m */,
 				8356B2011C9D35F900AC4B36 /* TauAbstractContentSubViewController.h */,
 				8356B2021C9D35F900AC4B36 /* TauAbstractContentSubViewController.m */,
+				838D40571C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.h */,
+				838D40581C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.m */,
+				838D40591C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.xib */,
 			);
 			name = abstract;
 			sourceTree = "<group>";
@@ -1302,6 +1310,7 @@
 				83D2E8AA1C9AB10500A6AD3D /* TauEntriesCollectionViewController.xib in Resources */,
 				83765AE71C8811DD00D93554 /* Assets.xcassets in Resources */,
 				83765AEA1C8811DD00D93554 /* Main.storyboard in Resources */,
+				838D405B1C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.xib in Resources */,
 				836D26FF1C9ACDDE00290BE7 /* TauExploreContentViewController.xib in Resources */,
 				834458A31C9D63E0001A8603 /* AccessoryBarViewController.xib in Resources */,
 			);
@@ -1353,6 +1362,7 @@
 				83EB73331C8C6B6E004EB117 /* FBKVOController.m in Sources */,
 				831BD6CC1C883FA300122AF6 /* TauYouTubeEntryView.m in Sources */,
 				838342F61C98189B00BE6378 /* TauYouTubeChannelsCollection.m in Sources */,
+				838D405A1C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.m in Sources */,
 				8349D3DF1C899444000D091F /* NSImage+Tau.m in Sources */,
 				830F55881C92CE20005E431B /* NSObject+TauDataServiceConsumer.m in Sources */,
 				8321F6681C8AA0A500D11FE0 /* TauViewsStack.m in Sources */,

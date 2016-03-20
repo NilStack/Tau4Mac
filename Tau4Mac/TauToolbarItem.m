@@ -140,7 +140,6 @@
     {
     if ( [ content_ isKindOfClass: [ NSView class ] ] )
         return ( NSView* )( content_ );
-
     return nil;
     }
 
@@ -153,14 +152,13 @@
     {
     if ( [ content_ isKindOfClass: [ NSImage class ] ] )
         return ( NSImage* )( content_ );
-
     return nil;
     }
 
 @dynamic cocoaToolbarItemRep;
 - ( NSToolbarItem* ) cocoaToolbarItemRep
     {
-    return [ self _toolbarItemWithIdentifier: identifier label: label paleteLabel: paleteLabel toolTip: toolTip target: invocation.target action: invocation.selector itemContent: content_ repMenu: self.repMenu ];
+    return [ self _toolbarItemWithIdentifier: identifier label: label paleteLabel: paleteLabel toolTip: toolTip target: invocation.target action: invocation.selector itemContent: content_ repMenu: repMenu ];
     }
 
 #pragma mark - Common Items

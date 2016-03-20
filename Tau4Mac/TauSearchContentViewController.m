@@ -10,8 +10,7 @@
 #import "TauViewsStack.h"
 #import "TauToolbarController.h"
 #import "TauAbstractContentSubViewController.h"
-#import "AccessoryBarViewController.h"
-#import "TauToolbarItem.h"
+#import "TauSearchResultsCollectionContentSubViewController.h"
 
 // TauSearchContentSubViewController class
 @interface TauSearchContentSubViewController : TauAbstractContentSubViewController
@@ -27,6 +26,7 @@
 @interface TauSearchContentViewController ()
 
 @property ( weak ) IBOutlet TauSearchContentSubViewController* initialSearchContentSubViewController_;
+//@property ( strong, readwrite ) NSArray <GTLYouTubeSearchResult*>* searchResults;
 
 @end // Private
 
@@ -38,34 +38,40 @@
 
 // TauSearchContentViewController class
 @implementation TauSearchContentViewController
+    {
+//    TauYTDataServiceCredential __strong* credential_;
+    }
 
 - ( void ) viewDidLoad
     {
     [ super viewDidLoad ];
     [ self.viewsStack setBackgroundViewController: self.initialSearchContentSubViewController_ ];
-
-//    [ ( TauSearchContentSubViewController* )( self.activedSubViewController ) popMe ];
-//
-//    TauAbstractContentSubViewController* newViewCtrl = [ [ TauAbstractContentSubViewController alloc ] init ];
-//    NSView* newView = [ [ NSView alloc ] initWithFrame: NSZeroRect ];
-//    [ newView setWantsLayer: YES ];
-//    [ newView.layer setBackgroundColor: [ NSColor orangeColor ].CGColor ];
-//    [ newViewCtrl setView: newView ];
-//    [ self pushContentSubView: newViewCtrl ];
-//
-//    NSButton* button = [ [ NSButton alloc ] initWithFrame: NSMakeRect( 50, 50, 60, 22 ) ];
-//    button.target = self;
-//    button.action = @selector( popMeAction: );
-//
-//    [ newView addSubview: button ];
-
-//    [ newViewCtrl popMe ];
     }
 
-//- ( void ) popMeAction: ( id )_Sender
-//    {
-//    [ self popContentSubView ];
-//    }
+#pragma mark - Conforms to <NSTextFieldDelegate>
+
+- ( void ) controlTextDidChange: ( NSNotification* )_Notif
+    {
+    NSText* fieldEditor = _Notif.userInfo[ @"NSFieldEditor" ];
+    self.searchButton.enabled = ( fieldEditor.string.length > 0 );
+    }
+
+#pragma mark - Actions
+
+- ( IBAction ) searchAction: ( id )_Sender
+    {
+    NSString* userInput = self.searchField.stringValue;
+    NSDictionary* originalOperationCombinations =
+        @{ TauTDSOperationMaxResultsPerPage : @10, TauTDSOperationRequirements : @{ TauTDSOperationRequirementQ : userInput }, TauTDSOperationPartFilter : @"snippet" };
+
+    TauSearchResultsCollectionContentSubViewController* searchResultsCollectionContentSubView = [ [ TauSearchResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
+
+    TauYTDataServiceCredential* credential = [ [ TauYTDataService sharedService ] registerConsumer: searchResultsCollectionContentSubView withMethodSignature: [ self methodSignatureForSelector: _cmd ] consumptionType: TauYTDataServiceConsumptionSearchResultsType ];
+    [ searchResultsCollectionContentSubView setOriginalOperationsCombination: originalOperationCombinations ];
+    [ searchResultsCollectionContentSubView setCredential: credential ];
+
+    [ self pushContentSubView: searchResultsCollectionContentSubView ];
+    }
 
 @end // TauSearchContentViewController class
 
@@ -77,34 +83,5 @@
 
 // TauSearchContentSubViewController class
 @implementation TauSearchContentSubViewController
-
-- ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
-    {
-    return [ [ AccessoryBarViewController alloc ] initWithNibName: nil bundle: nil ];
-    }
-
-- ( NSArray <TauToolbarItem*>* ) exposedToolbarItemsWhileActive
-    {
-    NSButton* button = [ [ NSButton alloc ] initWithFrame: NSMakeRect( 0, 0, 30, 22 ) ];
-    [ button setBezelStyle: NSTexturedRoundedBezelStyle ];
-    [ button setAction: @selector( testAction: ) ];
-    [ button setTarget: self ];
-    [ button setImage: [ NSImage imageNamed: @"NSGoLeftTemplate" ] ];
-    [ button setToolTip: @"fuckingtest" ];
-
-    TauToolbarItem* toolbarItem = [ [ TauToolbarItem alloc ] initWithIdentifier: nil label: nil view: button ];
-//    NSInvocation* inv = [ NSInvocation invocationWithMethodSignature: [ self methodSignatureForSelector: @selector( testAction: ) ] ];
-//    [ inv setTarget: self ];
-//    [ inv setSelector: @selector( testAction: ) ];
-
-//    TauToolbarItem* toolbarItem = [ [ TauToolbarItem alloc ] initWithIdentifier: nil label: nil image: nil toolTip: nil invocation: nil ];
-    return @[ toolbarItem, [ TauToolbarItem switcherItem ] ];
-    }
-
-- ( void ) testAction: ( id )_Sender
-    {
-    NSLog( @"%@", _Sender );
-    [ self popMe ];
-    }
 
 @end // TauSearchContentSubViewController class

@@ -9,6 +9,15 @@
 #import "TauAbstractContentViewController.h"
 
 // TauSearchContentViewController class
-@interface TauSearchContentViewController : TauAbstractContentViewController
+@interface TauSearchContentViewController : TauAbstractContentViewController <NSTextFieldDelegate>
+
+#pragma mark - Outlets
+
+@property ( weak ) IBOutlet NSSearchField* searchField;
+@property ( weak ) IBOutlet NSButton* searchButton;
+
+#pragma mark - Actions
+
+- ( IBAction ) searchAction: ( id )_Sender;
 
 @end // TauSearchContentViewController class

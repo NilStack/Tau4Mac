@@ -63,7 +63,7 @@
     self.appViewSubMenuPlayerItem_.action = action;
 
     // Active the initial content view
-    self.activedContentViewTag = TauSearchContentViewTag;
+    self.activedContentViewTag = TauExploreContentViewTag;
     }
 
 - ( void ) dealloc
