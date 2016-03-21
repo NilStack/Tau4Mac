@@ -9,6 +9,7 @@
 #import "TauContentCollectionItemView.h"
 #import "OAuthSigningConstants.h"
 #import "TauContentCollectionItemLayer.h"
+#import "TauContentCollectionItemBorderView.h"
 
 #import "NSImage+Tau.h"
 
@@ -16,7 +17,7 @@
 
 // Private Interfaces
 @interface TauContentCollectionItemView ()
-
+@property ( strong, readonly ) TauContentCollectionItemBorderView* borderView_;
 @end // Private Interfaces
 
 
@@ -31,6 +32,11 @@
 @protected
     NSImage __strong* thumbnailImage_;
     GTLObject __strong* ytContent_;
+
+    TauContentCollectionItemBorderView __strong* priBorderView_;
+
+    // Layout caches
+    NSArray __strong* priBorderViewPinEdgesCache_;
     }
 
 #pragma mark - Initializations
@@ -58,29 +64,35 @@
 
 #pragma mark - Core Animations
 
-- ( CALayer* ) makeBackingLayer
-    {
-    return [ [ TauContentCollectionItemLayer alloc ] init ];
-    }
-
-- ( void ) displayLayer: ( CALayer* )_Layer
+- ( void ) updateLayer
     {
     switch ( self.type )
         {
         case TauYouTubeVideo:
-        case TauYouTubePlayList:
-            {
-            self.layer.contents = thumbnailImage_;
-            } break;
-
-        case TauYouTubeChannel:
-            {
-            self.layer.contents = [ thumbnailImage_ gaussianBluredOfRadius: 10.f ];
-            } break;
-
-        default:
-            self.layer.contents = nil;
+        case TauYouTubePlayList: self.layer.contents = thumbnailImage_;  break;
+        case TauYouTubeChannel:  self.layer.contents = [ thumbnailImage_ gaussianBluredOfRadius: 10.f ]; break;
+                       default:  self.layer.contents = nil;
         }
+
+    if ( isSelected_ )
+        {
+        TauContentCollectionItemBorderView* borderView = self.borderView_;
+        [ borderView setBounds: self.bounds ];
+        [ borderView setNeedsDisplay: YES ];
+
+        [ self addSubview: borderView ];
+        priBorderViewPinEdgesCache_ = [ borderView autoPinEdgesToSuperviewEdges ];
+        }
+    else
+        {
+        [ self removeConstraints: priBorderViewPinEdgesCache_ ];
+        [ self.borderView_ removeFromSuperview ];
+        }
+    }
+
+- ( BOOL ) wantsUpdateLayer
+    {
+    return YES;
     }
 
 #pragma mark - Properties
@@ -123,6 +135,31 @@
     return type;
     }
 
+@synthesize isSelected = isSelected_;
+- ( void ) setSelected: ( BOOL )_Flag
+    {
+    if ( isSelected_ != _Flag )
+        {
+        isSelected_ = _Flag;
+
+        // Cause our -updateLayer method to be invoked, so we can update our appearance to reflect the new state.
+        [ self setNeedsDisplay: YES ];
+        }
+    }
+
+- ( BOOL ) isSelected
+    {
+    return isSelected_;
+    }
+
+@dynamic borderView_;
+- ( TauContentCollectionItemBorderView* ) borderView_
+    {
+    if ( !priBorderView_ )
+        priBorderView_ = [ [ TauContentCollectionItemBorderView alloc ] initWithFrame: self.bounds ];
+    return priBorderView_;
+    }
+
 @end // TauContentCollectionItemView class
 
 
@@ -140,8 +177,8 @@
     [ self configureForAutoLayout ];
 
     self.wantsLayer = YES;
-    self.layer.delegate = self;
-    self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawNever;
+    self.layer.masksToBounds = NO;
+    self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
     self.layerContentsPlacement = NSViewLayerContentsPlacementScaleProportionallyToFill;
 
     NSTrackingArea* mouseEventTrackingArea =

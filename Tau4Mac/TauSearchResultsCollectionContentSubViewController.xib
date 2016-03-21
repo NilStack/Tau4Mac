@@ -24,7 +24,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView id="KgR-Jf-ebh">
+                            <collectionView selectable="YES" allowsMultipleSelection="YES" id="KgR-Jf-ebh">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="20" minimumLineSpacing="20" id="Zoh-qo-gWt">
@@ -32,6 +32,7 @@
                                 </collectionViewFlowLayout>
                                 <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
+                                    <binding destination="nEM-Kg-xwo" name="selectionIndexes" keyPath="selectionIndexes" id="fEH-bF-5b4"/>
                                     <outlet property="dataSource" destination="-2" id="IQM-sG-ey6"/>
                                     <outlet property="delegate" destination="-2" id="PcP-CY-OL4"/>
                                 </connections>
@@ -143,7 +144,8 @@
         </viewController>
         <arrayController objectClassName="GTLYouTubeSearchResult" id="nEM-Kg-xwo" userLabel="Search Results Model">
             <connections>
-                <binding destination="-2" name="contentArray" keyPath="self.searchResults" id="SMt-bK-mrv"/>
+                <binding destination="-2" name="contentArrayForMultipleSelection" keyPath="self.searchResults" id="vSs-4w-anD"/>
+                <binding destination="-2" name="selectionIndexes" keyPath="self.contentCollectionView_.selectionIndexes" id="JTp-io-5ec"/>
             </connections>
         </arrayController>
         <userDefaultsController representsSharedInstance="YES" id="2it-FF-7y6"/>

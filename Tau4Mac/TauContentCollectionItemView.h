@@ -19,4 +19,6 @@
 @property ( strong, readwrite ) GTLObject* ytContent;
 @property ( assign, readonly ) TauYouTubeContentType type;
 
+@property ( assign, readwrite, setter = setSelected: ) BOOL isSelected;
+
 @end // TauContentCollectionItemView class
