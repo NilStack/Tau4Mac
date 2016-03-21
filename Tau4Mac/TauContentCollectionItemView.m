@@ -152,9 +152,6 @@
     [ self addTrackingArea: mouseEventTrackingArea ];
     }
 
-NSString static* const kPreferredThumbKey = @"kPreferredThumbKey";
-NSString static* const kBackingThumbKey = @"kBackingThumbKey";
-
 // Content
 - ( void ) updateYtContent_: ( GTLObject* )_New
     {
@@ -210,6 +207,8 @@ NSString static* const kBackingThumbKey = @"kBackingThumbKey";
             return;
             }
 
+        thumbnailImage_ = nil;
+        [ self updateUI_ ];
         [ [ TauYTDataService sharedService ] fetchPreferredThumbnailFrom: thumbnailDetails
                                                                  success:
         ^( NSImage* _Image, BOOL _LoadsFromCache )

@@ -16,7 +16,7 @@
 
 #import "PriTauYTDataServiceCredential_.h"
 
-// Privvate Interfaces
+// Private
 @interface TauYTDataService ()
 
 // Operations Combination
@@ -26,12 +26,13 @@
 // Images Caching
 
 - ( NSURL* _Nonnull ) imageCacheUrl_: ( NSURL* )_ImageUrl;
-- ( NSImage* _Nullable ) loadCacheForImageUrl_: ( NSURL* )_ImageUrl;
-- ( void ) getThumbUrls_: ( out NSDictionary <NSString*, NSURL*>* __autoreleasing* _Nonnull )_ioUrlsDict fromThumbnails_: ( GTLYouTubeThumbnailDetails* )_ThumbnailDetails;
-- ( void ) getImageInCache_: ( out NSImage* __autoreleasing* _Nonnull )_Imageptr forUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_UrlDict;
-- ( void ) fetchThumbImagesFromUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_UrlDict success_: ( void (^)( NSImage* _Nullable _Image, BOOL _LoadsFromCache ) )_SuccessHandler failure_: ( void (^)( NSError* _Nullable _Errpr ) )_FailureHandler;
+- ( NSImage* _Nullable ) loadCacheForImageNamedUrl_: ( NSURL* )_ImageUrl;
+- ( void ) getOptThumbUrlsDict_: ( out NSDictionary <NSString*, NSURL*>* __autoreleasing* _Nonnull )_OptUrlsDictptr fromGTLThumbnailDetails_: ( GTLYouTubeThumbnailDetails* )_ThumbnailDetails;
+- ( void ) getImageInCache_: ( out NSImage* __autoreleasing* _Nonnull )_Imageptr forOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_UrlDict;
+- ( void ) getUrl_: ( out NSURL* __autoreleasing* )_Urlptr thumbKey_: ( out NSString* __autoreleasing* )_Keyptr fromOptThumbsUrlDict_: ( NSDictionary <NSString*, NSURL*>* )_OptUrlsDict;
+- ( void ) fetchPreferredThumbImageFromOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_UrlsDict success_: ( void (^)( NSImage* _Nullable _Image, BOOL _LoadsFromCache ) )_SuccessHandler failure_: ( void (^)( NSError* _Nullable _Errpr ) )_FailureHandler;
 
-@end // Privvate Interfaces
+@end // Private
 
 
 
@@ -278,22 +279,22 @@ TauYTDataService static* sYTDataService_;
 
 #pragma mark - Remote Image & Video Fetching
 
-NSString static* const kPreferredThumbKey = @"kPreferredThumbKey";
-NSString static* const kBackingThumbKey = @"kBackingThumbKey";
+NSString static* const kPreferredThumbOptKey = @"kPreferredThumbKey";
+NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
 
 - ( void ) fetchPreferredThumbnailFrom: ( GTLYouTubeThumbnailDetails* )_ThumbnailDetails
                                success: ( void (^)( NSImage* _Image, BOOL _LoadsFromCache ) )_CompletionHandler
                                failure: ( void (^)( NSError* _Error ) )_FailureHandler
     {
-    NSDictionary <NSString*, NSURL*>* urlsDict = nil;
-    [ self getThumbUrls_: &urlsDict fromThumbnails_: _ThumbnailDetails ];
+    NSDictionary <NSString*, NSURL*>* optThumbUrlsDict = nil;
+    [ self getOptThumbUrlsDict_: &optThumbUrlsDict fromGTLThumbnailDetails_: _ThumbnailDetails ];
 
-    [ self fetchThumbImagesFromUrlsDict_: urlsDict
-                               success_:
-    ^( NSImage* _Nullable _Image, BOOL _LoadsFromCache )
+    [ self fetchPreferredThumbImageFromOptThumbUrlsDict_: optThumbUrlsDict
+                                                         success_:
+    ^( NSImage* _Nullable _ThumbImage, BOOL _LoadsFromCache )
         {
         if ( _CompletionHandler )
-            _CompletionHandler( _Image, _LoadsFromCache );
+            _CompletionHandler( _ThumbImage, _LoadsFromCache );
         } failure_: ^( NSError* _Errpr )
             {
             if ( _FailureHandler )
@@ -301,7 +302,7 @@ NSString static* const kBackingThumbKey = @"kBackingThumbKey";
             } ];
     }
 
-#pragma mark - Private Interfaces
+#pragma mark - Private
 
 // Operations Combination
 
@@ -389,7 +390,7 @@ NSString static* const kBackingThumbKey = @"kBackingThumbKey";
     return cacheURL;
     }
 
-- ( NSImage* _Nullable ) loadCacheForImageUrl_: ( NSURL* )_ImageUrl
+- ( NSImage* _Nullable ) loadCacheForImageNamedUrl_: ( NSURL* )_ImageUrl
     {
     NSImage* awakenImage = nil;
 
@@ -401,7 +402,8 @@ NSString static* const kBackingThumbKey = @"kBackingThumbKey";
     return awakenImage;
     }
 
-- ( void ) getThumbUrls_: ( out NSDictionary <NSString*, NSURL*>* __autoreleasing* _Nonnull )_ioUrlsDict fromThumbnails_: ( GTLYouTubeThumbnailDetails* )_ThumbnailDetails
+- ( void ) getOptThumbUrlsDict_: ( out NSDictionary <NSString*, NSURL*>* __autoreleasing* _Nonnull )_OptUrlsDictptr
+       fromGTLThumbnailDetails_: ( GTLYouTubeThumbnailDetails* )_ThumbnailDetails
     {
     // Pick up the thumbnail that has the highest definition as far as possible
     GTLYouTubeThumbnail* preferredThumbnail =
@@ -429,27 +431,30 @@ NSString static* const kBackingThumbKey = @"kBackingThumbKey";
     NSURL* preferredUrl = nil;
 
     if ( ( backingUrl = [ NSURL URLWithString: preferredThumbnail.url ] ) )
-        [ urlsDictResult addEntriesFromDictionary: @{ kBackingThumbKey : backingUrl } ];
+        [ urlsDictResult addEntriesFromDictionary: @{ kBackingThumbOptKey : backingUrl } ];
 
     NSString* maxresName = @"maxresdefault.jpg";
     if ( ![ [ backingUrl.lastPathComponent stringByDeletingPathExtension ] isEqualToString: maxresName ] )
         if ( ( preferredUrl = [ [ backingUrl URLByDeletingLastPathComponent ] URLByAppendingPathComponent: maxresName ] ) )
-            [ urlsDictResult addEntriesFromDictionary: @{ kPreferredThumbKey : preferredUrl } ];
+            [ urlsDictResult addEntriesFromDictionary: @{ kPreferredThumbOptKey : preferredUrl } ];
 
     if ( urlsDictResult.count > 0 )
         {
-        if ( _ioUrlsDict )
-            *_ioUrlsDict = [ urlsDictResult copy ];
+        if ( _OptUrlsDictptr )
+            *_OptUrlsDictptr = [ urlsDictResult copy ];
         }
     else
         DDLogUnexpected( @"Urls dict I/O argument didn't get polulated from {%@}.", _ThumbnailDetails );
     }
 
-- ( void ) getImageInCache_: ( out NSImage* __autoreleasing* _Nonnull )_Imageptr forUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_UrlDict
+- ( void ) getImageInCache_: ( out NSImage* __autoreleasing* _Nonnull )_Imageptr forOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_OptThumbUrlsDict
     {
-    NSURL* url = _UrlDict[ kPreferredThumbKey ] ?: _UrlDict[ kBackingThumbKey ];
+    NSURL* url = nil;
+    NSString* thumbKey = nil;
+    NSMutableDictionary* mutUrlsDict = [ _OptThumbUrlsDict mutableCopy ];
+    [ self getUrl_: &url thumbKey_: &thumbKey fromOptThumbsUrlDict_: mutUrlsDict ];
 
-    NSImage* image = [ self loadCacheForImageUrl_: url ];
+    NSImage* image = [ self loadCacheForImageNamedUrl_: url ];
     if ( image )
         {
         if ( _Imageptr )
@@ -457,17 +462,39 @@ NSString static* const kBackingThumbKey = @"kBackingThumbKey";
         }
     else
         {
-        if ( ( _UrlDict[ kPreferredThumbKey ] ) && ( _UrlDict[ kBackingThumbKey ] ) )
-            [ self getImageInCache_: _Imageptr forUrlsDict_: @{ kBackingThumbKey : _UrlDict[ kBackingThumbKey ] } ];
+        if ( mutUrlsDict.count > 0 )
+            {
+            [ mutUrlsDict removeObjectForKey: thumbKey ];
+            [ self getImageInCache_: _Imageptr forOptThumbUrlsDict_: mutUrlsDict ];
+            }
         }
     }
 
-- ( void ) fetchThumbImagesFromUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_UrlDict
-                                success_: ( void (^)( NSImage* _Nullable _Image, BOOL _LoadsFromCache ) )_SuccessHandler
-                                failure_: ( void (^)( NSError* _Nullable _Errpr ) )_FailureHandler
+- ( void )         getUrl_: ( out NSURL* __autoreleasing* )_Urlptr
+                 thumbKey_: ( out NSString* __autoreleasing* )_Keyptr
+     fromOptThumbsUrlDict_: ( NSDictionary <NSString*, NSURL*>* )_OptUrlsDict
+    {
+    NSURL* url = nil;
+    NSString* thumbKey = nil;
+
+    if ( ( url = _OptUrlsDict[ kPreferredThumbOptKey ] ) )
+        thumbKey = kPreferredThumbOptKey;
+    else if ( ( url = _OptUrlsDict[ kBackingThumbOptKey ] ) )
+        thumbKey = kBackingThumbOptKey;
+
+    if ( url && _Urlptr )
+        *_Urlptr = url;
+
+    if ( thumbKey && _Keyptr )
+        *_Keyptr = thumbKey;
+    }
+
+- ( void ) fetchPreferredThumbImageFromOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_OptThumbUrlsDict
+                                                success_: ( void (^)( NSImage* _Nullable _Image, BOOL _LoadsFromCache ) )_SuccessHandler
+                                                failure_: ( void (^)( NSError* _Nullable _Errpr ) )_FailureHandler
     {
     NSImage* image = nil;
-    [ self getImageInCache_: &image forUrlsDict_: _UrlDict ];
+    [ self getImageInCache_: &image forOptThumbUrlsDict_: _OptThumbUrlsDict ];
 
     if ( image )
         {
@@ -476,12 +503,15 @@ NSString static* const kBackingThumbKey = @"kBackingThumbKey";
         return;
         }
 
-    NSURL* url = _UrlDict[ kPreferredThumbKey ] ?: _UrlDict[ kBackingThumbKey ];
+    NSURL* url = nil;
+    NSString* thumbKey = nil;
+    NSMutableDictionary* mutUrlsDict = [ _OptThumbUrlsDict mutableCopy ];
+    [ self getUrl_: &url thumbKey_: &thumbKey fromOptThumbsUrlDict_: mutUrlsDict ];
 
     GTMSessionFetcher* fetcher = [ GTMSessionFetcher fetcherWithURL: url ];
     NSString* fetchID = [ NSString stringWithFormat: @"(fetchID=%@)", TKNonce() ];
     [ fetcher setComment: fetchID ];
-    [ fetcher setUserData: _UrlDict ];
+    [ fetcher setUserData: mutUrlsDict ];
 
     [ fetcher beginFetchWithCompletionHandler:
     ^( NSData* _Nullable _Data, NSError* _Nullable _Error )
@@ -502,14 +532,13 @@ NSString static* const kBackingThumbKey = @"kBackingThumbKey";
                 {
                 DDLogRecoverable( @"404 NOT FOUND. Couldn't fetch the thumb at {%@} error={%@} comment=%@.\n"
                                   "(Attempting to fetch the backing thumbnail...)"
-                                 , fetcher.userData[ kPreferredThumbKey ]
+                                 , fetcher.userData[ kPreferredThumbOptKey ]
                                  , _Error
                                  , fetcher.comment
                                  );
 
-                [ self fetchThumbImagesFromUrlsDict_: @{ kBackingThumbKey : _UrlDict[ kBackingThumbKey ] }
-                                           success_: _SuccessHandler
-                                           failure_: _FailureHandler ];
+                [ ( NSMutableDictionary* )fetcher.userData removeObjectForKey: thumbKey ];
+                [ self fetchPreferredThumbImageFromOptThumbUrlsDict_: fetcher.userData success_: _SuccessHandler failure_: _FailureHandler ];
                 }
             else
                 if ( _FailureHandler )
