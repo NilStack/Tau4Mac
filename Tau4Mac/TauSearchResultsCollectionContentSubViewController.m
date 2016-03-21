@@ -9,6 +9,7 @@
 #import "TauSearchResultsCollectionContentSubViewController.h"
 #import "TauToolbarItem.h"
 #import "TauContentCollectionItem.h"
+#import "TauNormalWrappedLayout.h"
 
 // TauSearchResultsAccessoryBarViewController class
 @interface TauSearchResultsAccessoryBarViewController : NSTitlebarAccessoryViewController
@@ -58,6 +59,7 @@ NSString* const kContentCollectionItemID = @"kContentCollectionItemID";
 - ( void ) viewDidLoad
     {
     [ self.contentCollectionView_ registerClass: [ TauContentCollectionItem class ] forItemWithIdentifier: kContentCollectionItemID ];
+    [ self.contentCollectionView_ setCollectionViewLayout: [ [ TauNormalWrappedLayout alloc ] init ] ];
     }
 
 #pragma mark - Conforms to <NSCollectionViewDataSource>
@@ -81,6 +83,10 @@ NSString* const kContentCollectionItemID = @"kContentCollectionItemID";
 
     return item;
     }
+
+#pragma mark - Conforms to <NSCollectionViewDelegateFlowLayout>
+
+
 
 #pragma mark - Actions
 

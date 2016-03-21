@@ -10,7 +10,7 @@
 
 // TauSearchResultsCollectionContentSubViewController class
 @interface TauSearchResultsCollectionContentSubViewController : TauAbstractContentSubViewController
-    <TauYTDataServiceConsumer, NSCollectionViewDataSource, NSCollectionViewDelegate>
+    <TauYTDataServiceConsumer, NSCollectionViewDataSource, NSCollectionViewDelegate, NSCollectionViewDelegateFlowLayout>
 
 @property ( strong, readwrite ) NSString* searchText;   // KVB compliant
 

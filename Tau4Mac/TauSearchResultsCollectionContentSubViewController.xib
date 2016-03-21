@@ -119,12 +119,12 @@
                 <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="FTy-RW-j21">
                     <rect key="frame" x="73" y="8" width="16" height="16"/>
                     <connections>
-                        <binding destination="-2" name="animate" keyPath="self.isPaging" id="g9A-Hb-owl"/>
                         <binding destination="-2" name="hidden" keyPath="self.isPaging" id="aIB-3W-54K">
                             <dictionary key="options">
                                 <string key="NSValueTransformerName">NSNegateBoolean</string>
                             </dictionary>
                         </binding>
+                        <binding destination="-2" name="animate" keyPath="self.isPaging" id="g9A-Hb-owl"/>
                     </connections>
                 </progressIndicator>
             </subviews>
