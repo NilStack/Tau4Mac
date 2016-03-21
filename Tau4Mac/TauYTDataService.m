@@ -143,39 +143,39 @@ TauYTDataService static* sYTDataService_;
     GTLServiceYouTube static* service;
 
     dispatch_once_t static onceToken;
-    dispatch_once( &onceToken
-        , ^( void )
+    dispatch_once( &onceToken,
+    ^( void )
+        {
+        service = [ [ GTLServiceYouTube alloc ] init ];
+        service.retryEnabled = YES;
+
+        BOOL ( ^retryBlock )( GTLServiceTicket*, BOOL, NSError* ) =
+            ^( GTLServiceTicket *ticket, BOOL suggestedWillRetry, NSError *error )
             {
-            service = [ [ GTLServiceYouTube alloc ] init ];
-            service.retryEnabled = YES;
+            DDLogInfo( @"Will Retry: %d", suggestedWillRetry );
+            return YES;
+            };
 
-            BOOL ( ^retryBlock )( GTLServiceTicket*, BOOL, NSError* ) =
-                ^( GTLServiceTicket *ticket, BOOL suggestedWillRetry, NSError *error )
-                {
-                DDLogInfo( @"Will Retry: %d", suggestedWillRetry );
-                return YES;
-                };
+        service.retryBlock = retryBlock;
 
-            service.retryBlock = retryBlock;
+        GTMOAuth2Authentication* auth =
+            [ GTMOAuth2WindowController authForGoogleFromKeychainForName: TauKeychainItemName clientID: TauClientID clientSecret: TauClientSecret ];
 
-            GTMOAuth2Authentication* auth =
-                [ GTMOAuth2WindowController authForGoogleFromKeychainForName: TauKeychainItemName clientID: TauClientID clientSecret: TauClientSecret ];
+        [ service setAuthorizer: auth ];
 
-            [ service setAuthorizer: auth ];
+        NSMutableString* userAgent = [ GTMFetcherApplicationIdentifier( nil ) mutableCopy ];
+        [ userAgent appendString: [ NSString stringWithFormat: @" OSX %@", [ NSProcessInfo processInfo ].operatingSystemVersionString ] ];
 
-            NSMutableString* userAgent = [ GTMFetcherApplicationIdentifier( nil ) mutableCopy ];
-            [ userAgent appendString: [ NSString stringWithFormat: @" OSX %@", [ NSProcessInfo processInfo ].operatingSystemVersionString ] ];
+        NSUInteger majorVer = 0;
+        NSUInteger minorVer = 0;
+        NSUInteger release = 0;
+        GTLFrameworkVersion( &majorVer, &minorVer, &release );
 
-            NSUInteger majorVer = 0;
-            NSUInteger minorVer = 0;
-            NSUInteger release = 0;
-            GTLFrameworkVersion( &majorVer, &minorVer, &release );
+        [ userAgent appendString: [ NSString stringWithFormat: @" GTL/%ld.%ld.%ld", majorVer, minorVer, release ] ];
+        service.userAgent = GTMFetcherCleanedUserAgentString( userAgent );
 
-            [ userAgent appendString: [ NSString stringWithFormat: @" GTL/%ld.%ld.%ld", majorVer, minorVer, release ] ];
-            service.userAgent = GTMFetcherCleanedUserAgentString( userAgent );
-
-            DDLogVerbose( @"Current user-agent is \"%@\"", service.userAgent );
-            } );
+        DDLogVerbose( @"Current user-agent is \"%@\"", service.userAgent );
+        } );
 
     return service;
     }
