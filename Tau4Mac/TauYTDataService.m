@@ -283,7 +283,7 @@ NSString static* const kPreferredThumbOptKey = @"kPreferredThumbKey";
 NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
 
 - ( void ) fetchPreferredThumbnailFrom: ( GTLYouTubeThumbnailDetails* )_ThumbnailDetails
-                               success: ( void (^)( NSImage* _Image, BOOL _LoadsFromCache ) )_SuccessHandler
+                               success: ( void (^)( NSImage* _Image, GTLYouTubeThumbnailDetails* _ThumbnailDetails, BOOL _LoadsFromCache ) )_SuccessHandler
                                failure: ( void (^)( NSError* _Error ) )_FailureHandler
     {
     NSDictionary <NSString*, NSURL*>* optThumbUrlsDict = nil;
@@ -294,7 +294,7 @@ NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
     if ( cachedImage )
         {
         if ( _SuccessHandler )
-            _SuccessHandler ( cachedImage, YES );
+            _SuccessHandler ( cachedImage, _ThumbnailDetails, YES );
         return;
         }
 
@@ -303,7 +303,7 @@ NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
     ^( NSImage* _Nullable _ThumbImage, BOOL _LoadsFromCache )
         {
         if ( _SuccessHandler )
-            _SuccessHandler( _ThumbImage, _LoadsFromCache );
+            _SuccessHandler( _ThumbImage, _ThumbnailDetails, _LoadsFromCache );
         } failure_: ^( NSError* _Errpr )
             {
             if ( _FailureHandler )

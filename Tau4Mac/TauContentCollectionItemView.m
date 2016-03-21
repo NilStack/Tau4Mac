@@ -165,20 +165,13 @@
             return;
             }
 
-        GTLObject* snippet = nil;
-        if ( [ ytContent_ isKindOfClass: [ GTLYouTubeVideo class ] ] )
-            snippet = [ ( GTLYouTubeVideo* )ytContent_ snippet ];
-
-        else if ( [ ytContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ] )
-            snippet = [ ( GTLYouTubeSearchResult* )ytContent_ snippet ];
-
-        else if ( [ ytContent_ isKindOfClass: [ GTLYouTubePlaylistItem class ] ] )
-            snippet = [ ( GTLYouTubePlaylistItem* )ytContent_ snippet ];
-
-        // snippet is kind of either GTLYouTubeVideoSnippet or GTLYouTubeSearchResultSnippet
-        // both two classes response `thumbnails` selector correctly
-
-        GTLYouTubeThumbnailDetails* thumbnailDetails = [ snippet performSelector: @selector( thumbnails ) withObject: nil ];
+        GTLYouTubeThumbnailDetails* thumbnailDetails = nil;
+        @try {
+        thumbnailDetails = [ self.ytContent valueForKeyPath: @"snippet.thumbnails" ];
+        } @catch ( NSException* _Ex )
+            {
+            DDLogFatal( @"%@", _Ex );
+            }
 
         if ( !thumbnailDetails )
             {
@@ -211,10 +204,13 @@
         [ self updateUI_ ];
         [ [ TauYTDataService sharedService ] fetchPreferredThumbnailFrom: thumbnailDetails
                                                                  success:
-        ^( NSImage* _Image, BOOL _LoadsFromCache )
+        ^( NSImage* _Image, GTLYouTubeThumbnailDetails* _ThumbnailDetails, BOOL _LoadsFromCache )
             {
-            thumbnailImage_ = _Image;
-            [ self updateUI_ ];
+            if ( _ThumbnailDetails == [ self.ytContent valueForKeyPath: @"snippet.thumbnails" ] )
+                {
+                thumbnailImage_ = _Image;
+                [ self updateUI_ ];
+                }
             } failure:
                 ^( NSError* _Error )
                     {
