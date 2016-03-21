@@ -31,7 +31,7 @@
     CALayer* layer = self.layer;
     layer.borderColor = [ NSColor keyboardFocusIndicatorColor ].CGColor;
     layer.borderWidth = 3.f;
-//    layer.cornerRadius = 8.f;
+    layer.cornerRadius = 5.f;
     }
 
 @end

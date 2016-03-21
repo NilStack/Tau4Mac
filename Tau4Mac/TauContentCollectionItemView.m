@@ -66,13 +66,26 @@
 
 - ( void ) updateLayer
     {
+    CALayer* subLayer = [ [ CALayer alloc ] init ];
+    [ subLayer setMasksToBounds: YES ];
+    [ subLayer setContentsGravity: kCAGravityResizeAspectFill ];
+
     switch ( self.type )
         {
         case TauYouTubeVideo:
-        case TauYouTubePlayList: self.layer.contents = thumbnailImage_;  break;
-        case TauYouTubeChannel:  self.layer.contents = [ thumbnailImage_ gaussianBluredOfRadius: 10.f ]; break;
-                       default:  self.layer.contents = nil;
+        case TauYouTubePlayList: subLayer.contents = thumbnailImage_;  break;
+        case TauYouTubeChannel:  subLayer.contents = [ thumbnailImage_ gaussianBluredOfRadius: 10.f ]; break;
+                       default:  subLayer.contents = nil;
         }
+
+    [ self.layer setSublayers: @[ subLayer ] ];
+    CAConstraintLayoutManager* sharedCALayoutManager = [ CAConstraintLayoutManager layoutManager ];
+    [ self.layer setLayoutManager: sharedCALayoutManager ];
+
+    [ subLayer addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintMidX relativeTo: @"superlayer" attribute: kCAConstraintMidX ] ];
+    [ subLayer addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintMidY relativeTo: @"superlayer" attribute: kCAConstraintMidY ] ];
+    [ subLayer addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintWidth relativeTo: @"superlayer" attribute: kCAConstraintWidth offset: -10.f ] ];
+    [ subLayer addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintHeight relativeTo: @"superlayer" attribute: kCAConstraintHeight offset: -10.f ] ];
 
     if ( isSelected_ )
         {
@@ -85,7 +98,9 @@
         }
     else
         {
-        [ self removeConstraints: priBorderViewPinEdgesCache_ ];
+        if ( priBorderViewPinEdgesCache_ && priBorderViewPinEdgesCache_.count > 0 )
+            [ self removeConstraints: priBorderViewPinEdgesCache_ ];
+
         [ self.borderView_ removeFromSuperview ];
         }
     }
@@ -174,12 +189,10 @@
 // Init
 - ( void ) doInit_
     {
-    [ self configureForAutoLayout ];
-
-    self.wantsLayer = YES;
-    self.layer.masksToBounds = NO;
+    [ self configureForAutoLayout ].wantsLayer = YES;
     self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
-    self.layerContentsPlacement = NSViewLayerContentsPlacementScaleProportionallyToFill;
+    self.layer.masksToBounds = YES;
+//    self.layerContentsPlacement = NSViewLayerContentsPlacementScaleProportionallyToFill;
 
     NSTrackingArea* mouseEventTrackingArea =
         [ [ NSTrackingArea alloc ] initWithRect: self.bounds
