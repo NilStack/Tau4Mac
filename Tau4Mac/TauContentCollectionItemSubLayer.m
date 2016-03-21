@@ -1,15 +1,15 @@
 //
-//  TauContentCollectionItemLayer.m
+//  TauContentCollectionItemSubLayer.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/4/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauContentCollectionItemLayer.h"
+#import "TauContentCollectionItemSubLayer.h"
 
-// TauContentCollectionItemLayer class
-@implementation TauContentCollectionItemLayer
+// TauContentCollectionItemSubLayer class
+@implementation TauContentCollectionItemSubLayer
 
 #pragma mark - Overrides
 
@@ -34,4 +34,4 @@
     [ CATransaction commit ];
     }
 
-@end // TauContentCollectionItemLayer class
+@end // TauContentCollectionItemSubLayer class

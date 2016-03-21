@@ -8,7 +8,7 @@
 
 #import "TauContentCollectionItemView.h"
 #import "OAuthSigningConstants.h"
-#import "TauContentCollectionItemLayer.h"
+#import "TauContentCollectionItemSubLayer.h"
 #import "TauContentCollectionItemBorderView.h"
 
 #import "NSImage+Tau.h"
