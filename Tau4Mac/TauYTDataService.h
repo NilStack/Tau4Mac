@@ -45,7 +45,7 @@ NSString extern* const TauTDSOperationRequirements;
 
 #pragma mark - Remote Image & Video Fetching
 
-- ( void ) fetchPreferredThumbnailFrom: ( GTLYouTubeThumbnailDetails* )_Thumbnails success: ( void (^)( NSImage* _Image ) )_CompletionHandler failure: ( void (^)( NSError* _Error ) )_FailureHandler;
+- ( void ) fetchPreferredThumbnailFrom: ( GTLYouTubeThumbnailDetails* )_Thumbnails success: ( void (^)( NSImage* _Image, BOOL _LoadsFromCache ) )_CompletionHandler failure: ( void (^)( NSError* _Error ) )_FailureHandler;
 
 #pragma mark - Singleton Instance
 

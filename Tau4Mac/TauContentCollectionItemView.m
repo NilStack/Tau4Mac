@@ -212,7 +212,7 @@ NSString static* const kBackingThumbKey = @"kBackingThumbKey";
 
         [ [ TauYTDataService sharedService ] fetchPreferredThumbnailFrom: thumbnailDetails
                                                                  success:
-        ^( NSImage* _Image )
+        ^( NSImage* _Image, BOOL _LoadsFromCache )
             {
             thumbnailImage_ = _Image;
             [ self updateUI_ ];

@@ -123,7 +123,7 @@ NSString* const kContentCollectionItemID = @"kContentCollectionItemID";
         searchText_ = _New;
 
         priOriginalOperationsCombination_ =
-            @{ TauTDSOperationMaxResultsPerPage : @10, TauTDSOperationRequirements : @{ TauTDSOperationRequirementQ : searchText_ }, TauTDSOperationPartFilter : @"snippet" };
+            @{ TauTDSOperationMaxResultsPerPage : @50, TauTDSOperationRequirements : @{ TauTDSOperationRequirementQ : searchText_ }, TauTDSOperationPartFilter : @"snippet" };
 
         [ self executeSearchWithPageToken_: nil ];
         [ self didChangeValueForKey: @"searchText" ];
