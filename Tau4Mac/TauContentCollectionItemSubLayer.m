@@ -11,27 +11,15 @@
 // TauContentCollectionItemSubLayer class
 @implementation TauContentCollectionItemSubLayer
 
-#pragma mark - Overrides
-
-- ( void ) setContents: ( id )_Contents
+- ( instancetype ) init
     {
-    [ super setContents: _Contents ];
-
-    [ CATransaction begin ];
-    [ CATransaction setDisableActions: YES ];
-
-    if ( self.contents )
+    if ( self = [ super init ] )
         {
-//        self.borderColor = [ NSColor blackColor ].CGColor;
-//        self.borderWidth = .7f;
-        }
-    else
-        {
-//        self.borderColor = [ NSColor clearColor ].CGColor;
-//        self.borderWidth = 0.f;
+        [ self setMasksToBounds: YES ];
+        [ self setContentsGravity: kCAGravityResizeAspectFill ];
         }
 
-    [ CATransaction commit ];
+    return self;
     }
 
 @end // TauContentCollectionItemSubLayer class

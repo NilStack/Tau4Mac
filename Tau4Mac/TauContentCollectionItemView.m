@@ -9,16 +9,29 @@
 #import "TauContentCollectionItemView.h"
 #import "OAuthSigningConstants.h"
 #import "TauContentCollectionItemSubLayer.h"
-#import "TauContentCollectionItemBorderView.h"
 
 #import "NSImage+Tau.h"
+#import "NSColor+TauDrawing.h"
 
 #import "PriTauYouTubeContentView_.h"
 
-// Private Interfaces
+// _PriItemBorderView class
+@interface _PriItemBorderView : NSView
+@end // _PriItemBorderView class
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
+// Private
 @interface TauContentCollectionItemView ()
-@property ( strong, readonly ) TauContentCollectionItemBorderView* borderView_;
-@end // Private Interfaces
+
+@property ( strong, readonly ) TauContentCollectionItemSubLayer* subLayer_;
+@property ( strong, readonly ) _PriItemBorderView* borderView_;
+
+@end // Private
 
 
 
@@ -33,7 +46,8 @@
     NSImage __strong* thumbnailImage_;
     GTLObject __strong* ytContent_;
 
-    TauContentCollectionItemBorderView __strong* priBorderView_;
+    TauContentCollectionItemSubLayer __strong* priSubLayer_;
+    _PriItemBorderView __strong* priBorderView_;
 
     // Layout caches
     NSArray __strong* priBorderViewPinEdgesCache_;
@@ -66,30 +80,17 @@
 
 - ( void ) updateLayer
     {
-    CALayer* subLayer = [ [ CALayer alloc ] init ];
-    [ subLayer setMasksToBounds: YES ];
-    [ subLayer setContentsGravity: kCAGravityResizeAspectFill ];
-
     switch ( self.type )
         {
         case TauYouTubeVideo:
-        case TauYouTubePlayList: subLayer.contents = thumbnailImage_;  break;
-        case TauYouTubeChannel:  subLayer.contents = [ thumbnailImage_ gaussianBluredOfRadius: 10.f ]; break;
-                       default:  subLayer.contents = nil;
+        case TauYouTubePlayList: self.subLayer_.contents = thumbnailImage_;  break;
+        case TauYouTubeChannel:  self.subLayer_.contents = [ thumbnailImage_ gaussianBluredOfRadius: 10.f ]; break;
+                       default:  self.subLayer_.contents = nil;
         }
-
-    [ self.layer setSublayers: @[ subLayer ] ];
-    CAConstraintLayoutManager* sharedCALayoutManager = [ CAConstraintLayoutManager layoutManager ];
-    [ self.layer setLayoutManager: sharedCALayoutManager ];
-
-    [ subLayer addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintMidX relativeTo: @"superlayer" attribute: kCAConstraintMidX ] ];
-    [ subLayer addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintMidY relativeTo: @"superlayer" attribute: kCAConstraintMidY ] ];
-    [ subLayer addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintWidth relativeTo: @"superlayer" attribute: kCAConstraintWidth offset: -10.f ] ];
-    [ subLayer addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintHeight relativeTo: @"superlayer" attribute: kCAConstraintHeight offset: -10.f ] ];
 
     if ( isSelected_ )
         {
-        TauContentCollectionItemBorderView* borderView = self.borderView_;
+        _PriItemBorderView* borderView = self.borderView_;
         [ borderView setBounds: self.bounds ];
         [ borderView setNeedsDisplay: YES ];
 
@@ -144,9 +145,6 @@
                     && [ [ ( GTLYouTubeSearchResult* )ytContent_ identifier ].kind isEqualToString: @"youtube#playlist" ] ) )
         type = TauYouTubePlayList;
 
-//    else if ( [ ytContent_ isKindOfClass: [ GTLYouTubePlaylistItem class ] ] )
-//        type = TauYouTubePlayListItemView;
-
     return type;
     }
 
@@ -167,11 +165,35 @@
     return isSelected_;
     }
 
+#pragma mark - Private
+
+@dynamic subLayer_;
+- ( TauContentCollectionItemSubLayer* ) subLayer_
+    {
+    if ( !priSubLayer_ )
+        {
+        CALayer* superlayer = self.layer;
+        priSubLayer_ = [ [ TauContentCollectionItemSubLayer alloc ] init ];
+        [ superlayer addSublayer: priSubLayer_ ];
+
+        if ( !superlayer.layoutManager )
+            [ superlayer setLayoutManager: [ CAConstraintLayoutManager layoutManager ] ];
+
+        NSString* superlayerName = @"superlayer";
+        [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintMidX relativeTo: superlayerName attribute: kCAConstraintMidX ] ];
+        [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintMidY relativeTo: superlayerName attribute: kCAConstraintMidY ] ];
+        [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintWidth relativeTo: superlayerName attribute: kCAConstraintWidth offset: -10.f ] ];
+        [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintHeight relativeTo: superlayerName attribute: kCAConstraintHeight offset: -10.f ] ];
+        }
+
+    return priSubLayer_;
+    }
+
 @dynamic borderView_;
-- ( TauContentCollectionItemBorderView* ) borderView_
+- ( _PriItemBorderView* ) borderView_
     {
     if ( !priBorderView_ )
-        priBorderView_ = [ [ TauContentCollectionItemBorderView alloc ] initWithFrame: self.bounds ];
+        priBorderView_ = [ [ _PriItemBorderView alloc ] initWithFrame: self.bounds ];
     return priBorderView_;
     }
 
@@ -190,9 +212,10 @@
 - ( void ) doInit_
     {
     [ self configureForAutoLayout ].wantsLayer = YES;
+
     self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
     self.layer.masksToBounds = YES;
-//    self.layerContentsPlacement = NSViewLayerContentsPlacementScaleProportionallyToFill;
+    self.layerContentsPlacement = NSViewLayerContentsPlacementScaleProportionallyToFill;
 
     NSTrackingArea* mouseEventTrackingArea =
         [ [ NSTrackingArea alloc ] initWithRect: self.bounds
@@ -276,3 +299,37 @@
     }
 
 @end // TauContentCollectionItemView + PriTauYouTubeContentView_
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
+// _PriItemBorderView class
+@implementation _PriItemBorderView
+
+- ( instancetype ) initWithFrame: ( NSRect )_FrameRect
+    {
+    if ( self = [ super initWithFrame: _FrameRect ] )
+        {
+        [ [ self configureForAutoLayout ] setWantsLayer: YES ];
+        [ self setLayerContentsRedrawPolicy: NSViewLayerContentsRedrawOnSetNeedsDisplay ];
+        }
+    return self;
+    }
+
+- ( BOOL ) wantsUpdateLayer
+    {
+    return YES;
+    }
+
+- ( void ) updateLayer
+    {
+    CALayer* layer = self.layer;
+    layer.borderColor = [ NSColor keyboardFocusIndicatorColor ].CGColor;
+    layer.borderWidth = 3.f;
+    layer.cornerRadius = 5.f;
+    }
+
+@end // _PriItemBorderView class

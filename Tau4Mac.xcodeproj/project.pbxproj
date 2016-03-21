@@ -12,7 +12,6 @@
 		831BD6CC1C883FA300122AF6 /* TauContentCollectionItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6CB1C883FA300122AF6 /* TauContentCollectionItemView.m */; };
 		8321F6681C8AA0A500D11FE0 /* TauViewsStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6671C8AA0A500D11FE0 /* TauViewsStack.m */; };
 		833846CB1C9FE39400F49885 /* TauNormalWrappedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 833846CA1C9FE39400F49885 /* TauNormalWrappedLayout.m */; };
-		833846F61C9FF6F300F49885 /* TauContentCollectionItemBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 833846F51C9FF6F300F49885 /* TauContentCollectionItemBorderView.m */; };
 		834458A21C9D63E0001A8603 /* AccessoryBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 834458A01C9D63E0001A8603 /* AccessoryBarViewController.m */; };
 		834458A31C9D63E0001A8603 /* AccessoryBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 834458A11C9D63E0001A8603 /* AccessoryBarViewController.xib */; };
 		834458CB1C9D9CB6001A8603 /* TauToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 834458CA1C9D9CB6001A8603 /* TauToolbarItem.m */; };
@@ -404,8 +403,6 @@
 		8321F6671C8AA0A500D11FE0 /* TauViewsStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauViewsStack.m; sourceTree = "<group>"; };
 		833846C91C9FE39400F49885 /* TauNormalWrappedLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauNormalWrappedLayout.h; sourceTree = "<group>"; };
 		833846CA1C9FE39400F49885 /* TauNormalWrappedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauNormalWrappedLayout.m; sourceTree = "<group>"; };
-		833846F41C9FF6F300F49885 /* TauContentCollectionItemBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauContentCollectionItemBorderView.h; sourceTree = "<group>"; };
-		833846F51C9FF6F300F49885 /* TauContentCollectionItemBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauContentCollectionItemBorderView.m; sourceTree = "<group>"; };
 		8344589F1C9D63E0001A8603 /* AccessoryBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessoryBarViewController.h; sourceTree = "<group>"; };
 		834458A01C9D63E0001A8603 /* AccessoryBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessoryBarViewController.m; sourceTree = "<group>"; };
 		834458A11C9D63E0001A8603 /* AccessoryBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccessoryBarViewController.xib; sourceTree = "<group>"; };
@@ -666,8 +663,6 @@
 				8356B2021C9D35F900AC4B36 /* TauAbstractContentSubViewController.m */,
 				834E78131C9ECFB900802301 /* TauContentCollectionItem.h */,
 				834E78141C9ECFB900802301 /* TauContentCollectionItem.m */,
-				833846F41C9FF6F300F49885 /* TauContentCollectionItemBorderView.h */,
-				833846F51C9FF6F300F49885 /* TauContentCollectionItemBorderView.m */,
 			);
 			name = abstract;
 			sourceTree = "<group>";
@@ -1407,7 +1402,6 @@
 				83DA1C581C8893BF007B084F /* OAuthSigningConstants.m in Sources */,
 				83EB73341C8C6B6E004EB117 /* NSObject+FBKVOController.m in Sources */,
 				834458A21C9D63E0001A8603 /* AccessoryBarViewController.m in Sources */,
-				833846F61C9FF6F300F49885 /* TauContentCollectionItemBorderView.m in Sources */,
 				83B175031C9A7ADF00F6578B /* NSColor+TauDrawing.m in Sources */,
 				83765ADF1C8811DD00D93554 /* TauAppDelegate.m in Sources */,
 				8318A5481C89205700F3E9CD /* TauContentCollectionItemSubLayer.m in Sources */,
