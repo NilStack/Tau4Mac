@@ -28,8 +28,8 @@
 - ( NSURL* _Nonnull ) imageCacheUrl_: ( NSURL* )_ImageUrl;
 - ( NSImage* _Nullable ) loadCacheForImageNamedUrl_: ( NSURL* )_ImageUrl;
 - ( void ) getOptThumbUrlsDict_: ( out NSDictionary <NSString*, NSURL*>* __autoreleasing* _Nonnull )_OptUrlsDictptr fromGTLThumbnailDetails_: ( GTLYouTubeThumbnailDetails* )_ThumbnailDetails;
-- ( void ) getImageInCache_: ( out NSImage* __autoreleasing* _Nonnull )_Imageptr forOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_UrlDict;
-- ( void ) getUrl_: ( out NSURL* __autoreleasing* )_Urlptr thumbKey_: ( out NSString* __autoreleasing* )_Keyptr fromOptThumbsUrlDict_: ( NSDictionary <NSString*, NSURL*>* )_OptUrlsDict;
+- ( void ) getPreferredImageInCache_: ( out NSImage* __autoreleasing* _Nonnull )_Imageptr forOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_UrlDict;
+- ( void ) getPreferredUrl_: ( out NSURL* __autoreleasing* )_Urlptr preferredThumbKey_: ( out NSString* __autoreleasing* )_Keyptr fromOptThumbsUrlDict_: ( NSDictionary <NSString*, NSURL*>* )_OptUrlsDict;
 - ( void ) fetchPreferredThumbImageFromOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_UrlsDict success_: ( void (^)( NSImage* _Nullable _Image, BOOL _LoadsFromCache ) )_SuccessHandler failure_: ( void (^)( NSError* _Nullable _Errpr ) )_FailureHandler;
 
 @end // Private
@@ -447,12 +447,12 @@ NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
         DDLogUnexpected( @"Urls dict I/O argument didn't get polulated from {%@}.", _ThumbnailDetails );
     }
 
-- ( void ) getImageInCache_: ( out NSImage* __autoreleasing* _Nonnull )_Imageptr forOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_OptThumbUrlsDict
+- ( void ) getPreferredImageInCache_: ( out NSImage* __autoreleasing* _Nonnull )_Imageptr forOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_OptThumbUrlsDict
     {
     NSURL* url = nil;
     NSString* thumbKey = nil;
     NSMutableDictionary* mutUrlsDict = [ _OptThumbUrlsDict mutableCopy ];
-    [ self getUrl_: &url thumbKey_: &thumbKey fromOptThumbsUrlDict_: mutUrlsDict ];
+    [ self getPreferredUrl_: &url preferredThumbKey_: &thumbKey fromOptThumbsUrlDict_: mutUrlsDict ];
 
     NSImage* image = [ self loadCacheForImageNamedUrl_: url ];
     if ( image )
@@ -465,14 +465,14 @@ NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
         if ( mutUrlsDict.count > 0 )
             {
             [ mutUrlsDict removeObjectForKey: thumbKey ];
-            [ self getImageInCache_: _Imageptr forOptThumbUrlsDict_: mutUrlsDict ];
+            [ self getPreferredImageInCache_: _Imageptr forOptThumbUrlsDict_: mutUrlsDict ];
             }
         }
     }
 
-- ( void )         getUrl_: ( out NSURL* __autoreleasing* )_Urlptr
-                 thumbKey_: ( out NSString* __autoreleasing* )_Keyptr
-     fromOptThumbsUrlDict_: ( NSDictionary <NSString*, NSURL*>* )_OptUrlsDict
+- ( void ) getPreferredUrl_: ( out NSURL* __autoreleasing* )_Urlptr
+         preferredThumbKey_: ( out NSString* __autoreleasing* )_Keyptr
+      fromOptThumbsUrlDict_: ( NSDictionary <NSString*, NSURL*>* )_OptUrlsDict
     {
     NSURL* url = nil;
     NSString* thumbKey = nil;
@@ -494,7 +494,7 @@ NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
                                                 failure_: ( void (^)( NSError* _Nullable _Errpr ) )_FailureHandler
     {
     NSImage* image = nil;
-    [ self getImageInCache_: &image forOptThumbUrlsDict_: _OptThumbUrlsDict ];
+    [ self getPreferredImageInCache_: &image forOptThumbUrlsDict_: _OptThumbUrlsDict ];
 
     if ( image )
         {
@@ -506,7 +506,7 @@ NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
     NSURL* url = nil;
     NSString* thumbKey = nil;
     NSMutableDictionary* mutUrlsDict = [ _OptThumbUrlsDict mutableCopy ];
-    [ self getUrl_: &url thumbKey_: &thumbKey fromOptThumbsUrlDict_: mutUrlsDict ];
+    [ self getPreferredUrl_: &url preferredThumbKey_: &thumbKey fromOptThumbsUrlDict_: mutUrlsDict ];
 
     GTMSessionFetcher* fetcher = [ GTMSessionFetcher fetcherWithURL: url ];
     NSString* fetchID = [ NSString stringWithFormat: @"(fetchID=%@)", TKNonce() ];
