@@ -8,7 +8,6 @@
 
 #import "TauToolbarController.h"
 #import "TauToolbarItem.h"
-#import "TAAdaptiveSpaceItem.h"
 
 // Private
 @interface TauToolbarController ()
@@ -195,10 +194,6 @@ TauToolbarController static* sShared_;
         {
         if ( [ tauToolbarItem isMemberOfClass: [ TauToolbarSwitcherItem class ] ] )
             tauToolbarItem.view = self.segSwitcher_;
-
-        else if ( [ tauToolbarItem isMemberOfClass: [ TauToolbarAdaptiveSpaceItem class ] ] )
-            return [ [ TAAdaptiveSpaceItem alloc ] initWithItemIdentifier: TauToolbarAdaptiveSpaceItemIdentifier ];
-
         else if ( [ tauToolbarItem isMemberOfClass: [ TauToolbarUserProfileButtonItemIdentifier class ] ] )
             ; // TODO: tauToolbarItem.view = whatever;
 

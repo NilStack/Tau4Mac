@@ -8,6 +8,7 @@
 
 #import "TauToolbarItem.h"
 #import "TauToolbarController.h"
+#import "TAAdaptiveSpaceItem.h"
 
 // Private
 @interface TauToolbarItem ()
@@ -158,7 +159,10 @@
 @dynamic cocoaToolbarItemRep;
 - ( NSToolbarItem* ) cocoaToolbarItemRep
     {
-    return [ self _toolbarItemWithIdentifier: identifier label: label paleteLabel: paleteLabel toolTip: toolTip target: invocation.target action: invocation.selector itemContent: content_ repMenu: repMenu ];
+    if ( [ self isMemberOfClass: [ TauToolbarAdaptiveSpaceItem class ] ] )
+        return [ [ TAAdaptiveSpaceItem alloc ] initWithItemIdentifier: identifier ];
+    else
+        return [ self _toolbarItemWithIdentifier: identifier label: label paleteLabel: paleteLabel toolTip: toolTip target: invocation.target action: invocation.selector itemContent: content_ repMenu: repMenu ];
     }
 
 #pragma mark - Common Items
