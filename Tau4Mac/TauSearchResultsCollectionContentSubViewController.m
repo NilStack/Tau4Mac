@@ -8,8 +8,7 @@
 
 #import "TauSearchResultsCollectionContentSubViewController.h"
 #import "TauToolbarItem.h"
-#import "TauContentCollectionItem.h"
-#import "TauNormalWrappedLayout.h"
+#import "TauContentCollectionViewController.h"
 
 // TauSearchResultsAccessoryBarViewController class
 @interface TauSearchResultsAccessoryBarViewController : NSTitlebarAccessoryViewController
@@ -30,9 +29,8 @@
 @property ( strong, readwrite ) NSString* nextToken_;   // KVB-compliant
 @property ( assign, readwrite, setter = setPaging: ) BOOL isPaging;   // KVB compliant
 
-@property ( weak ) IBOutlet NSCollectionView* contentCollectionView_;
 @property ( weak ) IBOutlet TauSearchResultsAccessoryBarViewController* accessoryBarViewController_;
-
+@property ( strong, readonly ) TauContentCollectionViewController* collectionViewController_;
 @property ( strong, readonly ) TauYTDataServiceCredential* credential_;
 
 - ( void ) executeSearchWithPageToken_: ( NSString* )_PageToken;
@@ -50,43 +48,17 @@
     {
     TauYTDataServiceCredential __strong* priCredential_;
     NSDictionary __strong* priOriginalOperationsCombination_;
+    TauContentCollectionViewController __strong* priCollectionViewController_;
     }
 
 #pragma mark - Initializations
 
-NSString* const kContentCollectionItemID = @"kContentCollectionItemID";
-
-- ( void ) viewDidLoad
+- ( instancetype ) initWithNibName: ( NSString* )_NibNameOrNil bundle: ( NSBundle* )_NibBundleOrNil
     {
-    [ self.contentCollectionView_ registerClass: [ TauContentCollectionItem class ] forItemWithIdentifier: kContentCollectionItemID ];
-    [ self.contentCollectionView_ setCollectionViewLayout: [ [ TauNormalWrappedLayout alloc ] init ] ];
+    if ( self = [ super initWithNibName: _NibNameOrNil bundle: _NibBundleOrNil ] )
+        ;
+    return self;
     }
-
-#pragma mark - Conforms to <NSCollectionViewDataSource>
-
-- ( NSInteger ) numberOfSectionsInCollectionView: ( NSCollectionView* )_CollectionView
-    {
-    return 1;
-    }
-
-- ( NSInteger ) collectionView: ( NSCollectionView* )_CollectionView numberOfItemsInSection: ( NSInteger )_Section
-    {
-    return self.searchResults.count;
-    }
-
-- ( NSCollectionViewItem* ) collectionView: ( NSCollectionView* )_CollectionView itemForRepresentedObjectAtIndexPath: ( NSIndexPath* )_IndexPath
-    {
-    NSCollectionViewItem* item = [ _CollectionView makeItemWithIdentifier: kContentCollectionItemID forIndexPath: _IndexPath ];
-
-//    NSLog( @"Section %ld and Item %ld", indexPath.section, indexPath.item );
-    item.representedObject = [ self.searchResults objectAtIndex: [ _IndexPath item ] ];
-
-    return item;
-    }
-
-#pragma mark - Conforms to <NSCollectionViewDelegateFlowLayout>
-
-
 
 #pragma mark - Actions
 
@@ -197,7 +169,7 @@ NSString* const kContentCollectionItemID = @"kContentCollectionItemID";
     return [ searchResults_ objectsAtIndexes: _Indexes ];
     }
 
-- ( void ) getSearchResults:( GTLYouTubeSearchResult* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
+- ( void ) getSearchResults: ( GTLYouTubeSearchResult* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
     {
     [ searchResults_ getObjects: _Buffer range: _InRange ];
     }
@@ -206,6 +178,22 @@ NSString* const kContentCollectionItemID = @"kContentCollectionItemID";
 @synthesize nextToken_;
 
 #pragma mark - Private
+
+@synthesize accessoryBarViewController_;
+
+@dynamic collectionViewController_;
+- ( TauContentCollectionViewController* ) collectionViewController_
+    {
+    if ( !priCollectionViewController_ )
+        {
+        priCollectionViewController_ = [ [ TauContentCollectionViewController alloc ] initWithNibName: nil bundle: nil ];
+        [ self addChildViewController: priCollectionViewController_ ];
+        [ self.view addSubview: priCollectionViewController_.view ];
+        [ priCollectionViewController_.view autoPinEdgesToSuperviewEdges ];
+        }
+
+    return priCollectionViewController_;
+    }
 
 @dynamic credential_;
 - ( TauYTDataServiceCredential* ) credential_
@@ -245,7 +233,7 @@ NSString* const kContentCollectionItemID = @"kContentCollectionItemID";
         self.nextToken_ = _NextPageToken;
         self.isPaging = NO;
 
-        [ self.contentCollectionView_ reloadData ];
+        [ self.collectionViewController_ reloadData ];
         } failure: ^( NSError* _Error )
             {
             DDLogRecoverable( @"Failed to execute the searching due to {%@}.", _Error );

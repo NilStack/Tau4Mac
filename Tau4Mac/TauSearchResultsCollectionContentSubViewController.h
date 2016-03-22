@@ -9,8 +9,7 @@
 #import "TauAbstractContentSubViewController.h"
 
 // TauSearchResultsCollectionContentSubViewController class
-@interface TauSearchResultsCollectionContentSubViewController : TauAbstractContentSubViewController
-    <TauYTDataServiceConsumer, NSCollectionViewDataSource, NSCollectionViewDelegate, NSCollectionViewDelegateFlowLayout>
+@interface TauSearchResultsCollectionContentSubViewController : TauAbstractContentSubViewController <TauYTDataServiceConsumer>
 
 @property ( strong, readwrite ) NSString* searchText;   // KVB compliant
 
