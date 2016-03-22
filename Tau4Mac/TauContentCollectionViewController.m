@@ -9,6 +9,21 @@
 #import "TauContentCollectionViewController.h"
 #import "TauContentCollectionItem.h"
 #import "TauNormalWrappedLayout.h"
+// NSIndexPath + Tau
+@interface NSIndexPath ( Tau )
+@property ( copy, readonly ) NSIndexSet* indexSetRep;
+@end // NSIndexPath + Tau
+
+@implementation NSIndexPath ( Tau )
+
+@dynamic indexSetRep;
+- ( NSIndexSet* ) indexSetRep
+    {
+//    NSUInteger length = self.length;
+    return nil;
+    }
+
+@end
 
 @interface TauContentCollectionViewController ()
 @property ( weak ) IBOutlet NSCollectionView* contentCollectionView_;
@@ -37,6 +52,24 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
     [ self.contentCollectionView_ reloadData ];
     }
 
+#pragma mark - Relay the Controllers & Views State
+
+@dynamic selectionIndexPaths;
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingSelectionIndexPaths
+    {
+    return [ NSSet setWithObjects: @"contentCollectionView_.selectionIndexPaths", nil ];
+    }
+
+- ( NSSet <NSIndexPath*>* ) selectionIndexPaths
+    {
+    return self.contentCollectionView_.selectionIndexPaths;
+    }
+
+- ( void ) setSelectionIndexPaths: ( NSSet <NSIndexPath*>* )_New
+    {
+    [ self.contentCollectionView_ setSelectionIndexPaths: _New ];
+    }
+
 #pragma mark - Conforms to <NSCollectionViewDataSource>
 
 - ( NSInteger ) numberOfSectionsInCollectionView: ( NSCollectionView* )_CollectionView
@@ -46,7 +79,6 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
 
 - ( NSInteger ) collectionView: ( NSCollectionView* )_CollectionView numberOfItemsInSection: ( NSInteger )_Section
     {
-//    if ( ![ self.relayDataSource respondsToSelector: @selector( contentCollectionViewRequiredData: ) ] )
     return [ [ self.relayDataSource contentCollectionViewRequiredData: self ] count ];
     }
 

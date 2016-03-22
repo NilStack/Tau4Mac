@@ -19,6 +19,10 @@
 @property ( weak ) IBOutlet id <TauContentCollectionViewRelayDataSource> relayDataSource;
 - ( void ) reloadData;
 
+#pragma mark - Relay the Controllers & Views State
+
+@property ( copy ) NSSet <NSIndexPath*>* selectionIndexPaths;    // KVB-Compliant
+
 @end // TauContentCollectionViewController class
 
 // TauContentCollectionViewRelayDataSource protocol

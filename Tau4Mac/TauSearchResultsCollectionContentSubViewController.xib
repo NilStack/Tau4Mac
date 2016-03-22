@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TauSearchResultsCollectionContentSubViewController">
             <connections>
                 <outlet property="accessoryBarViewController_" destination="Ted-8S-pxa" id="gDo-gX-7XQ"/>
+                <outlet property="searchResultsModelController_" destination="AjM-Js-2GX" id="I8n-df-Hlp"/>
                 <outlet property="view" destination="TOY-pP-yik" id="Nhu-Qs-Sdw"/>
             </connections>
         </customObject>
@@ -67,7 +68,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="AjM-Js-2GX" name="value" keyPath="selection.snippet.title" id="dOt-Oz-akF"/>
+                        <binding destination="AjM-Js-2GX" name="value" keyPath="arrangedObjects.@count" id="WBZ-wr-6uC"/>
                     </connections>
                 </textField>
                 <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="FTy-RW-j21">
@@ -97,7 +98,7 @@
         </viewController>
         <arrayController objectClassName="GTLYouTubeSearchResult" id="AjM-Js-2GX" userLabel="Search Results Model Controller">
             <connections>
-                <binding destination="-2" name="contentArrayForMultipleSelection" keyPath="self.searchResults" id="Pil-vw-nC1"/>
+                <binding destination="-2" name="contentArray" keyPath="self.searchResults" id="B13-L1-qN1"/>
             </connections>
         </arrayController>
         <userDefaultsController representsSharedInstance="YES" id="2it-FF-7y6"/>

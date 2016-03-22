@@ -28,6 +28,7 @@
 @property ( strong, readwrite ) NSString* nextToken_;   // KVB-compliant
 @property ( assign, readwrite, setter = setPaging: ) BOOL isPaging;   // KVB compliant
 
+@property ( weak ) IBOutlet NSArrayController* searchResultsModelController_;
 @property ( weak ) IBOutlet TauSearchResultsAccessoryBarViewController* accessoryBarViewController_;
 @property ( strong, readonly ) TauContentCollectionViewController* contentCollectionViewController_;
 @property ( strong, readonly ) TauYTDataServiceCredential* credential_;
@@ -75,6 +76,7 @@
     {
     id consumer = self;
     [ [ TauYTDataService sharedService ] unregisterConsumer: consumer withCredential: priCredential_ ];
+
     [ self popMe ];
     }
 

@@ -102,7 +102,7 @@ NSString* const TauUnderlyingErrorDomain = @"home.bedroom.TongKuo.Tau4Mac.Underl
 // TauYTDataService class
 @implementation TauYTDataService
     {
-    NSMapTable __strong* mapTable_;
+    NSMapTable __strong* mapTable_; // A TauYTDataServiceCredential -> TauYTDataServiceConsumerDataUnit lookup table
     }
 
 + ( BOOL ) accessInstanceVariablesDirectly
