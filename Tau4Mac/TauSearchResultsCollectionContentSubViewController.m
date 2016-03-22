@@ -197,6 +197,8 @@
             videosCount++;
         } ];
 
+//    NSString* channelCountSum = [ 
+
     if ( channelsCount || playlistsCount || videosCount )
         {
         return [ NSString stringWithFormat: NSLocalizedString(  @"%lu Channel%@, %lu Playlist%@ and %lu Video%@", nil )

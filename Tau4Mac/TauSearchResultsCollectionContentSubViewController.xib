@@ -9,7 +9,6 @@
             <connections>
                 <outlet property="accessoryBarViewController_" destination="Ted-8S-pxa" id="gDo-gX-7XQ"/>
                 <outlet property="appWideSummaryViewLabel_" destination="BTl-FS-rTV" id="HEs-d1-qIe"/>
-                <outlet property="searchResultsModelController_" destination="AjM-Js-2GX" id="I8n-df-Hlp"/>
                 <outlet property="view" destination="TOY-pP-yik" id="Nhu-Qs-Sdw"/>
             </connections>
         </customObject>
@@ -97,11 +96,6 @@
                 <outlet property="view" destination="kKm-4n-HO3" id="Ube-c1-sMb"/>
             </connections>
         </viewController>
-        <arrayController objectClassName="GTLYouTubeSearchResult" id="AjM-Js-2GX" userLabel="Search Results Model Controller">
-            <connections>
-                <binding destination="-2" name="contentArray" keyPath="self.searchResults" id="B13-L1-qN1"/>
-            </connections>
-        </arrayController>
         <userDefaultsController representsSharedInstance="YES" id="2it-FF-7y6"/>
         <customView id="TOY-pP-yik">
             <rect key="frame" x="0.0" y="0.0" width="356" height="239"/>
