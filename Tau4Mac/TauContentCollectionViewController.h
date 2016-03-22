@@ -32,3 +32,13 @@
 - ( NSArray <GTLObject*>* ) contentCollectionViewRequiredData: ( TauContentCollectionViewController* )_Controller;
 
 @end // TauContentCollectionViewRelayDataSource protocol
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+// TauAccessoryBarContentCollectionSummaryView class
+@interface TauAccessoryBarContentCollectionSummaryView : NSView
+//@property ( strong, readwrite ) NS
+@end // TauAccessoryBarContentCollectionSummaryView class

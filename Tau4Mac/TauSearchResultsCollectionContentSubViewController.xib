@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TauSearchResultsCollectionContentSubViewController">
             <connections>
                 <outlet property="accessoryBarViewController_" destination="Ted-8S-pxa" id="gDo-gX-7XQ"/>
+                <outlet property="appWideSummaryViewLabel_" destination="BTl-FS-rTV" id="HEs-d1-qIe"/>
                 <outlet property="searchResultsModelController_" destination="AjM-Js-2GX" id="I8n-df-Hlp"/>
                 <outlet property="view" destination="TOY-pP-yik" id="Nhu-Qs-Sdw"/>
             </connections>
@@ -63,12 +64,12 @@
                         <constraint firstAttribute="height" constant="17" id="qTl-TK-2vf"/>
                     </constraints>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="FSw-Et-ABC">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <font key="font" metaFont="system" size="12"/>
+                        <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="AjM-Js-2GX" name="value" keyPath="arrangedObjects.@count" id="WBZ-wr-6uC"/>
+                        <binding destination="-2" name="value" keyPath="self.searchResultsSummaryText" id="8K0-t5-FI9"/>
                     </connections>
                 </textField>
                 <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="FTy-RW-j21">
@@ -107,6 +108,16 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <point key="canvasLocation" x="324" y="599.5"/>
         </customView>
+        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="BTl-FS-rTV">
+            <rect key="frame" x="0.0" y="0.0" width="95" height="17"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Search Results" id="d1l-Op-jwX">
+                <font key="font" metaFont="system"/>
+                <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
+                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+            </textFieldCell>
+            <point key="canvasLocation" x="740.5" y="698.5"/>
+        </textField>
     </objects>
     <resources>
         <image name="NSGoLeftTemplate" width="9" height="12"/>

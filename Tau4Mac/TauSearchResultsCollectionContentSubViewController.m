@@ -28,8 +28,14 @@
 @property ( strong, readwrite ) NSString* nextToken_;   // KVB-compliant
 @property ( assign, readwrite, setter = setPaging: ) BOOL isPaging;   // KVB compliant
 
+// Object controllers in nib
 @property ( weak ) IBOutlet NSArrayController* searchResultsModelController_;
+
+// Feeding TauToolbarController
 @property ( weak ) IBOutlet TauSearchResultsAccessoryBarViewController* accessoryBarViewController_;
+@property ( weak ) IBOutlet NSTextField* appWideSummaryViewLabel_;
+
+// Internal
 @property ( strong, readonly ) TauContentCollectionViewController* contentCollectionViewController_;
 @property ( strong, readonly ) TauYTDataServiceCredential* credential_;
 
@@ -85,6 +91,18 @@
 - ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
     {
     return self.accessoryBarViewController_;
+    }
+
+- ( NSArray <TauToolbarItem*>* ) exposedToolbarItemsWhileActive
+    {
+    return @[ [ TauToolbarItem switcherItem ]
+            , [ TauToolbarItem flexibleSpaceItem ]
+            , [ [ TauToolbarItem alloc ] initWithIdentifier: nil label: nil view: self.appWideSummaryViewLabel_ ]
+            , [ TauToolbarItem flexibleSpaceItem ]
+            , [ TauToolbarItem fixedSpaceItem ]
+            , [ TauToolbarItem fixedSpaceItem ]
+            , [ TauToolbarItem fixedSpaceItem ]
+            ];
     }
 
 #pragma mark - External KVB Compliant
@@ -156,6 +174,42 @@
 - ( BOOL ) isPaging
     {
     return isPaging_;
+    }
+
+@dynamic searchResultsSummaryText;
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingSearchResultsSummaryText
+    {
+    return [ NSSet setWithObjects: @"searchResults", nil ];
+    }
+
+- ( NSString* ) searchResultsSummaryText
+    {
+    NSUInteger __block channelsCount = 0u;
+    NSUInteger __block playlistsCount = 0u;
+    NSUInteger __block videosCount = 0u;
+
+    [ searchResults_ enumerateObjectsUsingBlock:
+    ^( GTLYouTubeSearchResult* _Nonnull _Result, NSUInteger _Idx, BOOL* _Nonnull _Stop )
+        {
+        NSString* kindString = _Result.identifier.kind;
+        if ( [ kindString isEqualToString: @"youtube#channel" ] )
+            channelsCount++;
+        else if ( [ kindString isEqualToString: @"youtube#playlist" ] )
+            playlistsCount++;
+        else if ( [ kindString isEqualToString: @"youtube#video" ] )
+            videosCount++;
+        } ];
+
+    if ( channelsCount || playlistsCount || videosCount )
+        {
+        return [ NSString stringWithFormat: NSLocalizedString(  @"%lu Channel%@, %lu Playlist%@ and %lu Video%@", nil )
+               , channelsCount, ( channelsCount > 1 ) ? @"s" : @""
+               , playlistsCount, ( playlistsCount > 1 ) ? @"s" : @""
+               , videosCount, ( videosCount > 1 ) ? @"s" : @""
+               ];
+        }
+    else
+        return NSLocalizedString( @"No Results Yet", nil );
     }
 
 #pragma mark - Internal KVB Compliant

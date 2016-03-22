@@ -19,6 +19,8 @@
 @property ( assign, readonly ) BOOL hasNext;    // KVB compliant
 @property ( assign, readonly ) BOOL isPaging;   // KVB compliant
 
+@property ( strong, readonly ) NSString* searchResultsSummaryText;  // KVB compliant
+
 #pragma mark - Actions
 
 - ( IBAction ) loadPrevPageAction: ( id )_Sender;
