@@ -102,7 +102,7 @@ NSString* const kContentCollectionItemID = @"kContentCollectionItemID";
 
 - ( IBAction ) cancelAction: ( id )_Sender
     {
-    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: nil ];
+    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: priCredential_ ];
     [ self popMe ];
     }
 
