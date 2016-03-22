@@ -166,6 +166,7 @@
 + ( TauToolbarSwitcherItem* ) switcherItem { return [ [ TauToolbarSwitcherItem alloc ] init ]; }
 + ( TauToolbarFlexibleSpaceItem* ) flexibleSpaceItem { return [ [ TauToolbarFlexibleSpaceItem alloc ] init ]; }
 + ( TauToolbarFixedSpaceItem* ) fixedSpaceItem { return [ [ TauToolbarFixedSpaceItem alloc ] init ]; }
++ ( TauToolbarAdaptiveSpaceItem* ) adaptiveSpaceItem { return [ [ TauToolbarAdaptiveSpaceItem alloc ] init ]; }
 + ( TauToolbarUserProfileItem* ) userProfileItem { return [ [ TauToolbarUserProfileItem alloc ] init ]; }
 
 #pragma mark - Private
@@ -275,6 +276,26 @@ TauToolbarFixedSpaceItem static* sFixedSpaceItem_;
 
 @end // TauToolbarFixedSpaceItem class
 
+// TauToolbarAdaptiveSpaceItem class
+@implementation TauToolbarAdaptiveSpaceItem : TauToolbarItem
+
+TauToolbarAdaptiveSpaceItem static* sAdaptiveSpaceItem_;
+- ( instancetype ) init
+    {
+    if ( !sAdaptiveSpaceItem_ )
+        {
+        if ( self = [ super init ] )
+            {
+            self.identifier = TauToolbarAdaptiveSpaceItemIdentifier;
+            sAdaptiveSpaceItem_ = self;
+            }
+        }
+
+    return sAdaptiveSpaceItem_;
+    }
+
+@end // TauToolbarAdaptiveSpaceItem class
+
 // TauUserProfileItem class
 @implementation TauToolbarUserProfileItem : TauToolbarItem
 
@@ -306,6 +327,9 @@ TauToolbarUserProfileItem static* sUserProfileItem_;
         {
         if ( [ _Item isMemberOfClass: [ TauToolbarItem class ] ] )
             [ identifiers addObject: _Item.identifier ];
+
+        else if ( [ _Item isMemberOfClass: [ TauToolbarAdaptiveSpaceItem class ] ] )
+            [ identifiers addObject: TauToolbarAdaptiveSpaceItemIdentifier ];
 
         else if ( [ _Item isMemberOfClass: [ TauToolbarSwitcherItem class ] ] )
             [ identifiers addObject: TauToolbarSwitcherItemIdentifier ];

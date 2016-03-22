@@ -9,6 +9,7 @@
 @class TauToolbarSwitcherItem;
 @class TauToolbarFlexibleSpaceItem;
 @class TauToolbarFixedSpaceItem;
+@class TauToolbarAdaptiveSpaceItem;
 @class TauToolbarUserProfileItem;
 
 // TauToolbarItem class
@@ -39,6 +40,7 @@
 + ( TauToolbarSwitcherItem* ) switcherItem;
 + ( TauToolbarFlexibleSpaceItem* ) flexibleSpaceItem;
 + ( TauToolbarFixedSpaceItem* ) fixedSpaceItem;
++ ( TauToolbarAdaptiveSpaceItem* ) adaptiveSpaceItem;
 + ( TauToolbarUserProfileItem* ) userProfileItem;
 
 @end // TauToolbarItem class
@@ -54,6 +56,10 @@
 // TauToolbarFixedSpaceItem class
 @interface TauToolbarFixedSpaceItem : TauToolbarItem
 @end // TauToolbarFixedSpaceItem class
+
+// TauToolbarAdaptiveSpaceItem class
+@interface TauToolbarAdaptiveSpaceItem : TauToolbarItem
+@end // TauToolbarAdaptiveSpaceItem class
 
 // TauUserProfileItem class
 @interface TauToolbarUserProfileItem : TauToolbarItem

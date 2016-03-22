@@ -8,6 +8,7 @@
 
 NSString extern* const TauToolbarIdentifier;
 
+NSString extern* const TauToolbarAdaptiveSpaceItemIdentifier;
 NSString extern* const TauToolbarSwitcherItemIdentifier;
 NSString extern* const TauToolbarUserProfileButtonItemIdentifier;
 

@@ -96,12 +96,9 @@
 - ( NSArray <TauToolbarItem*>* ) exposedToolbarItemsWhileActive
     {
     return @[ [ TauToolbarItem switcherItem ]
-            , [ TauToolbarItem flexibleSpaceItem ]
+            , [ TauToolbarItem adaptiveSpaceItem ]
             , [ [ TauToolbarItem alloc ] initWithIdentifier: nil label: nil view: self.appWideSummaryViewLabel_ ]
             , [ TauToolbarItem flexibleSpaceItem ]
-            , [ TauToolbarItem fixedSpaceItem ]
-            , [ TauToolbarItem fixedSpaceItem ]
-            , [ TauToolbarItem fixedSpaceItem ]
             ];
     }
 
