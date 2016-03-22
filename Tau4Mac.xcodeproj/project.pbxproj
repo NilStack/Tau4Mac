@@ -11,8 +11,8 @@
 		8318A5481C89205700F3E9CD /* TauContentCollectionItemSubLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8318A5471C89205700F3E9CD /* TauContentCollectionItemSubLayer.m */; };
 		831BD6CC1C883FA300122AF6 /* TauContentCollectionItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6CB1C883FA300122AF6 /* TauContentCollectionItemView.m */; };
 		8321F6681C8AA0A500D11FE0 /* TauViewsStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6671C8AA0A500D11FE0 /* TauViewsStack.m */; };
-		83224A871CA166F1008931C6 /* TAAdaptiveSpaceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 83224A841CA166F1008931C6 /* TAAdaptiveSpaceItem.m */; };
-		83224A881CA166F1008931C6 /* TAAdaptiveSpaceItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83224A861CA166F1008931C6 /* TAAdaptiveSpaceItemView.m */; };
+		83224A951CA167B9008931C6 /* TAAdaptiveSpaceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 83224A921CA167B9008931C6 /* TAAdaptiveSpaceItem.m */; };
+		83224A961CA167B9008931C6 /* TAAdaptiveSpaceItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83224A941CA167B9008931C6 /* TAAdaptiveSpaceItemView.m */; };
 		833846CB1C9FE39400F49885 /* TauNormalWrappedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 833846CA1C9FE39400F49885 /* TauNormalWrappedLayout.m */; };
 		833846FA1CA10D8D00F49885 /* TauContentCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 833846F81CA10D8D00F49885 /* TauContentCollectionViewController.m */; };
 		833846FB1CA10D8D00F49885 /* TauContentCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 833846F91CA10D8D00F49885 /* TauContentCollectionViewController.xib */; };
@@ -405,10 +405,10 @@
 		831BD6CB1C883FA300122AF6 /* TauContentCollectionItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauContentCollectionItemView.m; sourceTree = "<group>"; };
 		8321F6661C8AA0A500D11FE0 /* TauViewsStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauViewsStack.h; sourceTree = "<group>"; };
 		8321F6671C8AA0A500D11FE0 /* TauViewsStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauViewsStack.m; sourceTree = "<group>"; };
-		83224A831CA166F1008931C6 /* TAAdaptiveSpaceItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAdaptiveSpaceItem.h; sourceTree = "<group>"; };
-		83224A841CA166F1008931C6 /* TAAdaptiveSpaceItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAdaptiveSpaceItem.m; sourceTree = "<group>"; };
-		83224A851CA166F1008931C6 /* TAAdaptiveSpaceItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAdaptiveSpaceItemView.h; sourceTree = "<group>"; };
-		83224A861CA166F1008931C6 /* TAAdaptiveSpaceItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAdaptiveSpaceItemView.m; sourceTree = "<group>"; };
+		83224A911CA167B9008931C6 /* TAAdaptiveSpaceItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAdaptiveSpaceItem.h; sourceTree = "<group>"; };
+		83224A921CA167B9008931C6 /* TAAdaptiveSpaceItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAdaptiveSpaceItem.m; sourceTree = "<group>"; };
+		83224A931CA167B9008931C6 /* TAAdaptiveSpaceItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAdaptiveSpaceItemView.h; sourceTree = "<group>"; };
+		83224A941CA167B9008931C6 /* TAAdaptiveSpaceItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAdaptiveSpaceItemView.m; sourceTree = "<group>"; };
 		833846C91C9FE39400F49885 /* TauNormalWrappedLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauNormalWrappedLayout.h; sourceTree = "<group>"; };
 		833846CA1C9FE39400F49885 /* TauNormalWrappedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauNormalWrappedLayout.m; sourceTree = "<group>"; };
 		833846F71CA10D8D00F49885 /* TauContentCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauContentCollectionViewController.h; sourceTree = "<group>"; };
@@ -577,15 +577,16 @@
 			name = controllers;
 			sourceTree = "<group>";
 		};
-		83224A821CA166F1008931C6 /* TAAdaptiveSpaceItem */ = {
+		83224A901CA167B9008931C6 /* TAAdaptiveSpaceItem */ = {
 			isa = PBXGroup;
 			children = (
-				83224A831CA166F1008931C6 /* TAAdaptiveSpaceItem.h */,
-				83224A841CA166F1008931C6 /* TAAdaptiveSpaceItem.m */,
-				83224A851CA166F1008931C6 /* TAAdaptiveSpaceItemView.h */,
-				83224A861CA166F1008931C6 /* TAAdaptiveSpaceItemView.m */,
+				83224A911CA167B9008931C6 /* TAAdaptiveSpaceItem.h */,
+				83224A921CA167B9008931C6 /* TAAdaptiveSpaceItem.m */,
+				83224A931CA167B9008931C6 /* TAAdaptiveSpaceItemView.h */,
+				83224A941CA167B9008931C6 /* TAAdaptiveSpaceItemView.m */,
 			);
-			path = TAAdaptiveSpaceItem;
+			name = TAAdaptiveSpaceItem;
+			path = ../Deps/TAAdaptiveSpaceItem/TAAdaptiveSpaceItem;
 			sourceTree = "<group>";
 		};
 		8349D39A1C8986E2000D091F /* pri */ = {
@@ -807,7 +808,7 @@
 		83765B121C88173300D93554 /* Deps */ = {
 			isa = PBXGroup;
 			children = (
-				83224A821CA166F1008931C6 /* TAAdaptiveSpaceItem */,
+				83224A901CA167B9008931C6 /* TAAdaptiveSpaceItem */,
 				83DA1C591C8893D5007B084F /* libcommonCrypto.tbd */,
 				83765B101C88171400D93554 /* QuartzCore.framework */,
 				83765B0E1C88170F00D93554 /* Cocoa.framework */,
@@ -1408,7 +1409,7 @@
 				83D2E82F1C9A87C300A6AD3D /* TauLogging.m in Sources */,
 				83B174961C98F19800F6578B /* TauYTDataService.m in Sources */,
 				833846CB1C9FE39400F49885 /* TauNormalWrappedLayout.m in Sources */,
-				83224A881CA166F1008931C6 /* TAAdaptiveSpaceItemView.m in Sources */,
+				83224A961CA167B9008931C6 /* TAAdaptiveSpaceItemView.m in Sources */,
 				8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */,
 				83DA1C491C8864E9007B084F /* TauTTYLogFormatter.m in Sources */,
 				834458CB1C9D9CB6001A8603 /* TauToolbarItem.m in Sources */,
@@ -1434,7 +1435,7 @@
 				83B175031C9A7ADF00F6578B /* NSColor+TauDrawing.m in Sources */,
 				83765ADF1C8811DD00D93554 /* TauAppDelegate.m in Sources */,
 				8318A5481C89205700F3E9CD /* TauContentCollectionItemSubLayer.m in Sources */,
-				83224A871CA166F1008931C6 /* TAAdaptiveSpaceItem.m in Sources */,
+				83224A951CA167B9008931C6 /* TAAdaptiveSpaceItem.m in Sources */,
 				83B020561C96B1B8006333CB /* TauAbstractResultCollection.m in Sources */,
 				836D26FE1C9ACDDE00290BE7 /* TauExploreContentViewController.m in Sources */,
 				836D26F91C9ACDA300290BE7 /* TauSearchContentViewController.m in Sources */,
