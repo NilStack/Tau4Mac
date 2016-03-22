@@ -20,5 +20,6 @@
 @property ( assign, readonly ) TauYouTubeContentType type;
 
 @property ( assign, readwrite, setter = setSelected: ) BOOL isSelected;
+@property ( assign, readwrite ) NSCollectionViewItemHighlightState highlightState;
 
 @end // TauContentCollectionItemView class

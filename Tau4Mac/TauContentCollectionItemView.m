@@ -17,6 +17,11 @@
 
 // _PriItemBorderView class
 @interface _PriItemBorderView : NSView
+
+#pragma mark - External Properties
+
+@property ( strong, readwrite ) NSColor* borderColor;
+
 @end // _PriItemBorderView class
 
 
@@ -43,7 +48,7 @@
 @implementation TauContentCollectionItemView
     {
 @protected
-    NSImage __strong* thumbnailImage_;
+    NSImage __strong* priThumbnailImage_;
     GTLObject __strong* ytContent_;
 
     TauContentCollectionItemSubLayer __strong* priSubLayer_;
@@ -76,23 +81,22 @@
     return self;
     }
 
-#pragma mark - Core Animations
+#pragma mark - Drawing
 
 - ( void ) updateLayer
     {
     switch ( self.type )
         {
         case TauYouTubeVideo:
-        case TauYouTubePlayList: self.subLayer_.contents = thumbnailImage_;  break;
-        case TauYouTubeChannel:  self.subLayer_.contents = [ thumbnailImage_ gaussianBluredOfRadius: 10.f ]; break;
+        case TauYouTubePlayList: self.subLayer_.contents = priThumbnailImage_;  break;
+        case TauYouTubeChannel:  self.subLayer_.contents = [ priThumbnailImage_ gaussianBluredOfRadius: 10.f ]; break;
                        default:  self.subLayer_.contents = nil;
         }
 
-    if ( isSelected_ )
+    if ( isSelected_ || ( highlightState_ == NSCollectionViewItemHighlightForSelection ) )
         {
         _PriItemBorderView* borderView = self.borderView_;
-        [ borderView setBounds: self.bounds ];
-        [ borderView setNeedsDisplay: YES ];
+        [ borderView setBorderColor: isSelected_ ? nil : [ NSColor lightGrayColor ] ];
 
         [ self addSubview: borderView ];
         priBorderViewPinEdgesCache_ = [ borderView autoPinEdgesToSuperviewEdges ];
@@ -102,7 +106,8 @@
         if ( priBorderViewPinEdgesCache_ && priBorderViewPinEdgesCache_.count > 0 )
             [ self removeConstraints: priBorderViewPinEdgesCache_ ];
 
-        [ self.borderView_ removeFromSuperview ];
+        if ( priBorderView_ )
+            [ self.borderView_ removeFromSuperview ];
         }
     }
 
@@ -155,7 +160,7 @@
         {
         isSelected_ = _Flag;
 
-        // Cause our -updateLayer method to be invoked, so we can update our appearance to reflect the new state.
+        // Cause our -updateLayer method to be invoked, so we can update our appearance to reflect the new selected.
         [ self setNeedsDisplay: YES ];
         }
     }
@@ -163,6 +168,23 @@
 - ( BOOL ) isSelected
     {
     return isSelected_;
+    }
+
+@synthesize highlightState = highlightState_;
+- ( void ) setHighlightState: ( NSCollectionViewItemHighlightState )_NewState
+    {
+    if ( highlightState_ != _NewState )
+        {
+        highlightState_ = _NewState;
+
+        // Cause our -updateLayer method to be invoked, so we can update our appearance to reflect the new state.
+        [ self setNeedsDisplay: YES ];
+        }
+    }
+
+- ( NSCollectionViewItemHighlightState ) highlightState
+    {
+    return highlightState_;
     }
 
 #pragma mark - Private
@@ -268,12 +290,12 @@
                 return YES;
                 } ];
 
-            thumbnailImage_ = replacement;
+            priThumbnailImage_ = replacement;
             [ self updateUI_ ];
             return;
             }
 
-        thumbnailImage_ = nil;
+        priThumbnailImage_ = nil;
         [ self updateUI_ ];
         [ [ TauYTDataService sharedService ] fetchPreferredThumbnailFrom: thumbnailDetails
                                                                  success:
@@ -281,7 +303,7 @@
             {
             if ( _ThumbnailDetails == [ self.ytContent valueForKeyPath: @"snippet.thumbnails" ] )
                 {
-                thumbnailImage_ = _Image;
+                priThumbnailImage_ = _Image;
                 [ self updateUI_ ];
                 }
             } failure:
@@ -327,9 +349,26 @@
 - ( void ) updateLayer
     {
     CALayer* layer = self.layer;
-    layer.borderColor = [ NSColor keyboardFocusIndicatorColor ].CGColor;
     layer.borderWidth = 3.f;
     layer.cornerRadius = 5.f;
+    layer.borderColor = ( borderColor_ ? borderColor_ : [ NSColor keyboardFocusIndicatorColor ] ).CGColor;
+    }
+
+#pragma mark - External Properties
+
+@synthesize borderColor = borderColor_;
+- ( void ) setBorderColor: ( NSColor* )_NewColor
+    {
+    if ( borderColor_ != _NewColor )
+        {
+        borderColor_ = _NewColor;
+        [ self setNeedsDisplay: YES ];
+        }
+    }
+
+- ( NSColor* ) borderColor
+    {
+    return borderColor_;
     }
 
 @end // _PriItemBorderView class

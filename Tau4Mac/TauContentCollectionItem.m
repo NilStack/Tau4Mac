@@ -32,16 +32,16 @@
 - ( void ) setHighlightState: ( NSCollectionViewItemHighlightState )_NewHighlightState
     {
     [ super setHighlightState: _NewHighlightState ];
-    
-    // Relay the newHighlightState to our AAPLSlideCarrierView.
-    // [(AAPLSlideCarrierView *)[self view] setHighlightState:newHighlightState];
+
+    // Relay the newHighlightState to our TauContentCollectionItem.
+     [ ( TauContentCollectionItem* )[ self view ] setHighlightState: _NewHighlightState];
     }
 
 - ( void ) setSelected: ( BOOL )_Selected
     {
     [ super setSelected: _Selected ];
 
-    // Relay the new "selected" state to our AAPLSlideCarrierView.
+    // Relay the new "selected" state to our TauContentCollectionItem.
     [ ( TauContentCollectionItem* )[ self view ] setSelected: _Selected ];
     }
 
