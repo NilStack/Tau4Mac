@@ -10,7 +10,7 @@
 
 // TauContentCollectionViewController class
 @interface TauContentCollectionViewController : NSViewController
-    <NSCollectionViewDataSource, NSCollectionViewDelegate, NSCollectionViewDelegateFlowLayout, NSSplitViewDelegate>
+    <NSCollectionViewDataSource, NSCollectionViewDelegate, NSCollectionViewDelegateFlowLayout>
 
 #pragma mark - Relay the Model Data
 

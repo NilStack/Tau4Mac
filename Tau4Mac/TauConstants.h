@@ -157,7 +157,7 @@ typedef NS_ENUM ( NSInteger, TauUnderlyingErrorCode )
 
 
 typedef NS_ENUM ( NSInteger, TauAppMenuItemTag )
-    { TauAppMenuItem       = 0
+    { TauAppMenuItem    = 0
     , TauAppFileMenuItem   = 1
     , TauAppEditMenuItem   = 2
     , TauAppEditFormatItem = 3

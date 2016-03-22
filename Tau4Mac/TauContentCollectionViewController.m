@@ -96,11 +96,4 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
 // TODO: Customize flow layout of collection view
 
 
-#pragma mark - Conforms to <NSSplitViewDelegate>
-
-- ( BOOL ) splitView: ( NSSplitView* )_SplitView shouldAdjustSizeOfSubview: ( NSView* )_Subview
-    {
-    return NO;
-    }
-
 @end

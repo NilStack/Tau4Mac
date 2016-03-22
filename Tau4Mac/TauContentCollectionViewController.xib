@@ -14,67 +14,49 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="cRg-bm-eoN">
-            <rect key="frame" x="0.0" y="0.0" width="664" height="272"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <splitView dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ucr-YH-iJS">
-                    <rect key="frame" x="0.0" y="0.0" width="673" height="272"/>
-                    <subviews>
-                        <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="xP1-B2-ag4">
-                            <rect key="frame" x="0.0" y="0.0" width="486.5" height="272"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <clipView key="contentView" ambiguous="YES" id="L13-pP-q8Q">
-                                <rect key="frame" x="0.0" y="0.0" width="486.5" height="272"/>
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xP1-B2-ag4">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+                    <clipView key="contentView" id="L13-pP-q8Q">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView selectable="YES" allowsMultipleSelection="YES" id="Y3c-r7-ktG">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <collectionView ambiguous="YES" selectable="YES" allowsMultipleSelection="YES" id="Y3c-r7-ktG">
-                                        <rect key="frame" x="0.0" y="0.0" width="486.5" height="272"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="20" minimumLineSpacing="20" id="Ab6-jS-XIl">
-                                            <size key="itemSize" width="200" height="112"/>
-                                        </collectionViewFlowLayout>
-                                        <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        <connections>
-                                            <outlet property="dataSource" destination="-2" id="g7l-a0-0H6"/>
-                                            <outlet property="delegate" destination="-2" id="LQq-12-5FI"/>
-                                        </connections>
-                                    </collectionView>
-                                </subviews>
-                            </clipView>
-                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="hQ9-RT-ym0">
-                                <rect key="frame" x="1" y="144" width="233" height="15"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                            </scroller>
-                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="WIX-f4-EhT">
-                                <rect key="frame" x="234" y="1" width="15" height="143"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                            </scroller>
-                        </scrollView>
-                        <customView fixedFrame="YES" id="JcO-CS-Hzz">
-                            <rect key="frame" x="487.5" y="0.0" width="185.5" height="272"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        </customView>
-                    </subviews>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="20" minimumLineSpacing="20" id="Ab6-jS-XIl">
+                                    <size key="itemSize" width="200" height="112"/>
+                                </collectionViewFlowLayout>
+                                <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="-2" id="g7l-a0-0H6"/>
+                                    <outlet property="delegate" destination="-2" id="LQq-12-5FI"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                    </clipView>
                     <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="51V-nP-gR6"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" id="Lch-xG-ZTQ"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" id="Oq5-3R-WY5"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="Wme-Fe-XE4"/>
                     </constraints>
-                    <holdingPriorities>
-                        <real value="250"/>
-                        <real value="250"/>
-                    </holdingPriorities>
-                    <connections>
-                        <outlet property="delegate" destination="-2" id="srR-pd-CHd"/>
-                    </connections>
-                </splitView>
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="hQ9-RT-ym0">
+                        <rect key="frame" x="1" y="144" width="233" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="WIX-f4-EhT">
+                        <rect key="frame" x="234" y="1" width="15" height="143"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
             </subviews>
             <constraints>
-                <constraint firstItem="ucr-YH-iJS" firstAttribute="leading" secondItem="cRg-bm-eoN" secondAttribute="leading" id="UQe-GJ-Wti"/>
-                <constraint firstAttribute="bottom" secondItem="ucr-YH-iJS" secondAttribute="bottom" id="Uof-iL-zcY"/>
-                <constraint firstAttribute="trailing" secondItem="ucr-YH-iJS" secondAttribute="trailing" constant="-9" id="di0-Ju-PUP"/>
-                <constraint firstItem="ucr-YH-iJS" firstAttribute="top" secondItem="cRg-bm-eoN" secondAttribute="top" id="rGz-m4-68J"/>
+                <constraint firstAttribute="trailing" secondItem="xP1-B2-ag4" secondAttribute="trailing" id="BdF-E2-dhu"/>
+                <constraint firstItem="xP1-B2-ag4" firstAttribute="leading" secondItem="cRg-bm-eoN" secondAttribute="leading" id="f8Q-Ko-HYH"/>
+                <constraint firstAttribute="bottom" secondItem="xP1-B2-ag4" secondAttribute="bottom" id="fue-7r-LBW"/>
+                <constraint firstItem="xP1-B2-ag4" firstAttribute="top" secondItem="cRg-bm-eoN" secondAttribute="top" id="poW-Kg-9M0"/>
             </constraints>
-            <point key="canvasLocation" x="576" y="382"/>
         </customView>
     </objects>
 </document>
