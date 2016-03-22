@@ -23,16 +23,17 @@
 
 @import CocoaLumberjack;
 
-#import "TauLog.h"
+#import "TauLogging.h"
 
 @import XCDYouTubeKit;
 @import PureLayout;
 #import "FBKVOController.h"
 
 #import "GTLYouTube.h"
-#import "TauDataService.h"
+#import "OAuthSigningConstants.h"
 
 #import "TauConstants.h"
+#import "TauYTDataService.h"
 #import "NSObject+TauDataServiceConsumer.h"
 
 #import <objc/runtime.h>

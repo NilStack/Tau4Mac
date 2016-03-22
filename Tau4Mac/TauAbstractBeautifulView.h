@@ -7,6 +7,6 @@
 //
 
 // TauAbstractBeautifulView class
-@interface TauAbstractBeautifulView : NSVisualEffectView
+@interface TauAbstractBeautifulView : NSView
 
 @end // TauAbstractBeautifulView class

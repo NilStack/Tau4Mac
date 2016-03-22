@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="TauContentCollectionViewController">
+            <connections>
+                <outlet property="contentCollectionView_" destination="Y3c-r7-ktG" id="4eb-3J-Cjv"/>
+                <outlet property="contentInspectorView_" destination="53W-34-2Yk" id="zUM-us-uOf"/>
+                <outlet property="view" destination="cRg-bm-eoN" id="kUM-qU-PnB"/>
+                <outlet property="wrapperOfContentCollectionView_" destination="O4A-2w-EFh" id="epD-gQ-oMd"/>
+                <outlet property="wrapperOfContentInspectorView_" destination="Wkr-Ye-h5w" id="y6u-b0-mhK"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="cRg-bm-eoN" userLabel="Master View">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+        </customView>
+        <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xP1-B2-ag4" userLabel="Scroll Wrapper of Content Collection View">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <clipView key="contentView" id="L13-pP-q8Q">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <collectionView selectable="YES" allowsMultipleSelection="YES" id="Y3c-r7-ktG">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="20" minimumLineSpacing="20" id="Ab6-jS-XIl">
+                            <size key="itemSize" width="200" height="112"/>
+                        </collectionViewFlowLayout>
+                        <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        <connections>
+                            <outlet property="dataSource" destination="-2" id="g7l-a0-0H6"/>
+                            <outlet property="delegate" destination="-2" id="LQq-12-5FI"/>
+                        </connections>
+                    </collectionView>
+                </subviews>
+            </clipView>
+            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="hQ9-RT-ym0">
+                <rect key="frame" x="1" y="144" width="233" height="15"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </scroller>
+            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="WIX-f4-EhT">
+                <rect key="frame" x="234" y="1" width="15" height="143"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </scroller>
+        </scrollView>
+        <customView id="53W-34-2Yk" userLabel="Collection Item Description View">
+            <rect key="frame" x="0.0" y="0.0" width="164" height="96"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kUU-fc-Xap">
+                    <rect key="frame" x="18" y="33" width="128" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="31" id="MtB-Qp-777"/>
+                        <constraint firstAttribute="width" constant="124" id="dXv-Kz-fwb"/>
+                    </constraints>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="No Selection" id="Bqf-ag-cMM">
+                        <font key="font" size="20" name="HelveticaNeue-Light"/>
+                        <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="kUU-fc-Xap" firstAttribute="centerY" secondItem="53W-34-2Yk" secondAttribute="centerY" id="wkb-zc-H1M"/>
+                <constraint firstItem="kUU-fc-Xap" firstAttribute="centerX" secondItem="53W-34-2Yk" secondAttribute="centerX" id="xzL-iB-Qra"/>
+            </constraints>
+            <point key="canvasLocation" x="181" y="354"/>
+        </customView>
+        <viewController id="Wkr-Ye-h5w" userLabel="View Controller Wrapper of Inspector View">
+            <connections>
+                <outlet property="view" destination="53W-34-2Yk" id="qHz-Xt-0EB"/>
+            </connections>
+        </viewController>
+        <viewController id="O4A-2w-EFh" userLabel="View Controller Wrapper of Content Collection View">
+            <connections>
+                <outlet property="view" destination="xP1-B2-ag4" id="0qj-YX-Idj"/>
+            </connections>
+        </viewController>
+    </objects>
+</document>

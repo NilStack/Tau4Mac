@@ -1,22 +1,22 @@
 
+#define currentView_kvoKey           @"currentView"
+#define viewBeforeCurrentView_kvoKey @"viewBeforeCurrentView"
+
 // TauViewsStack class
 @interface TauViewsStack : NSObject
-    {
-@private
-    NSMutableArray <NSViewController*> __strong* _viewsStack;
-    }
 
-// Base View
-@property ( weak ) NSViewController* baseViewController;
-
-// Views Stack
-@property ( strong, readonly ) NSMutableArray* viewsStack;
+#pragma mark - Stack Operations
 
 - ( void ) pushView: ( NSViewController* )_ViewController;
 - ( void ) popView;
 - ( void ) popAll;
 
-- ( NSViewController* ) currentView;
-- ( NSViewController* ) viewBeforeCurrentView;
+#pragma mark - KVO-Observable External Properties
+
+// Background View
+@property ( weak ) NSViewController* backgroundViewController;          // KVO-Observable
+
+@property ( strong, readonly ) NSViewController* currentView;           // KVO-Observable
+@property ( strong, readonly ) NSViewController* viewBeforeCurrentView; // KVO-Observable
 
 @end // TauViewsStack class

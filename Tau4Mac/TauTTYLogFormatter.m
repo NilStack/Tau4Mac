@@ -19,14 +19,23 @@
 
     switch ( ( uint64 )( _LogMsg.flag ) )
         {
-        case DDLogFlagRecoverable:   logLevel = @"ERROR";      break;
-        case DDLogFlagWarning: logLevel = @"WARNING";          break;
-        case DDLogFlagDebug:   logLevel = @"DEBUG";            break;
-        case DDLogFlagInfo:    logLevel = @"INFO";             break;
-        case DDLogFlagVerbose: logLevel = @"VVVVVVVERBOSE";    break;
+        case DDLogFlagFatal:       logLevel = @"FATAL"; break;
+
+        case DDLogFlagRecoverable:  logLevel = @"RECOVERABLE_ERROR"; break;
+        case DDLogFlagLocalError:   logLevel = @"LOCAL_ERROR";       break;
+        case DDLogFlagNetworkError: logLevel = @"NETWORK_ERROR";     break;
+        case DDLogFlagUserError:    logLevel = @"USER_ERROR";        break;
+
+        case DDLogFlagUnexpected:   logLevel = @"UNEXPECTED";        break;
+        case DDLogFlagWarning:      logLevel = @"WARNING";           break;
+        case DDLogFlagNotice:       logLevel = @"NOTICE";            break;
+
+        case DDLogFlagDebug:        logLevel = @"DEBUG";             break;
+        case DDLogFlagInfo:         logLevel = @"INFO";              break;
+        case DDLogFlagVerbose:      logLevel = @"VVVVVVVERBOSE";     break;
         }
 
-    return [ NSString stringWithFormat: @">>>> %@ (%@) `%@`\n%@, L%lu (%@)\n\n\n"
+    return [ NSString stringWithFormat: @">>>> %@ (%@) (%@) ~ %@, L%lu (%@)"
            , logLevel
            , _LogMsg.timestamp
            , _LogMsg.message

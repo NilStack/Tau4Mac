@@ -20,6 +20,20 @@
                ReferencedContainer = "container:Tau4Mac.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "NO"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "83765AFA1C8811DE00D93554"
+               BuildableName = "Tau4MacUITests.xctest"
+               BlueprintName = "Tau4MacUITests"
+               ReferencedContainer = "container:Tau4Mac.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -37,16 +51,11 @@
                BlueprintName = "Tau4MacTests"
                ReferencedContainer = "container:Tau4Mac.xcodeproj">
             </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "83765AFA1C8811DE00D93554"
-               BuildableName = "Tau4MacUITests.xctest"
-               BlueprintName = "Tau4MacUITests"
-               ReferencedContainer = "container:Tau4Mac.xcodeproj">
-            </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "TestsYouTubeModelClasses">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

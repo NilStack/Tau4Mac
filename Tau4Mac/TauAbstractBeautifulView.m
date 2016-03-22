@@ -36,11 +36,7 @@
 
 - ( void ) doInit_
     {
-    self.material = NSVisualEffectMaterialDark;
-    self.state = NSVisualEffectStateActive;
-
     self.wantsLayer = YES;
-
     [ self configureForAutoLayout ];
     }
 
