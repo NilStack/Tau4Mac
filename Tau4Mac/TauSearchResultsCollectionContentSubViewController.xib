@@ -66,6 +66,9 @@
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <binding destination="AjM-Js-2GX" name="value" keyPath="selection.snippet.title" id="dOt-Oz-akF"/>
+                    </connections>
                 </textField>
                 <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="FTy-RW-j21">
                     <rect key="frame" x="73" y="8" width="16" height="16"/>
@@ -92,6 +95,11 @@
                 <outlet property="view" destination="kKm-4n-HO3" id="Ube-c1-sMb"/>
             </connections>
         </viewController>
+        <arrayController objectClassName="GTLYouTubeSearchResult" id="AjM-Js-2GX" userLabel="Search Results Model Controller">
+            <connections>
+                <binding destination="-2" name="contentArrayForMultipleSelection" keyPath="self.searchResults" id="Pil-vw-nC1"/>
+            </connections>
+        </arrayController>
         <userDefaultsController representsSharedInstance="YES" id="2it-FF-7y6"/>
         <customView id="TOY-pP-yik">
             <rect key="frame" x="0.0" y="0.0" width="356" height="239"/>

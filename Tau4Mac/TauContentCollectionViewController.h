@@ -12,8 +12,11 @@
 @interface TauContentCollectionViewController : NSViewController
     <NSCollectionViewDataSource, NSCollectionViewDelegate, NSCollectionViewDelegateFlowLayout>
 
-@property ( weak ) IBOutlet id <TauContentCollectionViewRelayDataSource> relayDataSource;
+#pragma mark - Relay the Model Data
 
+// Relay the model data from hosting content view controller to the internal collection view
+
+@property ( weak ) IBOutlet id <TauContentCollectionViewRelayDataSource> relayDataSource;
 - ( void ) reloadData;
 
 @end // TauContentCollectionViewController class
@@ -22,6 +25,6 @@
 @protocol TauContentCollectionViewRelayDataSource <NSObject>
 
 @required
-- ( NSArray <GTLObject*>* ) collectionViewRequiredData: ( TauContentCollectionViewController* )_Controller;
+- ( NSArray <GTLObject*>* ) contentCollectionViewRequiredData: ( TauContentCollectionViewController* )_Controller;
 
 @end // TauContentCollectionViewRelayDataSource protocol

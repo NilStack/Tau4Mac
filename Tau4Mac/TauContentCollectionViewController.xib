@@ -31,7 +31,6 @@
                                 </collectionViewFlowLayout>
                                 <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
-                                    <binding destination="qdd-Bd-lUy" name="selectionIndexes" keyPath="selectionIndexes" id="Xql-UE-7Ob"/>
                                     <outlet property="dataSource" destination="-2" id="g7l-a0-0H6"/>
                                     <outlet property="delegate" destination="-2" id="LQq-12-5FI"/>
                                 </connections>
@@ -59,6 +58,5 @@
                 <constraint firstItem="xP1-B2-ag4" firstAttribute="top" secondItem="cRg-bm-eoN" secondAttribute="top" id="poW-Kg-9M0"/>
             </constraints>
         </customView>
-        <arrayController objectClassName="GTLYouTubeSearchResult" id="qdd-Bd-lUy" userLabel="Search Results Model Controller"/>
     </objects>
 </document>

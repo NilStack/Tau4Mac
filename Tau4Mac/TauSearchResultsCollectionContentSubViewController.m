@@ -29,7 +29,7 @@
 @property ( assign, readwrite, setter = setPaging: ) BOOL isPaging;   // KVB compliant
 
 @property ( weak ) IBOutlet TauSearchResultsAccessoryBarViewController* accessoryBarViewController_;
-@property ( strong, readonly ) TauContentCollectionViewController* collectionViewController_;
+@property ( strong, readonly ) TauContentCollectionViewController* contentCollectionViewController_;
 @property ( strong, readonly ) TauYTDataServiceCredential* credential_;
 
 - ( void ) executeSearchWithPageToken_: ( NSString* )_PageToken;
@@ -47,14 +47,14 @@
     {
     TauYTDataServiceCredential __strong* priCredential_;
     NSDictionary __strong* priOriginalOperationsCombination_;
-    TauContentCollectionViewController __strong* priCollectionViewController_;
+    TauContentCollectionViewController __strong* priContentCollectionViewController_;
     }
 
 #pragma mark - Conforms to <TauContentCollectionViewRelayDataSource>
 
-- ( NSArray <GTLObject*>* ) collectionViewRequiredData: ( TauContentCollectionViewController* )_Controller
+- ( NSArray <GTLObject*>* ) contentCollectionViewRequiredData: ( TauContentCollectionViewController* )_Controller
     {
-    if ( _Controller == priCollectionViewController_ )
+    if ( _Controller == priContentCollectionViewController_ )
         return self.searchResults;
     return nil;
     }
@@ -172,7 +172,7 @@
         {
         [ self willChangeValueForKey: @"searchResults" ];
         searchResults_ = _New;
-        [ self.collectionViewController_ reloadData ];
+        [ self.contentCollectionViewController_ reloadData ];
         [ self didChangeValueForKey: @"searchResults" ];
         }
     }
@@ -204,19 +204,19 @@
 
 @synthesize accessoryBarViewController_;
 
-@dynamic collectionViewController_;
-- ( TauContentCollectionViewController* ) collectionViewController_
+@dynamic contentCollectionViewController_;
+- ( TauContentCollectionViewController* ) contentCollectionViewController_
     {
-    if ( !priCollectionViewController_ )
+    if ( !priContentCollectionViewController_ )
         {
-        priCollectionViewController_ = [ [ TauContentCollectionViewController alloc ] initWithNibName: nil bundle: nil ];
-        [ priCollectionViewController_ setRelayDataSource: self ];
-        [ self addChildViewController: priCollectionViewController_ ];
-        [ self.view addSubview: priCollectionViewController_.view ];
-        [ priCollectionViewController_.view autoPinEdgesToSuperviewEdges ];
+        priContentCollectionViewController_ = [ [ TauContentCollectionViewController alloc ] initWithNibName: nil bundle: nil ];
+        [ priContentCollectionViewController_ setRelayDataSource: self ];
+        [ self addChildViewController: priContentCollectionViewController_ ];
+        [ self.view addSubview: priContentCollectionViewController_.view ];
+        [ priContentCollectionViewController_.view autoPinEdgesToSuperviewEdges ];
         }
 
-    return priCollectionViewController_;
+    return priContentCollectionViewController_;
     }
 
 @dynamic credential_;

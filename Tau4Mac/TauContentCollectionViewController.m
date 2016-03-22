@@ -28,6 +28,15 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
     [ self.contentCollectionView_ setCollectionViewLayout: [ [ TauNormalWrappedLayout alloc ] init ] ];
     }
 
+#pragma mark - Relay the Model Data
+
+// Relay the model data from hosting content view controller to the internal collection view
+
+- ( void ) reloadData
+    {
+    [ self.contentCollectionView_ reloadData ];
+    }
+
 #pragma mark - Conforms to <NSCollectionViewDataSource>
 
 - ( NSInteger ) numberOfSectionsInCollectionView: ( NSCollectionView* )_CollectionView
@@ -37,20 +46,15 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
 
 - ( NSInteger ) collectionView: ( NSCollectionView* )_CollectionView numberOfItemsInSection: ( NSInteger )_Section
     {
-//    if ( ![ self.relayDataSource respondsToSelector: @selector( collectionViewRequiredData: ) ] )
-    return [ [ self.relayDataSource collectionViewRequiredData: self ] count ];
+//    if ( ![ self.relayDataSource respondsToSelector: @selector( contentCollectionViewRequiredData: ) ] )
+    return [ [ self.relayDataSource contentCollectionViewRequiredData: self ] count ];
     }
 
 - ( NSCollectionViewItem* ) collectionView: ( NSCollectionView* )_CollectionView itemForRepresentedObjectAtIndexPath: ( NSIndexPath* )_IndexPath
     {
     NSCollectionViewItem* item = [ _CollectionView makeItemWithIdentifier: kContentCollectionItemID forIndexPath: _IndexPath ];
-    item.representedObject = [ [ self.relayDataSource collectionViewRequiredData: self ] objectAtIndex: [ _IndexPath item ] ];
+    item.representedObject = [ [ self.relayDataSource contentCollectionViewRequiredData: self ] objectAtIndex: [ _IndexPath item ] ];
     return item;
-    }
-
-- ( void ) reloadData
-    {
-    [ self.contentCollectionView_ reloadData ];
     }
 
 #pragma mark - Conforms to <NSCollectionViewDelegate>
