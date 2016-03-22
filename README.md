@@ -1,2 +1,2 @@
 # Tau4Mac
-Tau &lt;3 YouTube
+Mac &lt;3 YouTube
