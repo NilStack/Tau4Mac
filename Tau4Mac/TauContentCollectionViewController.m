@@ -26,7 +26,11 @@
 @end
 
 @interface TauContentCollectionViewController ()
+
+@property ( weak ) IBOutlet NSScrollView* scrollWrapperOfContentCollectionView_;
 @property ( weak ) IBOutlet NSCollectionView* contentCollectionView_;
+@property ( weak ) IBOutlet NSView* contentCollectionItemDescriptionView_;
+
 @end
 
 @implementation TauContentCollectionViewController
@@ -41,6 +45,33 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
 
     [ self.contentCollectionView_ registerClass: [ TauContentCollectionItem class ] forItemWithIdentifier: kContentCollectionItemID ];
     [ self.contentCollectionView_ setCollectionViewLayout: [ [ TauNormalWrappedLayout alloc ] init ] ];
+
+    NSSplitViewController* splitViewController = [ [ NSSplitViewController alloc ] initWithNibName: nil bundle: nil ];
+    [ splitViewController.splitView setWantsLayer: YES ];
+    [ splitViewController.splitView setVertical: YES ];
+
+    NSViewController* wrapperOfContentCollectionView = [ [ NSViewController alloc ] initWithNibName: nil bundle: nil ];
+    wrapperOfContentCollectionView.view = self.scrollWrapperOfContentCollectionView_;
+
+    NSViewController* wrapperOfCollectionItemDescView = [ [ NSViewController alloc ] initWithNibName: nil bundle: nil ];
+    wrapperOfCollectionItemDescView.view = self.contentCollectionItemDescriptionView_;
+
+    NSSplitViewItem* lhsSplitViewItem = [ NSSplitViewItem splitViewItemWithViewController: wrapperOfContentCollectionView ];
+    NSSplitViewItem* rhsSplitViewItem = [ NSSplitViewItem sidebarWithViewController: wrapperOfCollectionItemDescView ];
+
+    [ lhsSplitViewItem setCanCollapse: NO ];
+    [ lhsSplitViewItem setMinimumThickness: TauNormalWrappedLayoutItemWidth + 65.f ];
+
+    [ rhsSplitViewItem setCanCollapse: YES ];
+    [ rhsSplitViewItem setMaximumThickness: 600.f ];
+    [ rhsSplitViewItem setMinimumThickness: TAU_APP_MIN_WIDTH - ( TauNormalWrappedLayoutItemWidth + 65.f ) - splitViewController.splitView.dividerThickness ];
+
+    [ splitViewController addSplitViewItem: lhsSplitViewItem ];
+    [ splitViewController addSplitViewItem: rhsSplitViewItem ];
+
+    [ self addChildViewController: splitViewController ];
+    [ self.view addSubview: [ splitViewController.view configureForAutoLayout ] ];
+    [ splitViewController.view autoPinEdgesToSuperviewEdges ];
     }
 
 #pragma mark - Relay the Model Data
