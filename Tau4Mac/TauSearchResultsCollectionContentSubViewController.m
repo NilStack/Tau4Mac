@@ -8,7 +8,6 @@
 
 #import "TauSearchResultsCollectionContentSubViewController.h"
 #import "TauToolbarItem.h"
-#import "TauContentCollectionViewController.h"
 
 // TauSearchResultsAccessoryBarViewController class
 @interface TauSearchResultsAccessoryBarViewController : NSTitlebarAccessoryViewController
@@ -51,13 +50,13 @@
     TauContentCollectionViewController __strong* priCollectionViewController_;
     }
 
-#pragma mark - Initializations
+#pragma mark - Conforms to <TauContentCollectionViewRelayDataSource>
 
-- ( instancetype ) initWithNibName: ( NSString* )_NibNameOrNil bundle: ( NSBundle* )_NibBundleOrNil
+- ( NSArray <GTLObject*>* ) collectionViewRequiredData: ( TauContentCollectionViewController* )_Controller
     {
-    if ( self = [ super initWithNibName: _NibNameOrNil bundle: _NibBundleOrNil ] )
-        ;
-    return self;
+    if ( _Controller == priCollectionViewController_ )
+        return self.searchResults;
+    return nil;
     }
 
 #pragma mark - Actions
@@ -74,7 +73,8 @@
 
 - ( IBAction ) cancelAction: ( id )_Sender
     {
-    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: priCredential_ ];
+    id consumer = self;
+    [ [ TauYTDataService sharedService ] unregisterConsumer: consumer withCredential: priCredential_ ];
     [ self popMe ];
     }
 
@@ -159,6 +159,29 @@
 #pragma mark - Internal KVB Compliant
 
 @synthesize searchResults = searchResults_;
++ ( BOOL ) automaticallyNotifiesObserversOfSearchResults
+    {
+    return NO;
+    }
+
+// Directly invoked by TDS.
+// We should never invoke this method explicitly.
+- ( void ) setSearchResults: ( NSArray <GTLYouTubeSearchResult*>* )_New
+    {
+    if ( searchResults_ != _New )
+        {
+        [ self willChangeValueForKey: @"searchResults" ];
+        searchResults_ = _New;
+        [ self.collectionViewController_ reloadData ];
+        [ self didChangeValueForKey: @"searchResults" ];
+        }
+    }
+
+- ( NSArray <GTLYouTubeSearchResult*>* ) searchResults
+    {
+    return searchResults_;
+    }
+
 - ( NSUInteger ) countOfSearchResults
     {
     return searchResults_.count;
@@ -187,6 +210,7 @@
     if ( !priCollectionViewController_ )
         {
         priCollectionViewController_ = [ [ TauContentCollectionViewController alloc ] initWithNibName: nil bundle: nil ];
+        [ priCollectionViewController_ setRelayDataSource: self ];
         [ self addChildViewController: priCollectionViewController_ ];
         [ self.view addSubview: priCollectionViewController_.view ];
         [ priCollectionViewController_.view autoPinEdgesToSuperviewEdges ];
@@ -200,8 +224,9 @@
     {
     if ( !priCredential_ )
         {
+        id consumer = self;
         priCredential_ =
-            [ [ TauYTDataService sharedService ] registerConsumer: self
+            [ [ TauYTDataService sharedService ] registerConsumer: consumer
                                               withMethodSignature: [ self methodSignatureForSelector: _cmd ]
                                                   consumptionType: TauYTDataServiceConsumptionSearchResultsType ];
         }
@@ -232,8 +257,6 @@
         self.prevToken_ = _PrevPageToken;
         self.nextToken_ = _NextPageToken;
         self.isPaging = NO;
-
-        [ self.collectionViewController_ reloadData ];
         } failure: ^( NSError* _Error )
             {
             DDLogRecoverable( @"Failed to execute the searching due to {%@}.", _Error );

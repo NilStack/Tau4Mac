@@ -16,7 +16,9 @@
 
 @implementation TauContentCollectionViewController
 
-NSString* const kContentCollectionItemID = @"kContentCollectionItemID";
+#pragma mark - Initializations
+
+NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
 
 - ( void ) viewDidLoad
     {
@@ -35,13 +37,14 @@ NSString* const kContentCollectionItemID = @"kContentCollectionItemID";
 
 - ( NSInteger ) collectionView: ( NSCollectionView* )_CollectionView numberOfItemsInSection: ( NSInteger )_Section
     {
-    return [ [ self.parentViewController valueForKey: @"searchResults" ] count ];
+//    if ( ![ self.relayDataSource respondsToSelector: @selector( collectionViewRequiredData: ) ] )
+    return [ [ self.relayDataSource collectionViewRequiredData: self ] count ];
     }
 
 - ( NSCollectionViewItem* ) collectionView: ( NSCollectionView* )_CollectionView itemForRepresentedObjectAtIndexPath: ( NSIndexPath* )_IndexPath
     {
     NSCollectionViewItem* item = [ _CollectionView makeItemWithIdentifier: kContentCollectionItemID forIndexPath: _IndexPath ];
-    item.representedObject = [ [ self.parentViewController valueForKeyPath: @"searchResults" ] objectAtIndex: [ _IndexPath item ] ];
+    item.representedObject = [ [ self.relayDataSource collectionViewRequiredData: self ] objectAtIndex: [ _IndexPath item ] ];
     return item;
     }
 
