@@ -27,9 +27,12 @@
 
 @interface TauContentCollectionViewController ()
 
-@property ( weak ) IBOutlet NSScrollView* scrollWrapperOfContentCollectionView_;
 @property ( weak ) IBOutlet NSCollectionView* contentCollectionView_;
-@property ( weak ) IBOutlet NSView* contentCollectionItemDescriptionView_;
+@property ( weak ) IBOutlet NSView* contentInspectorView_;
+
+// Wrapped guys above in xib for ease the use of NSSplitViewController
+@property ( weak ) IBOutlet NSViewController* wrapperOfContentCollectionView_;
+@property ( weak ) IBOutlet NSViewController* wrapperOfContentInspectorView_;
 
 @end
 
@@ -50,21 +53,15 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
     [ splitViewController.splitView setWantsLayer: YES ];
     [ splitViewController.splitView setVertical: YES ];
 
-    NSViewController* wrapperOfContentCollectionView = [ [ NSViewController alloc ] initWithNibName: nil bundle: nil ];
-    wrapperOfContentCollectionView.view = self.scrollWrapperOfContentCollectionView_;
-
-    NSViewController* wrapperOfCollectionItemDescView = [ [ NSViewController alloc ] initWithNibName: nil bundle: nil ];
-    wrapperOfCollectionItemDescView.view = self.contentCollectionItemDescriptionView_;
-
-    NSSplitViewItem* lhsSplitViewItem = [ NSSplitViewItem splitViewItemWithViewController: wrapperOfContentCollectionView ];
-    NSSplitViewItem* rhsSplitViewItem = [ NSSplitViewItem sidebarWithViewController: wrapperOfCollectionItemDescView ];
+    NSSplitViewItem* lhsSplitViewItem = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfContentCollectionView_ ];
+    NSSplitViewItem* rhsSplitViewItem = [ NSSplitViewItem sidebarWithViewController: self.wrapperOfContentInspectorView_ ];
 
     [ lhsSplitViewItem setCanCollapse: NO ];
     [ lhsSplitViewItem setMinimumThickness: TauNormalWrappedLayoutItemWidth + 65.f ];
 
     [ rhsSplitViewItem setCanCollapse: YES ];
     [ rhsSplitViewItem setMaximumThickness: 600.f ];
-    [ rhsSplitViewItem setMinimumThickness: TAU_APP_MIN_WIDTH - ( TauNormalWrappedLayoutItemWidth + 65.f ) - splitViewController.splitView.dividerThickness ];
+    [ rhsSplitViewItem setMinimumThickness: TAU_APP_MIN_WIDTH - lhsSplitViewItem.minimumThickness - splitViewController.splitView.dividerThickness ];
 
     [ splitViewController addSplitViewItem: lhsSplitViewItem ];
     [ splitViewController addSplitViewItem: rhsSplitViewItem ];
