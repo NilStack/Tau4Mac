@@ -100,12 +100,16 @@
     {
     if ( !priStackView_ )
         {
-        priStackView_ = [ NSStackView stackViewWithViews:
-            @[ self.singleContentTitleSection_
-             , self.singleContentDescriptionSection_
-             , self.singleContentActionSection_
-             , self.singleContentMetaInfoSection_
-             ] ];
+        priStackView_ = [ [ NSStackView alloc ] initWithFrame: NSZeroRect ];
+
+        [ priStackView_ addView: self.singleContentTitleSection_ inGravity: NSStackViewGravityTop ];
+        [ priStackView_ addView: self.singleContentDescriptionSection_ inGravity: NSStackViewGravityCenter ];
+        [ priStackView_ addView: self.singleContentActionSection_ inGravity: NSStackViewGravityCenter ];
+        [ priStackView_ addView: self.singleContentMetaInfoSection_ inGravity: NSStackViewGravityBottom ];
+
+        [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityMustHold forView: self.singleContentTitleSection_ ];
+        [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityMustHold forView: self.singleContentActionSection_ ];
+        [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityDetachOnlyIfNecessary forView: self.singleContentMetaInfoSection_ ];
 
         priStackView_.orientation = NSUserInterfaceLayoutOrientationVertical;
         priStackView_.alignment = NSLayoutAttributeCenterX;
