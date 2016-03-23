@@ -53,10 +53,8 @@
     [ self bind: activedContentViewTag_kvoKey toObject: sharedToolbarController withKeyPath: contentViewAffiliatedTo_kvoKey options: nil ];
     [ sharedToolbarController bind: contentViewAffiliatedTo_kvoKey toObject: self withKeyPath: activedContentViewTag_kvoKey options: nil ];
 
-    SEL action = @selector( contentViewsMenuItemSwitchedAction_: );
-    self.appViewSubMenuSearchItem_.action = action;
-    self.appViewSubMenuExploreItem_.action = action;
-    self.appViewSubMenuPlayerItem_.action = action;
+    self.appViewSubMenuSearchItem_.action = self.appViewSubMenuExploreItem_.action = self.appViewSubMenuPlayerItem_.action
+        = @selector( contentViewsMenuItemSwitchedAction_: );
 
     // Active the initial content view
     self.activedContentViewTag = TauExploreContentViewTag;
@@ -92,30 +90,26 @@
 #pragma mark - Dynamic Properties
 
 @synthesize searchContentViewController = priSearchContentViewController_;
-@synthesize exploreContentViewController = priExploreContentViewController_;
-@synthesize playerContentViewController = priPlayerContentViewController_;
-
 - ( TauSearchContentViewController* ) searchContentViewController
     {
     if ( !priSearchContentViewController_ )
         priSearchContentViewController_ = [ [ TauSearchContentViewController alloc ] initWithNibName: nil bundle: nil ];
-
     return priSearchContentViewController_;
     }
 
+@synthesize exploreContentViewController = priExploreContentViewController_;
 - ( TauExploreContentViewController* ) exploreContentViewController
     {
     if ( !priExploreContentViewController_ )
         priExploreContentViewController_ = [ [ TauExploreContentViewController alloc ] initWithNibName: nil bundle: nil ];
-
     return priExploreContentViewController_;
     }
 
+@synthesize playerContentViewController = priPlayerContentViewController_;
 - ( TauPlayerContentViewController* ) playerContentViewController
     {
     if ( !priPlayerContentViewController_ )
         priPlayerContentViewController_ = [ [ TauPlayerContentViewController alloc ] initWithNibName: nil bundle: nil ];
-
     return priPlayerContentViewController_;
     }
 
