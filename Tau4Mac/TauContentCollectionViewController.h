@@ -38,6 +38,7 @@
 // ------------------------------------------------------------------------------------------------------------ //
 
 
+
 // TauAccessoryBarContentCollectionSummaryView class
 @interface TauAccessoryBarContentCollectionSummaryView : NSView
 //@property ( strong, readwrite ) NS

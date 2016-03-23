@@ -9,33 +9,32 @@
 #import "TauContentCollectionViewController.h"
 #import "TauContentCollectionItem.h"
 #import "TauNormalWrappedLayout.h"
-// NSIndexPath + Tau
-@interface NSIndexPath ( Tau )
-@property ( copy, readonly ) NSIndexSet* indexSetRep;
-@end // NSIndexPath + Tau
 
-@implementation NSIndexPath ( Tau )
-
-@dynamic indexSetRep;
-- ( NSIndexSet* ) indexSetRep
-    {
-//    NSUInteger length = self.length;
-    return nil;
-    }
-
-@end
-
+// Private
 @interface TauContentCollectionViewController ()
 
 @property ( weak ) IBOutlet NSCollectionView* contentCollectionView_;
 @property ( weak ) IBOutlet NSView* contentInspectorView_;
 
-// Wrapped guys above in xib for ease the use of NSSplitViewController
+@property ( weak ) IBOutlet NSSplitViewController* splitViewController_;
+
+// Wrapped guys above in xib for ease the feed of self.splitViewController_ (instance of NSSplitViewController)
+@property ( strong, readonly ) NSSplitViewItem* contentCollectionSplitViewItem_;
+@property ( strong, readonly ) NSSplitViewItem* contentInspectorSplitViewItem_;
+
+// Feeding the split view items above
 @property ( weak ) IBOutlet NSViewController* wrapperOfContentCollectionView_;
 @property ( weak ) IBOutlet NSViewController* wrapperOfContentInspectorView_;
 
-@end
+@end // Private
 
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
+// TauContentCollectionViewController class
 @implementation TauContentCollectionViewController
 
 #pragma mark - Initializations
@@ -44,27 +43,15 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
 
 - ( void ) viewDidLoad
     {
-    [ [ self.view configureForAutoLayout ] setWantsLayer: YES ];
-
+    // Registering for data source of collection view
     [ self.contentCollectionView_ registerClass: [ TauContentCollectionItem class ] forItemWithIdentifier: kContentCollectionItemID ];
     [ self.contentCollectionView_ setCollectionViewLayout: [ [ TauNormalWrappedLayout alloc ] init ] ];
 
-    NSSplitViewController* splitViewController = [ [ NSSplitViewController alloc ] initWithNibName: nil bundle: nil ];
-    [ splitViewController.splitView setWantsLayer: YES ];
-    [ splitViewController.splitView setVertical: YES ];
-
-    NSSplitViewItem* lhsSplitViewItem = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfContentCollectionView_ ];
-    NSSplitViewItem* rhsSplitViewItem = [ NSSplitViewItem sidebarWithViewController: self.wrapperOfContentInspectorView_ ];
-
-    [ lhsSplitViewItem setCanCollapse: NO ];
-    [ lhsSplitViewItem setMinimumThickness: TauNormalWrappedLayoutItemWidth + 65.f ];
-
-    [ rhsSplitViewItem setCanCollapse: YES ];
-    [ rhsSplitViewItem setMaximumThickness: 600.f ];
-    [ rhsSplitViewItem setMinimumThickness: TAU_APP_MIN_WIDTH - lhsSplitViewItem.minimumThickness - splitViewController.splitView.dividerThickness ];
-
-    [ splitViewController addSplitViewItem: lhsSplitViewItem ];
-    [ splitViewController addSplitViewItem: rhsSplitViewItem ];
+    // Embeding the split view controller
+    // Required setting up done in the IB Identity insepector
+    NSSplitViewController* splitViewController = self.splitViewController_;
+    [ splitViewController addSplitViewItem: self.contentCollectionSplitViewItem_ ];
+    [ splitViewController addSplitViewItem: self.contentInspectorSplitViewItem_ ];
 
     [ self addChildViewController: splitViewController ];
     [ self.view addSubview: [ splitViewController.view configureForAutoLayout ] ];
@@ -123,5 +110,39 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
 #pragma mark - Conforms to <NSCollectionViewDelegateFlowLayout>
 // TODO: Customize flow layout of collection view
 
+#pragma mark - Private
 
-@end
+@synthesize contentCollectionSplitViewItem_ = priContentCollectionSplitViewItem_;
+@synthesize contentInspectorSplitViewItem_ = priContentInspectorSplitViewItem_;
+
+- ( NSSplitViewItem* ) contentCollectionSplitViewItem_
+    {
+    if ( !priContentCollectionSplitViewItem_ )
+        {
+        priContentCollectionSplitViewItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfContentCollectionView_ ];
+        [ priContentCollectionSplitViewItem_ setCanCollapse: NO ];
+
+        //
+        [ priContentCollectionSplitViewItem_ setMinimumThickness: TauNormalWrappedLayoutItemWidth + 65.f ];
+        }
+
+    return priContentCollectionSplitViewItem_;
+    }
+
+- ( NSSplitViewItem* ) contentInspectorSplitViewItem_
+    {
+    if ( !priContentInspectorSplitViewItem_ )
+        {
+        priContentInspectorSplitViewItem_ = [ NSSplitViewItem sidebarWithViewController: self.wrapperOfContentInspectorView_ ];
+        [ priContentInspectorSplitViewItem_ setCanCollapse: YES ];
+
+        //
+        [ priContentInspectorSplitViewItem_ setMaximumThickness: 600.f ];
+        [ priContentInspectorSplitViewItem_ setMinimumThickness:
+            TAU_APP_MIN_WIDTH - self.contentCollectionSplitViewItem_.minimumThickness - self.splitViewController_.splitView.dividerThickness ];
+        }
+
+    return priContentInspectorSplitViewItem_;
+    }
+
+@end // TauContentCollectionViewController class
