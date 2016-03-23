@@ -56,6 +56,26 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
     [ self addChildViewController: splitViewController ];
     [ self.view addSubview: [ splitViewController.view configureForAutoLayout ] ];
     [ splitViewController.view autoPinEdgesToSuperviewEdges ];
+
+    ///
+    [ self addObserver: self forKeyPath: TAU_KEY_OF_SEL( @selector( selectedItems ) ) options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context: nil ];
+    ///
+    }
+
+- ( void ) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
+    {
+    if ( [ keyPath isEqualToString: TAU_KEY_OF_SEL( @selector( selectedItems ) ) ] )
+        {
+        NSOrderedSet* new = change[ NSKeyValueChangeNewKey ];
+        NSOrderedSet* old = change[ NSKeyValueChangeOldKey ];
+
+        NSLog( @"New: %@\n\nOld:%@", new, old );
+        }
+    }
+
+- ( void ) dealloc
+    {
+    [ self removeObserver: self forKeyPath: TAU_KEY_OF_SEL( @selector( selectedItems ) ) ];
     }
 
 #pragma mark - Relay the Model Data
@@ -83,6 +103,46 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
 - ( void ) setSelectionIndexPaths: ( NSSet <NSIndexPath*>* )_New
     {
     [ self.contentCollectionView_ setSelectionIndexPaths: _New ];
+    }
+
+@dynamic selectedItems;
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingSelectedItems
+    {
+    return [ NSSet setWithObjects: TAU_KEY_OF_SEL( @selector( selectionIndexPaths ) ), nil ];
+    }
+
+- ( NSOrderedSet <NSCollectionViewItem*>* ) selectedItems
+    {
+    NSMutableOrderedSet* result = nil;
+
+    NSArray* relayedDataModel = [ self.relayDataSource contentCollectionViewRequiredData: self ];
+
+    NSSet <NSIndexPath*>* newIndexPaths = self.selectionIndexPaths;
+
+    // Extracting the corresponding model items
+    // FIXME: this implementation should take into account both the sections and indexes within an index path
+    for ( NSIndexPath* _IndexPath in newIndexPaths )
+        {
+        NSRange indexRange = NSMakeRange( 0, _IndexPath.length );
+        NSUInteger* indexesBuffer = malloc( sizeof ( NSUInteger ) * indexRange.length );
+        [ _IndexPath getIndexes: indexesBuffer range: NSMakeRange( 0, indexRange.length ) ];
+
+        for ( int _Index = 0; _Index < indexRange.length; _Index++ )
+            {
+            if ( _Index == ( indexRange.length - 1 ) )
+                {
+                // Lazy initialization
+                if ( !result )
+                    result = [ NSMutableOrderedSet orderedSet ];
+
+                [ result addObject: [ relayedDataModel objectAtIndex: indexesBuffer[ _Index ] ] ];
+                }
+            }
+
+        free( indexesBuffer );
+        }
+
+    return result ? [ result copy ] : [ NSOrderedSet orderedSet ];
     }
 
 #pragma mark - Conforms to <NSCollectionViewDataSource>
