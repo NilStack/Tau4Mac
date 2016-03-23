@@ -9,17 +9,30 @@
 #ifndef TauConstants_h
 #define TauConstants_h
 
-#define TAU_KEY_OF_SEL( _Sel ) ( NSStringFromSelector( _Sel ) )
-#define TAU_CHANGE_VALUE_BEGIN_of( _Sel )  ( [ self willChangeValueForKey: TAU_KEY_OF_SEL( _Sel ) ] )
-#define TAU_CHANGE_VALUE_COMMIT_of( _Sel ) ( [ self didChangeValueForKey: TAU_KEY_OF_SEL( _Sel ) ] )
 
-#define TAU_CHANGE_VALUE_FOR_KEY_of( _Sel, _ExpressionBlk ) \
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
+#define TAU_KEY_OF_SEL( _Sel ) ( NSStringFromSelector( _Sel ) )
+
+#define TAU_CHANGE_VALUE_BEGIN( _Key )  ( [ self willChangeValueForKey: _Key ] )
+#define TAU_CHANGE_VALUE_COMMIT( _Key ) ( [ self didChangeValueForKey: _Key ] )
+
+#define TAU_CHANGE_VALUE_BEGIN_of( _Sel )  TAU_CHANGE_VALUE_BEGIN( TAU_KEY_OF_SEL( _Sel ) )
+#define TAU_CHANGE_VALUE_COMMIT_of( _Sel ) TAU_CHANGE_VALUE_COMMIT( TAU_KEY_OF_SEL( _Sel ) )
+
+#define TAU_CHANGE_VALUE_FOR_KEY( _Key, _ExpressionBlk )\
 do {\
-NSParameterAssert( ( _Sel ) );\
-TAU_CHANGE_VALUE_BEGIN_of( _Sel );\
+NSParameterAssert( ( _Key ) && ( [ _Key length ] > 0 ) );\
+TAU_CHANGE_VALUE_BEGIN( _Key );\
     _ExpressionBlk();\
-TAU_CHANGE_VALUE_COMMIT_of( _Sel );\
+TAU_CHANGE_VALUE_COMMIT( _Key );\
 } while ( 0 )
+
+#define TAU_CHANGE_VALUE_FOR_KEY_of_SEL( _Sel, _ExpressionBlk )\
+    TAU_CHANGE_VALUE_FOR_KEY( TAU_KEY_OF_SEL( _Sel ), _ExpressionBlk )
 
 
 
@@ -31,7 +44,7 @@ NSString extern* const TauKeychainItemName;
 
 #pragma mark - Client Credentials
 
-/** The OAuth 2.0 client ID for Tau4Mac. Find this value here https://console.developers.google.com/ */
+/** The OAuth 2.0 client ID for Tau4Mac. Examine this value here https://console.developers.google.com/ */
 NSString extern* const TauClientID;
 
 /** The client secret associated with client ID of Tau4Mac. */
@@ -42,7 +55,7 @@ NSString extern* const TauClientSecret;
 /** Manage users' YouTube account. This scope requires communication with the API server to happen over an SSL connection. */
 NSString extern* const TauManageAuthScope;
 
-/** View usersa' YouTube account. */
+/** View users' YouTube account. */
 NSString extern* const TauReadonlyAuthScope;
 
 /** Upload YouTube videos and manage users' YouTube videos. */

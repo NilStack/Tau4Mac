@@ -112,7 +112,7 @@
     {
     if ( searchText_ != _New )
         {
-        TAU_CHANGE_VALUE_FOR_KEY_of( @selector( searchText ),
+        TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( searchText ),
          ( ^{
             searchText_ = _New;
 
@@ -160,7 +160,7 @@
 - ( void ) setPaging: ( BOOL )_Flag
     {
     if ( isPaging_ != _Flag )
-        TAU_CHANGE_VALUE_FOR_KEY_of( @selector( isPaging ), ^{ isPaging_ = _Flag; } );
+        TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( isPaging ), ^{ isPaging_ = _Flag; } );
     }
 
 - ( BOOL ) isPaging
