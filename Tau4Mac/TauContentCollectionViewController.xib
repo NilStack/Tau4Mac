@@ -50,7 +50,7 @@
                 <autoresizingMask key="autoresizingMask"/>
             </scroller>
         </scrollView>
-        <customView id="53W-34-2Yk" userLabel="Collection Item Description View">
+        <customView wantsLayer="YES" id="53W-34-2Yk" userLabel="Content Inspector View" customClass="TauContentInspectorView">
             <rect key="frame" x="0.0" y="0.0" width="164" height="96"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
@@ -86,7 +86,7 @@
                 <userDefinedRuntimeAttribute type="boolean" keyPath="view.wantsLayer" value="YES"/>
             </userDefinedRuntimeAttributes>
         </viewController>
-        <viewController id="Wkr-Ye-h5w" userLabel="View Controller Wrapper of Inspector View">
+        <viewController id="Wkr-Ye-h5w" userLabel="View Controller Wrapper of Inspector View" customClass="TauContentInspectorViewController">
             <connections>
                 <outlet property="view" destination="53W-34-2Yk" id="qHz-Xt-0EB"/>
             </connections>
@@ -97,7 +97,7 @@
             </connections>
         </viewController>
         <userDefaultsController representsSharedInstance="YES" id="nM0-Pv-lTg"/>
-        <arrayController objectClassName="GTLObject" editable="NO" id="CL8-Di-2dN" userLabel="Selected Items within Content Collection View">
+        <arrayController objectClassName="GTLObject" editable="NO" id="CL8-Di-2dN" userLabel="Selected ModItems within Content Collection View">
             <connections>
                 <binding destination="-2" name="contentArray" keyPath="self.selectedItems" id="VDH-Sv-4Ki"/>
             </connections>
