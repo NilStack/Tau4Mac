@@ -56,26 +56,6 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
     [ self addChildViewController: splitViewController ];
     [ self.view addSubview: [ splitViewController.view configureForAutoLayout ] ];
     [ splitViewController.view autoPinEdgesToSuperviewEdges ];
-
-    ///
-    [ self addObserver: self forKeyPath: TAU_KEY_OF_SEL( @selector( selectedItems ) ) options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context: nil ];
-    ///
-    }
-
-- ( void ) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
-    {
-    if ( [ keyPath isEqualToString: TAU_KEY_OF_SEL( @selector( selectedItems ) ) ] )
-        {
-        NSOrderedSet* new = change[ NSKeyValueChangeNewKey ];
-        NSOrderedSet* old = change[ NSKeyValueChangeOldKey ];
-
-        NSLog( @"New: %@\n\nOld:%@", new, old );
-        }
-    }
-
-- ( void ) dealloc
-    {
-    [ self removeObserver: self forKeyPath: TAU_KEY_OF_SEL( @selector( selectedItems ) ) ];
     }
 
 #pragma mark - Relay the Model Data
