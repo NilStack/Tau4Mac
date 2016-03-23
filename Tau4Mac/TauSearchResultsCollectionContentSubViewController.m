@@ -112,14 +112,15 @@
     {
     if ( searchText_ != _New )
         {
-        [ self willChangeValueForKey: @"searchText" ];
-        searchText_ = _New;
+        TAU_CHANGE_VALUE_FOR_KEY_of( @selector( searchText ),
+         ( ^{
+            searchText_ = _New;
 
-        priOriginalOperationsCombination_ =
-            @{ TauTDSOperationMaxResultsPerPage : @50, TauTDSOperationRequirements : @{ TauTDSOperationRequirementQ : searchText_ }, TauTDSOperationPartFilter : @"snippet" };
+            priOriginalOperationsCombination_ =
+                @{ TauTDSOperationMaxResultsPerPage : @50, TauTDSOperationRequirements : @{ TauTDSOperationRequirementQ : searchText_ }, TauTDSOperationPartFilter : @"snippet" };
 
-        [ self executeSearchWithPageToken_: nil ];
-        [ self didChangeValueForKey: @"searchText" ];
+            [ self executeSearchWithPageToken_: nil ];
+            } ) );
         }
     }
 
@@ -131,7 +132,7 @@
 @dynamic hasPrev;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingHasPrev
     {
-    return [ NSSet setWithObjects: @"prevToken_", nil ];
+    return [ NSSet setWithObjects: TAU_KEY_OF_SEL( @selector( prevToken_ ) ), nil ];
     }
 
 - ( BOOL ) hasPrev
@@ -142,7 +143,7 @@
 @dynamic hasNext;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingHasNext
     {
-    return [ NSSet setWithObjects: @"nextToken_", nil ];
+    return [ NSSet setWithObjects: TAU_KEY_OF_SEL( @selector( nextToken_ ) ), nil ];
     }
 
 - ( BOOL ) hasNext
@@ -159,11 +160,7 @@
 - ( void ) setPaging: ( BOOL )_Flag
     {
     if ( isPaging_ != _Flag )
-        {
-        [ self willChangeValueForKey: @"isPaging" ];
-        isPaging_ = _Flag;
-        [ self didChangeValueForKey: @"isPaging" ];
-        }
+        TAU_CHANGE_VALUE_FOR_KEY_of( @selector( isPaging ), ^{ isPaging_ = _Flag; } );
     }
 
 - ( BOOL ) isPaging

@@ -9,6 +9,18 @@
 #ifndef TauConstants_h
 #define TauConstants_h
 
+#define TAU_KEY_OF_SEL( _Sel ) ( NSStringFromSelector( _Sel ) )
+#define TAU_CHANGE_VALUE_BEGIN_of( _Sel )  ( [ self willChangeValueForKey: TAU_KEY_OF_SEL( _Sel ) ] )
+#define TAU_CHANGE_VALUE_COMMIT_of( _Sel ) ( [ self didChangeValueForKey: TAU_KEY_OF_SEL( _Sel ) ] )
+
+#define TAU_CHANGE_VALUE_FOR_KEY_of( _Sel, _ExpressionBlk ) \
+do {\
+NSParameterAssert( ( _Sel ) );\
+TAU_CHANGE_VALUE_BEGIN_of( _Sel );\
+    _ExpressionBlk();\
+TAU_CHANGE_VALUE_COMMIT_of( _Sel );\
+} while ( 0 )
+
 
 
 // ------------------------------------------------------------------------------------------------------------ //

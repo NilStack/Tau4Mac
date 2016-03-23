@@ -110,11 +110,6 @@
     [ self.viewsStack popView ];
     }
 
-- ( void ) dealloc
-    {
-
-    }
-
 #pragma mark - Private
 
 // Invoked in viewDidLoad
@@ -122,6 +117,7 @@
     {
     self.viewsStack = [ [ TauViewsStack alloc ] init ];
 
+    // FIXME: Potential memory leak caused by self-observing
     selfObservKVOController_ = [ [ FBKVOController alloc ] initWithObserver: self retainObserved: NO ];
     [ selfObservKVOController_ observe: self
                                keyPath: activedSubViewController_kvoKey
