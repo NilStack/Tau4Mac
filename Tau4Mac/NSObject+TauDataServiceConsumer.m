@@ -11,18 +11,18 @@
 // NSObject + TauDataServiceConsumer
 @implementation NSObject ( TauDataServiceConsumer )
 
-@dynamic ytContent;
-
-void* const kYTContent = @"kYTContent";
-
-- ( void ) setYtContent: ( GTLObject* )_New
-    {
-    objc_setAssociatedObject( self, kYTContent, _New, OBJC_ASSOCIATION_RETAIN );
-    }
-
-- ( GTLObject* ) ytContent
-    {
-    return objc_getAssociatedObject( self, kYTContent );
-    }
+//@dynamic ytContent;
+//
+//void* const kYTContent = @"kYTContent";
+//
+//- ( void ) setYtContent: ( GTLObject* )_New
+//    {
+//    objc_setAssociatedObject( self, kYTContent, _New, OBJC_ASSOCIATION_RETAIN );
+//    }
+//
+//- ( GTLObject* ) ytContent
+//    {
+//    return objc_getAssociatedObject( self, kYTContent );
+//    }
 
 @end // NSObject + TauDataServiceConsumer

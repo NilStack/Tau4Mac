@@ -11,6 +11,8 @@
 // TauContentInspectorViewController class
 @interface TauContentInspectorViewController : NSViewController
 
+@property ( strong, readwrite ) NSArray <GTLObject*>* ytContents;
+
 @end // TauContentInspectorViewController class
 
 
@@ -21,5 +23,4 @@
 
 //TauContentInspectorView class
 @interface TauContentInspectorView : NSView
-
 @end //TauContentInspectorView class

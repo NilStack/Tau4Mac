@@ -11,6 +11,6 @@ void extern* const kYTContent;
 // NSObject + TauDataServiceConsumer
 @interface NSObject ( TauDataServiceConsumer )
 
-@property ( strong, readwrite ) GTLObject* ytContent;
+//@property ( strong, readwrite ) GTLObject* ytContent;
 
 @end // NSObject + TauDataServiceConsumer

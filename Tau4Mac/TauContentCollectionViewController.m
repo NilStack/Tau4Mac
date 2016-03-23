@@ -7,6 +7,7 @@
 //
 
 #import "TauContentCollectionViewController.h"
+#import "TauContentInspectorViewController.h"
 #import "TauContentCollectionItem.h"
 #import "TauNormalWrappedLayout.h"
 
@@ -24,7 +25,7 @@
 
 // Feeding the split view items above
 @property ( weak ) IBOutlet NSViewController* wrapperOfContentCollectionView_;
-@property ( weak ) IBOutlet NSViewController* wrapperOfContentInspectorView_;
+@property ( weak ) IBOutlet TauContentInspectorViewController* wrapperOfContentInspectorView_;
 
 @end // Private
 
@@ -56,6 +57,18 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
     [ self addChildViewController: splitViewController ];
     [ self.view addSubview: [ splitViewController.view configureForAutoLayout ] ];
     [ splitViewController.view autoPinEdgesToSuperviewEdges ];
+
+    [ self.wrapperOfContentInspectorView_
+            bind: TAU_KEY_OF_SEL( @selector( ytContents ) )
+        toObject: self
+     withKeyPath: TAU_KEY_OF_SEL( @selector( selectedItems ) )
+         options: nil ];
+    }
+
+- ( void ) dealloc
+    {
+    DDLogDebug( @"%@ got allocated", self );
+    [ self.wrapperOfContentInspectorView_ unbind: TAU_KEY_OF_SEL( @selector( ytContents ) ) ];
     }
 
 #pragma mark - Relay the Model Data
