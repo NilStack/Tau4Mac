@@ -171,7 +171,7 @@
 @dynamic searchResultsSummaryText;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingSearchResultsSummaryText
     {
-    return [ NSSet setWithObjects: @"searchResults", nil ];
+    return [ NSSet setWithObjects: TAU_KEY_OF_SEL( @selector( searchResults ) ), nil ];
     }
 
 - ( NSString* ) searchResultsSummaryText
@@ -218,10 +218,11 @@
     {
     if ( searchResults_ != _New )
         {
-        [ self willChangeValueForKey: @"searchResults" ];
-        searchResults_ = _New;
-        [ self.contentCollectionViewController_ reloadData ];
-        [ self didChangeValueForKey: @"searchResults" ];
+        TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( searchResults ),
+         ( ^{
+            searchResults_ = _New;
+            [ self.contentCollectionViewController_ reloadData ];
+            } ) );
         }
     }
 
