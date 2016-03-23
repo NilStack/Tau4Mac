@@ -8,6 +8,18 @@
 
 #import "TauContentInspectorViewController.h"
 
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
+// TauContentInspectorSectionView class
+@interface TauContentInspectorSectionView : NSView
+@end // TauContentInspectorSectionView class
+
+
+
 // Private
 @interface TauContentInspectorViewController ()
 
@@ -15,10 +27,10 @@
 
 // These guys used for feeding the self.stackView_
 @property ( weak ) IBOutlet NSView* noSelectionLabelSection_;
-@property ( weak ) IBOutlet NSView* singleContentTitleSection_;
-@property ( weak ) IBOutlet NSView* singleContentDescriptionSection_;
-@property ( weak ) IBOutlet NSView* singleContentActionSection_;
-@property ( weak ) IBOutlet NSView* singleContentMetaInfoSection_;
+@property ( weak ) IBOutlet TauContentInspectorSectionView* singleContentTitleSection_;
+@property ( weak ) IBOutlet TauContentInspectorSectionView* singleContentDescriptionSection_;
+@property ( weak ) IBOutlet TauContentInspectorSectionView* singleContentActionSection_;
+@property ( weak ) IBOutlet TauContentInspectorSectionView* singleContentMetaInfoSection_;
 
 @property ( weak ) IBOutlet NSArrayController* ytContentModelController_;
 
@@ -109,3 +121,19 @@
     }
 
 @end // TauContentInspectorViewController class
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
+// TauContentInspectorSectionView class
+@implementation TauContentInspectorSectionView : NSView
+
+- ( void ) awakeFromNib
+    {
+    [ [ self configureForAutoLayout ] setWantsLayer: YES ];
+    [ self.layer setBackgroundColor: [ NSColor whiteColor ].CGColor ];
+    }
+
+@end // TauContentInspectorSectionView class
