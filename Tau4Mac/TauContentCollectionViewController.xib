@@ -60,11 +60,18 @@
                         <constraint firstAttribute="height" constant="31" id="MtB-Qp-777"/>
                         <constraint firstAttribute="width" constant="124" id="dXv-Kz-fwb"/>
                     </constraints>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="No Selection" id="Bqf-ag-cMM">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="Bqf-ag-cMM">
                         <font key="font" size="20" name="HelveticaNeue-Light"/>
                         <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <binding destination="CL8-Di-2dN" name="value" keyPath="arrangedObjects.@count" id="Uby-rR-54l">
+                            <dictionary key="options">
+                                <string key="NSNullPlaceholder">No Selection</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
                 </textField>
             </subviews>
             <constraints>
@@ -89,5 +96,11 @@
                 <outlet property="view" destination="xP1-B2-ag4" id="0qj-YX-Idj"/>
             </connections>
         </viewController>
+        <userDefaultsController representsSharedInstance="YES" id="nM0-Pv-lTg"/>
+        <arrayController objectClassName="GTLObject" editable="NO" id="CL8-Di-2dN" userLabel="Selected Items within Content Collection View">
+            <connections>
+                <binding destination="-2" name="contentArray" keyPath="self.selectedItems" id="VDH-Sv-4Ki"/>
+            </connections>
+        </arrayController>
     </objects>
 </document>

@@ -91,9 +91,9 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
     return [ NSSet setWithObjects: TAU_KEY_OF_SEL( @selector( selectionIndexPaths ) ), nil ];
     }
 
-- ( NSOrderedSet <NSCollectionViewItem*>* ) selectedItems
+- ( NSArray <NSCollectionViewItem*>* ) selectedItems
     {
-    NSMutableOrderedSet* result = nil;
+    NSMutableArray* result = nil;
 
     NSArray* relayedDataModel = [ self.relayDataSource contentCollectionViewRequiredData: self ];
 
@@ -113,7 +113,7 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
                 {
                 // Lazy initialization
                 if ( !result )
-                    result = [ NSMutableOrderedSet orderedSet ];
+                    result = [ NSMutableArray array ];
 
                 [ result addObject: [ relayedDataModel objectAtIndex: indexesBuffer[ _Index ] ] ];
                 }
@@ -122,7 +122,7 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
         free( indexesBuffer );
         }
 
-    return result ? [ result copy ] : [ NSOrderedSet orderedSet ];
+    return result ? [ result copy ] : @[];
     }
 
 #pragma mark - Conforms to <NSCollectionViewDataSource>
