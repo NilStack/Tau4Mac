@@ -51,9 +51,6 @@
     NSImage __strong* priThumbnailImage_;
     GTLObject __strong* ytContent_;
 
-    TauContentCollectionItemSubLayer __strong* priSubLayer_;
-    _PriItemBorderView __strong* priBorderView_;
-
     // Layout caches
     NSArray __strong* priBorderViewPinEdgesCache_;
     }
@@ -189,7 +186,7 @@
 
 #pragma mark - Private
 
-@dynamic subLayer_;
+@synthesize subLayer_ = priSubLayer_;
 - ( TauContentCollectionItemSubLayer* ) subLayer_
     {
     if ( !priSubLayer_ )
@@ -211,7 +208,7 @@
     return priSubLayer_;
     }
 
-@dynamic borderView_;
+@synthesize borderView_ = priBorderView_;
 - ( _PriItemBorderView* ) borderView_
     {
     if ( !priBorderView_ )

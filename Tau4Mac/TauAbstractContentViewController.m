@@ -110,6 +110,11 @@
     [ self.viewsStack popView ];
     }
 
+- ( void ) dealloc
+    {
+
+    }
+
 #pragma mark - Private
 
 // Invoked in viewDidLoad
@@ -117,7 +122,7 @@
     {
     self.viewsStack = [ [ TauViewsStack alloc ] init ];
 
-    selfObservKVOController_ = [ [ FBKVOController alloc ] initWithObserver: self ];
+    selfObservKVOController_ = [ [ FBKVOController alloc ] initWithObserver: self retainObserved: NO ];
     [ selfObservKVOController_ observe: self
                                keyPath: activedSubViewController_kvoKey
                                /* value of "activedSubViewController" key will be set in implementation of subclasses, 

@@ -34,10 +34,6 @@
 // TauMainContentViewController class
 @implementation TauMainContentViewController
     {
-    TauSearchContentViewController __strong*  priSearchContentViewController_;
-    TauExploreContentViewController __strong* priExploreContentViewController_;
-    TauPlayerContentViewController __strong*  priPlayerContentViewController_;
-
     // Layout caches
     NSArray __strong* activedPinEdgesCache_;
     }
@@ -95,9 +91,10 @@
 
 #pragma mark - Dynamic Properties
 
-@dynamic searchContentViewController;
-@dynamic exploreContentViewController;
-@dynamic playerContentViewController;
+@synthesize searchContentViewController = priSearchContentViewController_;
+@synthesize exploreContentViewController = priExploreContentViewController_;
+@synthesize playerContentViewController = priPlayerContentViewController_;
+
 - ( TauSearchContentViewController* ) searchContentViewController
     {
     if ( !priSearchContentViewController_ )

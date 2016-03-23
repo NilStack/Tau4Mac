@@ -52,9 +52,7 @@
 // TauSearchResultsCollectionContentSubViewController class
 @implementation TauSearchResultsCollectionContentSubViewController
     {
-    TauYTDataServiceCredential __strong* priCredential_;
     NSDictionary __strong* priOriginalOperationsCombination_;
-    TauContentCollectionViewController __strong* priContentCollectionViewController_;
     }
 
 #pragma mark - Conforms to <TauContentCollectionViewRelayDataSource>
@@ -197,8 +195,6 @@
             videosCount++;
         } ];
 
-//    NSString* channelCountSum = [ 
-
     if ( channelsCount || playlistsCount || videosCount )
         {
         return [ NSString stringWithFormat: NSLocalizedString(  @"%lu Channel%@, %lu Playlist%@ and %lu Video%@", nil )
@@ -259,7 +255,7 @@
 
 @synthesize accessoryBarViewController_;
 
-@dynamic contentCollectionViewController_;
+@synthesize contentCollectionViewController_ = priContentCollectionViewController_;
 - ( TauContentCollectionViewController* ) contentCollectionViewController_
     {
     if ( !priContentCollectionViewController_ )
@@ -274,7 +270,7 @@
     return priContentCollectionViewController_;
     }
 
-@dynamic credential_;
+@synthesize credential_ = priCredential_;
 - ( TauYTDataServiceCredential* ) credential_
     {
     if ( !priCredential_ )

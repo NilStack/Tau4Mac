@@ -10,7 +10,10 @@
 @end // Private Interfaces
 
 
+
 // ------------------------------------------------------------------------------------------------------------ //
+
+
 
 #define THROW_ARGUMENTS_MUST_NO_BE_NIL_EX \
 do { \
@@ -27,6 +30,12 @@ do { \
                reason: [ NSString stringWithFormat: @"Background view is required" ] \
              userInfo: @{ @"file" : THIS_FILE, @"method" : THIS_METHOD, @"line" : @( __LINE__ ) } ]; \
 } while( 0 )
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
 
 // TauViewsStack class
 @implementation TauViewsStack
