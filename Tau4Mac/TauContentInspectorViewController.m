@@ -10,8 +10,18 @@
 
 // Private
 @interface TauContentInspectorViewController ()
-@property ( weak ) IBOutlet NSTextField* noSelectionLabel_;
+
+@property ( strong, readonly ) NSStackView* stackView_;
+
+// These guys used for feeding the self.stackView_
+@property ( weak ) IBOutlet NSView* noSelectionLabelSection_;
+@property ( weak ) IBOutlet NSView* singleContentTitleSection_;
+@property ( weak ) IBOutlet NSView* singleContentDescriptionSection_;
+@property ( weak ) IBOutlet NSView* singleContentActionSection_;
+@property ( weak ) IBOutlet NSView* singleContentMetaInfoSection_;
+
 @property ( weak ) IBOutlet NSArrayController* ytContentModelController_;
+
 @end // Private
 
 
@@ -22,14 +32,27 @@
 
 // TauContentInspectorViewController class
 @implementation TauContentInspectorViewController
+    {
+    // Layout Constraints Cache
+    NSArray <NSLayoutConstraint*>* inspectorLayoutConstraintsCache_;
+    }
+
+#pragma mark - Initializations
 
 - ( void ) viewDidLoad
     {
     [ super viewDidLoad ];
     // Do view setup here.
 
-//    [ self.noSelectionLabel_ bind: @"value" toObject: self.repObjectModelController_ withKeyPath: @"arrangedObjects" options: nil ];
+    NSLog( @"%@", self.stackView_ );
     }
+
+- ( void ) dealloc
+    {
+    DDLogDebug( @"%@ got allocated", self );
+    }
+
+#pragma mark - External KVB Compliant Properties
 
 @synthesize ytContents = ytContents_;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingYtContents
@@ -49,7 +72,6 @@
         TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( ytContents ),
          ( ^{
             ytContents_ = _New;
-            DDLogInfo( @"%@", ytContents_ );
             } ) );
         }
     }
@@ -59,20 +81,31 @@
     return ytContents_;
     }
 
-- ( void ) dealloc
+#pragma mark - Private
+
+@synthesize stackView_ = priStackView_;
+- ( NSStackView* ) stackView_
     {
-    DDLogDebug( @"%@ got allocated", self );
+    if ( !priStackView_ )
+        {
+        priStackView_ = [ NSStackView stackViewWithViews:
+            @[ self.singleContentTitleSection_
+             , self.singleContentDescriptionSection_
+             , self.singleContentActionSection_
+             , self.singleContentMetaInfoSection_
+             ] ];
+
+        priStackView_.orientation = NSUserInterfaceLayoutOrientationVertical;
+        priStackView_.alignment = NSLayoutAttributeCenterX;
+        priStackView_.spacing = 0.f;
+
+        [ priStackView_ setHuggingPriority: NSLayoutPriorityDefaultHigh forOrientation: NSLayoutConstraintOrientationHorizontal ];
+
+        [ self.view addSubview: [ priStackView_ configureForAutoLayout ] ];
+        [ priStackView_ autoPinEdgesToSuperviewEdges ];
+        }
+
+    return priStackView_;
     }
 
 @end // TauContentInspectorViewController class
-
-
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-
-
-// TauContentInspectorView class
-@implementation TauContentInspectorView
-
-@end // TauContentInspectorView class

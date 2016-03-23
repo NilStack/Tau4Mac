@@ -6,21 +6,15 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-@class TauContentInspectorView;
+@class TauAbstractContentInspectorView;
 
 // TauContentInspectorViewController class
 @interface TauContentInspectorViewController : NSViewController
 
-@property ( strong, readwrite ) NSArray <GTLObject*>* ytContents;
+@property ( strong, readwrite ) NSArray <GTLObject*>* ytContents;   // KVB-Compliant
 
 @end // TauContentInspectorViewController class
 
 
 
 // ------------------------------------------------------------------------------------------------------------ //
-
-
-
-//TauContentInspectorView class
-@interface TauContentInspectorView : NSView
-@end //TauContentInspectorView class
