@@ -14,7 +14,3 @@
 @property ( strong, readwrite ) NSArray <GTLObject*>* ytContents;   // KVB-Compliant
 
 @end // TauContentInspectorViewController class
-
-
-
-// ------------------------------------------------------------------------------------------------------------ //

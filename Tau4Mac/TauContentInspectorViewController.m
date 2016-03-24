@@ -109,6 +109,7 @@
 
         [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityMustHold forView: self.singleContentTitleSection_ ];
         [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityMustHold forView: self.singleContentActionSection_ ];
+        [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityDetachOnlyIfNecessary forView: self.singleContentDescriptionSection_ ];
         [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityDetachOnlyIfNecessary forView: self.singleContentMetaInfoSection_ ];
 
         priStackView_.orientation = NSUserInterfaceLayoutOrientationVertical;
@@ -138,8 +139,8 @@
     {
     [ [ self configureForAutoLayout ] setWantsLayer: YES ];
     [ self.layer setBackgroundColor: [ NSColor whiteColor ].CGColor ];
-//    [ self.layer setBorderColor: [ NSColor blackColor ].CGColor ];
-//    [ self.layer setBorderWidth: .3f ];
+    [ self.layer setBorderColor: [ NSColor blackColor ].CGColor ];
+    [ self.layer setBorderWidth: .3f ];
     }
 
 @end // TauContentInspectorSectionView class
