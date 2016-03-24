@@ -103,7 +103,7 @@
         priStackView_ = [ [ NSStackView alloc ] initWithFrame: NSZeroRect ];
 
         [ priStackView_ addView: self.singleContentTitleSection_ inGravity: NSStackViewGravityTop ];
-        [ priStackView_ addView: self.singleContentDescriptionSection_ inGravity: NSStackViewGravityCenter ];
+        [ priStackView_ addView: self.singleContentDescriptionSection_ inGravity: NSStackViewGravityTop ];
         [ priStackView_ addView: self.singleContentActionSection_ inGravity: NSStackViewGravityCenter ];
         [ priStackView_ addView: self.singleContentMetaInfoSection_ inGravity: NSStackViewGravityBottom ];
 
@@ -138,6 +138,8 @@
     {
     [ [ self configureForAutoLayout ] setWantsLayer: YES ];
     [ self.layer setBackgroundColor: [ NSColor whiteColor ].CGColor ];
+//    [ self.layer setBorderColor: [ NSColor blackColor ].CGColor ];
+//    [ self.layer setBorderWidth: .3f ];
     }
 
 @end // TauContentInspectorSectionView class

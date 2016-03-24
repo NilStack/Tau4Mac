@@ -188,7 +188,7 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
     {
     if ( !priContentInspectorSplitViewItem_ )
         {
-        priContentInspectorSplitViewItem_ = [ NSSplitViewItem sidebarWithViewController: self.wrapperOfContentInspectorView_ ];
+        priContentInspectorSplitViewItem_ = [ NSSplitViewItem contentListWithViewController: self.wrapperOfContentInspectorView_ ];
         [ priContentInspectorSplitViewItem_ setCanCollapse: YES ];
 
         //
