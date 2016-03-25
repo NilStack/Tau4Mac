@@ -8,10 +8,6 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TauContentInspectorViewController">
             <connections>
                 <outlet property="noSelectionLabelSection_" destination="jJL-pR-HgS" id="kjX-co-7Q8"/>
-                <outlet property="singleContentActionDisclosureViewController_" destination="d9w-t5-BKg" id="wwe-7o-R04"/>
-                <outlet property="singleContentDescriptionDisclosureViewController_" destination="jOd-a3-Ay4" id="7fR-AK-d95"/>
-                <outlet property="singleContentMetaInfoDisclosureViewController_" destination="Fsn-f5-nlX" id="9FV-qi-Vtz"/>
-                <outlet property="singleContentTitleDisclosureViewController_" destination="NyQ-zx-yn7" id="nyl-Ef-nK3"/>
                 <outlet property="view" destination="JpR-XP-nVJ" id="PbH-ZP-GSR"/>
                 <outlet property="ytContentModelController_" destination="nkQ-0u-50I" id="vcT-WP-HCJ"/>
             </connections>
@@ -21,7 +17,7 @@
         <customView wantsLayer="YES" id="JpR-XP-nVJ" userLabel="Master View">
             <rect key="frame" x="0.0" y="0.0" width="268" height="410"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <point key="canvasLocation" x="464" y="293"/>
+            <point key="canvasLocation" x="365" y="236"/>
         </customView>
         <arrayController objectClassName="GTLObject" id="nkQ-0u-50I" userLabel="YouTube Content Objects Model Controller">
             <connections>
@@ -40,7 +36,7 @@
                 <binding destination="nkQ-0u-50I" name="hidden" keyPath="arrangedObjects.@count" id="hqn-IA-ruJ"/>
                 <binding destination="nkQ-0u-50I" name="value" keyPath="selection.snippet.title" id="Vz8-s1-fD2"/>
             </connections>
-            <point key="canvasLocation" x="440" y="-22"/>
+            <point key="canvasLocation" x="802" y="100"/>
         </textField>
         <customView id="dhK-De-Q8r" userLabel="Single Content Action Section" customClass="TauContentInspectorSectionView">
             <rect key="frame" x="0.0" y="0.0" width="269" height="41"/>
@@ -67,7 +63,7 @@ DQ
                 <constraint firstAttribute="trailing" secondItem="dZ5-kf-zgD" secondAttribute="trailing" constant="33" id="cOn-9L-vD0"/>
                 <constraint firstItem="dZ5-kf-zgD" firstAttribute="top" secondItem="dhK-De-Q8r" secondAttribute="top" constant="10" id="e1V-7h-QLZ"/>
             </constraints>
-            <point key="canvasLocation" x="802.5" y="499"/>
+            <point key="canvasLocation" x="802.5" y="11.5"/>
         </customView>
         <customView id="yUE-5Y-ndY" userLabel="Single Content Title Section" customClass="TauContentInspectorSectionView">
             <rect key="frame" x="0.0" y="0.0" width="240" height="48"/>
@@ -95,16 +91,16 @@ DQ
                 <constraint firstAttribute="trailing" secondItem="qjj-kr-bQV" secondAttribute="trailing" constant="20" id="JOZ-XO-xkz"/>
                 <constraint firstItem="qjj-kr-bQV" firstAttribute="leading" secondItem="yUE-5Y-ndY" secondAttribute="leading" constant="20" id="XUm-1D-pVd"/>
             </constraints>
-            <point key="canvasLocation" x="948" y="43"/>
+            <point key="canvasLocation" x="802" y="-104"/>
         </customView>
         <customView wantsLayer="YES" id="eG4-cM-th3" userLabel="Single Content Description Section" customClass="TauContentInspectorSectionView">
-            <rect key="frame" x="0.0" y="0.0" width="290" height="100"/>
+            <rect key="frame" x="0.0" y="0.0" width="290" height="111"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="3UD-cT-lJL">
-                    <rect key="frame" x="15" y="12" width="260" height="77"/>
+                    <rect key="frame" x="15" y="11" width="260" height="89"/>
                     <clipView key="contentView" id="nU5-zQ-TjM">
-                        <rect key="frame" x="0.0" y="0.0" width="260" height="77"/>
+                        <rect key="frame" x="0.0" y="0.0" width="260" height="89"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView editable="NO" selectable="NO" importsGraphics="NO" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" linkDetection="YES" dashSubstitution="YES" id="x6x-jN-cff">
@@ -112,7 +108,7 @@ DQ
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <size key="minSize" width="260" height="77"/>
+                                <size key="minSize" width="260" height="89"/>
                                 <size key="maxSize" width="463" height="10000000"/>
                                 <attributedString key="textStorage">
                                     <fragment>
@@ -165,7 +161,7 @@ Thanks!</string>
                                     </fragment>
                                 </attributedString>
                                 <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <size key="minSize" width="260" height="77"/>
+                                <size key="minSize" width="260" height="89"/>
                                 <size key="maxSize" width="463" height="10000000"/>
                                 <connections>
                                     <binding destination="nkQ-0u-50I" name="attributedString" keyPath="selection.snippet.descriptionProperty" id="Pro-i0-kfp">
@@ -188,18 +184,18 @@ Thanks!</string>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" canDrawConcurrently="YES" verticalHuggingPriority="750" mirrorLayoutDirectionWhenInternationalizing="never" arrowsPosition="none" horizontal="NO" id="pB8-y6-6Oz">
-                        <rect key="frame" x="244" y="0.0" width="16" height="77"/>
+                        <rect key="frame" x="244" y="0.0" width="16" height="89"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
             </subviews>
             <constraints>
                 <constraint firstItem="3UD-cT-lJL" firstAttribute="leading" secondItem="eG4-cM-th3" secondAttribute="leading" constant="15" id="2r0-sD-iFm"/>
-                <constraint firstAttribute="bottom" secondItem="3UD-cT-lJL" secondAttribute="bottom" constant="12" id="3AH-Ji-GWi"/>
                 <constraint firstItem="3UD-cT-lJL" firstAttribute="top" secondItem="eG4-cM-th3" secondAttribute="top" constant="11" id="YMd-HN-kVQ"/>
                 <constraint firstAttribute="trailing" secondItem="3UD-cT-lJL" secondAttribute="trailing" constant="15" id="fKf-DZ-4bg"/>
+                <constraint firstAttribute="bottom" secondItem="3UD-cT-lJL" secondAttribute="bottom" constant="11" id="tPX-hP-6xF"/>
             </constraints>
-            <point key="canvasLocation" x="868" y="191"/>
+            <point key="canvasLocation" x="802" y="235.5"/>
         </customView>
         <customView id="wnM-W4-bI1" userLabel="Single Content Meta Info Section" customClass="TauContentInspectorSectionView">
             <rect key="frame" x="0.0" y="0.0" width="369" height="247"/>
@@ -311,36 +307,7 @@ Thanks!</string>
                 <constraint firstAttribute="bottom" secondItem="oy1-wi-lfm" secondAttribute="bottom" id="rmp-pj-7FV"/>
                 <constraint firstItem="oy1-wi-lfm" firstAttribute="top" secondItem="wnM-W4-bI1" secondAttribute="top" id="uNa-6c-JOa"/>
             </constraints>
-            <point key="canvasLocation" x="639.5" y="714.5"/>
+            <point key="canvasLocation" x="802.5" y="491.5"/>
         </customView>
-        <viewController id="NyQ-zx-yn7" customClass="TauAbstractDisclosureViewController">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="boolean" keyPath="showsHeader" value="NO"/>
-            </userDefinedRuntimeAttributes>
-            <connections>
-                <outlet property="disclosedView" destination="yUE-5Y-ndY" id="mMV-5X-wPF"/>
-            </connections>
-        </viewController>
-        <viewController title="Information" nibName="TauAbstractDisclosureViewController" id="Fsn-f5-nlX" customClass="TauAbstractDisclosureViewController">
-            <connections>
-                <outlet property="disclosedView" destination="wnM-W4-bI1" id="aCJ-Ab-Fnz"/>
-            </connections>
-        </viewController>
-        <viewController title="Action" nibName="TauAbstractDisclosureViewController" id="d9w-t5-BKg" customClass="TauAbstractDisclosureViewController">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="boolean" keyPath="showsHeader" value="NO"/>
-            </userDefinedRuntimeAttributes>
-            <connections>
-                <outlet property="disclosedView" destination="dhK-De-Q8r" id="gOQ-vf-oyu"/>
-            </connections>
-        </viewController>
-        <viewController title="Description" nibName="TauAbstractDisclosureViewController" id="jOd-a3-Ay4" customClass="TauAbstractDisclosureViewController">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="boolean" keyPath="showsHeader" value="NO"/>
-            </userDefinedRuntimeAttributes>
-            <connections>
-                <outlet property="disclosedView" destination="eG4-cM-th3" id="wxj-iP-btT"/>
-            </connections>
-        </viewController>
     </objects>
 </document>
