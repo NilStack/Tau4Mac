@@ -10,27 +10,34 @@
 
 
 
-// ------------------------------------------------------------------------------------------------------------ //
-
-
-
 // TauContentInspectorSectionView class
 @interface TauContentInspectorSectionView : NSView
 @end // TauContentInspectorSectionView class
 
 
 
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
 // Private
 @interface TauContentInspectorViewController ()
 
-@property ( strong, readonly ) NSStackView* stackView_;
-
-// These guys used for feeding the self.stackView_
 @property ( weak ) IBOutlet NSView* noSelectionLabelSection_;
-@property ( weak ) IBOutlet TauContentInspectorSectionView* singleContentTitleSection_;
-@property ( weak ) IBOutlet TauContentInspectorSectionView* singleContentDescriptionSection_;
-@property ( weak ) IBOutlet TauContentInspectorSectionView* singleContentActionSection_;
-@property ( weak ) IBOutlet TauContentInspectorSectionView* singleContentMetaInfoSection_;
+
+@property ( strong, readonly ) NSSplitViewController* splitInspectorViewController_;
+
+// These guys used for feeding the split inspector view controller above
+@property ( strong, readonly ) NSSplitViewItem* singleContentTitleSectionItem_;
+@property ( strong, readonly ) NSSplitViewItem* singleContentActionSectionItem_;
+@property ( strong, readonly ) NSSplitViewItem* singleContentDescriptionSectionItem_;
+@property ( strong, readonly ) NSSplitViewItem* singleContentInformationSectionItem_;
+
+// These guys used for feeding the split view items above
+@property ( weak ) IBOutlet NSViewController* wrapperOfSingleContentTitleSectionView_;
+@property ( weak ) IBOutlet NSViewController* wrapperOfSingleContentActionSectionView_;
+@property ( weak ) IBOutlet NSViewController* wrapperOfSingleContentDescriptionSectionView_;
+@property ( weak ) IBOutlet NSViewController* wrapperOfSingleContentInformationSectionView_;
 
 @property ( weak ) IBOutlet NSArrayController* ytContentModelController_;
 
@@ -54,14 +61,15 @@
 - ( void ) viewDidLoad
     {
     [ super viewDidLoad ];
-    // Do view setup here.
 
-    NSLog( @"%@", self.stackView_ );
+    [ self addChildViewController: self.splitInspectorViewController_ ];
+    [ self.view addSubview: self.splitInspectorViewController_.view ];
+    [ [ self.splitInspectorViewController_.view configureForAutoLayout ] autoPinEdgesToSuperviewEdges ];
     }
 
 - ( void ) dealloc
     {
-    DDLogDebug( @"%@ got allocated", self );
+    DDLogDebug( @"%@ got deallocated", self );
     }
 
 #pragma mark - External KVB Compliant Properties
@@ -95,37 +103,63 @@
 
 #pragma mark - Private
 
-@synthesize stackView_ = priStackView_;
-- ( NSStackView* ) stackView_
+@synthesize splitInspectorViewController_ = priSplitInspectorViewController_;
+- ( NSSplitViewController* ) splitInspectorViewController_
     {
-    if ( !priStackView_ )
+    if ( !priSplitInspectorViewController_ )
         {
-        priStackView_ = [ [ NSStackView alloc ] initWithFrame: NSZeroRect ];
+        priSplitInspectorViewController_ = [ [ NSSplitViewController alloc ] initWithNibName: nil bundle: nil ];
+        priSplitInspectorViewController_.splitView.vertical = NO;
+        priSplitInspectorViewController_.splitView.dividerStyle = NSSplitViewDividerStyleThin;
 
-        [ priStackView_ addView: self.singleContentTitleSection_ inGravity: NSStackViewGravityTop ];
-        [ priStackView_ addView: self.singleContentDescriptionSection_ inGravity: NSStackViewGravityTop ];
-        [ priStackView_ addView: self.singleContentActionSection_ inGravity: NSStackViewGravityCenter ];
-        [ priStackView_ addView: self.singleContentMetaInfoSection_ inGravity: NSStackViewGravityBottom ];
-
-        [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityMustHold forView: self.singleContentTitleSection_ ];
-        [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityMustHold forView: self.singleContentActionSection_ ];
-        [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityDetachOnlyIfNecessary forView: self.singleContentDescriptionSection_ ];
-        [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityDetachOnlyIfNecessary forView: self.singleContentMetaInfoSection_ ];
-
-        priStackView_.orientation = NSUserInterfaceLayoutOrientationVertical;
-        priStackView_.alignment = NSLayoutAttributeCenterX;
-        priStackView_.spacing = 0.f;
-
-        [ priStackView_ setHuggingPriority: NSLayoutPriorityDefaultHigh forOrientation: NSLayoutConstraintOrientationHorizontal ];
-
-        [ self.view addSubview: [ priStackView_ configureForAutoLayout ] ];
-        [ priStackView_ autoPinEdgesToSuperviewEdges ];
+        [ priSplitInspectorViewController_ addSplitViewItem: self.singleContentTitleSectionItem_ ];
+        [ priSplitInspectorViewController_ addSplitViewItem: self.singleContentActionSectionItem_ ];
+        [ priSplitInspectorViewController_ addSplitViewItem: self.singleContentDescriptionSectionItem_ ];
+        [ priSplitInspectorViewController_ addSplitViewItem: self.singleContentInformationSectionItem_ ];
         }
 
-    return priStackView_;
+    return priSplitInspectorViewController_;
+    }
+
+    // These guys used for feeding the split inspector view controller above
+@synthesize singleContentTitleSectionItem_ = priSingleContentTitleSectionItem_;
+- ( NSSplitViewItem* ) singleContentTitleSectionItem_
+    {
+    if ( !priSingleContentTitleSectionItem_ )
+        priSingleContentTitleSectionItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfSingleContentTitleSectionView_ ];
+
+    return priSingleContentTitleSectionItem_;
+    }
+
+@synthesize singleContentActionSectionItem_ = priSingleContentActionSectionItem_;
+- ( NSSplitViewItem* ) singleContentActionSectionItem_
+    {
+    if ( !priSingleContentActionSectionItem_ )
+        priSingleContentActionSectionItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfSingleContentActionSectionView_ ];
+
+    return priSingleContentActionSectionItem_;
+    }
+
+@synthesize singleContentDescriptionSectionItem_ = priSingleContentDescriptionSectionItem_;
+- ( NSSplitViewItem* ) singleContentDescriptionSectionItem_
+    {
+    if ( !priSingleContentDescriptionSectionItem_ )
+        priSingleContentDescriptionSectionItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfSingleContentDescriptionSectionView_ ];
+
+    return priSingleContentDescriptionSectionItem_;
+    }
+
+@synthesize singleContentInformationSectionItem_ = priSingleContentInformationSectionItem_;
+- ( NSSplitViewItem* ) singleContentInformationSectionItem_
+    {
+    if ( !priSingleContentInformationSectionItem_ )
+        priSingleContentInformationSectionItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfSingleContentInformationSectionView_ ];
+
+    return priSingleContentInformationSectionItem_;
     }
 
 @end // TauContentInspectorViewController class
+
 
 
 // ------------------------------------------------------------------------------------------------------------ //
@@ -139,8 +173,30 @@
     {
     [ [ self configureForAutoLayout ] setWantsLayer: YES ];
     [ self.layer setBackgroundColor: [ NSColor whiteColor ].CGColor ];
-    [ self.layer setBorderColor: [ NSColor blackColor ].CGColor ];
-    [ self.layer setBorderWidth: .3f ];
     }
 
 @end // TauContentInspectorSectionView class
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
+@interface TauTextViewAttributedStringTransformer : NSValueTransformer
+@end
+
+@implementation TauTextViewAttributedStringTransformer
+
++ ( Class ) transformedValueClass
+    {
+    return [ NSAttributedString class ];
+    }
+
+- ( id ) transformedValue: ( id )_Value
+    {
+    return [ [ NSAttributedString alloc ] initWithString: _Value attributes:
+        @{ NSFontAttributeName : [ NSFont fontWithName: @"Helvetica Neue Light" size: 13.f ] } ];
+    }
+
+@end

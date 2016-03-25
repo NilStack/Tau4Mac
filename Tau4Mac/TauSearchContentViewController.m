@@ -38,9 +38,6 @@
 
 // TauSearchContentViewController class
 @implementation TauSearchContentViewController
-    {
-//    TauYTDataServiceCredential __strong* credential_;
-    }
 
 - ( void ) viewDidLoad
     {

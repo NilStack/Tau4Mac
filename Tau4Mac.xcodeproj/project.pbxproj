@@ -13,6 +13,14 @@
 		8321F6681C8AA0A500D11FE0 /* TauViewsStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6671C8AA0A500D11FE0 /* TauViewsStack.m */; };
 		83224A951CA167B9008931C6 /* TAAdaptiveSpaceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 83224A921CA167B9008931C6 /* TAAdaptiveSpaceItem.m */; };
 		83224A961CA167B9008931C6 /* TAAdaptiveSpaceItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83224A941CA167B9008931C6 /* TAAdaptiveSpaceItemView.m */; };
+		8325553D1CA4DF7A000C8A48 /* KVOController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832555171CA4DF6F000C8A48 /* KVOController.framework */; };
+		8325553E1CA4E007000C8A48 /* KVOController.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 832555171CA4DF6F000C8A48 /* KVOController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		832555551CA50B23000C8A48 /* font-lato-black-regular.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = 8325554C1CA50AF9000C8A48 /* font-lato-black-regular.ttf */; };
+		832555561CA50B23000C8A48 /* font-lato-bold.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = 8325554D1CA50AF9000C8A48 /* font-lato-bold.ttf */; };
+		832555571CA50B23000C8A48 /* font-lato-light-regular.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = 8325554E1CA50AF9000C8A48 /* font-lato-light-regular.ttf */; };
+		832555581CA50B23000C8A48 /* font-lato-regular.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = 8325554F1CA50AF9000C8A48 /* font-lato-regular.ttf */; };
+		8325555C1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8325555B1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m */; };
+		8325555E1CA54143000C8A48 /* TauAbstractCollectionContentSubViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8325555D1CA54143000C8A48 /* TauAbstractCollectionContentSubViewController.xib */; };
 		833846CB1C9FE39400F49885 /* TauNormalWrappedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 833846CA1C9FE39400F49885 /* TauNormalWrappedLayout.m */; };
 		833846FA1CA10D8D00F49885 /* TauContentCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 833846F81CA10D8D00F49885 /* TauContentCollectionViewController.m */; };
 		833846FB1CA10D8D00F49885 /* TauContentCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 833846F91CA10D8D00F49885 /* TauContentCollectionViewController.xib */; };
@@ -50,11 +58,11 @@
 		83765B0F1C88170F00D93554 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B0E1C88170F00D93554 /* Cocoa.framework */; };
 		83765B111C88171400D93554 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B101C88171400D93554 /* QuartzCore.framework */; };
 		83765B311C8818FC00D93554 /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B221C8818F500D93554 /* PureLayout.framework */; };
-		83765B341C88191C00D93554 /* PureLayout.framework in Copy Third-Party Frameworks (4 items) */ = {isa = PBXBuildFile; fileRef = 83765B221C8818F500D93554 /* PureLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		83765B341C88191C00D93554 /* PureLayout.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B221C8818F500D93554 /* PureLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83765B681C881A6200D93554 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B491C881A5700D93554 /* CocoaLumberjack.framework */; };
-		83765B691C881A6800D93554 /* CocoaLumberjack.framework in Copy Third-Party Frameworks (4 items) */ = {isa = PBXBuildFile; fileRef = 83765B491C881A5700D93554 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		83765B691C881A6800D93554 /* CocoaLumberjack.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B491C881A5700D93554 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83765B941C881E2300D93554 /* GTL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B8B1C881E1700D93554 /* GTL.framework */; };
-		83765B971C881EA900D93554 /* GTL.framework in Copy Third-Party Frameworks (4 items) */ = {isa = PBXBuildFile; fileRef = 83765B8B1C881E1700D93554 /* GTL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		83765B971C881EA900D93554 /* GTL.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B8B1C881E1700D93554 /* GTL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		838342E61C96D59800BE6378 /* GTL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B8B1C881E1700D93554 /* GTL.framework */; };
 		838342E91C96D74900BE6378 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B491C881A5700D93554 /* CocoaLumberjack.framework */; };
 		838342EE1C96E9AB00BE6378 /* GTLYouTube_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2121C88200000A42C44 /* GTLYouTube_Sources.m */; };
@@ -67,7 +75,6 @@
 		838342FE1C98409F00BE6378 /* TauYouTubePlaylistsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 838342F81C98198F00BE6378 /* TauYouTubePlaylistsCollection.m */; };
 		838342FF1C9840A200BE6378 /* TauYouTubePlaylistItemsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 838342FB1C981C2400BE6378 /* TauYouTubePlaylistItemsCollection.m */; };
 		838D405A1C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 838D40581C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.m */; };
-		838D405B1C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 838D40591C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.xib */; };
 		8399E2141C88200000A42C44 /* GTLYouTube_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2121C88200000A42C44 /* GTLYouTube_Sources.m */; };
 		8399E21A1C88231400A42C44 /* TauMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2191C88231400A42C44 /* TauMainWindowController.m */; };
 		8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E21C1C88232E00A42C44 /* TauMainWindow.m */; };
@@ -93,11 +100,9 @@
 		83DA1C461C8864C0007B084F /* TauAbstractLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C451C8864C0007B084F /* TauAbstractLogFormatter.m */; };
 		83DA1C491C8864E9007B084F /* TauTTYLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C481C8864E9007B084F /* TauTTYLogFormatter.m */; };
 		83DA1C581C8893BF007B084F /* OAuthSigningConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C571C8893BF007B084F /* OAuthSigningConstants.m */; };
-		83EB73331C8C6B6E004EB117 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB73301C8C6B6E004EB117 /* FBKVOController.m */; };
-		83EB73341C8C6B6E004EB117 /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB73321C8C6B6E004EB117 /* NSObject+FBKVOController.m */; };
 		83EB73491C8D33BC004EB117 /* TauAbstractBeautifulView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB73481C8D33BC004EB117 /* TauAbstractBeautifulView.m */; };
 		83EB73C11C8E6520004EB117 /* XCDYouTubeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EB73B81C8E6514004EB117 /* XCDYouTubeKit.framework */; };
-		83EB73C31C8E6531004EB117 /* XCDYouTubeKit.framework in Copy Third-Party Frameworks (4 items) */ = {isa = PBXBuildFile; fileRef = 83EB73B81C8E6514004EB117 /* XCDYouTubeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		83EB73C31C8E6531004EB117 /* XCDYouTubeKit.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 83EB73B81C8E6514004EB117 /* XCDYouTubeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83EB73C91C8E65A2004EB117 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EB73C71C8E65A2004EB117 /* AVFoundation.framework */; };
 		83EB73CA1C8E65A2004EB117 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EB73C81C8E65A2004EB117 /* AVKit.framework */; };
 		83EB74591C9058C4004EB117 /* NSBezierPath+TauDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB74581C9058C4004EB117 /* NSBezierPath+TauDrawing.m */; };
@@ -105,6 +110,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		832555101CA4DF6F000C8A48 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = ECEA60FE18A49C620064AFF4;
+			remoteInfo = FBKVOController;
+		};
+		832555121CA4DF6F000C8A48 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = ECEA610E18A49C620064AFF4;
+			remoteInfo = FBKVOControllerTests;
+		};
+		832555141CA4DF6F000C8A48 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 81EC40C61CA3620A00BD9226;
+			remoteInfo = "FBKVOController-iOS-Dynamic";
+		};
+		832555161CA4DF6F000C8A48 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 81EC40F81CA3639C00BD9226;
+			remoteInfo = "FBKVOController-OSX-Dynamic";
+		};
 		83765AF11C8811DE00D93554 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83765AD21C8811DD00D93554 /* Project object */;
@@ -381,18 +414,33 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		83765B321C88190300D93554 /* Copy Third-Party Frameworks (4 items) */ = {
+		832555541CA50B05000C8A48 /* Copy Fonts */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Fonts;
+			dstSubfolderSpec = 7;
+			files = (
+				832555551CA50B23000C8A48 /* font-lato-black-regular.ttf in Copy Fonts */,
+				832555561CA50B23000C8A48 /* font-lato-bold.ttf in Copy Fonts */,
+				832555571CA50B23000C8A48 /* font-lato-light-regular.ttf in Copy Fonts */,
+				832555581CA50B23000C8A48 /* font-lato-regular.ttf in Copy Fonts */,
+			);
+			name = "Copy Fonts";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83765B321C88190300D93554 /* Copy Third-Party Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				83EB73C31C8E6531004EB117 /* XCDYouTubeKit.framework in Copy Third-Party Frameworks (4 items) */,
-				83765B971C881EA900D93554 /* GTL.framework in Copy Third-Party Frameworks (4 items) */,
-				83765B691C881A6800D93554 /* CocoaLumberjack.framework in Copy Third-Party Frameworks (4 items) */,
-				83765B341C88191C00D93554 /* PureLayout.framework in Copy Third-Party Frameworks (4 items) */,
+				8325553E1CA4E007000C8A48 /* KVOController.framework in Copy Third-Party Frameworks */,
+				83EB73C31C8E6531004EB117 /* XCDYouTubeKit.framework in Copy Third-Party Frameworks */,
+				83765B971C881EA900D93554 /* GTL.framework in Copy Third-Party Frameworks */,
+				83765B691C881A6800D93554 /* CocoaLumberjack.framework in Copy Third-Party Frameworks */,
+				83765B341C88191C00D93554 /* PureLayout.framework in Copy Third-Party Frameworks */,
 			);
-			name = "Copy Third-Party Frameworks (4 items)";
+			name = "Copy Third-Party Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -411,6 +459,14 @@
 		83224A921CA167B9008931C6 /* TAAdaptiveSpaceItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAdaptiveSpaceItem.m; sourceTree = "<group>"; };
 		83224A931CA167B9008931C6 /* TAAdaptiveSpaceItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAdaptiveSpaceItemView.h; sourceTree = "<group>"; };
 		83224A941CA167B9008931C6 /* TAAdaptiveSpaceItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAdaptiveSpaceItemView.m; sourceTree = "<group>"; };
+		832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FBKVOController.xcodeproj; path = ../Deps/KVOController/FBKVOController.xcodeproj; sourceTree = "<group>"; };
+		8325554C1CA50AF9000C8A48 /* font-lato-black-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-lato-black-regular.ttf"; sourceTree = "<group>"; };
+		8325554D1CA50AF9000C8A48 /* font-lato-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-lato-bold.ttf"; sourceTree = "<group>"; };
+		8325554E1CA50AF9000C8A48 /* font-lato-light-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-lato-light-regular.ttf"; sourceTree = "<group>"; };
+		8325554F1CA50AF9000C8A48 /* font-lato-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-lato-regular.ttf"; sourceTree = "<group>"; };
+		8325555A1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauAbstractCollectionContentSubViewController.h; sourceTree = "<group>"; };
+		8325555B1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAbstractCollectionContentSubViewController.m; sourceTree = "<group>"; };
+		8325555D1CA54143000C8A48 /* TauAbstractCollectionContentSubViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TauAbstractCollectionContentSubViewController.xib; sourceTree = "<group>"; };
 		833846C91C9FE39400F49885 /* TauNormalWrappedLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauNormalWrappedLayout.h; sourceTree = "<group>"; };
 		833846CA1C9FE39400F49885 /* TauNormalWrappedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauNormalWrappedLayout.m; sourceTree = "<group>"; };
 		833846F71CA10D8D00F49885 /* TauContentCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauContentCollectionViewController.h; sourceTree = "<group>"; };
@@ -485,7 +541,6 @@
 		838342FB1C981C2400BE6378 /* TauYouTubePlaylistItemsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauYouTubePlaylistItemsCollection.m; sourceTree = "<group>"; };
 		838D40571C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauSearchResultsCollectionContentSubViewController.h; sourceTree = "<group>"; };
 		838D40581C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauSearchResultsCollectionContentSubViewController.m; sourceTree = "<group>"; };
-		838D40591C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TauSearchResultsCollectionContentSubViewController.xib; sourceTree = "<group>"; };
 		8399E2121C88200000A42C44 /* GTLYouTube_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLYouTube_Sources.m; path = ../Deps/GTL/Source/Services/YouTube/Generated/GTLYouTube_Sources.m; sourceTree = "<group>"; };
 		8399E2131C88200000A42C44 /* GTLYouTube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLYouTube.h; path = ../Deps/GTL/Source/Services/YouTube/Generated/GTLYouTube.h; sourceTree = "<group>"; };
 		8399E2181C88231400A42C44 /* TauMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauMainWindowController.h; sourceTree = "<group>"; };
@@ -517,11 +572,6 @@
 		83DA1C561C8893BF007B084F /* OAuthSigningConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthSigningConstants.h; sourceTree = "<group>"; };
 		83DA1C571C8893BF007B084F /* OAuthSigningConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthSigningConstants.m; sourceTree = "<group>"; };
 		83DA1C591C8893D5007B084F /* libcommonCrypto.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcommonCrypto.tbd; path = usr/lib/system/libcommonCrypto.tbd; sourceTree = SDKROOT; };
-		83EB732E1C8C6B6E004EB117 /* FBKVOController-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBKVOController-Prefix.pch"; sourceTree = "<group>"; };
-		83EB732F1C8C6B6E004EB117 /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBKVOController.h; sourceTree = "<group>"; };
-		83EB73301C8C6B6E004EB117 /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
-		83EB73311C8C6B6E004EB117 /* NSObject+FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+FBKVOController.h"; sourceTree = "<group>"; };
-		83EB73321C8C6B6E004EB117 /* NSObject+FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+FBKVOController.m"; sourceTree = "<group>"; };
 		83EB73471C8D33BC004EB117 /* TauAbstractBeautifulView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauAbstractBeautifulView.h; sourceTree = "<group>"; };
 		83EB73481C8D33BC004EB117 /* TauAbstractBeautifulView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAbstractBeautifulView.m; sourceTree = "<group>"; };
 		83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XCDYouTubeKit.xcodeproj; path = ../Deps/XCDYouTubeKit/XCDYouTubeKit.xcodeproj; sourceTree = "<group>"; };
@@ -540,6 +590,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8325553D1CA4DF7A000C8A48 /* KVOController.framework in Frameworks */,
 				83EB73C91C8E65A2004EB117 /* AVFoundation.framework in Frameworks */,
 				83EB73CA1C8E65A2004EB117 /* AVKit.framework in Frameworks */,
 				83EB73C11C8E6520004EB117 /* XCDYouTubeKit.framework in Frameworks */,
@@ -594,6 +645,44 @@
 			path = ../Deps/TAAdaptiveSpaceItem/TAAdaptiveSpaceItem;
 			sourceTree = "<group>";
 		};
+		832555091CA4DF6F000C8A48 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				832555111CA4DF6F000C8A48 /* libFBKVOController.a */,
+				832555131CA4DF6F000C8A48 /* FBKVOControllerTests.xctest */,
+				832555151CA4DF6F000C8A48 /* KVOController.framework */,
+				832555171CA4DF6F000C8A48 /* KVOController.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8325554A1CA50AF9000C8A48 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				8325554B1CA50AF9000C8A48 /* Lato Family */,
+			);
+			name = Fonts;
+			path = Tau4Mac/Fonts;
+			sourceTree = "<group>";
+		};
+		8325554B1CA50AF9000C8A48 /* Lato Family */ = {
+			isa = PBXGroup;
+			children = (
+				8325554C1CA50AF9000C8A48 /* font-lato-black-regular.ttf */,
+				8325554D1CA50AF9000C8A48 /* font-lato-bold.ttf */,
+				8325554E1CA50AF9000C8A48 /* font-lato-light-regular.ttf */,
+				8325554F1CA50AF9000C8A48 /* font-lato-regular.ttf */,
+			);
+			path = "Lato Family";
+			sourceTree = "<group>";
+		};
+		832555591CA539EA000C8A48 /* sub */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = sub;
+			sourceTree = "<group>";
+		};
 		8349D39A1C8986E2000D091F /* pri */ = {
 			isa = PBXGroup;
 			children = (
@@ -639,7 +728,6 @@
 			children = (
 				838D40571C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.h */,
 				838D40581C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.m */,
-				838D40591C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.xib */,
 			);
 			name = sub;
 			sourceTree = "<group>";
@@ -647,6 +735,7 @@
 		834E78111C9ECEEE00802301 /* explore */ = {
 			isa = PBXGroup;
 			children = (
+				832555591CA539EA000C8A48 /* sub */,
 				836D26FB1C9ACDDE00290BE7 /* TauExploreContentViewController.h */,
 				836D26FC1C9ACDDE00290BE7 /* TauExploreContentViewController.m */,
 				836D26FD1C9ACDDE00290BE7 /* TauExploreContentViewController.xib */,
@@ -697,6 +786,9 @@
 				833C34391CA27975004D9BE0 /* TauContentInspectorViewController.h */,
 				833C343A1CA27975004D9BE0 /* TauContentInspectorViewController.m */,
 				833C343E1CA27CF0004D9BE0 /* TauContentInspectorViewController.xib */,
+				8325555A1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.h */,
+				8325555B1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m */,
+				8325555D1CA54143000C8A48 /* TauAbstractCollectionContentSubViewController.xib */,
 			);
 			name = abstract;
 			sourceTree = "<group>";
@@ -719,6 +811,7 @@
 			children = (
 				83765ADC1C8811DD00D93554 /* Tau4Mac */,
 				83765B121C88173300D93554 /* Deps */,
+				8325554A1CA50AF9000C8A48 /* Fonts */,
 				83765AF31C8811DE00D93554 /* Tau4MacTests */,
 				83765AFE1C8811DE00D93554 /* Tau4MacUITests */,
 				83765ADB1C8811DD00D93554 /* Products */,
@@ -825,7 +918,7 @@
 				83DA1C411C886138007B084F /* WebKit.framework */,
 				8399E2151C88201F00A42C44 /* GTL */,
 				83DA1C551C8893BF007B084F /* OAuthSigningConstants */,
-				83EB732D1C8C6B6E004EB117 /* FBKVOController */,
+				832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */,
 				83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */,
 				83765B351C881A5700D93554 /* Lumberjack.xcodeproj */,
 				83765B131C8818F500D93554 /* PureLayout.xcodeproj */,
@@ -953,19 +1046,6 @@
 			path = ../Deps/OAuthSigningConstants;
 			sourceTree = "<group>";
 		};
-		83EB732D1C8C6B6E004EB117 /* FBKVOController */ = {
-			isa = PBXGroup;
-			children = (
-				83EB732E1C8C6B6E004EB117 /* FBKVOController-Prefix.pch */,
-				83EB732F1C8C6B6E004EB117 /* FBKVOController.h */,
-				83EB73301C8C6B6E004EB117 /* FBKVOController.m */,
-				83EB73311C8C6B6E004EB117 /* NSObject+FBKVOController.h */,
-				83EB73321C8C6B6E004EB117 /* NSObject+FBKVOController.m */,
-			);
-			name = FBKVOController;
-			path = ../Deps/KVOController/FBKVOController;
-			sourceTree = "<group>";
-		};
 		83EB73AA1C8E6514004EB117 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -990,7 +1070,8 @@
 				83765AD61C8811DD00D93554 /* Sources */,
 				83765AD71C8811DD00D93554 /* Frameworks */,
 				83765AD81C8811DD00D93554 /* Resources */,
-				83765B321C88190300D93554 /* Copy Third-Party Frameworks (4 items) */,
+				83765B321C88190300D93554 /* Copy Third-Party Frameworks */,
+				832555541CA50B05000C8A48 /* Copy Fonts */,
 			);
 			buildRules = (
 			);
@@ -1078,6 +1159,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 832555091CA4DF6F000C8A48 /* Products */;
+					ProjectRef = 832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */;
+				},
+				{
 					ProductGroup = 83765B831C881E1700D93554 /* Products */;
 					ProjectRef = 83765B821C881E1700D93554 /* GTLCore.xcodeproj */;
 				},
@@ -1104,6 +1189,34 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		832555111CA4DF6F000C8A48 /* libFBKVOController.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libFBKVOController.a;
+			remoteRef = 832555101CA4DF6F000C8A48 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		832555131CA4DF6F000C8A48 /* FBKVOControllerTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = FBKVOControllerTests.xctest;
+			remoteRef = 832555121CA4DF6F000C8A48 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		832555151CA4DF6F000C8A48 /* KVOController.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = KVOController.framework;
+			remoteRef = 832555141CA4DF6F000C8A48 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		832555171CA4DF6F000C8A48 /* KVOController.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = KVOController.framework;
+			remoteRef = 832555161CA4DF6F000C8A48 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		83765B201C8818F500D93554 /* PureLayout.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1377,8 +1490,8 @@
 				83765AE71C8811DD00D93554 /* Assets.xcassets in Resources */,
 				833C343F1CA27CF0004D9BE0 /* TauContentInspectorViewController.xib in Resources */,
 				83765AEA1C8811DD00D93554 /* Main.storyboard in Resources */,
-				838D405B1C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.xib in Resources */,
 				836D26FF1C9ACDDE00290BE7 /* TauExploreContentViewController.xib in Resources */,
+				8325555E1CA54143000C8A48 /* TauAbstractCollectionContentSubViewController.xib in Resources */,
 				834458A31C9D63E0001A8603 /* AccessoryBarViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1429,7 +1542,6 @@
 				83EB745C1C90590F004EB117 /* NSAffineTransform+TauDrawing.m in Sources */,
 				8356B2031C9D35F900AC4B36 /* TauAbstractContentSubViewController.m in Sources */,
 				836D26F41C9ACB1E00290BE7 /* TauMainContentViewController.m in Sources */,
-				83EB73331C8C6B6E004EB117 /* FBKVOController.m in Sources */,
 				831BD6CC1C883FA300122AF6 /* TauContentCollectionItemView.m in Sources */,
 				838342F61C98189B00BE6378 /* TauYouTubeChannelsCollection.m in Sources */,
 				838D405A1C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.m in Sources */,
@@ -1439,7 +1551,6 @@
 				836D27031C9ACE0400290BE7 /* TauPlayerContentViewController.m in Sources */,
 				834E78161C9ECFB900802301 /* TauContentCollectionItem.m in Sources */,
 				83DA1C581C8893BF007B084F /* OAuthSigningConstants.m in Sources */,
-				83EB73341C8C6B6E004EB117 /* NSObject+FBKVOController.m in Sources */,
 				834458A21C9D63E0001A8603 /* AccessoryBarViewController.m in Sources */,
 				83B175031C9A7ADF00F6578B /* NSColor+TauDrawing.m in Sources */,
 				83765ADF1C8811DD00D93554 /* TauAppDelegate.m in Sources */,
@@ -1447,6 +1558,7 @@
 				83224A951CA167B9008931C6 /* TAAdaptiveSpaceItem.m in Sources */,
 				83B020561C96B1B8006333CB /* TauAbstractResultCollection.m in Sources */,
 				833C343B1CA27975004D9BE0 /* TauContentInspectorViewController.m in Sources */,
+				8325555C1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m in Sources */,
 				836D26FE1C9ACDDE00290BE7 /* TauExploreContentViewController.m in Sources */,
 				836D26F91C9ACDA300290BE7 /* TauSearchContentViewController.m in Sources */,
 				838342FC1C981C2400BE6378 /* TauYouTubePlaylistItemsCollection.m in Sources */,

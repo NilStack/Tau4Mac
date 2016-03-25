@@ -8,20 +8,21 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TauContentInspectorViewController">
             <connections>
                 <outlet property="noSelectionLabelSection_" destination="jJL-pR-HgS" id="kjX-co-7Q8"/>
-                <outlet property="singleContentActionSection_" destination="dhK-De-Q8r" id="3sh-VB-8w9"/>
-                <outlet property="singleContentDescriptionSection_" destination="eG4-cM-th3" id="ef4-tS-BAd"/>
-                <outlet property="singleContentMetaInfoSection_" destination="wnM-W4-bI1" id="QSj-AT-6e9"/>
-                <outlet property="singleContentTitleSection_" destination="yUE-5Y-ndY" id="qZc-m5-Gvj"/>
+                <outlet property="splitInspectorViewController_" destination="laU-6Z-BdN" id="bxz-gD-0eg"/>
                 <outlet property="view" destination="JpR-XP-nVJ" id="PbH-ZP-GSR"/>
+                <outlet property="wrapperOfSingleContentActionSectionView_" destination="aov-uw-QZu" id="1Yz-Nj-XZi"/>
+                <outlet property="wrapperOfSingleContentDescriptionSectionView_" destination="Ovr-2Y-XCS" id="ze6-j9-MS4"/>
+                <outlet property="wrapperOfSingleContentInformationSectionView_" destination="PbZ-U2-L2H" id="dKH-D6-ZK1"/>
+                <outlet property="wrapperOfSingleContentTitleSectionView_" destination="O0U-D9-J1q" id="CHB-d0-bZc"/>
                 <outlet property="ytContentModelController_" destination="nkQ-0u-50I" id="vcT-WP-HCJ"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView wantsLayer="YES" id="JpR-XP-nVJ" userLabel="Master View" customClass="TauAbstractContentInspectorView">
+        <customView wantsLayer="YES" id="JpR-XP-nVJ" userLabel="Master View">
             <rect key="frame" x="0.0" y="0.0" width="268" height="410"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <point key="canvasLocation" x="464" y="293"/>
+            <point key="canvasLocation" x="365" y="236"/>
         </customView>
         <arrayController objectClassName="GTLObject" id="nkQ-0u-50I" userLabel="YouTube Content Objects Model Controller">
             <connections>
@@ -40,14 +41,14 @@
                 <binding destination="nkQ-0u-50I" name="hidden" keyPath="arrangedObjects.@count" id="hqn-IA-ruJ"/>
                 <binding destination="nkQ-0u-50I" name="value" keyPath="selection.snippet.title" id="Vz8-s1-fD2"/>
             </connections>
-            <point key="canvasLocation" x="440" y="-22"/>
+            <point key="canvasLocation" x="444" y="-159"/>
         </textField>
         <customView id="dhK-De-Q8r" userLabel="Single Content Action Section" customClass="TauContentInspectorSectionView">
-            <rect key="frame" x="0.0" y="0.0" width="269" height="57"/>
+            <rect key="frame" x="0.0" y="0.0" width="269" height="41"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dZ5-kf-zgD">
-                    <rect key="frame" x="27" y="11" width="215" height="32"/>
+                    <rect key="frame" x="27" y="3" width="215" height="32"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" id="5lp-mq-djW"/>
                         <constraint firstAttribute="height" constant="21" id="WuN-EE-Zrv"/>
@@ -63,18 +64,18 @@ DQ
             </subviews>
             <constraints>
                 <constraint firstItem="dZ5-kf-zgD" firstAttribute="leading" secondItem="dhK-De-Q8r" secondAttribute="leading" constant="33" id="GXo-pH-mgi"/>
-                <constraint firstAttribute="bottom" secondItem="dZ5-kf-zgD" secondAttribute="bottom" constant="18" id="c8q-bI-zCm"/>
+                <constraint firstAttribute="bottom" secondItem="dZ5-kf-zgD" secondAttribute="bottom" constant="10" id="c8q-bI-zCm"/>
                 <constraint firstAttribute="trailing" secondItem="dZ5-kf-zgD" secondAttribute="trailing" constant="33" id="cOn-9L-vD0"/>
-                <constraint firstItem="dZ5-kf-zgD" firstAttribute="top" secondItem="dhK-De-Q8r" secondAttribute="top" constant="18" id="e1V-7h-QLZ"/>
+                <constraint firstItem="dZ5-kf-zgD" firstAttribute="top" secondItem="dhK-De-Q8r" secondAttribute="top" constant="10" id="e1V-7h-QLZ"/>
             </constraints>
-            <point key="canvasLocation" x="821.5" y="423.5"/>
+            <point key="canvasLocation" x="802.5" y="80.5"/>
         </customView>
         <customView id="yUE-5Y-ndY" userLabel="Single Content Title Section" customClass="TauContentInspectorSectionView">
             <rect key="frame" x="0.0" y="0.0" width="240" height="48"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qjj-kr-bQV">
-                    <rect key="frame" x="18" y="6" width="204" height="22"/>
+                    <rect key="frame" x="18" y="10" width="204" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" id="YdK-dS-xMW"/>
                         <constraint firstAttribute="height" constant="22" id="Yln-X6-IOu"/>
@@ -90,88 +91,39 @@ DQ
                 </textField>
             </subviews>
             <constraints>
-                <constraint firstItem="qjj-kr-bQV" firstAttribute="top" secondItem="yUE-5Y-ndY" secondAttribute="top" constant="20" id="DOW-Ac-vw4"/>
-                <constraint firstAttribute="bottom" secondItem="qjj-kr-bQV" secondAttribute="bottom" constant="6" id="GFX-L6-XA2"/>
+                <constraint firstItem="qjj-kr-bQV" firstAttribute="top" secondItem="yUE-5Y-ndY" secondAttribute="top" constant="16" id="DOW-Ac-vw4"/>
+                <constraint firstAttribute="bottom" secondItem="qjj-kr-bQV" secondAttribute="bottom" constant="10" id="E0A-oz-ifb"/>
                 <constraint firstAttribute="trailing" secondItem="qjj-kr-bQV" secondAttribute="trailing" constant="20" id="JOZ-XO-xkz"/>
                 <constraint firstItem="qjj-kr-bQV" firstAttribute="leading" secondItem="yUE-5Y-ndY" secondAttribute="leading" constant="20" id="XUm-1D-pVd"/>
             </constraints>
-            <point key="canvasLocation" x="948" y="43"/>
+            <point key="canvasLocation" x="802" y="-35"/>
         </customView>
         <customView wantsLayer="YES" id="eG4-cM-th3" userLabel="Single Content Description Section" customClass="TauContentInspectorSectionView">
-            <rect key="frame" x="0.0" y="0.0" width="290" height="190"/>
+            <rect key="frame" x="0.0" y="0.0" width="290" height="111"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="3UD-cT-lJL">
-                    <rect key="frame" x="15" y="20" width="260" height="156"/>
+                    <rect key="frame" x="15" y="11" width="260" height="89"/>
                     <clipView key="contentView" id="nU5-zQ-TjM">
-                        <rect key="frame" x="0.0" y="0.0" width="260" height="156"/>
+                        <rect key="frame" x="0.0" y="0.0" width="260" height="89"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView editable="NO" selectable="NO" importsGraphics="NO" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" linkDetection="YES" dashSubstitution="YES" id="x6x-jN-cff">
-                                <rect key="frame" x="0.0" y="0.0" width="260" height="207.5"/>
+                            <textView editable="NO" selectable="NO" importsGraphics="NO" horizontallyResizable="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" linkDetection="YES" dashSubstitution="YES" id="x6x-jN-cff">
+                                <rect key="frame" x="0.0" y="0.0" width="260" height="89"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <size key="minSize" width="260" height="156"/>
+                                <size key="minSize" width="260" height="89"/>
                                 <size key="maxSize" width="463" height="10000000"/>
-                                <attributedString key="textStorage">
-                                    <fragment>
-                                        <string key="content">GitHub: How people build software. 
-
-Watch Anna's story on how she builds software, then start your journey on GitHub.com or with GitHub Enterprise (enterprise.github.com) today.
-
-As always, feel free to leave us a comment below and don't forget to subscribe: </string>
-                                        <attributes>
-                                            <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
-                                            <color key="NSColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="deviceRGB"/>
-                                            <font key="NSFont" size="13" name="HelveticaNeue-Light"/>
-                                            <real key="NSKern" value="0.0"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" minimumLineHeight="17" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
-                                                <tabStops/>
-                                            </paragraphStyle>
-                                            <color key="NSStrokeColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="deviceRGB"/>
-                                            <real key="NSStrokeWidth" value="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content="http://bit.ly/subgithub">
-                                        <attributes>
-                                            <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
-                                            <color key="NSColor" red="0.086274509803921567" green="0.47843137254901963" blue="0.77647058823529413" alpha="1" colorSpace="deviceRGB"/>
-                                            <font key="NSFont" size="13" name="HelveticaNeue-Light"/>
-                                            <real key="NSKern" value="0.0"/>
-                                            <url key="NSLink" string="http://bit.ly/subgithub"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" minimumLineHeight="17" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
-                                                <tabStops/>
-                                            </paragraphStyle>
-                                            <color key="NSStrokeColor" red="0.086274509803921567" green="0.47843137254901963" blue="0.77647058823529413" alpha="1" colorSpace="deviceRGB"/>
-                                            <real key="NSStrokeWidth" value="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment>
-                                        <string key="content">
-
-Thanks!</string>
-                                        <attributes>
-                                            <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
-                                            <color key="NSColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="deviceRGB"/>
-                                            <font key="NSFont" size="13" name="HelveticaNeue-Light"/>
-                                            <real key="NSKern" value="0.0"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" minimumLineHeight="17" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
-                                                <tabStops/>
-                                            </paragraphStyle>
-                                            <color key="NSStrokeColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="deviceRGB"/>
-                                            <real key="NSStrokeWidth" value="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
                                 <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <size key="minSize" width="260" height="156"/>
+                                <size key="minSize" width="260" height="89"/>
                                 <size key="maxSize" width="463" height="10000000"/>
                                 <connections>
-                                    <binding destination="nkQ-0u-50I" name="attributedString" keyPath="selection.snippet.descriptionProperty" id="Pro-i0-kfp">
+                                    <binding destination="nkQ-0u-50I" name="attributedString" keyPath="selection.snippet.descriptionProperty" id="7NG-df-SmT">
                                         <dictionary key="options">
                                             <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                             <bool key="NSConditionallySetsEditable" value="NO"/>
+                                            <string key="NSValueTransformerName">TauTextViewAttributedStringTransformer</string>
                                         </dictionary>
                                     </binding>
                                 </connections>
@@ -181,25 +133,25 @@ Thanks!</string>
                     </clipView>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" id="OTC-I9-IVX"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="156" id="X6J-gq-hs7"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" id="X6J-gq-hs7"/>
                     </constraints>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="Gli-gb-RYh">
                         <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" canDrawConcurrently="YES" verticalHuggingPriority="750" mirrorLayoutDirectionWhenInternationalizing="never" arrowsPosition="none" horizontal="NO" id="pB8-y6-6Oz">
-                        <rect key="frame" x="244" y="0.0" width="16" height="156"/>
+                    <scroller key="verticalScroller" hidden="YES" canDrawConcurrently="YES" verticalHuggingPriority="750" mirrorLayoutDirectionWhenInternationalizing="never" arrowsPosition="none" horizontal="NO" id="pB8-y6-6Oz">
+                        <rect key="frame" x="244" y="0.0" width="16" height="89"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
             </subviews>
             <constraints>
                 <constraint firstItem="3UD-cT-lJL" firstAttribute="leading" secondItem="eG4-cM-th3" secondAttribute="leading" constant="15" id="2r0-sD-iFm"/>
-                <constraint firstItem="3UD-cT-lJL" firstAttribute="top" secondItem="eG4-cM-th3" secondAttribute="top" constant="14" id="a5W-9c-M4f"/>
+                <constraint firstItem="3UD-cT-lJL" firstAttribute="top" secondItem="eG4-cM-th3" secondAttribute="top" constant="11" id="YMd-HN-kVQ"/>
                 <constraint firstAttribute="trailing" secondItem="3UD-cT-lJL" secondAttribute="trailing" constant="15" id="fKf-DZ-4bg"/>
-                <constraint firstAttribute="bottom" secondItem="3UD-cT-lJL" secondAttribute="bottom" constant="20" id="fb9-BF-moD"/>
+                <constraint firstAttribute="bottom" secondItem="3UD-cT-lJL" secondAttribute="bottom" constant="11" id="tPX-hP-6xF"/>
             </constraints>
-            <point key="canvasLocation" x="868" y="197"/>
+            <point key="canvasLocation" x="802" y="235.5"/>
         </customView>
         <customView id="wnM-W4-bI1" userLabel="Single Content Meta Info Section" customClass="TauContentInspectorSectionView">
             <rect key="frame" x="0.0" y="0.0" width="369" height="247"/>
@@ -211,8 +163,8 @@ Thanks!</string>
                         <rect key="frame" x="0.0" y="0.0" width="369" height="247"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="Rto-tI-dbH" viewBased="YES" id="qDS-Xp-OCv">
-                                <rect key="frame" x="0.0" y="0.0" width="369" height="224"/>
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="qDS-Xp-OCv">
+                                <rect key="frame" x="0.0" y="0.0" width="369" height="247"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -299,10 +251,6 @@ Thanks!</string>
                         <rect key="frame" x="224" y="17" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <tableHeaderView key="headerView" id="Rto-tI-dbH">
-                        <rect key="frame" x="0.0" y="0.0" width="369" height="23"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </tableHeaderView>
                 </scrollView>
             </subviews>
             <constraints>
@@ -311,7 +259,28 @@ Thanks!</string>
                 <constraint firstAttribute="bottom" secondItem="oy1-wi-lfm" secondAttribute="bottom" id="rmp-pj-7FV"/>
                 <constraint firstItem="oy1-wi-lfm" firstAttribute="top" secondItem="wnM-W4-bI1" secondAttribute="top" id="uNa-6c-JOa"/>
             </constraints>
-            <point key="canvasLocation" x="639.5" y="714.5"/>
+            <point key="canvasLocation" x="802.5" y="491.5"/>
         </customView>
+        <viewController id="laU-6Z-BdN" customClass="NSSplitViewController"/>
+        <viewController id="O0U-D9-J1q">
+            <connections>
+                <outlet property="view" destination="yUE-5Y-ndY" id="xfU-r5-o3s"/>
+            </connections>
+        </viewController>
+        <viewController id="aov-uw-QZu">
+            <connections>
+                <outlet property="view" destination="dhK-De-Q8r" id="vPF-s1-kFp"/>
+            </connections>
+        </viewController>
+        <viewController id="Ovr-2Y-XCS">
+            <connections>
+                <outlet property="view" destination="eG4-cM-th3" id="0hG-CC-Py4"/>
+            </connections>
+        </viewController>
+        <viewController id="PbZ-U2-L2H">
+            <connections>
+                <outlet property="view" destination="wnM-W4-bI1" id="A4P-R6-Ire"/>
+            </connections>
+        </viewController>
     </objects>
 </document>

@@ -27,7 +27,7 @@
 
 @import XCDYouTubeKit;
 @import PureLayout;
-#import "FBKVOController.h"
+@import KVOController;
 
 #import "GTLYouTube.h"
 #import "OAuthSigningConstants.h"

@@ -15,7 +15,6 @@
 @interface TauContentCollectionViewController ()
 
 @property ( weak ) IBOutlet NSCollectionView* contentCollectionView_;
-@property ( weak ) IBOutlet NSView* contentInspectorView_;
 
 @property ( weak ) IBOutlet NSSplitViewController* splitViewController_;
 
@@ -67,7 +66,7 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
 
 - ( void ) dealloc
     {
-    DDLogDebug( @"%@ got allocated", self );
+    DDLogDebug( @"%@ got deallocated", self );
     [ self.wrapperOfContentInspectorView_ unbind: TAU_KEY_OF_SEL( @selector( ytContents ) ) ];
     }
 
