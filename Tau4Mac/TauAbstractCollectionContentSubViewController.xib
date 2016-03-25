@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="TauAbstractCollectionContentSubViewController">
+            <connections>
+                <outlet property="accessoryBarViewController_" destination="L4o-xI-cLS" id="o7n-3e-HvR"/>
+                <outlet property="appWideSummaryViewLabel_" destination="vYL-kx-gPU" id="0dg-fc-kRv"/>
+                <outlet property="view" destination="c22-O7-iKe" id="SCt-yc-Xai"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+        </customView>
+        <customView id="mEf-B1-uDO" userLabel="Accessory Bar View">
+            <rect key="frame" x="0.0" y="0.0" width="584" height="32"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K9k-Gv-eMn">
+                    <rect key="frame" x="499" y="-1" width="81" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="69" id="Jyr-gM-1dp"/>
+                        <constraint firstAttribute="height" constant="21" id="YtS-Q8-sMK"/>
+                    </constraints>
+                    <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ame-18-fI7">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <string key="keyEquivalent">.</string>
+                        <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="cancelAction:" target="-2" id="cfr-Wh-Rd5"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VXB-lQ-DLb">
+                    <rect key="frame" x="6" y="-1" width="39" height="32"/>
+                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSGoLeftTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9vC-PV-dR7">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="loadPrevPageAction:" target="-2" id="Rto-W1-IsX"/>
+                        <binding destination="-2" name="enabled" keyPath="self.hasPrev" id="Bdr-OT-x5b"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rKu-KS-khp">
+                    <rect key="frame" x="32" y="-1" width="39" height="32"/>
+                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSGoRightTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YcB-CO-N0x">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="loadNextPageAction:" target="-2" id="jdK-2K-fu3"/>
+                        <binding destination="-2" name="enabled" keyPath="self.hasNext" id="hhc-GQ-18t"/>
+                    </connections>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AEy-T3-0Hy">
+                    <rect key="frame" x="78" y="8" width="428" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="7gY-cq-hkX"/>
+                        <constraint firstAttribute="height" constant="17" id="9Eh-RG-wAD"/>
+                    </constraints>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="4sq-nZ-mYn">
+                        <font key="font" metaFont="cellTitle"/>
+                        <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="self.resultsSummaryText" id="Aoq-U7-2s8"/>
+                    </connections>
+                </textField>
+                <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="EyZ-ci-lh2">
+                    <rect key="frame" x="73" y="8" width="16" height="16"/>
+                    <connections>
+                        <binding destination="-2" name="animate" keyPath="self.isPaging" id="8sF-Ci-UfX"/>
+                        <binding destination="-2" name="hidden" keyPath="self.isPaging" id="ffF-2t-jhR">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </progressIndicator>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="K9k-Gv-eMn" secondAttribute="trailing" constant="10" id="DKk-Un-54S"/>
+                <constraint firstItem="K9k-Gv-eMn" firstAttribute="centerY" secondItem="mEf-B1-uDO" secondAttribute="centerY" id="HsS-9p-k8s"/>
+                <constraint firstItem="AEy-T3-0Hy" firstAttribute="centerY" secondItem="mEf-B1-uDO" secondAttribute="centerY" id="I98-HV-zuT"/>
+                <constraint firstItem="AEy-T3-0Hy" firstAttribute="centerX" secondItem="mEf-B1-uDO" secondAttribute="centerX" id="Py7-b0-o3S"/>
+            </constraints>
+            <point key="canvasLocation" x="578" y="928"/>
+        </customView>
+        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="vYL-kx-gPU">
+            <rect key="frame" x="0.0" y="0.0" width="95" height="17"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Search Results" id="8ax-o3-S7O">
+                <font key="font" metaFont="system"/>
+                <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
+                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+            </textFieldCell>
+            <point key="canvasLocation" x="977.5" y="673.5"/>
+        </textField>
+        <viewController id="L4o-xI-cLS" customClass="TauResultsAccessoryBarViewController">
+            <connections>
+                <outlet property="view" destination="mEf-B1-uDO" id="lFv-c7-Mwm"/>
+            </connections>
+        </viewController>
+        <userDefaultsController representsSharedInstance="YES" id="Z3s-uM-vps"/>
+    </objects>
+    <resources>
+        <image name="NSGoLeftTemplate" width="9" height="12"/>
+        <image name="NSGoRightTemplate" width="9" height="12"/>
+    </resources>
+</document>
