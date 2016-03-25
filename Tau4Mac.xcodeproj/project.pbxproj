@@ -13,6 +13,7 @@
 		8321F6681C8AA0A500D11FE0 /* TauViewsStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6671C8AA0A500D11FE0 /* TauViewsStack.m */; };
 		83224A951CA167B9008931C6 /* TAAdaptiveSpaceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 83224A921CA167B9008931C6 /* TAAdaptiveSpaceItem.m */; };
 		83224A961CA167B9008931C6 /* TAAdaptiveSpaceItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83224A941CA167B9008931C6 /* TAAdaptiveSpaceItemView.m */; };
+		8325553D1CA4DF7A000C8A48 /* KVOController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832555171CA4DF6F000C8A48 /* KVOController.framework */; };
 		833846CB1C9FE39400F49885 /* TauNormalWrappedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 833846CA1C9FE39400F49885 /* TauNormalWrappedLayout.m */; };
 		833846FA1CA10D8D00F49885 /* TauContentCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 833846F81CA10D8D00F49885 /* TauContentCollectionViewController.m */; };
 		833846FB1CA10D8D00F49885 /* TauContentCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 833846F91CA10D8D00F49885 /* TauContentCollectionViewController.xib */; };
@@ -95,8 +96,6 @@
 		83DA1C461C8864C0007B084F /* TauAbstractLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C451C8864C0007B084F /* TauAbstractLogFormatter.m */; };
 		83DA1C491C8864E9007B084F /* TauTTYLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C481C8864E9007B084F /* TauTTYLogFormatter.m */; };
 		83DA1C581C8893BF007B084F /* OAuthSigningConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C571C8893BF007B084F /* OAuthSigningConstants.m */; };
-		83EB73331C8C6B6E004EB117 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB73301C8C6B6E004EB117 /* FBKVOController.m */; };
-		83EB73341C8C6B6E004EB117 /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB73321C8C6B6E004EB117 /* NSObject+FBKVOController.m */; };
 		83EB73491C8D33BC004EB117 /* TauAbstractBeautifulView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB73481C8D33BC004EB117 /* TauAbstractBeautifulView.m */; };
 		83EB73C11C8E6520004EB117 /* XCDYouTubeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EB73B81C8E6514004EB117 /* XCDYouTubeKit.framework */; };
 		83EB73C31C8E6531004EB117 /* XCDYouTubeKit.framework in Copy Third-Party Frameworks (4 items) */ = {isa = PBXBuildFile; fileRef = 83EB73B81C8E6514004EB117 /* XCDYouTubeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -107,6 +106,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		832555101CA4DF6F000C8A48 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = ECEA60FE18A49C620064AFF4;
+			remoteInfo = FBKVOController;
+		};
+		832555121CA4DF6F000C8A48 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = ECEA610E18A49C620064AFF4;
+			remoteInfo = FBKVOControllerTests;
+		};
+		832555141CA4DF6F000C8A48 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 81EC40C61CA3620A00BD9226;
+			remoteInfo = "FBKVOController-iOS-Dynamic";
+		};
+		832555161CA4DF6F000C8A48 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 81EC40F81CA3639C00BD9226;
+			remoteInfo = "FBKVOController-OSX-Dynamic";
+		};
 		83765AF11C8811DE00D93554 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83765AD21C8811DD00D93554 /* Project object */;
@@ -413,6 +440,7 @@
 		83224A921CA167B9008931C6 /* TAAdaptiveSpaceItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAdaptiveSpaceItem.m; sourceTree = "<group>"; };
 		83224A931CA167B9008931C6 /* TAAdaptiveSpaceItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAdaptiveSpaceItemView.h; sourceTree = "<group>"; };
 		83224A941CA167B9008931C6 /* TAAdaptiveSpaceItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAdaptiveSpaceItemView.m; sourceTree = "<group>"; };
+		832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FBKVOController.xcodeproj; path = ../Deps/KVOController/FBKVOController.xcodeproj; sourceTree = "<group>"; };
 		833846C91C9FE39400F49885 /* TauNormalWrappedLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauNormalWrappedLayout.h; sourceTree = "<group>"; };
 		833846CA1C9FE39400F49885 /* TauNormalWrappedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauNormalWrappedLayout.m; sourceTree = "<group>"; };
 		833846F71CA10D8D00F49885 /* TauContentCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauContentCollectionViewController.h; sourceTree = "<group>"; };
@@ -522,11 +550,6 @@
 		83DA1C561C8893BF007B084F /* OAuthSigningConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthSigningConstants.h; sourceTree = "<group>"; };
 		83DA1C571C8893BF007B084F /* OAuthSigningConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthSigningConstants.m; sourceTree = "<group>"; };
 		83DA1C591C8893D5007B084F /* libcommonCrypto.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcommonCrypto.tbd; path = usr/lib/system/libcommonCrypto.tbd; sourceTree = SDKROOT; };
-		83EB732E1C8C6B6E004EB117 /* FBKVOController-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBKVOController-Prefix.pch"; sourceTree = "<group>"; };
-		83EB732F1C8C6B6E004EB117 /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBKVOController.h; sourceTree = "<group>"; };
-		83EB73301C8C6B6E004EB117 /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
-		83EB73311C8C6B6E004EB117 /* NSObject+FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+FBKVOController.h"; sourceTree = "<group>"; };
-		83EB73321C8C6B6E004EB117 /* NSObject+FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+FBKVOController.m"; sourceTree = "<group>"; };
 		83EB73471C8D33BC004EB117 /* TauAbstractBeautifulView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauAbstractBeautifulView.h; sourceTree = "<group>"; };
 		83EB73481C8D33BC004EB117 /* TauAbstractBeautifulView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAbstractBeautifulView.m; sourceTree = "<group>"; };
 		83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XCDYouTubeKit.xcodeproj; path = ../Deps/XCDYouTubeKit/XCDYouTubeKit.xcodeproj; sourceTree = "<group>"; };
@@ -545,6 +568,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8325553D1CA4DF7A000C8A48 /* KVOController.framework in Frameworks */,
 				83EB73C91C8E65A2004EB117 /* AVFoundation.framework in Frameworks */,
 				83EB73CA1C8E65A2004EB117 /* AVKit.framework in Frameworks */,
 				83EB73C11C8E6520004EB117 /* XCDYouTubeKit.framework in Frameworks */,
@@ -597,6 +621,17 @@
 			);
 			name = TAAdaptiveSpaceItem;
 			path = ../Deps/TAAdaptiveSpaceItem/TAAdaptiveSpaceItem;
+			sourceTree = "<group>";
+		};
+		832555091CA4DF6F000C8A48 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				832555111CA4DF6F000C8A48 /* libFBKVOController.a */,
+				832555131CA4DF6F000C8A48 /* FBKVOControllerTests.xctest */,
+				832555151CA4DF6F000C8A48 /* KVOController.framework */,
+				832555171CA4DF6F000C8A48 /* KVOController.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		8349D39A1C8986E2000D091F /* pri */ = {
@@ -833,7 +868,7 @@
 				83DA1C411C886138007B084F /* WebKit.framework */,
 				8399E2151C88201F00A42C44 /* GTL */,
 				83DA1C551C8893BF007B084F /* OAuthSigningConstants */,
-				83EB732D1C8C6B6E004EB117 /* FBKVOController */,
+				832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */,
 				83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */,
 				83765B351C881A5700D93554 /* Lumberjack.xcodeproj */,
 				83765B131C8818F500D93554 /* PureLayout.xcodeproj */,
@@ -961,19 +996,6 @@
 			path = ../Deps/OAuthSigningConstants;
 			sourceTree = "<group>";
 		};
-		83EB732D1C8C6B6E004EB117 /* FBKVOController */ = {
-			isa = PBXGroup;
-			children = (
-				83EB732E1C8C6B6E004EB117 /* FBKVOController-Prefix.pch */,
-				83EB732F1C8C6B6E004EB117 /* FBKVOController.h */,
-				83EB73301C8C6B6E004EB117 /* FBKVOController.m */,
-				83EB73311C8C6B6E004EB117 /* NSObject+FBKVOController.h */,
-				83EB73321C8C6B6E004EB117 /* NSObject+FBKVOController.m */,
-			);
-			name = FBKVOController;
-			path = ../Deps/KVOController/FBKVOController;
-			sourceTree = "<group>";
-		};
 		83EB73AA1C8E6514004EB117 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1086,6 +1108,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 832555091CA4DF6F000C8A48 /* Products */;
+					ProjectRef = 832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */;
+				},
+				{
 					ProductGroup = 83765B831C881E1700D93554 /* Products */;
 					ProjectRef = 83765B821C881E1700D93554 /* GTLCore.xcodeproj */;
 				},
@@ -1112,6 +1138,34 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		832555111CA4DF6F000C8A48 /* libFBKVOController.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libFBKVOController.a;
+			remoteRef = 832555101CA4DF6F000C8A48 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		832555131CA4DF6F000C8A48 /* FBKVOControllerTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = FBKVOControllerTests.xctest;
+			remoteRef = 832555121CA4DF6F000C8A48 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		832555151CA4DF6F000C8A48 /* KVOController.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = KVOController.framework;
+			remoteRef = 832555141CA4DF6F000C8A48 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		832555171CA4DF6F000C8A48 /* KVOController.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = KVOController.framework;
+			remoteRef = 832555161CA4DF6F000C8A48 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		83765B201C8818F500D93554 /* PureLayout.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1438,7 +1492,6 @@
 				83EB745C1C90590F004EB117 /* NSAffineTransform+TauDrawing.m in Sources */,
 				8356B2031C9D35F900AC4B36 /* TauAbstractContentSubViewController.m in Sources */,
 				836D26F41C9ACB1E00290BE7 /* TauMainContentViewController.m in Sources */,
-				83EB73331C8C6B6E004EB117 /* FBKVOController.m in Sources */,
 				831BD6CC1C883FA300122AF6 /* TauContentCollectionItemView.m in Sources */,
 				838342F61C98189B00BE6378 /* TauYouTubeChannelsCollection.m in Sources */,
 				838D405A1C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.m in Sources */,
@@ -1449,7 +1502,6 @@
 				833C34421CA3F6A9004D9BE0 /* TauAbstractDisclosureViewController.m in Sources */,
 				834E78161C9ECFB900802301 /* TauContentCollectionItem.m in Sources */,
 				83DA1C581C8893BF007B084F /* OAuthSigningConstants.m in Sources */,
-				83EB73341C8C6B6E004EB117 /* NSObject+FBKVOController.m in Sources */,
 				834458A21C9D63E0001A8603 /* AccessoryBarViewController.m in Sources */,
 				83B175031C9A7ADF00F6578B /* NSColor+TauDrawing.m in Sources */,
 				83765ADF1C8811DD00D93554 /* TauAppDelegate.m in Sources */,
