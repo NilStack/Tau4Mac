@@ -28,14 +28,14 @@
 - ( instancetype ) initWithNibName: ( NSString* )_NibNameOrNil bundle: ( NSBundle* )_NibBundleOrNil
     {
     if ( self = [ super initWithNibName: _NibNameOrNil bundle: _NibBundleOrNil ] )
-        isDisclosureVisible_ = YES;
+        isCollapsed_ = NO;
     return self;
     }
 
 - ( instancetype ) initWithCoder: ( NSCoder* )_Coder
     {
     if ( self = [ super initWithCoder: _Coder ] )
-        isDisclosureVisible_ = YES;
+        isCollapsed_ = NO;
     return self;
     }
 
@@ -53,21 +53,21 @@
     [ self.descField_ setStringValue: _Title ?: @"" ];
     }
 
-@synthesize isDisclosureVisible = isDisclosureVisible_;
-+ ( BOOL ) automaticallyNotifiesObserversOfisDisclosureVisible
+@synthesize isCollapsed = isCollapsed_;
++ ( BOOL ) automaticallyNotifiesObserversOfisCollapsed
     {
     return NO;
     }
 
-- ( void ) setDisclosureVisible: ( BOOL )_Flag
+- ( void ) setCollapsed: ( BOOL )_Flag
     {
-    if ( isDisclosureVisible_ != _Flag )
+    if ( isCollapsed_ != _Flag )
         {
-//        TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( isDisclosureVisible ),
-//         ( ^{
-            isDisclosureVisible_ = _Flag;
+        TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( isCollapsed ),
+         ( ^{
+            isCollapsed_ = _Flag;
 
-            if ( !isDisclosureVisible_ )
+            if ( isCollapsed_ )
                 {
                 CGFloat distanceFromHeaderToBottom = NSMinY( self.view.bounds ) - NSMinY( headerView_.frame );
 
@@ -93,11 +93,8 @@
                     {
                     _Context.timingFunction = [ CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut ];
 
-                    NSLog( @"🍉%@", NSStringFromRect( disclosedView_.frame ) );
-
                     // Animate the closing constraint to 0, causing the bottom of the header to be flush with the bottom of the overall disclosure view.
-                    self.closingConstraint.animator.constant = 0;
-                    NSLog( @"🍊%@", NSStringFromRect( disclosedView_.frame ) );
+                    self.closingConstraint.animator.constant = 0.f;
                     self.toggelButton_.title = @"Show";
                     }
 
@@ -115,11 +112,7 @@
                     _Context.timingFunction = [ CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut ];
 
                     // Animate the constraint to fit the disclosed view again
-                    NSLog( @"%g", self.closingConstraint.animator.constant );
-                    NSLog( @"%@", NSStringFromRect( disclosedView_.frame ) );
-                    NSLog( @"%@", NSStringFromRect( [ self.view frameForAlignmentRect: disclosedView_.frame ] ) );
                     self.closingConstraint.animator.constant -= NSHeight( disclosedView_.frame );
-//                    self.closingConstraint.animator.constant = 0.f;
                     self.toggelButton_.title = @"Hide";
                     }
 
@@ -130,17 +123,15 @@
 
                     // The constraint is no longer needed, we can remove it.
                     [ self.view removeConstraint: self.closingConstraint ];
-
-                    NSLog( @"%g", NSHeight( disclosedView_.frame ) );
                     } ];
                 }
-//            } ) );
+            } ) );
         }
     }
 
-- ( BOOL ) isDisclosureVisible
+- ( BOOL ) isCollapsed
     {
-    return isDisclosureVisible_;
+    return isCollapsed_;
     }
 
 @synthesize headerView_;
@@ -189,7 +180,7 @@
 
 - ( IBAction ) toggleDisclosureAction: ( NSButton* )_Sender
     {
-    self.isDisclosureVisible = !isDisclosureVisible_;
+    self.isCollapsed = !isCollapsed_;
     }
 
 @end // TauAbstractDisclosureViewController class
