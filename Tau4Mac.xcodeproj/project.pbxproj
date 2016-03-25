@@ -15,6 +15,10 @@
 		83224A961CA167B9008931C6 /* TAAdaptiveSpaceItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83224A941CA167B9008931C6 /* TAAdaptiveSpaceItemView.m */; };
 		8325553D1CA4DF7A000C8A48 /* KVOController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832555171CA4DF6F000C8A48 /* KVOController.framework */; };
 		8325553E1CA4E007000C8A48 /* KVOController.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 832555171CA4DF6F000C8A48 /* KVOController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		832555551CA50B23000C8A48 /* font-lato-black-regular.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = 8325554C1CA50AF9000C8A48 /* font-lato-black-regular.ttf */; };
+		832555561CA50B23000C8A48 /* font-lato-bold.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = 8325554D1CA50AF9000C8A48 /* font-lato-bold.ttf */; };
+		832555571CA50B23000C8A48 /* font-lato-light-regular.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = 8325554E1CA50AF9000C8A48 /* font-lato-light-regular.ttf */; };
+		832555581CA50B23000C8A48 /* font-lato-regular.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = 8325554F1CA50AF9000C8A48 /* font-lato-regular.ttf */; };
 		833846CB1C9FE39400F49885 /* TauNormalWrappedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 833846CA1C9FE39400F49885 /* TauNormalWrappedLayout.m */; };
 		833846FA1CA10D8D00F49885 /* TauContentCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 833846F81CA10D8D00F49885 /* TauContentCollectionViewController.m */; };
 		833846FB1CA10D8D00F49885 /* TauContentCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 833846F91CA10D8D00F49885 /* TauContentCollectionViewController.xib */; };
@@ -409,6 +413,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		832555541CA50B05000C8A48 /* Copy Fonts */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Fonts;
+			dstSubfolderSpec = 7;
+			files = (
+				832555551CA50B23000C8A48 /* font-lato-black-regular.ttf in Copy Fonts */,
+				832555561CA50B23000C8A48 /* font-lato-bold.ttf in Copy Fonts */,
+				832555571CA50B23000C8A48 /* font-lato-light-regular.ttf in Copy Fonts */,
+				832555581CA50B23000C8A48 /* font-lato-regular.ttf in Copy Fonts */,
+			);
+			name = "Copy Fonts";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		83765B321C88190300D93554 /* Copy Third-Party Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -441,6 +459,10 @@
 		83224A931CA167B9008931C6 /* TAAdaptiveSpaceItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAdaptiveSpaceItemView.h; sourceTree = "<group>"; };
 		83224A941CA167B9008931C6 /* TAAdaptiveSpaceItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAdaptiveSpaceItemView.m; sourceTree = "<group>"; };
 		832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FBKVOController.xcodeproj; path = ../Deps/KVOController/FBKVOController.xcodeproj; sourceTree = "<group>"; };
+		8325554C1CA50AF9000C8A48 /* font-lato-black-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-lato-black-regular.ttf"; sourceTree = "<group>"; };
+		8325554D1CA50AF9000C8A48 /* font-lato-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-lato-bold.ttf"; sourceTree = "<group>"; };
+		8325554E1CA50AF9000C8A48 /* font-lato-light-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-lato-light-regular.ttf"; sourceTree = "<group>"; };
+		8325554F1CA50AF9000C8A48 /* font-lato-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-lato-regular.ttf"; sourceTree = "<group>"; };
 		833846C91C9FE39400F49885 /* TauNormalWrappedLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauNormalWrappedLayout.h; sourceTree = "<group>"; };
 		833846CA1C9FE39400F49885 /* TauNormalWrappedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauNormalWrappedLayout.m; sourceTree = "<group>"; };
 		833846F71CA10D8D00F49885 /* TauContentCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauContentCollectionViewController.h; sourceTree = "<group>"; };
@@ -631,6 +653,26 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		8325554A1CA50AF9000C8A48 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				8325554B1CA50AF9000C8A48 /* Lato Family */,
+			);
+			name = Fonts;
+			path = Tau4Mac/Fonts;
+			sourceTree = "<group>";
+		};
+		8325554B1CA50AF9000C8A48 /* Lato Family */ = {
+			isa = PBXGroup;
+			children = (
+				8325554C1CA50AF9000C8A48 /* font-lato-black-regular.ttf */,
+				8325554D1CA50AF9000C8A48 /* font-lato-bold.ttf */,
+				8325554E1CA50AF9000C8A48 /* font-lato-light-regular.ttf */,
+				8325554F1CA50AF9000C8A48 /* font-lato-regular.ttf */,
+			);
+			path = "Lato Family";
+			sourceTree = "<group>";
+		};
 		8349D39A1C8986E2000D091F /* pri */ = {
 			isa = PBXGroup;
 			children = (
@@ -754,6 +796,7 @@
 		83765AD11C8811DD00D93554 = {
 			isa = PBXGroup;
 			children = (
+				8325554A1CA50AF9000C8A48 /* Fonts */,
 				83765ADC1C8811DD00D93554 /* Tau4Mac */,
 				83765B121C88173300D93554 /* Deps */,
 				83765AF31C8811DE00D93554 /* Tau4MacTests */,
@@ -1015,6 +1058,7 @@
 				83765AD71C8811DD00D93554 /* Frameworks */,
 				83765AD81C8811DD00D93554 /* Resources */,
 				83765B321C88190300D93554 /* Copy Third-Party Frameworks */,
+				832555541CA50B05000C8A48 /* Copy Fonts */,
 			);
 			buildRules = (
 			);
