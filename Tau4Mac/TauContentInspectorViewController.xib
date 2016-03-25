@@ -18,7 +18,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView wantsLayer="YES" id="JpR-XP-nVJ" userLabel="Master View" customClass="TauAbstractContentInspectorView">
+        <customView wantsLayer="YES" id="JpR-XP-nVJ" userLabel="Master View">
             <rect key="frame" x="0.0" y="0.0" width="268" height="410"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <point key="canvasLocation" x="464" y="293"/>
@@ -67,7 +67,7 @@ DQ
                 <constraint firstAttribute="trailing" secondItem="dZ5-kf-zgD" secondAttribute="trailing" constant="33" id="cOn-9L-vD0"/>
                 <constraint firstItem="dZ5-kf-zgD" firstAttribute="top" secondItem="dhK-De-Q8r" secondAttribute="top" constant="18" id="e1V-7h-QLZ"/>
             </constraints>
-            <point key="canvasLocation" x="821.5" y="423.5"/>
+            <point key="canvasLocation" x="802.5" y="506.5"/>
         </customView>
         <customView id="yUE-5Y-ndY" userLabel="Single Content Title Section" customClass="TauContentInspectorSectionView">
             <rect key="frame" x="0.0" y="0.0" width="240" height="48"/>
@@ -102,9 +102,9 @@ DQ
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="3UD-cT-lJL">
-                    <rect key="frame" x="15" y="20" width="260" height="55"/>
+                    <rect key="frame" x="15" y="0.0" width="260" height="89"/>
                     <clipView key="contentView" id="nU5-zQ-TjM">
-                        <rect key="frame" x="0.0" y="0.0" width="260" height="55"/>
+                        <rect key="frame" x="0.0" y="0.0" width="260" height="89"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView editable="NO" selectable="NO" importsGraphics="NO" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" linkDetection="YES" dashSubstitution="YES" id="x6x-jN-cff">
@@ -112,7 +112,7 @@ DQ
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <size key="minSize" width="260" height="55"/>
+                                <size key="minSize" width="260" height="89"/>
                                 <size key="maxSize" width="463" height="10000000"/>
                                 <attributedString key="textStorage">
                                     <fragment>
@@ -165,7 +165,7 @@ Thanks!</string>
                                     </fragment>
                                 </attributedString>
                                 <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <size key="minSize" width="260" height="55"/>
+                                <size key="minSize" width="260" height="89"/>
                                 <size key="maxSize" width="463" height="10000000"/>
                                 <connections>
                                     <binding destination="nkQ-0u-50I" name="attributedString" keyPath="selection.snippet.descriptionProperty" id="Pro-i0-kfp">
@@ -181,23 +181,23 @@ Thanks!</string>
                     </clipView>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" id="OTC-I9-IVX"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="55" id="X6J-gq-hs7"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" id="X6J-gq-hs7"/>
                     </constraints>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="Gli-gb-RYh">
                         <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" canDrawConcurrently="YES" verticalHuggingPriority="750" mirrorLayoutDirectionWhenInternationalizing="never" arrowsPosition="none" horizontal="NO" id="pB8-y6-6Oz">
-                        <rect key="frame" x="244" y="0.0" width="16" height="55"/>
+                        <rect key="frame" x="244" y="0.0" width="16" height="89"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
             </subviews>
             <constraints>
                 <constraint firstItem="3UD-cT-lJL" firstAttribute="leading" secondItem="eG4-cM-th3" secondAttribute="leading" constant="15" id="2r0-sD-iFm"/>
-                <constraint firstItem="3UD-cT-lJL" firstAttribute="top" secondItem="eG4-cM-th3" secondAttribute="top" constant="14" id="a5W-9c-M4f"/>
+                <constraint firstItem="3UD-cT-lJL" firstAttribute="top" secondItem="eG4-cM-th3" secondAttribute="top" id="a5W-9c-M4f"/>
                 <constraint firstAttribute="trailing" secondItem="3UD-cT-lJL" secondAttribute="trailing" constant="15" id="fKf-DZ-4bg"/>
-                <constraint firstAttribute="bottom" secondItem="3UD-cT-lJL" secondAttribute="bottom" constant="20" id="fb9-BF-moD"/>
+                <constraint firstAttribute="bottom" secondItem="3UD-cT-lJL" secondAttribute="bottom" id="fb9-BF-moD"/>
             </constraints>
             <point key="canvasLocation" x="868" y="197"/>
         </customView>
@@ -323,7 +323,6 @@ Thanks!</string>
         </viewController>
         <viewController title="Information" nibName="TauAbstractDisclosureViewController" id="Fsn-f5-nlX" customClass="TauAbstractDisclosureViewController">
             <connections>
-                <outlet property="closedView" destination="amB-Av-uPa" id="d4W-21-4eo"/>
                 <outlet property="disclosedView" destination="wnM-W4-bI1" id="aCJ-Ab-Fnz"/>
             </connections>
         </viewController>
@@ -337,23 +336,14 @@ Thanks!</string>
         </viewController>
         <viewController title="Description" nibName="TauAbstractDisclosureViewController" id="jOd-a3-Ay4" customClass="TauAbstractDisclosureViewController">
             <connections>
-                <outlet property="disclosedView" destination="eG4-cM-th3" id="fCq-bf-NDT"/>
+                <outlet property="closedView" destination="Teb-LY-leO" id="s7W-pH-TLq"/>
+                <outlet property="disclosedView" destination="eG4-cM-th3" id="wxj-iP-btT"/>
             </connections>
         </viewController>
-        <segmentedControl verticalHuggingPriority="750" id="amB-Av-uPa">
-            <rect key="frame" x="0.0" y="0.0" width="104" height="24"/>
+        <customView id="Teb-LY-leO">
+            <rect key="frame" x="0.0" y="0.0" width="281" height="115"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="Ig7-8d-BC4">
-                <font key="font" metaFont="system"/>
-                <segments>
-                    <segment width="32"/>
-                    <segment width="32" selected="YES" tag="1"/>
-                    <segment width="32">
-                        <nil key="label"/>
-                    </segment>
-                </segments>
-            </segmentedCell>
-            <point key="canvasLocation" x="864" y="531.5"/>
-        </segmentedControl>
+            <point key="canvasLocation" x="846.5" y="345.5"/>
+        </customView>
     </objects>
 </document>

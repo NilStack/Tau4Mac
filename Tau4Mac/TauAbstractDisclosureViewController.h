@@ -17,7 +17,7 @@
 #pragma mark - External KVB Compliant Properties
 
 @property ( assign, readwrite ) BOOL showsHeader;
-@property ( assign, readwrite, setter = setCollapsed: ) BOOL isCollapsed;
+@property ( assign, readwrite, setter = setDisclosed: ) BOOL isDisclosed;
 
 @property ( strong, readonly ) NSString* toggleButtonTitle;
 @property ( strong, readonly ) NSString* toggleButtonAlternativeTitle;

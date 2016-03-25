@@ -67,7 +67,7 @@
 
 - ( IBAction ) toggleDisclosureAction: ( NSButton* )_Sender
     {
-    self.isCollapsed = !isCollapsed_;
+    self.isDisclosed = !isDisclosed_;
     }
 
 #pragma mark - External KVB Compliant Properties
@@ -107,22 +107,22 @@
     return NSLocalizedString( @"Show", @"Default alternative toggel button title" );
     }
 
-@synthesize isCollapsed = isCollapsed_;
-+ ( BOOL ) automaticallyNotifiesObserversOfisCollapsed
+@synthesize isDisclosed = isDisclosed_;
++ ( BOOL ) automaticallyNotifiesObserversOfisDisclosed
     {
     return NO;
     }
 
-- ( void ) setCollapsed: ( BOOL )_Flag
+- ( void ) setDisclosed: ( BOOL )_Flag
     {
-    if ( isCollapsed_ == _Flag )
+    if ( isDisclosed_ == _Flag )
         return;
 
-    TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( isCollapsed ),
+    TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( isDisclosed ),
      ( ^{
-        isCollapsed_ = _Flag;
+        isDisclosed_ = _Flag;
 
-        if ( isCollapsed_ )
+        if ( isDisclosed_ )
             {
             if ( !self.closedView )
                 {
@@ -162,7 +162,10 @@
                     } ];
                 }
             else
+                {
                 [ self embedView_: self.closedView ];
+                self.toggelButton_.title = self.toggleButtonAlternativeTitle;
+                }
             }
         else
             {
@@ -189,14 +192,17 @@
                     } ];
                 }
             else
+                {
                 [ self embedView_: self.disclosedView ];
+                self.toggelButton_.title = self.toggleButtonTitle;
+                }
             }
         } ) );
     }
 
-- ( BOOL ) isCollapsed
+- ( BOOL ) isDisclosed
     {
-    return isCollapsed_;
+    return isDisclosed_;
     }
 
 #pragma mark - Private
@@ -218,12 +224,12 @@
         [ layoutConstraintsCache_ removeAllObjects ];
         }
 
-    if ( isCollapsed_ )
+    if ( isDisclosed_ )
         [ self.closedView removeFromSuperview ];
     else
         [ self.disclosedView removeFromSuperview ];
 
-    NSView* embedingView = isCollapsed_ ? self.closedView : self.disclosedView;
+    NSView* embedingView = isDisclosed_ ? self.closedView : self.disclosedView;
     [ self.view addSubview: [ embedingView configureForAutoLayout ] ];
 
     embedingView.wantsLayer = YES;
@@ -263,7 +269,7 @@
     {
     // Setting up the default values.
     // Bypassed the KVC, KVO and KVB mechanism
-    isCollapsed_ = NO;
+    isDisclosed_ = NO;
     showsHeader_ = YES;
 
     layoutConstraintsCache_ = [ NSMutableArray array ];
