@@ -9,6 +9,16 @@
 // TauAbstractDisclosureViewController class
 @interface TauAbstractDisclosureViewController : NSViewController
 
+#pragma mark - Outlets
+
 @property ( weak ) IBOutlet NSView* disclosedView;
+
+#pragma mark - Properties
+
+@property ( assign, readwrite, setter = setDisclosureClosed: ) BOOL isDisclosureClosed;
+
+#pragma mark - Actions
+
+- ( IBAction ) toggleDisclosureAction: ( id )_Sender;
 
 @end // TauAbstractDisclosureViewController class

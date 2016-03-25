@@ -8,9 +8,9 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TauContentInspectorViewController">
             <connections>
                 <outlet property="noSelectionLabelSection_" destination="jJL-pR-HgS" id="kjX-co-7Q8"/>
-                <outlet property="singleContentActionSection_" destination="dhK-De-Q8r" id="3sh-VB-8w9"/>
-                <outlet property="singleContentDescriptionSection_" destination="eG4-cM-th3" id="ef4-tS-BAd"/>
-                <outlet property="singleContentMetaInfoSection_" destination="wnM-W4-bI1" id="QSj-AT-6e9"/>
+                <outlet property="singleContentActionDisclosureViewController_" destination="d9w-t5-BKg" id="wwe-7o-R04"/>
+                <outlet property="singleContentDescriptionDisclosureViewController_" destination="jOd-a3-Ay4" id="7fR-AK-d95"/>
+                <outlet property="singleContentMetaInfoDisclosureViewController_" destination="Fsn-f5-nlX" id="9FV-qi-Vtz"/>
                 <outlet property="singleContentTitleSection_" destination="yUE-5Y-ndY" id="qZc-m5-Gvj"/>
                 <outlet property="view" destination="JpR-XP-nVJ" id="PbH-ZP-GSR"/>
                 <outlet property="ytContentModelController_" destination="nkQ-0u-50I" id="vcT-WP-HCJ"/>
@@ -98,13 +98,13 @@ DQ
             <point key="canvasLocation" x="948" y="43"/>
         </customView>
         <customView wantsLayer="YES" id="eG4-cM-th3" userLabel="Single Content Description Section" customClass="TauContentInspectorSectionView">
-            <rect key="frame" x="0.0" y="0.0" width="290" height="190"/>
+            <rect key="frame" x="0.0" y="0.0" width="290" height="89"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="3UD-cT-lJL">
-                    <rect key="frame" x="15" y="20" width="260" height="156"/>
+                    <rect key="frame" x="15" y="20" width="260" height="55"/>
                     <clipView key="contentView" id="nU5-zQ-TjM">
-                        <rect key="frame" x="0.0" y="0.0" width="260" height="156"/>
+                        <rect key="frame" x="0.0" y="0.0" width="260" height="55"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView editable="NO" selectable="NO" importsGraphics="NO" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" linkDetection="YES" dashSubstitution="YES" id="x6x-jN-cff">
@@ -112,7 +112,7 @@ DQ
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <size key="minSize" width="260" height="156"/>
+                                <size key="minSize" width="260" height="55"/>
                                 <size key="maxSize" width="463" height="10000000"/>
                                 <attributedString key="textStorage">
                                     <fragment>
@@ -165,7 +165,7 @@ Thanks!</string>
                                     </fragment>
                                 </attributedString>
                                 <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <size key="minSize" width="260" height="156"/>
+                                <size key="minSize" width="260" height="55"/>
                                 <size key="maxSize" width="463" height="10000000"/>
                                 <connections>
                                     <binding destination="nkQ-0u-50I" name="attributedString" keyPath="selection.snippet.descriptionProperty" id="Pro-i0-kfp">
@@ -181,14 +181,14 @@ Thanks!</string>
                     </clipView>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" id="OTC-I9-IVX"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="156" id="X6J-gq-hs7"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="55" id="X6J-gq-hs7"/>
                     </constraints>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="Gli-gb-RYh">
                         <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" canDrawConcurrently="YES" verticalHuggingPriority="750" mirrorLayoutDirectionWhenInternationalizing="never" arrowsPosition="none" horizontal="NO" id="pB8-y6-6Oz">
-                        <rect key="frame" x="244" y="0.0" width="16" height="156"/>
+                        <rect key="frame" x="244" y="0.0" width="16" height="55"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
@@ -313,5 +313,20 @@ Thanks!</string>
             </constraints>
             <point key="canvasLocation" x="639.5" y="714.5"/>
         </customView>
+        <viewController title="Information" nibName="TauAbstractDisclosureViewController" id="Fsn-f5-nlX" customClass="TauAbstractDisclosureViewController">
+            <connections>
+                <outlet property="disclosedView" destination="wnM-W4-bI1" id="aCJ-Ab-Fnz"/>
+            </connections>
+        </viewController>
+        <viewController title="Action" nibName="TauAbstractDisclosureViewController" id="d9w-t5-BKg" customClass="TauAbstractDisclosureViewController">
+            <connections>
+                <outlet property="disclosedView" destination="dhK-De-Q8r" id="gOQ-vf-oyu"/>
+            </connections>
+        </viewController>
+        <viewController title="Description" nibName="TauAbstractDisclosureViewController" id="jOd-a3-Ay4" customClass="TauAbstractDisclosureViewController">
+            <connections>
+                <outlet property="disclosedView" destination="eG4-cM-th3" id="fCq-bf-NDT"/>
+            </connections>
+        </viewController>
     </objects>
 </document>

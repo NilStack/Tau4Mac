@@ -7,6 +7,7 @@
 //
 
 #import "TauContentInspectorViewController.h"
+#import "TauAbstractDisclosureViewController.h"
 
 
 
@@ -28,9 +29,9 @@
 // These guys used for feeding the self.stackView_
 @property ( weak ) IBOutlet NSView* noSelectionLabelSection_;
 @property ( weak ) IBOutlet TauContentInspectorSectionView* singleContentTitleSection_;
-@property ( weak ) IBOutlet TauContentInspectorSectionView* singleContentDescriptionSection_;
-@property ( weak ) IBOutlet TauContentInspectorSectionView* singleContentActionSection_;
-@property ( weak ) IBOutlet TauContentInspectorSectionView* singleContentMetaInfoSection_;
+@property ( weak ) IBOutlet TauAbstractDisclosureViewController* singleContentDescriptionDisclosureViewController_;
+@property ( weak ) IBOutlet TauAbstractDisclosureViewController* singleContentActionDisclosureViewController_;
+@property ( weak ) IBOutlet TauAbstractDisclosureViewController* singleContentMetaInfoDisclosureViewController_;
 
 @property ( weak ) IBOutlet NSArrayController* ytContentModelController_;
 
@@ -103,14 +104,14 @@
         priStackView_ = [ [ NSStackView alloc ] initWithFrame: NSZeroRect ];
 
         [ priStackView_ addView: self.singleContentTitleSection_ inGravity: NSStackViewGravityTop ];
-        [ priStackView_ addView: self.singleContentDescriptionSection_ inGravity: NSStackViewGravityTop ];
-        [ priStackView_ addView: self.singleContentActionSection_ inGravity: NSStackViewGravityCenter ];
-        [ priStackView_ addView: self.singleContentMetaInfoSection_ inGravity: NSStackViewGravityBottom ];
+        [ priStackView_ addView: self.singleContentDescriptionDisclosureViewController_.view inGravity: NSStackViewGravityTop ];
+        [ priStackView_ addView: self.singleContentActionDisclosureViewController_.view inGravity: NSStackViewGravityCenter ];
+        [ priStackView_ addView: self.singleContentMetaInfoDisclosureViewController_.view inGravity: NSStackViewGravityBottom ];
 
         [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityMustHold forView: self.singleContentTitleSection_ ];
-        [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityMustHold forView: self.singleContentActionSection_ ];
-        [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityDetachOnlyIfNecessary forView: self.singleContentDescriptionSection_ ];
-        [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityDetachOnlyIfNecessary forView: self.singleContentMetaInfoSection_ ];
+        [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityMustHold forView: self.singleContentActionDisclosureViewController_.view ];
+        [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityDetachOnlyIfNecessary forView: self.singleContentDescriptionDisclosureViewController_.view ];
+        [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityDetachOnlyIfNecessary - 1 forView: self.singleContentMetaInfoDisclosureViewController_.view ];
 
         priStackView_.orientation = NSUserInterfaceLayoutOrientationVertical;
         priStackView_.alignment = NSLayoutAttributeCenterX;
@@ -138,9 +139,24 @@
 - ( void ) awakeFromNib
     {
     [ [ self configureForAutoLayout ] setWantsLayer: YES ];
-    [ self.layer setBackgroundColor: [ NSColor whiteColor ].CGColor ];
-    [ self.layer setBorderColor: [ NSColor blackColor ].CGColor ];
-    [ self.layer setBorderWidth: .3f ];
+    [ self.layer setBackgroundColor: [ NSColor whiteColor ].CGColor ];    }
+
+- ( void ) drawRect: ( NSRect )_DirtyRect
+    {
+    [ super drawRect: _DirtyRect ];
+
+    NSBezierPath* cuttingLinePath = [ NSBezierPath bezierPath ];
+
+    NSRect bounds = self.bounds;
+    CGFloat y = self.isFlipped ? NSMinY( bounds ) : NSMaxY( bounds );
+    [ cuttingLinePath moveToPoint: NSMakePoint( NSMinX( bounds ), y ) ];
+    [ cuttingLinePath lineToPoint: NSMakePoint( NSMaxX( bounds ), y ) ];
+
+    cuttingLinePath.lineWidth = 1.5f;
+
+    [ [ [ NSColor lightGrayColor ] colorWithAlphaComponent: .6f ] setStroke ];
+    [ cuttingLinePath stroke ];
+//    [ cuttingLinePath fill ];
     }
 
 @end // TauContentInspectorSectionView class
