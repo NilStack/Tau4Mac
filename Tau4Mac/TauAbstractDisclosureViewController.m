@@ -124,62 +124,72 @@
 
         if ( isCollapsed_ )
             {
-            CGFloat distanceFromHeaderToBottom = -( NSHeight( disclosedView_.frame ) );
-
-            if ( !self.closingConstraint )
+            if ( !self.closedView )
                 {
-                // The closing constraint is going to tie the bottom of the header view to the bottom of the overall disclosure view.
-                // Initially, it will be offset by the current distance, but we'll be animating it to 0.
-                self.closingConstraint =
-                    [ NSLayoutConstraint constraintWithItem: headerView_
-                                                  attribute: NSLayoutAttributeBottom
-                                                  relatedBy: NSLayoutRelationEqual
-                                                     toItem: self.view
-                                                  attribute: NSLayoutAttributeBottom
-                                                 multiplier: 1.f
-                                                   constant: distanceFromHeaderToBottom ];
+                CGFloat distanceFromHeaderToBottom = -( NSHeight( disclosedView_.frame ) );
+
+                if ( !self.closingConstraint )
+                    {
+                    // The closing constraint is going to tie the bottom of the header view to the bottom of the overall disclosure view.
+                    // Initially, it will be offset by the current distance, but we'll be animating it to 0.
+                    self.closingConstraint =
+                        [ NSLayoutConstraint constraintWithItem: headerView_
+                                                      attribute: NSLayoutAttributeBottom
+                                                      relatedBy: NSLayoutRelationEqual
+                                                         toItem: self.view
+                                                      attribute: NSLayoutAttributeBottom
+                                                     multiplier: 1.f
+                                                       constant: distanceFromHeaderToBottom ];
+                    }
+
+                self.closingConstraint.constant = distanceFromHeaderToBottom;
+                [ self.view addConstraint: self.closingConstraint ];
+            
+                [ NSAnimationContext runAnimationGroup:
+                ^( NSAnimationContext* _Ctx )
+                    {
+                    _Ctx.timingFunction = [ CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut ];
+
+                    // Animate the closing constraint to 0, causing the bottom of the header to be flush with the bottom of the overall disclosure view.
+                    self.closingConstraint.animator.constant = 0.f;
+                    self.toggelButton_.title = self.toggleButtonAlternativeTitle;
+                    }
+
+                completionHandler:
+                ^( void )
+                    {
+                    DDLogDebug( @"Finished animation of \"consant\" property within {%@}", self.closingConstraint );
+                    } ];
                 }
-
-            self.closingConstraint.constant = distanceFromHeaderToBottom;
-            [ self.view addConstraint: self.closingConstraint ];
-        
-            [ NSAnimationContext runAnimationGroup:
-            ^( NSAnimationContext* _Ctx )
-                {
-                _Ctx.timingFunction = [ CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut ];
-
-                // Animate the closing constraint to 0, causing the bottom of the header to be flush with the bottom of the overall disclosure view.
-                self.closingConstraint.animator.constant = 0.f;
-                self.toggelButton_.title = self.toggleButtonAlternativeTitle;
-                }
-
-            completionHandler:
-            ^( void )
-                {
-                DDLogDebug( @"Finished animation of \"consant\" property within {%@}", self.closingConstraint );
-                } ];
+            else
+                [ self embedView_: self.closedView ];
             }
         else
             {
-            [ NSAnimationContext runAnimationGroup:
-            ^( NSAnimationContext* _Ctx )
+            if ( !self.closedView )
                 {
-                _Ctx.timingFunction = [ CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut ];
+                [ NSAnimationContext runAnimationGroup:
+                ^( NSAnimationContext* _Ctx )
+                    {
+                    _Ctx.timingFunction = [ CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut ];
 
-                // Animate the constraint to fit the disclosed view again
-                // FIXME: NSHeight( disclosedView_.frame ) results in a wrong number (only be 0)
-                self.closingConstraint.animator.constant -= NSHeight( disclosedView_.frame );
-                self.toggelButton_.title = self.toggleButtonTitle;
+                    // Animate the constraint to fit the disclosed view again
+                    // FIXME: NSHeight( disclosedView_.frame ) results in a wrong number (only be 0)
+                    self.closingConstraint.animator.constant -= NSHeight( disclosedView_.frame );
+                    self.toggelButton_.title = self.toggleButtonTitle;
+                    }
+
+                completionHandler:
+                ^( void )
+                    {
+                    DDLogDebug( @"Finished animation of \"consant\" property within {%@}", self.closingConstraint );
+
+                    // The constraint is no longer needed, we can remove it.
+                    [ self.view removeConstraint: self.closingConstraint ];
+                    } ];
                 }
-
-            completionHandler:
-            ^( void )
-                {
-                DDLogDebug( @"Finished animation of \"consant\" property within {%@}", self.closingConstraint );
-
-                // The constraint is no longer needed, we can remove it.
-                [ self.view removeConstraint: self.closingConstraint ];
-                } ];
+            else
+                [ self embedView_: self.disclosedView ];
             }
         } ) );
     }
@@ -196,27 +206,36 @@
 @synthesize disclosedView = disclosedView_;
 - ( void ) setDisclosedView: ( NSView* )_New
     {
+    disclosedView_ = _New;
+    [ self embedView_: disclosedView_ ];
+    }
+
+- ( void ) embedView_: ( NSView* )_View
+    {
     if ( layoutConstraintsCache_.count > 0 )
         {
         [ self.view removeConstraints: layoutConstraintsCache_ ];
         [ layoutConstraintsCache_ removeAllObjects ];
         }
 
-    [ self.disclosedView removeFromSuperview ];
-    disclosedView_ = _New;
+    if ( isCollapsed_ )
+        [ self.closedView removeFromSuperview ];
+    else
+        [ self.disclosedView removeFromSuperview ];
 
-    [ self.view addSubview: [ disclosedView_ configureForAutoLayout ] ];
+    NSView* embedingView = isCollapsed_ ? self.closedView : self.disclosedView;
+    [ self.view addSubview: [ embedingView configureForAutoLayout ] ];
 
-    disclosedView_.wantsLayer = YES;
-    disclosedView_.layer.backgroundColor = [ NSColor whiteColor ].CGColor;
+    embedingView.wantsLayer = YES;
+    embedingView.layer.backgroundColor = [ NSColor whiteColor ].CGColor;
 
-    NSDictionary* viewsDict = NSDictionaryOfVariableBindings( headerView_, disclosedView_ );
+    NSDictionary* viewsDict = NSDictionaryOfVariableBindings( headerView_, embedingView );
 
-    [ layoutConstraintsCache_ addObjectsFromArray: [ NSLayoutConstraint constraintsWithVisualFormat: @"H:|[disclosedView_(>=0)]|" options: 0 metrics: nil views: viewsDict ] ];
-    [ layoutConstraintsCache_ addObjectsFromArray: [ NSLayoutConstraint constraintsWithVisualFormat: [ NSString stringWithFormat: @"V:|%@[disclosedView_(>=0)]|", showsHeader_ ? @"[headerView_]" : @"" ] options: 0 metrics: nil views: viewsDict ] ];
+    [ layoutConstraintsCache_ addObjectsFromArray: [ NSLayoutConstraint constraintsWithVisualFormat: @"H:|[embedingView(>=0)]|" options: 0 metrics: nil views: viewsDict ] ];
+    [ layoutConstraintsCache_ addObjectsFromArray: [ NSLayoutConstraint constraintsWithVisualFormat: [ NSString stringWithFormat: @"V:|%@[embedingView(>=0)]|", showsHeader_ ? @"[headerView_]" : @"" ] options: 0 metrics: nil views: viewsDict ] ];
 
     // add an optional constraint (but with a priority stronger than a drag), that the disclosing view
-    [ layoutConstraintsCache_ addObjectsFromArray: [ NSLayoutConstraint constraintsWithVisualFormat: @"V:[disclosedView_]-(0@priority)-|" options: 0 metrics: @{ @"priority" : @( NSLayoutPriorityDefaultHigh ) } views: viewsDict ] ];
+    [ layoutConstraintsCache_ addObjectsFromArray: [ NSLayoutConstraint constraintsWithVisualFormat: @"V:[embedingView]-(0@priority)-|" options: 0 metrics: @{ @"priority" : @( NSLayoutPriorityDefaultHigh ) } views: viewsDict ] ];
 
     [ self.view addConstraints: layoutConstraintsCache_ ];
     }
@@ -224,6 +243,18 @@
 - ( NSView* ) disclosedView
     {
     return disclosedView_;
+    }
+
+@synthesize closedView = closedView_;
+- ( void ) setClosedView: ( NSView* )_New
+    {
+    if ( closedView_ != _New )
+        closedView_ = _New;
+    }
+
+- ( NSView* ) closedView
+    {
+    return closedView_;
     }
 
 // Init

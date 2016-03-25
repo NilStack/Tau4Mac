@@ -11,7 +11,7 @@
                 <outlet property="singleContentActionDisclosureViewController_" destination="d9w-t5-BKg" id="wwe-7o-R04"/>
                 <outlet property="singleContentDescriptionDisclosureViewController_" destination="jOd-a3-Ay4" id="7fR-AK-d95"/>
                 <outlet property="singleContentMetaInfoDisclosureViewController_" destination="Fsn-f5-nlX" id="9FV-qi-Vtz"/>
-                <outlet property="singleContentTitleSection_" destination="yUE-5Y-ndY" id="qZc-m5-Gvj"/>
+                <outlet property="singleContentTitleDisclosureViewController_" destination="NyQ-zx-yn7" id="nyl-Ef-nK3"/>
                 <outlet property="view" destination="JpR-XP-nVJ" id="PbH-ZP-GSR"/>
                 <outlet property="ytContentModelController_" destination="nkQ-0u-50I" id="vcT-WP-HCJ"/>
             </connections>
@@ -313,12 +313,24 @@ Thanks!</string>
             </constraints>
             <point key="canvasLocation" x="639.5" y="714.5"/>
         </customView>
+        <viewController id="NyQ-zx-yn7" customClass="TauAbstractDisclosureViewController">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="showsHeader" value="NO"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="disclosedView" destination="yUE-5Y-ndY" id="mMV-5X-wPF"/>
+            </connections>
+        </viewController>
         <viewController title="Information" nibName="TauAbstractDisclosureViewController" id="Fsn-f5-nlX" customClass="TauAbstractDisclosureViewController">
             <connections>
+                <outlet property="closedView" destination="amB-Av-uPa" id="d4W-21-4eo"/>
                 <outlet property="disclosedView" destination="wnM-W4-bI1" id="aCJ-Ab-Fnz"/>
             </connections>
         </viewController>
         <viewController title="Action" nibName="TauAbstractDisclosureViewController" id="d9w-t5-BKg" customClass="TauAbstractDisclosureViewController">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="showsHeader" value="NO"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="disclosedView" destination="dhK-De-Q8r" id="gOQ-vf-oyu"/>
             </connections>
@@ -328,5 +340,20 @@ Thanks!</string>
                 <outlet property="disclosedView" destination="eG4-cM-th3" id="fCq-bf-NDT"/>
             </connections>
         </viewController>
+        <segmentedControl verticalHuggingPriority="750" id="amB-Av-uPa">
+            <rect key="frame" x="0.0" y="0.0" width="104" height="24"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="Ig7-8d-BC4">
+                <font key="font" metaFont="system"/>
+                <segments>
+                    <segment width="32"/>
+                    <segment width="32" selected="YES" tag="1"/>
+                    <segment width="32">
+                        <nil key="label"/>
+                    </segment>
+                </segments>
+            </segmentedCell>
+            <point key="canvasLocation" x="864" y="531.5"/>
+        </segmentedControl>
     </objects>
 </document>

@@ -28,7 +28,7 @@
 
 // These guys used for feeding the self.stackView_
 @property ( weak ) IBOutlet NSView* noSelectionLabelSection_;
-@property ( weak ) IBOutlet TauContentInspectorSectionView* singleContentTitleSection_;
+@property ( weak ) IBOutlet TauAbstractDisclosureViewController* singleContentTitleDisclosureViewController_;
 @property ( weak ) IBOutlet TauAbstractDisclosureViewController* singleContentDescriptionDisclosureViewController_;
 @property ( weak ) IBOutlet TauAbstractDisclosureViewController* singleContentActionDisclosureViewController_;
 @property ( weak ) IBOutlet TauAbstractDisclosureViewController* singleContentMetaInfoDisclosureViewController_;
@@ -103,12 +103,12 @@
         {
         priStackView_ = [ [ NSStackView alloc ] initWithFrame: NSZeroRect ];
 
-        [ priStackView_ addView: self.singleContentTitleSection_ inGravity: NSStackViewGravityTop ];
+        [ priStackView_ addView: self.singleContentTitleDisclosureViewController_.view inGravity: NSStackViewGravityTop ];
         [ priStackView_ addView: self.singleContentActionDisclosureViewController_.view inGravity: NSStackViewGravityTop ];
         [ priStackView_ addView: self.singleContentDescriptionDisclosureViewController_.view inGravity: NSStackViewGravityCenter ];
         [ priStackView_ addView: self.singleContentMetaInfoDisclosureViewController_.view inGravity: NSStackViewGravityBottom ];
 
-        [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityMustHold forView: self.singleContentTitleSection_ ];
+        [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityMustHold forView: self.singleContentTitleDisclosureViewController_.view ];
         [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityMustHold forView: self.singleContentActionDisclosureViewController_.view ];
         [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityDetachOnlyIfNecessary forView: self.singleContentDescriptionDisclosureViewController_.view ];
         [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityDetachOnlyIfNecessary - 1 forView: self.singleContentMetaInfoDisclosureViewController_.view ];
@@ -127,6 +127,7 @@
     }
 
 @end // TauContentInspectorViewController class
+
 
 
 // ------------------------------------------------------------------------------------------------------------ //
