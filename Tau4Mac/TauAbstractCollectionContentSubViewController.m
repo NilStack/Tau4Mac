@@ -9,8 +9,6 @@
 #import "TauAbstractCollectionContentSubViewController.h"
 #import "TauToolbarItem.h"
 
-#import "_PriTauAbstractCollectionContentSubViewController.h"
-
 // TauSearchResultsAccessoryBarViewController class
 @interface TauResultsAccessoryBarViewController : NSTitlebarAccessoryViewController
 @end // TauSearchResultsAccessoryBarViewController class
@@ -24,11 +22,12 @@
 // Private
 @interface TauAbstractCollectionContentSubViewController ()
 
-@property ( strong, readwrite ) NSString* prevToken_;   // KVB-compliant
-@property ( strong, readwrite ) NSString* nextToken_;   // KVB-compliant
 @property ( assign, readwrite, setter = setPaging: ) BOOL isPaging;   // KVB compliant
 
 // Internal
+@property ( strong, readwrite ) NSString* prevToken_;   // KVB-compliant
+@property ( strong, readwrite ) NSString* nextToken_;   // KVB-compliant
+
 @property ( strong, readonly ) TauYTDataServiceCredential* credential_;
 
 // Feeding TauToolbarController
@@ -48,7 +47,7 @@
     // Do view setup here.
     }
 
-#pragma mark - Overrides
+#pragma mark - Overrides <TauContentSubViewController>
 
 - ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
     {
@@ -75,12 +74,12 @@
 
 - ( IBAction ) loadPrevPageAction: ( id )_Sender
     {
-    [ self executeSearchWithPageToken_: self.prevToken_ ];
+    [ self executePagingOperationWithPageToken_: self.prevToken_ ];
     }
 
 - ( IBAction ) loadNextPageAction: ( id )_Sender
     {
-    [ self executeSearchWithPageToken_: self.nextToken_ ];
+    [ self executePagingOperationWithPageToken_: self.nextToken_ ];
     }
 
 - ( IBAction ) cancelAction: ( id )_Sender
@@ -91,7 +90,24 @@
     [ self popMe ];
     }
 
-#pragma mark - External KVB Compliant
+#pragma mark - UI
+
+@synthesize contentCollectionViewController = priContentCollectionViewController_;
+- ( TauContentCollectionViewController* ) contentCollectionViewController
+    {
+    if ( !priContentCollectionViewController_ )
+        {
+        priContentCollectionViewController_ = [ [ TauContentCollectionViewController alloc ] initWithNibName: nil bundle: nil ];
+        [ priContentCollectionViewController_ setRelayDataSource: self ];
+        [ self addChildViewController: priContentCollectionViewController_ ];
+        [ self.view addSubview: priContentCollectionViewController_.view ];
+        [ priContentCollectionViewController_.view autoPinEdgesToSuperviewEdges ];
+        }
+
+    return priContentCollectionViewController_;
+    }
+
+#pragma mark - External KVB Compliant Properties
 
 @dynamic hasPrev;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingHasPrev
@@ -115,29 +131,6 @@
     return ( self.nextToken_ != nil );
     }
 
-+ ( NSSet <NSString*>* ) keyPathsForValuesAffectingResultsSummaryText
-    {
-    return [ NSSet setWithObjects: TAU_KEY_OF_SEL( @selector( results ) ), nil ];
-    }
-
-@synthesize results = results_;
-- ( void ) setResults: ( NSArray <GTLObject*>* )_New
-    {
-    if ( results_ != _New )
-        {
-        TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( results ),
-         ( ^{
-            results_ = _New;
-            [ self.contentCollectionViewController reloadData ];
-            } ) );
-        }
-    }
-
-- ( NSArray <GTLObject*>* ) results
-    {
-    return results_;
-    }
-
 @synthesize isPaging = isPaging_;
 + ( BOOL ) automaticallyNotifiesObserversOfIsPaging
     {
@@ -155,29 +148,64 @@
     return isPaging_;
     }
 
-@dynamic resultsSummaryText;
+@synthesize results = results_;
++ ( BOOL ) automaticallyNotifiesObserversOfResults
+    {
+    return NO;
+    }
 
-@synthesize prevToken_;
-@synthesize nextToken_;
+- ( void ) setResults: ( NSArray <GTLObject*>* )_New
+    {
+    if ( results_ != _New )
+        {
+        TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( results ),
+         ( ^{
+            results_ = _New;
+            [ self.contentCollectionViewController reloadData ];
+            } ) );
+        }
+    }
+
+- ( NSArray <GTLObject*>* ) results
+    {
+    return results_;
+    }
+
+#pragma mark - Overrides by Concrete Classes
+
+@dynamic resultsSummaryText;
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingResultsSummaryText
+    {
+    return [ NSSet setWithObjects: TAU_KEY_OF_SEL( @selector( results ) ), nil ];
+    }
+
+- ( NSString* ) resultsSummaryText
+    {
+    NSUInteger resultsCount = results_.count;
+    return [ NSString stringWithFormat: NSLocalizedString( @"%lu Result%@", nil ), resultsCount, ( resultsCount > 1 ) ? @"s" : @"" ];
+    }
+
+@synthesize originalOperationsCombination = originalOperationsCombination_;
+- ( void ) setOriginalOperationsCombination: ( NSDictionary* )_New
+    {
+    if ( originalOperationsCombination_ != _New )
+        {
+        originalOperationsCombination_ = _New;
+        [ self executePagingOperationWithPageToken_: originalOperationsCombination_[ TauTDSOperationPageToken ] ];
+        }
+    }
+
+- ( NSDictionary* ) originalOperationsCombination
+    {
+    return originalOperationsCombination_;
+    }
 
 #pragma mark - Private
 
-@synthesize accessoryBarViewController_;
+// Internal
 
-@synthesize contentCollectionViewController = priContentCollectionViewController_;
-- ( TauContentCollectionViewController* ) contentCollectionViewController
-    {
-    if ( !priContentCollectionViewController_ )
-        {
-        priContentCollectionViewController_ = [ [ TauContentCollectionViewController alloc ] initWithNibName: nil bundle: nil ];
-        [ priContentCollectionViewController_ setRelayDataSource: self ];
-        [ self addChildViewController: priContentCollectionViewController_ ];
-        [ self.view addSubview: priContentCollectionViewController_.view ];
-        [ priContentCollectionViewController_.view autoPinEdgesToSuperviewEdges ];
-        }
-
-    return priContentCollectionViewController_;
-    }
+@synthesize prevToken_;
+@synthesize nextToken_;
 
 @synthesize credential_ = priCredential_;
 - ( TauYTDataServiceCredential* ) credential_
@@ -185,16 +213,21 @@
     if ( !priCredential_ )
         {
         id consumer = self;
-        priCredential_ =
-            [ [ TauYTDataService sharedService ] registerConsumer: consumer
-                                              withMethodSignature: [ self methodSignatureForSelector: _cmd ]
-                                                  consumptionType: TauYTDataServiceConsumptionSearchResultsType ];
+
+        priCredential_ = [ [ TauYTDataService sharedService ]
+            registerConsumer: consumer withMethodSignature: [ self methodSignatureForSelector: _cmd ] consumptionType: TauYTDataServiceConsumptionSearchResultsType ];
         }
 
     return priCredential_;
     }
 
-- ( void ) executeSearchWithPageToken_: ( NSString* )_PageToken
+// Feeding TauToolbarController
+
+@synthesize accessoryBarViewController_;
+
+// Paging Operation
+
+- ( void ) executePagingOperationWithPageToken_: ( NSString* )_PageToken
     {
     NSDictionary* operationsCombination = nil;
     if ( _PageToken && ( _PageToken.length > 0 ) )

@@ -467,7 +467,6 @@
 		8325555A1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauAbstractCollectionContentSubViewController.h; sourceTree = "<group>"; };
 		8325555B1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAbstractCollectionContentSubViewController.m; sourceTree = "<group>"; };
 		8325555D1CA54143000C8A48 /* TauAbstractCollectionContentSubViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TauAbstractCollectionContentSubViewController.xib; sourceTree = "<group>"; };
-		8325555F1CA54301000C8A48 /* _PriTauAbstractCollectionContentSubViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _PriTauAbstractCollectionContentSubViewController.h; sourceTree = "<group>"; };
 		833846C91C9FE39400F49885 /* TauNormalWrappedLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauNormalWrappedLayout.h; sourceTree = "<group>"; };
 		833846CA1C9FE39400F49885 /* TauNormalWrappedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauNormalWrappedLayout.m; sourceTree = "<group>"; };
 		833846F71CA10D8D00F49885 /* TauContentCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauContentCollectionViewController.h; sourceTree = "<group>"; };
@@ -716,7 +715,6 @@
 		834E780F1C9ECECF00802301 /* search */ = {
 			isa = PBXGroup;
 			children = (
-				8325555F1CA54301000C8A48 /* _PriTauAbstractCollectionContentSubViewController.h */,
 				8325555A1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.h */,
 				8325555B1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m */,
 				8325555D1CA54143000C8A48 /* TauAbstractCollectionContentSubViewController.xib */,

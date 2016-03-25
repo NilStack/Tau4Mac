@@ -9,8 +9,6 @@
 #import "TauSearchResultsCollectionContentSubViewController.h"
 #import "TauToolbarItem.h"
 
-#import "_PriTauAbstractCollectionContentSubViewController.h"
-
 // Private
 @interface TauSearchResultsCollectionContentSubViewController ()
 
@@ -28,10 +26,12 @@
 // TauSearchResultsCollectionContentSubViewController class
 @implementation TauSearchResultsCollectionContentSubViewController
 
+#pragma mark - Initializations
+
 - ( instancetype ) initWithNibName: ( NSString* )_NibNameOrNil bundle: ( NSBundle* )_NibBundleOrNil
     {
-    return [ super initWithNibName: NSStringFromClass( [ TauAbstractCollectionContentSubViewController class ] )
-                            bundle: [ NSBundle bundleForClass: [ TauAbstractCollectionContentSubViewController class ] ] ] ;
+    Class superClass = [ TauAbstractCollectionContentSubViewController class ];
+    return [ super initWithNibName: NSStringFromClass( superClass ) bundle: [ NSBundle bundleForClass: superClass ] ];
     }
 
 #pragma mark - External KVB Compliant
@@ -50,10 +50,8 @@
          ( ^{
             searchText_ = _New;
 
-            originalOperationsCombination_ =
+            self.originalOperationsCombination =
                 @{ TauTDSOperationMaxResultsPerPage : @50, TauTDSOperationRequirements : @{ TauTDSOperationRequirementQ : searchText_ }, TauTDSOperationPartFilter : @"snippet" };
-
-            [ self executeSearchWithPageToken_: nil ];
             } ) );
         }
     }
@@ -62,6 +60,8 @@
     {
     return searchText_;
     }
+
+#pragma mark - Overrides
 
 - ( NSString* ) resultsSummaryText
     {

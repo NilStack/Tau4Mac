@@ -17,17 +17,20 @@
     NSDictionary __strong* originalOperationsCombination_;
     }
 
+#pragma mark - UI
+
+@property ( strong, readonly ) TauContentCollectionViewController* contentCollectionViewController;
+
+#pragma mark - External KVB Compliant Properties
+
 @property ( assign, readonly ) BOOL hasPrev;    // KVB compliant
 @property ( assign, readonly ) BOOL hasNext;    // KVB compliant
 @property ( assign, readonly ) BOOL isPaging;   // KVB compliant
 
-@property ( weak, readwrite ) NSArray <GTLObject*>* results;
+@property ( weak, readwrite ) NSArray <GTLObject*>* results;    // KVB compliant
+@property ( strong, readonly ) NSString* resultsSummaryText;    // KVB compliant
 
-@property ( strong, readonly ) TauContentCollectionViewController* contentCollectionViewController;
-
-#pragma mark - Overrides by Concrete Classes
-
-@property ( strong, readonly ) NSString* resultsSummaryText;  // KVB compliant
+@property ( strong, readwrite ) NSDictionary* originalOperationsCombination;
 
 #pragma mark - Actions
 
