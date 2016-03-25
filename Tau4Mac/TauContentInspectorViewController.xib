@@ -43,11 +43,11 @@
             <point key="canvasLocation" x="440" y="-22"/>
         </textField>
         <customView id="dhK-De-Q8r" userLabel="Single Content Action Section" customClass="TauContentInspectorSectionView">
-            <rect key="frame" x="0.0" y="0.0" width="269" height="57"/>
+            <rect key="frame" x="0.0" y="0.0" width="269" height="41"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dZ5-kf-zgD">
-                    <rect key="frame" x="27" y="11" width="215" height="32"/>
+                    <rect key="frame" x="27" y="3" width="215" height="32"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" id="5lp-mq-djW"/>
                         <constraint firstAttribute="height" constant="21" id="WuN-EE-Zrv"/>
@@ -63,18 +63,18 @@ DQ
             </subviews>
             <constraints>
                 <constraint firstItem="dZ5-kf-zgD" firstAttribute="leading" secondItem="dhK-De-Q8r" secondAttribute="leading" constant="33" id="GXo-pH-mgi"/>
-                <constraint firstAttribute="bottom" secondItem="dZ5-kf-zgD" secondAttribute="bottom" constant="18" id="c8q-bI-zCm"/>
+                <constraint firstAttribute="bottom" secondItem="dZ5-kf-zgD" secondAttribute="bottom" constant="10" id="c8q-bI-zCm"/>
                 <constraint firstAttribute="trailing" secondItem="dZ5-kf-zgD" secondAttribute="trailing" constant="33" id="cOn-9L-vD0"/>
-                <constraint firstItem="dZ5-kf-zgD" firstAttribute="top" secondItem="dhK-De-Q8r" secondAttribute="top" constant="18" id="e1V-7h-QLZ"/>
+                <constraint firstItem="dZ5-kf-zgD" firstAttribute="top" secondItem="dhK-De-Q8r" secondAttribute="top" constant="10" id="e1V-7h-QLZ"/>
             </constraints>
-            <point key="canvasLocation" x="802.5" y="506.5"/>
+            <point key="canvasLocation" x="802.5" y="499"/>
         </customView>
         <customView id="yUE-5Y-ndY" userLabel="Single Content Title Section" customClass="TauContentInspectorSectionView">
             <rect key="frame" x="0.0" y="0.0" width="240" height="48"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qjj-kr-bQV">
-                    <rect key="frame" x="18" y="6" width="204" height="22"/>
+                    <rect key="frame" x="18" y="10" width="204" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" id="YdK-dS-xMW"/>
                         <constraint firstAttribute="height" constant="22" id="Yln-X6-IOu"/>
@@ -90,21 +90,21 @@ DQ
                 </textField>
             </subviews>
             <constraints>
-                <constraint firstItem="qjj-kr-bQV" firstAttribute="top" secondItem="yUE-5Y-ndY" secondAttribute="top" constant="20" id="DOW-Ac-vw4"/>
-                <constraint firstAttribute="bottom" secondItem="qjj-kr-bQV" secondAttribute="bottom" constant="6" id="GFX-L6-XA2"/>
+                <constraint firstItem="qjj-kr-bQV" firstAttribute="top" secondItem="yUE-5Y-ndY" secondAttribute="top" constant="16" id="DOW-Ac-vw4"/>
+                <constraint firstAttribute="bottom" secondItem="qjj-kr-bQV" secondAttribute="bottom" constant="10" id="E0A-oz-ifb"/>
                 <constraint firstAttribute="trailing" secondItem="qjj-kr-bQV" secondAttribute="trailing" constant="20" id="JOZ-XO-xkz"/>
                 <constraint firstItem="qjj-kr-bQV" firstAttribute="leading" secondItem="yUE-5Y-ndY" secondAttribute="leading" constant="20" id="XUm-1D-pVd"/>
             </constraints>
             <point key="canvasLocation" x="948" y="43"/>
         </customView>
         <customView wantsLayer="YES" id="eG4-cM-th3" userLabel="Single Content Description Section" customClass="TauContentInspectorSectionView">
-            <rect key="frame" x="0.0" y="0.0" width="290" height="89"/>
+            <rect key="frame" x="0.0" y="0.0" width="290" height="100"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="3UD-cT-lJL">
-                    <rect key="frame" x="15" y="0.0" width="260" height="89"/>
+                    <rect key="frame" x="15" y="12" width="260" height="77"/>
                     <clipView key="contentView" id="nU5-zQ-TjM">
-                        <rect key="frame" x="0.0" y="0.0" width="260" height="89"/>
+                        <rect key="frame" x="0.0" y="0.0" width="260" height="77"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView editable="NO" selectable="NO" importsGraphics="NO" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" linkDetection="YES" dashSubstitution="YES" id="x6x-jN-cff">
@@ -112,7 +112,7 @@ DQ
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <size key="minSize" width="260" height="89"/>
+                                <size key="minSize" width="260" height="77"/>
                                 <size key="maxSize" width="463" height="10000000"/>
                                 <attributedString key="textStorage">
                                     <fragment>
@@ -165,7 +165,7 @@ Thanks!</string>
                                     </fragment>
                                 </attributedString>
                                 <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <size key="minSize" width="260" height="89"/>
+                                <size key="minSize" width="260" height="77"/>
                                 <size key="maxSize" width="463" height="10000000"/>
                                 <connections>
                                     <binding destination="nkQ-0u-50I" name="attributedString" keyPath="selection.snippet.descriptionProperty" id="Pro-i0-kfp">
@@ -188,18 +188,18 @@ Thanks!</string>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" canDrawConcurrently="YES" verticalHuggingPriority="750" mirrorLayoutDirectionWhenInternationalizing="never" arrowsPosition="none" horizontal="NO" id="pB8-y6-6Oz">
-                        <rect key="frame" x="244" y="0.0" width="16" height="89"/>
+                        <rect key="frame" x="244" y="0.0" width="16" height="77"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
             </subviews>
             <constraints>
                 <constraint firstItem="3UD-cT-lJL" firstAttribute="leading" secondItem="eG4-cM-th3" secondAttribute="leading" constant="15" id="2r0-sD-iFm"/>
-                <constraint firstItem="3UD-cT-lJL" firstAttribute="top" secondItem="eG4-cM-th3" secondAttribute="top" id="a5W-9c-M4f"/>
+                <constraint firstAttribute="bottom" secondItem="3UD-cT-lJL" secondAttribute="bottom" constant="12" id="3AH-Ji-GWi"/>
+                <constraint firstItem="3UD-cT-lJL" firstAttribute="top" secondItem="eG4-cM-th3" secondAttribute="top" constant="11" id="YMd-HN-kVQ"/>
                 <constraint firstAttribute="trailing" secondItem="3UD-cT-lJL" secondAttribute="trailing" constant="15" id="fKf-DZ-4bg"/>
-                <constraint firstAttribute="bottom" secondItem="3UD-cT-lJL" secondAttribute="bottom" id="fb9-BF-moD"/>
             </constraints>
-            <point key="canvasLocation" x="868" y="197"/>
+            <point key="canvasLocation" x="868" y="191"/>
         </customView>
         <customView id="wnM-W4-bI1" userLabel="Single Content Meta Info Section" customClass="TauContentInspectorSectionView">
             <rect key="frame" x="0.0" y="0.0" width="369" height="247"/>
@@ -335,15 +335,12 @@ Thanks!</string>
             </connections>
         </viewController>
         <viewController title="Description" nibName="TauAbstractDisclosureViewController" id="jOd-a3-Ay4" customClass="TauAbstractDisclosureViewController">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="showsHeader" value="NO"/>
+            </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="closedView" destination="Teb-LY-leO" id="s7W-pH-TLq"/>
                 <outlet property="disclosedView" destination="eG4-cM-th3" id="wxj-iP-btT"/>
             </connections>
         </viewController>
-        <customView id="Teb-LY-leO">
-            <rect key="frame" x="0.0" y="0.0" width="281" height="115"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <point key="canvasLocation" x="846.5" y="345.5"/>
-        </customView>
     </objects>
 </document>

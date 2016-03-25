@@ -12,7 +12,6 @@
 #pragma mark - Outlets
 
 @property ( weak ) IBOutlet NSView* disclosedView;
-@property ( weak ) IBOutlet NSView* closedView;
 
 #pragma mark - External KVB Compliant Properties
 
