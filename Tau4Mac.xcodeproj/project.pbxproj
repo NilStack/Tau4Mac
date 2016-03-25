@@ -14,6 +14,7 @@
 		83224A951CA167B9008931C6 /* TAAdaptiveSpaceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 83224A921CA167B9008931C6 /* TAAdaptiveSpaceItem.m */; };
 		83224A961CA167B9008931C6 /* TAAdaptiveSpaceItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83224A941CA167B9008931C6 /* TAAdaptiveSpaceItemView.m */; };
 		8325553D1CA4DF7A000C8A48 /* KVOController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832555171CA4DF6F000C8A48 /* KVOController.framework */; };
+		8325553E1CA4E007000C8A48 /* KVOController.framework in Copy Third-Party Frameworks (4 items) */ = {isa = PBXBuildFile; fileRef = 832555171CA4DF6F000C8A48 /* KVOController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		833846CB1C9FE39400F49885 /* TauNormalWrappedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 833846CA1C9FE39400F49885 /* TauNormalWrappedLayout.m */; };
 		833846FA1CA10D8D00F49885 /* TauContentCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 833846F81CA10D8D00F49885 /* TauContentCollectionViewController.m */; };
 		833846FB1CA10D8D00F49885 /* TauContentCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 833846F91CA10D8D00F49885 /* TauContentCollectionViewController.xib */; };
@@ -416,6 +417,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				8325553E1CA4E007000C8A48 /* KVOController.framework in Copy Third-Party Frameworks (4 items) */,
 				83EB73C31C8E6531004EB117 /* XCDYouTubeKit.framework in Copy Third-Party Frameworks (4 items) */,
 				83765B971C881EA900D93554 /* GTL.framework in Copy Third-Party Frameworks (4 items) */,
 				83765B691C881A6800D93554 /* CocoaLumberjack.framework in Copy Third-Party Frameworks (4 items) */,
