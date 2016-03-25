@@ -15,7 +15,7 @@
 
 #pragma mark - Properties
 
-@property ( assign, readwrite, setter = setDisclosureClosed: ) BOOL isDisclosureClosed;
+@property ( assign, readwrite, setter = setDisclosureVisible: ) BOOL isDisclosureVisible;
 
 #pragma mark - Actions
 

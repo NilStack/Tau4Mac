@@ -104,8 +104,8 @@
         priStackView_ = [ [ NSStackView alloc ] initWithFrame: NSZeroRect ];
 
         [ priStackView_ addView: self.singleContentTitleSection_ inGravity: NSStackViewGravityTop ];
-        [ priStackView_ addView: self.singleContentDescriptionDisclosureViewController_.view inGravity: NSStackViewGravityTop ];
-        [ priStackView_ addView: self.singleContentActionDisclosureViewController_.view inGravity: NSStackViewGravityCenter ];
+        [ priStackView_ addView: self.singleContentActionDisclosureViewController_.view inGravity: NSStackViewGravityTop ];
+        [ priStackView_ addView: self.singleContentDescriptionDisclosureViewController_.view inGravity: NSStackViewGravityCenter ];
         [ priStackView_ addView: self.singleContentMetaInfoDisclosureViewController_.view inGravity: NSStackViewGravityBottom ];
 
         [ priStackView_ setVisibilityPriority: NSStackViewVisibilityPriorityMustHold forView: self.singleContentTitleSection_ ];

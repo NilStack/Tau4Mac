@@ -25,14 +25,26 @@
 
 #pragma mark - Initializations
 
+- ( instancetype ) initWithNibName: ( NSString* )_NibNameOrNil bundle: ( NSBundle* )_NibBundleOrNil
+    {
+    if ( self = [ super initWithNibName: _NibNameOrNil bundle: _NibBundleOrNil ] )
+        isDisclosureVisible_ = YES;
+    return self;
+    }
+
+- ( instancetype ) initWithCoder: ( NSCoder* )_Coder
+    {
+    if ( self = [ super initWithCoder: _Coder ] )
+        isDisclosureVisible_ = YES;
+    return self;
+    }
+
 - ( void ) viewDidLoad
     {
     [ super viewDidLoad ];
 
     [ [ self.headerView_ configureForAutoLayout ] setWantsLayer: YES ];
     [ [ self.headerView_ layer ] setBackgroundColor: [ NSColor controlColor ].CGColor ];
-
-    isDisclosureClosed_ = NO;
     }
 
 - ( void ) setTitle: ( NSString* )_Title
@@ -41,60 +53,94 @@
     [ self.descField_ setStringValue: _Title ?: @"" ];
     }
 
-@synthesize isDisclosureClosed = isDisclosureClosed_;
-+ ( BOOL ) automaticallyNotifiesObserversOfIsDisclosureClosed
+@synthesize isDisclosureVisible = isDisclosureVisible_;
++ ( BOOL ) automaticallyNotifiesObserversOfisDisclosureVisible
     {
     return NO;
     }
 
-- ( void ) setDisclosureClosed: ( BOOL )_Flag
+- ( void ) setDisclosureVisible: ( BOOL )_Flag
     {
-    if ( isDisclosureClosed_ != _Flag )
+    if ( isDisclosureVisible_ != _Flag )
         {
-        TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( isDisclosureClosed ),
-         ( ^{
-            isDisclosureClosed_ = _Flag;
+//        TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( isDisclosureVisible ),
+//         ( ^{
+            isDisclosureVisible_ = _Flag;
 
-            if (isDisclosureClosed_)
-            {
-                CGFloat distanceFromHeaderToBottom = NSMinY(self.view.bounds) - NSMinY(headerView_.frame);
-
-                if (!self.closingConstraint)
+            if ( !isDisclosureVisible_ )
                 {
+                CGFloat distanceFromHeaderToBottom = NSMinY( self.view.bounds ) - NSMinY( headerView_.frame );
+
+                if ( !self.closingConstraint )
+                    {
                     // The closing constraint is going to tie the bottom of the header view to the bottom of the overall disclosure view.
                     // Initially, it will be offset by the current distance, but we'll be animating it to 0.
-                    self.closingConstraint = [NSLayoutConstraint constraintWithItem:headerView_ attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1 constant:distanceFromHeaderToBottom];
-                }
+                    self.closingConstraint =
+                        [ NSLayoutConstraint constraintWithItem: headerView_
+                                                      attribute: NSLayoutAttributeBottom
+                                                      relatedBy: NSLayoutRelationEqual
+                                                         toItem: self.view
+                                                      attribute: NSLayoutAttributeBottom
+                                                     multiplier: 1.f
+                                                       constant: distanceFromHeaderToBottom ];
+                    }
+
                 self.closingConstraint.constant = distanceFromHeaderToBottom;
-                [self.view addConstraint:self.closingConstraint];
+                [ self.view addConstraint: self.closingConstraint ];
             
-                [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-                    context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+                [ NSAnimationContext runAnimationGroup:
+                ^( NSAnimationContext* _Context )
+                    {
+                    _Context.timingFunction = [ CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut ];
+
+                    NSLog( @"🍉%@", NSStringFromRect( disclosedView_.frame ) );
+
                     // Animate the closing constraint to 0, causing the bottom of the header to be flush with the bottom of the overall disclosure view.
                     self.closingConstraint.animator.constant = 0;
+                    NSLog( @"🍊%@", NSStringFromRect( disclosedView_.frame ) );
                     self.toggelButton_.title = @"Show";
-                } completionHandler:^{
-                }];
-            }
+                    }
+
+                completionHandler:
+                ^( void )
+                    {
+                    DDLogDebug( @"Finished animation of \"consant\" property within {%@}", self.closingConstraint );
+                    } ];
+                }
             else
-            {
-                [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-                    context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+                {
+                [ NSAnimationContext runAnimationGroup:
+                ^( NSAnimationContext* _Context )
+                    {
+                    _Context.timingFunction = [ CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut ];
+
                     // Animate the constraint to fit the disclosed view again
-                    self.closingConstraint.animator.constant -= self.disclosedView.frame.size.height;
+                    NSLog( @"%g", self.closingConstraint.animator.constant );
+                    NSLog( @"%@", NSStringFromRect( disclosedView_.frame ) );
+                    NSLog( @"%@", NSStringFromRect( [ self.view frameForAlignmentRect: disclosedView_.frame ] ) );
+                    self.closingConstraint.animator.constant -= NSHeight( disclosedView_.frame );
+//                    self.closingConstraint.animator.constant = 0.f;
                     self.toggelButton_.title = @"Hide";
-                } completionHandler:^{
+                    }
+
+                completionHandler:
+                ^( void )
+                    {
+                    DDLogDebug( @"Finished animation of \"consant\" property within {%@}", self.closingConstraint );
+
                     // The constraint is no longer needed, we can remove it.
-                    [self.view removeConstraint:self.closingConstraint];
-                }];
-            }
-            } ) );
+                    [ self.view removeConstraint: self.closingConstraint ];
+
+                    NSLog( @"%g", NSHeight( disclosedView_.frame ) );
+                    } ];
+                }
+//            } ) );
         }
     }
 
-- ( BOOL ) isDisclosureClosed
+- ( BOOL ) isDisclosureVisible
     {
-    return isDisclosureClosed_;
+    return isDisclosureVisible_;
     }
 
 @synthesize headerView_;
@@ -106,8 +152,6 @@
         [ self.disclosedView removeFromSuperview ];
         disclosedView_ = _New;
 
-//        [ self.view addSubview: [ self.headerTopCuttingLine_ configureForAutoLayout ] ];
-//        [ self.view addSubview: [ self.headerBottomCuttingLine_ configureForAutoLayout ] ];
         [ self.view addSubview: [ disclosedView_ configureForAutoLayout ] ];
 
         disclosedView_.wantsLayer = YES;
@@ -122,7 +166,7 @@
                                                        views: viewsDict ] ];
 
         [ self.view addConstraints:
-            [ NSLayoutConstraint constraintsWithVisualFormat: @"V:|[headerView_(>=0)][disclosedView_(>=0)]|"
+            [ NSLayoutConstraint constraintsWithVisualFormat: @"V:|[headerView_][disclosedView_(>=0)]|"
                                                      options: 0
                                                      metrics: nil
                                                        views: viewsDict ] ];
@@ -145,7 +189,7 @@
 
 - ( IBAction ) toggleDisclosureAction: ( NSButton* )_Sender
     {
-    self.isDisclosureClosed = !isDisclosureClosed_;
+    self.isDisclosureVisible = !isDisclosureVisible_;
     }
 
 @end // TauAbstractDisclosureViewController class

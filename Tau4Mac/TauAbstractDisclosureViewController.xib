@@ -46,7 +46,7 @@
                             </constraints>
                             <buttonCell key="cell" type="recessed" title="Hide" bezelStyle="recessed" alignment="center" controlSize="mini" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fVH-ea-Mje">
                                 <behavior key="behavior" lightByContents="YES"/>
-                                <font key="font" metaFont="system" size="9"/>
+                                <font key="font" metaFont="miniSystem"/>
                             </buttonCell>
                             <connections>
                                 <action selector="toggleDisclosureAction:" target="-2" id="O58-Zd-bHM"/>
