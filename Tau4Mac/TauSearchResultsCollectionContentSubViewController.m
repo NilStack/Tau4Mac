@@ -125,11 +125,6 @@
     return NO;
     }
 
-+ ( NSSet <NSString*>* ) keyPathsForValuesAffectingResults
-    {
-    return [ NSSet setWithObjects: TAU_KEY_OF_SEL( @selector( searchResults ) ), nil ];
-    }
-
 // Directly invoked by TDS.
 // We should never invoke this method explicitly.
 - ( void ) setSearchResults: ( NSArray <GTLYouTubeSearchResult*>* )_New

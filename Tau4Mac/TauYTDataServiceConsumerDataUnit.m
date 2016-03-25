@@ -132,6 +132,7 @@
         case TauYTDataServiceConsumptionChannelsType:      key = @"channels";      break;
         case TauYTDataServiceConsumptionPlaylistsType:     key = @"playlists";     break;
         case TauYTDataServiceConsumptionPlaylistItemsType: key = @"playlistItems"; break;
+        case TauYTDataServiceConsumptionUnknownType:;break;
         }
 
     return key;
@@ -147,6 +148,7 @@
         case TauYTDataServiceConsumptionChannelsType:      modelClass = [ TauYouTubeChannelsCollection class ];      break;
         case TauYTDataServiceConsumptionPlaylistsType:     modelClass = [ TauYouTubePlaylistsCollection class ];     break;
         case TauYTDataServiceConsumptionPlaylistItemsType: modelClass = [ TauYouTubePlaylistItemsCollection class ]; break;
+        case TauYTDataServiceConsumptionUnknownType:;break;
         }
 
     return modelClass;
@@ -182,6 +184,8 @@
             ytQuery = [ GTLQueryYouTube queryForPlaylistItemsListWithPart: partFilter ?: @"contentDetails,id,snippet,status" ];
             ytQuery.playlistId = _Dict[ TauTDSOperationRequirements ][ TauTDSOperationRequirementPlaylistID ];
             } break;
+
+        case TauYTDataServiceConsumptionUnknownType:;break;
         }
 
     NSNumber* maxResults = _Dict[ TauTDSOperationMaxResultsPerPage ];
