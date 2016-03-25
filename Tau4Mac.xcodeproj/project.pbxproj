@@ -715,9 +715,6 @@
 		834E780F1C9ECECF00802301 /* search */ = {
 			isa = PBXGroup;
 			children = (
-				8325555A1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.h */,
-				8325555B1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m */,
-				8325555D1CA54143000C8A48 /* TauAbstractCollectionContentSubViewController.xib */,
 				834E78101C9ECEE200802301 /* sub */,
 				836D26F61C9ACDA300290BE7 /* TauSearchContentViewController.h */,
 				836D26F71C9ACDA300290BE7 /* TauSearchContentViewController.m */,
@@ -789,6 +786,9 @@
 				833C34391CA27975004D9BE0 /* TauContentInspectorViewController.h */,
 				833C343A1CA27975004D9BE0 /* TauContentInspectorViewController.m */,
 				833C343E1CA27CF0004D9BE0 /* TauContentInspectorViewController.xib */,
+				8325555A1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.h */,
+				8325555B1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m */,
+				8325555D1CA54143000C8A48 /* TauAbstractCollectionContentSubViewController.xib */,
 			);
 			name = abstract;
 			sourceTree = "<group>";
