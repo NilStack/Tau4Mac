@@ -31,7 +31,17 @@
 - ( instancetype ) initWithNibName: ( NSString* )_NibNameOrNil bundle: ( NSBundle* )_NibBundleOrNil
     {
     Class superClass = [ TauAbstractCollectionContentSubViewController class ];
-    return [ super initWithNibName: NSStringFromClass( superClass ) bundle: [ NSBundle bundleForClass: superClass ] ];
+    if ( self = [ super initWithNibName: NSStringFromClass( superClass ) bundle: [ NSBundle bundleForClass: superClass ] ] )
+        // Dangerous self-binding
+        // Unbinding in cancelAction:
+        [ self bind: @"results" toObject: self withKeyPath: @"searchResults" options: nil ];
+
+    return self;
+    }
+
+- ( void ) dealloc
+    {
+    DDLogDebug( @"%@ got deallocated", self );
     }
 
 #pragma mark - External KVB Compliant
@@ -62,6 +72,12 @@
     }
 
 #pragma mark - Overrides
+
+- ( IBAction ) cancelAction: ( id )_Sender
+    {
+    [ self unbind: @"results" ];
+    [ super cancelAction: _Sender ];
+    }
 
 - ( NSString* ) resultsSummaryText
     {
@@ -101,6 +117,11 @@
     return NO;
     }
 
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingResults
+    {
+    return [ NSSet setWithObjects: TAU_KEY_OF_SEL( @selector( searchResults ) ), nil ];
+    }
+
 // Directly invoked by TDS.
 // We should never invoke this method explicitly.
 - ( void ) setSearchResults: ( NSArray <GTLYouTubeSearchResult*>* )_New
@@ -110,7 +131,6 @@
         TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( searchResults ),
          ( ^{
             searchResults_ = _New;
-            self.results = searchResults_;
             } ) );
         }
     }

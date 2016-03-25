@@ -171,6 +171,21 @@
     return results_;
     }
 
+- ( NSUInteger ) countOfResults
+    {
+    return results_.count;
+    }
+
+- ( NSArray <GTLObject*>* ) resultsAtIndexes: ( NSIndexSet* )_Indexes
+    {
+    return [ results_ objectsAtIndexes: _Indexes ];
+    }
+
+- ( void ) getResults: ( GTLObject** )_Buffer range: ( NSRange )_InRange
+    {
+    [ self getResults: _Buffer range: _InRange ];
+    }
+
 #pragma mark - Overrides by Concrete Classes
 
 @dynamic resultsSummaryText;

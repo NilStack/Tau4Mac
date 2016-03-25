@@ -69,7 +69,7 @@
 
 - ( void ) dealloc
     {
-    DDLogDebug( @"%@ got allocated", self );
+    DDLogDebug( @"%@ got deallocated", self );
     }
 
 #pragma mark - External KVB Compliant Properties
