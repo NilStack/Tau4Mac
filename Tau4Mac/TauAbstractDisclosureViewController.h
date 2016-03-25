@@ -18,6 +18,9 @@
 @property ( assign, readwrite ) BOOL showsHeader;
 @property ( assign, readwrite, setter = setCollapsed: ) BOOL isCollapsed;
 
+@property ( strong, readonly ) NSString* toggleButtonTitle;
+@property ( strong, readonly ) NSString* toggleButtonAlternativeTitle;
+
 #pragma mark - Actions
 
 - ( IBAction ) toggleDisclosureAction: ( id )_Sender;
