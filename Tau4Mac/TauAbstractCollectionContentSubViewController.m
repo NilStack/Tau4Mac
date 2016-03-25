@@ -211,6 +211,12 @@
     return [ NSString stringWithFormat: NSLocalizedString( @"%lu Result%@", nil ), resultsCount, ( resultsCount > 1 ) ? @"s" : @"" ];
     }
 
+@dynamic appWideSummaryText;
+- ( NSString* ) appWideSummaryText
+    {
+    return NSLocalizedString( @"Results Collection", @"Default value of appWideSummaryText property" );
+    }
+
 @synthesize originalOperationsCombination = originalOperationsCombination_;
 - ( void ) setOriginalOperationsCombination: ( NSDictionary* )_New
     {

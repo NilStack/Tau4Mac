@@ -112,6 +112,11 @@
         return NSLocalizedString( @"No Results Yet", nil );
     }
 
+- ( NSString* ) appWideSummaryText
+    {
+    return NSLocalizedString( @"Search Results", @"App wide summary text of search results collection" );
+    }
+
 #pragma mark - Internal KVB Compliant
 
 @synthesize searchResults = searchResults_;

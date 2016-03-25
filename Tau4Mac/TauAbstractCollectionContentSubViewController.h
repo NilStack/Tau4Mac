@@ -12,10 +12,6 @@
 // TauAbstractCollectionContentSubViewController class
 @interface TauAbstractCollectionContentSubViewController : TauAbstractContentSubViewController
     <TauYTDataServiceConsumer, TauContentCollectionViewRelayDataSource>
-    {
-@protected
-    NSDictionary __strong* originalOperationsCombination_;
-    }
 
 #pragma mark - UI
 
@@ -28,7 +24,9 @@
 @property ( assign, readonly ) BOOL isPaging;   // KVB compliant
 
 @property ( weak, readonly ) NSArray <GTLObject*>* results;    // KVB compliant
+
 @property ( strong, readonly ) NSString* resultsSummaryText;    // KVB compliant
+@property ( strong, readonly ) NSString* appWideSummaryText;    // KVB compliant
 
 @property ( strong, readwrite ) NSDictionary* originalOperationsCombination;
 
