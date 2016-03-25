@@ -13,7 +13,7 @@
 
 @property ( weak ) IBOutlet NSView* disclosedView;
 
-#pragma mark - Properties
+#pragma mark - External KVB Compliant Properties
 
 @property ( assign, readwrite, setter = setCollapsed: ) BOOL isCollapsed;
 

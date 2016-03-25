@@ -18,6 +18,8 @@
 
 @property ( strong, readwrite ) NSLayoutConstraint* closingConstraint;   // layout constraint applied to this view controller when closed
 
+- ( void ) doAbstractInit_;
+
 @end // Private
 
 // TauAbstractDisclosureViewController class
@@ -28,14 +30,14 @@
 - ( instancetype ) initWithNibName: ( NSString* )_NibNameOrNil bundle: ( NSBundle* )_NibBundleOrNil
     {
     if ( self = [ super initWithNibName: _NibNameOrNil bundle: _NibBundleOrNil ] )
-        isCollapsed_ = NO;
+        [ self doAbstractInit_ ];
     return self;
     }
 
 - ( instancetype ) initWithCoder: ( NSCoder* )_Coder
     {
     if ( self = [ super initWithCoder: _Coder ] )
-        isCollapsed_ = NO;
+        [ self doAbstractInit_ ];
     return self;
     }
 
@@ -47,11 +49,22 @@
     [ [ self.headerView_ layer ] setBackgroundColor: [ NSColor controlColor ].CGColor ];
     }
 
+#pragma mark - Overrides
+
 - ( void ) setTitle: ( NSString* )_Title
     {
     [ super setTitle: _Title ];
     [ self.descField_ setStringValue: _Title ?: @"" ];
     }
+
+#pragma mark - Actions
+
+- ( IBAction ) toggleDisclosureAction: ( NSButton* )_Sender
+    {
+    self.isCollapsed = !isCollapsed_;
+    }
+
+#pragma mark - External KVB Compliant Properties
 
 @synthesize isCollapsed = isCollapsed_;
 + ( BOOL ) automaticallyNotifiesObserversOfisCollapsed
@@ -112,6 +125,7 @@
                     _Context.timingFunction = [ CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut ];
 
                     // Animate the constraint to fit the disclosed view again
+                    // FIXME: NSHeight( disclosedView_.frame ) results in a wrong number (only be 0)
                     self.closingConstraint.animator.constant -= NSHeight( disclosedView_.frame );
                     self.toggelButton_.title = @"Hide";
                     }
@@ -134,7 +148,10 @@
     return isCollapsed_;
     }
 
+#pragma mark - Private
+
 @synthesize headerView_;
+
 @synthesize disclosedView = disclosedView_;
 - ( void ) setDisclosedView: ( NSView* )_New
     {
@@ -151,23 +168,14 @@
         NSDictionary* viewsDict = NSDictionaryOfVariableBindings( headerView_, disclosedView_ );
 
         [ self.view addConstraints:
-            [ NSLayoutConstraint constraintsWithVisualFormat: @"H:|[disclosedView_(>=0)]|"
-                                                     options: 0
-                                                     metrics: nil
-                                                       views: viewsDict ] ];
+            [ NSLayoutConstraint constraintsWithVisualFormat: @"H:|[disclosedView_(>=0)]|" options: 0 metrics: nil views: viewsDict ] ];
 
         [ self.view addConstraints:
-            [ NSLayoutConstraint constraintsWithVisualFormat: @"V:|[headerView_][disclosedView_(>=0)]|"
-                                                     options: 0
-                                                     metrics: nil
-                                                       views: viewsDict ] ];
+            [ NSLayoutConstraint constraintsWithVisualFormat: @"V:|[headerView_][disclosedView_(>=0)]|" options: 0 metrics: nil views: viewsDict ] ];
 
         // add an optional constraint (but with a priority stronger than a drag), that the disclosing view
         [ self.view addConstraints:
-            [ NSLayoutConstraint constraintsWithVisualFormat: @"V:[disclosedView_]-(0@priority)-|"
-                                                     options: 0
-                                                     metrics: @{ @"priority" : @( NSLayoutPriorityDefaultHigh ) }
-                                                       views: viewsDict ] ];
+            [ NSLayoutConstraint constraintsWithVisualFormat: @"V:[disclosedView_]-(0@priority)-|" options: 0 metrics: @{ @"priority" : @( NSLayoutPriorityDefaultHigh ) } views: viewsDict ] ];
         }
     }
 
@@ -176,11 +184,9 @@
     return disclosedView_;
     }
 
-#pragma mark - Actions
-
-- ( IBAction ) toggleDisclosureAction: ( NSButton* )_Sender
+- ( void ) doAbstractInit_
     {
-    self.isCollapsed = !isCollapsed_;
+    isCollapsed_ = NO;
     }
 
 @end // TauAbstractDisclosureViewController class
