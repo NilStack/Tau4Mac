@@ -159,6 +159,28 @@
     return isPaging_;
     }
 
+#pragma mark - Prefer to be Overrided by Concrete Classes
+
+@dynamic resultsSummaryText;
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingResultsSummaryText
+    {
+    return [ NSSet setWithObjects: TAU_KEY_OF_SEL( @selector( results ) ), nil ];
+    }
+
+- ( NSString* ) resultsSummaryText
+    {
+    NSUInteger resultsCount = results_.count;
+    return [ NSString stringWithFormat: NSLocalizedString( @"%lu Result%@", nil ), resultsCount, ( resultsCount > 1 ) ? @"s" : @"" ];
+    }
+
+@dynamic appWideSummaryText;
+- ( NSString* ) appWideSummaryText
+    {
+    return NSLocalizedString( @"Results Collection", @"Default value of appWideSummaryText property" );
+    }
+
+#pragma mark - TDS Related
+
 @synthesize results = results_;
 + ( BOOL ) automaticallyNotifiesObserversOfResults
     {
@@ -195,26 +217,6 @@
 - ( void ) getResults: ( GTLObject** )_Buffer range: ( NSRange )_InRange
     {
     [ self getResults: _Buffer range: _InRange ];
-    }
-
-#pragma mark - Overrides by Concrete Classes
-
-@dynamic resultsSummaryText;
-+ ( NSSet <NSString*>* ) keyPathsForValuesAffectingResultsSummaryText
-    {
-    return [ NSSet setWithObjects: TAU_KEY_OF_SEL( @selector( results ) ), nil ];
-    }
-
-- ( NSString* ) resultsSummaryText
-    {
-    NSUInteger resultsCount = results_.count;
-    return [ NSString stringWithFormat: NSLocalizedString( @"%lu Result%@", nil ), resultsCount, ( resultsCount > 1 ) ? @"s" : @"" ];
-    }
-
-@dynamic appWideSummaryText;
-- ( NSString* ) appWideSummaryText
-    {
-    return NSLocalizedString( @"Results Collection", @"Default value of appWideSummaryText property" );
     }
 
 @synthesize originalOperationsCombination = originalOperationsCombination_;
