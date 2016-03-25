@@ -6,11 +6,11 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauAbstractContentSubViewController.h"
 #import "TauContentCollectionViewController.h"
+#import "TauAbstractCollectionContentSubViewController.h"
 
 // TauSearchResultsCollectionContentSubViewController class
-@interface TauSearchResultsCollectionContentSubViewController : TauAbstractContentSubViewController
+@interface TauSearchResultsCollectionContentSubViewController : TauAbstractCollectionContentSubViewController
     <TauYTDataServiceConsumer, TauContentCollectionViewRelayDataSource>
 
 @property ( strong, readwrite ) NSString* searchText;   // KVB compliant

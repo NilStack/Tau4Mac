@@ -19,6 +19,7 @@
 		832555561CA50B23000C8A48 /* font-lato-bold.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = 8325554D1CA50AF9000C8A48 /* font-lato-bold.ttf */; };
 		832555571CA50B23000C8A48 /* font-lato-light-regular.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = 8325554E1CA50AF9000C8A48 /* font-lato-light-regular.ttf */; };
 		832555581CA50B23000C8A48 /* font-lato-regular.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = 8325554F1CA50AF9000C8A48 /* font-lato-regular.ttf */; };
+		8325555C1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8325555B1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m */; };
 		833846CB1C9FE39400F49885 /* TauNormalWrappedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 833846CA1C9FE39400F49885 /* TauNormalWrappedLayout.m */; };
 		833846FA1CA10D8D00F49885 /* TauContentCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 833846F81CA10D8D00F49885 /* TauContentCollectionViewController.m */; };
 		833846FB1CA10D8D00F49885 /* TauContentCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 833846F91CA10D8D00F49885 /* TauContentCollectionViewController.xib */; };
@@ -463,6 +464,8 @@
 		8325554D1CA50AF9000C8A48 /* font-lato-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-lato-bold.ttf"; sourceTree = "<group>"; };
 		8325554E1CA50AF9000C8A48 /* font-lato-light-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-lato-light-regular.ttf"; sourceTree = "<group>"; };
 		8325554F1CA50AF9000C8A48 /* font-lato-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-lato-regular.ttf"; sourceTree = "<group>"; };
+		8325555A1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauAbstractCollectionContentSubViewController.h; sourceTree = "<group>"; };
+		8325555B1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAbstractCollectionContentSubViewController.m; sourceTree = "<group>"; };
 		833846C91C9FE39400F49885 /* TauNormalWrappedLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauNormalWrappedLayout.h; sourceTree = "<group>"; };
 		833846CA1C9FE39400F49885 /* TauNormalWrappedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauNormalWrappedLayout.m; sourceTree = "<group>"; };
 		833846F71CA10D8D00F49885 /* TauContentCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauContentCollectionViewController.h; sourceTree = "<group>"; };
@@ -673,6 +676,13 @@
 			path = "Lato Family";
 			sourceTree = "<group>";
 		};
+		832555591CA539EA000C8A48 /* sub */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = sub;
+			sourceTree = "<group>";
+		};
 		8349D39A1C8986E2000D091F /* pri */ = {
 			isa = PBXGroup;
 			children = (
@@ -705,6 +715,8 @@
 		834E780F1C9ECECF00802301 /* search */ = {
 			isa = PBXGroup;
 			children = (
+				8325555A1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.h */,
+				8325555B1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m */,
 				834E78101C9ECEE200802301 /* sub */,
 				836D26F61C9ACDA300290BE7 /* TauSearchContentViewController.h */,
 				836D26F71C9ACDA300290BE7 /* TauSearchContentViewController.m */,
@@ -726,6 +738,7 @@
 		834E78111C9ECEEE00802301 /* explore */ = {
 			isa = PBXGroup;
 			children = (
+				832555591CA539EA000C8A48 /* sub */,
 				836D26FB1C9ACDDE00290BE7 /* TauExploreContentViewController.h */,
 				836D26FC1C9ACDDE00290BE7 /* TauExploreContentViewController.m */,
 				836D26FD1C9ACDDE00290BE7 /* TauExploreContentViewController.xib */,
@@ -1545,6 +1558,7 @@
 				83224A951CA167B9008931C6 /* TAAdaptiveSpaceItem.m in Sources */,
 				83B020561C96B1B8006333CB /* TauAbstractResultCollection.m in Sources */,
 				833C343B1CA27975004D9BE0 /* TauContentInspectorViewController.m in Sources */,
+				8325555C1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m in Sources */,
 				836D26FE1C9ACDDE00290BE7 /* TauExploreContentViewController.m in Sources */,
 				836D26F91C9ACDA300290BE7 /* TauSearchContentViewController.m in Sources */,
 				838342FC1C981C2400BE6378 /* TauYouTubePlaylistItemsCollection.m in Sources */,

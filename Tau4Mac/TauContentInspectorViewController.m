@@ -196,9 +196,7 @@
 - ( id ) transformedValue: ( id )_Value
     {
     return [ [ NSAttributedString alloc ] initWithString: _Value attributes:
-        @{ NSFontAttributeName : [ NSFont fontWithName: @"Helvetica Neue Light" size: 13.f ]
-//         , NSForegroundColorAttributeName : [ NSColor lightGrayColor ]
-         } ];
+        @{ NSFontAttributeName : [ NSFont fontWithName: @"Helvetica Neue Light" size: 13.f ] } ];
     }
 
 @end
