@@ -18,12 +18,18 @@
 
 @property ( strong, readwrite ) NSLayoutConstraint* closingConstraint;   // layout constraint applied to this view controller when closed
 
+// Init
+
 - ( void ) doAbstractInit_;
 
 @end // Private
 
 // TauAbstractDisclosureViewController class
 @implementation TauAbstractDisclosureViewController
+    {
+    // Layout constraints cache
+    NSMutableArray __strong* layoutConstraintsCache_;
+    }
 
 #pragma mark - Initializations
 
@@ -66,6 +72,29 @@
 
 #pragma mark - External KVB Compliant Properties
 
+@synthesize showsHeader = showsHeader_;
++ ( BOOL ) automaticallyNotifiesObserversOfShowsHeader
+    {
+    return NO;
+    }
+
+- ( void ) setShowsHeader: ( BOOL )_Flag
+    {
+    if ( showsHeader_ != _Flag )
+        {
+        TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( showsHeader ),
+         ( ^{
+            showsHeader_ = _Flag;
+            [ self setDisclosedView: disclosedView_ ];
+            } ) );
+        }
+    }
+
+- ( BOOL ) showsHeader
+    {
+    return showsHeader_;
+    }
+
 @synthesize isCollapsed = isCollapsed_;
 + ( BOOL ) automaticallyNotifiesObserversOfisCollapsed
     {
@@ -82,7 +111,7 @@
 
             if ( isCollapsed_ )
                 {
-                CGFloat distanceFromHeaderToBottom = NSMinY( self.view.bounds ) - NSMinY( headerView_.frame );
+                CGFloat distanceFromHeaderToBottom = -( NSHeight( disclosedView_.frame ) );
 
                 if ( !self.closingConstraint )
                     {
@@ -155,28 +184,29 @@
 @synthesize disclosedView = disclosedView_;
 - ( void ) setDisclosedView: ( NSView* )_New
     {
-    if ( disclosedView_ != _New )
+    if ( layoutConstraintsCache_.count > 0 )
         {
-        [ self.disclosedView removeFromSuperview ];
-        disclosedView_ = _New;
-
-        [ self.view addSubview: [ disclosedView_ configureForAutoLayout ] ];
-
-        disclosedView_.wantsLayer = YES;
-        disclosedView_.layer.backgroundColor = [ NSColor whiteColor ].CGColor;
-
-        NSDictionary* viewsDict = NSDictionaryOfVariableBindings( headerView_, disclosedView_ );
-
-        [ self.view addConstraints:
-            [ NSLayoutConstraint constraintsWithVisualFormat: @"H:|[disclosedView_(>=0)]|" options: 0 metrics: nil views: viewsDict ] ];
-
-        [ self.view addConstraints:
-            [ NSLayoutConstraint constraintsWithVisualFormat: @"V:|[headerView_][disclosedView_(>=0)]|" options: 0 metrics: nil views: viewsDict ] ];
-
-        // add an optional constraint (but with a priority stronger than a drag), that the disclosing view
-        [ self.view addConstraints:
-            [ NSLayoutConstraint constraintsWithVisualFormat: @"V:[disclosedView_]-(0@priority)-|" options: 0 metrics: @{ @"priority" : @( NSLayoutPriorityDefaultHigh ) } views: viewsDict ] ];
+        [ self.view removeConstraints: layoutConstraintsCache_ ];
+        [ layoutConstraintsCache_ removeAllObjects ];
         }
+
+    [ self.disclosedView removeFromSuperview ];
+    disclosedView_ = _New;
+
+    [ self.view addSubview: [ disclosedView_ configureForAutoLayout ] ];
+
+    disclosedView_.wantsLayer = YES;
+    disclosedView_.layer.backgroundColor = [ NSColor whiteColor ].CGColor;
+
+    NSDictionary* viewsDict = NSDictionaryOfVariableBindings( headerView_, disclosedView_ );
+
+    [ layoutConstraintsCache_ addObjectsFromArray: [ NSLayoutConstraint constraintsWithVisualFormat: @"H:|[disclosedView_(>=0)]|" options: 0 metrics: nil views: viewsDict ] ];
+    [ layoutConstraintsCache_ addObjectsFromArray: [ NSLayoutConstraint constraintsWithVisualFormat: [ NSString stringWithFormat: @"V:|%@[disclosedView_(>=0)]|", showsHeader_ ? @"[headerView_]" : @"" ] options: 0 metrics: nil views: viewsDict ] ];
+
+    // add an optional constraint (but with a priority stronger than a drag), that the disclosing view
+    [ layoutConstraintsCache_ addObjectsFromArray: [ NSLayoutConstraint constraintsWithVisualFormat: @"V:[disclosedView_]-(0@priority)-|" options: 0 metrics: @{ @"priority" : @( NSLayoutPriorityDefaultHigh ) } views: viewsDict ] ];
+
+    [ self.view addConstraints: layoutConstraintsCache_ ];
     }
 
 - ( NSView* ) disclosedView
@@ -184,9 +214,14 @@
     return disclosedView_;
     }
 
+// Init
+
 - ( void ) doAbstractInit_
     {
     isCollapsed_ = NO;
+    showsHeader_ = YES;
+
+    layoutConstraintsCache_ = [ NSMutableArray array ];
     }
 
 @end // TauAbstractDisclosureViewController class

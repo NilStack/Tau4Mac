@@ -15,6 +15,7 @@
 
 #pragma mark - External KVB Compliant Properties
 
+@property ( assign, readwrite ) BOOL showsHeader;
 @property ( assign, readwrite, setter = setCollapsed: ) BOOL isCollapsed;
 
 #pragma mark - Actions
