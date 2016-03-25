@@ -27,7 +27,7 @@
 @property ( assign, readonly ) BOOL hasNext;    // KVB compliant
 @property ( assign, readonly ) BOOL isPaging;   // KVB compliant
 
-@property ( weak, readwrite ) NSArray <GTLObject*>* results;    // KVB compliant
+@property ( weak, readonly ) NSArray <GTLObject*>* results;    // KVB compliant
 @property ( strong, readonly ) NSString* resultsSummaryText;    // KVB compliant
 
 @property ( strong, readwrite ) NSDictionary* originalOperationsCombination;

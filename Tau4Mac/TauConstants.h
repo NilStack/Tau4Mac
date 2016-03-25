@@ -98,6 +98,8 @@ typedef NS_ENUM ( NSUInteger, TauYTDataServiceConsumptionType )
     , TauYTDataServiceConsumptionChannelsType      = 2
     , TauYTDataServiceConsumptionPlaylistsType     = 3
     , TauYTDataServiceConsumptionPlaylistItemsType = 4
+
+    , TauYTDataServiceConsumptionUnknownType       = 0
     };
 
 #define TAU_APP_MIN_WIDTH  500.f

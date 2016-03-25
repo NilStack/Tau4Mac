@@ -9,6 +9,9 @@
 #import "TauAbstractCollectionContentSubViewController.h"
 #import "TauToolbarItem.h"
 
+// Concret sub-classes
+#import "TauSearchResultsCollectionContentSubViewController.h"
+
 // TauSearchResultsAccessoryBarViewController class
 @interface TauResultsAccessoryBarViewController : NSTitlebarAccessoryViewController
 @end // TauSearchResultsAccessoryBarViewController class
@@ -22,7 +25,9 @@
 // Private
 @interface TauAbstractCollectionContentSubViewController ()
 
+// Writability Swizzling
 @property ( assign, readwrite, setter = setPaging: ) BOOL isPaging;   // KVB compliant
+@property ( weak, readwrite ) NSArray <GTLObject*>* results;    // KVB compliant
 
 // Internal
 @property ( strong, readwrite ) NSString* prevToken_;   // KVB-compliant
@@ -35,6 +40,12 @@
 @property ( weak ) IBOutlet NSTextField* appWideSummaryViewLabel_;
 
 @end // Private
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
 
 // TauAbstractCollectionContentSubViewController class
 @implementation TauAbstractCollectionContentSubViewController
@@ -225,12 +236,34 @@
 @synthesize credential_ = priCredential_;
 - ( TauYTDataServiceCredential* ) credential_
     {
+    if ( [ self class ] == [ TauAbstractCollectionContentSubViewController class ] )
+        {
+        @try {
+        [ self doesNotRecognizeSelector: _cmd ];
+        } @catch ( NSException* _Ex )
+            {
+            DDLogFatal( @"Invoking `%@` from the abstract superclass: {%@}.", THIS_METHOD, _Ex );
+            }
+
+        return nil;
+        }
+
     if ( !priCredential_ )
         {
         id consumer = self;
 
-        priCredential_ = [ [ TauYTDataService sharedService ]
-            registerConsumer: consumer withMethodSignature: [ self methodSignatureForSelector: _cmd ] consumptionType: TauYTDataServiceConsumptionSearchResultsType ];
+        Class concreteClass = [ self class ];
+        TauYTDataServiceConsumptionType consumptionType = TauYTDataServiceConsumptionUnknownType;
+        if ( concreteClass == [ TauSearchResultsCollectionContentSubViewController class ] )
+            consumptionType = TauYTDataServiceConsumptionSearchResultsType;
+        else
+            ; // TODO: Expecting other consumption types
+
+        if ( consumptionType == TauYTDataServiceConsumptionUnknownType )
+            DDLogUnexpected( @"TDS consumption is unkown." );
+        else
+            priCredential_ = [ [ TauYTDataService sharedService ]
+                registerConsumer: consumer withMethodSignature: [ self methodSignatureForSelector: _cmd ] consumptionType: consumptionType ];
         }
 
     return priCredential_;

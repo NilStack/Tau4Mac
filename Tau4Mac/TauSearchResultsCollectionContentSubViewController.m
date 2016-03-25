@@ -32,9 +32,11 @@
     {
     Class superClass = [ TauAbstractCollectionContentSubViewController class ];
     if ( self = [ super initWithNibName: NSStringFromClass( superClass ) bundle: [ NSBundle bundleForClass: superClass ] ] )
-        // Dangerous self-binding
-        // Unbinding in cancelAction:
-        [ self bind: @"results" toObject: self withKeyPath: @"searchResults" options: nil ];
+        {
+        // Dangerous self-binding.
+        // Unbinding in overrides of cancelAction:
+        [ self bind: TAU_KEY_OF_SEL( @selector( results ) ) toObject: self withKeyPath: TAU_KEY_OF_SEL( @selector( searchResults ) ) options: nil ];
+        }
 
     return self;
     }
@@ -75,7 +77,8 @@
 
 - ( IBAction ) cancelAction: ( id )_Sender
     {
-    [ self unbind: @"results" ];
+    // Get rid of self-binding
+    [ self unbind: TAU_KEY_OF_SEL( @selector( results ) ) ];
     [ super cancelAction: _Sender ];
     }
 
