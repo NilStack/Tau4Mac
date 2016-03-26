@@ -131,10 +131,7 @@
     {
     if ( searchResults_ != _New )
         {
-        TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( searchResults ),
-         ( ^{
-            searchResults_ = _New;
-            } ) );
+        TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( searchResults ), ^{ searchResults_ = _New; } );
         }
     }
 

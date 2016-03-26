@@ -9,6 +9,8 @@
 #import "TauContentCollectionItem.h"
 #import "TauContentCollectionItemView.h"
 
+#import "TauPlaylistResultsCollectionContentSubViewController.h"
+
 // Private
 @interface TauContentCollectionItem ()
 
@@ -25,6 +27,28 @@
 - ( void ) setRepresentedObject: ( id )_RepresentedObject
     {
     [ ( TauContentCollectionItemView* )( self.view ) setYtContent: _RepresentedObject ];
+    }
+
+#pragma mark - Events
+
+// When a content collection item is double-clicked
+- ( void ) mouseDown: ( NSEvent* )_Event
+    {
+    if ( _Event.clickCount == 2 )
+        {
+        GTLObject* ytContent = [ ( TauContentCollectionItemView* )( self.view ) ytContent ];
+
+        switch ( [ ( TauContentCollectionItemView* )( self.view ) type ] )
+            {
+            case TauYouTubePlayList:
+                {
+                TauPlaylistResultsCollectionContentSubViewController* c = [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
+                c.playlistIdentifier = ytContent.JSON[ @"id" ][ @"playlistId" ];
+                } break;
+            }
+        }
+    else
+        [ super mouseDown: _Event ];
     }
 
 #pragma mark - Overrides for Selection and Highlighting Support
