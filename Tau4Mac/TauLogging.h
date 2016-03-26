@@ -68,7 +68,8 @@
 
 #define DDLogFlagInfo         ( 1 << 8 )
 #define DDLogFlagDebug        ( 1 << 9 )
-#define DDLogFlagVerbose      ( 1 << 10 )
+#define DDLogFlagExpecting    ( 1 << 10 )
+#define DDLogFlagVerbose      ( 1 << 11 )
 
 // Levels
 #define DDLogLevelFatal        ( DDLogFlagFatal )
@@ -84,11 +85,12 @@
 
 #define DDLogLevelInfo         ( DDLogFlagInfo | DDLogLevelNotice)
 #define DDLogLevelDebug        ( DDLogFlagDebug | DDLogLevelInfo  )
+#define DDLogLevelExpecting    ( DDLogFlagExpecting | DDLogLevelDebug  )
 #define DDLogLevelVerbose      ( DDLogFlagVerbose | DDLogLevelDebug )
 
 static const DDLogLevel ddLogLevel =
 #if DEBUG
-DDLogLevelDebug
+DDLogLevelExpecting
 #elif RELEASE
 DDLogLevelNotice
 #elif ANALYSIS
@@ -108,6 +110,7 @@ DDLogLevelOff
 #define LOG_NOTICE        ( ddLogLevel & DDLogFlagNotice )
 #define LOG_INFO          ( ddLogLevel & DDLogFlagInfo )
 #define LOG_DEBUG         ( ddLogLevel & DDLogFlagDebug )
+#define LOG_EXPECTING     ( ddLogLevel & DDLogFlagExpecting )
 #define LOG_VERBOSE       ( ddLogLevel & DDLogFlagVerbose )
 
 #define DDLogFatal( frmt, ... )        LOG_MAYBE( NO,                LOG_LEVEL_DEF, DDLogFlagFatal, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
@@ -120,6 +123,7 @@ DDLogLevelOff
 #define DDLogNotice( frmt, ... )       LOG_MAYBE( LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagNotice, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
 #define DDLogInfo( frmt, ... )         LOG_MAYBE( NO,                LOG_LEVEL_DEF, DDLogFlagInfo, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
 #define DDLogDebug( frmt, ... )        LOG_MAYBE( LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagDebug, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
+#define DDLogExpecting( frmt, ... )    LOG_MAYBE( LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagExpecting, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
 #define DDLogVerbose( frmt, ... )      LOG_MAYBE( LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagVerbose, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
 
 #define DDLogFatalToDDLog( ddlog, frmt, ... )        LOG_MAYBE_TO_DDLOG( ddlog, NO,                LOG_LEVEL_DEF, DDLogFlagFatal, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
@@ -132,12 +136,7 @@ DDLogLevelOff
 #define DDLogNoticeToDDLog( ddlog, frmt, ... )       LOG_MAYBE_TO_DDLOG( ddlog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagNotice, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
 #define DDLogInfoToDDLog( ddlog, frmt, ... )         LOG_MAYBE_TO_DDLOG( ddlog, NO,                LOG_LEVEL_DEF, DDLogFlagInfo, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
 #define DDLogDebugToDDLog( ddlog, frmt, ... )        LOG_MAYBE_TO_DDLOG( ddlog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagDebug, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
+#define DDLogExpectingToDDLog( ddlog, frmt, ... )    LOG_MAYBE_TO_DDLOG( ddlog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagExpecting, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
 #define DDLogVerboseToDDLog( ddlog, frmt, ... )      LOG_MAYBE_TO_DDLOG( ddlog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagVerbose, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
-
-#define TAU_GET_DEALLOCED_LOG \
-- ( void ) dealloc\
-    {\
-    DDLogDebug( @"%@ got deallocated", self );\
-    }\
 
 #endif /* TauLogging_h */

@@ -25,6 +25,8 @@
 // TauPlaylistResultsCollectionContentSubViewController class
 @implementation TauPlaylistResultsCollectionContentSubViewController
 
+TauDealloc( nil );
+
 #pragma mark - Initializations
 
 - ( instancetype ) initWithNibName: ( NSString* )_NibNameOrNil bundle: ( NSBundle* )_NibBundleOrNil
@@ -38,11 +40,6 @@
         }
 
     return self;
-    }
-
-- ( void ) dealloc
-    {
-    DDLogDebug( @"%@ got deallocated", self );
     }
 
 #pragma mark - External KVB Compliant

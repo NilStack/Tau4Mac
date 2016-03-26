@@ -20,11 +20,12 @@ static void sConfigureLogging()
         {
         DDTTYLogger* sharedTTYLogger = [ DDTTYLogger sharedInstance ];
 
-        NSColor* fatalColor = [ NSColor colorWithHTMLColor: @"CC0066" ];
+        NSColor* fatalColor =          [ NSColor colorWithHTMLColor: @"CC0066" ];
         NSColor* recoverableErrColor = [ NSColor colorWithHTMLColor: @"FE6262" ];
-        NSColor* warningColor = [ NSColor colorWithHTMLColor: @"FEFEA4" ];
-        NSColor* infoColor = [ NSColor colorWithHTMLColor: @"D5FBFF" ];
-        NSColor* verboseColor = [ NSColor colorWithHTMLColor: @"CACBCE" ];
+        NSColor* warningColor =        [ NSColor colorWithHTMLColor: @"FEFEA4" ];
+        NSColor* expectingColor =      [ NSColor colorWithHTMLColor: @"8CF191" ];
+        NSColor* infoColor =           [ NSColor colorWithHTMLColor: @"D5FBFF" ];
+        NSColor* verboseColor =        [ NSColor colorWithHTMLColor: @"CACBCE" ];
 
         [ sharedTTYLogger setColorsEnabled: YES ];
         [ sharedTTYLogger setForegroundColor: fatalColor backgroundColor: [ NSColor whiteColor ] forFlag: DDLogFlagFatal ];
@@ -40,7 +41,7 @@ static void sConfigureLogging()
 
         [ sharedTTYLogger setForegroundColor: infoColor backgroundColor: nil forFlag: DDLogFlagInfo ];
         [ sharedTTYLogger setForegroundColor: infoColor backgroundColor: nil forFlag: DDLogFlagDebug ];
-
+        [ sharedTTYLogger setForegroundColor: expectingColor backgroundColor: nil forFlag: DDLogFlagExpecting ];
         [ sharedTTYLogger setForegroundColor: verboseColor backgroundColor: nil forFlag: DDLogFlagVerbose ];
 
         [ sharedTTYLogger setLogFormatter: [ [ TauTTYLogFormatter alloc ] init ] ];

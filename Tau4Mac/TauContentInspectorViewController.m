@@ -56,6 +56,8 @@
     NSArray <NSLayoutConstraint*>* inspectorLayoutConstraintsCache_;
     }
 
+TauDealloc( nil );
+
 #pragma mark - Initializations
 
 - ( void ) viewDidLoad
@@ -65,11 +67,6 @@
     [ self addChildViewController: self.splitInspectorViewController_ ];
     [ self.view addSubview: self.splitInspectorViewController_.view ];
     [ [ self.splitInspectorViewController_.view configureForAutoLayout ] autoPinEdgesToSuperviewEdges ];
-    }
-
-- ( void ) dealloc
-    {
-    DDLogDebug( @"%@ got deallocated", self );
     }
 
 #pragma mark - External KVB Compliant Properties

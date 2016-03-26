@@ -55,6 +55,8 @@
     NSArray __strong* priBorderViewPinEdgesCache_;
     }
 
+TauDealloc( nil );
+
 #pragma mark - Initializations
 
 - ( instancetype ) initWithCoder: ( NSCoder* )_Coder
@@ -76,11 +78,6 @@
     if ( self = [ self initWithFrame: NSZeroRect ] )
         self.ytContent = _GTLObject;
     return self;
-    }
-
-- ( void ) dealloc
-    {
-    DDLogDebug( @"%@ got deallocated", self );
     }
 
 #pragma mark - Drawing
@@ -335,6 +332,8 @@
     LRNotificationObserver __strong* appWillResignActObserv_;
     }
 
+TauDealloc( nil );
+
 #pragma mark - Initializations
 
 - ( instancetype ) initWithFrame: ( NSRect )_FrameRect
@@ -346,11 +345,6 @@
         }
 
     return self;
-    }
-
-- ( void ) dealloc
-    {
-    DDLogDebug( @"%@ got deallocated", self );
     }
 
 - ( void ) viewWillMoveToSuperview: ( NSView* )_NewSuperview

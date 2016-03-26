@@ -40,6 +40,19 @@ TAU_CHANGE_VALUE_COMMIT( _Key );\
 
 
 
+#define TauDealloc( _DeallocBlk ) - ( void ) dealloc\
+{\
+DDLogExpecting( @"%@ got deallocated", self );\
+void ( ^_blk )();\
+if ( _DeallocBlk ) ( _blk = _DeallocBlk )();\
+}\
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
 NSString extern* const TauKeychainItemName;
 
 #pragma mark - Client Credentials

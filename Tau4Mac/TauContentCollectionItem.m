@@ -22,7 +22,7 @@
     [ super viewDidLoad ];
     }
 
-TAU_GET_DEALLOCED_LOG;
+TauDealloc( nil );
 
 - ( void ) setRepresentedObject: ( id )_RepresentedObject
     {
