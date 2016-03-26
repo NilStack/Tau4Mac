@@ -78,6 +78,11 @@
     return self;
     }
 
+- ( void ) dealloc
+    {
+    DDLogDebug( @"%@ got deallocated", self );
+    }
+
 #pragma mark - Drawing
 
 - ( void ) updateLayer
@@ -327,6 +332,12 @@
 
 // _PriItemBorderView class
 @implementation _PriItemBorderView
+    {
+    LRNotificationObserver __strong* appWillResignActObserv_;
+    LRNotificationObserver __strong* appWillBecomeActObserv_;
+    }
+
+#pragma mark - Initializations
 
 - ( instancetype ) initWithFrame: ( NSRect )_FrameRect
     {
@@ -334,13 +345,32 @@
         {
         [ [ self configureForAutoLayout ] setWantsLayer: YES ];
         [ self setLayerContentsRedrawPolicy: NSViewLayerContentsRedrawOnSetNeedsDisplay ];
-
-        void ( ^NotifBlock )() = ^( NSNotification* _Notif ) { [ self setNeedsDisplay: YES ]; };
-        [ LRNotificationObserver observeName: NSApplicationWillResignActiveNotification object: NSApp owner: self block: NotifBlock ];
-        [ LRNotificationObserver observeName: NSApplicationWillBecomeActiveNotification object: NSApp owner: self block: NotifBlock ];
         }
+
     return self;
     }
+
+- ( void ) dealloc
+    {
+    DDLogDebug( @"%@ got deallocated", self );
+    }
+
+- ( void ) viewWillMoveToSuperview: ( NSView* )_NewSuperview
+    {
+    if ( _NewSuperview )
+        {
+        void ( ^_AppActivityNotifBlock )() = ^( NSNotification* _Notif ) { [ self setNeedsDisplay: YES ]; };
+        appWillResignActObserv_ = [ LRNotificationObserver observerForName: NSApplicationWillResignActiveNotification block: _AppActivityNotifBlock ];
+        appWillBecomeActObserv_ = [ LRNotificationObserver observerForName: NSApplicationWillBecomeActiveNotification block: _AppActivityNotifBlock ];
+        }
+    else
+        {
+        appWillBecomeActObserv_ = nil;
+        appWillResignActObserv_ = nil;
+        }
+    }
+
+#pragma mark - Drawing
 
 - ( BOOL ) wantsUpdateLayer
     {
