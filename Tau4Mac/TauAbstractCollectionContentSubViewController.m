@@ -58,6 +58,7 @@ NSString* const kChannelIdentifier = @"kChannelIdentifier";
 NSString* const kPlaylistIdentifier = @"kPlaylistIdentifier";
 NSString* const kVideoIdentifier = @"kVideoIdentifier";
 
+NSString* const kPlaylistName = @"kPlaylistName";
 
 
 // TauAbstractCollectionContentSubViewController class
@@ -140,8 +141,10 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_BEGIN
         ^( NSNotification* _Notif )
             {
             TauPlaylistResultsCollectionContentSubViewController* c = [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
-            [ ( TauAbstractContentViewController* )( self.parentViewController ) pushContentSubView: c ];
             c.playlistIdentifier = _Notif.userInfo[ kPlaylistIdentifier ];
+            c.playlistName = _Notif.userInfo[ kPlaylistName ];
+
+            [ ( TauAbstractContentViewController* )( self.parentViewController ) pushContentSubView: c ];
             } ];
 TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
         }

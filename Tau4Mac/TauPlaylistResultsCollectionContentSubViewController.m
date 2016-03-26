@@ -25,9 +25,6 @@
 // TauPlaylistResultsCollectionContentSubViewController class
 @implementation TauPlaylistResultsCollectionContentSubViewController
 
-TauDeallocBegin
-TauDeallocEnd
-
 #pragma mark - Initializations
 
 - ( instancetype ) initWithNibName: ( NSString* )_NibNameOrNil bundle: ( NSBundle* )_NibBundleOrNil
@@ -43,7 +40,12 @@ TauDeallocEnd
     return self;
     }
 
+TauDeallocBegin
+TauDeallocEnd
+
 #pragma mark - External KVB Compliant
+
+@synthesize playlistName = playlistName_;
 
 @synthesize playlistIdentifier = playlistIdentifier_;
 + ( BOOL ) automaticallyNotifiesObserversOfPlaylistIdentifier
@@ -84,7 +86,7 @@ TauDeallocEnd
 
 - ( NSString* ) appWideSummaryText
     {
-    return NSLocalizedString( @"Videos", @"App wide summary text of playlist items results collection" );
+    return [ NSString stringWithFormat: @"%@ • Playlist", playlistName_ ];
     }
 
 #pragma mark - Internal KVB Compliant

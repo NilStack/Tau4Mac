@@ -37,11 +37,6 @@
 // TauContentCollectionViewController class
 @implementation TauContentCollectionViewController
 
-TauDeallocBegin
-    // Get rid of bindings
-    [ self.wrapperOfContentInspectorView_ unbind: TAU_KEY_OF_SEL( @selector( ytContents ) ) ];
-TauDeallocEnd
-
 #pragma mark - Initializations
 
 NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
@@ -69,6 +64,11 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
      withKeyPath: TAU_KEY_OF_SEL( @selector( selectedItems ) )
          options: nil ];
     }
+
+TauDeallocBegin
+    // Get rid of bindings
+    [ self.wrapperOfContentInspectorView_ unbind: TAU_KEY_OF_SEL( @selector( ytContents ) ) ];
+TauDeallocEnd
 
 #pragma mark - Relay the Model Data
 

@@ -44,7 +44,13 @@ TauDeallocEnd
             case TauYouTubePlayList:
                 {
                 NSString* playlistId = ytContent.JSON[ @"id" ][ @"playlistId" ];
-                [ [ NSNotificationCenter defaultCenter ] postNotificationName: TauShouldExposeContentCollectionItemNotif object: self.collectionView userInfo: @{ kPlaylistIdentifier : playlistId } ];
+                NSString* playlistName = [ ytContent valueForKeyPath: @"snippet.title" ];
+                [ [ NSNotificationCenter defaultCenter ]
+                    postNotificationName: TauShouldExposeContentCollectionItemNotif
+                                  object: self.collectionView
+                                userInfo: @{ kPlaylistIdentifier : playlistId
+                                           , kPlaylistName : playlistName
+                                           } ];
                 } break;
 
             case TauYouTubeUnknownContent:

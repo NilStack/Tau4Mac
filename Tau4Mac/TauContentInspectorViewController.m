@@ -194,7 +194,9 @@ TauDeallocEnd
 - ( id ) transformedValue: ( id )_Value
     {
     return [ [ NSAttributedString alloc ] initWithString: _Value attributes:
-        @{ NSFontAttributeName : [ NSFont fontWithName: @"Helvetica Neue Light" size: 13.f ] } ];
+        @{ NSFontAttributeName : [ NSFont fontWithName: @"Helvetica Neue Light" size: 11.f ]
+         , NSForegroundColorAttributeName : [ NSColor grayColor ]
+         } ];
     }
 
 @end
