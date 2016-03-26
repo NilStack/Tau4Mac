@@ -38,6 +38,9 @@
 		8356B2001C9C11C300AC4B36 /* TauToolbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8356B1FF1C9C11C300AC4B36 /* TauToolbarController.m */; };
 		8356B2031C9D35F900AC4B36 /* TauAbstractContentSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8356B2021C9D35F900AC4B36 /* TauAbstractContentSubViewController.m */; };
 		835FDB801CA5794C00A2A031 /* TauPlaylistResultsCollectionContentSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 835FDB7F1CA5794C00A2A031 /* TauPlaylistResultsCollectionContentSubViewController.m */; };
+		835FDC2E1CA62F3700A2A031 /* LRNotificationObserver+NSNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 835FDC291CA62F3700A2A031 /* LRNotificationObserver+NSNotificationCenter.m */; };
+		835FDC2F1CA62F3700A2A031 /* LRNotificationObserver+Owner.m in Sources */ = {isa = PBXBuildFile; fileRef = 835FDC2B1CA62F3700A2A031 /* LRNotificationObserver+Owner.m */; };
+		835FDC301CA62F3700A2A031 /* LRNotificationObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 835FDC2D1CA62F3700A2A031 /* LRNotificationObserver.m */; };
 		836D26F01C9AC8DE00290BE7 /* TauMainContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 836D26EF1C9AC8DE00290BE7 /* TauMainContentView.m */; };
 		836D26F41C9ACB1E00290BE7 /* TauMainContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 836D26F31C9ACB1E00290BE7 /* TauMainContentViewController.m */; };
 		836D26F91C9ACDA300290BE7 /* TauSearchContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 836D26F71C9ACDA300290BE7 /* TauSearchContentViewController.m */; };
@@ -138,6 +141,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = 81EC40F81CA3639C00BD9226;
 			remoteInfo = "FBKVOController-OSX-Dynamic";
+		};
+		835FDC231CA62F2000A2A031 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 81BD70C81CA4B57F00FB8E4D;
+			remoteInfo = "FBKVOController-tvOS-Dynamic";
+		};
+		835FDC251CA62F2000A2A031 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 81BD70EA1CA4B98D00FB8E4D;
+			remoteInfo = "FBKVOController-watchOS-Dynamic";
 		};
 		83765AF11C8811DE00D93554 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -498,6 +515,12 @@
 		8356B2021C9D35F900AC4B36 /* TauAbstractContentSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAbstractContentSubViewController.m; sourceTree = "<group>"; };
 		835FDB7E1CA5794C00A2A031 /* TauPlaylistResultsCollectionContentSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauPlaylistResultsCollectionContentSubViewController.h; sourceTree = "<group>"; };
 		835FDB7F1CA5794C00A2A031 /* TauPlaylistResultsCollectionContentSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauPlaylistResultsCollectionContentSubViewController.m; sourceTree = "<group>"; };
+		835FDC281CA62F3700A2A031 /* LRNotificationObserver+NSNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LRNotificationObserver+NSNotificationCenter.h"; sourceTree = "<group>"; };
+		835FDC291CA62F3700A2A031 /* LRNotificationObserver+NSNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LRNotificationObserver+NSNotificationCenter.m"; sourceTree = "<group>"; };
+		835FDC2A1CA62F3700A2A031 /* LRNotificationObserver+Owner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LRNotificationObserver+Owner.h"; sourceTree = "<group>"; };
+		835FDC2B1CA62F3700A2A031 /* LRNotificationObserver+Owner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LRNotificationObserver+Owner.m"; sourceTree = "<group>"; };
+		835FDC2C1CA62F3700A2A031 /* LRNotificationObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRNotificationObserver.h; sourceTree = "<group>"; };
+		835FDC2D1CA62F3700A2A031 /* LRNotificationObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRNotificationObserver.m; sourceTree = "<group>"; };
 		836D26EE1C9AC8DE00290BE7 /* TauMainContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauMainContentView.h; sourceTree = "<group>"; };
 		836D26EF1C9AC8DE00290BE7 /* TauMainContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauMainContentView.m; sourceTree = "<group>"; };
 		836D26F21C9ACB1E00290BE7 /* TauMainContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauMainContentViewController.h; sourceTree = "<group>"; };
@@ -655,6 +678,8 @@
 				832555131CA4DF6F000C8A48 /* FBKVOControllerTests.xctest */,
 				832555151CA4DF6F000C8A48 /* KVOController.framework */,
 				832555171CA4DF6F000C8A48 /* KVOController.framework */,
+				835FDC241CA62F2000A2A031 /* KVOController.framework */,
+				835FDC261CA62F2000A2A031 /* KVOController.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -756,6 +781,20 @@
 				836D27021C9ACE0400290BE7 /* TauPlayerContentViewController.xib */,
 			);
 			name = player;
+			sourceTree = "<group>";
+		};
+		835FDC271CA62F3700A2A031 /* LRNotificationObserver */ = {
+			isa = PBXGroup;
+			children = (
+				835FDC281CA62F3700A2A031 /* LRNotificationObserver+NSNotificationCenter.h */,
+				835FDC291CA62F3700A2A031 /* LRNotificationObserver+NSNotificationCenter.m */,
+				835FDC2A1CA62F3700A2A031 /* LRNotificationObserver+Owner.h */,
+				835FDC2B1CA62F3700A2A031 /* LRNotificationObserver+Owner.m */,
+				835FDC2C1CA62F3700A2A031 /* LRNotificationObserver.h */,
+				835FDC2D1CA62F3700A2A031 /* LRNotificationObserver.m */,
+			);
+			name = LRNotificationObserver;
+			path = ../Deps/LRNotificationObserver/LRNotificationObserver;
 			sourceTree = "<group>";
 		};
 		836D26F51C9ACD2A00290BE7 /* tds */ = {
@@ -914,7 +953,6 @@
 		83765B121C88173300D93554 /* Deps */ = {
 			isa = PBXGroup;
 			children = (
-				83224A901CA167B9008931C6 /* TAAdaptiveSpaceItem */,
 				83DA1C591C8893D5007B084F /* libcommonCrypto.tbd */,
 				83765B101C88171400D93554 /* QuartzCore.framework */,
 				83765B0E1C88170F00D93554 /* Cocoa.framework */,
@@ -923,6 +961,8 @@
 				83DA1C411C886138007B084F /* WebKit.framework */,
 				8399E2151C88201F00A42C44 /* GTL */,
 				83DA1C551C8893BF007B084F /* OAuthSigningConstants */,
+				83224A901CA167B9008931C6 /* TAAdaptiveSpaceItem */,
+				835FDC271CA62F3700A2A031 /* LRNotificationObserver */,
 				832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */,
 				83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */,
 				83765B351C881A5700D93554 /* Lumberjack.xcodeproj */,
@@ -1220,6 +1260,20 @@
 			fileType = wrapper.framework;
 			path = KVOController.framework;
 			remoteRef = 832555161CA4DF6F000C8A48 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		835FDC241CA62F2000A2A031 /* KVOController.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = KVOController.framework;
+			remoteRef = 835FDC231CA62F2000A2A031 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		835FDC261CA62F2000A2A031 /* KVOController.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = KVOController.framework;
+			remoteRef = 835FDC251CA62F2000A2A031 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		83765B201C8818F500D93554 /* PureLayout.framework */ = {
@@ -1532,6 +1586,7 @@
 				83EB74591C9058C4004EB117 /* NSBezierPath+TauDrawing.m in Sources */,
 				833846FA1CA10D8D00F49885 /* TauContentCollectionViewController.m in Sources */,
 				83B020591C96B2C9006333CB /* TauYouTubeSearchResultsCollection.m in Sources */,
+				835FDC2E1CA62F3700A2A031 /* LRNotificationObserver+NSNotificationCenter.m in Sources */,
 				83765AE21C8811DD00D93554 /* main.m in Sources */,
 				83D2E82F1C9A87C300A6AD3D /* TauLogging.m in Sources */,
 				83B174961C98F19800F6578B /* TauYTDataService.m in Sources */,
@@ -1554,6 +1609,7 @@
 				8349D3DF1C899444000D091F /* NSImage+Tau.m in Sources */,
 				830F55881C92CE20005E431B /* NSObject+TauDataServiceConsumer.m in Sources */,
 				8321F6681C8AA0A500D11FE0 /* TauViewsStack.m in Sources */,
+				835FDC301CA62F3700A2A031 /* LRNotificationObserver.m in Sources */,
 				836D27031C9ACE0400290BE7 /* TauPlayerContentViewController.m in Sources */,
 				834E78161C9ECFB900802301 /* TauContentCollectionItem.m in Sources */,
 				83DA1C581C8893BF007B084F /* OAuthSigningConstants.m in Sources */,
@@ -1562,6 +1618,7 @@
 				83765ADF1C8811DD00D93554 /* TauAppDelegate.m in Sources */,
 				8318A5481C89205700F3E9CD /* TauContentCollectionItemSubLayer.m in Sources */,
 				83224A951CA167B9008931C6 /* TAAdaptiveSpaceItem.m in Sources */,
+				835FDC2F1CA62F3700A2A031 /* LRNotificationObserver+Owner.m in Sources */,
 				83B020561C96B1B8006333CB /* TauAbstractResultCollection.m in Sources */,
 				833C343B1CA27975004D9BE0 /* TauContentInspectorViewController.m in Sources */,
 				8325555C1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m in Sources */,

@@ -31,6 +31,10 @@
 
 #import "GTLYouTube.h"
 #import "OAuthSigningConstants.h"
+#import "LRNotificationObserver.h"
+#import "LRNotificationObserver.h"
+#import "LRNotificationObserver+Owner.h"
+#import "LRNotificationObserver+NSNotificationCenter.h"
 
 #import "TauConstants.h"
 #import "TauYTDataService.h"
