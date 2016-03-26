@@ -9,8 +9,6 @@
 #import "TauContentCollectionItem.h"
 #import "TauContentCollectionItemView.h"
 
-#import "TauPlaylistResultsCollectionContentSubViewController.h"
-
 // Private
 @interface TauContentCollectionItem ()
 
@@ -23,6 +21,8 @@
     {
     [ super viewDidLoad ];
     }
+
+TAU_GET_DEALLOCED_LOG;
 
 - ( void ) setRepresentedObject: ( id )_RepresentedObject
     {
@@ -42,8 +42,13 @@
             {
             case TauYouTubePlayList:
                 {
-                TauPlaylistResultsCollectionContentSubViewController* c = [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
-                c.playlistIdentifier = ytContent.JSON[ @"id" ][ @"playlistId" ];
+                NSString* playlistId = ytContent.JSON[ @"id" ][ @"playlistId" ];
+                [ [ NSNotificationCenter defaultCenter ] postNotificationName: TauShouldExposeContentCollectionItemNotif object: self.collectionView userInfo: @{ kPlaylistIdentifier : playlistId } ];
+                } break;
+
+            case TauYouTubeUnknownContent:
+                {
+                DDLogUnexpected( @"Encountered unknown content collection item type" );
                 } break;
             }
         }

@@ -134,4 +134,10 @@ DDLogLevelOff
 #define DDLogDebugToDDLog( ddlog, frmt, ... )        LOG_MAYBE_TO_DDLOG( ddlog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagDebug, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
 #define DDLogVerboseToDDLog( ddlog, frmt, ... )      LOG_MAYBE_TO_DDLOG( ddlog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagVerbose, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__ )
 
+#define TAU_GET_DEALLOCED_LOG \
+- ( void ) dealloc\
+    {\
+    DDLogDebug( @"%@ got deallocated", self );\
+    }\
+
 #endif /* TauLogging_h */

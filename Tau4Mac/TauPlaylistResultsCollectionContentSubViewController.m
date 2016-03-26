@@ -62,7 +62,10 @@
             playlistIdentifier_ = _New;
 
             self.originalOperationsCombination =
-                @{ TauTDSOperationMaxResultsPerPage : @50, TauTDSOperationRequirementPlaylistID : playlistIdentifier_, TauTDSOperationPartFilter : @"contentDetails,id,snippet,status" };
+                @{ TauTDSOperationMaxResultsPerPage : @50
+                 , TauTDSOperationRequirements : @{ TauTDSOperationRequirementPlaylistID : playlistIdentifier_ }
+                 , TauTDSOperationPartFilter : @"contentDetails,id,snippet,status"
+                 };
             } ) );
         }
     }

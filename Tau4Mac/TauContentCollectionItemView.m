@@ -138,18 +138,16 @@
     TauYouTubeContentType type = TauYouTubeUnknownContent;
 
     if ( [ ytContent_ isKindOfClass: [ GTLYouTubeVideo class ] ]
-            || ( [ ytContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ]
-                    && [ [ ( GTLYouTubeSearchResult* )ytContent_ identifier ].kind isEqualToString: @"youtube#video" ] ) )
+            || [ ytContent_ isKindOfClass: [ GTLYouTubePlaylistItem class ] ]
+            || ( [ ytContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ] && [ [ ( GTLYouTubeSearchResult* )ytContent_ identifier ].kind isEqualToString: @"youtube#video" ] ) )
         type = TauYouTubeVideo;
 
     else if ( [ ytContent_ isKindOfClass: [ GTLYouTubeChannel class ] ]
-            || ( [ ytContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ]
-                    && [ [ ( GTLYouTubeSearchResult* )ytContent_ identifier ].kind isEqualToString: @"youtube#channel" ] ) )
+            || ( [ ytContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ] && [ [ ( GTLYouTubeSearchResult* )ytContent_ identifier ].kind isEqualToString: @"youtube#channel" ] ) )
         type = TauYouTubeChannel;
 
     else if ( [ ytContent_ isKindOfClass: [ GTLYouTubePlaylist class ] ]
-            || ( [ ytContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ]
-                    && [ [ ( GTLYouTubeSearchResult* )ytContent_ identifier ].kind isEqualToString: @"youtube#playlist" ] ) )
+            || ( [ ytContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ] && [ [ ( GTLYouTubeSearchResult* )ytContent_ identifier ].kind isEqualToString: @"youtube#playlist" ] ) )
         type = TauYouTubePlayList;
 
     return type;
@@ -333,8 +331,8 @@
 // _PriItemBorderView class
 @implementation _PriItemBorderView
     {
-    LRNotificationObserver __strong* appWillResignActObserv_;
     LRNotificationObserver __strong* appWillBecomeActObserv_;
+    LRNotificationObserver __strong* appWillResignActObserv_;
     }
 
 #pragma mark - Initializations
@@ -360,8 +358,8 @@
     if ( _NewSuperview )
         {
         void ( ^_AppActivityNotifBlock )() = ^( NSNotification* _Notif ) { [ self setNeedsDisplay: YES ]; };
-        appWillResignActObserv_ = [ LRNotificationObserver observerForName: NSApplicationWillResignActiveNotification block: _AppActivityNotifBlock ];
         appWillBecomeActObserv_ = [ LRNotificationObserver observerForName: NSApplicationWillBecomeActiveNotification block: _AppActivityNotifBlock ];
+        appWillResignActObserv_ = [ LRNotificationObserver observerForName: NSApplicationWillResignActiveNotification block: _AppActivityNotifBlock ];
         }
     else
         {

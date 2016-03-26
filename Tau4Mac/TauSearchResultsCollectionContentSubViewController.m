@@ -63,7 +63,10 @@
             searchText_ = _New;
 
             self.originalOperationsCombination =
-                @{ TauTDSOperationMaxResultsPerPage : @50, TauTDSOperationRequirements : @{ TauTDSOperationRequirementQ : searchText_ }, TauTDSOperationPartFilter : @"snippet" };
+               @{ TauTDSOperationMaxResultsPerPage : @50
+                , TauTDSOperationRequirements : @{ TauTDSOperationRequirementQ : searchText_ }
+                , TauTDSOperationPartFilter : @"snippet"
+                };
             } ) );
         }
     }

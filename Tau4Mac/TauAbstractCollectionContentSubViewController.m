@@ -8,6 +8,9 @@
 
 #import "TauAbstractCollectionContentSubViewController.h"
 #import "TauToolbarItem.h"
+#import "TauAbstractContentViewController.h"
+
+#import "TauPlaylistResultsCollectionContentSubViewController.h"
 
 // Concret sub-classes
 #import "TauSearchResultsCollectionContentSubViewController.h"
@@ -47,8 +50,21 @@
 
 
 
+// Notification Names
+NSString* const TauShouldExposeContentCollectionItemNotif = @"Should.ExposeContentCollectionItem.Notif";;
+
+// User Info Keys
+NSString* const kChannelIdentifier = @"kChannelIdentifier";
+NSString* const kPlaylistIdentifier = @"kPlaylistIdentifier";
+NSString* const kVideoIdentifier = @"kVideoIdentifier";
+
+
+
 // TauAbstractCollectionContentSubViewController class
 @implementation TauAbstractCollectionContentSubViewController
+    {
+    LRNotificationObserver __strong* shouldExposeContentItemObserv_;
+    }
 
 #pragma mark - Initializations
 
@@ -95,6 +111,8 @@
 
 - ( IBAction ) cancelAction: ( id )_Sender
     {
+    shouldExposeContentItemObserv_ = nil;
+
     id consumer = self;
     [ [ TauYTDataService sharedService ] unregisterConsumer: consumer withCredential: priCredential_ ];
 
@@ -113,6 +131,19 @@
         [ self addChildViewController: priContentCollectionViewController_ ];
         [ self.view addSubview: priContentCollectionViewController_.view ];
         [ priContentCollectionViewController_.view autoPinEdgesToSuperviewEdges ];
+
+TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_BEGIN
+        shouldExposeContentItemObserv_ =
+            [ LRNotificationObserver observerForName: TauShouldExposeContentCollectionItemNotif
+                                              object: [ priContentCollectionViewController_ valueForKey: TAU_KEY_OF_SEL( @selector( contentCollectionView_ ) ) ]
+                                               block:
+        ^( NSNotification* _Notif )
+            {
+            TauPlaylistResultsCollectionContentSubViewController* c = [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
+            [ ( TauAbstractContentViewController* )( self.parentViewController ) pushContentSubView: c ];
+            c.playlistIdentifier = _Notif.userInfo[ kPlaylistIdentifier ];
+            } ];
+TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
         }
 
     return priContentCollectionViewController_;
@@ -262,10 +293,12 @@
 
         Class concreteClass = [ self class ];
         TauYTDataServiceConsumptionType consumptionType = TauYTDataServiceConsumptionUnknownType;
+
         if ( concreteClass == [ TauSearchResultsCollectionContentSubViewController class ] )
             consumptionType = TauYTDataServiceConsumptionSearchResultsType;
-        else
-            ; // TODO: Expecting other consumption types
+
+        else if ( concreteClass == [ TauPlaylistResultsCollectionContentSubViewController class ] )
+            consumptionType = TauYTDataServiceConsumptionPlaylistItemsType; // TODO: Expecting other consumption types
 
         if ( consumptionType == TauYTDataServiceConsumptionUnknownType )
             DDLogUnexpected( @"TDS consumption is unkown." );

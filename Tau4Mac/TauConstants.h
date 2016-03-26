@@ -143,9 +143,15 @@ NSString extern* const TauShouldSwitch2PlayerSegmentNotif;
 
 NSString extern* const TauShouldPlayVideoNotif;
 
+NSString extern* const TauShouldExposeContentCollectionItemNotif;
+
 // User Info Keys
 NSString extern* const kGTLObject;
 NSString extern* const kRequester;
+
+NSString extern* const kChannelIdentifier;
+NSString extern* const kPlaylistIdentifier;
+NSString extern* const kVideoIdentifier;
 
 
 
