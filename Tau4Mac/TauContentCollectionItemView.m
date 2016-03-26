@@ -334,6 +334,10 @@
         {
         [ [ self configureForAutoLayout ] setWantsLayer: YES ];
         [ self setLayerContentsRedrawPolicy: NSViewLayerContentsRedrawOnSetNeedsDisplay ];
+
+        void ( ^NotifBlock )() = ^( NSNotification* _Notif ) { [ self setNeedsDisplay: YES ]; };
+        [ LRNotificationObserver observeName: NSApplicationWillResignActiveNotification object: NSApp owner: self block: NotifBlock ];
+        [ LRNotificationObserver observeName: NSApplicationWillBecomeActiveNotification object: NSApp owner: self block: NotifBlock ];
         }
     return self;
     }
@@ -348,7 +352,11 @@
     CALayer* layer = self.layer;
     layer.borderWidth = 3.f;
     layer.cornerRadius = 5.f;
-    layer.borderColor = ( borderColor_ ? borderColor_ : [ NSColor keyboardFocusIndicatorColor ] ).CGColor;
+
+    if ( NSApp.active )
+        layer.borderColor = ( borderColor_ ? borderColor_ : [ NSColor keyboardFocusIndicatorColor ] ).CGColor;
+    else
+        layer.borderColor = [ NSColor lightGrayColor ].CGColor;
     }
 
 #pragma mark - External Properties
