@@ -55,7 +55,8 @@
     NSArray __strong* priBorderViewPinEdgesCache_;
     }
 
-TauDealloc( nil );
+TauDeallocBegin
+TauDeallocEnd
 
 #pragma mark - Initializations
 
@@ -332,7 +333,8 @@ TauDealloc( nil );
     LRNotificationObserver __strong* appWillResignActObserv_;
     }
 
-TauDealloc( nil );
+TauDeallocBegin
+TauDeallocEnd
 
 #pragma mark - Initializations
 

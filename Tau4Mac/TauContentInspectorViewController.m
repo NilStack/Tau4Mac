@@ -56,7 +56,8 @@
     NSArray <NSLayoutConstraint*>* inspectorLayoutConstraintsCache_;
     }
 
-TauDealloc( nil );
+TauDeallocBegin
+TauDeallocEnd
 
 #pragma mark - Initializations
 

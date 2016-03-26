@@ -22,7 +22,8 @@
     [ super viewDidLoad ];
     }
 
-TauDealloc( nil );
+TauDeallocBegin
+TauDeallocEnd
 
 - ( void ) setRepresentedObject: ( id )_RepresentedObject
     {

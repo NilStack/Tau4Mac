@@ -25,7 +25,8 @@
 // TauPlaylistResultsCollectionContentSubViewController class
 @implementation TauPlaylistResultsCollectionContentSubViewController
 
-TauDealloc( nil );
+TauDeallocBegin
+TauDeallocEnd
 
 #pragma mark - Initializations
 

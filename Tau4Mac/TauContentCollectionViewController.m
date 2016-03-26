@@ -37,7 +37,10 @@
 // TauContentCollectionViewController class
 @implementation TauContentCollectionViewController
 
-TauDealloc( ^{ [ self.wrapperOfContentInspectorView_ unbind: TAU_KEY_OF_SEL( @selector( ytContents ) ) ]; } );
+TauDeallocBegin
+    // Get rid of bindings
+    [ self.wrapperOfContentInspectorView_ unbind: TAU_KEY_OF_SEL( @selector( ytContents ) ) ];
+TauDeallocEnd
 
 #pragma mark - Initializations
 
@@ -59,6 +62,7 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
     [ self.view addSubview: [ splitViewController.view configureForAutoLayout ] ];
     [ splitViewController.view autoPinEdgesToSuperviewEdges ];
 
+    // Estanlishing bindings
     [ self.wrapperOfContentInspectorView_
             bind: TAU_KEY_OF_SEL( @selector( ytContents ) )
         toObject: self

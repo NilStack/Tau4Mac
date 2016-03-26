@@ -26,7 +26,8 @@
 // TauSearchResultsCollectionContentSubViewController class
 @implementation TauSearchResultsCollectionContentSubViewController
 
-TauDealloc( nil );
+TauDeallocBegin
+TauDeallocEnd
 
 #pragma mark - Initializations
 
