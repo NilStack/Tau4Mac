@@ -11,7 +11,7 @@
 // TauPlaylistResultsCollectionContentSubViewController class
 @interface TauPlaylistResultsCollectionContentSubViewController : TauAbstractCollectionContentSubViewController
 
-@property ( strong, readwrite ) NSString* playlistName;          // KVB compliant
+@property ( strong, readwrite ) NSString* playlistName;         // KVB compliant
 @property ( strong, readwrite ) NSString* playlistIdentifier;   // KVB compliant
 
 @end // TauPlaylistResultsCollectionContentSubViewController class

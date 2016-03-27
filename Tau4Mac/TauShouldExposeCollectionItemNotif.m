@@ -81,8 +81,11 @@ void static* const kContentTypeAssocKey = @"kContentTypeAssocKey";
                            userInfo: @{ kPlaylistIdentifier : playlistId
                                       , kPlaylistName : playlistName
                                       } ];
-
-    objc_setAssociatedObject( notif, &kContentTypeAssocKey, @( TauYouTubePlayList ), OBJC_ASSOCIATION_RETAIN );
+    objc_setAssociatedObject( notif
+                            , &kContentTypeAssocKey
+                            , @( TauYouTubePlayList )
+                            , OBJC_ASSOCIATION_RETAIN
+                            );
     return notif;
     }
 

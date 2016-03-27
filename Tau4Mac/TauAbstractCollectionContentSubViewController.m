@@ -142,11 +142,16 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_BEGIN
                                                block:
         ^( NSNotification* _Notif )
             {
-            NSLog( @"🍉%ld", _Notif.contentType );
-
-            TauPlaylistResultsCollectionContentSubViewController* c = [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
-            c.playlistIdentifier = _Notif.userInfo[ kPlaylistIdentifier ];
-            c.playlistName = _Notif.userInfo[ kPlaylistName ];
+            TauAbstractCollectionContentSubViewController* c = nil;
+            switch ( _Notif.contentType )
+                {
+                case TauYouTubePlayList:
+                    {
+                    c = [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
+                    [ c setValue: _Notif.playlistIdentifier forKey: TAU_KEY_OF_SEL( @selector( playlistIdentifier ) ) ];
+                    [ c setValue: _Notif.playlistName forKey: TAU_KEY_OF_SEL( @selector( playlistName ) ) ];
+                    } break;
+                }
 
             [ ( TauAbstractContentViewController* )( self.parentViewController ) pushContentSubView: c ];
             } ];
