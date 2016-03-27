@@ -1,5 +1,5 @@
 //
-//  TauPlaylistItemResultsCollectionContentSubViewController.h
+//  TauPlaylistResultsCollectionContentSubViewController.h
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/25/16.
@@ -8,10 +8,10 @@
 
 #import "TauAbstractCollectionContentSubViewController.h"
 
-// TauPlaylistItemResultsCollectionContentSubViewController class
-@interface TauPlaylistItemResultsCollectionContentSubViewController : TauAbstractCollectionContentSubViewController
+// TauPlaylistResultsCollectionContentSubViewController class
+@interface TauPlaylistResultsCollectionContentSubViewController : TauAbstractCollectionContentSubViewController
 
 @property ( strong, readwrite ) NSString* playlistName;         // KVB compliant
 @property ( strong, readwrite ) NSString* playlistIdentifier;   // KVB compliant
 
-@end // TauPlaylistItemResultsCollectionContentSubViewController class
+@end // TauPlaylistResultsCollectionContentSubViewController class

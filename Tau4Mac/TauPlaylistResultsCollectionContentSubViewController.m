@@ -1,15 +1,15 @@
 //
-//  TauPlaylistItemResultsCollectionContentSubViewController.m
+//  TauPlaylistResultsCollectionContentSubViewController.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/25/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauPlaylistItemResultsCollectionContentSubViewController.h"
+#import "TauPlaylistResultsCollectionContentSubViewController.h"
 
 // Private
-@interface TauPlaylistItemResultsCollectionContentSubViewController ()
+@interface TauPlaylistResultsCollectionContentSubViewController ()
 
 // Model: Feed me, if you dare.
 @property ( strong, readwrite ) NSArray <GTLYouTubePlaylistItem*>* playlistItems;   // KVB-compliant
@@ -22,8 +22,8 @@
 
 
 
-// TauPlaylistItemResultsCollectionContentSubViewController class
-@implementation TauPlaylistItemResultsCollectionContentSubViewController
+// TauPlaylistResultsCollectionContentSubViewController class
+@implementation TauPlaylistResultsCollectionContentSubViewController
 
 #pragma mark - Initializations
 
@@ -140,4 +140,4 @@ TauDeallocEnd
     [ playlistItems_ getObjects: _Buffer range: _InRange ];
     }
 
-@end // TauPlaylistItemResultsCollectionContentSubViewController class
+@end // TauPlaylistResultsCollectionContentSubViewController class
