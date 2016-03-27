@@ -38,7 +38,9 @@
 
 #import "TauConstants.h"
 #import "TauYTDataService.h"
+
 #import "NSObject+TauDataServiceConsumer.h"
+#import "GTLObject+Tau.h"
 
 #import <objc/runtime.h>
 

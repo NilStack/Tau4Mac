@@ -53,16 +53,6 @@
 // Notification Names
 NSString* const TauShouldExposeContentCollectionItemNotif = @"Should.ExposeContentCollectionItem.Notif";;
 
-// User Info Keys
-NSString* const kChannelIdentifier = @"kChannelIdentifier";
-NSString* const kPlaylistIdentifier = @"kPlaylistIdentifier";
-NSString* const kVideoIdentifier = @"kVideoIdentifier";
-
-NSString* const kVideoName = @"kVideoName";
-NSString* const kPlaylistName = @"kPlaylistName";
-NSString* const kChannelName = @"kChannelName";
-
-
 // TauAbstractCollectionContentSubViewController class
 @implementation TauAbstractCollectionContentSubViewController
     {

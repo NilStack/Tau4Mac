@@ -133,22 +133,7 @@ TauDeallocEnd
 
 - ( TauYouTubeContentType ) type
     {
-    TauYouTubeContentType type = TauYouTubeUnknownContent;
-
-    if ( [ ytContent_ isKindOfClass: [ GTLYouTubeVideo class ] ]
-            || [ ytContent_ isKindOfClass: [ GTLYouTubePlaylistItem class ] ]
-            || ( [ ytContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ] && [ [ ( GTLYouTubeSearchResult* )ytContent_ identifier ].kind isEqualToString: @"youtube#video" ] ) )
-        type = TauYouTubeVideo;
-
-    else if ( [ ytContent_ isKindOfClass: [ GTLYouTubeChannel class ] ]
-            || ( [ ytContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ] && [ [ ( GTLYouTubeSearchResult* )ytContent_ identifier ].kind isEqualToString: @"youtube#channel" ] ) )
-        type = TauYouTubeChannel;
-
-    else if ( [ ytContent_ isKindOfClass: [ GTLYouTubePlaylist class ] ]
-            || ( [ ytContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ] && [ [ ( GTLYouTubeSearchResult* )ytContent_ identifier ].kind isEqualToString: @"youtube#playlist" ] ) )
-        type = TauYouTubePlayList;
-
-    return type;
+    return ytContent_.tauContentType;
     }
 
 @synthesize isSelected = isSelected_;

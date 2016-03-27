@@ -106,6 +106,7 @@
 		83DA1C461C8864C0007B084F /* TauAbstractLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C451C8864C0007B084F /* TauAbstractLogFormatter.m */; };
 		83DA1C491C8864E9007B084F /* TauTTYLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C481C8864E9007B084F /* TauTTYLogFormatter.m */; };
 		83DA1C581C8893BF007B084F /* OAuthSigningConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C571C8893BF007B084F /* OAuthSigningConstants.m */; };
+		83E072E01CA7B96700CD1FCF /* GTLObject+Tau.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E072DF1CA7B96700CD1FCF /* GTLObject+Tau.m */; };
 		83EB73491C8D33BC004EB117 /* TauAbstractBeautifulView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB73481C8D33BC004EB117 /* TauAbstractBeautifulView.m */; };
 		83EB73C11C8E6520004EB117 /* XCDYouTubeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EB73B81C8E6514004EB117 /* XCDYouTubeKit.framework */; };
 		83EB73C31C8E6531004EB117 /* XCDYouTubeKit.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 83EB73B81C8E6514004EB117 /* XCDYouTubeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -604,6 +605,8 @@
 		83DA1C561C8893BF007B084F /* OAuthSigningConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthSigningConstants.h; sourceTree = "<group>"; };
 		83DA1C571C8893BF007B084F /* OAuthSigningConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthSigningConstants.m; sourceTree = "<group>"; };
 		83DA1C591C8893D5007B084F /* libcommonCrypto.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcommonCrypto.tbd; path = usr/lib/system/libcommonCrypto.tbd; sourceTree = SDKROOT; };
+		83E072DE1CA7B96700CD1FCF /* GTLObject+Tau.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTLObject+Tau.h"; sourceTree = "<group>"; };
+		83E072DF1CA7B96700CD1FCF /* GTLObject+Tau.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTLObject+Tau.m"; sourceTree = "<group>"; };
 		83EB73471C8D33BC004EB117 /* TauAbstractBeautifulView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauAbstractBeautifulView.h; sourceTree = "<group>"; };
 		83EB73481C8D33BC004EB117 /* TauAbstractBeautifulView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAbstractBeautifulView.m; sourceTree = "<group>"; };
 		83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XCDYouTubeKit.xcodeproj; path = ../Deps/XCDYouTubeKit/XCDYouTubeKit.xcodeproj; sourceTree = "<group>"; };
@@ -744,6 +747,8 @@
 				83EB74581C9058C4004EB117 /* NSBezierPath+TauDrawing.m */,
 				83B175011C9A7ADF00F6578B /* NSColor+TauDrawing.h */,
 				83B175021C9A7ADF00F6578B /* NSColor+TauDrawing.m */,
+				83E072DE1CA7B96700CD1FCF /* GTLObject+Tau.h */,
+				83E072DF1CA7B96700CD1FCF /* GTLObject+Tau.m */,
 			);
 			name = extensions;
 			sourceTree = "<group>";
@@ -1587,6 +1592,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83E072E01CA7B96700CD1FCF /* GTLObject+Tau.m in Sources */,
 				8399E21A1C88231400A42C44 /* TauMainWindowController.m in Sources */,
 				83B1749B1C99071700F6578B /* TauYTDataServiceConsumerDataUnit.m in Sources */,
 				838342F91C98198F00BE6378 /* TauYouTubePlaylistsCollection.m in Sources */,

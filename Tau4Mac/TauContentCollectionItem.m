@@ -39,26 +39,15 @@ TauDeallocEnd
         {
         GTLObject* ytContent = [ ( TauContentCollectionItemView* )( self.view ) ytContent ];
 
-        NSNotification* notif = nil;
-        NSNotificationCenter* defaultNotifCenter = [ NSNotificationCenter defaultCenter ];
-        switch ( [ ( TauContentCollectionItemView* )( self.view ) type ] )
+        if ( ytContent.tauContentType != TauYouTubeUnknownContent )
             {
-            case TauYouTubeVideo:
-                [ defaultNotifCenter postNotification: ( notif = [ NSNotification exposeVideoNotificationWithYouTubeObject: ytContent poster: self.collectionView ] ) ];
-                break;
+            NSNotificationCenter* defaultNotifCenter = [ NSNotificationCenter defaultCenter ];
+            NSNotification* exposeNotif = [ NSNotification exposeYouTubeContentNotificationWithYouTubeObject: ytContent poster: self.collectionView ];
 
-            case TauYouTubePlayList:
-                [ defaultNotifCenter postNotification: ( notif = [ NSNotification exposePlaylistNotificationWithYouTubeObject: ytContent poster: self.collectionView ] ) ];
-                break;
-
-            case TauYouTubeChannel:
-                [ defaultNotifCenter postNotification: ( notif = [ NSNotification exposeChannelNotificationWithYouTubeObject: ytContent poster: self.collectionView ] ) ];
-                break;
-
-            case TauYouTubeUnknownContent:
-                DDLogUnexpected( @"Encountered unknown content collection item type" );
-                break;
+            [ defaultNotifCenter postNotification: exposeNotif ];
             }
+        else
+            DDLogUnexpected( @"Encountered unknown content collection item type" );
         }
     else
         [ super mouseDown: _Event ];

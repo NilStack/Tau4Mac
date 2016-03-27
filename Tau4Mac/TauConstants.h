@@ -158,14 +158,6 @@ NSString extern* const TauShouldExposeContentCollectionItemNotif;
 NSString extern* const kGTLObject;
 NSString extern* const kRequester;
 
-NSString extern* const kChannelIdentifier;
-NSString extern* const kPlaylistIdentifier;
-NSString extern* const kVideoIdentifier;
-
-NSString extern* const kVideoName;
-NSString extern* const kPlaylistName;
-NSString extern* const kChannelName;
-
 
 
 // ------------------------------------------------------------------------------------------------------------ //

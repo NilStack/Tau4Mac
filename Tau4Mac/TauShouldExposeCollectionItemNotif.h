@@ -24,8 +24,6 @@
 
 #pragma mark - Factory Methods
 
-+ ( instancetype ) exposeVideoNotificationWithYouTubeObject: ( GTLObject* )_YouTubeObject poster: ( id )_Poster;
-+ ( instancetype ) exposePlaylistNotificationWithYouTubeObject: ( GTLObject* )_YouTubeObject poster: ( id )_Poster;
-+ ( instancetype ) exposeChannelNotificationWithYouTubeObject: ( GTLObject* )_YouTubeObject poster: ( id )_Poster;
++ ( instancetype ) exposeYouTubeContentNotificationWithYouTubeObject: ( GTLObject* )_YouTubeObject poster: ( id )_Poster;
 
 @end // NSNotification + TauShouldExposeCollectionItemNotif
