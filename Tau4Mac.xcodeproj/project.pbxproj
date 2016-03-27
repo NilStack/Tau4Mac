@@ -917,10 +917,10 @@
 		83765AE01C8811DD00D93554 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				83765AE11C8811DD00D93554 /* main.m */,
 				83765B991C881EBC00D93554 /* Tau.entitlements */,
 				83765AEB1C8811DD00D93554 /* Info.plist */,
 				83765AE61C8811DD00D93554 /* Assets.xcassets */,
+				83765AE11C8811DD00D93554 /* main.m */,
 				83765B6A1C881B3200D93554 /* Tau4Mac-PrefixHeader.pch */,
 			);
 			name = "Supporting Files";

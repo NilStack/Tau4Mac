@@ -25,6 +25,8 @@
 
 @property ( weak ) IBOutlet NSView* noSelectionLabelSection_;
 
+/********************* Embedding the split view controller *********************/
+
 @property ( strong, readonly ) NSSplitViewController* splitInspectorViewController_;
 
 // These guys used for feeding the split inspector view controller above
@@ -38,6 +40,8 @@
 @property ( weak ) IBOutlet NSViewController* wrapperOfSingleContentActionSectionView_;
 @property ( weak ) IBOutlet NSViewController* wrapperOfSingleContentDescriptionSectionView_;
 @property ( weak ) IBOutlet NSViewController* wrapperOfSingleContentInformationSectionView_;
+
+/********************* Embedding the split view controller *********************/
 
 @property ( weak ) IBOutlet NSArrayController* ytContentModelController_;
 
