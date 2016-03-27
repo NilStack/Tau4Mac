@@ -25,7 +25,7 @@
 // Private
 @interface TauExploreContentViewController ()
 
-/********************* Embedding the split view controller *********************/
+/*************** Embedding the split view controller ***************/
 
 @property ( weak ) IBOutlet NSSplitViewController* splitViewController_;
 
@@ -36,7 +36,7 @@
 @property ( weak ) IBOutlet NSViewController* wrapperOfPlaylistsOutline_;
 @property ( weak ) IBOutlet NSViewController* wrapperOfCollectionViewsPlayground_;
 
-/********************* Embedding the split view controller *********************/
+/*************** Embedding the split view controller ***************/
 
 @property ( weak ) IBOutlet TauExploreContentSubViewController* initialExploreContentSubViewController_;
 
@@ -58,7 +58,7 @@
     [ super viewDidLoad ];
     [ self.viewsStack setBackgroundViewController: self.initialExploreContentSubViewController_ ];
 
-    /********************* Embedding the split view controller *********************/
+    /*************** Embedding the split view controller ***************/
 
     [ self.splitViewController_ addSplitViewItem: self.playlistsOutlineSplitViewItem_ ];
     [ self.splitViewController_ addSplitViewItem: self.collectionViewsPlaygroundSplitViewItem_ ];
@@ -67,7 +67,7 @@
     [ self.view addSubview: [ self.splitViewController_.view configureForAutoLayout ] ];
     [ self.splitViewController_.view autoPinEdgesToSuperviewEdges ];
 
-    /********************* Embedding the split view controller *********************/
+    /*************** Embedding the split view controller ***************/
     }
 
 #pragma mark - Private

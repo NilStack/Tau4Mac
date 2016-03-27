@@ -16,7 +16,7 @@
 
 @property ( weak ) IBOutlet NSCollectionView* contentCollectionView_;
 
-/********************* Embedding the split view controller *********************/
+/*************** Embedding the split view controller ***************/
 
 @property ( weak ) IBOutlet NSSplitViewController* splitViewController_;
 
@@ -28,7 +28,7 @@
 @property ( weak ) IBOutlet NSViewController* wrapperOfContentCollectionView_;
 @property ( weak ) IBOutlet TauContentInspectorViewController* wrapperOfContentInspectorView_;
 
-/********************* Embedding the split view controller *********************/
+/*************** Embedding the split view controller ***************/
 
 @end // Private
 
