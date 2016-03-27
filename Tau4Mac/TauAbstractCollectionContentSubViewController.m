@@ -131,7 +131,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_BEGIN
                                           object: [ priContentCollectionViewController_ valueForKey: TAU_KEY_OF_SEL( @selector( contentCollectionView_ ) ) ]
                                            block:
 TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
-        ^( NSNotification* _Notif )
+        ^( NSNotification /* TauShouldExposeCollectionItemNotif*/ * _Notif )
             {
             TauAbstractCollectionContentSubViewController* c = nil;
 

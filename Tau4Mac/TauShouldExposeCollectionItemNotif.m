@@ -92,7 +92,7 @@ void static* const kContentTypeAssocKey = @"kContentTypeAssocKey";
         [ self notificationWithName: TauShouldExposeContentCollectionItemNotif
                              object: _Poster
                            userInfo: @{ kYouTubeObjectIdentifier : identifier
-                                      , kYouTubeObjectName : identifier ?: @""
+                                      , kYouTubeObjectName : name ?: @""
                                       } ];
 
     [ notif setContentType: _YouTubeObject.tauContentType ];
