@@ -6,10 +6,10 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauAbstractCollectionContentSubViewController.h"
+#import "TauPlaylistResultsCollectionContentSubViewController.h"
 
 // TauChannelResultsCollectionContentSubViewController class
-@interface TauChannelResultsCollectionContentSubViewController : TauAbstractCollectionContentSubViewController
+@interface TauChannelResultsCollectionContentSubViewController : TauPlaylistResultsCollectionContentSubViewController
 
 @property ( strong, readwrite ) NSString* channelName;         // KVB compliant
 @property ( strong, readwrite ) NSString* channelIdentifier;   // KVB compliant

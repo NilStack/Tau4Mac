@@ -11,6 +11,7 @@
 #import "TauAbstractContentViewController.h"
 
 #import "TauPlaylistResultsCollectionContentSubViewController.h"
+#import "TauChannelResultsCollectionContentSubViewController.h"
 
 // Concret sub-classes
 #import "TauSearchResultsCollectionContentSubViewController.h"
@@ -151,7 +152,9 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 
                 case TauYouTubeChannel:
                     {
-                    DDLogFatal( @"%@", _Notif );
+                    c = [ [ TauChannelResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
+                    [ c setValue: _Notif.channelIdentifier forKey: TAU_KEY_OF_SEL( @selector( channelIdentifier ) ) ];
+                    [ c setValue: _Notif.channelName forKey: TAU_KEY_OF_SEL( @selector( channelName ) ) ];
                     } break;
 
                 case TauYouTubeUnknownContent:
@@ -310,14 +313,20 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
         {
         id consumer = self;
 
-        Class concreteClass = [ self class ];
         TauYTDataServiceConsumptionType consumptionType = TauYTDataServiceConsumptionUnknownType;
 
-        if ( concreteClass == [ TauSearchResultsCollectionContentSubViewController class ] )
+        /*************** Get the correct consumption type ***************/
+
+        if ( [ self isKindOfClass: [ TauSearchResultsCollectionContentSubViewController class ] ] )
             consumptionType = TauYTDataServiceConsumptionSearchResultsType;
 
-        else if ( concreteClass == [ TauPlaylistResultsCollectionContentSubViewController class ] )
-            consumptionType = TauYTDataServiceConsumptionPlaylistItemsType; // TODO: Expecting other consumption types
+        else if ( [ self isKindOfClass: [ TauPlaylistResultsCollectionContentSubViewController class ] ] )
+            consumptionType = TauYTDataServiceConsumptionPlaylistItemsType;
+
+//        else if ( [ self isKindOfClass: [ TauChannelResultsCollectionContentSubViewController class ] ] )
+//            consumptionType = TauYTDataServiceConsumptionChannelsType; // TODO: Expecting other consumption types
+
+        /*************** Get the correct consumption type ***************/
 
         if ( consumptionType == TauYTDataServiceConsumptionUnknownType )
             DDLogUnexpected( @"TDS consumption is unkown." );
@@ -358,9 +367,10 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
         self.prevToken_ = _PrevPageToken;
         self.nextToken_ = _NextPageToken;
         self.isPaging = NO;
+
         } failure: ^( NSError* _Error )
             {
-            DDLogRecoverable( @"Failed to execute the searching due to {%@}.", _Error );
+            DDLogRecoverable( @"Failed to execute the consumer operation due to {%@}.", _Error );
             self.isPaging = NO;
             } ];
     }

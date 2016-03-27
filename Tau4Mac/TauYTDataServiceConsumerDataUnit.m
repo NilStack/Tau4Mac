@@ -170,7 +170,7 @@
         case TauYTDataServiceConsumptionChannelsType:
             {
             ytQuery = [ GTLQueryYouTube queryForChannelsListWithPart: partFilter ?:  @"snippet,contentDetails" ];
-            ytQuery.identifier = _Dict[ TauTDSOperationRequirements ][ TauTDSOperationRequirementID ];
+            ytQuery.identifier = _Dict[ TauTDSOperationRequirements ][ TauTDSOperationRequirementChannelID ];
             } break;
 
         case TauYTDataServiceConsumptionPlaylistsType:
