@@ -135,14 +135,16 @@ NSString* const kChannelName = @"kChannelName";
         [ self.view addSubview: priContentCollectionViewController_.view ];
         [ priContentCollectionViewController_.view autoPinEdgesToSuperviewEdges ];
 
-TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_BEGIN
         shouldExposeContentItemObserv_ =
-            [ LRNotificationObserver observerForName: TauShouldExposeContentCollectionItemNotif
-                                              object: [ priContentCollectionViewController_ valueForKey: TAU_KEY_OF_SEL( @selector( contentCollectionView_ ) ) ]
-                                               block:
+TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_BEGIN
+        [ LRNotificationObserver observerForName: TauShouldExposeContentCollectionItemNotif
+                                          object: [ priContentCollectionViewController_ valueForKey: TAU_KEY_OF_SEL( @selector( contentCollectionView_ ) ) ]
+                                           block:
+TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
         ^( NSNotification* _Notif )
             {
             TauAbstractCollectionContentSubViewController* c = nil;
+
             switch ( _Notif.contentType )
                 {
                 case TauYouTubePlayList:
@@ -153,9 +155,9 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_BEGIN
                     } break;
                 }
 
-            [ ( TauAbstractContentViewController* )( self.parentViewController ) pushContentSubView: c ];
+            if ( c )
+                [ self.masterContentViewController pushContentSubView: c ];
             } ];
-TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
         }
 
     return priContentCollectionViewController_;
