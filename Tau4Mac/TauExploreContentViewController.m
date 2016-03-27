@@ -12,8 +12,26 @@
 #import "TauToolbarController.h"
 #import "TauToolbarItem.h"
 
+// TauTabsAccessoryBarViewController class
+@interface TauTabsAccessoryBarViewController : NSTitlebarAccessoryViewController
+@end // TauTabsAccessoryBarViewController class
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
 // TauExploreContentSubViewController class
 @interface TauExploreContentSubViewController : TauAbstractContentSubViewController
+
+@property ( weak ) IBOutlet NSButton* MeTubeRecessedButton;
+@property ( weak ) IBOutlet NSButton* subscriptionsRecessedButton;
+
+@property ( weak ) IBOutlet TauTabsAccessoryBarViewController* tabsAccessoryBarViewController_;
+
+- ( IBAction ) tabsSwitchedAction: ( id )_Sender;
+
 @end // TauExploreContentSubViewController class
 
 
@@ -37,6 +55,8 @@
 @property ( weak ) IBOutlet NSViewController* wrapperOfCollectionViewsPlayground_;
 
 /*************** Embedding the split view controller ***************/
+
+
 
 @property ( weak ) IBOutlet TauExploreContentSubViewController* initialExploreContentSubViewController_;
 
@@ -68,6 +88,14 @@
     [ self.splitViewController_.view autoPinEdgesToSuperviewEdges ];
 
     /*************** Embedding the split view controller ***************/
+    }
+
+@synthesize tabs = priTabs_;
+- ( NSArray <NSString*>* ) tabs
+    {
+    if ( !priTabs_ )
+        priTabs_ = @[ @"Likes", @"Uploads", @"Watch History", @"Watch Later" ];
+    return priTabs_;
     }
 
 #pragma mark - Private
@@ -106,4 +134,36 @@
 
 // TauExploreContentSubViewController class
 @implementation TauExploreContentSubViewController
+
+#pragma mark - Overrides
+
+- ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
+    {
+    return self.tabsAccessoryBarViewController_;
+    }
+
+- ( IBAction ) tabsSwitchedAction: ( id )_Sender
+    {
+    if ( _Sender == self.MeTubeRecessedButton )
+        {
+        self.MeTubeRecessedButton.state = NSOnState;
+        self.subscriptionsRecessedButton.state = NSOffState;
+        }
+    else if ( _Sender == self.subscriptionsRecessedButton )
+        {
+        self.MeTubeRecessedButton.state = NSOffState;
+        self.subscriptionsRecessedButton.state = NSOnState;
+        }
+    }
+
 @end // TauExploreContentSubViewController class
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
+// TauTabsAccessoryBarViewController class
+@implementation TauTabsAccessoryBarViewController
+@end // TauTabsAccessoryBarViewController class

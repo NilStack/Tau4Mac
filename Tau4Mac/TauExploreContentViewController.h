@@ -11,4 +11,6 @@
 // TauExploreContentViewController class
 @interface TauExploreContentViewController : TauAbstractContentViewController
 
+@property ( strong, readonly ) NSArray <NSString*>* tabs;
+
 @end // TauExploreContentViewController class

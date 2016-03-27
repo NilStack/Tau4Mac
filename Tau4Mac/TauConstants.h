@@ -87,7 +87,14 @@ typedef NS_ENUM ( NSInteger, TauContentViewTag )
     , TauUnknownContentViewTag = -1
     };
 
-typedef NS_ENUM ( NSInteger, TauExploreSubContentViewTag )
+typedef NS_ENUM( NSInteger, TauExploreSubTabTag )
+    { TauExploreSubTabMeTubeTag = 1
+    , TauExploreSubTabSubscriptionsTag = 2
+
+    , TauExploreSubTabUnknownTag = 0
+    };
+
+typedef NS_ENUM ( NSInteger, TauMeTubeSubContentViewTag )
     { TauExploreLikesSubContentViewTag      = 0
     , TauExploreUploadsSubContentViewTag    = 1
     , TauExploreHistorySubContentViewTag    = 2
