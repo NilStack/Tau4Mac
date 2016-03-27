@@ -142,6 +142,8 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_BEGIN
                                                block:
         ^( NSNotification* _Notif )
             {
+            NSLog( @"🍉%ld", _Notif.contentType );
+
             TauPlaylistResultsCollectionContentSubViewController* c = [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
             c.playlistIdentifier = _Notif.userInfo[ kPlaylistIdentifier ];
             c.playlistName = _Notif.userInfo[ kPlaylistName ];

@@ -11,6 +11,14 @@
 // NSNotification + TauShouldExposeCollectionItemNotif
 @implementation NSNotification ( TauShouldExposeCollectionItemNotif )
 
+void static* const kContentTypeAssocKey = @"kContentTypeAssocKey";
+
+@dynamic contentType;
+- ( TauYouTubeContentType ) contentType
+    {
+    return ( TauYouTubeContentType )[ objc_getAssociatedObject( self, &kContentTypeAssocKey ) integerValue ];
+    }
+
 @dynamic videoIdentifier;
 @dynamic videoName;
 - ( NSString* ) videoIdentifier
@@ -67,11 +75,15 @@
     // The query path of "title" property in both JSON reps are identical
     NSString* playlistName = [ _YouTubeObject valueForKeyPath: @"snippet.title" ];
 
-    return [ self notificationWithName: TauShouldExposeContentCollectionItemNotif
-                                object: _Poster
-                              userInfo: @{ kPlaylistIdentifier : playlistId
-                                         , kPlaylistName : playlistName
-                                         } ];
+    NSNotification* notif =
+        [ self notificationWithName: TauShouldExposeContentCollectionItemNotif
+                             object: _Poster
+                           userInfo: @{ kPlaylistIdentifier : playlistId
+                                      , kPlaylistName : playlistName
+                                      } ];
+
+    objc_setAssociatedObject( notif, &kContentTypeAssocKey, @( TauYouTubePlayList ), OBJC_ASSOCIATION_RETAIN );
+    return notif;
     }
 
 + ( instancetype ) exposeChannelNotificationWithYouTubeObject: ( GTLObject* )_YouTubeObject poster: ( id )_Poster

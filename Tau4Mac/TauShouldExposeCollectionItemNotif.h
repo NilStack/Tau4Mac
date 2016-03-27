@@ -11,6 +11,8 @@
 
 #pragma mark - Additions to Tau Collection View Item
 
+@property ( assign, readonly ) TauYouTubeContentType contentType;
+
 @property ( copy, readwrite ) NSString* videoIdentifier;
 @property ( copy, readwrite ) NSString* videoName;
 
