@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
@@ -18,23 +18,9 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
         </customView>
         <customView id="gBJ-9h-XI3">
-            <rect key="frame" x="0.0" y="0.0" width="277" height="165"/>
+            <rect key="frame" x="0.0" y="0.0" width="916" height="538"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8qN-7I-fcV">
-                    <rect key="frame" x="113" y="74" width="50" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Explore" id="DnJ-bD-dKC">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-            </subviews>
-            <constraints>
-                <constraint firstItem="8qN-7I-fcV" firstAttribute="centerX" secondItem="gBJ-9h-XI3" secondAttribute="centerX" id="9g5-Ci-t6n"/>
-                <constraint firstItem="8qN-7I-fcV" firstAttribute="centerY" secondItem="gBJ-9h-XI3" secondAttribute="centerY" id="twY-Kp-mhd"/>
-            </constraints>
-            <point key="canvasLocation" x="244.5" y="-60.5"/>
+            <point key="canvasLocation" x="564" y="126"/>
         </customView>
         <viewController id="RBY-3w-LKH" customClass="TauExploreContentSubViewController">
             <connections>

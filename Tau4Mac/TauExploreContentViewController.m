@@ -10,7 +10,6 @@
 #import "TauViewsStack.h"
 #import "TauAbstractContentSubViewController.h"
 #import "TauToolbarController.h"
-#import "AccessoryBarViewController.h"
 #import "TauToolbarItem.h"
 
 // TauExploreContentSubViewController class
@@ -52,11 +51,6 @@
 
 // TauExploreContentSubViewController class
 @implementation TauExploreContentSubViewController
-
-- ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
-    {
-    return [ [ AccessoryBarViewController alloc ] initWithNibName: nil bundle: nil ];
-    }
 
 - ( NSArray <TauToolbarItem*>* ) exposedToolbarItemsWhileActive
     {
