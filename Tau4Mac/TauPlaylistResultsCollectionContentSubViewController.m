@@ -86,7 +86,20 @@ TauDeallocEnd
 
 - ( NSString* ) appWideSummaryText
     {
-    return [ NSString stringWithFormat: @"%@ • Playlist", playlistName_ ];
+    return NSLocalizedString( @"Videos", nil );
+    }
+
+- ( NSString* ) resultsSummaryText
+    {
+    NSUInteger resultsCount = self.results.count;
+
+    NSString* string = nil;
+    if ( resultsCount )
+        string = [ NSString stringWithFormat: NSLocalizedString( @"%lu Video%@", nil ), resultsCount, resultsCount ? @"s" : @"" ];
+    else
+        string = NSLocalizedString( @"No Videos Yet", nil );
+    
+    return [ NSString stringWithFormat: @"%@ • %@ • Playlist", string, playlistName_ ];
     }
 
 #pragma mark - Internal KVB Compliant
