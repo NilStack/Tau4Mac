@@ -42,4 +42,6 @@
 
 #import <objc/runtime.h>
 
+#import "TauShouldExposeCollectionItemNotif.h"
+
 #endif /* Tau4Mac_PrefixHeader_pch */
