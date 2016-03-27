@@ -22,7 +22,7 @@
 @property ( copy, readwrite ) NSString* channelIdentifier;
 @property ( copy, readwrite ) NSString* channelName;
 
-#pragma mark - Initialization Syntax Sugar
+#pragma mark - Factory Methods
 
 + ( instancetype ) exposeVideoNotificationWithYouTubeObject: ( GTLObject* )_YouTubeObject poster: ( id )_Poster;
 + ( instancetype ) exposePlaylistNotificationWithYouTubeObject: ( GTLObject* )_YouTubeObject poster: ( id )_Poster;

@@ -55,11 +55,43 @@ void static* const kContentTypeAssocKey = @"kContentTypeAssocKey";
     return [ [ self userInfo ] objectForKey: kChannelName ];
     }
 
-#pragma mark - Initialization Syntax Sugar
+#pragma mark - Factory Methods
 
 + ( instancetype ) exposeVideoNotificationWithYouTubeObject: ( GTLObject* )_YouTubeObject poster: ( id )_Poster
     {
-    return nil;
+    // In this method, _YouTubeObject has three potential types:
+    // - GTLYouTubeVideo
+    // - GTLYouTubePlaylistItem 
+    // - and another one is GTLYouTubeSearchResult
+
+    NSString* videoIdentifier = nil;
+
+    // - If _YouTubeObject is kind of GTLYouTubeVideo, its identifier property is an NSString object encapsulated in the outermost layer.
+    // - If _YouTubeObject is kind of GTLYouTubePlaylistItem, its identifier property is an NSString object encapsulated in a GTLYouTubePlaylistItemContentDetails object.
+    // - If _YouTubeObject is kind of GTLYouTubeSearchResult, its identifier property is an NSString object encapsulated in a GTLYouTubeResourceId object, instead.
+
+    if ( [ _YouTubeObject isKindOfClass: [ GTLYouTubeVideo class ] ] )
+        videoIdentifier = [ _YouTubeObject valueForKey: TAU_KEY_OF_SEL( @selector( identifier ) ) ];
+    else if ( [ _YouTubeObject isKindOfClass: [ GTLYouTubePlaylistItem class ] ] )
+        videoIdentifier = [ _YouTubeObject valueForKeyPath: @"contentDetails.videoId" ];
+    else if ( [ _YouTubeObject isKindOfClass: [ GTLYouTubeSearchResult class ] ] )
+        videoIdentifier = [ [ _YouTubeObject valueForKey: TAU_KEY_OF_SEL( @selector( identifier ) ) ] JSON ][ @"videoId" ];
+
+    // The query path of "title" property in both JSON reps are identical
+    NSString* videoName = [ _YouTubeObject valueForKeyPath: @"snippet.title" ];
+
+    NSNotification* notif =
+        [ self notificationWithName: TauShouldExposeContentCollectionItemNotif
+                             object: _Poster
+                           userInfo: @{ kVideoIdentifier : videoIdentifier
+                                      , kVideoName : videoName
+                                      } ];
+    objc_setAssociatedObject( notif
+                            , &kContentTypeAssocKey
+                            , @( TauYouTubeVideo )
+                            , OBJC_ASSOCIATION_RETAIN
+                            );
+    return notif;
     }
 
 + ( instancetype ) exposePlaylistNotificationWithYouTubeObject: ( GTLObject* )_YouTubeObject poster: ( id )_Poster

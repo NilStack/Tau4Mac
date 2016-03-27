@@ -43,16 +43,17 @@ TauDeallocEnd
         NSNotificationCenter* defaultNotifCenter = [ NSNotificationCenter defaultCenter ];
         switch ( [ ( TauContentCollectionItemView* )( self.view ) type ] )
             {
+            case TauYouTubeVideo:
+                [ defaultNotifCenter postNotification: ( notif = [ NSNotification exposeVideoNotificationWithYouTubeObject: ytContent poster: self.collectionView ] ) ];
+                break;
+
             case TauYouTubePlayList:
-                {
-                [ defaultNotifCenter postNotification:
-                    ( notif = [ NSNotification exposePlaylistNotificationWithYouTubeObject: ytContent poster: self.collectionView ] ) ];
-                } break;
+                [ defaultNotifCenter postNotification: ( notif = [ NSNotification exposePlaylistNotificationWithYouTubeObject: ytContent poster: self.collectionView ] ) ];
+                break;
 
             case TauYouTubeUnknownContent:
-                {
                 DDLogUnexpected( @"Encountered unknown content collection item type" );
-                } break;
+                break;
             }
         }
     else

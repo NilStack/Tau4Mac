@@ -147,6 +147,11 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 
             switch ( _Notif.contentType )
                 {
+                case TauYouTubeVideo:
+                    {
+                    NSLog( @"%@", _Notif );
+                    } break;
+
                 case TauYouTubePlayList:
                     {
                     c = [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
