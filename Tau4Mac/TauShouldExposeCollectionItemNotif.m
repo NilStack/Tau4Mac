@@ -11,41 +11,72 @@
 // NSNotification + TauShouldExposeCollectionItemNotif
 @implementation NSNotification ( TauShouldExposeCollectionItemNotif )
 
-void static* const kVideoAssocKey;
-void static* const kPlaylistAssocKey;
-void static* const kChannelAssocKey;
-
 @dynamic videoIdentifier;
-- ( void ) setVideoIdentifier: ( NSString* )_New
-    {
-    objc_setAssociatedObject( self, &kVideoAssocKey, _New, OBJC_ASSOCIATION_COPY );
-    }
-
+@dynamic videoName;
 - ( NSString* ) videoIdentifier
     {
-    return ( NSString* )objc_getAssociatedObject( self, &kVideoAssocKey );
+    return [ [ self userInfo ] objectForKey: kVideoIdentifier ];
+    }
+
+- ( NSString* ) videoName
+    {
+    return [ [ self userInfo ] objectForKey: kVideoName ];
     }
 
 @dynamic playlistIdentifier;
-- ( void ) setPlaylistIdentifier: ( NSString* )_New
-    {
-    objc_setAssociatedObject( self, &kPlaylistAssocKey, _New, OBJC_ASSOCIATION_COPY );
-    }
-
+@dynamic playlistName;
 - ( NSString* ) playlistIdentifier
     {
-    return ( NSString* )objc_getAssociatedObject( self, &kPlaylistAssocKey );
+    return [ [ self userInfo ] objectForKey: kPlaylistIdentifier ];
+    }
+
+- ( NSString* ) playlistName
+    {
+    return [ [ self userInfo ] objectForKey: kPlaylistName ];
     }
 
 @dynamic channelIdentifier;
-- ( void ) setChannelIdentifier: ( NSString* )_New
-    {
-    objc_setAssociatedObject( self, &kChannelAssocKey, _New, OBJC_ASSOCIATION_COPY );
-    }
-
+@dynamic channelName;
 - ( NSString* ) channelIdentifier
     {
-    return ( NSString* )objc_getAssociatedObject( self, &kChannelAssocKey );
+    return [ [ self userInfo ] objectForKey: kChannelIdentifier ];
+    }
+
+- ( NSString* ) channelName
+    {
+    return [ [ self userInfo ] objectForKey: kChannelName ];
+    }
+
+#pragma mark - Initialization Syntax Sugar
+
++ ( instancetype ) exposeVideoNotificationWithYouTubeObject: ( GTLObject* )_YouTubeObject poster: ( id )_Poster
+    {
+    return nil;
+    }
+
++ ( instancetype ) exposePlaylistNotificationWithYouTubeObject: ( GTLObject* )_YouTubeObject poster: ( id )_Poster
+    {
+    // Because the _YouTubeObject has two potential types:
+    // one is GTLYouTubePlaylist, and another one is GTLYouTubeSearchResult
+    GTLObject* identifierObject = [ _YouTubeObject valueForKey: TAU_KEY_OF_SEL( @selector( identifier ) ) ];
+
+    // If _YouTubeObject is kind of GTLYouTubePlaylist, its identifier property simply results in an NSString object.
+    // On the other hand, if it's an instance of GTLYouTubeSearchResult, instance of GTLYouTubeResourceId instead.
+    NSString* playlistId = [ identifierObject isKindOfClass: [ NSString class ] ] ? identifierObject : identifierObject.JSON[ @"playlistId" ];
+
+    // The query path of "title" property in both JSON reps are identical
+    NSString* playlistName = [ _YouTubeObject valueForKeyPath: @"snippet.title" ];
+
+    return [ self notificationWithName: TauShouldExposeContentCollectionItemNotif
+                                object: _Poster
+                              userInfo: @{ kPlaylistIdentifier : playlistId
+                                         , kPlaylistName : playlistName
+                                         } ];
+    }
+
++ ( instancetype ) exposeChannelNotificationWithYouTubeObject: ( GTLObject* )_YouTubeObject poster: ( id )_Poster
+    {
+    return nil;
     }
 
 @end // NSNotification + TauShouldExposeCollectionItemNotif

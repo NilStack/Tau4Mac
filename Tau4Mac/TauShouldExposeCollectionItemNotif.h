@@ -9,8 +9,21 @@
 // NSNotification + TauShouldExposeCollectionItemNotif
 @interface NSNotification ( TauShouldExposeCollectionItemNotif )
 
+#pragma mark - Additions to Tau Collection View Item
+
 @property ( copy, readwrite ) NSString* videoIdentifier;
+@property ( copy, readwrite ) NSString* videoName;
+
 @property ( copy, readwrite ) NSString* playlistIdentifier;
+@property ( copy, readwrite ) NSString* playlistName;
+
 @property ( copy, readwrite ) NSString* channelIdentifier;
+@property ( copy, readwrite ) NSString* channelName;
+
+#pragma mark - Initialization Syntax Sugar
+
++ ( instancetype ) exposeVideoNotificationWithYouTubeObject: ( GTLObject* )_YouTubeObject poster: ( id )_Poster;
++ ( instancetype ) exposePlaylistNotificationWithYouTubeObject: ( GTLObject* )_YouTubeObject poster: ( id )_Poster;
++ ( instancetype ) exposeChannelNotificationWithYouTubeObject: ( GTLObject* )_YouTubeObject poster: ( id )_Poster;
 
 @end // NSNotification + TauShouldExposeCollectionItemNotif

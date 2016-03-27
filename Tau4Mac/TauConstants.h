@@ -162,7 +162,9 @@ NSString extern* const kChannelIdentifier;
 NSString extern* const kPlaylistIdentifier;
 NSString extern* const kVideoIdentifier;
 
+NSString extern* const kVideoName;
 NSString extern* const kPlaylistName;
+NSString extern* const kChannelName;
 
 
 

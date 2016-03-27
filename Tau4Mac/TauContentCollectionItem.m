@@ -39,18 +39,14 @@ TauDeallocEnd
         {
         GTLObject* ytContent = [ ( TauContentCollectionItemView* )( self.view ) ytContent ];
 
+        NSNotification* notif = nil;
+        NSNotificationCenter* defaultNotifCenter = [ NSNotificationCenter defaultCenter ];
         switch ( [ ( TauContentCollectionItemView* )( self.view ) type ] )
             {
             case TauYouTubePlayList:
                 {
-                NSString* playlistId = ytContent.JSON[ @"id" ][ @"playlistId" ];
-                NSString* playlistName = [ ytContent valueForKeyPath: @"snippet.title" ];
-                [ [ NSNotificationCenter defaultCenter ]
-                    postNotificationName: TauShouldExposeContentCollectionItemNotif
-                                  object: self.collectionView
-                                userInfo: @{ kPlaylistIdentifier : playlistId
-                                           , kPlaylistName : playlistName
-                                           } ];
+                [ defaultNotifCenter postNotification:
+                    ( notif = [ NSNotification exposePlaylistNotificationWithYouTubeObject: ytContent poster: self.collectionView ] ) ];
                 } break;
 
             case TauYouTubeUnknownContent:
