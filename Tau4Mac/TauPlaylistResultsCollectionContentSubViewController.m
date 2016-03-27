@@ -86,7 +86,7 @@ TauDeallocEnd
 
 - ( NSString* ) appWideSummaryText
     {
-    return NSLocalizedString( @"Videos", nil );
+    return NSLocalizedString( @"Playlist", nil );
     }
 
 - ( NSString* ) resultsSummaryText
@@ -115,9 +115,7 @@ TauDeallocEnd
 - ( void ) setPlaylistItems: ( NSArray <GTLYouTubePlaylistItem*>* )_New
     {
     if ( playlistItems_ != _New )
-        {
         TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( playlistItems ), ^{ playlistItems_ = _New; } );
-        }
     }
 
 - ( NSArray <GTLYouTubePlaylistItem*>* ) playlistItems
