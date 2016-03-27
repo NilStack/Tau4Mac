@@ -11,12 +11,19 @@
 // NSNotification + TauShouldExposeCollectionItemNotif
 @implementation NSNotification ( TauShouldExposeCollectionItemNotif )
 
+
+
 void static* const kContentTypeAssocKey = @"kContentTypeAssocKey";
 
 @dynamic contentType;
 - ( TauYouTubeContentType ) contentType
     {
     return ( TauYouTubeContentType )[ objc_getAssociatedObject( self, &kContentTypeAssocKey ) integerValue ];
+    }
+
+- ( void ) setContentType: ( TauYouTubeContentType )_New
+    {
+    objc_setAssociatedObject( self, &kContentTypeAssocKey, @( _New ), OBJC_ASSOCIATION_COPY );
     }
 
 @dynamic videoIdentifier;
@@ -65,11 +72,13 @@ void static* const kContentTypeAssocKey = @"kContentTypeAssocKey";
     // - and another one is GTLYouTubeSearchResult
 
     NSString* videoIdentifier = nil;
+    NSString* videoName = nil;
 
     // - If _YouTubeObject is kind of GTLYouTubeVideo, its identifier property is an NSString object encapsulated in the outermost layer.
     // - If _YouTubeObject is kind of GTLYouTubePlaylistItem, its identifier property is an NSString object encapsulated in a GTLYouTubePlaylistItemContentDetails object.
     // - If _YouTubeObject is kind of GTLYouTubeSearchResult, its identifier property is an NSString object encapsulated in a GTLYouTubeResourceId object, instead.
 
+    @try {
     if ( [ _YouTubeObject isKindOfClass: [ GTLYouTubeVideo class ] ] )
         videoIdentifier = [ _YouTubeObject valueForKey: TAU_KEY_OF_SEL( @selector( identifier ) ) ];
     else if ( [ _YouTubeObject isKindOfClass: [ GTLYouTubePlaylistItem class ] ] )
@@ -77,20 +86,31 @@ void static* const kContentTypeAssocKey = @"kContentTypeAssocKey";
     else if ( [ _YouTubeObject isKindOfClass: [ GTLYouTubeSearchResult class ] ] )
         videoIdentifier = [ [ _YouTubeObject valueForKey: TAU_KEY_OF_SEL( @selector( identifier ) ) ] JSON ][ @"videoId" ];
 
+    // id parameter is required
+    if ( !videoIdentifier )
+        {
+        DDLogUnexpected( @"Could not derive video identifier from the YouTube object {%@} passed by {%@}."
+                       , _YouTubeObject
+                       , _Poster
+                       );
+        return nil;
+        }
+
     // The query path of "title" property in both JSON reps are identical
-    NSString* videoName = [ _YouTubeObject valueForKeyPath: @"snippet.title" ];
+    videoName = [ _YouTubeObject valueForKeyPath: @"snippet.title" ];
+    } @catch ( NSException* _Ex )
+        {
+        DDLogFatal( @"Captured an exception: {%@}.", _Ex );
+        }
 
     NSNotification* notif =
         [ self notificationWithName: TauShouldExposeContentCollectionItemNotif
                              object: _Poster
                            userInfo: @{ kVideoIdentifier : videoIdentifier
-                                      , kVideoName : videoName
+                                      , kVideoName : videoName ?: @""
                                       } ];
-    objc_setAssociatedObject( notif
-                            , &kContentTypeAssocKey
-                            , @( TauYouTubeVideo )
-                            , OBJC_ASSOCIATION_RETAIN
-                            );
+
+    [ notif setContentType: TauYouTubeVideo ];
     return notif;
     }
 
@@ -98,32 +118,87 @@ void static* const kContentTypeAssocKey = @"kContentTypeAssocKey";
     {
     // Because the _YouTubeObject has two potential types:
     // one is GTLYouTubePlaylist, and another one is GTLYouTubeSearchResult
-    GTLObject* identifierObject = [ _YouTubeObject valueForKey: TAU_KEY_OF_SEL( @selector( identifier ) ) ];
+    GTLObject* absIdentifierObject = nil;
+    NSString* playlistId = nil;
+    NSString* playlistName = nil;
+
+    @try {
+    absIdentifierObject = [ _YouTubeObject valueForKey: TAU_KEY_OF_SEL( @selector( identifier ) ) ];
 
     // If _YouTubeObject is kind of GTLYouTubePlaylist, its identifier property simply results in an NSString object.
     // On the other hand, if it's an instance of GTLYouTubeSearchResult, instance of GTLYouTubeResourceId instead.
-    NSString* playlistId = [ identifierObject isKindOfClass: [ NSString class ] ] ? identifierObject : identifierObject.JSON[ @"playlistId" ];
+    playlistId = [ absIdentifierObject isKindOfClass: [ NSString class ] ] ? absIdentifierObject : absIdentifierObject.JSON[ @"playlistId" ];
+
+    // id parameter is required
+    if ( !playlistId )
+        {
+        DDLogUnexpected( @"Could not derive playlist identifier from the YouTube object {%@} passed by {%@}."
+                       , _YouTubeObject
+                       , _Poster
+                       );
+        return nil;
+        }
 
     // The query path of "title" property in both JSON reps are identical
-    NSString* playlistName = [ _YouTubeObject valueForKeyPath: @"snippet.title" ];
+    playlistName = [ _YouTubeObject valueForKeyPath: @"snippet.title" ];
+    } @catch ( NSException* _Ex )
+        {
+        DDLogFatal( @"Captured an exception: {%@}.", _Ex );
+        }
 
     NSNotification* notif =
         [ self notificationWithName: TauShouldExposeContentCollectionItemNotif
                              object: _Poster
                            userInfo: @{ kPlaylistIdentifier : playlistId
-                                      , kPlaylistName : playlistName
+                                      , kPlaylistName : playlistName ?: @""
                                       } ];
-    objc_setAssociatedObject( notif
-                            , &kContentTypeAssocKey
-                            , @( TauYouTubePlayList )
-                            , OBJC_ASSOCIATION_RETAIN
-                            );
+
+    [ notif setContentType: TauYouTubePlayList ];
     return notif;
     }
 
 + ( instancetype ) exposeChannelNotificationWithYouTubeObject: ( GTLObject* )_YouTubeObject poster: ( id )_Poster
     {
-    return nil;
+    // Because the _YouTubeObject has two potential types:
+    // one is GTLYouTubeChannel, and another one is GTLYouTubeSearchResult
+    GTLObject* absIdentifierObject = nil;
+    NSString* channelId = nil;
+    NSString* channelName = nil;
+
+    @try {
+    absIdentifierObject = [ _YouTubeObject valueForKey: TAU_KEY_OF_SEL( @selector( identifier ) ) ];
+
+    // If _YouTubeObject is kind of GTLYouTubeChannel, its identifier property simply results in an NSString object.
+    // On the other hand, if it's an instance of GTLYouTubeSearchResult, instance of GTLYouTubeResourceId instead.
+    channelId = [ absIdentifierObject isKindOfClass: [ NSString class ] ] ? absIdentifierObject : absIdentifierObject.JSON[ @"channelId" ];
+
+    // id parameter is required
+    if ( !channelId )
+        {
+        DDLogUnexpected( @"Could not derive channel identifier from the YouTube object {%@} passed by {%@}."
+                       , _YouTubeObject
+                       , _Poster
+                       );
+        return nil;
+        }
+
+    // The query path of "title" property in both JSON reps are identical
+    channelName = [ _YouTubeObject valueForKeyPath: @"snippet.title" ];
+    } @catch ( NSException* _Ex )
+        {
+        DDLogFatal( @"Captured an exception: {%@}.", _Ex );
+        }
+
+    NSNotification* notif =
+        [ self notificationWithName: TauShouldExposeContentCollectionItemNotif
+                             object: _Poster
+                           userInfo: @{ kChannelIdentifier : channelId
+                                      , kChannelName : channelName ?: @""
+                                      } ];
+
+    [ notif setContentType: TauYouTubeChannel ];
+    return notif;
+
     }
 
 @end // NSNotification + TauShouldExposeCollectionItemNotif

@@ -158,6 +158,11 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
                     [ c setValue: _Notif.playlistIdentifier forKey: TAU_KEY_OF_SEL( @selector( playlistIdentifier ) ) ];
                     [ c setValue: _Notif.playlistName forKey: TAU_KEY_OF_SEL( @selector( playlistName ) ) ];
                     } break;
+
+                case TauYouTubeChannel:
+                    {
+                    DDLogFatal( @"%@", _Notif );
+                    } break;
                 }
 
             if ( c )
