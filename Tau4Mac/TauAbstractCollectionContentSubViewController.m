@@ -10,7 +10,7 @@
 #import "TauToolbarItem.h"
 #import "TauAbstractContentViewController.h"
 
-#import "TauPlaylistResultsCollectionContentSubViewController.h"
+#import "TauPlaylistItemResultsCollectionContentSubViewController.h"
 
 // Concret sub-classes
 #import "TauSearchResultsCollectionContentSubViewController.h"
@@ -144,7 +144,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 
                 case TauYouTubePlayList:
                     {
-                    c = [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
+                    c = [ [ TauPlaylistItemResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
                     [ c setValue: _Notif.playlistIdentifier forKey: TAU_KEY_OF_SEL( @selector( playlistIdentifier ) ) ];
                     [ c setValue: _Notif.playlistName forKey: TAU_KEY_OF_SEL( @selector( playlistName ) ) ];
                     } break;
@@ -311,7 +311,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
         if ( concreteClass == [ TauSearchResultsCollectionContentSubViewController class ] )
             consumptionType = TauYTDataServiceConsumptionSearchResultsType;
 
-        else if ( concreteClass == [ TauPlaylistResultsCollectionContentSubViewController class ] )
+        else if ( concreteClass == [ TauPlaylistItemResultsCollectionContentSubViewController class ] )
             consumptionType = TauYTDataServiceConsumptionPlaylistItemsType; // TODO: Expecting other consumption types
 
         if ( consumptionType == TauYTDataServiceConsumptionUnknownType )
