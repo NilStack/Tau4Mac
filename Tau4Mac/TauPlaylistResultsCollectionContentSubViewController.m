@@ -93,13 +93,13 @@ TauDeallocEnd
     {
     NSUInteger resultsCount = self.results.count;
 
-    NSString* string = nil;
+    NSString* prefix = nil;
     if ( resultsCount )
-        string = [ NSString stringWithFormat: NSLocalizedString( @"%lu Video%@", nil ), resultsCount, resultsCount ? @"s" : @"" ];
+        prefix = [ NSString stringWithFormat: NSLocalizedString( @"%lu Video%@", @"Presents when playlist items array isn't empty" ), resultsCount, resultsCount ? @"s" : @"" ];
     else
-        string = NSLocalizedString( @"No Videos Yet", nil );
+        prefix = NSLocalizedString( @"No Videos Yet", @"Presents when playlist items array is still empty" );
     
-    return [ NSString stringWithFormat: @"%@ • %@ • Playlist", string, playlistName_ ];
+    return [ NSString stringWithFormat: NSLocalizedString( @"%@ • %@ • Playlist", @"Final summary text" ), prefix, playlistName_ ];
     }
 
 #pragma mark - Internal KVB Compliant
