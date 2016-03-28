@@ -46,7 +46,7 @@
                 <outlet property="view" destination="syR-Sa-Fez" id="QGo-hD-1JR"/>
             </connections>
         </viewController>
-        <customView id="q72-p9-9G9" customClass="TauMeTubePlaygroundView">
+        <customView id="q72-p9-9G9" customClass="TauMeTubePlayground">
             <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <point key="canvasLocation" x="-93.5" y="-616"/>
@@ -128,7 +128,7 @@
             </scroller>
             <point key="canvasLocation" x="-600" y="-581"/>
         </scrollView>
-        <arrayController objectClassName="TauMeTubeTabModel" id="UiI-rz-Um8" userLabel="Tabs Model">
+        <arrayController objectClassName="TauMeTubeTabItem" id="UiI-rz-Um8" userLabel="Tabs Model">
             <connections>
                 <binding destination="RBY-3w-LKH" name="contentArray" keyPath="self.tabs_" id="mYa-Br-aNC"/>
             </connections>

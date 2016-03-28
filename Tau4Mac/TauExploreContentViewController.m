@@ -12,8 +12,7 @@
 #import "TauToolbarController.h"
 #import "TauToolbarItem.h"
 #import "TauExploreTabControl.h"
-#import "TauMeTubeTabModel.h"
-#import "TauMeTubePlaygroundView.h"
+#import "TauMeTubePlayground.h"
 #import "TauPlaylistResultsCollectionContentSubViewController.h"
 
 // TauExploreContentSubViewController class
@@ -61,7 +60,7 @@
 
 @property ( strong, readwrite ) NSArray <GTLYouTubeChannel*>* channels;
 
-@property ( strong, readonly ) NSArray <TauMeTubeTabModel*>* tabs_;
+@property ( strong, readonly ) NSArray <TauMeTubeTabItem*>* tabs_;
 @property ( weak ) IBOutlet NSArrayController* tabsModelController_;
 
 /****************************** MeTube ******************************/
@@ -78,7 +77,7 @@
 @property ( weak ) IBOutlet NSViewController* wrapperOfMeTubePlayground_;
 
 @property ( weak ) IBOutlet NSTableView* palylistsOutline_;
-@property ( weak ) IBOutlet TauMeTubePlaygroundView* MeTubePlayground_;
+@property ( weak ) IBOutlet TauMeTubePlayground* MeTubePlayground_;
 
 /****************************** Subscription ******************************/
 
@@ -236,7 +235,7 @@ TauDeallocEnd
     return [ NSSet setWithObjects: TAU_KEY_OF_SEL( @selector( channels ) ), nil ];
     }
 
-- ( NSArray <TauMeTubeTabModel*>* ) tabs_
+- ( NSArray <TauMeTubeTabItem*>* ) tabs_
     {
     if ( channels_.count > 0 )
         {
@@ -244,10 +243,10 @@ TauDeallocEnd
             {
             GTLYouTubeChannelContentDetailsRelatedPlaylists* relatedPlaylists = [ channels_.firstObject valueForKeyPath: @"contentDetails.relatedPlaylists" ];
             priTabs_ =
-                @[ [ [ TauMeTubeTabModel alloc ] initWithTitle: NSLocalizedString( @"Likes", @"\"Likes\" tab in MeTube outline view" ) playlistIdentifier: relatedPlaylists.likes viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
-                 , [ [ TauMeTubeTabModel alloc ] initWithTitle: NSLocalizedString( @"Uploads", @"\"Uploads\" tab in MeTube outline view" ) playlistIdentifier: relatedPlaylists.uploads viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
-                 , [ [ TauMeTubeTabModel alloc ] initWithTitle: NSLocalizedString( @"Watch History", @"\"Watch History\" tab in MeTube outline view" ) playlistIdentifier: relatedPlaylists.watchHistory viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
-                 , [ [ TauMeTubeTabModel alloc ] initWithTitle: NSLocalizedString( @"Watch Later", @"\"Watch Later\" tab in MeTube outline view" ) playlistIdentifier: relatedPlaylists.watchLater viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
+                @[ [ [ TauMeTubeTabItem alloc ] initWithTitle: NSLocalizedString( @"Likes", @"\"Likes\" tab in MeTube outline view" ) playlistIdentifier: relatedPlaylists.likes viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
+                 , [ [ TauMeTubeTabItem alloc ] initWithTitle: NSLocalizedString( @"Uploads", @"\"Uploads\" tab in MeTube outline view" ) playlistIdentifier: relatedPlaylists.uploads viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
+                 , [ [ TauMeTubeTabItem alloc ] initWithTitle: NSLocalizedString( @"Watch History", @"\"Watch History\" tab in MeTube outline view" ) playlistIdentifier: relatedPlaylists.watchHistory viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
+                 , [ [ TauMeTubeTabItem alloc ] initWithTitle: NSLocalizedString( @"Watch Later", @"\"Watch Later\" tab in MeTube outline view" ) playlistIdentifier: relatedPlaylists.watchLater viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
                  ];
              }
 
@@ -262,12 +261,12 @@ TauDeallocEnd
     return priTabs_.count;
     }
 
-- ( NSArray <TauMeTubeTabModel*>* ) tabs_AtIndexes: ( NSIndexSet* )_Indexes
+- ( NSArray <TauMeTubeTabItem*>* ) tabs_AtIndexes: ( NSIndexSet* )_Indexes
     {
     return [ priTabs_ objectsAtIndexes: _Indexes ];
     }
 
-- ( void ) getTabs_: ( TauMeTubeTabModel* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
+- ( void ) getTabs_: ( TauMeTubeTabItem* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
     {
     [ priTabs_ getObjects: _Buffer range: _InRange ];
     }

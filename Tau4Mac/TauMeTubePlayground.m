@@ -1,16 +1,15 @@
 //
-//  TauMeTubePlaygroundView.m
+//  TauMeTubePlayground.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/28/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauMeTubePlaygroundView.h"
-#import "TauMeTubeTabModel.h"
+#import "TauMeTubePlayground.h"
 
-// TauMeTubePlaygroundView class
-@implementation TauMeTubePlaygroundView
+// TauMeTubePlayground class
+@implementation TauMeTubePlayground
     {
     // Layouts cache
     NSArray <NSLayoutConstraint*> __strong* selectedPinEdgesCache_;
@@ -37,13 +36,13 @@
     return NO;
     }
 
-- ( void ) setSelectedTabs: ( NSArray <TauMeTubeTabModel*>* )_New
+- ( void ) setSelectedTabs: ( NSArray <TauMeTubeTabItem*>* )_New
     {
     if ( selectedTabs_ != _New )
         {
         [ self willChangeValueForKey: TAU_KEY_OF_SEL( @selector( selectedTabs ) ) ];
 
-        TauMeTubeTabModel* oldSelected = self.selectedTabs.firstObject;
+        TauMeTubeTabItem* oldSelected = self.selectedTabs.firstObject;
         if ( oldSelected && oldSelected.viewController )
             {
             [ oldSelected.viewController removeFromParentViewController ];
@@ -58,7 +57,7 @@
 
         selectedTabs_ = _New;
 
-        TauMeTubeTabModel* newSelected = self.selectedTabs.firstObject;
+        TauMeTubeTabItem* newSelected = self.selectedTabs.firstObject;
         [ self addSubview: newSelected.viewController.view ];
         selectedPinEdgesCache_ = [ newSelected.viewController.view autoPinEdgesToSuperviewEdges ];
 
@@ -68,7 +67,7 @@
         }
     }
 
-- ( NSArray <TauMeTubeTabModel*>* ) selectedTabs
+- ( NSArray <TauMeTubeTabItem*>* ) selectedTabs
     {
     return selectedTabs_;
     }
@@ -78,14 +77,43 @@
     return selectedTabs_.count;
     }
 
-- ( NSArray <TauMeTubeTabModel*>* ) selectedTabsAtIndexes: ( NSIndexSet* )_Indexes
+- ( NSArray <TauMeTubeTabItem*>* ) selectedTabsAtIndexes: ( NSIndexSet* )_Indexes
     {
     return [ selectedTabs_ objectsAtIndexes: _Indexes ];
     }
 
-- ( void ) getSelectedTabs: ( out TauMeTubeTabModel* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
+- ( void ) getSelectedTabs: ( out TauMeTubeTabItem* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
     {
     [ selectedTabs_ getObjects: _Buffer range: _InRange ];
     }
 
-@end // TauMeTubePlaygroundView class
+@end // TauMeTubePlayground class
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
+// TauMeTubeTabItem class
+@implementation TauMeTubeTabItem
+
+@synthesize tabTitle = tabTitle_;
+@synthesize repPlaylistIdentifier = repPlaylistIdentifier_;
+@synthesize viewController = viewController_;
+
+#pragma mark - Initializations
+
+- ( instancetype ) initWithTitle: ( NSString* )_Title playlistIdentifier: ( NSString* )_PlaylistId viewController: ( NSViewController* )_ViewController
+    {
+    if ( self = [ super init ] )
+        {
+        self.tabTitle = _Title;
+        self.repPlaylistIdentifier = _PlaylistId;
+        self.viewController = _ViewController;
+        }
+
+    return self;
+    }
+
+@end // TauMeTubeTabItem class
