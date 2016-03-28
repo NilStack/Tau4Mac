@@ -13,6 +13,7 @@
 #import "TauToolbarItem.h"
 #import "TauExploreTabControl.h"
 #import "TauMeTubeTabModel.h"
+#import "TauMeTubePlaygroundView.h"
 #import "TauPlaylistResultsCollectionContentSubViewController.h"
 
 // TauExploreContentSubViewController class
@@ -59,6 +60,7 @@
 @interface TauExploreContentSubViewController ()
 
 @property ( strong, readonly ) NSArray <NSString*>* tabs_;
+@property ( weak ) IBOutlet NSArrayController* tabsModelController_;
 
 /****************************** MeTube ******************************/
 
@@ -72,6 +74,9 @@
 // Wrapped guys below in xib for ease the feed of self.splitViewController_ (instance of NSSplitViewController)
 @property ( weak ) IBOutlet NSViewController* wrapperOfPlaylistsOutline_;
 @property ( weak ) IBOutlet NSViewController* wrapperOfMeTubePlayground_;
+
+@property ( weak ) IBOutlet NSTableView* palylistsOutline_;
+@property ( weak ) IBOutlet TauMeTubePlaygroundView* MeTubePlayground_;
 
 /****************************** Subscription ******************************/
 
@@ -108,6 +113,13 @@
     [ rhsObject bind: rhsKey toObject: lhsObject withKeyPath: lhsKey options: nil ];
 
     /************* Mutual Bindings between self and self.exploreTabControl *************/
+
+    lhsObject = self.MeTubePlayground_;
+    rhsObject = self.tabsModelController_;
+    lhsKey = @"selectedTab";
+    rhsKey = @"selection";
+    [ lhsObject bind: lhsKey toObject: rhsObject withKeyPath: rhsKey options: nil ];
+    [ rhsObject bind: rhsKey toObject: lhsObject withKeyPath: lhsKey options: nil ];
 
     [ self setActivedExploreTabViewTag: TauExploreSubTabMeTubeTag ];
     }

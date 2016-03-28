@@ -20,8 +20,8 @@
     {
     if ( self = [ super init ] )
         {
-        tabTitle_ = _Title;
-        viewController_ = _ViewController;
+        self.tabTitle = _Title;
+        self.viewController = _ViewController;
         }
 
     return self;

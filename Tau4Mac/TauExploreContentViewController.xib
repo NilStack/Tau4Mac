@@ -31,8 +31,11 @@
         </viewController>
         <viewController id="RBY-3w-LKH" customClass="TauExploreContentSubViewController">
             <connections>
+                <outlet property="MeTubePlayground_" destination="q72-p9-9G9" id="7kb-Q6-X3Z"/>
                 <outlet property="exploreTabControl" destination="5oJ-C1-aOp" id="2Bi-mQ-ukz"/>
+                <outlet property="palylistsOutline_" destination="VCi-T1-dpr" id="NJM-4j-o5M"/>
                 <outlet property="splitViewController_" destination="1dt-2I-xuX" id="YVO-x1-IEQ"/>
+                <outlet property="tabsModelController_" destination="UiI-rz-Um8" id="QrU-q9-INV"/>
                 <outlet property="view" destination="gBJ-9h-XI3" id="dGn-h8-8Bc"/>
                 <outlet property="wrapperOfMeTubePlayground_" destination="4DZ-pk-9qc" id="mlx-eT-Ke6"/>
                 <outlet property="wrapperOfPlaylistsOutline_" destination="hyx-nJ-gBF" id="j3R-7S-e10"/>
@@ -109,6 +112,7 @@
                         </tableColumns>
                         <connections>
                             <binding destination="UiI-rz-Um8" name="content" keyPath="arrangedObjects" id="zKJ-PD-wOl"/>
+                            <binding destination="UiI-rz-Um8" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="zKJ-PD-wOl" id="L1D-BY-Fgn"/>
                         </connections>
                     </tableView>
                 </subviews>
