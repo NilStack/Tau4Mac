@@ -103,6 +103,8 @@
     [ self.exploreTabControl bind: TAU_KEY_OF_SEL( @selector( activedTabTag ) ) toObject: self withKeyPath: TAU_KEY_OF_SEL( @selector( activedExploreTabViewTag ) ) options: nil ];
 
     [ self setActivedExploreTabViewTag: TauExploreSubTabMeTubeTag ];
+
+//    NSLog( @"%@", [ self.tabsModelController_ );
     }
 
 TauDeallocBegin
@@ -191,11 +193,26 @@ TauDeallocEnd
 #pragma mark - Private
 
 @synthesize tabs_ = priTabs_;
-- ( NSArray <NSString*>* ) tabs
+- ( NSArray <NSString*>* ) tabs_
     {
     if ( !priTabs_ )
         priTabs_ = @[ @"Likes", @"Uploads", @"Watch History", @"Watch Later" ];
     return priTabs_;
+    }
+
+- ( NSUInteger ) countOfTabs_
+    {
+    return priTabs_.count;
+    }
+
+- ( NSArray <NSString*>* ) tabs_AtIndexes: ( NSIndexSet* )_Indexes
+    {
+    return [ priTabs_ objectsAtIndexes: _Indexes ];
+    }
+
+- ( void ) getTabs_:( NSString* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
+    {
+    [ priTabs_ getObjects: _Buffer range: _InRange ];
     }
 
 @synthesize MeTubeController_ = priMeTubeController_;
