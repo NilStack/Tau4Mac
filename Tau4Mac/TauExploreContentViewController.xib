@@ -30,9 +30,8 @@
         </viewController>
         <viewController id="RBY-3w-LKH" customClass="TauExploreContentSubViewController">
             <connections>
-                <outlet property="MeTubeRecessedButton" destination="Bx5-1j-j7c" id="dMM-Ll-EyU"/>
+                <outlet property="exploreTabControl" destination="5oJ-C1-aOp" id="hxv-F9-XOk"/>
                 <outlet property="splitViewController_" destination="1dt-2I-xuX" id="YVO-x1-IEQ"/>
-                <outlet property="subscriptionsRecessedButton" destination="QVy-Qo-evQ" id="WlQ-hz-L0N"/>
                 <outlet property="tabsAccessoryBarViewController_" destination="QUL-jD-8be" id="0N3-cI-KyR"/>
                 <outlet property="view" destination="gBJ-9h-XI3" id="dGn-h8-8Bc"/>
                 <outlet property="wrapperOfCollectionViewsPlayground_" destination="4DZ-pk-9qc" id="mlx-eT-Ke6"/>
@@ -140,7 +139,7 @@
             <rect key="frame" x="0.0" y="0.0" width="584" height="32"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5oJ-C1-aOp" customClass="TauExploreSegmentControl">
+                <customView ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5oJ-C1-aOp" customClass="TauExploreTabControl">
                     <rect key="frame" x="181" y="0.0" width="223" height="32"/>
                     <subviews>
                         <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="QVy-Qo-evQ">
@@ -155,7 +154,7 @@
                         </button>
                         <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Bx5-1j-j7c">
                             <rect key="frame" x="8" y="6" width="100" height="19"/>
-                            <buttonCell key="cell" type="recessed" title="MeTube" bezelStyle="recessed" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sX6-eX-U7w">
+                            <buttonCell key="cell" type="recessed" title="MeTube" bezelStyle="recessed" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sX6-eX-U7w">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="systemBold" size="12"/>
                             </buttonCell>
@@ -165,8 +164,8 @@
                         </button>
                     </subviews>
                     <connections>
-                        <outlet property="MeTubeRecessedButton" destination="Bx5-1j-j7c" id="T3v-kQ-01h"/>
-                        <outlet property="subscriptionsRecessedButton" destination="QVy-Qo-evQ" id="OZh-9g-Pc2"/>
+                        <outlet property="MeTubeRecessedButton_" destination="Bx5-1j-j7c" id="pxL-ae-CTX"/>
+                        <outlet property="subscriptionsRecessedButton_" destination="QVy-Qo-evQ" id="fKN-xr-gUL"/>
                     </connections>
                 </customView>
             </subviews>

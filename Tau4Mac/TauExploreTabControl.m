@@ -1,15 +1,22 @@
 //
-//  TauExploreSegmentControl.m
+//  TauExploreTabControl.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/28/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauExploreSegmentControl.h"
+#import "TauExploreTabControl.h"
 
-// TauExploreSegmentControl class
-@implementation TauExploreSegmentControl
+@interface TauExploreTabControl ()
+
+@property ( weak ) IBOutlet NSButton* MeTubeRecessedButton_;
+@property ( weak ) IBOutlet NSButton* subscriptionsRecessedButton_;
+
+@end
+
+// TauExploreTabControl class
+@implementation TauExploreTabControl
 
 @synthesize activedTabTag = activedTabTag_;
 + ( BOOL ) automaticallyNotifiesObserversOfActivedTabTag
@@ -21,19 +28,21 @@
     {
     if ( activedTabTag_ != _New )
         {
+        activedTabTag_ = _New;
+
         [ self willChangeValueForKey: TAU_KEY_OF_SEL( @selector( activedTabTag ) ) ];
         switch ( activedTabTag_ )
             {
             case TauExploreSubTabMeTubeTag:
                 {
-                self.MeTubeRecessedButton.state = NSOnState;
-                self.subscriptionsRecessedButton.state = NSOffState;
+                self.MeTubeRecessedButton_.state = NSOnState;
+                self.subscriptionsRecessedButton_.state = NSOffState;
                 } break;
 
             case TauExploreSubTabSubscriptionsTag:
                 {
-                self.MeTubeRecessedButton.state = NSOffState;
-                self.subscriptionsRecessedButton.state = NSOnState;
+                self.MeTubeRecessedButton_.state = NSOffState;
+                self.subscriptionsRecessedButton_.state = NSOnState;
                 } break;
 
             case TauExploreSubTabUnknownTag:
@@ -53,12 +62,10 @@
 
 #pragma mark - Actions
 
-- ( IBAction ) tabsSwitchedAction: ( id )_Sender
+- ( IBAction ) tabsSwitchedAction: ( NSButton* )_Sender
     {
-    if ( _Sender == self.MeTubeRecessedButton )
-        self.activedTabTag = TauExploreSubTabMeTubeTag;
-    else if ( _Sender == self.subscriptionsRecessedButton )
-        self.activedTabTag = TauExploreSubTabSubscriptionsTag;
+    _Sender.state = NSOnState;
+    self.activedTabTag = ( TauExploreSubTabTag )( _Sender.tag );
     }
 
-@end // TauExploreSegmentControl class
+@end // TauExploreTabControl class

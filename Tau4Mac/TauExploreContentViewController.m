@@ -11,6 +11,7 @@
 #import "TauAbstractContentSubViewController.h"
 #import "TauToolbarController.h"
 #import "TauToolbarItem.h"
+#import "TauExploreTabControl.h"
 
 // TauTabsAccessoryBarViewController class
 @interface TauTabsAccessoryBarViewController : NSTitlebarAccessoryViewController
@@ -28,12 +29,7 @@
 @property ( assign, readwrite ) TauExploreSubTabTag activedExploreTabViewTag;  // KVB compliant
 @property ( strong, readonly ) NSViewController* activedExploreTabViewController;  // KVB compliant
 
-@property ( weak ) IBOutlet NSButton* MeTubeRecessedButton;
-@property ( weak ) IBOutlet NSButton* subscriptionsRecessedButton;
-
-#pragma mark - Actions
-
-- ( IBAction ) tabsSwitchedAction: ( id )_Sender;
+@property ( weak ) IBOutlet TauExploreTabControl* exploreTabControl;
 
 @end // TauExploreContentSubViewController class
 
@@ -102,8 +98,17 @@
 
 - ( void ) viewDidLoad
     {
+    // Mutual Bindings between self and self.exploreTabControl
+    [ self bind: TAU_KEY_OF_SEL( @selector( activedExploreTabViewTag ) ) toObject: self.exploreTabControl withKeyPath: TAU_KEY_OF_SEL( @selector( activedTabTag ) ) options: nil ];
+    [ self.exploreTabControl bind: TAU_KEY_OF_SEL( @selector( activedTabTag ) ) toObject: self withKeyPath: TAU_KEY_OF_SEL( @selector( activedExploreTabViewTag ) ) options: nil ];
+
     [ self setActivedExploreTabViewTag: TauExploreSubTabMeTubeTag ];
     }
+
+TauDeallocBegin
+    // Instances of TauExploreContentSubViewController and TauExploreTabControl will never be dealloced until the app is terminated,
+    // so there is no need to unbind them explicitly.
+TauDeallocEnd
 
 #pragma mark - Overrides
 
@@ -181,24 +186,6 @@
         }
 
     return actived;
-    }
-
-#pragma mark - Actions
-
-- ( IBAction ) tabsSwitchedAction: ( id )_Sender
-    {
-    if ( _Sender == self.MeTubeRecessedButton )
-        {
-        self.MeTubeRecessedButton.state = NSOnState;
-        self.subscriptionsRecessedButton.state = NSOffState;
-        [ self setActivedExploreTabViewTag: TauExploreSubTabMeTubeTag ];
-        }
-    else if ( _Sender == self.subscriptionsRecessedButton )
-        {
-        self.MeTubeRecessedButton.state = NSOffState;
-        self.subscriptionsRecessedButton.state = NSOnState;
-        [ self setActivedExploreTabViewTag: TauExploreSubTabSubscriptionsTag ];
-        }
     }
 
 #pragma mark - Private
