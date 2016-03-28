@@ -88,10 +88,10 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sAJ-qE-XBF">
-                                                <rect key="frame" x="38" y="8" width="173" height="25"/>
+                                                <rect key="frame" x="38" y="8" width="173" height="21"/>
                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="SOa-dM-4ju">
-                                                    <font key="font" size="16" name="HelveticaNeue-Light"/>
-                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    <font key="font" metaFont="system" size="15"/>
+                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                                 <connections>
@@ -138,7 +138,7 @@
             <rect key="frame" x="0.0" y="0.0" width="230" height="38.5"/>
             <subviews>
                 <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cdw-3E-xDz">
-                    <rect key="frame" x="4" y="6.5" width="223" height="25"/>
+                    <rect key="frame" x="4" y="6" width="223" height="25"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="223" id="kMG-57-wPV"/>
                         <constraint firstAttribute="height" constant="22" id="vS8-Fz-hHZ"/>

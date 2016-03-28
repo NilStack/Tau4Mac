@@ -257,7 +257,7 @@ TauDeallocEnd
     return [ priTabs_ objectsAtIndexes: _Indexes ];
     }
 
-- ( void ) getTabs_:( TauMeTubeTabModel* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
+- ( void ) getTabs_: ( TauMeTubeTabModel* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
     {
     [ priTabs_ getObjects: _Buffer range: _InRange ];
     }
@@ -295,14 +295,11 @@ TauDeallocEnd
         channelMineCredential_ = [ [ TauYTDataService sharedService ] registerConsumer: consumer withMethodSignature: [ self methodSignatureForSelector: _cmd ] consumptionType: TauYTDataServiceConsumptionChannelsType ];
         [ [ TauYTDataService sharedService ] executeConsumerOperations: operations
                                                         withCredential: channelMineCredential_
-                                                               success:
-        ^( NSString* _PrevPageToken, NSString* _NextPageToken )
+                                                               success: nil
+        failure: ^( NSError* _Error )
             {
-
-            } failure: ^( NSError* _Error )
-                {
-
-                } ];
+            DDLogRecoverable( @"Failed to fetch \"mine channel\" due to {%@}", _Error );
+            } ];
         }
 
     return priMeTubeController_;
