@@ -94,9 +94,18 @@
 
 - ( void ) viewDidLoad
     {
-    // Mutual Bindings between self and self.exploreTabControl
-    [ self bind: TAU_KEY_OF_SEL( @selector( activedExploreTabViewTag ) ) toObject: self.exploreTabControl withKeyPath: TAU_KEY_OF_SEL( @selector( activedTabTag ) ) options: nil ];
-    [ self.exploreTabControl bind: TAU_KEY_OF_SEL( @selector( activedTabTag ) ) toObject: self withKeyPath: TAU_KEY_OF_SEL( @selector( activedExploreTabViewTag ) ) options: nil ];
+    /************* Mutual Bindings between self and self.exploreTabControl *************/
+
+    id lhsObject = self;
+    id rhsObject = self.exploreTabControl;
+
+    NSString* lhsKey = TAU_KEY_OF_SEL( @selector( activedExploreTabViewTag ) );
+    NSString* rhsKey = TAU_KEY_OF_SEL( @selector( activedTabTag ) );
+
+    [ lhsObject bind: lhsKey toObject: rhsObject withKeyPath: rhsKey options: nil ];
+    [ rhsObject bind: rhsKey toObject: lhsObject withKeyPath: lhsKey options: nil ];
+
+    /************* Mutual Bindings between self and self.exploreTabControl *************/
 
     [ self setActivedExploreTabViewTag: TauExploreSubTabMeTubeTag ];
     }
