@@ -69,7 +69,7 @@
 
 // Wrapped guys below in xib for ease the feed of self.splitViewController_ (instance of NSSplitViewController)
 @property ( weak ) IBOutlet NSViewController* wrapperOfPlaylistsOutline_;
-@property ( weak ) IBOutlet NSViewController* wrapperOfCollectionViewsPlayground_;
+@property ( weak ) IBOutlet NSViewController* wrapperOfMeTubePlayground_;
 
 /****************************** Subscription ******************************/
 
@@ -270,7 +270,7 @@ TauDeallocEnd
     {
     if ( !priCollectionViewsPlaygroundSplitViewItem_ )
         {
-        priCollectionViewsPlaygroundSplitViewItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfCollectionViewsPlayground_ ];
+        priCollectionViewsPlaygroundSplitViewItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfMeTubePlayground_ ];
         [ priCollectionViewsPlaygroundSplitViewItem_ setCanCollapse: NO ];
         }
 

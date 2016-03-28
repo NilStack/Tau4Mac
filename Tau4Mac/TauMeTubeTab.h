@@ -9,7 +9,7 @@
 // TauMeTubeTab class
 @interface TauMeTubeTab : NSObject
 
-//@property ( strong, readwrite ) NSString* tabTitle;
-//@property ( strong, readwrite ) NSViewController*
+@property ( strong, readwrite ) NSString* tabTitle;
+@property ( strong, readwrite ) NSViewController* viewController;
 
 @end // TauMeTubeTab class

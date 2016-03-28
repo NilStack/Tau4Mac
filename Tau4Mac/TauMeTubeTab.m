@@ -11,4 +11,7 @@
 // TauMeTubeTab class
 @implementation TauMeTubeTab
 
+@synthesize tabTitle = tabTitle_;
+@synthesize viewController = viewController_;
+
 @end // TauMeTubeTab class
