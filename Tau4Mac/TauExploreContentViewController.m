@@ -59,7 +59,9 @@
 // Private
 @interface TauExploreContentSubViewController ()
 
-@property ( strong, readonly ) NSArray <NSString*>* tabs_;
+@property ( strong, readwrite ) NSArray <GTLYouTubeChannel*>* channels;
+
+@property ( strong, readonly ) NSArray <TauMeTubeTabModel*>* tabs_;
 @property ( weak ) IBOutlet NSArrayController* tabsModelController_;
 
 /****************************** MeTube ******************************/
@@ -87,6 +89,9 @@
 // TauExploreContentSubViewController class
 @implementation TauExploreContentSubViewController
     {
+    TauYTDataServiceCredential __strong* channelMineCredential_;
+
+    // Constraints caches
     NSArray <NSLayoutConstraint*>* activedPinEdgesCache_;
     }
 
@@ -103,23 +108,24 @@
     {
     /************* Mutual Bindings between self and self.exploreTabControl *************/
 
-    id lhsObject = self;
-    id rhsObject = self.exploreTabControl;
+    id lhsObject = nil; lhsObject = self;
+    id rhsObject = nil; rhsObject = self.exploreTabControl;
 
-    NSString* lhsKey = TAU_KEY_OF_SEL( @selector( activedExploreTabViewTag ) );
-    NSString* rhsKey = TAU_KEY_OF_SEL( @selector( activedTabTag ) );
+    NSString* lhsKey = nil; lhsKey = TAU_KEY_OF_SEL( @selector( activedExploreTabViewTag ) );
+    NSString* rhsKey = nil; rhsKey = TAU_KEY_OF_SEL( @selector( activedTabTag ) );
 
     [ lhsObject bind: lhsKey toObject: rhsObject withKeyPath: rhsKey options: nil ];
     [ rhsObject bind: rhsKey toObject: lhsObject withKeyPath: lhsKey options: nil ];
 
-    /************* Mutual Bindings between self and self.exploreTabControl *************/
+    /** Mutual Bindings between self.MeTubePlayground_ and self.tabsModelController_ **/
 
-    lhsObject = self.MeTubePlayground_;
-    rhsObject = self.tabsModelController_;
-    lhsKey = @"selectedTab";
-    rhsKey = @"selection";
+    lhsObject = self.MeTubePlayground_; lhsKey = TAU_KEY_OF_SEL( @selector( selectedTabs ) );
+    rhsObject = self.tabsModelController_; rhsKey = TAU_KEY_OF_SEL( @selector( selectedObjects ) );
+
     [ lhsObject bind: lhsKey toObject: rhsObject withKeyPath: rhsKey options: nil ];
     [ rhsObject bind: rhsKey toObject: lhsObject withKeyPath: lhsKey options: nil ];
+
+    /***/
 
     [ self setActivedExploreTabViewTag: TauExploreSubTabMeTubeTag ];
     }
@@ -212,19 +218,33 @@ TauDeallocEnd
 
 #pragma mark - Private
 
-@synthesize tabs_ = priTabs_;
-- ( NSArray <NSString*>* ) tabs_
-    {
-    if ( !priTabs_ )
-        {
-        priTabs_ = @[ [ [ TauMeTubeTabModel alloc ] initWithTitle: NSLocalizedString( @"Likes", @"\"Likes\" tab in MeTube outline view" ) viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
-                    , [ [ TauMeTubeTabModel alloc ] initWithTitle: NSLocalizedString( @"Uploads", @"\"Uploads\" tab in MeTube outline view" ) viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
-                    , [ [ TauMeTubeTabModel alloc ] initWithTitle: NSLocalizedString( @"Watch History", @"\"Watch History\" tab in MeTube outline view" ) viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
-                    , [ [ TauMeTubeTabModel alloc ] initWithTitle: NSLocalizedString( @"Watch Later", @"\"Watch Later\" tab in MeTube outline view" ) viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
-                    ];
-        }
+@synthesize channels = channels_;
 
-    return priTabs_;
+@synthesize tabs_ = priTabs_;
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingTabs_
+    {
+    return [ NSSet setWithObjects: TAU_KEY_OF_SEL( @selector( channels ) ), nil ];
+    }
+
+- ( NSArray <TauMeTubeTabModel*>* ) tabs_
+    {
+    if ( channels_.count > 0 )
+        {
+        if ( !priTabs_ )
+            {
+            GTLYouTubeChannelContentDetailsRelatedPlaylists* relatedPlaylists = [ channels_.firstObject valueForKeyPath: @"contentDetails.relatedPlaylists" ];
+            priTabs_ =
+                @[ [ [ TauMeTubeTabModel alloc ] initWithTitle: NSLocalizedString( @"Likes", @"\"Likes\" tab in MeTube outline view" ) playlistIdentifier: relatedPlaylists.likes viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
+                 , [ [ TauMeTubeTabModel alloc ] initWithTitle: NSLocalizedString( @"Uploads", @"\"Uploads\" tab in MeTube outline view" ) playlistIdentifier: relatedPlaylists.uploads viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
+                 , [ [ TauMeTubeTabModel alloc ] initWithTitle: NSLocalizedString( @"Watch History", @"\"Watch History\" tab in MeTube outline view" ) playlistIdentifier: relatedPlaylists.watchHistory viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
+                 , [ [ TauMeTubeTabModel alloc ] initWithTitle: NSLocalizedString( @"Watch Later", @"\"Watch Later\" tab in MeTube outline view" ) playlistIdentifier: relatedPlaylists.watchLater viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
+                 ];
+             }
+
+        return priTabs_;
+        }
+    else
+        return ( priTabs_ = nil );
     }
 
 - ( NSUInteger ) countOfTabs_
@@ -232,12 +252,12 @@ TauDeallocEnd
     return priTabs_.count;
     }
 
-- ( NSArray <NSString*>* ) tabs_AtIndexes: ( NSIndexSet* )_Indexes
+- ( NSArray <TauMeTubeTabModel*>* ) tabs_AtIndexes: ( NSIndexSet* )_Indexes
     {
     return [ priTabs_ objectsAtIndexes: _Indexes ];
     }
 
-- ( void ) getTabs_:( NSString* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
+- ( void ) getTabs_:( TauMeTubeTabModel* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
     {
     [ priTabs_ getObjects: _Buffer range: _InRange ];
     }
@@ -263,6 +283,26 @@ TauDeallocEnd
         [ self.splitViewController_.view autoPinEdgesToSuperviewEdges ];
 
         /*************** Embedding the split view controller ***************/
+
+        NSDictionary* operations =
+            @{ TauTDSOperationMaxResultsPerPage : @1
+             , TauTDSOperationRequirements : @{ TauTDSOperationRequirementMine : @"true" }
+             , TauTDSOperationPartFilter : @"contentDetails,snippet,statistics,topicDetails"
+             };
+
+        id consumer = self;
+
+        channelMineCredential_ = [ [ TauYTDataService sharedService ] registerConsumer: consumer withMethodSignature: [ self methodSignatureForSelector: _cmd ] consumptionType: TauYTDataServiceConsumptionChannelsType ];
+        [ [ TauYTDataService sharedService ] executeConsumerOperations: operations
+                                                        withCredential: channelMineCredential_
+                                                               success:
+        ^( NSString* _PrevPageToken, NSString* _NextPageToken )
+            {
+
+            } failure: ^( NSError* _Error )
+                {
+
+                } ];
         }
 
     return priMeTubeController_;

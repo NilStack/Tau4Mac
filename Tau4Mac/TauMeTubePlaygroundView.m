@@ -11,27 +11,68 @@
 
 // TauMeTubePlaygroundView class
 @implementation TauMeTubePlaygroundView
+    {
+    // Layouts cache
+    NSArray <NSLayoutConstraint*> __strong* selectedPinEdgesCache_;
+    }
 
 #pragma mark - External KVB Comliant Properties
 
-@synthesize selectedTab = selectedTab_;
-+ ( BOOL ) automaticallyNotifiesObserversOfSelectedTab
+@synthesize selectedTabs = selectedTabs_;
++ ( BOOL ) automaticallyNotifiesObserversOfSelectedTabs
     {
     return NO;
     }
 
-- ( void ) setSelectedTab: ( TauMeTubeTabModel* )_New
+- ( void ) setSelectedTabs: ( NSArray <TauMeTubeTabModel*>* )_New
     {
-    if ( selectedTab_ != _New )
+    if ( selectedTabs_ != _New )
         {
-        selectedTab_ = _New;
-        NSLog( @"%@", selectedTab_ );
+        [ self willChangeValueForKey: TAU_KEY_OF_SEL( @selector( selectedTabs ) ) ];
+
+        TauMeTubeTabModel* oldSelected = self.selectedTabs.firstObject;
+        if ( oldSelected && oldSelected.viewController )
+            {
+            [ oldSelected.viewController removeFromParentViewController ];
+            [ oldSelected.viewController.view removeFromSuperview ];
+
+            if ( selectedPinEdgesCache_ )
+                {
+                [ self removeConstraints: selectedPinEdgesCache_ ];
+                selectedPinEdgesCache_ = nil;
+                }
+            }
+
+        selectedTabs_ = _New;
+
+        TauMeTubeTabModel* newSelected = self.selectedTabs.firstObject;
+        [ self addSubview: newSelected.viewController.view ];
+        selectedPinEdgesCache_ = [ newSelected.viewController.view autoPinEdgesToSuperviewEdges ];
+
+        [ newSelected.viewController setValue: newSelected.repPlaylistIdentifier forKey: @"playlistIdentifier" ];
+
+        [ self didChangeValueForKey: TAU_KEY_OF_SEL( @selector( selectedTabs ) ) ];
         }
     }
 
-- ( TauMeTubeTabModel* ) selectedTab
+- ( NSArray <TauMeTubeTabModel*>* ) selectedTabs
     {
-    return selectedTab_;
+    return selectedTabs_;
+    }
+
+- ( NSUInteger ) countOfSelectedTabs
+    {
+    return selectedTabs_.count;
+    }
+
+- ( NSArray <TauMeTubeTabModel*>* ) selectedTabsAtIndexes: ( NSIndexSet* )_Indexes
+    {
+    return [ selectedTabs_ objectsAtIndexes: _Indexes ];
+    }
+
+- ( void ) getSelectedTabs: ( out TauMeTubeTabModel* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
+    {
+    [ selectedTabs_ getObjects: _Buffer range: _InRange ];
     }
 
 @end // TauMeTubePlaygroundView class

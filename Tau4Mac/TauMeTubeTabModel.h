@@ -10,10 +10,11 @@
 @interface TauMeTubeTabModel : NSObject
 
 @property ( strong, readwrite ) NSString* tabTitle;
+@property ( strong, readwrite ) NSString* repPlaylistIdentifier;
 @property ( strong, readwrite ) NSViewController* viewController;
 
 #pragma mark - Initializations
 
-- ( instancetype ) initWithTitle: ( NSString* )_Title viewController: ( NSViewController* )_ViewController;
+- ( instancetype ) initWithTitle: ( NSString* )_Title playlistIdentifier: ( NSString* )_PlaylistId viewController: ( NSViewController* )_ViewController;
 
 @end // TauMeTubeTabModel class

@@ -12,15 +12,17 @@
 @implementation TauMeTubeTabModel
 
 @synthesize tabTitle = tabTitle_;
+@synthesize repPlaylistIdentifier = repPlaylistIdentifier_;
 @synthesize viewController = viewController_;
 
 #pragma mark - Initializations
 
-- ( instancetype ) initWithTitle: ( NSString* )_Title viewController: ( NSViewController* )_ViewController
+- ( instancetype ) initWithTitle: ( NSString* )_Title playlistIdentifier: ( NSString* )_PlaylistId viewController: ( NSViewController* )_ViewController
     {
     if ( self = [ super init ] )
         {
         self.tabTitle = _Title;
+        self.repPlaylistIdentifier = _PlaylistId;
         self.viewController = _ViewController;
         }
 

@@ -13,6 +13,6 @@
 
 #pragma mark - External KVB Comliant Properties
 
-@property ( strong, readwrite ) TauMeTubeTabModel* selectedTab;
+@property ( strong, readwrite ) NSArray <TauMeTubeTabModel*>* selectedTabs;
 
 @end // TauMeTubePlaygroundView class
