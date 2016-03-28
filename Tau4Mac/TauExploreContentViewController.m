@@ -98,6 +98,8 @@
     NSArray <NSLayoutConstraint*>* activedPinEdgesCache_;
     }
 
+#pragma mark - Initializations
+
 - ( void ) viewDidLoad
     {
     [ self setActivedExploreTabViewTag: TauExploreSubTabMeTubeTag ];
@@ -113,29 +115,33 @@
 #pragma mark - External KVB Compliant Properties
 
 @synthesize activedExploreTabViewTag = priActivedExploreTabViewTag_;
++ ( BOOL ) automaticallyNotifiesObserversOfActivedExploreTabViewTag
+    {
+    return NO;
+    }
+
 - ( void ) setActivedExploreTabViewTag: ( TauExploreSubTabTag )_New
     {
     if ( priActivedExploreTabViewTag_ != _New )
         {
-        [ self willChangeValueForKey: TAU_KEY_OF_SEL( @selector( activedExploreTabViewTag ) ) ];
+        TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( activedExploreTabViewTag ),
+         ( ^{
+            NSViewController* oldActived = self.activedExploreTabViewController;
 
-        NSViewController* oldActived = self.activedExploreTabViewController;
-
-        if ( oldActived )
-            {
-            [ oldActived removeFromParentViewController ];
-            [ oldActived.view removeFromSuperview ];
-
-            if ( activedPinEdgesCache_ )
+            if ( oldActived )
                 {
-                [ self.view removeConstraints: activedPinEdgesCache_ ];
-                activedPinEdgesCache_ = nil;
+                [ oldActived removeFromParentViewController ];
+                [ oldActived.view removeFromSuperview ];
+
+                if ( activedPinEdgesCache_ )
+                    {
+                    [ self.view removeConstraints: activedPinEdgesCache_ ];
+                    activedPinEdgesCache_ = nil;
+                    }
                 }
-            }
 
-        priActivedExploreTabViewTag_ = _New;
-
-        [ self didChangeValueForKey: TAU_KEY_OF_SEL( @selector( activedExploreTabViewTag ) ) ];
+            priActivedExploreTabViewTag_ = _New;
+            } ) );
 
         // Value of self.activedContentViewController is derived from activedContentViewTag_ var.
         // We just assigned a new value to activedContentViewTag_,
