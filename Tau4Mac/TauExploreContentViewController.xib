@@ -140,7 +140,7 @@
             <rect key="frame" x="0.0" y="0.0" width="584" height="32"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5oJ-C1-aOp">
+                <customView ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5oJ-C1-aOp" customClass="TauExploreSegmentControl">
                     <rect key="frame" x="181" y="0.0" width="223" height="32"/>
                     <subviews>
                         <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="QVy-Qo-evQ">
@@ -150,7 +150,7 @@
                                 <font key="font" metaFont="systemBold" size="12"/>
                             </buttonCell>
                             <connections>
-                                <action selector="tabsSwitchedAction:" target="RBY-3w-LKH" id="9ci-os-QrH"/>
+                                <action selector="tabsSwitchedAction:" target="5oJ-C1-aOp" id="wQV-3d-Yf2"/>
                             </connections>
                         </button>
                         <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Bx5-1j-j7c">
@@ -160,10 +160,14 @@
                                 <font key="font" metaFont="systemBold" size="12"/>
                             </buttonCell>
                             <connections>
-                                <action selector="tabsSwitchedAction:" target="RBY-3w-LKH" id="Ifz-iT-P6z"/>
+                                <action selector="tabsSwitchedAction:" target="5oJ-C1-aOp" id="1K9-e9-A6T"/>
                             </connections>
                         </button>
                     </subviews>
+                    <connections>
+                        <outlet property="MeTubeRecessedButton" destination="Bx5-1j-j7c" id="T3v-kQ-01h"/>
+                        <outlet property="subscriptionsRecessedButton" destination="QVy-Qo-evQ" id="OZh-9g-Pc2"/>
+                    </connections>
                 </customView>
             </subviews>
             <constraints>
@@ -171,11 +175,6 @@
                 <constraint firstItem="5oJ-C1-aOp" firstAttribute="centerX" secondItem="o02-5e-ylc" secondAttribute="centerX" id="lsY-dg-1ME"/>
             </constraints>
             <point key="canvasLocation" x="578" y="928"/>
-        </customView>
-        <customView id="EjM-c1-Nca">
-            <rect key="frame" x="0.0" y="0.0" width="175" height="100"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <point key="canvasLocation" x="152.5" y="-491"/>
         </customView>
     </objects>
     <resources>

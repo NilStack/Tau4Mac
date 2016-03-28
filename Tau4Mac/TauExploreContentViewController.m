@@ -252,7 +252,6 @@
     return priSubscriptionsController_;
     }
 
-
 @synthesize playlistsOutlineSplitViewItem_ = priPlaylistsOutlineSplitViewItem_;
 - ( NSSplitViewItem* ) playlistsOutlineSplitViewItem_
     {

@@ -67,6 +67,7 @@
 		83765B691C881A6800D93554 /* CocoaLumberjack.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B491C881A5700D93554 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83765B941C881E2300D93554 /* GTL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B8B1C881E1700D93554 /* GTL.framework */; };
 		83765B971C881EA900D93554 /* GTL.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B8B1C881E1700D93554 /* GTL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		837B79981CA8D3250034904C /* TauExploreSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 837B79971CA8D3250034904C /* TauExploreSegmentControl.m */; };
 		838342E61C96D59800BE6378 /* GTL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B8B1C881E1700D93554 /* GTL.framework */; };
 		838342E91C96D74900BE6378 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B491C881A5700D93554 /* CocoaLumberjack.framework */; };
 		838342EE1C96E9AB00BE6378 /* GTLYouTube_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2121C88200000A42C44 /* GTLYouTube_Sources.m */; };
@@ -560,6 +561,8 @@
 		83765B6A1C881B3200D93554 /* Tau4Mac-PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tau4Mac-PrefixHeader.pch"; sourceTree = "<group>"; };
 		83765B821C881E1700D93554 /* GTLCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GTLCore.xcodeproj; path = ../Deps/GTL/Source/GTLCore.xcodeproj; sourceTree = "<group>"; };
 		83765B991C881EBC00D93554 /* Tau.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Tau.entitlements; sourceTree = "<group>"; };
+		837B79961CA8D3250034904C /* TauExploreSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauExploreSegmentControl.h; sourceTree = "<group>"; };
+		837B79971CA8D3250034904C /* TauExploreSegmentControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauExploreSegmentControl.m; sourceTree = "<group>"; };
 		838342E71C96D62E00BE6378 /* Tau4MacTestsPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tau4MacTestsPrefixHeader.pch; sourceTree = "<group>"; };
 		838342F31C9710FD00BE6378 /* TestsConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestsConstants.h; sourceTree = "<group>"; };
 		838342F41C98189B00BE6378 /* TauYouTubeChannelsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauYouTubeChannelsCollection.h; sourceTree = "<group>"; };
@@ -781,6 +784,8 @@
 				832555591CA539EA000C8A48 /* sub */,
 				836D26FB1C9ACDDE00290BE7 /* TauExploreContentViewController.h */,
 				836D26FC1C9ACDDE00290BE7 /* TauExploreContentViewController.m */,
+				837B79961CA8D3250034904C /* TauExploreSegmentControl.h */,
+				837B79971CA8D3250034904C /* TauExploreSegmentControl.m */,
 				836D26FD1C9ACDDE00290BE7 /* TauExploreContentViewController.xib */,
 			);
 			name = explore;
@@ -1636,6 +1641,7 @@
 				83B020561C96B1B8006333CB /* TauAbstractResultCollection.m in Sources */,
 				833C343B1CA27975004D9BE0 /* TauContentInspectorViewController.m in Sources */,
 				8325555C1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m in Sources */,
+				837B79981CA8D3250034904C /* TauExploreSegmentControl.m in Sources */,
 				836D26FE1C9ACDDE00290BE7 /* TauExploreContentViewController.m in Sources */,
 				836D26F91C9ACDA300290BE7 /* TauSearchContentViewController.m in Sources */,
 				838342FC1C981C2400BE6378 /* TauYouTubePlaylistItemsCollection.m in Sources */,
