@@ -11,6 +11,10 @@
 // TauMeTubePlaygroundView class
 @interface TauMeTubePlaygroundView : NSView
 
+#pragma mark - Relay
+
+@property ( strong, readonly ) NSTitlebarAccessoryViewController* titlebarAccessoryViewControllerWhileActive;
+
 #pragma mark - External KVB Comliant Properties
 
 @property ( strong, readwrite ) NSArray <TauMeTubeTabModel*>* selectedTabs;

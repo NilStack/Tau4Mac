@@ -16,6 +16,19 @@
     NSArray <NSLayoutConstraint*> __strong* selectedPinEdgesCache_;
     }
 
+#pragma mark - Relay
+
+@dynamic titlebarAccessoryViewControllerWhileActive;
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingTitlebarAccessoryViewControllerWhileActive
+    {
+    return [ NSSet setWithObjects: TAU_KEY_OF_SEL( @selector( selectedTabs ) ), nil ];
+    }
+
+- ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
+    {
+    return [ self.selectedTabs.firstObject.viewController valueForKey: TAU_KEY_OF_SEL( @selector( titlebarAccessoryViewControllerWhileActive ) ) ];
+    }
+
 #pragma mark - External KVB Comliant Properties
 
 @synthesize selectedTabs = selectedTabs_;
@@ -49,7 +62,7 @@
         [ self addSubview: newSelected.viewController.view ];
         selectedPinEdgesCache_ = [ newSelected.viewController.view autoPinEdgesToSuperviewEdges ];
 
-        [ newSelected.viewController setValue: newSelected.repPlaylistIdentifier forKey: @"playlistIdentifier" ];
+        [ newSelected.viewController setValue: newSelected.repPlaylistIdentifier forKey: TAU_KEY_OF_SEL( @selector( playlistIdentifier ) ) ];
 
         [ self didChangeValueForKey: TAU_KEY_OF_SEL( @selector( selectedTabs ) ) ];
         }

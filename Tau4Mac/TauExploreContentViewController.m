@@ -137,6 +137,16 @@ TauDeallocEnd
 
 #pragma mark - Overrides
 
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingTitlebarAccessoryViewControllerWhileActive
+    {
+    return [ NSSet setWithObjects: @"MeTubePlayground_.titlebarAccessoryViewControllerWhileActive", nil ];
+    }
+
+- ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
+    {
+    return self.MeTubePlayground_.titlebarAccessoryViewControllerWhileActive;
+    }
+
 - ( NSArray <TauToolbarItem*>* ) exposedToolbarItemsWhileActive
     {
     return @[ [ TauToolbarItem switcherItem ]
