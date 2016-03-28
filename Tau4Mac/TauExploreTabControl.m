@@ -18,6 +18,8 @@
 // TauExploreTabControl class
 @implementation TauExploreTabControl
 
+#pragma mark - External KVB Compliant Properties
+
 @synthesize activedTabTag = activedTabTag_;
 + ( BOOL ) automaticallyNotifiesObserversOfActivedTabTag
     {

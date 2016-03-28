@@ -139,7 +139,7 @@
             <rect key="frame" x="0.0" y="0.0" width="584" height="32"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5oJ-C1-aOp" customClass="TauExploreTabControl">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="5oJ-C1-aOp" customClass="TauExploreTabControl">
                     <rect key="frame" x="181" y="0.0" width="223" height="32"/>
                     <subviews>
                         <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="QVy-Qo-evQ">
@@ -163,6 +163,10 @@
                             </connections>
                         </button>
                     </subviews>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="223" id="1E5-D7-6QF"/>
+                        <constraint firstAttribute="height" constant="32" id="2Zo-qq-ejz"/>
+                    </constraints>
                     <connections>
                         <outlet property="MeTubeRecessedButton_" destination="Bx5-1j-j7c" id="pxL-ae-CTX"/>
                         <outlet property="subscriptionsRecessedButton_" destination="QVy-Qo-evQ" id="fKN-xr-gUL"/>
