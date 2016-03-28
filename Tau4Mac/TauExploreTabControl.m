@@ -8,14 +8,20 @@
 
 #import "TauExploreTabControl.h"
 
+// Private
 @interface TauExploreTabControl ()
-
 @property ( weak ) IBOutlet NSSegmentedControl* exploreTabsSegment_;
-
-@end
+@end // Private
 
 // TauExploreTabControl class
 @implementation TauExploreTabControl
+
+- ( instancetype ) initWithFrame: ( NSRect )_Frame
+    {
+    if ( self = [ super initWithFrame: _Frame ] )
+        activedTabTag_ = TauExploreSubTabUnknownTag;
+    return self;
+    }
 
 #pragma mark - External KVB Compliant Properties
 
@@ -29,27 +35,11 @@
     {
     if ( activedTabTag_ != _New )
         {
-        [ self willChangeValueForKey: TAU_KEY_OF_SEL( @selector( activedTabTag ) ) ];
-        activedTabTag_ = _New;
-        switch ( activedTabTag_ )
-            {
-            case TauExploreSubTabMeTubeTag:
-                {
-                [ self.exploreTabsSegment_ setSelectedSegment: _New ];
-                } break;
-
-            case TauExploreSubTabSubscriptionsTag:
-                {
-                [ self.exploreTabsSegment_ setSelectedSegment: _New ];
-                } break;
-
-            case TauExploreSubTabUnknownTag:
-                {
-                DDLogNotice( @"Explore sub tag is unknown" );
-                } break;
-            }
-
-        [ self didChangeValueForKey: TAU_KEY_OF_SEL( @selector( activedTabTag ) ) ];
+        TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( activedTabTag ),
+         ( ^{
+            activedTabTag_ = _New;
+            [ self.exploreTabsSegment_ setSelectedSegment: activedTabTag_ ];
+            } ) );
         }
     }
 

@@ -13,16 +13,6 @@
 #import "TauToolbarItem.h"
 #import "TauExploreTabControl.h"
 
-// TauTabsAccessoryBarViewController class
-@interface TauTabsAccessoryBarViewController : NSTitlebarAccessoryViewController
-@end // TauTabsAccessoryBarViewController class
-
-
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-
-
 // TauExploreContentSubViewController class
 @interface TauExploreContentSubViewController : TauAbstractContentSubViewController
 
@@ -68,8 +58,6 @@
 
 @property ( strong, readonly ) NSArray <NSString*>* tabs_;
 
-@property ( weak ) IBOutlet TauTabsAccessoryBarViewController* tabsAccessoryBarViewController_;
-
 /****************************** MeTube ******************************/
 
 @property ( strong, readonly ) NSViewController* MeTubeController_;
@@ -97,10 +85,15 @@
 
 #pragma mark - Initializations
 
+- ( instancetype ) initWithCoder: ( NSCoder* )_Coder
+    {
+    if ( self = [ super initWithCoder: _Coder ] )
+        priActivedExploreTabViewTag_ = TauExploreSubTabUnknownTag;
+    return self;
+    }
+
 - ( void ) viewDidLoad
     {
-    priActivedExploreTabViewTag_ = TauExploreSubTabUnknownTag;
-
     // Mutual Bindings between self and self.exploreTabControl
     [ self bind: TAU_KEY_OF_SEL( @selector( activedExploreTabViewTag ) ) toObject: self.exploreTabControl withKeyPath: TAU_KEY_OF_SEL( @selector( activedTabTag ) ) options: nil ];
     [ self.exploreTabControl bind: TAU_KEY_OF_SEL( @selector( activedTabTag ) ) toObject: self withKeyPath: TAU_KEY_OF_SEL( @selector( activedExploreTabViewTag ) ) options: nil ];
@@ -114,11 +107,6 @@ TauDeallocBegin
 TauDeallocEnd
 
 #pragma mark - Overrides
-
-- ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
-    {
-    return self.tabsAccessoryBarViewController_;
-    }
 
 - ( NSArray <TauToolbarItem*>* ) exposedToolbarItemsWhileActive
     {
@@ -191,10 +179,9 @@ TauDeallocEnd
     NSViewController* actived = nil;
     switch ( priActivedExploreTabViewTag_ )
         {
-        case TauExploreSubTabMeTubeTag: actived = self.MeTubeController_;   break;
-        case TauExploreSubTabSubscriptionsTag: actived = self.subscriptionsController_;   break;
-
-        case TauExploreSubTabUnknownTag: DDLogNotice( @"Explore sub tab tag is unknown" );  break;
+        case TauExploreSubTabMeTubeTag: actived = self.MeTubeController_; break;
+        case TauExploreSubTabSubscriptionsTag: actived = self.subscriptionsController_; break;
+        case TauExploreSubTabUnknownTag: DDLogNotice( @"Explore sub tab tag is unknown" ); break;
         }
 
     return actived;
@@ -291,13 +278,3 @@ TauDeallocEnd
     }
 
 @end // TauExploreContentSubViewController class
-
-
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-
-
-// TauTabsAccessoryBarViewController class
-@implementation TauTabsAccessoryBarViewController
-@end // TauTabsAccessoryBarViewController class
