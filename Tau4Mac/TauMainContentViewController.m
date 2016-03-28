@@ -179,7 +179,7 @@
 
         case TauUnknownContentViewTag:
             {
-            DDLogDebug( @"Encountered unknown content view tag." );
+            DDLogNotice( @"Encountered unknown content view tag." );
             return nil;
             }
         }
