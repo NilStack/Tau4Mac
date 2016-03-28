@@ -136,6 +136,8 @@ TauDeallocEnd
 
 #pragma mark - Overrides
 
+// Update the titlebar accessory view controller through the relay of self.MeTubePlayground
+
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingTitlebarAccessoryViewControllerWhileActive
     {
     return [ NSSet setWithObjects: @"MeTubePlayground_.titlebarAccessoryViewControllerWhileActive", nil ];
@@ -243,10 +245,10 @@ TauDeallocEnd
             {
             GTLYouTubeChannelContentDetailsRelatedPlaylists* relatedPlaylists = [ channels_.firstObject valueForKeyPath: @"contentDetails.relatedPlaylists" ];
             priTabs_ =
-                @[ [ [ TauMeTubeTabItem alloc ] initWithTitle: NSLocalizedString( @"Likes", @"\"Likes\" tab in MeTube outline view" ) playlistIdentifier: relatedPlaylists.likes viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
-                 , [ [ TauMeTubeTabItem alloc ] initWithTitle: NSLocalizedString( @"Uploads", @"\"Uploads\" tab in MeTube outline view" ) playlistIdentifier: relatedPlaylists.uploads viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
-                 , [ [ TauMeTubeTabItem alloc ] initWithTitle: NSLocalizedString( @"Watch History", @"\"Watch History\" tab in MeTube outline view" ) playlistIdentifier: relatedPlaylists.watchHistory viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
-                 , [ [ TauMeTubeTabItem alloc ] initWithTitle: NSLocalizedString( @"Watch Later", @"\"Watch Later\" tab in MeTube outline view" ) playlistIdentifier: relatedPlaylists.watchLater viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
+                @[ [ [ TauMeTubeTabItem alloc ] initWithTitle: NSLocalizedString( @"Likes", @"\"Likes\" tab in MeTube outline view" ) playlistName: @"Liked Videos" playlistIdentifier: relatedPlaylists.likes viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
+                 , [ [ TauMeTubeTabItem alloc ] initWithTitle: NSLocalizedString( @"Uploads", @"\"Uploads\" tab in MeTube outline view" ) playlistName: [ NSString stringWithFormat: @"Uploads from %@", [ TauYTDataService sharedService ].signedInUsername ] playlistIdentifier: relatedPlaylists.uploads viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
+                 , [ [ TauMeTubeTabItem alloc ] initWithTitle: NSLocalizedString( @"Watch History", @"\"Watch History\" tab in MeTube outline view" ) playlistName: @"Watch History" playlistIdentifier: relatedPlaylists.watchHistory viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
+                 , [ [ TauMeTubeTabItem alloc ] initWithTitle: NSLocalizedString( @"Watch Later", @"\"Watch Later\" tab in MeTube outline view" ) playlistName: @"Watch Later" playlistIdentifier: relatedPlaylists.watchLater viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
                  ];
              }
 

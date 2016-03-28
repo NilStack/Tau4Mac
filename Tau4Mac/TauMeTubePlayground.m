@@ -15,7 +15,9 @@
     NSArray <NSLayoutConstraint*> __strong* selectedPinEdgesCache_;
     }
 
-#pragma mark - Relay
+#pragma mark - Relay the Delicious of TauToolbarController
+
+// Relay the delicious that will be used to feed the singleton of TauToolbarController class
 
 @dynamic titlebarAccessoryViewControllerWhileActive;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingTitlebarAccessoryViewControllerWhileActive
@@ -99,18 +101,22 @@
 @implementation TauMeTubeTabItem
 
 @synthesize tabTitle = tabTitle_;
+@synthesize repPlaylistName = repPlaylistName_;
 @synthesize repPlaylistIdentifier = repPlaylistIdentifier_;
 @synthesize viewController = viewController_;
 
 #pragma mark - Initializations
 
-- ( instancetype ) initWithTitle: ( NSString* )_Title playlistIdentifier: ( NSString* )_PlaylistId viewController: ( NSViewController* )_ViewController
+- ( instancetype ) initWithTitle: ( NSString* )_Title playlistName: ( NSString* )_PlaylistName playlistIdentifier: ( NSString* )_PlaylistId viewController: ( NSViewController* )_ViewController
     {
     if ( self = [ super init ] )
         {
         self.tabTitle = _Title;
+        self.repPlaylistName = _PlaylistName;
         self.repPlaylistIdentifier = _PlaylistId;
         self.viewController = _ViewController;
+
+        [ _ViewController setValue: self.repPlaylistName forKey: TAU_KEY_OF_SEL( @selector( playlistName ) ) ];
         }
 
     return self;
