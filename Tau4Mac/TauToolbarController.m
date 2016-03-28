@@ -216,6 +216,7 @@ TauToolbarController static* sShared_;
 
         [ priSegSwitcher_ setSegmentCount: 3 ];
         [ priSegSwitcher_ setTrackingMode: NSSegmentSwitchTrackingSelectOne ];
+        [ priSegSwitcher_ setSegmentStyle: NSSegmentStyleTexturedSquare ];
 
         for ( int _Index = 0; _Index < segmentCount; _Index++ )
             {

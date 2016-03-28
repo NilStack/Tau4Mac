@@ -787,9 +787,9 @@
 				832555591CA539EA000C8A48 /* sub */,
 				836D26FB1C9ACDDE00290BE7 /* TauExploreContentViewController.h */,
 				836D26FC1C9ACDDE00290BE7 /* TauExploreContentViewController.m */,
+				836D26FD1C9ACDDE00290BE7 /* TauExploreContentViewController.xib */,
 				83B9916D1CA8F62000F40EA2 /* TauMeTubeTab.h */,
 				83B9916E1CA8F62000F40EA2 /* TauMeTubeTab.m */,
-				836D26FD1C9ACDDE00290BE7 /* TauExploreContentViewController.xib */,
 				837B79961CA8D3250034904C /* TauExploreTabControl.h */,
 				837B79971CA8D3250034904C /* TauExploreTabControl.m */,
 			);

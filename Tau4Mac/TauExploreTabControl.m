@@ -10,8 +10,7 @@
 
 @interface TauExploreTabControl ()
 
-@property ( weak ) IBOutlet NSButton* MeTubeRecessedButton_;
-@property ( weak ) IBOutlet NSButton* subscriptionsRecessedButton_;
+@property ( weak ) IBOutlet NSSegmentedControl* exploreTabsSegment_;
 
 @end
 
@@ -30,21 +29,18 @@
     {
     if ( activedTabTag_ != _New )
         {
-        activedTabTag_ = _New;
-
         [ self willChangeValueForKey: TAU_KEY_OF_SEL( @selector( activedTabTag ) ) ];
+        activedTabTag_ = _New;
         switch ( activedTabTag_ )
             {
             case TauExploreSubTabMeTubeTag:
                 {
-                self.MeTubeRecessedButton_.state = NSOnState;
-                self.subscriptionsRecessedButton_.state = NSOffState;
+                [ self.exploreTabsSegment_ setSelectedSegment: _New ];
                 } break;
 
             case TauExploreSubTabSubscriptionsTag:
                 {
-                self.MeTubeRecessedButton_.state = NSOffState;
-                self.subscriptionsRecessedButton_.state = NSOnState;
+                [ self.exploreTabsSegment_ setSelectedSegment: _New ];
                 } break;
 
             case TauExploreSubTabUnknownTag:
@@ -64,10 +60,9 @@
 
 #pragma mark - Actions
 
-- ( IBAction ) tabsSwitchedAction: ( NSButton* )_Sender
+- ( IBAction ) tabsSwitchedAction: ( NSSegmentedControl* )_Sender
     {
-    _Sender.state = NSOnState;
-    self.activedTabTag = ( TauExploreSubTabTag )( _Sender.tag );
+    self.activedTabTag = ( TauExploreSubTabTag )( _Sender.selectedSegment );
     }
 
 @end // TauExploreTabControl class

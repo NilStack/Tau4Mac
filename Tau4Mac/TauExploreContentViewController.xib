@@ -30,7 +30,7 @@
         </viewController>
         <viewController id="RBY-3w-LKH" customClass="TauExploreContentSubViewController">
             <connections>
-                <outlet property="exploreTabControl" destination="5oJ-C1-aOp" id="hxv-F9-XOk"/>
+                <outlet property="exploreTabControl" destination="5oJ-C1-aOp" id="2Bi-mQ-ukz"/>
                 <outlet property="splitViewController_" destination="1dt-2I-xuX" id="YVO-x1-IEQ"/>
                 <outlet property="tabsAccessoryBarViewController_" destination="QUL-jD-8be" id="0N3-cI-KyR"/>
                 <outlet property="view" destination="gBJ-9h-XI3" id="dGn-h8-8Bc"/>
@@ -138,46 +138,39 @@
         <customView id="o02-5e-ylc" userLabel="Accessory Bar View">
             <rect key="frame" x="0.0" y="0.0" width="584" height="32"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <point key="canvasLocation" x="578" y="928"/>
+        </customView>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="5oJ-C1-aOp" customClass="TauExploreTabControl">
+            <rect key="frame" x="0.0" y="0.0" width="230" height="38.5"/>
             <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="5oJ-C1-aOp" customClass="TauExploreTabControl">
-                    <rect key="frame" x="181" y="0.0" width="223" height="32"/>
-                    <subviews>
-                        <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="QVy-Qo-evQ">
-                            <rect key="frame" x="116" y="6" width="100" height="19"/>
-                            <buttonCell key="cell" type="recessed" title="Subscriptions" bezelStyle="recessed" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qxU-lg-jCc">
-                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                <font key="font" metaFont="systemBold" size="12"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="tabsSwitchedAction:" target="5oJ-C1-aOp" id="wQV-3d-Yf2"/>
-                            </connections>
-                        </button>
-                        <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Bx5-1j-j7c">
-                            <rect key="frame" x="8" y="6" width="100" height="19"/>
-                            <buttonCell key="cell" type="recessed" title="MeTube" bezelStyle="recessed" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sX6-eX-U7w">
-                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                <font key="font" metaFont="systemBold" size="12"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="tabsSwitchedAction:" target="5oJ-C1-aOp" id="1K9-e9-A6T"/>
-                            </connections>
-                        </button>
-                    </subviews>
+                <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cdw-3E-xDz">
+                    <rect key="frame" x="4" y="6.5" width="223" height="25"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="223" id="1E5-D7-6QF"/>
-                        <constraint firstAttribute="height" constant="32" id="2Zo-qq-ejz"/>
+                        <constraint firstAttribute="width" constant="223" id="kMG-57-wPV"/>
+                        <constraint firstAttribute="height" constant="22" id="vS8-Fz-hHZ"/>
                     </constraints>
+                    <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="selectOne" id="lm7-dY-DVg">
+                        <font key="font" metaFont="system"/>
+                        <segments>
+                            <segment label="MeTube" width="110" tag="1"/>
+                            <segment label="Subscriptions" width="110" tag="2"/>
+                        </segments>
+                    </segmentedCell>
                     <connections>
-                        <outlet property="MeTubeRecessedButton_" destination="Bx5-1j-j7c" id="pxL-ae-CTX"/>
-                        <outlet property="subscriptionsRecessedButton_" destination="QVy-Qo-evQ" id="fKN-xr-gUL"/>
+                        <action selector="tabsSwitchedAction:" target="5oJ-C1-aOp" id="Dhc-i1-MVM"/>
                     </connections>
-                </customView>
+                </segmentedControl>
             </subviews>
             <constraints>
-                <constraint firstItem="5oJ-C1-aOp" firstAttribute="centerY" secondItem="o02-5e-ylc" secondAttribute="centerY" id="cZk-TP-9b5"/>
-                <constraint firstItem="5oJ-C1-aOp" firstAttribute="centerX" secondItem="o02-5e-ylc" secondAttribute="centerX" id="lsY-dg-1ME"/>
+                <constraint firstAttribute="bottom" secondItem="cdw-3E-xDz" secondAttribute="bottom" constant="8.5" id="8Nl-EH-DPl"/>
+                <constraint firstAttribute="trailing" secondItem="cdw-3E-xDz" secondAttribute="trailing" constant="3" id="Fcv-SF-Xq6"/>
+                <constraint firstItem="cdw-3E-xDz" firstAttribute="top" secondItem="5oJ-C1-aOp" secondAttribute="top" constant="8" id="X9h-Ag-hW7"/>
+                <constraint firstItem="cdw-3E-xDz" firstAttribute="leading" secondItem="5oJ-C1-aOp" secondAttribute="leading" constant="4" id="gFO-sS-hdt"/>
             </constraints>
-            <point key="canvasLocation" x="578" y="928"/>
+            <connections>
+                <outlet property="exploreTabsSegment_" destination="cdw-3E-xDz" id="Lth-xF-TMA"/>
+            </connections>
+            <point key="canvasLocation" x="587" y="785.25"/>
         </customView>
     </objects>
     <resources>

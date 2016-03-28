@@ -88,10 +88,10 @@ typedef NS_ENUM ( NSInteger, TauContentViewTag )
     };
 
 typedef NS_ENUM( NSInteger, TauExploreSubTabTag )
-    { TauExploreSubTabMeTubeTag = 1
-    , TauExploreSubTabSubscriptionsTag = 2
+    { TauExploreSubTabMeTubeTag = 0
+    , TauExploreSubTabSubscriptionsTag = 1
 
-    , TauExploreSubTabUnknownTag = 0
+    , TauExploreSubTabUnknownTag = -1
     };
 
 typedef NS_ENUM ( NSInteger, TauMeTubeSubContentViewTag )

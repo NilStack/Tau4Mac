@@ -67,6 +67,7 @@
 @interface TauExploreContentSubViewController ()
 
 @property ( strong, readonly ) NSArray <NSString*>* tabs_;
+
 @property ( weak ) IBOutlet TauTabsAccessoryBarViewController* tabsAccessoryBarViewController_;
 
 /****************************** MeTube ******************************/
@@ -98,13 +99,13 @@
 
 - ( void ) viewDidLoad
     {
+    priActivedExploreTabViewTag_ = TauExploreSubTabUnknownTag;
+
     // Mutual Bindings between self and self.exploreTabControl
     [ self bind: TAU_KEY_OF_SEL( @selector( activedExploreTabViewTag ) ) toObject: self.exploreTabControl withKeyPath: TAU_KEY_OF_SEL( @selector( activedTabTag ) ) options: nil ];
     [ self.exploreTabControl bind: TAU_KEY_OF_SEL( @selector( activedTabTag ) ) toObject: self withKeyPath: TAU_KEY_OF_SEL( @selector( activedExploreTabViewTag ) ) options: nil ];
 
     [ self setActivedExploreTabViewTag: TauExploreSubTabMeTubeTag ];
-
-//    NSLog( @"%@", [ self.tabsModelController_ );
     }
 
 TauDeallocBegin
@@ -117,6 +118,15 @@ TauDeallocEnd
 - ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
     {
     return self.tabsAccessoryBarViewController_;
+    }
+
+- ( NSArray <TauToolbarItem*>* ) exposedToolbarItemsWhileActive
+    {
+    return @[ [ TauToolbarItem switcherItem ]
+            , [ TauToolbarItem adaptiveSpaceItem ]
+            , [ [ TauToolbarItem alloc ] initWithIdentifier: nil label: nil view: self.exploreTabControl ]
+            , [ TauToolbarItem flexibleSpaceItem ]
+            ];
     }
 
 #pragma mark - External KVB Compliant Properties
