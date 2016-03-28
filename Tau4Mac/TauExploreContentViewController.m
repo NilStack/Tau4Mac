@@ -12,6 +12,8 @@
 #import "TauToolbarController.h"
 #import "TauToolbarItem.h"
 #import "TauExploreTabControl.h"
+#import "TauMeTubeTabModel.h"
+#import "TauPlaylistResultsCollectionContentSubViewController.h"
 
 // TauExploreContentSubViewController class
 @interface TauExploreContentSubViewController : TauAbstractContentSubViewController
@@ -202,7 +204,14 @@ TauDeallocEnd
 - ( NSArray <NSString*>* ) tabs_
     {
     if ( !priTabs_ )
-        priTabs_ = @[ @"Likes", @"Uploads", @"Watch History", @"Watch Later" ];
+        {
+        priTabs_ = @[ [ [ TauMeTubeTabModel alloc ] initWithTitle: NSLocalizedString( @"Likes", @"\"Likes\" tab in MeTube outline view" ) viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
+                    , [ [ TauMeTubeTabModel alloc ] initWithTitle: NSLocalizedString( @"Uploads", @"\"Uploads\" tab in MeTube outline view" ) viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
+                    , [ [ TauMeTubeTabModel alloc ] initWithTitle: NSLocalizedString( @"Watch History", @"\"Watch History\" tab in MeTube outline view" ) viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
+                    , [ [ TauMeTubeTabModel alloc ] initWithTitle: NSLocalizedString( @"Watch Later", @"\"Watch Later\" tab in MeTube outline view" ) viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
+                    ];
+        }
+
     return priTabs_;
     }
 

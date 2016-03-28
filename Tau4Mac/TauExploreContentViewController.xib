@@ -92,7 +92,7 @@
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                                 <connections>
-                                                    <binding destination="zpD-4M-idM" name="value" keyPath="objectValue" id="Ocb-WT-IaH"/>
+                                                    <binding destination="zpD-4M-idM" name="value" keyPath="objectValue.tabTitle" id="YT8-Ei-39x"/>
                                                 </connections>
                                             </textField>
                                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oDM-1M-5sr">
@@ -124,7 +124,7 @@
             </scroller>
             <point key="canvasLocation" x="-600" y="-581"/>
         </scrollView>
-        <arrayController objectClassName="NSString" id="UiI-rz-Um8" userLabel="Tabs Model">
+        <arrayController objectClassName="TauMeTubeTabModel" id="UiI-rz-Um8" userLabel="Tabs Model">
             <connections>
                 <binding destination="RBY-3w-LKH" name="contentArray" keyPath="self.tabs_" id="mYa-Br-aNC"/>
             </connections>
