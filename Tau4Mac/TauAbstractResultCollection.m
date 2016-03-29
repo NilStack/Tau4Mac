@@ -28,8 +28,7 @@
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingValueForKey: ( NSString* )_Key
     {
     NSSet <NSString*>* paths = [ super keyPathsForValuesAffectingValueForKey: _Key ];
-
-    if ( [ _Key isEqualToString: TAU_KVO_KEY( items ) ]
+    if ( [ _Key isEqualToString: TAU_KVO_KEY( item ) ]
             || [ _Key isEqualToString: TAU_KVO_KEY( count ) ]
             || [ _Key isEqualToString: TAU_KVO_KEY( firstObject ) ]
             || [ _Key isEqualToString: TAU_KVO_KEY( lastObject ) ]

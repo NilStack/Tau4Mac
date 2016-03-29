@@ -170,7 +170,7 @@ TauDeallocEnd
     {
     if ( priActivedExploreTabViewTag_ != _New )
         {
-        TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( activedExploreTabViewTag ),
+        TAU_CHANGE_VALUE_FOR_KEY( activedExploreTabViewTag,
          ( ^{
             NSViewController* oldActived = self.activedExploreTabViewController;
 

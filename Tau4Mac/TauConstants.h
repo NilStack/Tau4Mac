@@ -16,7 +16,11 @@
 
 
 #define TAU_KEY_OF_SEL( _Sel ) ( NSStringFromSelector( _Sel ) )
-#define TAU_KVO_KEY( _Sel ) TAU_KEY_OF_SEL( @selector( _Sel ) )
+
+#define TAU_KVO_KEY( _Sel ) \
+TAU_FATAL_UNDECLARED_SELECTOR_WARNING_BEGIN\
+    TAU_KEY_OF_SEL( @selector( _Sel ) )\
+TAU_FATAL_UNDECLARED_SELECTOR_WARNING_COMMIT
 
 #define TAU_CHANGE_VALUE_BEGIN( _Key )  ( [ self willChangeValueForKey: _Key ] )
 #define TAU_CHANGE_VALUE_COMMIT( _Key ) ( [ self didChangeValueForKey: _Key ] )
@@ -26,14 +30,13 @@
 
 #define TAU_CHANGE_VALUE_FOR_KEY( _Key, _ExpressionBlk )\
 do {\
-NSParameterAssert( ( _Key ) && ( [ _Key length ] > 0 ) );\
-TAU_CHANGE_VALUE_BEGIN( _Key );\
-    _ExpressionBlk();\
-TAU_CHANGE_VALUE_COMMIT( _Key );\
+TAU_FATAL_UNDECLARED_SELECTOR_WARNING_BEGIN\
+    SEL sel = @selector( _Key );\
+    TAU_CHANGE_VALUE_BEGIN( TAU_KEY_OF_SEL( sel ) );\
+        _ExpressionBlk();\
+    TAU_CHANGE_VALUE_COMMIT( TAU_KEY_OF_SEL( sel ) );\
+TAU_FATAL_UNDECLARED_SELECTOR_WARNING_COMMIT\
 } while ( 0 )
-
-#define TAU_CHANGE_VALUE_FOR_KEY_of_SEL( _Sel, _ExpressionBlk )\
-    TAU_CHANGE_VALUE_FOR_KEY( TAU_KEY_OF_SEL( _Sel ), _ExpressionBlk )
 
 
 
@@ -130,22 +133,29 @@ typedef NS_ENUM ( NSUInteger, TauYTDataServiceConsumptionType )
 // ------------------------------------------------------------------------------------------------------------ //
 
 
+#define TAU_CLANG_DIAGNOSTIC_PUSH _Pragma("clang diagnostic push")
+#define TAU_CLANG_DIAGNOSTIC_POP _Pragma("clang diagnostic pop")
 
 // To suppress the "PerformSelector may cause a leak because its selector is unknown" warning
 #define TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_BEGIN\
-    _Pragma("clang diagnostic push")\
+    TAU_CLANG_DIAGNOSTIC_PUSH\
     _Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"")
     
-#define TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT\
-    _Pragma("clang diagnostic pop")
+#define TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT TAU_CLANG_DIAGNOSTIC_POP
 
 // Get rid of the 'undeclared selector' warning
 #define TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_BEGIN\
-    _Pragma("clang diagnostic push")\
+    TAU_CLANG_DIAGNOSTIC_PUSH\
     _Pragma("clang diagnostic ignored \"-Wundeclared-selector\"")
 
-#define TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT\
-    _Pragma("clang diagnostic pop")
+#define TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT TAU_CLANG_DIAGNOSTIC_POP
+
+// Get rid of the 'undeclared selector' warning
+#define TAU_FATAL_UNDECLARED_SELECTOR_WARNING_BEGIN\
+    TAU_CLANG_DIAGNOSTIC_PUSH\
+    _Pragma("clang diagnostic fatal \"-Wundeclared-selector\"")
+
+#define TAU_FATAL_UNDECLARED_SELECTOR_WARNING_COMMIT TAU_CLANG_DIAGNOSTIC_POP
 
 
 

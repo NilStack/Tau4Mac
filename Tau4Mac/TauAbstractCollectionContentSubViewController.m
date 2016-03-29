@@ -205,7 +205,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 - ( void ) setPaging: ( BOOL )_Flag
     {
     if ( isPaging_ != _Flag )
-        TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( isPaging ), ^{ isPaging_ = _Flag; } );
+        TAU_CHANGE_VALUE_FOR_KEY( isPaging, ^{ isPaging_ = _Flag; } );
     }
 
 - ( BOOL ) isPaging
@@ -245,7 +245,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
     {
     if ( results_ != _New )
         {
-        TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( results ),
+        TAU_CHANGE_VALUE_FOR_KEY( results,
          ( ^{
             results_ = _New;
             [ self.contentCollectionViewController reloadData ];

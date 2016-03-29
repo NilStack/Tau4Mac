@@ -58,7 +58,7 @@ TauDeallocEnd
     {
     if ( playlistIdentifier_ != _New )
         {
-        TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( playlistIdentifier ),
+        TAU_CHANGE_VALUE_FOR_KEY( playlistIdentifier,
          ( ^{
             playlistIdentifier_ = _New;
 
@@ -116,7 +116,7 @@ TauDeallocEnd
 - ( void ) setPlaylistItems: ( TauYouTubePlaylistsCollection* )_New
     {
     if ( playlistItems_ != _New )
-        TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( playlistItems ), ^{ playlistItems_ = _New; } );
+        TAU_CHANGE_VALUE_FOR_KEY( playlistItems, ^{ playlistItems_ = _New; } );
     }
 
 - ( TauYouTubePlaylistsCollection* ) playlistItems

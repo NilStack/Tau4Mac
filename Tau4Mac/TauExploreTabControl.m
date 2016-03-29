@@ -35,7 +35,7 @@
     {
     if ( activedTabTag_ != _New )
         {
-        TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( activedTabTag ),
+        TAU_CHANGE_VALUE_FOR_KEY( activedTabTag,
          ( ^{
             activedTabTag_ = _New;
             [ self.exploreTabsSegment_ setSelectedSegment: activedTabTag_ ];
