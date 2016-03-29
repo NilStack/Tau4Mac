@@ -56,7 +56,7 @@ TauDeallocEnd
             self.originalOperationsCombination =
                @{ TauTDSOperationMaxResultsPerPage : @50
                 , TauTDSOperationRequirements : @{ TauTDSOperationRequirementMine : _Flag ? @"true" : @"" }
-//                , TauTDSOperationPartFilter : @"snippet"
+                , TauTDSOperationPartFilter : @"snippet,contentDetails"
                 };
             } ) );
         }
@@ -91,13 +91,13 @@ TauDeallocEnd
 
 // Directly invoked by TDS.
 // We should never invoke this method explicitly.
-- ( void ) setSearchResults: ( TauYouTubeSubscriptionsCollection* )_New
+- ( void ) setSubscriptions: ( TauYouTubeSubscriptionsCollection* )_New
     {
     if ( subscriptions_ != _New )
-        TAU_CHANGE_VALUE_FOR_KEY( searchResults, ^{ subscriptions_ = _New; } );
+        TAU_CHANGE_VALUE_FOR_KEY( subscriptions, ^{ subscriptions_ = _New; } );
     }
 
-- ( TauYouTubeSubscriptionsCollection* ) searchResults
+- ( TauYouTubeSubscriptionsCollection* ) subscriptions
     {
     return subscriptions_;
     }

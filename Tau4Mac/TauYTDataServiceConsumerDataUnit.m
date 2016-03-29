@@ -190,8 +190,8 @@ TauDeallocEnd
 
         case TauYTDataServiceConsumptionSubscriptionsType:
             {
-            ytQuery = [ GTLQueryYouTube queryForPlaylistItemsListWithPart: partFilter ?: @"snippet,contentDetails" ];
-            ytQuery.playlistId = _Dict[ TauTDSOperationRequirements ][ TauTDSOperationRequirementChannelID ];
+            ytQuery = [ GTLQueryYouTube queryForSubscriptionsListWithPart: partFilter ?: @"snippet,contentDetails" ];
+            ytQuery.channelId = _Dict[ TauTDSOperationRequirements ][ TauTDSOperationRequirementChannelID ];
             } break;
 
         case TauYTDataServiceConsumptionUnknownType:;break;

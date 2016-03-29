@@ -14,6 +14,7 @@
 #import "TauExploreTabControl.h"
 #import "TauMeTubePlayground.h"
 #import "TauPlaylistResultsCollectionContentSubViewController.h"
+#import "TauSubscriptionsCollectionContentSubViewController.h"
 
 // TauExploreContentSubViewController class
 @interface TauExploreContentSubViewController : TauAbstractContentSubViewController
@@ -82,7 +83,7 @@
 
 /****************************** Subscription ******************************/
 
-@property ( strong, readonly ) NSViewController* subscriptionsController_;
+@property ( strong, readonly ) TauSubscriptionsCollectionContentSubViewController* subscriptionsController_;
 
 @end // Private
 
@@ -322,11 +323,13 @@ TauDeallocEnd
     {
     if ( !priSubscriptionsController_ )
         {
-        priSubscriptionsController_ = [ [ NSViewController alloc ] initWithNibName: nil bundle: nil ];
+        priSubscriptionsController_ = [ [ TauSubscriptionsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
 
-        NSView* priSubscView = [ [ NSView alloc ] initWithFrame: NSZeroRect ];
-        [ priSubscView setWantsLayer: YES ];
-        [ priSubscriptionsController_ setView: [ priSubscView configureForAutoLayout ] ];
+        [ priSubscriptionsController_ addChildViewController: priSubscriptionsController_ ];
+        [ self.view addSubview: [ priSubscriptionsController_.view configureForAutoLayout ] ];
+        [ priSubscriptionsController_.view autoPinEdgesToSuperviewEdges ];
+
+        [ priSubscriptionsController_ setMine: YES ];
         }
 
     return priSubscriptionsController_;

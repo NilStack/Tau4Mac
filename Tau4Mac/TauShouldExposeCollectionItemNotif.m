@@ -125,6 +125,9 @@ void static* const kContentTypeAssocKey = @"kContentTypeAssocKey";
     else if ( [ _YouTubeObject isKindOfClass: [ GTLYouTubePlaylistItem class ] ] )
         identifier = [ _YouTubeObject valueForKeyPath: @"contentDetails.videoId" ];
 
+    else if ( [ _YouTubeObject isKindOfClass: [ GTLYouTubeSubscription class ] ] )
+        identifier = [ [ _YouTubeObject valueForKeyPath: @"snippet.resourceId" ] JSON ][ @"channelId" ];
+
     /* GTLYouTubeSearchResult, its identifier property is an NSString object encapsulated in a GTLYouTubeResourceId object, instead.
      */
     else if ( [ _YouTubeObject isKindOfClass: [ GTLYouTubeSearchResult class ] ] )

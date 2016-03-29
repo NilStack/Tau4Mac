@@ -28,7 +28,15 @@
 
 - ( TauAbstractContentViewController* ) masterContentViewController
     {
-    return ( TauAbstractContentViewController* )( self.parentViewController );
+    id candidate = self.parentViewController;
+
+    if ( [ candidate isKindOfClass: [ TauAbstractContentViewController class ] ] )
+        return ( TauAbstractContentViewController* )candidate;
+    else if ( [ candidate isKindOfClass: [ TauAbstractContentSubViewController class ] ] )
+        // Perform recursion
+        return [ ( TauAbstractContentSubViewController* )candidate masterContentViewController ];
+
+    return nil;
     }
 
 #pragma mark - View Stack Operations

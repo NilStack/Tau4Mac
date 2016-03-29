@@ -89,7 +89,8 @@ TauDeallocEnd
         {
         case TauYouTubeVideo:
         case TauYouTubePlayList: self.subLayer_.contents = priThumbnailImage_;  break;
-        case TauYouTubeChannel:  self.subLayer_.contents = [ priThumbnailImage_ gaussianBluredOfRadius: 10.f ]; break;
+//        case TauYouTubeChannel:  self.subLayer_.contents = [ priThumbnailImage_ gaussianBluredOfRadius: 10.f ]; break;
+        case TauYouTubeChannel:  self.subLayer_.contents = priThumbnailImage_; break;
                        default:  self.subLayer_.contents = nil;
         }
 

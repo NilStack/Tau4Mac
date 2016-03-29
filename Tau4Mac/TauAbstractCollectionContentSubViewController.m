@@ -10,11 +10,11 @@
 #import "TauToolbarItem.h"
 #import "TauAbstractContentViewController.h"
 
-#import "TauPlaylistResultsCollectionContentSubViewController.h"
-#import "TauChannelResultsCollectionContentSubViewController.h"
-
 // Concret sub-classes
 #import "TauSearchResultsCollectionContentSubViewController.h"
+#import "TauPlaylistResultsCollectionContentSubViewController.h"
+#import "TauChannelResultsCollectionContentSubViewController.h"
+#import "TauSubscriptionsCollectionContentSubViewController.h"
 
 // TauSearchResultsAccessoryBarViewController class
 @interface TauResultsAccessoryBarViewController : NSTitlebarAccessoryViewController
@@ -314,8 +314,8 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
         else if ( [ self isKindOfClass: [ TauPlaylistResultsCollectionContentSubViewController class ] ] )
             consumptionType = TauYTDataServiceConsumptionPlaylistItemsType;
 
-//        else if ( [ self isKindOfClass: [ TauChannelResultsCollectionContentSubViewController class ] ] )
-//            consumptionType = TauYTDataServiceConsumptionChannelsType; // TODO: Expecting other consumption types
+        else if ( [ self isKindOfClass: [ TauSubscriptionsCollectionContentSubViewController class ] ] )
+            consumptionType = TauYTDataServiceConsumptionSubscriptionsType; // TODO: Expecting other consumption types
 
         /*************** Get the correct consumption type ***************/
 
