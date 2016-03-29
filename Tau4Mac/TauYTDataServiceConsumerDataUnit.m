@@ -24,7 +24,10 @@
 // TauYTDataServiceConsumerDataUnit class
 @implementation TauYTDataServiceConsumerDataUnit
     {
-    id <TauYTDataServiceConsumer> __strong consumer_;
+    // We'll establish the binding between consumer_ and self,
+    // therefore there is no need to strong referense consumer_
+    id <TauYTDataServiceConsumer> __weak consumer_;
+
     TauYTDataServiceCredential __strong* credential_;
 
     GTLServiceTicket __strong* ytTicket_;
@@ -64,19 +67,21 @@
         {
         consumer_ = _Consumer;
         credential_ = [ _Credential copy ];
+
+        NSString* bindKeyPath = [ self bindKeyPathForConsumptionType_: credential_.consumptionType ];
+        [ ( NSObject* )consumer_ bind: bindKeyPath toObject: self withKeyPath: FBKVOClassKeyPath( TauYTDataServiceConsumerDataUnit, resultCollection_ ) options: nil ];
         }
 
     return self;
     }
 
-- ( void ) dealloc
-    {
-    if ( ytTicket_ )
-        [ ytTicket_ cancelTicket ];
+TauDeallocBegin
+if ( ytTicket_ )
+    [ ytTicket_ cancelTicket ];
 
-    NSString* bindKeyPath = [ self bindKeyPathForConsumptionType_: credential_.consumptionType ];
-    [ ( NSObject* )consumer_ unbind: bindKeyPath ];
-    }
+NSString* bindKeyPath = [ self bindKeyPathForConsumptionType_: credential_.consumptionType ];
+[ ( NSObject* )consumer_ unbind: bindKeyPath ];
+TauDeallocEnd
 
 - ( void ) executeConsumerOperations: ( NSDictionary* )_OperationsDict
                              success: ( void (^)( NSString* _PrevPageToken, NSString* _NextPageToken ) )_CompletionHandler
@@ -92,19 +97,12 @@
         {
         if ( _Resp && !_Error )
             {
-            if ( !resultCollection_ )
-                {
-                Class modelClass = [ self modelClassForConsumptionType_: credential_.consumptionType ];
-                resultCollection_ = [ [ modelClass alloc ] initWithGTLCollectionObject: _Resp ];
+            Class modelClass = [ self modelClassForConsumptionType_: credential_.consumptionType ];
 
-                NSString* bindKeyPath = [ self bindKeyPathForConsumptionType_: credential_.consumptionType ];
-                [ ( NSObject* )consumer_ bind: bindKeyPath toObject: self withKeyPath: FBKVOClassKeyPath( TauYTDataServiceConsumerDataUnit, resultCollection_ ) options: nil ];
-                }
-            else
-                // An object observing the searchResults / channels / playlists / playlistItems properties must be notified
-                // when super's ytCollectionObject properties change,
-                // as it affects the value of the property
-                [ resultCollection_ setYtCollectionObject: _Resp ];
+            // An object observing the searchResults / channels / playlists / playlistItems properties must be notified
+            // when resultCollection_ property of data unit class changes,
+            // as it affects the value of the property
+            self.resultCollection_ = [ [ modelClass alloc ] initWithGTLCollectionObject: _Resp ];
 
             if ( _CompletionHandler )
                 _CompletionHandler( [ resultCollection_ valueForKey: @"prevPageToken" ]

@@ -30,11 +30,15 @@
     {
     NSSet <NSString*>* paths = [ super keyPathsForValuesAffectingValueForKey: _Key ];
 
-    if ( [ _Key isEqualToString: kResultsPerPageKey ]
-            || [ _Key isEqualToString: kTotalResultsKey ]
-            || [ _Key isEqualToString: kPrevPageTokenKey ]
-            || [ _Key isEqualToString: kNextPageTokenKey ] )
-        paths = [ NSSet setWithObjects: kYtBackingCollectionObjectKey, nil ];
+    if ( [ _Key isEqualToString: FBKVOKeyPath( TAU_KEY_OF_SEL( @selector( items ) ) ) ]
+            || [ _Key isEqualToString: FBKVOKeyPath( TAU_KEY_OF_SEL( @selector( count ) ) ) ]
+            || [ _Key isEqualToString: FBKVOKeyPath( TAU_KEY_OF_SEL( @selector( firstObject ) ) ) ]
+            || [ _Key isEqualToString: FBKVOKeyPath( TAU_KEY_OF_SEL( @selector( lastObject ) ) ) ]
+            || [ _Key isEqualToString: FBKVOKeyPath( kResultsPerPageKey ) ]
+            || [ _Key isEqualToString: FBKVOKeyPath( kTotalResultsKey ) ]
+            || [ _Key isEqualToString: FBKVOKeyPath( kPrevPageTokenKey ) ]
+            || [ _Key isEqualToString: FBKVOKeyPath( kNextPageTokenKey ) ] )
+        paths = [ NSSet setWithObjects: FBKVOKeyPath( kYtBackingCollectionObjectKey ), nil ];
 
     return paths;
     }
@@ -47,6 +51,13 @@
         self.ytBackingCollectionObject_ = _GTLCollectionObject;
 
     return self;
+    }
+
+#pragma mark - Conforms to <NSFastEnumeration>
+
+- ( NSUInteger ) countByEnumeratingWithState: ( NSFastEnumerationState* )_State objects: ( __unsafe_unretained id _Nonnull* )_Buffer count: ( NSUInteger )_Len
+    {
+    return [ ytBackingCollectionObject_ countByEnumeratingWithState: _State objects: _Buffer count: _Len ];
     }
 
 #pragma mark - External KVO Compliant Properties
@@ -73,14 +84,21 @@
     }
 
 @dynamic count;
-+ ( NSSet <NSString*>* ) keyPathsForValuesAffectingCount
-    {
-    return [ NSSet setWithObjects: FBKVOClassKeyPath( TauAbstractResultCollection, items ), nil ];
-    }
-
 - ( NSUInteger ) count
     {
     return self.items.count;
+    }
+
+@dynamic firstObject;
+@dynamic lastObject;
+- ( GTLObject* ) firstObject
+    {
+    return self.items.firstObject;
+    }
+
+- ( GTLObject* ) lastObject
+    {
+    return self.items.lastObject;
     }
 
 @dynamic resultsPerPage;

@@ -12,8 +12,11 @@
 @interface TauChannelResultsCollectionContentSubViewController ()
 
 // Model: Feed me, if you dare.
-@property ( strong, readwrite ) NSArray <GTLYouTubeChannel*>* channels; // KVO-compliant
-@property ( strong, readwrite ) NSArray <GTLYouTubePlaylistItem*>* playlistItems;   // KVB-compliant
+//@property ( strong, readwrite ) NSArray <GTLYouTubeChannel*>* channels; // KVO-compliant
+//@property ( strong, readwrite ) NSArray <GTLYouTubePlaylistItem*>* playlistItems;   // KVB-compliant
+
+@property ( strong, readwrite ) TauYouTubeChannelsCollection* channels; // KVO-compliant
+@property ( strong, readwrite ) TauYouTubePlaylistItemsCollection* playlistItems;   // KVB-compliant
 
 @end // Private
 
@@ -54,15 +57,11 @@ TauDeallocEnd
             channelsCredential_ = [ [ TauYTDataService sharedService ] registerConsumer: self withMethodSignature: [ self methodSignatureForSelector: _cmd ] consumptionType: TauYTDataServiceConsumptionChannelsType ];
             [ sharedDataService executeConsumerOperations: operations
                                            withCredential: channelsCredential_
-                                                  success:
-            ^( NSString* _PrevPageToken, NSString* _NextPageToken )
+                                                  success: nil
+            failure: ^( NSError* _Error )
                 {
-
-                    
-                } failure: ^( NSError* _Error )
-                    {
-
-                    } ];
+                DDLogRecoverable( @"Failted to fetch channel due to {%@}", _Error );
+                } ];
             } ) );
         }
     }
@@ -108,7 +107,7 @@ TauDeallocEnd
 
 // Directly invoked by TDS.
 // We should never invoke this method explicitly.
-- ( void ) setChannels: ( NSArray <GTLYouTubeChannel*>* )_New
+- ( void ) setChannels: ( TauYouTubeChannelsCollection* )_New
     {
     if ( channels_ != _New )
         {
@@ -116,13 +115,13 @@ TauDeallocEnd
          ( ^{
             channels_ = _New;
 
-            GTLYouTubeChannelContentDetails* contentDetails = channels_.firstObject.contentDetails;
+            GTLYouTubeChannelContentDetails* contentDetails = [ channels_.firstObject valueForKey: FBKVOClassKeyPath( GTLYouTubeChannel, contentDetails ) ];
             [ self setPlaylistIdentifier: contentDetails.relatedPlaylists.uploads ];
             } ) );
         }
     }
 
-- ( NSArray <GTLYouTubeChannel*>* ) channels
+- ( TauYouTubeChannelsCollection* ) channels
     {
     return channels_;
     }
@@ -130,16 +129,6 @@ TauDeallocEnd
 - ( NSUInteger ) countOfChannels
     {
     return channels_.count;
-    }
-
-- ( NSArray <GTLYouTubeChannel*>* ) channelsAtIndexes: ( NSIndexSet* )_Indexes
-    {
-    return [ channels_ objectsAtIndexes: _Indexes ];
-    }
-
-- ( void ) getChannels: ( GTLYouTubeChannel* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
-    {
-    [ channels_ getObjects: _Buffer range: _InRange ];
     }
 
 @synthesize playlistItems = playlistItems_;
@@ -150,30 +139,15 @@ TauDeallocEnd
 
 // Directly invoked by TDS.
 // We should never invoke this method explicitly.
-- ( void ) setPlaylistItems: ( NSArray <GTLYouTubePlaylistItem*>* )_New
+- ( void ) setPlaylistItems: ( TauYouTubePlaylistItemsCollection* )_New
     {
     if ( playlistItems_ != _New )
         TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( playlistItems ), ^{ playlistItems_ = _New; } );
     }
 
-- ( NSArray <GTLYouTubePlaylistItem*>* ) playlistItems
+- ( TauYouTubePlaylistItemsCollection* ) playlistItems
     {
     return playlistItems_;
-    }
-
-- ( NSUInteger ) countOfPlaylistItems
-    {
-    return playlistItems_.count;
-    }
-
-- ( NSArray <GTLYouTubePlaylistItem*>* ) playlistItemsAtIndexes: ( NSIndexSet* )_Indexes
-    {
-    return [ playlistItems_ objectsAtIndexes: _Indexes ];
-    }
-
-- ( void ) getPlaylistItems: ( GTLYouTubePlaylistItem* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
-    {
-    [ playlistItems_ getObjects: _Buffer range: _InRange ];
     }
 
 @end // TauChannelResultsCollectionContentSubViewController class

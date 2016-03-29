@@ -14,7 +14,7 @@
 #define kNextPageTokenKey       @"nextPageToken"
 
 // TauAbstractResultCollection class
-@interface TauAbstractResultCollection : NSObject
+@interface TauAbstractResultCollection : NSObject <NSFastEnumeration>
     {
 @protected
     GTLCollectionObject __strong* ytBackingCollectionObject_;
@@ -39,6 +39,16 @@
 // Being subject to change of items property
 @property ( assign, readonly ) NSUInteger count;
 
+// Returns the first object in the collection
+// KVO-Observable
+// Being subject to change of items property
+@property ( readonly ) GTLObject* firstObject;
+
+// Returns the last object in the collection
+// KVO-Observable
+// Being subject to change of items property
+@property ( readonly ) GTLObject* lastObject;
+
 // The number of results included in the API response.
 // KVO-Observable
 // Being subject to change of ytCollectionObject property
@@ -60,7 +70,5 @@
 // KVO-Observable
 // Being subject to change of ytCollectionObject property
 @property ( strong, readonly ) NSString* nextPageToken;
-
-// TODO: Conforms to <NSFastEnumeration> protocol
 
 @end // TauAbstractResultCollection class

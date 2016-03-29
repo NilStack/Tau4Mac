@@ -13,7 +13,8 @@
 @interface TauSearchResultsCollectionContentSubViewController ()
 
 // Model: Feed me, if you dare.
-@property ( strong, readwrite ) NSArray <GTLYouTubeSearchResult*>* searchResults;   // KVB-compliant
+//@property ( strong, readwrite ) NSArray <GTLYouTubeSearchResult*>* searchResults;   // KVB-compliant
+@property ( weak, readwrite ) TauYouTubeSearchResultsCollection* searchResults;   // KVB-compliant
 
 @end // Private
 
@@ -27,6 +28,7 @@
 @implementation TauSearchResultsCollectionContentSubViewController
 
 TauDeallocBegin
+
 TauDeallocEnd
 
 #pragma mark - Initializations
@@ -89,8 +91,7 @@ TauDeallocEnd
     NSUInteger __block playlistsCount = 0u;
     NSUInteger __block videosCount = 0u;
 
-    [ searchResults_ enumerateObjectsUsingBlock:
-    ^( GTLYouTubeSearchResult* _Nonnull _Result, NSUInteger _Idx, BOOL* _Nonnull _Stop )
+    for ( GTLYouTubeSearchResult* _Nonnull _Result in searchResults_ )
         {
         NSString* kindString = _Result.identifier.kind;
         if ( [ kindString isEqualToString: @"youtube#channel" ] )
@@ -99,7 +100,7 @@ TauDeallocEnd
             playlistsCount++;
         else if ( [ kindString isEqualToString: @"youtube#video" ] )
             videosCount++;
-        } ];
+        }
 
     if ( channelsCount || playlistsCount || videosCount )
         {
@@ -128,30 +129,15 @@ TauDeallocEnd
 
 // Directly invoked by TDS.
 // We should never invoke this method explicitly.
-- ( void ) setSearchResults: ( NSArray <GTLYouTubeSearchResult*>* )_New
+- ( void ) setSearchResults: ( TauYouTubeSearchResultsCollection* )_New
     {
     if ( searchResults_ != _New )
         TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( searchResults ), ^{ searchResults_ = _New; } );
     }
 
-- ( NSArray <GTLYouTubeSearchResult*>* ) searchResults
+- ( TauYouTubeSearchResultsCollection* ) searchResults
     {
     return searchResults_;
-    }
-
-- ( NSUInteger ) countOfSearchResults
-    {
-    return searchResults_.count;
-    }
-
-- ( NSArray <GTLYouTubeSearchResult*>* ) searchResultsAtIndexes: ( NSIndexSet* )_Indexes
-    {
-    return [ searchResults_ objectsAtIndexes: _Indexes ];
-    }
-
-- ( void ) getSearchResults: ( GTLYouTubeSearchResult* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
-    {
-    [ searchResults_ getObjects: _Buffer range: _InRange ];
     }
 
 @end // TauSearchResultsCollectionContentSubViewController class
