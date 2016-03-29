@@ -15,26 +15,26 @@
 
 
 
-#define TAU_KEY_OF_SEL( _Sel ) ( NSStringFromSelector( _Sel ) )
+#define TauKeyOfSel( _Sel ) ( NSStringFromSelector( _Sel ) )
 
-#define TAU_KVO_KEY( _Sel ) \
+#define TauKVOKey( _Sel ) \
 TAU_FATAL_UNDECLARED_SELECTOR_WARNING_BEGIN\
-    TAU_KEY_OF_SEL( @selector( _Sel ) )\
+    TauKeyOfSel( @selector( _Sel ) )\
 TAU_FATAL_UNDECLARED_SELECTOR_WARNING_COMMIT
 
 #define TAU_CHANGE_VALUE_BEGIN( _Key )  ( [ self willChangeValueForKey: _Key ] )
 #define TAU_CHANGE_VALUE_COMMIT( _Key ) ( [ self didChangeValueForKey: _Key ] )
 
-#define TAU_CHANGE_VALUE_BEGIN_of( _Sel )  TAU_CHANGE_VALUE_BEGIN( TAU_KEY_OF_SEL( _Sel ) )
-#define TAU_CHANGE_VALUE_COMMIT_of( _Sel ) TAU_CHANGE_VALUE_COMMIT( TAU_KEY_OF_SEL( _Sel ) )
+#define TAU_CHANGE_VALUE_BEGIN_of( _Sel )  TAU_CHANGE_VALUE_BEGIN( TauKeyOfSel( _Sel ) )
+#define TAU_CHANGE_VALUE_COMMIT_of( _Sel ) TAU_CHANGE_VALUE_COMMIT( TauKeyOfSel( _Sel ) )
 
 #define TAU_CHANGE_VALUE_FOR_KEY( _Key, _ExpressionBlk )\
 do {\
 TAU_FATAL_UNDECLARED_SELECTOR_WARNING_BEGIN\
     SEL sel = @selector( _Key );\
-    TAU_CHANGE_VALUE_BEGIN( TAU_KEY_OF_SEL( sel ) );\
+    TAU_CHANGE_VALUE_BEGIN( TauKeyOfSel( sel ) );\
         _ExpressionBlk();\
-    TAU_CHANGE_VALUE_COMMIT( TAU_KEY_OF_SEL( sel ) );\
+    TAU_CHANGE_VALUE_COMMIT( TauKeyOfSel( sel ) );\
 TAU_FATAL_UNDECLARED_SELECTOR_WARNING_COMMIT\
 } while ( 0 )
 

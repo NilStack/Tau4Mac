@@ -22,12 +22,12 @@
 @dynamic titlebarAccessoryViewControllerWhileActive;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingTitlebarAccessoryViewControllerWhileActive
     {
-    return [ NSSet setWithObjects: TAU_KEY_OF_SEL( @selector( selectedTabs ) ), nil ];
+    return [ NSSet setWithObjects: TauKeyOfSel( @selector( selectedTabs ) ), nil ];
     }
 
 - ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
     {
-    return [ self.selectedTabs.firstObject.viewController valueForKey: TAU_KEY_OF_SEL( @selector( titlebarAccessoryViewControllerWhileActive ) ) ];
+    return [ self.selectedTabs.firstObject.viewController valueForKey: TauKeyOfSel( @selector( titlebarAccessoryViewControllerWhileActive ) ) ];
     }
 
 #pragma mark - External KVB Comliant Properties
@@ -42,7 +42,7 @@
     {
     if ( selectedTabs_ != _New )
         {
-        [ self willChangeValueForKey: TAU_KEY_OF_SEL( @selector( selectedTabs ) ) ];
+        [ self willChangeValueForKey: TauKeyOfSel( @selector( selectedTabs ) ) ];
 
         TauMeTubeTabItem* oldSelected = self.selectedTabs.firstObject;
         if ( oldSelected && oldSelected.viewController )
@@ -63,9 +63,9 @@
         [ self addSubview: newSelected.viewController.view ];
         selectedPinEdgesCache_ = [ newSelected.viewController.view autoPinEdgesToSuperviewEdges ];
 
-        [ newSelected.viewController setValue: newSelected.repPlaylistIdentifier forKey: TAU_KEY_OF_SEL( @selector( playlistIdentifier ) ) ];
+        [ newSelected.viewController setValue: newSelected.repPlaylistIdentifier forKey: TauKeyOfSel( @selector( playlistIdentifier ) ) ];
 
-        [ self didChangeValueForKey: TAU_KEY_OF_SEL( @selector( selectedTabs ) ) ];
+        [ self didChangeValueForKey: TauKeyOfSel( @selector( selectedTabs ) ) ];
         }
     }
 
@@ -116,7 +116,7 @@
         self.repPlaylistIdentifier = _PlaylistId;
         self.viewController = _ViewController;
 
-        [ _ViewController setValue: self.repPlaylistName forKey: TAU_KEY_OF_SEL( @selector( playlistName ) ) ];
+        [ _ViewController setValue: self.repPlaylistName forKey: TauKeyOfSel( @selector( playlistName ) ) ];
         }
 
     return self;

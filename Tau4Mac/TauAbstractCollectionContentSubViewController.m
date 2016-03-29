@@ -130,7 +130,7 @@ NSString* const TauShouldExposeContentCollectionItemNotif = @"Should.ExposeConte
         shouldExposeContentItemObserv_ =
 TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_BEGIN
         [ LRNotificationObserver observerForName: TauShouldExposeContentCollectionItemNotif
-                                          object: [ priContentCollectionViewController_ valueForKey: TAU_KEY_OF_SEL( @selector( contentCollectionView_ ) ) ]
+                                          object: [ priContentCollectionViewController_ valueForKey: TauKeyOfSel( @selector( contentCollectionView_ ) ) ]
                                            block:
 TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
         ^( NSNotification /* TauShouldExposeCollectionItemNotif*/ * _Notif )
@@ -147,15 +147,15 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
                 case TauYouTubePlayList:
                     {
                     c = [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
-                    [ c setValue: _Notif.playlistIdentifier forKey: TAU_KEY_OF_SEL( @selector( playlistIdentifier ) ) ];
-                    [ c setValue: _Notif.playlistName forKey: TAU_KEY_OF_SEL( @selector( playlistName ) ) ];
+                    [ c setValue: _Notif.playlistIdentifier forKey: TauKeyOfSel( @selector( playlistIdentifier ) ) ];
+                    [ c setValue: _Notif.playlistName forKey: TauKeyOfSel( @selector( playlistName ) ) ];
                     } break;
 
                 case TauYouTubeChannel:
                     {
                     c = [ [ TauChannelResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
-                    [ c setValue: _Notif.channelIdentifier forKey: TAU_KEY_OF_SEL( @selector( channelIdentifier ) ) ];
-                    [ c setValue: _Notif.channelName forKey: TAU_KEY_OF_SEL( @selector( channelName ) ) ];
+                    [ c setValue: _Notif.channelIdentifier forKey: TauKeyOfSel( @selector( channelIdentifier ) ) ];
+                    [ c setValue: _Notif.channelName forKey: TauKeyOfSel( @selector( channelName ) ) ];
                     } break;
 
                 case TauYouTubeUnknownContent:
@@ -177,7 +177,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 @dynamic hasPrev;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingHasPrev
     {
-    return [ NSSet setWithObjects: TAU_KEY_OF_SEL( @selector( prevToken_ ) ), nil ];
+    return [ NSSet setWithObjects: TauKeyOfSel( @selector( prevToken_ ) ), nil ];
     }
 
 - ( BOOL ) hasPrev
@@ -188,7 +188,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 @dynamic hasNext;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingHasNext
     {
-    return [ NSSet setWithObjects: TAU_KEY_OF_SEL( @selector( nextToken_ ) ), nil ];
+    return [ NSSet setWithObjects: TauKeyOfSel( @selector( nextToken_ ) ), nil ];
     }
 
 - ( BOOL ) hasNext
@@ -218,7 +218,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 @dynamic resultsSummaryText;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingResultsSummaryText
     {
-    return [ NSSet setWithObjects: TAU_KEY_OF_SEL( @selector( results ) ), nil ];
+    return [ NSSet setWithObjects: TauKeyOfSel( @selector( results ) ), nil ];
     }
 
 - ( NSString* ) resultsSummaryText

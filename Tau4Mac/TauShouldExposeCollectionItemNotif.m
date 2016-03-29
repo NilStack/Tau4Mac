@@ -118,7 +118,7 @@ void static* const kContentTypeAssocKey = @"kContentTypeAssocKey";
     if ( [ _YouTubeObject isKindOfClass: [ GTLYouTubeVideo class ] ]
             || [ _YouTubeObject isKindOfClass: [ GTLYouTubeChannel class ] ]
             || [ _YouTubeObject isKindOfClass: [ GTLYouTubePlaylist class ] ] )
-        identifier = [ _YouTubeObject valueForKey: TAU_KEY_OF_SEL( @selector( identifier ) ) ];
+        identifier = [ _YouTubeObject valueForKey: TauKeyOfSel( @selector( identifier ) ) ];
 
     /* GTLYouTubePlaylistItem, its identifier property is an NSString object encapsulated in a GTLYouTubePlaylistItemContentDetails object.
      */
@@ -129,7 +129,7 @@ void static* const kContentTypeAssocKey = @"kContentTypeAssocKey";
      */
     else if ( [ _YouTubeObject isKindOfClass: [ GTLYouTubeSearchResult class ] ] )
         {
-        GTLYouTubeResourceId* resourceIdentifier = [ _YouTubeObject valueForKey: TAU_KEY_OF_SEL( @selector( identifier ) ) ];
+        GTLYouTubeResourceId* resourceIdentifier = [ _YouTubeObject valueForKey: TauKeyOfSel( @selector( identifier ) ) ];
         NSDictionary* jsonDict = [ resourceIdentifier JSON ];
         identifier = [ jsonDict objectForKey: [ [ resourceIdentifier.kind componentsSeparatedByString: @"#" ].lastObject stringByAppendingString: @"Id" ] ];
         }

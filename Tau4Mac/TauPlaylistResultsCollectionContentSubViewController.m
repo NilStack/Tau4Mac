@@ -35,7 +35,7 @@
         {
         // Dangerous self-binding.
         // Unbinding in overrides of cancelAction:
-        [ self bind: TAU_KEY_OF_SEL( @selector( results ) ) toObject: self withKeyPath: TAU_KEY_OF_SEL( @selector( playlistItems ) ) options: nil ];
+        [ self bind: TauKeyOfSel( @selector( results ) ) toObject: self withKeyPath: TauKeyOfSel( @selector( playlistItems ) ) options: nil ];
         }
 
     return self;
@@ -81,7 +81,7 @@ TauDeallocEnd
 - ( IBAction ) cancelAction: ( id )_Sender
     {
     // Get rid of self-binding
-    [ self unbind: TAU_KEY_OF_SEL( @selector( results ) ) ];
+    [ self unbind: TauKeyOfSel( @selector( results ) ) ];
     [ super cancelAction: _Sender ];
     }
 

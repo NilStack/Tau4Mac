@@ -111,16 +111,16 @@
     id lhsObject = nil; lhsObject = self;
     id rhsObject = nil; rhsObject = self.exploreTabControl;
 
-    NSString* lhsKey = nil; lhsKey = TAU_KEY_OF_SEL( @selector( activedExploreTabViewTag ) );
-    NSString* rhsKey = nil; rhsKey = TAU_KEY_OF_SEL( @selector( activedTabTag ) );
+    NSString* lhsKey = nil; lhsKey = TauKeyOfSel( @selector( activedExploreTabViewTag ) );
+    NSString* rhsKey = nil; rhsKey = TauKeyOfSel( @selector( activedTabTag ) );
 
     [ lhsObject bind: lhsKey toObject: rhsObject withKeyPath: rhsKey options: nil ];
     [ rhsObject bind: rhsKey toObject: lhsObject withKeyPath: lhsKey options: nil ];
 
     /** Mutual Bindings between self.MeTubePlayground_ and self.tabsModelController_ **/
 
-    lhsObject = self.MeTubePlayground_; lhsKey = TAU_KEY_OF_SEL( @selector( selectedTabs ) );
-    rhsObject = self.tabsModelController_; rhsKey = TAU_KEY_OF_SEL( @selector( selectedObjects ) );
+    lhsObject = self.MeTubePlayground_; lhsKey = TauKeyOfSel( @selector( selectedTabs ) );
+    rhsObject = self.tabsModelController_; rhsKey = TauKeyOfSel( @selector( selectedObjects ) );
 
     [ lhsObject bind: lhsKey toObject: rhsObject withKeyPath: rhsKey options: nil ];
     [ rhsObject bind: rhsKey toObject: lhsObject withKeyPath: lhsKey options: nil ];
@@ -212,7 +212,7 @@ TauDeallocEnd
 @dynamic activedExploreTabViewController;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingActivedExploreTabViewController
     {
-    return [ NSSet setWithObjects: TAU_KEY_OF_SEL( @selector( activedExploreTabViewTag ) ), nil ];
+    return [ NSSet setWithObjects: TauKeyOfSel( @selector( activedExploreTabViewTag ) ), nil ];
     }
 
 - ( NSViewController* ) activedExploreTabViewController
@@ -235,7 +235,7 @@ TauDeallocEnd
 @synthesize tabs_ = priTabs_;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingTabs_
     {
-    return [ NSSet setWithObjects: TAU_KEY_OF_SEL( @selector( channels ) ), nil ];
+    return [ NSSet setWithObjects: TauKeyOfSel( @selector( channels ) ), nil ];
     }
 
 - ( NSArray <TauMeTubeTabItem*>* ) tabs_

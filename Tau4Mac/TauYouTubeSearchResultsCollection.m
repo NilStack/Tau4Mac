@@ -18,7 +18,7 @@
 // as it affects the value of the property
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingSearchResults
     {
-    return [ NSSet setWithObjects: TAU_KVO_KEY( ytCollectionObject ), nil ];
+    return [ NSSet setWithObjects: TauKVOKey( ytCollectionObject ), nil ];
     }
 
 - ( NSArray <GTLYouTubeSearchResult*>* ) searchResults

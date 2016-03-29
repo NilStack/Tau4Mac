@@ -28,15 +28,15 @@
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingValueForKey: ( NSString* )_Key
     {
     NSSet <NSString*>* paths = [ super keyPathsForValuesAffectingValueForKey: _Key ];
-    if ( [ _Key isEqualToString: TAU_KVO_KEY( item ) ]
-            || [ _Key isEqualToString: TAU_KVO_KEY( count ) ]
-            || [ _Key isEqualToString: TAU_KVO_KEY( firstObject ) ]
-            || [ _Key isEqualToString: TAU_KVO_KEY( lastObject ) ]
-            || [ _Key isEqualToString: TAU_KVO_KEY( resultsPerPage ) ]
-            || [ _Key isEqualToString: TAU_KVO_KEY( totalResults ) ]
-            || [ _Key isEqualToString: TAU_KVO_KEY( prevPageToken ) ]
-            || [ _Key isEqualToString: TAU_KVO_KEY( nextPageToken ) ] )
-        paths = [ NSSet setWithObjects: TAU_KVO_KEY( ytCollectionObject ), nil ];
+    if ( [ _Key isEqualToString: TauKVOKey( item ) ]
+            || [ _Key isEqualToString: TauKVOKey( count ) ]
+            || [ _Key isEqualToString: TauKVOKey( firstObject ) ]
+            || [ _Key isEqualToString: TauKVOKey( lastObject ) ]
+            || [ _Key isEqualToString: TauKVOKey( resultsPerPage ) ]
+            || [ _Key isEqualToString: TauKVOKey( totalResults ) ]
+            || [ _Key isEqualToString: TauKVOKey( prevPageToken ) ]
+            || [ _Key isEqualToString: TauKVOKey( nextPageToken ) ] )
+        paths = [ NSSet setWithObjects: TauKVOKey( ytCollectionObject ), nil ];
 
     return paths;
     }
@@ -133,7 +133,7 @@
     if ( ytCollectionObject_ )
         {
         @try {
-            token = [ ytCollectionObject_ valueForKey: TAU_KVO_KEY( prevPageToken ) ];
+            token = [ ytCollectionObject_ valueForKey: TauKVOKey( prevPageToken ) ];
         } @catch ( NSException* _Ex )
             {
             DDLogUnexpected( @"Exception captured: %@", _Ex );
@@ -151,7 +151,7 @@
         {
         @try {
             token = [ ytCollectionObject_
-             valueForKey: TAU_KVO_KEY( nextPageToken ) ];
+             valueForKey: TauKVOKey( nextPageToken ) ];
         } @catch ( NSException* _Ex )
             {
             DDLogUnexpected( @"Exception captured: %@", _Ex );
@@ -170,7 +170,7 @@
     GTLYouTubePageInfo* pageInfo = nil;
 
     @try {
-    pageInfo = [ ytCollectionObject_ valueForKey: TAU_KVO_KEY( pageInfo ) ];
+    pageInfo = [ ytCollectionObject_ valueForKey: TauKVOKey( pageInfo ) ];
     } @catch ( NSException* _Ex )
         {
         DDLogUnexpected( @"Exception captured: %@", _Ex );
