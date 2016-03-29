@@ -23,6 +23,7 @@
         type = TauYouTubeVideo;
 
     else if ( [ self isKindOfClass: [ GTLYouTubeChannel class ] ]
+            || [ self isKindOfClass: [ GTLYouTubeSubscription class ] ]
             || ( [ self isKindOfClass: [ GTLYouTubeSearchResult class ] ] && [ [ ( GTLYouTubeSearchResult* )self identifier ].kind isEqualToString: @"youtube#channel" ] ) )
         type = TauYouTubeChannel;
 

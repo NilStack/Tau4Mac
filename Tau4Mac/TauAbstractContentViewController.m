@@ -79,7 +79,7 @@
 @dynamic backgroundViewController;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingBackgroundViewController
     {
-    return [ NSSet setWithObjects: @"viewsStack.backgroundViewController", nil ];
+    return [ NSSet setWithObjects: FBKVOClassKeyPath( TauAbstractContentViewController, viewsStack.backgroundViewController ), nil ];
     }
 
 - ( NSViewController <TauContentSubViewController>* ) backgroundViewController
@@ -90,7 +90,7 @@
 @dynamic activedSubViewController;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingActivedSubViewController
     {
-    return [ NSSet setWithObjects: @"viewsStack.currentView", nil ];
+    return [ NSSet setWithObjects: FBKVOClassKeyPath( TauAbstractContentViewController, viewsStack.currentView) , nil ];
     }
 
 - ( NSViewController <TauContentSubViewController>* ) activedSubViewController
