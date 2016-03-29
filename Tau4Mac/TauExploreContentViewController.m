@@ -12,8 +12,8 @@
 #import "TauToolbarController.h"
 #import "TauToolbarItem.h"
 #import "TauExploreTabControl.h"
-#import "TauMeTubePlayground.h"
-#import "TauPlaylistResultsCollectionContentSubViewController.h"
+
+#import "TauMeTubeContentSubViewController.h"
 #import "TauSubscriptionsCollectionContentSubViewController.h"
 
 // TauExploreContentSubViewController class
@@ -59,26 +59,9 @@
 // Private
 @interface TauExploreContentSubViewController ()
 
-@property ( strong, readwrite ) TauYouTubeChannelsCollection* channels;
-
-@property ( strong, readonly ) NSArray <TauMeTubeTabItem*>* tabs_;
-@property ( weak ) IBOutlet NSArrayController* tabsModelController_;
-
 /****************************** MeTube ******************************/
+@property ( strong, readonly ) TauMeTubeContentSubViewController* MeTubeController_;
 
-@property ( strong, readonly ) NSViewController* MeTubeController_;
-
-@property ( weak ) IBOutlet NSSplitViewController* splitViewController_;
-
-@property ( strong, readonly ) NSSplitViewItem* playlistsOutlineSplitViewItem_;
-@property ( strong, readonly ) NSSplitViewItem* collectionViewsPlaygroundSplitViewItem_;
-
-// Wrapped guys below in xib for ease the feed of self.splitViewController_ (instance of NSSplitViewController)
-@property ( weak ) IBOutlet NSViewController* wrapperOfPlaylistsOutline_;
-@property ( weak ) IBOutlet NSViewController* wrapperOfMeTubePlayground_;
-
-@property ( weak ) IBOutlet NSTableView* palylistsOutline_;
-@property ( weak ) IBOutlet TauMeTubePlayground* MeTubePlayground_;
 
 /****************************** Subscription ******************************/
 
@@ -89,8 +72,6 @@
 // TauExploreContentSubViewController class
 @implementation TauExploreContentSubViewController
     {
-    TauYTDataServiceCredential __strong* channelMineCredential_;
-
     // Constraints caches
     NSArray <NSLayoutConstraint*>* activedPinEdgesCache_;
     }
@@ -106,24 +87,16 @@
 
 - ( void ) viewDidLoad
     {
-    /************* Mutual Bindings between self and self.exploreTabControl *************/
-
     id lhsObject = nil;
     id rhsObject = nil;
 
     NSString* lhsKey = nil;
     NSString* rhsKey = nil;
 
+    /************* Mutual Bindings between self and self.exploreTabControl *************/
+
     lhsObject = self; lhsKey = TauKVOKey( activedExploreTabViewTag );
     rhsObject = self.exploreTabControl; rhsKey = TauKVOKey( activedTabTag );
-
-    [ lhsObject bind: lhsKey toObject: rhsObject withKeyPath: rhsKey options: nil ];
-    [ rhsObject bind: rhsKey toObject: lhsObject withKeyPath: lhsKey options: nil ];
-
-    /** Mutual Bindings between self.MeTubePlayground_ and self.tabsModelController_ **/
-
-    lhsObject = self.MeTubePlayground_; lhsKey = TauKVOKey( selectedTabs );
-    rhsObject = self.tabsModelController_; rhsKey = TauKVOKey( selectedObjects );
 
     [ lhsObject bind: lhsKey toObject: rhsObject withKeyPath: rhsKey options: nil ];
     [ rhsObject bind: rhsKey toObject: lhsObject withKeyPath: lhsKey options: nil ];
@@ -134,7 +107,7 @@
     }
 
 TauDeallocBegin
-    // Instances of TauExploreContentSubViewController and TauExploreTabControl will never be dealloced until the app is terminated,
+    // self and self.exploreTabControl will never be dealloced until the app is terminated,
     // so there is no need to unbind them explicitly.
 TauDeallocEnd
 
@@ -145,19 +118,14 @@ TauDeallocEnd
     {
     return [ NSSet setWithObjects:
           TauKVOKey( activedExploreTabViewTag )
-        , @"MeTubePlayground_.titlebarAccessoryViewControllerWhileActive"
+        , @"MeTubeController_.titlebarAccessoryViewControllerWhileActive"
+        , @"subscriptionsController_.titlebarAccessoryViewControllerWhileActive"
         , nil ];
     }
 
 - ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
     {
-    id object = nil;
-    if ( self.activedExploreTabViewTag == TauExploreSubTabMeTubeTag )
-        object = self.MeTubePlayground_;
-    else if ( self.activedExploreTabViewTag == TauExploreSubTabSubscriptionsTag )
-        object = self.subscriptionsController_;
-
-    NSTitlebarAccessoryViewController* c = [ object valueForKey: TauKVOKey( titlebarAccessoryViewControllerWhileActive ) ];
+    NSTitlebarAccessoryViewController* c = [ self.activedExploreTabViewController valueForKey: TauKVOKey( titlebarAccessoryViewControllerWhileActive ) ];
     return c;
     }
 
@@ -242,89 +210,11 @@ TauDeallocEnd
 
 #pragma mark - Private
 
-@synthesize channels = channels_;
-
-@synthesize tabs_ = priTabs_;
-+ ( NSSet <NSString*>* ) keyPathsForValuesAffectingTabs_
-    {
-    return [ NSSet setWithObjects: TauKeyOfSel( @selector( channels ) ), nil ];
-    }
-
-- ( NSArray <TauMeTubeTabItem*>* ) tabs_
-    {
-    if ( channels_.channels.count > 0 )
-        {
-        if ( !priTabs_ )
-            {
-            GTLYouTubeChannelContentDetailsRelatedPlaylists* relatedPlaylists = [ channels_.firstObject valueForKeyPath: @"contentDetails.relatedPlaylists" ];
-            priTabs_ =
-                @[ [ [ TauMeTubeTabItem alloc ] initWithTitle: NSLocalizedString( @"Likes", @"\"Likes\" tab in MeTube outline view" ) playlistName: @"Liked Videos" playlistIdentifier: relatedPlaylists.likes viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
-                 , [ [ TauMeTubeTabItem alloc ] initWithTitle: NSLocalizedString( @"Uploads", @"\"Uploads\" tab in MeTube outline view" ) playlistName: @"Uploads" playlistIdentifier: relatedPlaylists.uploads viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
-                 , [ [ TauMeTubeTabItem alloc ] initWithTitle: NSLocalizedString( @"Watch History", @"\"Watch History\" tab in MeTube outline view" ) playlistName: @"Watch History" playlistIdentifier: relatedPlaylists.watchHistory viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
-                 , [ [ TauMeTubeTabItem alloc ] initWithTitle: NSLocalizedString( @"Watch Later", @"\"Watch Later\" tab in MeTube outline view" ) playlistName: @"Watch Later" playlistIdentifier: relatedPlaylists.watchLater viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
-                 ];
-             }
-
-        return priTabs_;
-        }
-    else
-        return ( priTabs_ = nil );
-    }
-
-- ( NSUInteger ) countOfTabs_
-    {
-    return priTabs_.count;
-    }
-
-- ( NSArray <TauMeTubeTabItem*>* ) tabs_AtIndexes: ( NSIndexSet* )_Indexes
-    {
-    return [ priTabs_ objectsAtIndexes: _Indexes ];
-    }
-
-- ( void ) getTabs_: ( TauMeTubeTabItem* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
-    {
-    [ priTabs_ getObjects: _Buffer range: _InRange ];
-    }
-
 @synthesize MeTubeController_ = priMeTubeController_;
-- ( NSViewController* ) MeTubeController_
+- ( TauMeTubeContentSubViewController* ) MeTubeController_
     {
     if ( !priMeTubeController_ )
-        {
-        priMeTubeController_ = [ [ NSViewController alloc ] initWithNibName: nil bundle: nil ];
-
-        NSView* priMeTubeView = [ [ NSView alloc ] initWithFrame: NSZeroRect ];
-        [ priMeTubeView setWantsLayer: YES ];
-        [ priMeTubeController_ setView: [ priMeTubeView configureForAutoLayout ] ];
-
-        /*************** Embedding the split view controller ***************/
-
-        [ self.splitViewController_ addSplitViewItem: self.playlistsOutlineSplitViewItem_ ];
-        [ self.splitViewController_ addSplitViewItem: self.collectionViewsPlaygroundSplitViewItem_ ];
-
-        [ priMeTubeController_ addChildViewController: self.splitViewController_ ];
-        [ priMeTubeController_.view addSubview: [ self.splitViewController_.view configureForAutoLayout ] ];
-        [ self.splitViewController_.view autoPinEdgesToSuperviewEdges ];
-
-        /*************** Embedding the split view controller ***************/
-
-        NSDictionary* operations =
-            @{ TauTDSOperationMaxResultsPerPage : @1
-             , TauTDSOperationRequirements : @{ TauTDSOperationRequirementMine : @"true" }
-             , TauTDSOperationPartFilter : @"contentDetails,snippet,statistics,topicDetails"
-             };
-
-        id consumer = self;
-
-        channelMineCredential_ = [ [ TauYTDataService sharedService ] registerConsumer: consumer withMethodSignature: [ self methodSignatureForSelector: _cmd ] consumptionType: TauYTDataServiceConsumptionChannelsType ];
-        [ [ TauYTDataService sharedService ] executeConsumerOperations: operations
-                                                        withCredential: channelMineCredential_
-                                                               success: nil
-        failure: ^( NSError* _Error )
-            {
-            DDLogRecoverable( @"Failed to fetch \"mine channel\" due to {%@}", _Error );
-            } ];
-        }
+        priMeTubeController_ = [ [ TauMeTubeContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
 
     return priMeTubeController_;
     }
@@ -335,39 +225,10 @@ TauDeallocEnd
     if ( !priSubscriptionsController_ )
         {
         priSubscriptionsController_ = [ [ TauSubscriptionsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
-
-        [ priSubscriptionsController_ addChildViewController: priSubscriptionsController_ ];
-        [ self.view addSubview: [ priSubscriptionsController_.view configureForAutoLayout ] ];
-        [ priSubscriptionsController_.view autoPinEdgesToSuperviewEdges ];
-
         [ priSubscriptionsController_ setMine: YES ];
         }
 
     return priSubscriptionsController_;
-    }
-
-@synthesize playlistsOutlineSplitViewItem_ = priPlaylistsOutlineSplitViewItem_;
-- ( NSSplitViewItem* ) playlistsOutlineSplitViewItem_
-    {
-    if ( !priPlaylistsOutlineSplitViewItem_ )
-        {
-        priPlaylistsOutlineSplitViewItem_ = [ NSSplitViewItem sidebarWithViewController: self.wrapperOfPlaylistsOutline_ ];
-        [ priPlaylistsOutlineSplitViewItem_ setCanCollapse: NO ];
-        }
-
-    return priPlaylistsOutlineSplitViewItem_;
-    }
-
-@synthesize collectionViewsPlaygroundSplitViewItem_ = priCollectionViewsPlaygroundSplitViewItem_;
-- ( NSSplitViewItem* ) collectionViewsPlaygroundSplitViewItem_
-    {
-    if ( !priCollectionViewsPlaygroundSplitViewItem_ )
-        {
-        priCollectionViewsPlaygroundSplitViewItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfMeTubePlayground_ ];
-        [ priCollectionViewsPlaygroundSplitViewItem_ setCanCollapse: NO ];
-        }
-
-    return priCollectionViewsPlaygroundSplitViewItem_;
     }
 
 @end // TauExploreContentSubViewController class

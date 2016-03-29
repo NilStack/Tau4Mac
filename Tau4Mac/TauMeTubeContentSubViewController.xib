@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="TauMeTubeContentSubViewController">
+            <connections>
+                <outlet property="MeTubePlayground_" destination="ffK-lM-bWT" id="ME7-lD-80d"/>
+                <outlet property="palylistsOutline_" destination="BlQ-yC-ImC" id="oV8-dy-Cpu"/>
+                <outlet property="splitViewController_" destination="49B-Pw-FeR" id="80w-XW-Y5N"/>
+                <outlet property="tabsModelController_" destination="TCK-xb-ePW" id="UbE-sC-dAl"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+                <outlet property="wrapperOfMeTubePlayground_" destination="GxG-e7-pjO" id="X7K-6Z-8N2"/>
+                <outlet property="wrapperOfPlaylistsOutline_" destination="7aw-Ve-ofa" id="mzY-Dv-bso"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <point key="canvasLocation" x="-121" y="-246"/>
+        </customView>
+        <viewController id="GxG-e7-pjO">
+            <connections>
+                <outlet property="view" destination="ffK-lM-bWT" id="EmF-mH-0lV"/>
+            </connections>
+        </viewController>
+        <customView id="ffK-lM-bWT" customClass="TauMeTubePlayground">
+            <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <point key="canvasLocation" x="-93.5" y="-616"/>
+        </customView>
+        <viewController id="7aw-Ve-ofa">
+            <connections>
+                <outlet property="view" destination="yPq-Qg-hAn" id="aIz-g4-FcF"/>
+            </connections>
+        </viewController>
+        <viewController id="49B-Pw-FeR" customClass="NSSplitViewController">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="splitView.vertical" value="YES"/>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="view.wantsLayer" value="YES"/>
+            </userDefinedRuntimeAttributes>
+        </viewController>
+        <arrayController objectClassName="TauMeTubeTabItem" id="TCK-xb-ePW" userLabel="Tabs Model">
+            <connections>
+                <binding destination="-2" name="contentArray" keyPath="self.tabs_" id="Djc-6G-Tle"/>
+            </connections>
+        </arrayController>
+        <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="41" horizontalPageScroll="10" verticalLineScroll="41" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="yPq-Qg-hAn" userLabel="Scroll View - Playlist Outline">
+            <rect key="frame" x="0.0" y="0.0" width="230" height="518"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <clipView key="contentView" drawsBackground="NO" id="rHV-Sn-Wut">
+                <rect key="frame" x="0.0" y="0.0" width="230" height="518"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="39" rowSizeStyle="automatic" viewBased="YES" id="BlQ-yC-ImC">
+                        <rect key="frame" x="0.0" y="0.0" width="226.5" height="0.0"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <size key="intercellSpacing" width="3" height="2"/>
+                        <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                        <tableColumns>
+                            <tableColumn width="223.26953125" minWidth="40" maxWidth="1000" id="Q5o-FZ-0Uq">
+                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                </tableHeaderCell>
+                                <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="Jok-Tq-fAb">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                <prototypeCellViews>
+                                    <tableCellView id="hEd-gQ-M8c">
+                                        <rect key="frame" x="1" y="1" width="224" height="39"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O9u-oH-DMs">
+                                                <rect key="frame" x="38" y="8" width="173" height="21"/>
+                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="kgc-PE-dNB">
+                                                    <font key="font" metaFont="system" size="15"/>
+                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                                <connections>
+                                                    <binding destination="hEd-gQ-M8c" name="value" keyPath="objectValue.tabTitle" id="TfP-Qm-kIA"/>
+                                                </connections>
+                                            </textField>
+                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="85E-kD-Lx6">
+                                                <rect key="frame" x="5" y="4" width="30" height="30"/>
+                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="8os-CD-d3n"/>
+                                            </imageView>
+                                        </subviews>
+                                        <connections>
+                                            <outlet property="textField" destination="O9u-oH-DMs" id="Mp5-yp-ucF"/>
+                                        </connections>
+                                    </tableCellView>
+                                </prototypeCellViews>
+                            </tableColumn>
+                        </tableColumns>
+                        <connections>
+                            <binding destination="TCK-xb-ePW" name="content" keyPath="arrangedObjects" id="Igc-c9-qFx"/>
+                            <binding destination="TCK-xb-ePW" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="Igc-c9-qFx" id="23w-yj-oGM"/>
+                        </connections>
+                    </tableView>
+                </subviews>
+                <nil key="backgroundColor"/>
+            </clipView>
+            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="ZBS-5u-0Cu">
+                <rect key="frame" x="1" y="117" width="237" height="16"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </scroller>
+            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="XQL-N2-IYA">
+                <rect key="frame" x="224" y="17" width="15" height="102"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </scroller>
+            <point key="canvasLocation" x="-600" y="-581"/>
+        </scrollView>
+        <userDefaultsController representsSharedInstance="YES" id="fdt-A8-SeR"/>
+    </objects>
+    <resources>
+        <image name="NSActionTemplate" width="14" height="14"/>
+    </resources>
+</document>
