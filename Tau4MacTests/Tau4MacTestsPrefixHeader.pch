@@ -14,10 +14,9 @@
 
 @import XCTest;
 @import CocoaLumberjack;
+@import KVOController;
 
 #import "TauLogging.h"
-
-#import "FBKVOController.h"
 #import "GTLYouTube.h"
 #import "OAuthSigningConstants.h"
 

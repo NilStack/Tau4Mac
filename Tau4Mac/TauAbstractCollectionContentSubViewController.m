@@ -31,7 +31,8 @@
 
 // Writability Swizzling
 @property ( assign, readwrite, setter = setPaging: ) BOOL isPaging;   // KVB compliant
-@property ( weak, readwrite ) NSArray <GTLObject*>* results;    // KVB compliant
+//@property ( weak, readwrite ) NSArray <GTLObject*>* results;    // KVB compliant
+@property ( weak, readwrite ) TauAbstractResultCollection* results;    // KVB compliant
 
 // Internal
 @property ( strong, readwrite ) NSString* prevToken_;   // KVB-compliant
@@ -86,7 +87,7 @@ NSString* const TauShouldExposeContentCollectionItemNotif = @"Should.ExposeConte
 
 #pragma mark - Conforms to <TauContentCollectionViewRelayDataSource>
 
-- ( NSArray <GTLObject*>* ) contentCollectionViewRequiredData: ( TauContentCollectionViewController* )_Controller
+- ( TauAbstractResultCollection* ) contentCollectionViewRequiredData: ( TauContentCollectionViewController* )_Controller
     {
     return self.results;
     }
@@ -240,7 +241,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
     return NO;
     }
 
-- ( void ) setResults: ( NSArray <GTLObject*>* )_New
+- ( void ) setResults: ( TauAbstractResultCollection* )_New
     {
     if ( results_ != _New )
         {
@@ -252,7 +253,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
         }
     }
 
-- ( NSArray <GTLObject*>* ) results
+- ( TauAbstractResultCollection* ) results
     {
     return results_;
     }
@@ -260,16 +261,6 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 - ( NSUInteger ) countOfResults
     {
     return results_.count;
-    }
-
-- ( NSArray <GTLObject*>* ) resultsAtIndexes: ( NSIndexSet* )_Indexes
-    {
-    return [ results_ objectsAtIndexes: _Indexes ];
-    }
-
-- ( void ) getResults: ( GTLObject** )_Buffer range: ( NSRange )_InRange
-    {
-    [ self getResults: _Buffer range: _InRange ];
     }
 
 @synthesize originalOperationsCombination = originalOperationsCombination_;

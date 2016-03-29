@@ -60,3 +60,8 @@ NSString extern* const TauTDSOperationRequirements;
 @required
 @optional
 @end // TauYTDataServiceConsumer protocol
+
+#import "TauYouTubeSearchResultsCollection.h"
+#import "TauYouTubeChannelsCollection.h"
+#import "TauYouTubePlaylistsCollection.h"
+#import "TauYouTubePlaylistItemsCollection.h"

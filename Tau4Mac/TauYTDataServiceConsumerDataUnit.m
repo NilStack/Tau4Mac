@@ -14,6 +14,13 @@
 #import "TauYouTubePlaylistsCollection.h"
 #import "TauYouTubePlaylistItemsCollection.h"
 
+// Private
+@interface TauYTDataServiceConsumerDataUnit ()
+
+@property ( strong, readwrite ) TauAbstractResultCollection* resultCollection_;
+
+@end // Private
+
 // TauYTDataServiceConsumerDataUnit class
 @implementation TauYTDataServiceConsumerDataUnit
     {
@@ -21,13 +28,14 @@
     TauYTDataServiceCredential __strong* credential_;
 
     GTLServiceTicket __strong* ytTicket_;
-    TauAbstractResultCollection __strong* resultCollection_;
     }
 
 + ( BOOL ) accessInstanceVariablesDirectly
     {
     return NO;
     }
+
+@synthesize resultCollection_ = resultCollection_;
 
 @dynamic consumer;
 @dynamic credential;
@@ -90,7 +98,7 @@
                 resultCollection_ = [ [ modelClass alloc ] initWithGTLCollectionObject: _Resp ];
 
                 NSString* bindKeyPath = [ self bindKeyPathForConsumptionType_: credential_.consumptionType ];
-                [ ( NSObject* )consumer_ bind: bindKeyPath toObject: resultCollection_ withKeyPath: bindKeyPath options: nil ];
+                [ ( NSObject* )consumer_ bind: bindKeyPath toObject: self withKeyPath: FBKVOClassKeyPath( TauYTDataServiceConsumerDataUnit, resultCollection_ ) options: nil ];
                 }
             else
                 // An object observing the searchResults / channels / playlists / playlistItems properties must be notified

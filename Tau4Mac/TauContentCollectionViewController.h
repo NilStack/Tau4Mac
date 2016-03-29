@@ -36,7 +36,7 @@
 @protocol TauContentCollectionViewRelayDataSource <NSObject>
 
 @required
-- ( NSArray <GTLObject*>* ) contentCollectionViewRequiredData: ( TauContentCollectionViewController* )_Controller;
+- ( TauAbstractResultCollection* ) contentCollectionViewRequiredData: ( TauContentCollectionViewController* )_Controller;
 
 @end // TauContentCollectionViewRelayDataSource protocol
 

@@ -58,7 +58,8 @@
 // Private
 @interface TauExploreContentSubViewController ()
 
-@property ( strong, readwrite ) NSArray <GTLYouTubeChannel*>* channels;
+//@property ( strong, readwrite ) NSArray <GTLYouTubeChannel*>* channels;
+@property ( strong, readwrite ) TauYouTubeChannelsCollection* channels;
 
 @property ( strong, readonly ) NSArray <TauMeTubeTabItem*>* tabs_;
 @property ( weak ) IBOutlet NSArrayController* tabsModelController_;
@@ -239,11 +240,11 @@ TauDeallocEnd
 
 - ( NSArray <TauMeTubeTabItem*>* ) tabs_
     {
-    if ( channels_.count > 0 )
+    if ( channels_.channels.count > 0 )
         {
         if ( !priTabs_ )
             {
-            GTLYouTubeChannelContentDetailsRelatedPlaylists* relatedPlaylists = [ channels_.firstObject valueForKeyPath: @"contentDetails.relatedPlaylists" ];
+            GTLYouTubeChannelContentDetailsRelatedPlaylists* relatedPlaylists = [ channels_.channels.firstObject valueForKeyPath: @"contentDetails.relatedPlaylists" ];
             priTabs_ =
                 @[ [ [ TauMeTubeTabItem alloc ] initWithTitle: NSLocalizedString( @"Likes", @"\"Likes\" tab in MeTube outline view" ) playlistName: @"Liked Videos" playlistIdentifier: relatedPlaylists.likes viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
                  , [ [ TauMeTubeTabItem alloc ] initWithTitle: NSLocalizedString( @"Uploads", @"\"Uploads\" tab in MeTube outline view" ) playlistName: @"Uploads" playlistIdentifier: relatedPlaylists.uploads viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]

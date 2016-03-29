@@ -30,7 +30,8 @@
 
 #pragma mark - TDS Related
 
-@property ( weak, readonly ) NSArray <GTLObject*>* results;    // KVB compliant
+//@property ( weak, readonly ) NSArray <GTLObject*>* results;    // KVB compliant
+@property ( weak, readonly ) TauAbstractResultCollection* results;    // KVB compliant
 @property ( strong, readwrite ) NSDictionary* originalOperationsCombination;
 
 #pragma mark - Actions

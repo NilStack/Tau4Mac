@@ -49,7 +49,39 @@
     return self;
     }
 
-#pragma mark - Properties
+#pragma mark - External KVO Compliant Properties
+
+@dynamic items;
+- ( NSArray <GTLObject*>* ) items
+    {
+    return ytBackingCollectionObject_.items;
+    }
+
+- ( NSUInteger ) countOfItems
+    {
+    return self.items.count;
+    }
+
+- ( NSArray <GTLObject*>* ) itemsAtIndexes: ( NSIndexSet* )_Indexes
+    {
+    return [ self.items objectsAtIndexes: _Indexes ];
+    }
+
+- ( void ) getItems: ( GTLObject * __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
+    {
+    [ self.items getObjects: _Buffer range: _InRange ];
+    }
+
+@dynamic count;
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingCount
+    {
+    return [ NSSet setWithObjects: FBKVOClassKeyPath( TauAbstractResultCollection, items ), nil ];
+    }
+
+- ( NSUInteger ) count
+    {
+    return self.items.count;
+    }
 
 @dynamic resultsPerPage;
 @dynamic totalResults;
@@ -126,7 +158,7 @@
 #pragma mark - Private Interfaces
 
 @dynamic pageInfo_;
-@synthesize ytBackingCollectionObject_;
+@synthesize ytBackingCollectionObject_ = ytBackingCollectionObject_;
 
 - ( GTLYouTubePageInfo* ) pageInfo_
     {

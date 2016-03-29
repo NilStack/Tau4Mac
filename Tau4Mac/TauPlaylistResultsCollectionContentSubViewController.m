@@ -12,7 +12,8 @@
 @interface TauPlaylistResultsCollectionContentSubViewController ()
 
 // Model: Feed me, if you dare.
-@property ( strong, readwrite ) NSArray <GTLYouTubePlaylistItem*>* playlistItems;   // KVB-compliant
+//@property ( strong, readwrite ) NSArray <GTLYouTubePlaylistItem*>* playlistItems;   // KVB-compliant
+@property ( strong, readwrite ) TauYouTubePlaylistsCollection* playlistItems;   // KVB-compliant
 
 @end // Private
 
@@ -112,30 +113,15 @@ TauDeallocEnd
 
 // Directly invoked by TDS.
 // We should never invoke this method explicitly.
-- ( void ) setPlaylistItems: ( NSArray <GTLYouTubePlaylistItem*>* )_New
+- ( void ) setPlaylistItems: ( TauYouTubePlaylistsCollection* )_New
     {
     if ( playlistItems_ != _New )
         TAU_CHANGE_VALUE_FOR_KEY_of_SEL( @selector( playlistItems ), ^{ playlistItems_ = _New; } );
     }
 
-- ( NSArray <GTLYouTubePlaylistItem*>* ) playlistItems
+- ( TauYouTubePlaylistsCollection* ) playlistItems
     {
     return playlistItems_;
-    }
-
-- ( NSUInteger ) countOfPlaylistItems
-    {
-    return playlistItems_.count;
-    }
-
-- ( NSArray <GTLYouTubePlaylistItem*>* ) playlistItemsAtIndexes: ( NSIndexSet* )_Indexes
-    {
-    return [ playlistItems_ objectsAtIndexes: _Indexes ];
-    }
-
-- ( void ) getPlaylistItems: ( GTLYouTubePlaylistItem* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
-    {
-    [ playlistItems_ getObjects: _Buffer range: _InRange ];
     }
 
 @end // TauPlaylistResultsCollectionContentSubViewController class

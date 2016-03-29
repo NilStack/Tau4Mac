@@ -113,7 +113,7 @@ TauDeallocEnd
     {
     NSMutableOrderedSet* result = nil;
 
-    NSArray* relayedDataModel = [ self.relayDataSource contentCollectionViewRequiredData: self ];
+    TauAbstractResultCollection* relayedDataModel = [ self.relayDataSource contentCollectionViewRequiredData: self ];
 
     NSSet <NSIndexPath*>* newIndexPaths = self.selectionIndexPaths;
 
@@ -133,7 +133,7 @@ TauDeallocEnd
                 if ( !result )
                     result = [ NSMutableOrderedSet orderedSet ];
 
-                [ result addObject: [ relayedDataModel objectAtIndex: indexesBuffer[ _Index ] ] ];
+                [ result addObject: [ relayedDataModel.items objectAtIndex: indexesBuffer[ _Index ] ] ];
                 }
             }
 
@@ -158,7 +158,7 @@ TauDeallocEnd
 - ( NSCollectionViewItem* ) collectionView: ( NSCollectionView* )_CollectionView itemForRepresentedObjectAtIndexPath: ( NSIndexPath* )_IndexPath
     {
     NSCollectionViewItem* item = [ _CollectionView makeItemWithIdentifier: kContentCollectionItemID forIndexPath: _IndexPath ];
-    item.representedObject = [ [ self.relayDataSource contentCollectionViewRequiredData: self ] objectAtIndex: [ _IndexPath item ] ];
+    item.representedObject = [ [ self.relayDataSource contentCollectionViewRequiredData: self ].items objectAtIndex: [ _IndexPath item ] ];
     return item;
     }
 
