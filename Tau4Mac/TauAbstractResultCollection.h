@@ -6,6 +6,34 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
+/***************** Utility Macros *****************/
+
+
+
+#define TauTDSResultsCollectionGetterIndexedAccessorsGenerator( _lowerSin, _UpperSin, _lowerCplx, _UpperCplx ) \
+@dynamic _lowerCplx;\
++ ( NSSet <NSString*>* ) keyPathsForValuesAffecting##_UpperCplx \
+    { return [ NSSet setWithObjects: TauKVOKey( ytCollectionObject ), nil ]; } \
+\
+- ( NSArray <GTLYouTube##_UpperSin*>* ) _lowerCplx \
+    { return ( NSArray <GTLYouTube##_UpperSin*>* )( self.ytCollectionObject.items ); } \
+\
+- ( NSUInteger ) countOf##_UpperCplx \
+    { return self._lowerCplx.count; } \
+\
+- ( NSArray* ) _lowerCplx##AtIndexes: ( NSIndexSet* )_Indexes \
+    { return [ self._lowerCplx objectsAtIndexes: _Indexes ]; } \
+\
+- ( void ) get##_UpperCplx: ( GTLYouTube##_UpperSin* __unsafe_unretained* )_Buffer \
+                     range: ( NSRange )_InRange \
+    { [ self._lowerCplx getObjects: _Buffer range: _InRange ]; }
+
+
+
+/***************** Class Declarations *****************/
+
+
+
 // TauAbstractResultCollection class
 @interface TauAbstractResultCollection : NSObject <NSFastEnumeration>
 

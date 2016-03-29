@@ -91,7 +91,7 @@ TauDeallocEnd
     NSUInteger __block playlistsCount = 0u;
     NSUInteger __block videosCount = 0u;
 
-    for ( GTLYouTubeSearchResult* _Nonnull _Result in searchResults_ )
+    for ( GTLYouTubeSearchResult* _Nonnull _Result in searchResults_.searchResults )
         {
         NSString* kindString = _Result.identifier.kind;
         if ( [ kindString isEqualToString: @"youtube#channel" ] )

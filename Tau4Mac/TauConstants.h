@@ -134,27 +134,27 @@ typedef NS_ENUM ( NSUInteger, TauYTDataServiceConsumptionType )
 
 
 
-#define TAU_CLANG_DIAGNOSTIC_PUSH _Pragma("clang diagnostic push")
-#define TAU_CLANG_DIAGNOSTIC_POP _Pragma("clang diagnostic pop")
+#define TAU_CLANG_DIAGNOSTIC_PUSH _Pragma( "clang diagnostic push" )
+#define TAU_CLANG_DIAGNOSTIC_POP _Pragma( "clang diagnostic pop" )
 
 // To suppress the "PerformSelector may cause a leak because its selector is unknown" warning
 #define TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_BEGIN\
     TAU_CLANG_DIAGNOSTIC_PUSH\
-    _Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"")
+    _Pragma( "clang diagnostic ignored \"-Warc-performSelector-leaks\"" )
     
 #define TAU_SUPPRESS_PERFORM_SELECTOR_LEAK_WARNING_COMMIT TAU_CLANG_DIAGNOSTIC_POP
 
 // Get rid of the 'undeclared selector' warning
 #define TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_BEGIN\
     TAU_CLANG_DIAGNOSTIC_PUSH\
-    _Pragma("clang diagnostic ignored \"-Wundeclared-selector\"")
+    _Pragma( "clang diagnostic ignored \"-Wundeclared-selector\"" )
 
 #define TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT TAU_CLANG_DIAGNOSTIC_POP
 
 // Get rid of the 'undeclared selector' warning
 #define TAU_FATAL_UNDECLARED_SELECTOR_WARNING_BEGIN\
     TAU_CLANG_DIAGNOSTIC_PUSH\
-    _Pragma("clang diagnostic fatal \"-Wundeclared-selector\"")
+    _Pragma( "clang diagnostic fatal \"-Wundeclared-selector\"" )
 
 #define TAU_FATAL_UNDECLARED_SELECTOR_WARNING_COMMIT TAU_CLANG_DIAGNOSTIC_POP
 
