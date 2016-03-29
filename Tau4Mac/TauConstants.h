@@ -16,6 +16,7 @@
 
 
 #define TAU_KEY_OF_SEL( _Sel ) ( NSStringFromSelector( _Sel ) )
+#define TAU_KVO_KEY( _Sel ) TAU_KEY_OF_SEL( @selector( _Sel ) )
 
 #define TAU_CHANGE_VALUE_BEGIN( _Key )  ( [ self willChangeValueForKey: _Key ] )
 #define TAU_CHANGE_VALUE_COMMIT( _Key ) ( [ self didChangeValueForKey: _Key ] )

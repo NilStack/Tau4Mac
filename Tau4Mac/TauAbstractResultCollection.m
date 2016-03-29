@@ -11,7 +11,6 @@
 // Private Interfaces
 @interface TauAbstractResultCollection ()
 
-@property ( copy, readwrite ) GTLCollectionObject* ytBackingCollectionObject_;
 @property ( strong, readonly ) GTLYouTubePageInfo* pageInfo_;
 
 @end // Private Interfaces
@@ -30,15 +29,15 @@
     {
     NSSet <NSString*>* paths = [ super keyPathsForValuesAffectingValueForKey: _Key ];
 
-    if ( [ _Key isEqualToString: FBKVOKeyPath( TAU_KEY_OF_SEL( @selector( items ) ) ) ]
-            || [ _Key isEqualToString: FBKVOKeyPath( TAU_KEY_OF_SEL( @selector( count ) ) ) ]
-            || [ _Key isEqualToString: FBKVOKeyPath( TAU_KEY_OF_SEL( @selector( firstObject ) ) ) ]
-            || [ _Key isEqualToString: FBKVOKeyPath( TAU_KEY_OF_SEL( @selector( lastObject ) ) ) ]
-            || [ _Key isEqualToString: FBKVOKeyPath( kResultsPerPageKey ) ]
-            || [ _Key isEqualToString: FBKVOKeyPath( kTotalResultsKey ) ]
-            || [ _Key isEqualToString: FBKVOKeyPath( kPrevPageTokenKey ) ]
-            || [ _Key isEqualToString: FBKVOKeyPath( kNextPageTokenKey ) ] )
-        paths = [ NSSet setWithObjects: FBKVOKeyPath( kYtBackingCollectionObjectKey ), nil ];
+    if ( [ _Key isEqualToString: TAU_KVO_KEY( items ) ]
+            || [ _Key isEqualToString: TAU_KVO_KEY( count ) ]
+            || [ _Key isEqualToString: TAU_KVO_KEY( firstObject ) ]
+            || [ _Key isEqualToString: TAU_KVO_KEY( lastObject ) ]
+            || [ _Key isEqualToString: TAU_KVO_KEY( resultsPerPage ) ]
+            || [ _Key isEqualToString: TAU_KVO_KEY( totalResults ) ]
+            || [ _Key isEqualToString: TAU_KVO_KEY( prevPageToken ) ]
+            || [ _Key isEqualToString: TAU_KVO_KEY( nextPageToken ) ] )
+        paths = [ NSSet setWithObjects: TAU_KVO_KEY( ytCollectionObject ), nil ];
 
     return paths;
     }
@@ -48,7 +47,7 @@
 - ( instancetype ) initWithGTLCollectionObject: ( GTLCollectionObject* )_GTLCollectionObject
     {
     if ( self = [ super init ] )
-        self.ytBackingCollectionObject_ = _GTLCollectionObject;
+        ytCollectionObject_ = _GTLCollectionObject;
 
     return self;
     }
@@ -57,15 +56,17 @@
 
 - ( NSUInteger ) countByEnumeratingWithState: ( NSFastEnumerationState* )_State objects: ( __unsafe_unretained id _Nonnull* )_Buffer count: ( NSUInteger )_Len
     {
-    return [ ytBackingCollectionObject_ countByEnumeratingWithState: _State objects: _Buffer count: _Len ];
+    return [ ytCollectionObject_ countByEnumeratingWithState: _State objects: _Buffer count: _Len ];
     }
 
 #pragma mark - External KVO Compliant Properties
 
+@synthesize ytCollectionObject = ytCollectionObject_;
+
 @dynamic items;
 - ( NSArray <GTLObject*>* ) items
     {
-    return ytBackingCollectionObject_.items;
+    return ytCollectionObject_.items;
     }
 
 - ( NSUInteger ) countOfItems
@@ -130,10 +131,10 @@
     {
     NSString* token = nil;
 
-    if ( ytBackingCollectionObject_ )
+    if ( ytCollectionObject_ )
         {
         @try {
-            token = [ ytBackingCollectionObject_ valueForKey: @"prevPageToken" ];
+            token = [ ytCollectionObject_ valueForKey: TAU_KVO_KEY( prevPageToken ) ];
         } @catch ( NSException* _Ex )
             {
             DDLogUnexpected( @"Exception captured: %@", _Ex );
@@ -147,11 +148,11 @@
     {
     NSString* token = nil;
 
-    if ( ytBackingCollectionObject_ )
+    if ( ytCollectionObject_ )
         {
         @try {
-            token = [ ytBackingCollectionObject_
-             valueForKey: @"nextPageToken" ];
+            token = [ ytCollectionObject_
+             valueForKey: TAU_KVO_KEY( nextPageToken ) ];
         } @catch ( NSException* _Ex )
             {
             DDLogUnexpected( @"Exception captured: %@", _Ex );
@@ -161,29 +162,16 @@
     return token;
     }
 
-@dynamic ytCollectionObject;
-
-- ( void ) setYtCollectionObject: ( GTLCollectionObject* )_YtCollectionObject
-    {
-    [ self setValue: _YtCollectionObject forKey: kYtBackingCollectionObjectKey ];
-    }
-
-- ( GTLCollectionObject* ) ytCollectionObject
-    {
-    return [ [ self valueForKey: kYtBackingCollectionObjectKey ] copy ];
-    }
-
 #pragma mark - Private Interfaces
 
 @dynamic pageInfo_;
-@synthesize ytBackingCollectionObject_ = ytBackingCollectionObject_;
 
 - ( GTLYouTubePageInfo* ) pageInfo_
     {
     GTLYouTubePageInfo* pageInfo = nil;
 
     @try {
-    pageInfo = [ ytBackingCollectionObject_ valueForKey: @"pageInfo" ];
+    pageInfo = [ ytCollectionObject_ valueForKey: TAU_KVO_KEY( pageInfo ) ];
     } @catch ( NSException* _Ex )
         {
         DDLogUnexpected( @"Exception captured: %@", _Ex );

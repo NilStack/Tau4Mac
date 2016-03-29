@@ -18,28 +18,28 @@
 // as it affects the value of the property
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingPlaylistItems
     {
-    return [ NSSet setWithObjects: kYtBackingCollectionObjectKey, nil ];
+    return [ NSSet setWithObjects: TAU_KVO_KEY( ytCollectionObject ), nil ];
     }
 
 - ( NSArray <GTLYouTubePlaylistItem*>* ) playlistItems
     {
-    return ( NSArray <GTLYouTubePlaylistItem*>* )( ytBackingCollectionObject_.items );
+    return ( NSArray <GTLYouTubePlaylistItem*>* )( self.ytCollectionObject.items );
     }
 
 - ( NSUInteger ) countOfPlaylistItems
     {
-    return ytBackingCollectionObject_.items.count;
+    return self.ytCollectionObject.items.count;
     }
 
 - ( NSArray* ) playlistItemsAtIndexes: ( NSIndexSet* )_Indexes
     {
-    return [ ytBackingCollectionObject_.items objectsAtIndexes: _Indexes ];
+    return [ self.ytCollectionObject.items objectsAtIndexes: _Indexes ];
     }
 
 - ( void ) getPlaylistItems: ( GTLYouTubePlaylistItem* __unsafe_unretained* )_Buffer
                       range: ( NSRange )_InRange
     {
-    [ ytBackingCollectionObject_.items getObjects: _Buffer range: _InRange ];
+    [ self.ytCollectionObject.items getObjects: _Buffer range: _InRange ];
     }
 
 @end // TauYouTubePlaylistItemsCollection class

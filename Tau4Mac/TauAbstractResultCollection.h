@@ -6,19 +6,8 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#define kYtBackingCollectionObjectKey  @"ytBackingCollectionObject_"
-
-#define kResultsPerPageKey      @"resultsPerPage"
-#define kTotalResultsKey        @"totalResults"
-#define kPrevPageTokenKey       @"prevPageToken"
-#define kNextPageTokenKey       @"nextPageToken"
-
 // TauAbstractResultCollection class
 @interface TauAbstractResultCollection : NSObject <NSFastEnumeration>
-    {
-@protected
-    GTLCollectionObject __strong* ytBackingCollectionObject_;
-    }
 
 #pragma mark - Initializations
 
