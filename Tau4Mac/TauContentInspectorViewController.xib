@@ -8,7 +8,6 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TauContentInspectorViewController">
             <connections>
                 <outlet property="noSelectionLabelSection_" destination="jJL-pR-HgS" id="kjX-co-7Q8"/>
-                <outlet property="splitInspectorViewController_" destination="laU-6Z-BdN" id="bxz-gD-0eg"/>
                 <outlet property="view" destination="JpR-XP-nVJ" id="PbH-ZP-GSR"/>
                 <outlet property="wrapperOfSingleContentActionSectionView_" destination="aov-uw-QZu" id="1Yz-Nj-XZi"/>
                 <outlet property="wrapperOfSingleContentDescriptionSectionView_" destination="Ovr-2Y-XCS" id="ze6-j9-MS4"/>

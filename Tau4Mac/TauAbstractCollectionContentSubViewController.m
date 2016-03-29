@@ -286,6 +286,8 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 @synthesize nextToken_;
 
 @synthesize credential_ = priCredential_;
+
+// Self-generating the required credential
 - ( TauYTDataServiceCredential* ) credential_
     {
     if ( [ self class ] == [ TauAbstractCollectionContentSubViewController class ] )

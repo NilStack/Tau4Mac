@@ -76,6 +76,11 @@ TauDeallocEnd
     [ super cancelAction: _Sender ];
     }
 
+- ( NSString* ) resultsSummaryText
+    {
+    return NSLocalizedString( @"No Results Yet", nil );
+    }
+
 - ( NSString* ) appWideSummaryText
     {
     return NSLocalizedString( @"Subscriptions", @"App wide summary text of subscriptions collection" );

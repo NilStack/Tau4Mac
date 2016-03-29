@@ -59,7 +59,6 @@
 // Private
 @interface TauExploreContentSubViewController ()
 
-//@property ( strong, readwrite ) NSArray <GTLYouTubeChannel*>* channels;
 @property ( strong, readwrite ) TauYouTubeChannelsCollection* channels;
 
 @property ( strong, readonly ) NSArray <TauMeTubeTabItem*>* tabs_;
@@ -109,19 +108,22 @@
     {
     /************* Mutual Bindings between self and self.exploreTabControl *************/
 
-    id lhsObject = nil; lhsObject = self;
-    id rhsObject = nil; rhsObject = self.exploreTabControl;
+    id lhsObject = nil;
+    id rhsObject = nil;
 
-    NSString* lhsKey = nil; lhsKey = TauKeyOfSel( @selector( activedExploreTabViewTag ) );
-    NSString* rhsKey = nil; rhsKey = TauKeyOfSel( @selector( activedTabTag ) );
+    NSString* lhsKey = nil;
+    NSString* rhsKey = nil;
+
+    lhsObject = self; lhsKey = TauKVOKey( activedExploreTabViewTag );
+    rhsObject = self.exploreTabControl; rhsKey = TauKVOKey( activedTabTag );
 
     [ lhsObject bind: lhsKey toObject: rhsObject withKeyPath: rhsKey options: nil ];
     [ rhsObject bind: rhsKey toObject: lhsObject withKeyPath: lhsKey options: nil ];
 
     /** Mutual Bindings between self.MeTubePlayground_ and self.tabsModelController_ **/
 
-    lhsObject = self.MeTubePlayground_; lhsKey = TauKeyOfSel( @selector( selectedTabs ) );
-    rhsObject = self.tabsModelController_; rhsKey = TauKeyOfSel( @selector( selectedObjects ) );
+    lhsObject = self.MeTubePlayground_; lhsKey = TauKVOKey( selectedTabs );
+    rhsObject = self.tabsModelController_; rhsKey = TauKVOKey( selectedObjects );
 
     [ lhsObject bind: lhsKey toObject: rhsObject withKeyPath: rhsKey options: nil ];
     [ rhsObject bind: rhsKey toObject: lhsObject withKeyPath: lhsKey options: nil ];
@@ -138,16 +140,25 @@ TauDeallocEnd
 
 #pragma mark - Overrides
 
-// Update the titlebar accessory view controller through the relay of self.MeTubePlayground
-
+// Update the titlebar accessory view controller
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingTitlebarAccessoryViewControllerWhileActive
     {
-    return [ NSSet setWithObjects: @"MeTubePlayground_.titlebarAccessoryViewControllerWhileActive", nil ];
+    return [ NSSet setWithObjects:
+          TauKVOKey( activedExploreTabViewTag )
+        , @"MeTubePlayground_.titlebarAccessoryViewControllerWhileActive"
+        , nil ];
     }
 
 - ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
     {
-    return self.MeTubePlayground_.titlebarAccessoryViewControllerWhileActive;
+    id object = nil;
+    if ( self.activedExploreTabViewTag == TauExploreSubTabMeTubeTag )
+        object = self.MeTubePlayground_;
+    else if ( self.activedExploreTabViewTag == TauExploreSubTabSubscriptionsTag )
+        object = self.subscriptionsController_;
+
+    NSTitlebarAccessoryViewController* c = [ object valueForKey: TauKVOKey( titlebarAccessoryViewControllerWhileActive ) ];
+    return c;
     }
 
 - ( NSArray <TauToolbarItem*>* ) exposedToolbarItemsWhileActive
@@ -245,7 +256,7 @@ TauDeallocEnd
         {
         if ( !priTabs_ )
             {
-            GTLYouTubeChannelContentDetailsRelatedPlaylists* relatedPlaylists = [ channels_.channels.firstObject valueForKeyPath: @"contentDetails.relatedPlaylists" ];
+            GTLYouTubeChannelContentDetailsRelatedPlaylists* relatedPlaylists = [ channels_.firstObject valueForKeyPath: @"contentDetails.relatedPlaylists" ];
             priTabs_ =
                 @[ [ [ TauMeTubeTabItem alloc ] initWithTitle: NSLocalizedString( @"Likes", @"\"Likes\" tab in MeTube outline view" ) playlistName: @"Liked Videos" playlistIdentifier: relatedPlaylists.likes viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]
                  , [ [ TauMeTubeTabItem alloc ] initWithTitle: NSLocalizedString( @"Uploads", @"\"Uploads\" tab in MeTube outline view" ) playlistName: @"Uploads" playlistIdentifier: relatedPlaylists.uploads viewController: [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ] ]

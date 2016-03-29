@@ -22,12 +22,12 @@
 @dynamic titlebarAccessoryViewControllerWhileActive;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingTitlebarAccessoryViewControllerWhileActive
     {
-    return [ NSSet setWithObjects: TauKeyOfSel( @selector( selectedTabs ) ), nil ];
+    return [ NSSet setWithObjects: TauKVOKey( selectedTabs ), nil ];
     }
 
 - ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
     {
-    return [ self.selectedTabs.firstObject.viewController valueForKey: TauKeyOfSel( @selector( titlebarAccessoryViewControllerWhileActive ) ) ];
+    return [ self.selectedTabs.firstObject.viewController valueForKey: TauKVOKey( titlebarAccessoryViewControllerWhileActive ) ];
     }
 
 #pragma mark - External KVB Comliant Properties
@@ -42,7 +42,7 @@
     {
     if ( selectedTabs_ != _New )
         {
-        [ self willChangeValueForKey: TauKeyOfSel( @selector( selectedTabs ) ) ];
+        [ self willChangeValueForKey: TauKVOKey( selectedTabs ) ];
 
         TauMeTubeTabItem* oldSelected = self.selectedTabs.firstObject;
         if ( oldSelected && oldSelected.viewController )
@@ -63,9 +63,9 @@
         [ self addSubview: newSelected.viewController.view ];
         selectedPinEdgesCache_ = [ newSelected.viewController.view autoPinEdgesToSuperviewEdges ];
 
-        [ newSelected.viewController setValue: newSelected.repPlaylistIdentifier forKey: TauKeyOfSel( @selector( playlistIdentifier ) ) ];
+        [ newSelected.viewController setValue: newSelected.repPlaylistIdentifier forKey: TauKVOKey( playlistIdentifier ) ];
 
-        [ self didChangeValueForKey: TauKeyOfSel( @selector( selectedTabs ) ) ];
+        [ self didChangeValueForKey: TauKVOKey( selectedTabs ) ];
         }
     }
 
@@ -116,7 +116,7 @@
         self.repPlaylistIdentifier = _PlaylistId;
         self.viewController = _ViewController;
 
-        [ _ViewController setValue: self.repPlaylistName forKey: TauKeyOfSel( @selector( playlistName ) ) ];
+        [ _ViewController setValue: self.repPlaylistName forKey: TauKVOKey( playlistName ) ];
         }
 
     return self;
