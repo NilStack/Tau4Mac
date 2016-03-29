@@ -12,16 +12,9 @@
 @interface TauPlaylistResultsCollectionContentSubViewController ()
 
 // Model: Feed me, if you dare.
-//@property ( strong, readwrite ) NSArray <GTLYouTubePlaylistItem*>* playlistItems;   // KVB-compliant
 @property ( strong, readwrite ) TauYouTubePlaylistsCollection* playlistItems;   // KVB-compliant
 
 @end // Private
-
-
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-
 
 // TauPlaylistResultsCollectionContentSubViewController class
 @implementation TauPlaylistResultsCollectionContentSubViewController

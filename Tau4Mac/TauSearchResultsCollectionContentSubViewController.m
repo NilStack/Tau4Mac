@@ -13,23 +13,12 @@
 @interface TauSearchResultsCollectionContentSubViewController ()
 
 // Model: Feed me, if you dare.
-//@property ( strong, readwrite ) NSArray <GTLYouTubeSearchResult*>* searchResults;   // KVB-compliant
 @property ( weak, readwrite ) TauYouTubeSearchResultsCollection* searchResults;   // KVB-compliant
 
 @end // Private
 
-
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-
-
 // TauSearchResultsCollectionContentSubViewController class
 @implementation TauSearchResultsCollectionContentSubViewController
-
-TauDeallocBegin
-
-TauDeallocEnd
 
 #pragma mark - Initializations
 
@@ -45,6 +34,9 @@ TauDeallocEnd
 
     return self;
     }
+
+TauDeallocBegin
+TauDeallocEnd
 
 #pragma mark - External KVB Compliant
 

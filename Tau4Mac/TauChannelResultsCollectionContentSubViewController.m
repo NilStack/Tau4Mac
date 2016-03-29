@@ -12,9 +12,6 @@
 @interface TauChannelResultsCollectionContentSubViewController ()
 
 // Model: Feed me, if you dare.
-//@property ( strong, readwrite ) NSArray <GTLYouTubeChannel*>* channels; // KVO-compliant
-//@property ( strong, readwrite ) NSArray <GTLYouTubePlaylistItem*>* playlistItems;   // KVB-compliant
-
 @property ( strong, readwrite ) TauYouTubeChannelsCollection* channels; // KVO-compliant
 @property ( strong, readwrite ) TauYouTubePlaylistItemsCollection* playlistItems;   // KVB-compliant
 
