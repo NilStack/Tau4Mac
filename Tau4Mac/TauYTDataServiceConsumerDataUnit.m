@@ -9,11 +9,6 @@
 #import "TauYTDataServiceConsumerDataUnit.h"
 #import "TauYTDataServiceCredential.h"
 
-#import "TauYouTubeSearchResultsCollection.h"
-#import "TauYouTubeChannelsCollection.h"
-#import "TauYouTubePlaylistsCollection.h"
-#import "TauYouTubePlaylistItemsCollection.h"
-
 // Private
 @interface TauYTDataServiceConsumerDataUnit ()
 
@@ -138,6 +133,7 @@ TauDeallocEnd
         case TauYTDataServiceConsumptionChannelsType:      key = @"channels";      break;
         case TauYTDataServiceConsumptionPlaylistsType:     key = @"playlists";     break;
         case TauYTDataServiceConsumptionPlaylistItemsType: key = @"playlistItems"; break;
+        case TauYTDataServiceConsumptionSubscriptionsType: key = @"subscriptions"; break;
         case TauYTDataServiceConsumptionUnknownType:;break;
         }
 
@@ -154,6 +150,7 @@ TauDeallocEnd
         case TauYTDataServiceConsumptionChannelsType:      modelClass = [ TauYouTubeChannelsCollection class ];      break;
         case TauYTDataServiceConsumptionPlaylistsType:     modelClass = [ TauYouTubePlaylistsCollection class ];     break;
         case TauYTDataServiceConsumptionPlaylistItemsType: modelClass = [ TauYouTubePlaylistItemsCollection class ]; break;
+        case TauYTDataServiceConsumptionSubscriptionsType: modelClass = [ TauYouTubeSubscriptionsCollection class ]; break;
         case TauYTDataServiceConsumptionUnknownType:;break;
         }
 
@@ -189,6 +186,12 @@ TauDeallocEnd
             {
             ytQuery = [ GTLQueryYouTube queryForPlaylistItemsListWithPart: partFilter ?: @"contentDetails,id,snippet,status" ];
             ytQuery.playlistId = _Dict[ TauTDSOperationRequirements ][ TauTDSOperationRequirementPlaylistID ];
+            } break;
+
+        case TauYTDataServiceConsumptionSubscriptionsType:
+            {
+            ytQuery = [ GTLQueryYouTube queryForPlaylistItemsListWithPart: partFilter ?: @"snippet,contentDetails" ];
+            ytQuery.playlistId = _Dict[ TauTDSOperationRequirements ][ TauTDSOperationRequirementChannelID ];
             } break;
 
         case TauYTDataServiceConsumptionUnknownType:;break;

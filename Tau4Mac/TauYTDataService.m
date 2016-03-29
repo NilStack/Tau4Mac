@@ -354,7 +354,7 @@ NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
 
         if ( !( _OperationsDict[ TauTDSOperationPartFilter ] ) )
             DDLogNotice( @"Tau Data Service noticed that there is no TauTDSOperationPartFilter{%@} field found within operations combination. "
-                         @"Tau Data Service will select the default {part} filter that may cause the absense of your expecting data fregments."
+                         @"Tau Data Service will select the default {part} filter that may cause the absence of your expecting data fregments."
                        , TauTDSOperationPartFilter
                        );
 

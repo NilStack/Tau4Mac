@@ -65,3 +65,4 @@ NSString extern* const TauTDSOperationRequirements;
 #import "TauYouTubeChannelsCollection.h"
 #import "TauYouTubePlaylistsCollection.h"
 #import "TauYouTubePlaylistItemsCollection.h"
+#import "TauYouTubeSubscriptionsCollection.h"

@@ -16,10 +16,10 @@
 // TestsTauDataServiceMachanism class
 @interface TestsTauDataServiceMachanism : TauTestCase <TauYTDataServiceConsumer>
 
-@property ( strong, readwrite ) NSArray <GTLYouTubeSearchResult*>*  searchResults;
-@property ( strong, readwrite ) NSArray <GTLYouTubeChannel*>*       channels;
-@property ( strong, readwrite ) NSArray <GTLYouTubePlaylist*>*      playlists;
-@property ( strong, readwrite ) NSArray <GTLYouTubePlaylistItem*>*  playlistItems;
+@property ( strong, readwrite ) TauYouTubeSearchResultsCollection*  searchResults;
+@property ( strong, readwrite ) TauYouTubeChannelsCollection*       channels;
+@property ( strong, readwrite ) TauYouTubePlaylistsCollection*      playlists;
+@property ( strong, readwrite ) TauYouTubePlaylistItemsCollection*  playlistItems;
 
 @end // TestsTauDataServiceMachanism class
 
@@ -58,72 +58,9 @@
 /// KVO Observable End ----------------------------------------------------------------------------------
 
 @synthesize searchResults = searchResults_;
-
-- ( NSUInteger ) countOfSearchResults
-    {
-    return searchResults_.count;
-    }
-
-- ( NSArray* ) searchResultsAtIndexes: ( NSIndexSet* )_Indexes
-    {
-    return [ searchResults_ objectsAtIndexes: _Indexes ];
-    }
-
-- ( void ) getSearchResults: ( GTLYouTubeSearchResult * __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
-    {
-    [ searchResults_ getObjects: _Buffer range: _InRange ];
-    }
-
 @synthesize channels = channels_;
-
-- ( NSUInteger ) countOfChannels
-    {
-    return channels_.count;
-    }
-
-- ( NSArray* ) channelsAtIndexes: ( NSIndexSet* )_Indexes
-    {
-    return [ channels_ objectsAtIndexes: _Indexes ];
-    }
-
-- ( void ) getChannels:( GTLYouTubeChannel* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
-    {
-    [ channels_ getObjects: _Buffer range: _InRange ];
-    }
-
 @synthesize playlists = playlists_;
-
-- ( NSUInteger ) countOfPlaylists
-    {
-    return playlists_.count;
-    }
-
-- ( NSArray* ) playlistsAtIndexes: ( NSIndexSet* )_Indexes
-    {
-    return [ playlists_ objectsAtIndexes: _Indexes ];
-    }
-
-- ( void ) getPlaylists:( GTLYouTubePlaylist* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
-    {
-    [ playlists_ getObjects: _Buffer range: _InRange ];
-    }
-
 @synthesize playlistItems = playlistItems_;
-
-- ( NSUInteger ) countOfPlaylistItems
-    {
-    return playlistItems_.count;
-    }
-
-- ( NSArray* ) playlistItemsAtIndexes: ( NSIndexSet* )_Indexes
-    {
-    return [ playlistItems_ objectsAtIndexes: _Indexes ];
-    }
-
-- ( void ) getPlaylistItems:( GTLYouTubePlaylistItem* __unsafe_unretained* )_Buffer range: ( NSRange )_InRange
-    {
-    [ playlistItems_ getObjects: _Buffer range: _InRange ];
-    }
 
 /// KVO Observable End ----------------------------------------------------------------------------------
 
@@ -267,10 +204,10 @@
 
 - ( void ) testTDSConsumerRegistration_neg0
     {
-    NSString* credentialKey = [ self credentialKeyWithModelKey_: @"searchResults" ];
+    NSString* credentialKey = [ self credentialKeyWithModelKey_: TauKVOKey( searchResults ) ];
 
     [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: [ self valueForKey: credentialKey ] ];
-    [ self loop_: @"searchResults" onBehalfOf_: _cmd ];
+    [ self loop_: TauKVOKey( searchResults ) onBehalfOf_: _cmd ];
 
     [ self setValue: [ [ TauYTDataService sharedService ] registerConsumer: self withMethodSignature: [ self methodSignatureForSelector: _cmd ] consumptionType: TauYTDataServiceConsumptionSearchResultsType ]
              forKey: credentialKey ];

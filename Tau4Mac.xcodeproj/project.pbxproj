@@ -98,6 +98,8 @@
 		83B175001C9A765200F6578B /* TauAbstractLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C451C8864C0007B084F /* TauAbstractLogFormatter.m */; };
 		83B175031C9A7ADF00F6578B /* NSColor+TauDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B175021C9A7ADF00F6578B /* NSColor+TauDrawing.m */; };
 		83B175041C9A7ADF00F6578B /* NSColor+TauDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B175021C9A7ADF00F6578B /* NSColor+TauDrawing.m */; };
+		83B5FEBB1CAA92FB009FB9E4 /* TauYouTubeSubscriptionsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B5FEBA1CAA92FB009FB9E4 /* TauYouTubeSubscriptionsCollection.m */; };
+		83B5FEE81CAA9304009FB9E4 /* TauYouTubeSubscriptionsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B5FEBA1CAA92FB009FB9E4 /* TauYouTubeSubscriptionsCollection.m */; };
 		83B9919E1CA90B7C00F40EA2 /* TauMeTubePlayground.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B9919D1CA90B7C00F40EA2 /* TauMeTubePlayground.m */; };
 		83D2E82F1C9A87C300A6AD3D /* TauLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D2E82E1C9A87C300A6AD3D /* TauLogging.m */; };
 		83D2E8551C9A880800A6AD3D /* TauLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D2E82E1C9A87C300A6AD3D /* TauLogging.m */; };
@@ -596,6 +598,8 @@
 		83B174A41C996B8500F6578B /* TauTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauTestCase.m; sourceTree = "<group>"; };
 		83B175011C9A7ADF00F6578B /* NSColor+TauDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+TauDrawing.h"; sourceTree = "<group>"; };
 		83B175021C9A7ADF00F6578B /* NSColor+TauDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+TauDrawing.m"; sourceTree = "<group>"; };
+		83B5FEB91CAA92FB009FB9E4 /* TauYouTubeSubscriptionsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauYouTubeSubscriptionsCollection.h; sourceTree = "<group>"; };
+		83B5FEBA1CAA92FB009FB9E4 /* TauYouTubeSubscriptionsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauYouTubeSubscriptionsCollection.m; sourceTree = "<group>"; };
 		83B9919C1CA90B7C00F40EA2 /* TauMeTubePlayground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauMeTubePlayground.h; sourceTree = "<group>"; };
 		83B9919D1CA90B7C00F40EA2 /* TauMeTubePlayground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauMeTubePlayground.m; sourceTree = "<group>"; };
 		83D2E82E1C9A87C300A6AD3D /* TauLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauLogging.m; sourceTree = "<group>"; };
@@ -1077,6 +1081,8 @@
 				838342F81C98198F00BE6378 /* TauYouTubePlaylistsCollection.m */,
 				838342FA1C981C2400BE6378 /* TauYouTubePlaylistItemsCollection.h */,
 				838342FB1C981C2400BE6378 /* TauYouTubePlaylistItemsCollection.m */,
+				83B5FEB91CAA92FB009FB9E4 /* TauYouTubeSubscriptionsCollection.h */,
+				83B5FEBA1CAA92FB009FB9E4 /* TauYouTubeSubscriptionsCollection.m */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -1625,6 +1631,7 @@
 				836D26F01C9AC8DE00290BE7 /* TauMainContentView.m in Sources */,
 				83DA1C461C8864C0007B084F /* TauAbstractLogFormatter.m in Sources */,
 				83E073141CA7CB8D00CD1FCF /* TauChannelResultsCollectionContentSubViewController.m in Sources */,
+				83B5FEBB1CAA92FB009FB9E4 /* TauYouTubeSubscriptionsCollection.m in Sources */,
 				83EB745C1C90590F004EB117 /* NSAffineTransform+TauDrawing.m in Sources */,
 				8356B2031C9D35F900AC4B36 /* TauAbstractContentSubViewController.m in Sources */,
 				836D26F41C9ACB1E00290BE7 /* TauMainContentViewController.m in Sources */,
@@ -1671,6 +1678,7 @@
 				83B174A51C996B8500F6578B /* TauTestCase.m in Sources */,
 				83B1749C1C990B7100F6578B /* TauYTDataService.m in Sources */,
 				836D270C1C9BA51400290BE7 /* TestsViewStack.m in Sources */,
+				83B5FEE81CAA9304009FB9E4 /* TauYouTubeSubscriptionsCollection.m in Sources */,
 				83B175001C9A765200F6578B /* TauAbstractLogFormatter.m in Sources */,
 				83B174FF1C9A75ED00F6578B /* TauTTYLogFormatter.m in Sources */,
 				83B1749D1C990BCA00F6578B /* TauYTDataServiceConsumerDataUnit.m in Sources */,
