@@ -87,21 +87,8 @@
 
 - ( void ) viewDidLoad
     {
-    id lhsObject = nil;
-    id rhsObject = nil;
-
-    NSString* lhsKey = nil;
-    NSString* rhsKey = nil;
-
-    /************* Mutual Bindings between self and self.exploreTabControl *************/
-
-    lhsObject = self; lhsKey = TauKVOStrictKey( activedExploreTabViewTag );
-    rhsObject = self.exploreTabControl; rhsKey = TauKVOStrictKey( activedTabTag );
-
-    [ lhsObject bind: lhsKey toObject: rhsObject withKeyPath: rhsKey options: nil ];
-    [ rhsObject bind: rhsKey toObject: lhsObject withKeyPath: lhsKey options: nil ];
-
-    /***/
+    // Mutual Bindings between self and self.exploreTabControl
+    TauMutuallyBind( self, TauKVOStrictKey( activedExploreTabViewTag ), self.exploreTabControl, TauKVOStrictKey( activedTabTag ) );
 
     [ self setActivedExploreTabViewTag: TauExploreSubTabMeTubeTag ];
     }

@@ -12,8 +12,6 @@ NSString extern* const TauToolbarAdaptiveSpaceItemIdentifier;
 NSString extern* const TauToolbarSwitcherItemIdentifier;
 NSString extern* const TauToolbarUserProfileButtonItemIdentifier;
 
-#define contentViewAffiliatedTo_kvoKey @"contentViewAffiliatedTo"
-
 @class TauAbstractContentSubViewController;
 @class TauToolbarItem;
 

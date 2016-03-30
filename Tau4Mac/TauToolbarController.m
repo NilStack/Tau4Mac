@@ -35,7 +35,7 @@ NSString* const TauToolbarUserProfileButtonItemIdentifier   = @"home.bedroom.Ton
 + ( void ) initialize
     {
     if ( self == [ TauToolbarController class ] )
-        [ self exposeBinding: contentViewAffiliatedTo_kvoKey ];
+        [ self exposeBinding: TauKVOStrictKey( contentViewAffiliatedTo ) ];
     }
 
 TauToolbarController static* sShared_;

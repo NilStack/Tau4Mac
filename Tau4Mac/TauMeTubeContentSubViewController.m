@@ -42,19 +42,7 @@
 
 - ( void ) viewDidLoad
     {
-    id lhsObject = nil;
-    id rhsObject = nil;
-
-    NSString* lhsKey = nil;
-    NSString* rhsKey = nil;
-
-    /** Mutual Bindings between self.MeTubePlayground_ and self.tabsModelController_ **/
-
-    lhsObject = self.MeTubePlayground_; lhsKey = TauKVOStrictKey( selectedTabs );
-    rhsObject = self.tabsModelController_; rhsKey = TauKVOStrictKey( selectedObjects );
-
-    [ lhsObject bind: lhsKey toObject: rhsObject withKeyPath: rhsKey options: nil ];
-    [ rhsObject bind: rhsKey toObject: lhsObject withKeyPath: lhsKey options: nil ];
+    TauMutuallyBind( self.MeTubePlayground_, TauKVOStrictKey( selectedTabs ), self.tabsModelController_, TauKVOStrictKey( selectedObjects ) );
 
     /*************** Embedding the split view controller ***************/
 

@@ -52,6 +52,18 @@ TAU_FATAL_UNDECLARED_SELECTOR_WARNING_COMMIT \
 #define TauDeallocBegin - ( void ) dealloc { DDLogExpecting( @"%@ got deallocated", self );
 #define TauDeallocEnd }
 
+#define TauMutuallyBind( _Lhs, _LhsKeyPath, _Rhs, _RhsKeyPath ) \
+do { \
+    [ _Lhs bind: _LhsKeyPath toObject: _Rhs withKeyPath: _RhsKeyPath options: nil ]; \
+    [ _Rhs bind: _RhsKeyPath toObject: _Lhs withKeyPath: _LhsKeyPath options: nil ]; \
+} while ( 0 )
+
+#define TauMutuallyUnbind( _Lhs, _LhsKeyPath, _Rhs, _RhsKeyPath ) \
+do { \
+    [ _Lhs unbind: _LhsKeyPath ]; \
+    [ _Rhs unbind: _RhsKeyPath ]; \
+} while ( 0 )
+
 
 
 // ------------------------------------------------------------------------------------------------------------ //

@@ -28,9 +28,6 @@
 
 @end // Private
 
-#define activedContentViewController_kvoKey TauKVOStrictKey( activedContentViewController )
-#define activedContentViewTag_kvoKey        TauKVOStrictKey( activedContentViewTag )
-
 // TauMainContentViewController class
 @implementation TauMainContentViewController
     {
@@ -41,7 +38,7 @@
 + ( void ) initialize
     {
     if ( self == [ TauMainContentViewController class ] )
-        [ self exposeBinding: activedContentViewTag_kvoKey ];
+        [ self exposeBinding: TauKVOStrictKey( activedContentViewTag ) ];
     }
 
 - ( void ) viewDidLoad
@@ -49,9 +46,8 @@
     // Initialize activedContentViewTag_ without any notification
     activedContentViewTag_ = TauUnknownContentViewTag;
 
-    TauToolbarController* sharedToolbarController = [ TauToolbarController sharedController ];
-    [ self bind: activedContentViewTag_kvoKey toObject: sharedToolbarController withKeyPath: contentViewAffiliatedTo_kvoKey options: nil ];
-    [ sharedToolbarController bind: contentViewAffiliatedTo_kvoKey toObject: self withKeyPath: activedContentViewTag_kvoKey options: nil ];
+    TauMutuallyBind( self, TauKVOStrictKey( activedContentViewTag )
+                   , [ TauToolbarController sharedController ], TauKVOStrictKey( contentViewAffiliatedTo ) );
 
     self.appViewSubMenuSearchItem_.action = self.appViewSubMenuExploreItem_.action = self.appViewSubMenuPlayerItem_.action
         = @selector( contentViewsMenuItemSwitchedAction_: );
@@ -62,8 +58,9 @@
 
 - ( void ) dealloc
     {
-    [ self unbind: activedContentViewTag_kvoKey ];
-    [ [ TauToolbarController sharedController ] unbind: contentViewAffiliatedTo_kvoKey ];
+    TauMutuallyUnbind( self, TauKVOStrictKey( activedContentViewTag )
+                     , [ TauToolbarController sharedController ], TauKVOStrictKey( contentViewAffiliatedTo ) );
+
     [ [ TauToolbarController sharedController ] unbind: @"appearance" ];
     }
 
@@ -123,7 +120,7 @@
     {
     if ( activedContentViewTag_ != _New )
         {
-        [ self willChangeValueForKey: activedContentViewTag_kvoKey ];
+        [ self willChangeValueForKey: TauKVOStrictKey( activedContentViewTag ) ];
 
         TauAbstractContentViewController* oldActived = self.activedContentViewController;
 
@@ -141,7 +138,7 @@
 
         activedContentViewTag_ = _New;
 
-        [ self didChangeValueForKey: activedContentViewTag_kvoKey ];
+        [ self didChangeValueForKey: TauKVOStrictKey( activedContentViewTag ) ];
 
         // Value of self.activedContentViewController is derived from activedContentViewTag_ var.
         // We just assigned a new value to activedContentViewTag_,
@@ -166,7 +163,7 @@
 @dynamic activedContentViewController;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingActivedContentViewController
     {
-    return [ NSSet setWithObjects: activedContentViewTag_kvoKey, nil ];
+    return [ NSSet setWithObjects: TauKVOStrictKey( activedContentViewTag ), nil ];
     }
 
 - ( TauAbstractContentViewController* ) activedContentViewController
