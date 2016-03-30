@@ -24,6 +24,6 @@
 
 #pragma mark - Actions
 
-- ( IBAction ) cancelAction: ( id )_Sender;
+- ( IBAction ) dismissAction: ( id )_Sender;
 
 @end // TauAbstractContentSubViewController class
