@@ -73,7 +73,7 @@
     {
     if ( [ _MenuItem action ] == @selector( contentViewsMenuItemSwitchedAction_: ) )
         {
-        [ _MenuItem setState: ( [ _MenuItem tag ] == self.activedContentViewTag + 1000 ) ? NSOnState : NSOffState ];
+        [ _MenuItem setState: ( [ _MenuItem tag ] == TauAppViewSubMenuItemTagFromTauContentViewTag( self.activedContentViewTag ) ) ? NSOnState : NSOffState ];
         return YES;
         }
 
