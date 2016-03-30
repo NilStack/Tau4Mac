@@ -39,6 +39,4 @@
 - ( IBAction ) loadPrevPageAction: ( id )_Sender;
 - ( IBAction ) loadNextPageAction: ( id )_Sender;
 
-- ( IBAction ) cancelAction: ( id )_Sender;
-
 @end // TauAbstractCollectionContentSubViewController class

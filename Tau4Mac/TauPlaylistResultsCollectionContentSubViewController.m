@@ -71,13 +71,6 @@ TauDeallocEnd
 
 #pragma mark - Overrides
 
-- ( void ) contentSubViewWillPop
-    {
-    // Get rid of self-binding
-    [ self unbind: TauKVOStrictKey( results ) ];
-    [ super contentSubViewWillPop ];
-    }
-
 - ( NSString* ) appWideSummaryText
     {
     return NSLocalizedString( @"Playlist", nil );

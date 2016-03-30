@@ -104,11 +104,6 @@ NSString* const TauShouldExposeContentCollectionItemNotif = @"Should.ExposeConte
     [ self executePagingOperationWithPageToken_: self.nextToken_ ];
     }
 
-- ( IBAction ) cancelAction: ( id )_Sender
-    {
-    [ self popMe ];
-    }
-
 #pragma mark - Overrides
 
 - ( void ) contentSubViewWillPop
@@ -117,6 +112,10 @@ NSString* const TauShouldExposeContentCollectionItemNotif = @"Should.ExposeConte
 
     id consumer = self;
     [ [ TauYTDataService sharedService ] unregisterConsumer: consumer withCredential: priCredential_ ];
+
+    [ self unbind: TauKVOStrictKey( results ) ];
+
+    [ super contentSubViewWillPop ];
     }
 
 #pragma mark - UI

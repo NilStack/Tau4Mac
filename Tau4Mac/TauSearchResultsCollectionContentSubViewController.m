@@ -70,13 +70,6 @@ TauDeallocEnd
 
 #pragma mark - Overrides
 
-- ( void ) contentSubViewWillPop
-    {
-    // Get rid of self-binding
-    [ self unbind: TauKVOStrictKey( results ) ];
-    [ super contentSubViewWillPop ];
-    }
-
 - ( NSString* ) resultsSummaryText
     {
     NSUInteger __block channelsCount = 0u;

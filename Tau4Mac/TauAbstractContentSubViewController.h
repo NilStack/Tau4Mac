@@ -22,4 +22,8 @@
 - ( void ) contentSubViewWillPop;
 - ( void ) contentSubViewDidPop;
 
+#pragma mark - Actions
+
+- ( IBAction ) cancelAction: ( id )_Sender;
+
 @end // TauAbstractContentSubViewController class

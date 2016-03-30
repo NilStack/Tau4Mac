@@ -75,6 +75,13 @@
     // Do nothing in implementation of superclass
     }
 
+#pragma mark - Actions
+
+- ( IBAction ) cancelAction: ( id )_Sender
+    {
+    [ self popMe ];
+    }
+
 #pragma mark - Conforms to <TauContentSubViewController>
 
 @dynamic windowAppearanceWhileActive;

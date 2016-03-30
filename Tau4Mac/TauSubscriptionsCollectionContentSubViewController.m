@@ -69,13 +69,6 @@ TauDeallocEnd
 
 #pragma mark - Overrides
 
-- ( void ) contentSubViewWillPop
-    {
-    // Get rid of self-binding
-    [ self unbind: TauKVOStrictKey( results ) ];
-    [ super contentSubViewWillPop ];
-    }
-
 - ( NSString* ) resultsSummaryText
     {
     return NSLocalizedString( @"No Results Yet", nil );
