@@ -25,7 +25,6 @@
     }
 
 @dynamic masterContentViewController;
-
 - ( TauAbstractContentViewController* ) masterContentViewController
     {
     id candidate = self.parentViewController;
@@ -39,28 +38,35 @@
     return nil;
     }
 
+@dynamic isBackground;
+- ( BOOL ) isBackground
+    {
+    BOOL flag = ( self == self.masterContentViewController.backgroundViewController );
+    return flag;
+    }
+
 #pragma mark - View Stack Operations
 
 - ( void ) popMe
     {
-    NSViewController <TauContentSubViewController>* actived = self.masterContentViewController.activedSubViewController;
-
-    if ( actived == self )
+    if ( !self.isBackground )
         {
-        if ( self != self.masterContentViewController.backgroundViewController )
+        NSViewController <TauContentSubViewController>* actived = self.masterContentViewController.activedSubViewController;
+
+        if ( actived == self )
             {
             [ self contentSubViewWillPop ];
             [ self.masterContentViewController popContentSubView ];
             [ self contentSubViewDidPop ];
             }
         else
-            DDLogNotice( @"Attempting to pop the holly background view, you are not able to get rid of it." );
+            DDLogUnexpected( @"My master content view controller (%@)'s current actived subview controller should be me rather than this guy: {%@}"
+                           , NSStringFromClass( [ TauAbstractContentViewController class ] )
+                           , actived
+                           );
         }
     else
-        DDLogUnexpected( @"My master content view controller (%@)'s current actived subview controller should be me rather than this guy: {%@}"
-                       , NSStringFromClass( [ TauAbstractContentViewController class ] )
-                       , actived
-                       );
+        DDLogNotice( @"Attempting to pop the holly background view, you are not able to get rid of it." );
     }
 
 #pragma mark - Expecting Overrides

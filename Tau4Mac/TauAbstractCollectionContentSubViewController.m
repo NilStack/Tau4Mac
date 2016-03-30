@@ -44,6 +44,9 @@
 @property ( weak ) IBOutlet TauResultsAccessoryBarViewController* accessoryBarViewController_;
 @property ( weak ) IBOutlet NSTextField* appWideSummaryViewLabel_;
 
+// UI Elements
+@property ( weak ) IBOutlet NSButton* dismissButton_;
+
 @end // Private
 
 

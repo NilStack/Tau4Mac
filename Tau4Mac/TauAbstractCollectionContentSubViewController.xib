@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
     </dependencies>
     <objects>
@@ -8,6 +9,7 @@
             <connections>
                 <outlet property="accessoryBarViewController_" destination="L4o-xI-cLS" id="o7n-3e-HvR"/>
                 <outlet property="appWideSummaryViewLabel_" destination="vYL-kx-gPU" id="0dg-fc-kRv"/>
+                <outlet property="dismissButton_" destination="K9k-Gv-eMn" id="S09-Tp-aJU"/>
                 <outlet property="view" destination="c22-O7-iKe" id="SCt-yc-Xai"/>
             </connections>
         </customObject>

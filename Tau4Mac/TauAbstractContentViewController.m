@@ -90,7 +90,7 @@
 @dynamic activedSubViewController;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingActivedSubViewController
     {
-    return [ NSSet setWithObjects: FBKVOClassKeyPath( TauAbstractContentViewController, viewsStack.currentView) , nil ];
+    return [ NSSet setWithObjects: FBKVOClassKeyPath( TauAbstractContentViewController, viewsStack.currentView ) , nil ];
     }
 
 - ( NSViewController <TauContentSubViewController>* ) activedSubViewController
