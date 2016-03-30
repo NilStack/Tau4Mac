@@ -72,7 +72,7 @@ TauDeallocEnd
 - ( IBAction ) cancelAction: ( id )_Sender
     {
     // Get rid of self-binding
-    [ self unbind: TauKeyOfSel( @selector( results ) ) ];
+    [ self unbind: TauKVOKey( results ) ];
     [ super cancelAction: _Sender ];
     }
 

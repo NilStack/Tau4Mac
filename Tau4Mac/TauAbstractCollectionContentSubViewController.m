@@ -147,15 +147,15 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
                 case TauYouTubePlayList:
                     {
                     c = [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
-                    [ c setValue: _Notif.playlistIdentifier forKey: TauKeyOfSel( @selector( playlistIdentifier ) ) ];
-                    [ c setValue: _Notif.playlistName forKey: TauKeyOfSel( @selector( playlistName ) ) ];
+                    [ c setValue: _Notif.playlistIdentifier forKey: TauKVOKey( playlistIdentifier ) ];
+                    [ c setValue: _Notif.playlistName forKey: TauKVOKey( playlistName ) ];
                     } break;
 
                 case TauYouTubeChannel:
                     {
                     c = [ [ TauChannelResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
-                    [ c setValue: _Notif.channelIdentifier forKey: TauKeyOfSel( @selector( channelIdentifier ) ) ];
-                    [ c setValue: _Notif.channelName forKey: TauKeyOfSel( @selector( channelName ) ) ];
+                    [ c setValue: _Notif.channelIdentifier forKey: TauKVOKey( channelIdentifier ) ];
+                    [ c setValue: _Notif.channelName forKey: TauKVOKey( channelName ) ];
                     } break;
 
                 case TauYouTubeUnknownContent:
@@ -177,7 +177,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 @dynamic hasPrev;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingHasPrev
     {
-    return [ NSSet setWithObjects: TauKeyOfSel( @selector( prevToken_ ) ), nil ];
+    return [ NSSet setWithObjects: TauKVOKey( prevToken_ ), nil ];
     }
 
 - ( BOOL ) hasPrev
@@ -188,7 +188,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 @dynamic hasNext;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingHasNext
     {
-    return [ NSSet setWithObjects: TauKeyOfSel( @selector( nextToken_ ) ), nil ];
+    return [ NSSet setWithObjects: TauKVOKey( nextToken_ ), nil ];
     }
 
 - ( BOOL ) hasNext
@@ -218,7 +218,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 @dynamic resultsSummaryText;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingResultsSummaryText
     {
-    return [ NSSet setWithObjects: TauKeyOfSel( @selector( results ) ), nil ];
+    return [ NSSet setWithObjects: TauKVOKey( results ), nil ];
     }
 
 - ( NSString* ) resultsSummaryText

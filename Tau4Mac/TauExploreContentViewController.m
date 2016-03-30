@@ -192,7 +192,7 @@ TauDeallocEnd
 @dynamic activedExploreTabViewController;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingActivedExploreTabViewController
     {
-    return [ NSSet setWithObjects: TauKeyOfSel( @selector( activedExploreTabViewTag ) ), nil ];
+    return [ NSSet setWithObjects: TauKVOKey( activedExploreTabViewTag ), nil ];
     }
 
 - ( NSViewController* ) activedExploreTabViewController

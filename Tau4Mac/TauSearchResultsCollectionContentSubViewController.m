@@ -29,7 +29,7 @@
         {
         // Dangerous self-binding.
         // Unbinding in overrides of cancelAction:
-        [ self bind: TauKeyOfSel( @selector( results ) ) toObject: self withKeyPath: TauKeyOfSel( @selector( searchResults ) ) options: nil ];
+        [ self bind: TauKVOKey( results ) toObject: self withKeyPath: TauKVOKey( searchResults ) options: nil ];
         }
 
     return self;
@@ -73,7 +73,7 @@ TauDeallocEnd
 - ( IBAction ) cancelAction: ( id )_Sender
     {
     // Get rid of self-binding
-    [ self unbind: TauKeyOfSel( @selector( results ) ) ];
+    [ self unbind: TauKVOKey( results ) ];
     [ super cancelAction: _Sender ];
     }
 

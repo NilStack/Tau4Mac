@@ -28,8 +28,8 @@
 
 @end // Private
 
-#define activedContentViewController_kvoKey TauKeyOfSel( @selector( activedContentViewController ) )
-#define activedContentViewTag_kvoKey        TauKeyOfSel( @selector( activedContentViewTag ) )
+#define activedContentViewController_kvoKey TauKVOKey( activedContentViewController )
+#define activedContentViewTag_kvoKey        TauKVOKey( activedContentViewTag )
 
 // TauMainContentViewController class
 @implementation TauMainContentViewController

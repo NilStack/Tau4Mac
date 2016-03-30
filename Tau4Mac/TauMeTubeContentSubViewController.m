@@ -106,7 +106,7 @@ TauDeallocEnd
 @synthesize tabs_ = priTabs_;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingTabs_
     {
-    return [ NSSet setWithObjects: TauKeyOfSel( @selector( channels ) ), nil ];
+    return [ NSSet setWithObjects: TauKVOKey( channels ), nil ];
     }
 
 - ( NSArray <TauMeTubeTabItem*>* ) tabs_
