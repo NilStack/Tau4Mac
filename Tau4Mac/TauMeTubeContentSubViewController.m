@@ -141,7 +141,7 @@ TauDeallocEnd
     if ( !priPlaylistsOutlineSplitViewItem_ )
         {
         priPlaylistsOutlineSplitViewItem_ = [ NSSplitViewItem sidebarWithViewController: self.wrapperOfPlaylistsOutline_ ];
-        [ priPlaylistsOutlineSplitViewItem_ setCanCollapse: NO ];
+        [ priPlaylistsOutlineSplitViewItem_ setCanCollapse: YES ];
         }
 
     return priPlaylistsOutlineSplitViewItem_;
