@@ -91,7 +91,7 @@ TauDeallocEnd
     {
     if ( ytContents_ != _New )
         {
-        TAU_CHANGE_VALUE_FOR_KEY( ytContents, ^{ ytContents_ = _New; } );
+        TauChangeValueForKVOStrictKey( ytContents, ^{ ytContents_ = _New; } );
         }
     }
 

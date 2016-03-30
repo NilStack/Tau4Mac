@@ -36,13 +36,12 @@ FBKVOClassKeyPath( _CLASS, _KEYPATH )
 #define TAU_CHANGE_VALUE_BEGIN_of( _Sel )  TAU_CHANGE_VALUE_BEGIN( TauKeyOfSel( _Sel ) )
 #define TAU_CHANGE_VALUE_COMMIT_of( _Sel ) TAU_CHANGE_VALUE_COMMIT( TauKeyOfSel( _Sel ) )
 
-#define TAU_CHANGE_VALUE_FOR_KEY( _Key, _ExpressionBlk ) \
+#define TauChangeValueForKVOStrictKey( _Key, _ExpressionBlk ) \
 do { \
 TAU_FATAL_UNDECLARED_SELECTOR_WARNING_BEGIN \
-    SEL sel = @selector( _Key ); \
-    TAU_CHANGE_VALUE_BEGIN( TauKeyOfSel( sel ) ); \
+    TAU_CHANGE_VALUE_BEGIN( TauKVOStrictKey( _Key ) ); \
         _ExpressionBlk(); \
-    TAU_CHANGE_VALUE_COMMIT( TauKeyOfSel( sel ) ); \
+    TAU_CHANGE_VALUE_COMMIT( TauKVOStrictKey( _Key ) ); \
 TAU_FATAL_UNDECLARED_SELECTOR_WARNING_COMMIT \
 } while ( 0 )
 

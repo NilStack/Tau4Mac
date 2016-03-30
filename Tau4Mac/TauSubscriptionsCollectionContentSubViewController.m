@@ -49,7 +49,7 @@ TauDeallocEnd
     {
     if ( isMine_ != _Flag )
         {
-        TAU_CHANGE_VALUE_FOR_KEY( isMine,
+        TauChangeValueForKVOStrictKey( isMine,
          ( ^{
             isMine_ = _Flag;
 
@@ -92,7 +92,7 @@ TauDeallocEnd
 - ( void ) setSubscriptions: ( TauYouTubeSubscriptionsCollection* )_New
     {
     if ( subscriptions_ != _New )
-        TAU_CHANGE_VALUE_FOR_KEY( subscriptions, ^{ subscriptions_ = _New; } );
+        TauChangeValueForKVOStrictKey( subscriptions, ^{ subscriptions_ = _New; } );
     }
 
 - ( TauYouTubeSubscriptionsCollection* ) subscriptions

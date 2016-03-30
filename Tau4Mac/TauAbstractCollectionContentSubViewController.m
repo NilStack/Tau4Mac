@@ -210,7 +210,7 @@ NSString* const TauShouldExposeContentCollectionItemNotif = @"Should.ExposeConte
 - ( void ) setPaging: ( BOOL )_Flag
     {
     if ( isPaging_ != _Flag )
-        TAU_CHANGE_VALUE_FOR_KEY( isPaging, ^{ isPaging_ = _Flag; } );
+        TauChangeValueForKVOStrictKey( isPaging, ^{ isPaging_ = _Flag; } );
     }
 
 - ( BOOL ) isPaging
@@ -250,7 +250,7 @@ NSString* const TauShouldExposeContentCollectionItemNotif = @"Should.ExposeConte
     {
     if ( results_ != _New )
         {
-        TAU_CHANGE_VALUE_FOR_KEY( results,
+        TauChangeValueForKVOStrictKey( results,
          ( ^{
             results_ = _New;
             [ self.contentCollectionViewController reloadData ];

@@ -106,7 +106,7 @@ do { \
 - ( void ) setBackgroundViewController: ( NSViewController* )_New
     {
     if ( backgroundViewController_ != _New )
-        TAU_CHANGE_VALUE_FOR_KEY( backgroundViewController, ^{ backgroundViewController_ = _New; } );
+        TauChangeValueForKVOStrictKey( backgroundViewController, ^{ backgroundViewController_ = _New; } );
     }
 
 - ( NSViewController* ) backgroundViewController

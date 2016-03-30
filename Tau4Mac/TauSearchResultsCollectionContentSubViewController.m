@@ -50,7 +50,7 @@ TauDeallocEnd
     {
     if ( searchText_ != _New )
         {
-        TAU_CHANGE_VALUE_FOR_KEY( searchText,
+        TauChangeValueForKVOStrictKey( searchText,
          ( ^{
             searchText_ = _New;
 
@@ -117,7 +117,7 @@ TauDeallocEnd
 - ( void ) setSearchResults: ( TauYouTubeSearchResultsCollection* )_New
     {
     if ( searchResults_ != _New )
-        TAU_CHANGE_VALUE_FOR_KEY( searchResults, ^{ searchResults_ = _New; } );
+        TauChangeValueForKVOStrictKey( searchResults, ^{ searchResults_ = _New; } );
     }
 
 - ( TauYouTubeSearchResultsCollection* ) searchResults
