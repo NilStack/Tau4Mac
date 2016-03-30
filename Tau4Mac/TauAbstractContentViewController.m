@@ -77,11 +77,6 @@
 @synthesize viewsStack;
 
 @dynamic backgroundViewController;
-+ ( NSSet <NSString*>* ) keyPathsForValuesAffectingBackgroundViewController
-    {
-    return [ NSSet setWithObjects: TauKVOStrictClassKeyPath( TauAbstractContentViewController, viewsStack.backgroundViewController ), nil ];
-    }
-
 - ( NSViewController <TauContentSubViewController>* ) backgroundViewController
     {
     return ( NSViewController <TauContentSubViewController>* )( self.viewsStack.backgroundViewController );
@@ -89,6 +84,14 @@
 
 - ( void ) setBackgroundViewController: ( NSViewController <TauContentSubViewController>* )_New
     {
+    NSViewController* currentBg = [ [ self viewsStack ] backgroundViewController ];
+    if ( currentBg )
+        {
+        NSUInteger index = [ self.childViewControllers indexOfObject: currentBg ];
+        if ( index != NSNotFound )
+            [ self removeChildViewControllerAtIndex: index ];
+        }
+
     [ self addChildViewController: _New ];
     [ self.viewsStack setBackgroundViewController: _New ];
     }
@@ -114,8 +117,12 @@
 
 - ( void ) popContentSubView
     {
-    NSUInteger childIndex = [ [ self.viewsStack viewBeforeCurrentView ].childViewControllers indexOfObject: [ self.viewsStack currentView ] ];
-    [ [ self.viewsStack viewBeforeCurrentView ] removeChildViewControllerAtIndex: childIndex ];
+    NSViewController* current = [ [ self viewsStack ] currentView ];
+    NSViewController* beforeCurrent = [ [ self viewsStack ] viewBeforeCurrentView ];
+
+    NSUInteger childIndex = [ beforeCurrent.childViewControllers indexOfObject: current ];
+    [ beforeCurrent removeChildViewControllerAtIndex: childIndex ];
+
     [ self.viewsStack popView ];
     }
 
@@ -141,7 +148,6 @@
 
         if ( old && ( ( __bridge void* )old != ( __bridge void* )[ NSNull null ] ) )
             {
-//            [ old removeFromParentViewController ];
             [ old.view removeFromSuperview ];
 
             if ( activedPinEdgesCache_ )
@@ -153,8 +159,6 @@
 
         if ( new && ( ( __bridge void* )new != ( __bridge void* )[ NSNull null ] ) )
             {
-//            [ self addChildViewController: new ];
-
             [ new.view setWantsLayer: YES ];
             [ self.view addSubview: [ new.view configureForAutoLayout ] ];
             activedPinEdgesCache_ = [ new.view autoPinEdgesToSuperviewEdges ];
