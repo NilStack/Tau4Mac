@@ -37,13 +37,15 @@
     return nil;
     }
 
+#pragma mark - External KVB Compliant Properties
+
 @dynamic acceptsDismiss;
 - ( BOOL ) acceptsDismiss
     {
     BOOL flag = YES;
 
-    //???: self.masterContentViewController will be nil when self is descendant of TauMeTubePlayground
-    if ( ( !self.parentViewController ) || ( self.parentViewController == self.masterContentViewController ) )
+    if ( ( !self.parentViewController ) //???: self.masterContentViewController will be nil when self is descendant of TauMeTubePlayground
+            || ( self.parentViewController == self.masterContentViewController ) )
         flag = NO;
 
     return flag;

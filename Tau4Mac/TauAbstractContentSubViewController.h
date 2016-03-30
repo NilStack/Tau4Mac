@@ -13,7 +13,9 @@
 
 @property ( weak, readonly ) TauAbstractContentViewController* masterContentViewController;
 
-@property ( assign, readonly ) BOOL acceptsDismiss;
+#pragma mark - External KVB Compliant Properties
+
+@property ( assign, readonly ) BOOL acceptsDismiss; // KVB-Compliant
 
 #pragma mark - View Stack Operations
 
