@@ -27,6 +27,9 @@ TAU_FATAL_UNDECLARED_SELECTOR_WARNING_BEGIN \
     TauKeyOfSel( @selector( _Sel ) ) \
 TAU_FATAL_UNDECLARED_SELECTOR_WARNING_COMMIT
 
+#define TauKVOStrictClassKeyPath( _CLASS, _KEYPATH ) \
+FBKVOClassKeyPath( _CLASS, _KEYPATH )
+
 #define TAU_CHANGE_VALUE_BEGIN( _Key )  ( [ self willChangeValueForKey: _Key ] )
 #define TAU_CHANGE_VALUE_COMMIT( _Key ) ( [ self didChangeValueForKey: _Key ] )
 

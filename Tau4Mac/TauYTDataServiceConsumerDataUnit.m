@@ -64,7 +64,7 @@
         credential_ = [ _Credential copy ];
 
         NSString* bindKeyPath = [ self bindKeyPathForConsumptionType_: credential_.consumptionType ];
-        [ ( NSObject* )consumer_ bind: bindKeyPath toObject: self withKeyPath: FBKVOClassKeyPath( TauYTDataServiceConsumerDataUnit, resultCollection_ ) options: nil ];
+        [ ( NSObject* )consumer_ bind: bindKeyPath toObject: self withKeyPath: TauKVOStrictClassKeyPath( TauYTDataServiceConsumerDataUnit, resultCollection_ ) options: nil ];
         }
 
     return self;

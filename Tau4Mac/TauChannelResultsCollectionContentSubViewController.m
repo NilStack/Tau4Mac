@@ -112,7 +112,7 @@ TauDeallocEnd
          ( ^{
             channels_ = _New;
 
-            GTLYouTubeChannelContentDetails* contentDetails = [ channels_.firstObject valueForKey: FBKVOClassKeyPath( GTLYouTubeChannel, contentDetails ) ];
+            GTLYouTubeChannelContentDetails* contentDetails = [ channels_.firstObject valueForKey: TauKVOStrictClassKeyPath( GTLYouTubeChannel, contentDetails ) ];
             [ self setPlaylistIdentifier: contentDetails.relatedPlaylists.uploads ];
             } ) );
         }

@@ -14,7 +14,7 @@
 
 @property ( strong, readwrite ) TauViewsStack* viewsStack;
 
-- ( void ) doAbstractContentViewInit_;
+- ( void ) doAbstractInit_;
 
 @end // Private
 
@@ -62,7 +62,7 @@
     // self-observe the "activedSubViewController" key,
     // which will be affected by "viewsStack.currentView" => "viewsStack.backgroundViewController",
     // in this internal method
-    [ self doAbstractContentViewInit_ ];
+    [ self doAbstractInit_ ];
     }
 
 #pragma mark - KVO Compliance
@@ -79,7 +79,7 @@
 @dynamic backgroundViewController;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingBackgroundViewController
     {
-    return [ NSSet setWithObjects: FBKVOClassKeyPath( TauAbstractContentViewController, viewsStack.backgroundViewController ), nil ];
+    return [ NSSet setWithObjects: TauKVOStrictClassKeyPath( TauAbstractContentViewController, viewsStack.backgroundViewController ), nil ];
     }
 
 - ( NSViewController <TauContentSubViewController>* ) backgroundViewController
@@ -90,7 +90,7 @@
 @dynamic activedSubViewController;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingActivedSubViewController
     {
-    return [ NSSet setWithObjects: FBKVOClassKeyPath( TauAbstractContentViewController, viewsStack.currentView ) , nil ];
+    return [ NSSet setWithObjects: TauKVOStrictClassKeyPath( TauAbstractContentViewController, viewsStack.currentView ) , nil ];
     }
 
 - ( NSViewController <TauContentSubViewController>* ) activedSubViewController
@@ -113,7 +113,7 @@
 #pragma mark - Private
 
 // Invoked in viewDidLoad
-- ( void ) doAbstractContentViewInit_
+- ( void ) doAbstractInit_
     {
     self.viewsStack = [ [ TauViewsStack alloc ] init ];
 
