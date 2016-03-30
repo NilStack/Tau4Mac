@@ -41,6 +41,7 @@
 
 #import "NSObject+TauDataServiceConsumer.h"
 #import "GTLObject+Tau.h"
+#import "CALayer+Tau.h"
 
 #import <objc/runtime.h>
 

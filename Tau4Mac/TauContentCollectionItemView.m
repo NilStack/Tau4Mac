@@ -15,14 +15,14 @@
 
 #import "PriTauYouTubeContentView_.h"
 
-// _PriItemBorderView class
-@interface _PriItemBorderView : NSView
+// PriItemBorderView_ class
+@interface PriItemBorderView_ : NSView
 
 #pragma mark - External Properties
 
 @property ( strong, readwrite ) NSColor* borderColor;
 
-@end // _PriItemBorderView class
+@end // PriItemBorderView_ class
 
 
 
@@ -34,15 +34,14 @@
 @interface TauContentCollectionItemView ()
 
 @property ( strong, readonly ) TauContentCollectionItemSubLayer* subLayer_;
-@property ( strong, readonly ) _PriItemBorderView* borderView_;
+
+@property ( strong, readonly ) NSArray <CAConstraint*>* subLayerConstraints_;
+@property ( strong, readonly ) NSArray <CAConstraint*>* videoItemLayerConstraints_;
+@property ( strong, readonly ) NSArray <CAConstraint*>* channelItemLayerConstraints_;
+
+@property ( strong, readonly ) PriItemBorderView_* borderView_;
 
 @end // Private
-
-
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-
 
 // TauContentCollectionItemView class
 @implementation TauContentCollectionItemView
@@ -52,7 +51,7 @@
     GTLObject __strong* ytContent_;
 
     // Layout caches
-    NSArray __strong* priBorderViewPinEdgesCache_;
+    NSArray <NSLayoutConstraint*> __strong* priBorderViewPinEdgesCache_;
     }
 
 TauDeallocBegin
@@ -95,7 +94,7 @@ TauDeallocEnd
 
     if ( isSelected_ || ( highlightState_ == NSCollectionViewItemHighlightForSelection ) )
         {
-        _PriItemBorderView* borderView = self.borderView_;
+        PriItemBorderView_* borderView = self.borderView_;
         [ borderView setBorderColor: isSelected_ ? nil : [ NSColor lightGrayColor ] ];
 
         [ self addSubview: borderView ];
@@ -189,35 +188,73 @@ TauDeallocEnd
             [ superlayer setLayoutManager: [ CAConstraintLayoutManager layoutManager ] ];
         }
 
-    [ priSubLayer_ setConstraints: @[] ];
-    NSString* superlayerName = @"superlayer";
-    if ( self.ytContent.tauContentType == TauYouTubeVideo || self.ytContent.tauContentType == TauYouTubePlayList )
-        {
-        [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintMidX relativeTo: superlayerName attribute: kCAConstraintMidX ] ];
-        [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintMidY relativeTo: superlayerName attribute: kCAConstraintMidY ] ];
-        [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintWidth relativeTo: superlayerName attribute: kCAConstraintWidth offset: -10.f ] ];
-        [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintHeight relativeTo: superlayerName attribute: kCAConstraintHeight offset: -10.f ] ];
-        }
-    else if ( self.ytContent.tauContentType == TauYouTubeChannel )
-        {
-        [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintMaxX relativeTo: superlayerName attribute: kCAConstraintMaxX offset: -5.f ] ];
-        [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintMidY relativeTo: superlayerName attribute: kCAConstraintMidY ] ];
-        [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintHeight relativeTo: superlayerName attribute: kCAConstraintHeight offset: -10.f ] ];
-        [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintWidth relativeTo: superlayerName attribute: kCAConstraintHeight offset: 0.f ] ];
-        }
-
-    return priSubLayer_;
+    return [ priSubLayer_ replaceAllConstraintsWithConstraints: self.subLayerConstraints_ ];
     }
 
+@dynamic subLayerConstraints_;
+- ( NSArray <CAConstraint*>* ) subLayerConstraints_
+    {
+    switch ( self.ytContent.tauContentType )
+        {
+        case TauYouTubeVideo:
+        case TauYouTubePlayList:
+            return self.videoItemLayerConstraints_;
+
+        case TauYouTubeChannel:
+            return self.channelItemLayerConstraints_;
+
+        case TauYouTubeUnknownContent:
+            return nil;
+        }
+    }
+
+NSString static* const sSuperlayerName = @"superlayer";
+CGFloat  static  const sSublayerOffset = -10.f;
+
+@synthesize videoItemLayerConstraints_ = priVideoItemLayerConstraints_;
+- ( NSArray <CAConstraint*>* ) videoItemLayerConstraints_
+    {
+    if ( !priVideoItemLayerConstraints_ )
+        {
+        priVideoItemLayerConstraints_ =
+            @[ [ CAConstraint constraintWithAttribute: kCAConstraintMidX relativeTo: sSuperlayerName attribute: kCAConstraintMidX ]
+             , [ CAConstraint constraintWithAttribute: kCAConstraintMidY relativeTo: sSuperlayerName attribute: kCAConstraintMidY ]
+             , [ CAConstraint constraintWithAttribute: kCAConstraintWidth relativeTo: sSuperlayerName attribute: kCAConstraintWidth offset: sSublayerOffset ]
+             , [ CAConstraint constraintWithAttribute: kCAConstraintHeight relativeTo: sSuperlayerName attribute: kCAConstraintHeight offset: sSublayerOffset ]
+             ];
+        }
+
+    return priVideoItemLayerConstraints_;
+    }
+
+@synthesize channelItemLayerConstraints_ = priChannelItemLayerConstraints_;
+- ( NSArray <CAConstraint*>* ) channelItemLayerConstraints_
+    {
+    if ( !priChannelItemLayerConstraints_ )
+        {
+        priChannelItemLayerConstraints_ =
+            @[ [ CAConstraint constraintWithAttribute: kCAConstraintMaxX relativeTo: sSuperlayerName attribute: kCAConstraintMaxX offset: ( sSublayerOffset / 2.f ) ]
+             , [ CAConstraint constraintWithAttribute: kCAConstraintMidY relativeTo: sSuperlayerName attribute: kCAConstraintMidY ]
+             , [ CAConstraint constraintWithAttribute: kCAConstraintHeight relativeTo: sSuperlayerName attribute: kCAConstraintHeight offset: sSublayerOffset ]
+             , [ CAConstraint constraintWithAttribute: kCAConstraintWidth relativeTo: sSuperlayerName attribute: kCAConstraintHeight ]
+             ];
+        }
+
+    return priChannelItemLayerConstraints_;
+    }
+
+//@property ( copy, readonly ) NSArray <CAConstraint*>* channelItemLayerConstraints_;
+
 @synthesize borderView_ = priBorderView_;
-- ( _PriItemBorderView* ) borderView_
+- ( PriItemBorderView_* ) borderView_
     {
     if ( !priBorderView_ )
-        priBorderView_ = [ [ [ _PriItemBorderView alloc ] initWithFrame: NSZeroRect ] configureForAutoLayout ];
+        priBorderView_ = [ [ [ PriItemBorderView_ alloc ] initWithFrame: NSZeroRect ] configureForAutoLayout ];
 
     [ priBorderView_ setFrame: NSZeroRect ];
     [ priBorderView_ removeFromSuperview ];
     [ priBorderView_ removeConstraints: priBorderView_.constraints ];
+
     if ( ytContent_.tauContentType == TauYouTubeChannel )
         [ priBorderView_ autoMatchDimension: ALDimensionWidth toDimension: ALDimensionHeight ofView: priBorderView_ withOffset: 10.f ];
 
@@ -330,8 +367,8 @@ TauDeallocEnd
 
 
 
-// _PriItemBorderView class
-@implementation _PriItemBorderView
+// PriItemBorderView_ class
+@implementation PriItemBorderView_
     {
     LRNotificationObserver __strong* appWillBecomeActObserv_;
     LRNotificationObserver __strong* appWillResignActObserv_;
@@ -404,4 +441,4 @@ TauDeallocEnd
     return borderColor_;
     }
 
-@end // _PriItemBorderView class
+@end // PriItemBorderView_ class
