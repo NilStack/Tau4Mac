@@ -17,6 +17,11 @@
         {
         [ self setMasksToBounds: YES ];
         [ self setContentsGravity: kCAGravityResizeAspectFill ];
+
+        [ self setActions: @{ @"contents" : NSNull.null
+                            , @"bounds" : NSNull.null
+                            , @"position" : NSNull.null
+                            } ];
         }
 
     return self;

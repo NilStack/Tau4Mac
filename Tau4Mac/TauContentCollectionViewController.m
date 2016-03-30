@@ -166,7 +166,19 @@ TauDeallocEnd
 // TODO:
 
 #pragma mark - Conforms to <NSCollectionViewDelegateFlowLayout>
-// TODO: Customize flow layout of collection view
+
+//- ( NSSize ) collectionView: ( NSCollectionView* )_CollectionView
+//                     layout: ( NSCollectionViewLayout* )_CollectionViewLayout
+//     sizeForItemAtIndexPath: ( NSIndexPath* )_IndexPath
+//    {
+//    TauAbstractResultCollection* relayedDataModel = [ self.relayDataSource contentCollectionViewRequiredData: self ];
+//    GTLObject* item = [ relayedDataModel.items objectAtIndex: _IndexPath.item ];
+//    if ( item.tauContentType == TauYouTubeChannel )
+//        return NSMakeSize( [ ( TauNormalWrappedLayout* )_CollectionViewLayout itemSize ].height + 10.f
+//                         , [ ( TauNormalWrappedLayout* )_CollectionViewLayout itemSize ].height
+//                         );
+//    return [ ( TauNormalWrappedLayout* )_CollectionViewLayout itemSize ];
+//    }
 
 #pragma mark - Private
 
@@ -181,7 +193,7 @@ TauDeallocEnd
         [ priContentCollectionSplitViewItem_ setCanCollapse: NO ];
 
         //
-        [ priContentCollectionSplitViewItem_ setMinimumThickness: TauNormalWrappedLayoutItemWidth + 65.f ];
+        [ priContentCollectionSplitViewItem_ setMinimumThickness: TauVideoLayoutItemWidth + 65.f ];
         }
 
     return priContentCollectionSplitViewItem_;

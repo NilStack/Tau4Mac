@@ -88,10 +88,9 @@ TauDeallocEnd
     switch ( self.type )
         {
         case TauYouTubeVideo:
-        case TauYouTubePlayList: self.subLayer_.contents = priThumbnailImage_;  break;
-//        case TauYouTubeChannel:  self.subLayer_.contents = [ priThumbnailImage_ gaussianBluredOfRadius: 10.f ]; break;
-        case TauYouTubeChannel:  self.subLayer_.contents = priThumbnailImage_; break;
-                       default:  self.subLayer_.contents = nil;
+        case TauYouTubePlayList:
+        case TauYouTubeChannel: self.subLayer_.contents = priThumbnailImage_; break;
+                       default: self.subLayer_.contents = nil;
         }
 
     if ( isSelected_ || ( highlightState_ == NSCollectionViewItemHighlightForSelection ) )
@@ -100,7 +99,11 @@ TauDeallocEnd
         [ borderView setBorderColor: isSelected_ ? nil : [ NSColor lightGrayColor ] ];
 
         [ self addSubview: borderView ];
-        priBorderViewPinEdgesCache_ = [ borderView autoPinEdgesToSuperviewEdges ];
+
+        if ( ytContent_.tauContentType == TauYouTubeChannel )
+            priBorderViewPinEdgesCache_ = [ borderView autoPinEdgesToSuperviewEdgesWithInsets: NSEdgeInsetsZero excludingEdge: ALEdgeLeading ];
+        else
+            priBorderViewPinEdgesCache_ = [ borderView autoPinEdgesToSuperviewEdges ];
         }
     else
         {
@@ -108,7 +111,7 @@ TauDeallocEnd
             [ self removeConstraints: priBorderViewPinEdgesCache_ ];
 
         if ( priBorderView_ )
-            [ self.borderView_ removeFromSuperview ];
+            [ priBorderView_ removeFromSuperview ];
         }
     }
 
@@ -184,12 +187,23 @@ TauDeallocEnd
 
         if ( !superlayer.layoutManager )
             [ superlayer setLayoutManager: [ CAConstraintLayoutManager layoutManager ] ];
+        }
 
-        NSString* superlayerName = @"superlayer";
+    [ priSubLayer_ setConstraints: @[] ];
+    NSString* superlayerName = @"superlayer";
+    if ( self.ytContent.tauContentType == TauYouTubeVideo || self.ytContent.tauContentType == TauYouTubePlayList )
+        {
         [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintMidX relativeTo: superlayerName attribute: kCAConstraintMidX ] ];
         [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintMidY relativeTo: superlayerName attribute: kCAConstraintMidY ] ];
         [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintWidth relativeTo: superlayerName attribute: kCAConstraintWidth offset: -10.f ] ];
         [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintHeight relativeTo: superlayerName attribute: kCAConstraintHeight offset: -10.f ] ];
+        }
+    else if ( self.ytContent.tauContentType == TauYouTubeChannel )
+        {
+        [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintMaxX relativeTo: superlayerName attribute: kCAConstraintMaxX offset: -5.f ] ];
+        [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintMidY relativeTo: superlayerName attribute: kCAConstraintMidY ] ];
+        [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintHeight relativeTo: superlayerName attribute: kCAConstraintHeight offset: -10.f ] ];
+        [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintWidth relativeTo: superlayerName attribute: kCAConstraintHeight offset: 0.f ] ];
         }
 
     return priSubLayer_;
@@ -199,7 +213,14 @@ TauDeallocEnd
 - ( _PriItemBorderView* ) borderView_
     {
     if ( !priBorderView_ )
-        priBorderView_ = [ [ _PriItemBorderView alloc ] initWithFrame: self.bounds ];
+        priBorderView_ = [ [ [ _PriItemBorderView alloc ] initWithFrame: NSZeroRect ] configureForAutoLayout ];
+
+    [ priBorderView_ setFrame: NSZeroRect ];
+    [ priBorderView_ removeFromSuperview ];
+    [ priBorderView_ removeConstraints: priBorderView_.constraints ];
+    if ( ytContent_.tauContentType == TauYouTubeChannel )
+        [ priBorderView_ autoMatchDimension: ALDimensionWidth toDimension: ALDimensionHeight ofView: priBorderView_ withOffset: 10.f ];
+
     return priBorderView_;
     }
 
@@ -239,10 +260,7 @@ TauDeallocEnd
         ytContent_ = _New;
 
         if ( !ytContent_ )
-            {
-//            [ self cleanUp_ ];
             return;
-            }
 
         GTLYouTubeThumbnailDetails* thumbnailDetails = nil;
         @try {
@@ -319,8 +337,8 @@ TauDeallocEnd
     LRNotificationObserver __strong* appWillResignActObserv_;
     }
 
-TauDeallocBegin
-TauDeallocEnd
+//TauDeallocBegin
+//TauDeallocEnd
 
 #pragma mark - Initializations
 

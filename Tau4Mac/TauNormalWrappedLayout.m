@@ -19,7 +19,7 @@
 
     if ( self )
         {
-        [ self setItemSize: NSMakeSize( TauNormalWrappedLayoutItemWidth, TauNormalWrappedLayoutItemHeight ) ];
+        [ self setItemSize: NSMakeSize( TauVideoLayoutItemWidth, TauVideoLayoutItemHeight ) ];
         [ self setMinimumInteritemSpacing: TauNormalWrappedLayoutXPadding ];
         [ self setMinimumLineSpacing: TauNormalWrappedLayoutYPadding ];
 

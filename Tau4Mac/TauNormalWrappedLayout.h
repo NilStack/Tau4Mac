@@ -9,8 +9,8 @@
 #define TauNormalWrappedLayoutXPadding   30.f
 #define TauNormalWrappedLayoutYPadding   20.f
 
-#define TauNormalWrappedLayoutItemWidth  210.f
-#define TauNormalWrappedLayoutItemHeight 118.f
+#define TauVideoLayoutItemWidth  230.f
+#define TauVideoLayoutItemHeight 128.f
 
 // TauNormalWrappedLayout class
 @interface TauNormalWrappedLayout : NSCollectionViewFlowLayout
