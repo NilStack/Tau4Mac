@@ -100,8 +100,8 @@ TauDeallocEnd
             self.resultCollection_ = [ [ modelClass alloc ] initWithGTLCollectionObject: _Resp ];
 
             if ( _CompletionHandler )
-                _CompletionHandler( [ resultCollection_ valueForKey: @"prevPageToken" ]
-                                  , [ resultCollection_ valueForKey: @"nextPageToken" ]);
+                _CompletionHandler( [ resultCollection_ valueForKey: TauKVOStrictKey( prevPageToken ) ]
+                                  , [ resultCollection_ valueForKey: TauKVOStrictKey( nextPageToken ) ]);
             }
         else
             {

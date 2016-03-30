@@ -33,7 +33,7 @@
 @property ( strong, readwrite ) NSView* view;
 @property ( strong, readwrite ) NSImage* image;
 
-@property ( weak, readonly ) NSToolbarItem* cocoaToolbarItemRep;
+@property ( copy, readonly ) NSToolbarItem* cocoaToolbarItemRep;
 
 #pragma mark - Common Items
 

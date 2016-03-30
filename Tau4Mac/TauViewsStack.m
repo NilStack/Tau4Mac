@@ -2,9 +2,7 @@
 
 // Private Interfaces
 @interface TauViewsStack ()
-
 @property ( strong, readwrite ) NSMutableArray <NSViewController*>* priViewsStack_;         // KVO_Observable
-
 @end // Private Interfaces
 
 

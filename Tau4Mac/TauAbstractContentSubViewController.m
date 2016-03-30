@@ -12,7 +12,6 @@
 
 // Private
 @interface TauAbstractContentSubViewController ()
-
 @end // Private
 
 // TauAbstractContentSubViewController class
