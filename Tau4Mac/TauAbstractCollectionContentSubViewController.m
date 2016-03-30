@@ -106,12 +106,17 @@ NSString* const TauShouldExposeContentCollectionItemNotif = @"Should.ExposeConte
 
 - ( IBAction ) cancelAction: ( id )_Sender
     {
+    [ self popMe ];
+    }
+
+#pragma mark - Overrides
+
+- ( void ) contentSubViewWillPop
+    {
     shouldExposeContentItemObserv_ = nil;
 
     id consumer = self;
     [ [ TauYTDataService sharedService ] unregisterConsumer: consumer withCredential: priCredential_ ];
-
-    [ self popMe ];
     }
 
 #pragma mark - UI

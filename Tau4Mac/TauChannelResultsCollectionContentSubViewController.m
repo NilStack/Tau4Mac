@@ -70,10 +70,10 @@ TauDeallocEnd
 
 #pragma mark - Overrides
 
-- ( IBAction ) cancelAction: ( id )_Sender
+- ( void ) contentSubViewWillPop
     {
     [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: channelsCredential_ ];
-    [ super cancelAction: _Sender ];
+    [ super contentSubViewWillPop ];
     }
 
 - ( NSString* ) appWideSummaryText

@@ -48,7 +48,11 @@
     if ( actived == self )
         {
         if ( self != self.masterContentViewController.backgroundViewController )
+            {
+            [ self contentSubViewWillPop ];
             [ self.masterContentViewController popContentSubView ];
+            [ self contentSubViewDidPop ];
+            }
         else
             DDLogNotice( @"Attempting to pop the holly background view, you are not able to get rid of it." );
         }
@@ -57,6 +61,18 @@
                        , NSStringFromClass( [ TauAbstractContentViewController class ] )
                        , actived
                        );
+    }
+
+#pragma mark - Expecting Overrides
+
+- ( void ) contentSubViewWillPop
+    {
+    // Do nothing in implementation of superclass
+    }
+
+- ( void ) contentSubViewDidPop
+    {
+    // Do nothing in implementation of superclass
     }
 
 #pragma mark - Conforms to <TauContentSubViewController>

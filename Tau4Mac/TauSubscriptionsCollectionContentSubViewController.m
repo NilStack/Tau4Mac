@@ -27,7 +27,7 @@
     if ( self = [ super initWithNibName: NSStringFromClass( superClass ) bundle: [ NSBundle bundleForClass: superClass ] ] )
         {
         // Dangerous self-binding.
-        // Unbinding in overrides of cancelAction:
+        // Unbinding in overrides of contentSubViewWillPop
         [ self bind: TauKVOStrictKey( results ) toObject: self withKeyPath: TauKVOStrictKey( subscriptions ) options: nil ];
         }
 
@@ -69,11 +69,11 @@ TauDeallocEnd
 
 #pragma mark - Overrides
 
-- ( IBAction ) cancelAction: ( id )_Sender
+- ( void ) contentSubViewWillPop
     {
     // Get rid of self-binding
     [ self unbind: TauKVOStrictKey( results ) ];
-    [ super cancelAction: _Sender ];
+    [ super contentSubViewWillPop ];
     }
 
 - ( NSString* ) resultsSummaryText

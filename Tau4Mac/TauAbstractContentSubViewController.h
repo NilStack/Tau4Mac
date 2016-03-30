@@ -17,4 +17,9 @@
 
 - ( void ) popMe;
 
+#pragma mark - Expecting Overrides
+
+- ( void ) contentSubViewWillPop;
+- ( void ) contentSubViewDidPop;
+
 @end // TauAbstractContentSubViewController class
