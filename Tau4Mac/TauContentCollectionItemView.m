@@ -33,9 +33,10 @@
 // Private
 @interface TauContentCollectionItemView ()
 
-@property ( strong, readonly ) TauContentCollectionItemSubLayer* subLayer_;
+@property ( strong, readwrite ) NSImage* thumbnailImage_;
+@property ( strong, readonly ) TauContentCollectionItemSubLayer* subContentBgLayer_;
 
-@property ( strong, readonly ) NSArray <CAConstraint*>* subLayerConstraints_;
+@property ( strong, readonly ) NSArray <CAConstraint*>* subContentBgLayerConstraints_;
 @property ( strong, readonly ) NSArray <CAConstraint*>* videoItemLayerConstraints_;
 @property ( strong, readonly ) NSArray <CAConstraint*>* channelItemLayerConstraints_;
 
@@ -47,10 +48,7 @@
 @implementation TauContentCollectionItemView
     {
 @protected
-    NSImage __strong* priThumbnailImage_;
-    GTLObject __strong* ytContent_;
-
-    // Layout caches
+    // Layout constraints caches
     NSArray <NSLayoutConstraint*> __strong* priBorderViewPinEdgesCache_;
     }
 
@@ -88,8 +86,8 @@ TauDeallocEnd
         {
         case TauYouTubeVideo:
         case TauYouTubePlayList:
-        case TauYouTubeChannel: self.subLayer_.contents = priThumbnailImage_; break;
-                       default: self.subLayer_.contents = nil;
+        case TauYouTubeChannel: self.subContentBgLayer_.contents = thumbnailImage_; break;
+                       default: self.subContentBgLayer_.contents = nil;
         }
 
     if ( isSelected_ || ( highlightState_ == NSCollectionViewItemHighlightForSelection ) )
@@ -121,12 +119,12 @@ TauDeallocEnd
 
 #pragma mark - Properties
 
-@dynamic ytContent;
+@synthesize ytContent = ytContent_;
 @dynamic type;
 
-- ( void ) setYtContent: ( GTLObject* )_ytContent
+- ( void ) setYtContent: ( GTLObject* )_New
     {
-    [ self updateYtContent_: _ytContent ];
+    [ self updateYtContent_: _New ];
     }
 
 - ( GTLObject* ) ytContent
@@ -175,24 +173,26 @@ TauDeallocEnd
 
 #pragma mark - Private
 
-@synthesize subLayer_ = priSubLayer_;
-- ( TauContentCollectionItemSubLayer* ) subLayer_
+@synthesize thumbnailImage_;
+
+@synthesize subContentBgLayer_ = priSubContentBgLayer_;
+- ( TauContentCollectionItemSubLayer* ) subContentBgLayer_
     {
-    if ( !priSubLayer_ )
+    if ( !priSubContentBgLayer_ )
         {
         CALayer* superlayer = self.layer;
-        priSubLayer_ = [ [ TauContentCollectionItemSubLayer alloc ] init ];
-        [ superlayer addSublayer: priSubLayer_ ];
+        priSubContentBgLayer_ = [ [ TauContentCollectionItemSubLayer alloc ] init ];
+        [ superlayer addSublayer: priSubContentBgLayer_ ];
 
         if ( !superlayer.layoutManager )
             [ superlayer setLayoutManager: [ CAConstraintLayoutManager layoutManager ] ];
         }
 
-    return [ priSubLayer_ replaceAllConstraintsWithConstraints: self.subLayerConstraints_ ];
+    return [ priSubContentBgLayer_ replaceAllConstraintsWithConstraints: self.subContentBgLayerConstraints_ ];
     }
 
-@dynamic subLayerConstraints_;
-- ( NSArray <CAConstraint*>* ) subLayerConstraints_
+@dynamic subContentBgLayerConstraints_;
+- ( NSArray <CAConstraint*>* ) subContentBgLayerConstraints_
     {
     switch ( self.ytContent.tauContentType )
         {
@@ -204,6 +204,7 @@ TauDeallocEnd
             return self.channelItemLayerConstraints_;
 
         case TauYouTubeUnknownContent:
+            DDLogUnexpected( @"Unkown content type {%@}", self.ytContent );
             return nil;
         }
     }
@@ -243,8 +244,6 @@ CGFloat  static  const sSublayerOffset = -10.f;
     return priChannelItemLayerConstraints_;
     }
 
-//@property ( copy, readonly ) NSArray <CAConstraint*>* channelItemLayerConstraints_;
-
 @synthesize borderView_ = priBorderView_;
 - ( PriItemBorderView_* ) borderView_
     {
@@ -256,7 +255,7 @@ CGFloat  static  const sSublayerOffset = -10.f;
     [ priBorderView_ removeConstraints: priBorderView_.constraints ];
 
     if ( ytContent_.tauContentType == TauYouTubeChannel )
-        [ priBorderView_ autoMatchDimension: ALDimensionWidth toDimension: ALDimensionHeight ofView: priBorderView_ withOffset: 10.f ];
+        [ priBorderView_ autoMatchDimension: ALDimensionWidth toDimension: ALDimensionHeight ofView: priBorderView_ withOffset: ABS( sSublayerOffset ) ];
 
     return priBorderView_;
     }
@@ -329,12 +328,12 @@ CGFloat  static  const sSublayerOffset = -10.f;
                 return YES;
                 } ];
 
-            priThumbnailImage_ = replacement;
+            thumbnailImage_ = replacement;
             [ self updateUI_ ];
             return;
             }
 
-        priThumbnailImage_ = nil;
+        thumbnailImage_ = nil;
         [ self updateUI_ ];
         [ [ TauYTDataService sharedService ] fetchPreferredThumbnailFrom: thumbnailDetails
                                                                  success:
@@ -342,7 +341,7 @@ CGFloat  static  const sSublayerOffset = -10.f;
             {
             if ( _ThumbnailDetails == [ self.ytContent valueForKeyPath: @"snippet.thumbnails" ] )
                 {
-                priThumbnailImage_ = _Image;
+                thumbnailImage_ = _Image;
                 [ self updateUI_ ];
                 }
             } failure:
