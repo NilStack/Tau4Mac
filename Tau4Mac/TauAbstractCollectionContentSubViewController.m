@@ -128,11 +128,9 @@ NSString* const TauShouldExposeContentCollectionItemNotif = @"Should.ExposeConte
         [ priContentCollectionViewController_.view autoPinEdgesToSuperviewEdges ];
 
         shouldExposeContentItemObserv_ =
-TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_BEGIN
         [ LRNotificationObserver observerForName: TauShouldExposeContentCollectionItemNotif
-                                          object: [ priContentCollectionViewController_ valueForKey: TauKeyOfSel( @selector( contentCollectionView_ ) ) ]
+                                          object: [ priContentCollectionViewController_ valueForKey: TauKVOLiberalKey( contentCollectionView_ ) ]
                                            block:
-TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
         ^( NSNotification /* TauShouldExposeCollectionItemNotif*/ * _Notif )
             {
             TauAbstractCollectionContentSubViewController* c = nil;

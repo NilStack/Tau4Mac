@@ -17,9 +17,14 @@
 
 #define TauKeyOfSel( _Sel ) ( NSStringFromSelector( _Sel ) )
 
+#define TauKVOLiberalKey( _Sel ) \
+TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_BEGIN \
+    TauKeyOfSel( @selector( _Sel ) ) \
+TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
+
 #define TauKVOStrictKey( _Sel ) \
-TAU_FATAL_UNDECLARED_SELECTOR_WARNING_BEGIN\
-    TauKeyOfSel( @selector( _Sel ) )\
+TAU_FATAL_UNDECLARED_SELECTOR_WARNING_BEGIN \
+    TauKeyOfSel( @selector( _Sel ) ) \
 TAU_FATAL_UNDECLARED_SELECTOR_WARNING_COMMIT
 
 #define TAU_CHANGE_VALUE_BEGIN( _Key )  ( [ self willChangeValueForKey: _Key ] )
@@ -28,14 +33,14 @@ TAU_FATAL_UNDECLARED_SELECTOR_WARNING_COMMIT
 #define TAU_CHANGE_VALUE_BEGIN_of( _Sel )  TAU_CHANGE_VALUE_BEGIN( TauKeyOfSel( _Sel ) )
 #define TAU_CHANGE_VALUE_COMMIT_of( _Sel ) TAU_CHANGE_VALUE_COMMIT( TauKeyOfSel( _Sel ) )
 
-#define TAU_CHANGE_VALUE_FOR_KEY( _Key, _ExpressionBlk )\
-do {\
-TAU_FATAL_UNDECLARED_SELECTOR_WARNING_BEGIN\
-    SEL sel = @selector( _Key );\
-    TAU_CHANGE_VALUE_BEGIN( TauKeyOfSel( sel ) );\
-        _ExpressionBlk();\
-    TAU_CHANGE_VALUE_COMMIT( TauKeyOfSel( sel ) );\
-TAU_FATAL_UNDECLARED_SELECTOR_WARNING_COMMIT\
+#define TAU_CHANGE_VALUE_FOR_KEY( _Key, _ExpressionBlk ) \
+do { \
+TAU_FATAL_UNDECLARED_SELECTOR_WARNING_BEGIN \
+    SEL sel = @selector( _Key ); \
+    TAU_CHANGE_VALUE_BEGIN( TauKeyOfSel( sel ) ); \
+        _ExpressionBlk(); \
+    TAU_CHANGE_VALUE_COMMIT( TauKeyOfSel( sel ) ); \
+TAU_FATAL_UNDECLARED_SELECTOR_WARNING_COMMIT \
 } while ( 0 )
 
 
