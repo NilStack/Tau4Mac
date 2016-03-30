@@ -13,7 +13,7 @@
 
 @property ( weak, readonly ) TauAbstractContentViewController* masterContentViewController;
 
-@property ( assign, readonly ) BOOL isBackground;
+@property ( assign, readonly ) BOOL acceptsDismiss;
 
 #pragma mark - View Stack Operations
 

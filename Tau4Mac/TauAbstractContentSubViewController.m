@@ -37,14 +37,14 @@
     return nil;
     }
 
-@dynamic isBackground;
-- ( BOOL ) isBackground
+@dynamic acceptsDismiss;
+- ( BOOL ) acceptsDismiss
     {
-    BOOL flag = NO;
+    BOOL flag = YES;
 
     //???: self.masterContentViewController will be nil when self is descendant of TauMeTubePlayground
     if ( ( !self.parentViewController ) || ( self.parentViewController == self.masterContentViewController ) )
-        flag = YES;
+        flag = NO;
 
     return flag;
     }
@@ -53,7 +53,7 @@
 
 - ( void ) popMe
     {
-    if ( !self.isBackground )
+    if ( self.acceptsDismiss )
         {
         NSViewController <TauContentSubViewController>* actived = self.masterContentViewController.activedSubViewController;
 
