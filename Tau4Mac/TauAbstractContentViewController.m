@@ -120,7 +120,7 @@
     // FIXME: Potential memory leak caused by self-observing
     selfObservKVOController_ = [ [ FBKVOController alloc ] initWithObserver: self retainObserved: NO ];
     [ selfObservKVOController_ observe: self
-                               keyPath: activedSubViewController_kvoKey
+                               keyPath: TauKVOStrictKey( activedSubViewController )
                                /* value of "activedSubViewController" key will be set in implementation of subclasses, 
                                 * so we don't need the NSKeyValueObservingOptionInitial option here */
                                options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld

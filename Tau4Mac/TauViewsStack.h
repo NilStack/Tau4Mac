@@ -1,7 +1,3 @@
-
-#define currentView_kvoKey           @"currentView"
-#define viewBeforeCurrentView_kvoKey @"viewBeforeCurrentView"
-
 // TauViewsStack class
 @interface TauViewsStack : NSObject
 

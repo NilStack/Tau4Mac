@@ -1,7 +1,5 @@
 #import "TauViewsStack.h"
 
-#define priViewsStack_kvoKey @"priViewsStack_"
-
 // Private Interfaces
 @interface TauViewsStack ()
 
@@ -61,9 +59,9 @@ do { \
         {
         NSIndexSet* affectedIndexes = [ NSIndexSet indexSetWithIndex: priViewsStack_.count ];
 
-        [ self willChange: NSKeyValueChangeInsertion valuesAtIndexes: affectedIndexes forKey: priViewsStack_kvoKey ];
+        [ self willChange: NSKeyValueChangeInsertion valuesAtIndexes: affectedIndexes forKey: TauKVOStrictKey( priViewsStack_ ) ];
         [ priViewsStack_ addObject: _ViewController ];
-        [ self didChange: NSKeyValueChangeInsertion valuesAtIndexes: affectedIndexes forKey: priViewsStack_kvoKey ];
+        [ self didChange: NSKeyValueChangeInsertion valuesAtIndexes: affectedIndexes forKey: TauKVOStrictKey( priViewsStack_ ) ];
         }
     else
         THROW_ARGUMENTS_MUST_NO_BE_NIL_EX;
@@ -78,9 +76,9 @@ do { \
         {
         NSIndexSet* affectedIndexes = [ NSIndexSet indexSetWithIndex: [ priViewsStack_ indexOfObject: priViewsStack_.lastObject ] ];
 
-        [ self willChange: NSKeyValueChangeRemoval valuesAtIndexes: affectedIndexes forKey: priViewsStack_kvoKey ];
+        [ self willChange: NSKeyValueChangeRemoval valuesAtIndexes: affectedIndexes forKey: TauKVOStrictKey( priViewsStack_ ) ];
         [ priViewsStack_ removeLastObject ];
-        [ self didChange: NSKeyValueChangeRemoval valuesAtIndexes: affectedIndexes forKey: priViewsStack_kvoKey ];
+        [ self didChange: NSKeyValueChangeRemoval valuesAtIndexes: affectedIndexes forKey: TauKVOStrictKey( priViewsStack_ ) ];
         }
     }
 
@@ -93,9 +91,9 @@ do { \
         {
         NSIndexSet* affectedIndexes = [ NSIndexSet indexSetWithIndexesInRange: NSMakeRange( 0, priViewsStack_.count ) ];
 
-        [ self willChange: NSKeyValueChangeRemoval valuesAtIndexes: affectedIndexes forKey: priViewsStack_kvoKey ];
+        [ self willChange: NSKeyValueChangeRemoval valuesAtIndexes: affectedIndexes forKey: TauKVOStrictKey( priViewsStack_ ) ];
         [ priViewsStack_ removeAllObjects ];
-        [ self didChange: NSKeyValueChangeRemoval valuesAtIndexes: affectedIndexes forKey: priViewsStack_kvoKey ];
+        [ self didChange: NSKeyValueChangeRemoval valuesAtIndexes: affectedIndexes forKey: TauKVOStrictKey( priViewsStack_ ) ];
         }
     }
 
@@ -125,7 +123,7 @@ do { \
 @dynamic currentView;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingCurrentView
     {
-    return [ NSSet setWithObjects: priViewsStack_kvoKey, @"backgroundViewController", nil ];
+    return [ NSSet setWithObjects: TauKVOStrictKey( priViewsStack_ ), @"backgroundViewController", nil ];
     }
 
 - ( NSViewController* ) currentView
@@ -143,7 +141,7 @@ do { \
 @dynamic viewBeforeCurrentView;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingViewBeforeCurrentView
     {
-    return [ NSSet setWithObjects: currentView_kvoKey, nil ];
+    return [ NSSet setWithObjects: TauKVOStrictKey( currentView ), nil ];
     }
 
 - ( NSViewController* ) viewBeforeCurrentView

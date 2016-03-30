@@ -11,8 +11,6 @@
 @class TauViewsStack;
 @class TauToolbarItem;
 
-#define activedSubViewController_kvoKey @"activedSubViewController"
-
 // TauAbstractContentViewController class
 @interface TauAbstractContentViewController : NSViewController
     {
