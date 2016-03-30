@@ -28,7 +28,7 @@
         {
         // Dangerous self-binding.
         // Unbinding in overrides of cancelAction:
-        [ self bind: TauKVOKey( results ) toObject: self withKeyPath: TauKVOKey( subscriptions ) options: nil ];
+        [ self bind: TauKVOStrictKey( results ) toObject: self withKeyPath: TauKVOStrictKey( subscriptions ) options: nil ];
         }
 
     return self;
@@ -72,7 +72,7 @@ TauDeallocEnd
 - ( IBAction ) cancelAction: ( id )_Sender
     {
     // Get rid of self-binding
-    [ self unbind: TauKVOKey( results ) ];
+    [ self unbind: TauKVOStrictKey( results ) ];
     [ super cancelAction: _Sender ];
     }
 

@@ -50,8 +50,8 @@
 
     /** Mutual Bindings between self.MeTubePlayground_ and self.tabsModelController_ **/
 
-    lhsObject = self.MeTubePlayground_; lhsKey = TauKVOKey( selectedTabs );
-    rhsObject = self.tabsModelController_; rhsKey = TauKVOKey( selectedObjects );
+    lhsObject = self.MeTubePlayground_; lhsKey = TauKVOStrictKey( selectedTabs );
+    rhsObject = self.tabsModelController_; rhsKey = TauKVOStrictKey( selectedObjects );
 
     [ lhsObject bind: lhsKey toObject: rhsObject withKeyPath: rhsKey options: nil ];
     [ rhsObject bind: rhsKey toObject: lhsObject withKeyPath: lhsKey options: nil ];
@@ -106,7 +106,7 @@ TauDeallocEnd
 @synthesize tabs_ = priTabs_;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingTabs_
     {
-    return [ NSSet setWithObjects: TauKVOKey( channels ), nil ];
+    return [ NSSet setWithObjects: TauKVOStrictKey( channels ), nil ];
     }
 
 - ( NSArray <TauMeTubeTabItem*>* ) tabs_

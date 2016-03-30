@@ -95,8 +95,8 @@
 
     /************* Mutual Bindings between self and self.exploreTabControl *************/
 
-    lhsObject = self; lhsKey = TauKVOKey( activedExploreTabViewTag );
-    rhsObject = self.exploreTabControl; rhsKey = TauKVOKey( activedTabTag );
+    lhsObject = self; lhsKey = TauKVOStrictKey( activedExploreTabViewTag );
+    rhsObject = self.exploreTabControl; rhsKey = TauKVOStrictKey( activedTabTag );
 
     [ lhsObject bind: lhsKey toObject: rhsObject withKeyPath: rhsKey options: nil ];
     [ rhsObject bind: rhsKey toObject: lhsObject withKeyPath: lhsKey options: nil ];
@@ -117,7 +117,7 @@ TauDeallocEnd
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingTitlebarAccessoryViewControllerWhileActive
     {
     return [ NSSet setWithObjects:
-          TauKVOKey( activedExploreTabViewTag )
+          TauKVOStrictKey( activedExploreTabViewTag )
         , @"MeTubeController_.titlebarAccessoryViewControllerWhileActive"
         , @"subscriptionsController_.titlebarAccessoryViewControllerWhileActive"
         , nil ];
@@ -125,7 +125,7 @@ TauDeallocEnd
 
 - ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
     {
-    NSTitlebarAccessoryViewController* c = [ self.activedExploreTabViewController valueForKey: TauKVOKey( titlebarAccessoryViewControllerWhileActive ) ];
+    NSTitlebarAccessoryViewController* c = [ self.activedExploreTabViewController valueForKey: TauKVOStrictKey( titlebarAccessoryViewControllerWhileActive ) ];
     return c;
     }
 
@@ -192,7 +192,7 @@ TauDeallocEnd
 @dynamic activedExploreTabViewController;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingActivedExploreTabViewController
     {
-    return [ NSSet setWithObjects: TauKVOKey( activedExploreTabViewTag ), nil ];
+    return [ NSSet setWithObjects: TauKVOStrictKey( activedExploreTabViewTag ), nil ];
     }
 
 - ( NSViewController* ) activedExploreTabViewController

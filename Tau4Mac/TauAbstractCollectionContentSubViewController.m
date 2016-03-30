@@ -147,15 +147,15 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
                 case TauYouTubePlayList:
                     {
                     c = [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
-                    [ c setValue: _Notif.playlistIdentifier forKey: TauKVOKey( playlistIdentifier ) ];
-                    [ c setValue: _Notif.playlistName forKey: TauKVOKey( playlistName ) ];
+                    [ c setValue: _Notif.playlistIdentifier forKey: TauKVOStrictKey( playlistIdentifier ) ];
+                    [ c setValue: _Notif.playlistName forKey: TauKVOStrictKey( playlistName ) ];
                     } break;
 
                 case TauYouTubeChannel:
                     {
                     c = [ [ TauChannelResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
-                    [ c setValue: _Notif.channelIdentifier forKey: TauKVOKey( channelIdentifier ) ];
-                    [ c setValue: _Notif.channelName forKey: TauKVOKey( channelName ) ];
+                    [ c setValue: _Notif.channelIdentifier forKey: TauKVOStrictKey( channelIdentifier ) ];
+                    [ c setValue: _Notif.channelName forKey: TauKVOStrictKey( channelName ) ];
                     } break;
 
                 case TauYouTubeUnknownContent:
@@ -177,7 +177,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 @dynamic hasPrev;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingHasPrev
     {
-    return [ NSSet setWithObjects: TauKVOKey( prevToken_ ), nil ];
+    return [ NSSet setWithObjects: TauKVOStrictKey( prevToken_ ), nil ];
     }
 
 - ( BOOL ) hasPrev
@@ -188,7 +188,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 @dynamic hasNext;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingHasNext
     {
-    return [ NSSet setWithObjects: TauKVOKey( nextToken_ ), nil ];
+    return [ NSSet setWithObjects: TauKVOStrictKey( nextToken_ ), nil ];
     }
 
 - ( BOOL ) hasNext
@@ -218,7 +218,7 @@ TAU_SUPPRESS_UNDECLARED_SELECTOR_WARNING_COMMIT
 @dynamic resultsSummaryText;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingResultsSummaryText
     {
-    return [ NSSet setWithObjects: TauKVOKey( results ), nil ];
+    return [ NSSet setWithObjects: TauKVOStrictKey( results ), nil ];
     }
 
 - ( NSString* ) resultsSummaryText

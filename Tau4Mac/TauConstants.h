@@ -17,7 +17,7 @@
 
 #define TauKeyOfSel( _Sel ) ( NSStringFromSelector( _Sel ) )
 
-#define TauKVOKey( _Sel ) \
+#define TauKVOStrictKey( _Sel ) \
 TAU_FATAL_UNDECLARED_SELECTOR_WARNING_BEGIN\
     TauKeyOfSel( @selector( _Sel ) )\
 TAU_FATAL_UNDECLARED_SELECTOR_WARNING_COMMIT

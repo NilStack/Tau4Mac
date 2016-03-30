@@ -79,7 +79,7 @@ TauDeallocEnd
 @synthesize ytContents = ytContents_;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingYtContents
     {
-    return [ NSSet setWithObjects: TauKVOKey( representedObject ), nil ];
+    return [ NSSet setWithObjects: TauKVOStrictKey( representedObject ), nil ];
     }
 
 + ( BOOL ) automaticallyNotifiesObserversOfYtContents

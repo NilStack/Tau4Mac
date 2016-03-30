@@ -63,15 +63,15 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
 
     // Estanlishing bindings
     [ self.wrapperOfContentInspectorView_
-            bind: TauKVOKey( ytContents )
+            bind: TauKVOStrictKey( ytContents )
         toObject: self
-     withKeyPath: TauKVOKey( selectedItems )
+     withKeyPath: TauKVOStrictKey( selectedItems )
          options: nil ];
     }
 
 TauDeallocBegin
     // Get rid of bindings
-    [ self.wrapperOfContentInspectorView_ unbind: TauKVOKey( ytContents ) ];
+    [ self.wrapperOfContentInspectorView_ unbind: TauKVOStrictKey( ytContents ) ];
 TauDeallocEnd
 
 #pragma mark - Relay the Model Data
@@ -104,7 +104,7 @@ TauDeallocEnd
 @dynamic selectedItems;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingSelectedItems
     {
-    return [ NSSet setWithObjects: TauKVOKey( selectionIndexPaths ), nil ];
+    return [ NSSet setWithObjects: TauKVOStrictKey( selectionIndexPaths ), nil ];
     }
 
 // In order to produce an unique array,

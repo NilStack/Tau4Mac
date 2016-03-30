@@ -13,7 +13,7 @@
 #define TauTDSResultsCollectionGetterIndexedAccessorsGenerator( _lowerSin, _UpperSin, _lowerCplx, _UpperCplx ) \
 @dynamic _lowerCplx;\
 + ( NSSet <NSString*>* ) keyPathsForValuesAffecting##_UpperCplx \
-    { return [ NSSet setWithObjects: TauKVOKey( ytCollectionObject ), nil ]; } \
+    { return [ NSSet setWithObjects: TauKVOStrictKey( ytCollectionObject ), nil ]; } \
 \
 - ( NSArray <GTLYouTube##_UpperSin*>* ) _lowerCplx \
     { return ( NSArray <GTLYouTube##_UpperSin*>* )( self.ytCollectionObject.items ); } \

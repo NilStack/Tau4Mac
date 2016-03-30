@@ -22,12 +22,12 @@
 @dynamic titlebarAccessoryViewControllerWhileActive;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingTitlebarAccessoryViewControllerWhileActive
     {
-    return [ NSSet setWithObjects: TauKVOKey( selectedTabs ), nil ];
+    return [ NSSet setWithObjects: TauKVOStrictKey( selectedTabs ), nil ];
     }
 
 - ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
     {
-    return [ self.selectedTabs.firstObject.viewController valueForKey: TauKVOKey( titlebarAccessoryViewControllerWhileActive ) ];
+    return [ self.selectedTabs.firstObject.viewController valueForKey: TauKVOStrictKey( titlebarAccessoryViewControllerWhileActive ) ];
     }
 
 #pragma mark - External KVB Comliant Properties
@@ -42,7 +42,7 @@
     {
     if ( selectedTabs_ != _New )
         {
-        [ self willChangeValueForKey: TauKVOKey( selectedTabs ) ];
+        [ self willChangeValueForKey: TauKVOStrictKey( selectedTabs ) ];
 
         TauMeTubeTabItem* oldSelected = self.selectedTabs.firstObject;
         if ( oldSelected && oldSelected.viewController )
@@ -63,9 +63,9 @@
         [ self addSubview: newSelected.viewController.view ];
         selectedPinEdgesCache_ = [ newSelected.viewController.view autoPinEdgesToSuperviewEdges ];
 
-        [ newSelected.viewController setValue: newSelected.repPlaylistIdentifier forKey: TauKVOKey( playlistIdentifier ) ];
+        [ newSelected.viewController setValue: newSelected.repPlaylistIdentifier forKey: TauKVOStrictKey( playlistIdentifier ) ];
 
-        [ self didChangeValueForKey: TauKVOKey( selectedTabs ) ];
+        [ self didChangeValueForKey: TauKVOStrictKey( selectedTabs ) ];
         }
     }
 
@@ -116,7 +116,7 @@
         self.repPlaylistIdentifier = _PlaylistId;
         self.viewController = _ViewController;
 
-        [ _ViewController setValue: self.repPlaylistName forKey: TauKVOKey( playlistName ) ];
+        [ _ViewController setValue: self.repPlaylistName forKey: TauKVOStrictKey( playlistName ) ];
         }
 
     return self;
