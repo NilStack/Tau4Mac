@@ -734,6 +734,11 @@
 		832555591CA539EA000C8A48 /* sub */ = {
 			isa = PBXGroup;
 			children = (
+				83B5FEEF1CAAD0DB009FB9E4 /* TauMeTubeContentSubViewController.h */,
+				83B5FEF01CAAD0DB009FB9E4 /* TauMeTubeContentSubViewController.m */,
+				83B5FEF11CAAD0DB009FB9E4 /* TauMeTubeContentSubViewController.xib */,
+				83B9919C1CA90B7C00F40EA2 /* TauMeTubePlayground.h */,
+				83B9919D1CA90B7C00F40EA2 /* TauMeTubePlayground.m */,
 			);
 			name = sub;
 			sourceTree = "<group>";
@@ -798,17 +803,12 @@
 		834E78111C9ECEEE00802301 /* explore */ = {
 			isa = PBXGroup;
 			children = (
+				837B79961CA8D3250034904C /* TauExploreTabControl.h */,
+				837B79971CA8D3250034904C /* TauExploreTabControl.m */,
 				832555591CA539EA000C8A48 /* sub */,
 				836D26FB1C9ACDDE00290BE7 /* TauExploreContentViewController.h */,
 				836D26FC1C9ACDDE00290BE7 /* TauExploreContentViewController.m */,
 				836D26FD1C9ACDDE00290BE7 /* TauExploreContentViewController.xib */,
-				83B5FEEF1CAAD0DB009FB9E4 /* TauMeTubeContentSubViewController.h */,
-				83B5FEF01CAAD0DB009FB9E4 /* TauMeTubeContentSubViewController.m */,
-				83B5FEF11CAAD0DB009FB9E4 /* TauMeTubeContentSubViewController.xib */,
-				83B9919C1CA90B7C00F40EA2 /* TauMeTubePlayground.h */,
-				83B9919D1CA90B7C00F40EA2 /* TauMeTubePlayground.m */,
-				837B79961CA8D3250034904C /* TauExploreTabControl.h */,
-				837B79971CA8D3250034904C /* TauExploreTabControl.m */,
 			);
 			name = explore;
 			sourceTree = "<group>";
