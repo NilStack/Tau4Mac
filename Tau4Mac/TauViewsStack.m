@@ -107,9 +107,9 @@ do { \
     {
     if ( backgroundViewController_ != _New )
         {
-        [ self willChangeValueForKey: @"backgroundViewController" ];
+        [ self willChangeValueForKey: TauKVOStrictKey( backgroundViewController ) ];
         backgroundViewController_ = _New;
-        [ self didChangeValueForKey: @"backgroundViewController" ];
+        [ self didChangeValueForKey: TauKVOStrictKey( backgroundViewController ) ];
         }
     }
 
@@ -121,7 +121,7 @@ do { \
 @dynamic currentView;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingCurrentView
     {
-    return [ NSSet setWithObjects: TauKVOStrictKey( priViewsStack_ ), @"backgroundViewController", nil ];
+    return [ NSSet setWithObjects: TauKVOStrictKey( priViewsStack_ ), TauKVOStrictKey( backgroundViewController ), nil ];
     }
 
 - ( NSViewController* ) currentView

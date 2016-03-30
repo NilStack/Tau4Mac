@@ -45,7 +45,7 @@
 - ( void ) viewDidLoad
     {
     [ super viewDidLoad ];
-    [ self.viewsStack setBackgroundViewController: self.initialExploreContentSubViewController_ ];
+    [ self setBackgroundViewController: self.initialExploreContentSubViewController_ ];
     }
 
 @end // TauExploreContentViewController class

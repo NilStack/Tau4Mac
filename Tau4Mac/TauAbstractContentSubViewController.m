@@ -40,7 +40,12 @@
 @dynamic isBackground;
 - ( BOOL ) isBackground
     {
-    BOOL flag = ( self == self.masterContentViewController.backgroundViewController );
+    BOOL flag = NO;
+
+    //???: self.masterContentViewController will be nil when self is descendant of TauMeTubePlayground
+    if ( ( !self.parentViewController ) || ( self.parentViewController == self.masterContentViewController ) )
+        flag = YES;
+
     return flag;
     }
 

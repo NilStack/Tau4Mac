@@ -42,7 +42,7 @@
 - ( void ) viewDidLoad
     {
     [ super viewDidLoad ];
-    [ self.viewsStack setBackgroundViewController: self.initialSearchContentSubViewController_ ];
+    [ self setBackgroundViewController: self.initialSearchContentSubViewController_ ];
     }
 
 #pragma mark - Conforms to <NSTextFieldDelegate>

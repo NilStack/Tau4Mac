@@ -38,7 +38,7 @@
 - ( void ) viewDidLoad
     {
     [ super viewDidLoad ];
-    [ self.viewsStack setBackgroundViewController: self.initialPlayerContentSubViewController_ ];
+    [ self setBackgroundViewController: self.initialPlayerContentSubViewController_ ];
     }
 
 @end // TauPlayerContentViewController class

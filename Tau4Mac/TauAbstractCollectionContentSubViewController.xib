@@ -37,6 +37,7 @@
                     </buttonCell>
                     <connections>
                         <action selector="dismissAction:" target="-2" id="cfr-Wh-Rd5"/>
+                        <binding destination="-2" name="hidden" keyPath="self.isBackground" id="Bbw-EO-3ze"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VXB-lQ-DLb">

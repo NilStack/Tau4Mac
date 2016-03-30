@@ -87,6 +87,12 @@
     return ( NSViewController <TauContentSubViewController>* )( self.viewsStack.backgroundViewController );
     }
 
+- ( void ) setBackgroundViewController: ( NSViewController <TauContentSubViewController>* )_New
+    {
+    [ self addChildViewController: _New ];
+    [ self.viewsStack setBackgroundViewController: _New ];
+    }
+
 @dynamic activedSubViewController;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingActivedSubViewController
     {
@@ -102,11 +108,14 @@
 
 - ( void ) pushContentSubView: ( NSViewController <TauContentSubViewController>* )_New
     {
+    [ self.viewsStack.currentView addChildViewController: _New ];
     [ self.viewsStack pushView: _New ];
     }
 
 - ( void ) popContentSubView
     {
+    NSUInteger childIndex = [ [ self.viewsStack viewBeforeCurrentView ].childViewControllers indexOfObject: [ self.viewsStack currentView ] ];
+    [ [ self.viewsStack viewBeforeCurrentView ] removeChildViewControllerAtIndex: childIndex ];
     [ self.viewsStack popView ];
     }
 
@@ -132,7 +141,7 @@
 
         if ( old && ( ( __bridge void* )old != ( __bridge void* )[ NSNull null ] ) )
             {
-            [ old removeFromParentViewController ];
+//            [ old removeFromParentViewController ];
             [ old.view removeFromSuperview ];
 
             if ( activedPinEdgesCache_ )
@@ -144,7 +153,7 @@
 
         if ( new && ( ( __bridge void* )new != ( __bridge void* )[ NSNull null ] ) )
             {
-            [ self addChildViewController: new ];
+//            [ self addChildViewController: new ];
 
             [ new.view setWantsLayer: YES ];
             [ self.view addSubview: [ new.view configureForAutoLayout ] ];
