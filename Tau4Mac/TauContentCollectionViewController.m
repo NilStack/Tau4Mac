@@ -74,12 +74,17 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
 
     TauMutuallyBind( self, TauKVOStrictKey( inspectorCollapsed )
                    , self.contentInspectorSplitViewItem_, TauKVOStrictClassKeyPath( NSSplitViewItem, collapsed ) );
+
     [ self setInspectorCollapsed: YES ];
     }
 
 TauDeallocBegin
     // Get rid of bindings
     [ self.wrapperOfContentInspectorView_ unbind: TauKVOStrictKey( ytContents ) ];
+
+    TauMutuallyUnbind( self, TauKVOStrictKey( inspectorCollapsed )
+                     , self.contentInspectorSplitViewItem_, TauKVOStrictClassKeyPath( NSSplitViewItem, collapsed )
+                     );
 TauDeallocEnd
 
 @synthesize controlInspectorButton = priControlInspectorButton_;
@@ -89,6 +94,8 @@ TauDeallocEnd
         {
         priControlInspectorButton_ = [ [ NSButton alloc ] initWithFrame: NSMakeRect( 0, 0, 30.f, 29.f ) ];
         [ priControlInspectorButton_ setButtonType: NSToggleButton ];
+        [ priControlInspectorButton_ setKeyEquivalent: @"0" ];
+        [ priControlInspectorButton_ setKeyEquivalentModifierMask: NSAlternateKeyMask | NSCommandKeyMask ];
 
         [ priControlInspectorButton_ setTarget: self ];
         [ priControlInspectorButton_ setAction: @selector( controlInspectorAction_: ) ];
