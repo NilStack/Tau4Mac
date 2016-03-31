@@ -105,7 +105,7 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
     //    withKeyPath: TauKVOStrictKey( selectedItems )
     //        options: @{ NSValueTransformerNameBindingOption : @"PriHasSelectedTransformer_" } ];
 
-    [ self setInspectorCollapsed: YES ];
+    [ self setInspectorCollapsed: NO ];
     }
 
 TauDeallocBegin
@@ -123,7 +123,9 @@ TauDeallocEnd
     if ( !priControlInspectorButton_ )
         {
         priControlInspectorButton_ = [ [ NSButton alloc ] initWithFrame: NSMakeRect( 0, 0, 30.f, 29.f ) ];
+
         [ priControlInspectorButton_ setButtonType: NSToggleButton ];
+        [ priControlInspectorButton_ setIdentifier: @"fucking-button" ];
         [ priControlInspectorButton_ setKeyEquivalent: @"0" ];
         [ priControlInspectorButton_ setKeyEquivalentModifierMask: NSAlternateKeyMask | NSCommandKeyMask ];
 
@@ -254,19 +256,7 @@ TauDeallocEnd
 // TODO:
 
 #pragma mark - Conforms to <NSCollectionViewDelegateFlowLayout>
-
-//- ( NSSize ) collectionView: ( NSCollectionView* )_CollectionView
-//                     layout: ( NSCollectionViewLayout* )_CollectionViewLayout
-//     sizeForItemAtIndexPath: ( NSIndexPath* )_IndexPath
-//    {
-//    TauAbstractResultCollection* relayedDataModel = [ self.relayDataSource contentCollectionViewRequiredData: self ];
-//    GTLObject* item = [ relayedDataModel.items objectAtIndex: _IndexPath.item ];
-//    if ( item.tauContentType == TauYouTubeChannel )
-//        return NSMakeSize( [ ( TauNormalFlowLayout* )_CollectionViewLayout itemSize ].height + 10.f
-//                         , [ ( TauNormalFlowLayout* )_CollectionViewLayout itemSize ].height
-//                         );
-//    return [ ( TauNormalFlowLayout* )_CollectionViewLayout itemSize ];
-//    }
+// TODO;
 
 #pragma mark - Private
 
@@ -294,6 +284,15 @@ TauDeallocEnd
         priContentInspectorSplitViewItem_ = [ NSSplitViewItem contentListWithViewController: self.wrapperOfContentInspectorView_ ];
         [ priContentInspectorSplitViewItem_ setCanCollapse: YES ];
 
+        // TODO: Animate collapsed property of priContentInspectorSplitViewItem_
+        //        CATransition* trans = [ [ CATransition alloc ] init ];
+        //        [ trans setDuration: 2.f ];
+        //        [ trans setType: kCATransitionMoveIn ];
+        //        [ trans setSubtype: kCATransitionFromRight ];
+        //        [ trans setStartProgress: 0.f ];
+        //        [ trans setEndProgress: 1.f ];
+        //        [ priContentInspectorSplitViewItem_ setAnimations: @{ @"collapsed" : trans } ];
+
         /***/
         [ priContentInspectorSplitViewItem_ setMaximumThickness: 600.f ];
         [ priContentInspectorSplitViewItem_ setMinimumThickness:
@@ -307,6 +306,7 @@ TauDeallocEnd
 
 - ( void ) controlInspectorAction_: ( NSButton* )_Sender
     {
+    NSLog( @"%@", [ priContentInspectorSplitViewItem_ animations ] );
     [ self setInspectorCollapsed : ![ _Sender state ] ];
     }
 

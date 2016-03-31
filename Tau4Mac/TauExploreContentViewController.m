@@ -116,13 +116,34 @@ TauDeallocEnd
     return c;
     }
 
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingExposedToolbarItemsWhileActive
+    {
+    return [ NSSet setWithObjects:
+          TauKVOStrictKey( activedExploreTabViewTag )
+        , @"MeTubeController_.exposedToolbarItemsWhileActive"
+        , @"subscriptionsController_.exposedToolbarItemsWhileActive"
+        , nil ];
+    }
+
 - ( NSArray <TauToolbarItem*>* ) exposedToolbarItemsWhileActive
     {
-    return @[ [ TauToolbarItem switcherItem ]
+    NSArray <TauToolbarItem*>* items = @[ [ TauToolbarItem switcherItem ]
             , [ TauToolbarItem adaptiveSpaceItem ]
             , [ [ TauToolbarItem alloc ] initWithIdentifier: nil label: nil view: self.exploreTabControl ]
             , [ TauToolbarItem flexibleSpaceItem ]
             ];
+
+    NSArray <TauToolbarItem*>* underlyingItems =  [ self.activedExploreTabViewController valueForKey: TauKVOStrictKey( exposedToolbarItemsWhileActive ) ];
+    for ( TauToolbarItem* _Candidate in underlyingItems )
+        {
+        if ( [ _Candidate.view.identifier isEqualToString: @"fucking-button" ] )
+            {
+            items = [ items arrayByAddingObject: _Candidate ];
+            break;
+            }
+        }
+
+    return items;
     }
 
 #pragma mark - External KVB Compliant Properties

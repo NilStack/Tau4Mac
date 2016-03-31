@@ -89,6 +89,16 @@ TauDeallocEnd
     return self.MeTubePlayground_.titlebarAccessoryViewControllerWhileActive;
     }
 
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingExposedToolbarItemsWhileActive
+    {
+    return [ NSSet setWithObjects: @"MeTubePlayground_.exposedToolbarItemsWhileActive", nil ];
+    }
+
+- ( NSArray <TauToolbarItem*>* ) exposedToolbarItemsWhileActive
+    {
+    return [ [ self MeTubePlayground_ ] exposedToolbarItemsWhileActive ];
+    }
+
 #pragma mark - Private
 
 @synthesize tabs_ = priTabs_;
