@@ -67,6 +67,10 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
         toObject: self
      withKeyPath: TauKVOStrictKey( selectedItems )
          options: nil ];
+
+    TauMutuallyBind( self, TauKVOStrictKey( inspectorCollapsed )
+                   , self.contentInspectorSplitViewItem_, TauKVOStrictClassKeyPath( NSSplitViewItem, collapsed ) );
+    [ self setInspectorCollapsed: YES ];
     }
 
 TauDeallocBegin
@@ -206,13 +210,61 @@ TauDeallocEnd
         priContentInspectorSplitViewItem_ = [ NSSplitViewItem contentListWithViewController: self.wrapperOfContentInspectorView_ ];
         [ priContentInspectorSplitViewItem_ setCanCollapse: YES ];
 
-        //
+        /***/
         [ priContentInspectorSplitViewItem_ setMaximumThickness: 600.f ];
         [ priContentInspectorSplitViewItem_ setMinimumThickness:
             TAU_APP_MIN_WIDTH - self.contentCollectionSplitViewItem_.minimumThickness - self.splitViewController_.splitView.dividerThickness ];
         }
 
     return priContentInspectorSplitViewItem_;
+    }
+
+@synthesize controlInspectorButton = priControlInspectorButton_;
+- ( NSButton* ) controlInspectorButton
+    {
+    if ( !priControlInspectorButton_ )
+        {
+        priControlInspectorButton_ = [ [ NSButton alloc ] initWithFrame: NSMakeRect( 0, 0, 30.f, 29.f ) ];
+        [ priControlInspectorButton_ setButtonType: NSToggleButton ];
+
+        [ priControlInspectorButton_ setTarget: self ];
+        [ priControlInspectorButton_ setAction: @selector( controlInspectorAction_: ) ];
+
+        NSImage* icon = [ NSImage imageNamed: @"tau-show-details-inspector" ];
+        [ icon setSize: NSMakeSize( 13.f, 12.f ) ];
+        [ icon setTemplate: YES ];
+
+        [ priControlInspectorButton_ setBezelStyle: NSTexturedRoundedBezelStyle ];
+        [ priControlInspectorButton_ setImage: icon ];
+        [ priControlInspectorButton_ setImagePosition: NSImageOnly ];
+        }
+
+    return priControlInspectorButton_;
+    }
+
+- ( void ) controlInspectorAction_: ( NSButton* )_Sender
+    {
+    [ self setInspectorCollapsed : ![ _Sender state ] ];
+    }
+
+@synthesize inspectorCollapsed = inspectorCollapsed_;
++ ( BOOL ) automaticallyNotifiesObserversOfInspectorCollapsed
+    {
+    return NO;
+    }
+
+- ( void ) setInspectorCollapsed: ( BOOL )_Flag
+    {
+    TauChangeValueForKVOStrictKey( inspectorCollapsed,
+     ( ^{
+        inspectorCollapsed_ = _Flag;
+        [ self.controlInspectorButton setState: ( NSCellStateValue )!inspectorCollapsed_ ];
+        } ) );
+    }
+
+- ( BOOL ) inspectorCollapsed
+    {
+    return inspectorCollapsed_;
     }
 
 @end // TauContentCollectionViewController class

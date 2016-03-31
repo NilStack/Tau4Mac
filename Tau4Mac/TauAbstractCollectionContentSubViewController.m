@@ -85,6 +85,7 @@ NSString* const TauShouldExposeContentCollectionItemNotif = @"Should.ExposeConte
             , [ TauToolbarItem adaptiveSpaceItem ]
             , [ [ TauToolbarItem alloc ] initWithIdentifier: nil label: nil view: self.appWideSummaryViewLabel_ ]
             , [ TauToolbarItem flexibleSpaceItem ]
+            , [ [ TauToolbarItem alloc ] initWithIdentifier: nil label: nil view: self.contentCollectionViewController.controlInspectorButton ]
             ];
     }
 

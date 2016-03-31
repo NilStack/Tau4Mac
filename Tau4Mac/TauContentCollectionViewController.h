@@ -12,6 +12,9 @@
 @interface TauContentCollectionViewController : NSViewController
     <NSCollectionViewDataSource, NSCollectionViewDelegate, NSCollectionViewDelegateFlowLayout>
 
+@property ( strong, readonly ) NSButton* controlInspectorButton;
+@property ( assign, readwrite ) BOOL inspectorCollapsed;
+
 #pragma mark - Relay the Model Data
 
 // Relay the model data from hosting content view controller to the internal collection view
@@ -48,5 +51,4 @@
 
 // TauAccessoryBarContentCollectionSummaryView class
 @interface TauAccessoryBarContentCollectionSummaryView : NSView
-//@property ( strong, readwrite ) NS
 @end // TauAccessoryBarContentCollectionSummaryView class
