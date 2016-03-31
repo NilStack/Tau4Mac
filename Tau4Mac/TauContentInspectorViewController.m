@@ -8,8 +8,6 @@
 
 #import "TauContentInspectorViewController.h"
 
-
-
 // TauContentInspectorSectionView class
 @interface TauContentInspectorSectionView : NSView
 @end // TauContentInspectorSectionView class
@@ -98,6 +96,24 @@ TauDeallocEnd
     return YouTubeContents_;
     }
 
+@dynamic mode;
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingMode
+    {
+    return [ NSSet setWithObjects: TauKVOStrictKey( YouTubeContents ), nil ];
+    }
+
+- ( TauContentInspectorMode ) mode
+    {
+    NSUInteger cnt = YouTubeContents_.count;
+
+    if ( !cnt )
+        return TauContentInspectorNoSelectionMode;
+    else if ( cnt == 1 )
+        return TauContentInspectorSingleSelectionMode;
+    else
+        return TauContentInspectorMultipleSelectionMode;
+    }
+
 #pragma mark - Private
 
 @synthesize splitInspectorViewController_ = priSplitInspectorViewController_;
@@ -124,7 +140,6 @@ TauDeallocEnd
     {
     if ( !priSingleContentTitleSectionItem_ )
         priSingleContentTitleSectionItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfSingleContentTitleSectionView_ ];
-
     return priSingleContentTitleSectionItem_;
     }
 
@@ -133,7 +148,6 @@ TauDeallocEnd
     {
     if ( !priSingleContentActionSectionItem_ )
         priSingleContentActionSectionItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfSingleContentActionSectionView_ ];
-
     return priSingleContentActionSectionItem_;
     }
 
@@ -142,7 +156,6 @@ TauDeallocEnd
     {
     if ( !priSingleContentDescriptionSectionItem_ )
         priSingleContentDescriptionSectionItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfSingleContentDescriptionSectionView_ ];
-
     return priSingleContentDescriptionSectionItem_;
     }
 
@@ -151,7 +164,6 @@ TauDeallocEnd
     {
     if ( !priSingleContentInformationSectionItem_ )
         priSingleContentInformationSectionItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfSingleContentInformationSectionView_ ];
-
     return priSingleContentInformationSectionItem_;
     }
 
