@@ -9,7 +9,7 @@
 #import "TauContentCollectionViewController.h"
 #import "TauContentInspectorViewController.h"
 #import "TauContentCollectionItem.h"
-#import "TauNormalWrappedLayout.h"
+#import "TauNormalFlowLayout.h"
 
 // Private
 @interface TauContentCollectionViewController ()
@@ -49,7 +49,7 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
     {
     // Registering for data source of collection view
     [ self.contentCollectionView_ registerClass: [ TauContentCollectionItem class ] forItemWithIdentifier: kContentCollectionItemID ];
-    [ self.contentCollectionView_ setCollectionViewLayout: [ [ TauNormalWrappedLayout alloc ] init ] ];
+    [ self.contentCollectionView_ setCollectionViewLayout: [ [ TauNormalFlowLayout alloc ] init ] ];
 
     // Embeding the split view controller
     // Required setting up done in the IB Identity insepector
@@ -174,10 +174,10 @@ TauDeallocEnd
 //    TauAbstractResultCollection* relayedDataModel = [ self.relayDataSource contentCollectionViewRequiredData: self ];
 //    GTLObject* item = [ relayedDataModel.items objectAtIndex: _IndexPath.item ];
 //    if ( item.tauContentType == TauYouTubeChannel )
-//        return NSMakeSize( [ ( TauNormalWrappedLayout* )_CollectionViewLayout itemSize ].height + 10.f
-//                         , [ ( TauNormalWrappedLayout* )_CollectionViewLayout itemSize ].height
+//        return NSMakeSize( [ ( TauNormalFlowLayout* )_CollectionViewLayout itemSize ].height + 10.f
+//                         , [ ( TauNormalFlowLayout* )_CollectionViewLayout itemSize ].height
 //                         );
-//    return [ ( TauNormalWrappedLayout* )_CollectionViewLayout itemSize ];
+//    return [ ( TauNormalFlowLayout* )_CollectionViewLayout itemSize ];
 //    }
 
 #pragma mark - Private

@@ -6,10 +6,10 @@
     This is the "WrappedLayout" class implementation.
 */
 
-#import "TauNormalWrappedLayout.h"
+#import "TauNormalFlowLayout.h"
 
-// TauNormalWrappedLayout class
-@implementation TauNormalWrappedLayout
+// TauNormalFlowLayout class
+@implementation TauNormalFlowLayout
 
 #pragma mark - Overrides
 
@@ -20,12 +20,11 @@
     if ( self )
         {
         [ self setItemSize: NSMakeSize( TauVideoLayoutItemWidth, TauVideoLayoutItemHeight ) ];
-        [ self setMinimumInteritemSpacing: TauNormalWrappedLayoutXPadding ];
-        [ self setMinimumLineSpacing: TauNormalWrappedLayoutYPadding ];
+        [ self setMinimumInteritemSpacing: TauNormalFlowLayoutXPadding ];
+        [ self setMinimumLineSpacing: TauNormalFlowLayoutYPadding ];
 
-        [ self setSectionInset: NSEdgeInsetsMake( TauNormalWrappedLayoutYPadding, TauNormalWrappedLayoutXPadding
-                                                , TauNormalWrappedLayoutYPadding, TauNormalWrappedLayoutXPadding
-                                                ) ];
+        [ self setSectionInset: NSEdgeInsetsMake(
+            TauNormalFlowLayoutYPadding, TauNormalFlowLayoutXPadding, TauNormalFlowLayoutYPadding, TauNormalFlowLayoutXPadding ) ];
         }
 
     return self;
@@ -47,4 +46,4 @@
     return layoutAttributesArray;
     }
 
-@end // TauNormalWrappedLayout class
+@end // TauNormalFlowLayout class
