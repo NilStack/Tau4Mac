@@ -15,6 +15,6 @@
 - ( void ) doInit_;
 
 // Content
-- ( void ) updateYtContent_: ( GTLObject* )_ytContent;
+- ( void ) updateYtContent_;
 
 @end // TauContentCollectionItemView + PriTauYouTubeContentView_

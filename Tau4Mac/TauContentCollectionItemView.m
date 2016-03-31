@@ -71,13 +71,6 @@ TauDeallocEnd
     return self;
     }
 
-- ( instancetype ) initWithGTLObject: ( GTLObject* )_GTLObject
-    {
-    if ( self = [ self initWithFrame: NSZeroRect ] )
-        self.ytContent = _GTLObject;
-    return self;
-    }
-
 #pragma mark - Drawing
 
 - ( void ) updateLayer
@@ -86,8 +79,11 @@ TauDeallocEnd
         {
         case TauYouTubeVideo:
         case TauYouTubePlayList:
-        case TauYouTubeChannel: self.subContentBgLayer_.contents = thumbnailImage_; break;
-                       default: self.subContentBgLayer_.contents = nil;
+        case TauYouTubeChannel:
+            self.subContentBgLayer_.contents = thumbnailImage_; break;
+
+        default:
+            self.subContentBgLayer_.contents = nil; break;
         }
 
     if ( isSelected_ || ( highlightState_ == NSCollectionViewItemHighlightForSelection ) )
@@ -124,7 +120,11 @@ TauDeallocEnd
 
 - ( void ) setYtContent: ( GTLObject* )_New
     {
-    [ self updateYtContent_: _New ];
+    if ( ytContent_ != _New )
+        {
+        ytContent_ = _New;
+        [ self updateYtContent_ ];
+        }
     }
 
 - ( GTLObject* ) ytContent
@@ -276,86 +276,65 @@ CGFloat  static  const sSublayerOffset = -10.f;
     {
     [ self configureForAutoLayout ].wantsLayer = YES;
 
-    self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
     self.layer.masksToBounds = YES;
+    self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
     self.layerContentsPlacement = NSViewLayerContentsPlacementScaleProportionallyToFill;
 
-    NSTrackingArea* mouseEventTrackingArea =
-        [ [ NSTrackingArea alloc ] initWithRect: self.bounds
-                                        options: NSTrackingMouseEnteredAndExited | NSTrackingActiveInActiveApp | NSTrackingInVisibleRect
-                                          owner: self
-                                       userInfo: nil ];
+    NSTrackingArea* mouseEventTrackingArea = [ [ NSTrackingArea alloc ] initWithRect: self.bounds options: NSTrackingMouseEnteredAndExited | NSTrackingActiveInActiveApp | NSTrackingInVisibleRect owner: self userInfo: nil ];
     [ self addTrackingArea: mouseEventTrackingArea ];
     }
 
 // Content
-- ( void ) updateYtContent_: ( GTLObject* )_New
+- ( void ) updateYtContent_
     {
-    if ( ytContent_ != _New )
+    GTLYouTubeThumbnailDetails* thumbnailDetails = nil;
+    @try {
+    thumbnailDetails = [ self.ytContent valueForKeyPath: @"snippet.thumbnails" ];
+    } @catch ( NSException* _Ex )
         {
-        ytContent_ = _New;
-
-        if ( !ytContent_ )
-            return;
-
-        GTLYouTubeThumbnailDetails* thumbnailDetails = nil;
-        @try {
-        thumbnailDetails = [ self.ytContent valueForKeyPath: @"snippet.thumbnails" ];
-        } @catch ( NSException* _Ex )
-            {
-            DDLogFatal( @"%@", _Ex );
-            }
-
-        if ( !thumbnailDetails )
-            {
-            NSSize imageSize = self.bounds.size;
-            NSImage* replacement = [ NSImage imageWithSize: imageSize
-                                                   flipped: NO
-                                            drawingHandler:
-            ^BOOL ( NSRect _DstRect )
-                {
-                [ [ NSColor blackColor ] set ];
-                NSRectFill( _DstRect );
-
-                NSString* noCover = @"NO COVER";
-                NSDictionary* attrs = @{ NSForegroundColorAttributeName : [ NSColor whiteColor ]
-                                       , NSFontAttributeName : [ NSFont fontWithName: @"Helvetica Neue Light" size: 15 ]
-                                       };
-
-                NSSize size = [ noCover sizeWithAttributes: attrs ];
-                [ noCover drawAtPoint: NSMakePoint( ( NSWidth( _DstRect ) * .6f - size.width ) / 2, ( NSHeight( _DstRect ) - size.height ) / 2 ) withAttributes: attrs ];
-
-                return YES;
-                } ];
-
-            thumbnailImage_ = replacement;
-            [ self updateUI_ ];
-            return;
-            }
-
-        thumbnailImage_ = nil;
-        [ self updateUI_ ];
-        [ [ TauYTDataService sharedService ] fetchPreferredThumbnailFrom: thumbnailDetails
-                                                                 success:
-        ^( NSImage* _Image, GTLYouTubeThumbnailDetails* _ThumbnailDetails, BOOL _LoadsFromCache )
-            {
-            if ( _ThumbnailDetails == [ self.ytContent valueForKeyPath: @"snippet.thumbnails" ] )
-                {
-                thumbnailImage_ = _Image;
-                [ self updateUI_ ];
-                }
-            } failure:
-                ^( NSError* _Error )
-                    {
-                    DDLogFatal( @"%@", _Error );
-                    } ];
+        DDLogFatal( @"%@", _Ex );
         }
-    }
 
-- ( void ) updateUI_
-    {
-    [ self.layer setContents: nil ];
-    [ self.layer setNeedsDisplay ];
+    if ( !thumbnailDetails )
+        {
+        NSSize imageSize = self.bounds.size;
+        NSImage* replacement = [ NSImage imageWithSize: imageSize
+                                               flipped: NO
+                                        drawingHandler:
+        ^BOOL ( NSRect _DstRect )
+            {
+            [ [ NSColor blackColor ] set ];
+            NSRectFill( _DstRect );
+
+            NSString* noCover = @"NO COVER";
+            NSDictionary* attrs = @{ NSForegroundColorAttributeName : [ NSColor whiteColor ]
+                                   , NSFontAttributeName : [ NSFont fontWithName: @"Helvetica Neue Light" size: 15 ]
+                                   };
+
+            NSSize size = [ noCover sizeWithAttributes: attrs ];
+            [ noCover drawAtPoint: NSMakePoint( ( NSWidth( _DstRect ) * .6f - size.width ) / 2, ( NSHeight( _DstRect ) - size.height ) / 2 ) withAttributes: attrs ];
+
+            return YES;
+            } ];
+
+        thumbnailImage_ = replacement;
+        return;
+        }
+
+    thumbnailImage_ = nil;
+    [ [ TauYTDataService sharedService ] fetchPreferredThumbnailFrom: thumbnailDetails
+                                                             success:
+    ^( NSImage* _Image, GTLYouTubeThumbnailDetails* _ThumbnailDetails, BOOL _LoadsFromCache )
+        {
+        if ( _ThumbnailDetails == [ self.ytContent valueForKeyPath: @"snippet.thumbnails" ] )
+            {
+            thumbnailImage_ = _Image;
+            }
+        } failure:
+            ^( NSError* _Error )
+                {
+                DDLogFatal( @"%@", _Error );
+                } ];
     }
 
 @end // TauContentCollectionItemView + PriTauYouTubeContentView_

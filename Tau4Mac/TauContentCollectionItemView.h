@@ -10,10 +10,6 @@
 
 @interface TauContentCollectionItemView : NSControl
 
-#pragma mark - Initializations
-
-- ( instancetype ) initWithGTLObject: ( GTLObject* )_GTLObject;
-
 #pragma mark - Properties
 
 @property ( strong, readwrite ) GTLObject* ytContent;
