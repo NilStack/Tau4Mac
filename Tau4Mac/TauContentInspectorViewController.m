@@ -7,39 +7,16 @@
 //
 
 #import "TauContentInspectorViewController.h"
-
-// TauContentInspectorSectionView class
-@interface TauContentInspectorSectionView : NSView
-@end // TauContentInspectorSectionView class
-
-
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-
+#import "TauContentInspectorSubViews.h"
 
 // Private
 @interface TauContentInspectorViewController ()
 
-@property ( weak ) IBOutlet NSView* noSelectionLabelSection_;
+@property ( weak, readonly ) NSView* activedSelectionSubView_;
 
-/*************** Embedding the split view controller ***************/
-
-@property ( strong, readonly ) NSSplitViewController* splitInspectorViewController_;
-
-// These guys used for feeding the split inspector view controller above
-@property ( strong, readonly ) NSSplitViewItem* singleContentTitleSectionItem_;
-@property ( strong, readonly ) NSSplitViewItem* singleContentActionSectionItem_;
-@property ( strong, readonly ) NSSplitViewItem* singleContentDescriptionSectionItem_;
-@property ( strong, readonly ) NSSplitViewItem* singleContentInformationSectionItem_;
-
-// These guys used for feeding the split view items above
-@property ( weak ) IBOutlet NSViewController* wrapperOfSingleContentTitleSectionView_;
-@property ( weak ) IBOutlet NSViewController* wrapperOfSingleContentActionSectionView_;
-@property ( weak ) IBOutlet NSViewController* wrapperOfSingleContentDescriptionSectionView_;
-@property ( weak ) IBOutlet NSViewController* wrapperOfSingleContentInformationSectionView_;
-
-/*************** Embedding the split view controller ***************/
+@property ( weak ) IBOutlet TauContentInspectorNoSelectionSubView* noSelectionSubView_;
+@property ( weak ) IBOutlet TauContentInspectorSingleSelectionSubView* singleSelectionSubView_;
+@property ( weak ) IBOutlet TauContentInspectorMultipleSelectionsSubView* multipleSelectionSubView_;
 
 @property ( weak ) IBOutlet NSArrayController* ytContentModelController_;
 
@@ -57,8 +34,7 @@
 @implementation TauContentInspectorViewController
     {
     // Layout Constraints Cache
-    NSArray <NSLayoutConstraint*>* inspectorLayoutConstraintsCache_;
-
+    NSArray <NSLayoutConstraint*>* inspectorSubViewPinEdgesCache_;
     }
 
 TauDeallocBegin
@@ -69,10 +45,16 @@ TauDeallocEnd
 - ( void ) viewDidLoad
     {
     [ super viewDidLoad ];
+    }
 
-    [ self addChildViewController: self.splitInspectorViewController_ ];
-    [ self.view addSubview: self.splitInspectorViewController_.view ];
-    [ [ self.splitInspectorViewController_.view configureForAutoLayout ] autoPinEdgesToSuperviewEdges ];
+- ( NSView* ) selectionSubViewWithMode_: ( TauContentInspectorMode )_Mode
+    {
+    switch ( _Mode )
+        {
+        case TauContentInspectorNoSelectionMode: return [ self.noSelectionSubView_ configureForAutoLayout ];
+        case TauContentInspectorSingleSelectionMode: return [ self.singleSelectionSubView_ configureForAutoLayout ];
+        case TauContentInspectorMultipleSelectionsMode: return [ self.multipleSelectionSubView_ configureForAutoLayout ];
+        }
     }
 
 - ( void ) viewDidAppear
@@ -85,9 +67,24 @@ TauDeallocEnd
     ^( id _Nullable _Observer, id _Nonnull _Object, NSDictionary <NSString*, id>* _Nonnull _Change )
         {
         TauContentInspectorMode newMode = ( TauContentInspectorMode )( [ _Change[ NSKeyValueChangeNewKey ] integerValue ] );
-        TauContentInspectorMode oldMode = ( TauContentInspectorMode )( [ _Change[ NSKeyValueChangeNewKey ] integerValue ] );
+        TauContentInspectorMode oldMode = ( TauContentInspectorMode )( [ _Change[ NSKeyValueChangeOldKey ] integerValue ] );
 
-        NSLog( @"New: %ld vs. Old: %ld", newMode, oldMode );
+        if ( newMode != oldMode )
+            {
+            NSView* oldView = [ self selectionSubViewWithMode_: oldMode ];
+            [ oldView removeFromSuperview ];
+
+            if ( inspectorSubViewPinEdgesCache_.count > 0 )
+                {
+                [ self.view removeConstraints: inspectorSubViewPinEdgesCache_ ];
+                inspectorSubViewPinEdgesCache_ = nil;
+                }
+            }
+
+//        NSLog( @"New: %ld vs. Old: %ld", newMode, oldMode );
+
+        [ self.view addSubview: self.activedSelectionSubView_ ];
+        inspectorSubViewPinEdgesCache_ = [ self.activedSelectionSubView_ autoPinEdgesToSuperviewEdges ];
         } ];
     }
 
@@ -139,59 +136,6 @@ TauDeallocEnd
         return TauContentInspectorMultipleSelectionsMode;
     }
 
-#pragma mark - Private
-
-@synthesize splitInspectorViewController_ = priSplitInspectorViewController_;
-- ( NSSplitViewController* ) splitInspectorViewController_
-    {
-    if ( !priSplitInspectorViewController_ )
-        {
-        priSplitInspectorViewController_ = [ [ NSSplitViewController alloc ] initWithNibName: nil bundle: nil ];
-        priSplitInspectorViewController_.splitView.vertical = NO;
-        priSplitInspectorViewController_.splitView.dividerStyle = NSSplitViewDividerStyleThin;
-
-        [ priSplitInspectorViewController_ addSplitViewItem: self.singleContentTitleSectionItem_ ];
-        [ priSplitInspectorViewController_ addSplitViewItem: self.singleContentActionSectionItem_ ];
-        [ priSplitInspectorViewController_ addSplitViewItem: self.singleContentDescriptionSectionItem_ ];
-        [ priSplitInspectorViewController_ addSplitViewItem: self.singleContentInformationSectionItem_ ];
-        }
-
-    return priSplitInspectorViewController_;
-    }
-
-    // These guys used for feeding the split inspector view controller above
-@synthesize singleContentTitleSectionItem_ = priSingleContentTitleSectionItem_;
-- ( NSSplitViewItem* ) singleContentTitleSectionItem_
-    {
-    if ( !priSingleContentTitleSectionItem_ )
-        priSingleContentTitleSectionItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfSingleContentTitleSectionView_ ];
-    return priSingleContentTitleSectionItem_;
-    }
-
-@synthesize singleContentActionSectionItem_ = priSingleContentActionSectionItem_;
-- ( NSSplitViewItem* ) singleContentActionSectionItem_
-    {
-    if ( !priSingleContentActionSectionItem_ )
-        priSingleContentActionSectionItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfSingleContentActionSectionView_ ];
-    return priSingleContentActionSectionItem_;
-    }
-
-@synthesize singleContentDescriptionSectionItem_ = priSingleContentDescriptionSectionItem_;
-- ( NSSplitViewItem* ) singleContentDescriptionSectionItem_
-    {
-    if ( !priSingleContentDescriptionSectionItem_ )
-        priSingleContentDescriptionSectionItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfSingleContentDescriptionSectionView_ ];
-    return priSingleContentDescriptionSectionItem_;
-    }
-
-@synthesize singleContentInformationSectionItem_ = priSingleContentInformationSectionItem_;
-- ( NSSplitViewItem* ) singleContentInformationSectionItem_
-    {
-    if ( !priSingleContentInformationSectionItem_ )
-        priSingleContentInformationSectionItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfSingleContentInformationSectionView_ ];
-    return priSingleContentInformationSectionItem_;
-    }
-
 @synthesize selfObservController_ = priSelfObservController_;
 - ( FBKVOController* ) selfObservController_
     {
@@ -200,24 +144,15 @@ TauDeallocEnd
     return priSelfObservController_;
     }
 
-@end // TauContentInspectorViewController class
+#pragma mark - Private
 
-
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-
-
-// TauContentInspectorSectionView class
-@implementation TauContentInspectorSectionView : NSView
-
-- ( void ) awakeFromNib
+@dynamic activedSelectionSubView_;
+- ( NSView* ) activedSelectionSubView_
     {
-    [ [ self configureForAutoLayout ] setWantsLayer: YES ];
-    [ self.layer setBackgroundColor: [ NSColor whiteColor ].CGColor ];
+    return [ self selectionSubViewWithMode_: self.mode ];
     }
 
-@end // TauContentInspectorSectionView class
+@end // TauContentInspectorViewController class
 
 
 

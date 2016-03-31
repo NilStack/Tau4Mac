@@ -7,7 +7,7 @@
 //
 
 // TauContentInspectorNoSelectionSubView class
-@interface TauContentInspectorNoSelectionSubView : NSView
+@interface TauContentInspectorNoSelectionSubView : NSVisualEffectView
 @end // TauContentInspectorNoSelectionSubView class
 
 

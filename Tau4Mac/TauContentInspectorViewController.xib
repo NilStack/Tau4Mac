@@ -7,12 +7,10 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TauContentInspectorViewController">
             <connections>
-                <outlet property="noSelectionLabelSection_" destination="jJL-pR-HgS" id="kjX-co-7Q8"/>
+                <outlet property="multipleSelectionSubView_" destination="DeI-dZ-qVA" id="uIi-D2-jZE"/>
+                <outlet property="noSelectionSubView_" destination="AnE-3J-eXW" id="Kpn-sx-4Bf"/>
+                <outlet property="singleSelectionSubView_" destination="c9S-GL-zfS" id="nBy-g2-6lq"/>
                 <outlet property="view" destination="JpR-XP-nVJ" id="PbH-ZP-GSR"/>
-                <outlet property="wrapperOfSingleContentActionSectionView_" destination="aov-uw-QZu" id="1Yz-Nj-XZi"/>
-                <outlet property="wrapperOfSingleContentDescriptionSectionView_" destination="Ovr-2Y-XCS" id="ze6-j9-MS4"/>
-                <outlet property="wrapperOfSingleContentInformationSectionView_" destination="PbZ-U2-L2H" id="dKH-D6-ZK1"/>
-                <outlet property="wrapperOfSingleContentTitleSectionView_" destination="O0U-D9-J1q" id="CHB-d0-bZc"/>
                 <outlet property="ytContentModelController_" destination="nkQ-0u-50I" id="vcT-WP-HCJ"/>
             </connections>
         </customObject>
@@ -29,19 +27,6 @@
             </connections>
         </arrayController>
         <userDefaultsController representsSharedInstance="YES" id="1QY-hg-lk7"/>
-        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jJL-pR-HgS" userLabel="No Selection Label Section">
-            <rect key="frame" x="0.0" y="0.0" width="128" height="24"/>
-            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="OMI-cO-AhS">
-                <font key="font" size="20" name="HelveticaNeue-Light"/>
-                <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
-                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-            </textFieldCell>
-            <connections>
-                <binding destination="nkQ-0u-50I" name="hidden" keyPath="arrangedObjects.@count" id="hqn-IA-ruJ"/>
-                <binding destination="nkQ-0u-50I" name="value" keyPath="selection.snippet.title" id="Vz8-s1-fD2"/>
-            </connections>
-            <point key="canvasLocation" x="444" y="-159"/>
-        </textField>
         <customView id="dhK-De-Q8r" userLabel="Single Content Action Section" customClass="TauContentInspectorSectionView">
             <rect key="frame" x="0.0" y="0.0" width="269" height="41"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -69,32 +54,9 @@ DQ
             </constraints>
             <point key="canvasLocation" x="802.5" y="80.5"/>
         </customView>
-        <customView id="yUE-5Y-ndY" userLabel="Single Content Title Section" customClass="TauContentInspectorSectionView">
+        <customView id="yUE-5Y-ndY" userLabel="Single Content Title Section" customClass="PriContentTitleSectionView_">
             <rect key="frame" x="0.0" y="0.0" width="240" height="48"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qjj-kr-bQV">
-                    <rect key="frame" x="18" y="10" width="204" height="22"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="YdK-dS-xMW"/>
-                        <constraint firstAttribute="height" constant="22" id="Yln-X6-IOu"/>
-                    </constraints>
-                    <textFieldCell key="cell" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="left" title="Anna's Story" usesSingleLineMode="YES" id="KVW-fy-xtS">
-                        <font key="font" size="18" name="PingFangSC-Regular"/>
-                        <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    </textFieldCell>
-                    <connections>
-                        <binding destination="nkQ-0u-50I" name="value" keyPath="selection.snippet.title" id="BOg-GP-EED"/>
-                    </connections>
-                </textField>
-            </subviews>
-            <constraints>
-                <constraint firstItem="qjj-kr-bQV" firstAttribute="top" secondItem="yUE-5Y-ndY" secondAttribute="top" constant="16" id="DOW-Ac-vw4"/>
-                <constraint firstAttribute="bottom" secondItem="qjj-kr-bQV" secondAttribute="bottom" constant="10" id="E0A-oz-ifb"/>
-                <constraint firstAttribute="trailing" secondItem="qjj-kr-bQV" secondAttribute="trailing" constant="20" id="JOZ-XO-xkz"/>
-                <constraint firstItem="qjj-kr-bQV" firstAttribute="leading" secondItem="yUE-5Y-ndY" secondAttribute="leading" constant="20" id="XUm-1D-pVd"/>
-            </constraints>
             <point key="canvasLocation" x="802" y="-35"/>
         </customView>
         <customView wantsLayer="YES" id="eG4-cM-th3" userLabel="Single Content Description Section" customClass="TauContentInspectorSectionView">
@@ -281,5 +243,51 @@ DQ
                 <outlet property="view" destination="wnM-W4-bI1" id="A4P-R6-Ire"/>
             </connections>
         </viewController>
+        <customView id="AnE-3J-eXW" customClass="TauContentInspectorNoSelectionSubView">
+            <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jJL-pR-HgS" userLabel="No Selection Label Section">
+                    <rect key="frame" x="23" y="36" width="118" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="EdU-5O-fNI"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="OhS-8O-faf"/>
+                    </constraints>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="No Selection" id="OMI-cO-AhS">
+                        <font key="font" size="20" name="HelveticaNeue-Light"/>
+                        <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="nkQ-0u-50I" name="hidden" keyPath="arrangedObjects.@count" id="hqn-IA-ruJ"/>
+                        <binding destination="nkQ-0u-50I" name="value" keyPath="selection.snippet.title" id="Vz8-s1-fD2"/>
+                    </connections>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="jJL-pR-HgS" firstAttribute="centerX" secondItem="AnE-3J-eXW" secondAttribute="centerX" id="8qn-h4-4jP"/>
+                <constraint firstItem="jJL-pR-HgS" firstAttribute="centerY" secondItem="AnE-3J-eXW" secondAttribute="centerY" id="bvS-Pi-sRt"/>
+            </constraints>
+            <connections>
+                <outlet property="noSelectionLabelSection_" destination="jJL-pR-HgS" id="vWN-jh-DKr"/>
+            </connections>
+            <point key="canvasLocation" x="691.5" y="225"/>
+        </customView>
+        <customView id="c9S-GL-zfS" customClass="TauContentInspectorSingleSelectionSubView">
+            <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <connections>
+                <outlet property="wrapperOfSingleContentActionSectionView_" destination="aov-uw-QZu" id="377-61-tEB"/>
+                <outlet property="wrapperOfSingleContentDescriptionSectionView_" destination="Ovr-2Y-XCS" id="3D9-4u-GjS"/>
+                <outlet property="wrapperOfSingleContentInformationSectionView_" destination="PbZ-U2-L2H" id="DzS-Cb-SQX"/>
+                <outlet property="wrapperOfSingleContentTitleSectionView_" destination="O0U-D9-J1q" id="pr2-wx-RZ2"/>
+            </connections>
+            <point key="canvasLocation" x="755.5" y="51"/>
+        </customView>
+        <customView id="DeI-dZ-qVA" customClass="TauContentInspectorMultipleSelectionsSubView">
+            <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <point key="canvasLocation" x="394.5" y="314"/>
+        </customView>
     </objects>
 </document>
