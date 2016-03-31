@@ -13,8 +13,6 @@
 #import "NSImage+Tau.h"
 #import "NSColor+TauDrawing.h"
 
-#import "PriTauYouTubeContentView_.h"
-
 // PriItemBorderView_ class
 @interface PriItemBorderView_ : NSView
 
@@ -260,17 +258,6 @@ CGFloat  static  const sSublayerOffset = -10.f;
     return priBorderView_;
     }
 
-@end // TauContentCollectionItemView class
-
-
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-
-
-// TauContentCollectionItemView + PriTauYouTubeContentView_
-@implementation TauContentCollectionItemView ( PriTauYouTubeContentView_ )
-
 // Init
 - ( void ) doInit_
     {
@@ -337,7 +324,7 @@ CGFloat  static  const sSublayerOffset = -10.f;
                 } ];
     }
 
-@end // TauContentCollectionItemView + PriTauYouTubeContentView_
+@end // TauContentCollectionItemView class
 
 
 
