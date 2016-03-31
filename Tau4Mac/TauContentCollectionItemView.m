@@ -182,6 +182,30 @@ TauDeallocEnd
     return highlightState_;
     }
 
+#pragma mark - Drawing
+
+@dynamic focusArea;
+- ( NSRect ) focusArea
+    {
+    switch ( self.type )
+        {
+        case TauYouTubeVideo:
+        case TauYouTubePlayList:
+            return self.bounds;
+
+        case TauYouTubeChannel:
+            {
+            NSRect area = self.bounds;
+            area.size.width = NSHeight( area ) + 10.f;
+            area.origin.x += NSWidth( area );
+            return area;
+            }
+
+        case TauYouTubeUnknownContent:
+            return NSZeroRect;
+        }
+    }
+
 #pragma mark - Private
 
 @synthesize coverImage_;

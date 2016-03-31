@@ -15,9 +15,7 @@
 
 - ( instancetype ) init
     {
-    self = [ super init ];
-
-    if ( self )
+    if ( self = [ super init ] )
         {
         [ self setItemSize: NSMakeSize( TauVideoLayoutItemWidth, TauVideoLayoutItemHeight ) ];
         [ self setMinimumInteritemSpacing: TauNormalFlowLayoutXPadding ];

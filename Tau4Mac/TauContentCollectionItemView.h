@@ -18,4 +18,8 @@
 @property ( assign, readwrite, setter = setSelected: ) BOOL isSelected;
 @property ( assign, readwrite ) NSCollectionViewItemHighlightState highlightState;
 
+#pragma mark - Drawing
+
+@property ( assign, readonly ) NSRect focusArea;
+
 @end // TauContentCollectionItemView class
