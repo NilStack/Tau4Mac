@@ -127,23 +127,21 @@ TauDeallocEnd
 
 - ( NSArray <TauToolbarItem*>* ) exposedToolbarItemsWhileActive
     {
-    NSArray <TauToolbarItem*>* items = @[ [ TauToolbarItem switcherItem ]
-            , [ TauToolbarItem adaptiveSpaceItem ]
-            , [ [ TauToolbarItem alloc ] initWithIdentifier: nil label: nil view: self.exploreTabControl ]
-            , [ TauToolbarItem flexibleSpaceItem ]
-            ];
+    NSArray <TauToolbarItem*>* intrinsicItems =
+        @[ [ TauToolbarItem switcherItem ]
+         , [ TauToolbarItem adaptiveSpaceItem ]
+         , [ [ TauToolbarItem alloc ] initWithIdentifier: nil label: nil view: self.exploreTabControl ]
+         , [ TauToolbarItem flexibleSpaceItem ]
+         ];
 
-    NSArray <TauToolbarItem*>* underlyingItems =  [ self.activedExploreTabViewController valueForKey: TauKVOStrictKey( exposedToolbarItemsWhileActive ) ];
-    for ( TauToolbarItem* _Candidate in underlyingItems )
-        {
-        if ( [ _Candidate.view.identifier isEqualToString: @"fucking-button" ] )
-            {
-            items = [ items arrayByAddingObject: _Candidate ];
-            break;
-            }
-        }
+    // Inherited items from actived explore tab view controller.
+    // We put the needed one of them next to the intrinsicItems.
+    NSArray <TauToolbarItem*>* inheritedItems = [ self.activedExploreTabViewController valueForKey: TauKVOStrictKey( exposedToolbarItemsWhileActive ) ];
+    for ( TauToolbarItem* _Candidate in inheritedItems )
+        if ( [ _Candidate.identifier isEqualToString: TauToolbarControlInspectorButtonItemIdentifier ] )
+            return [ intrinsicItems arrayByAddingObject: _Candidate ];
 
-    return items;
+    return intrinsicItems;
     }
 
 #pragma mark - External KVB Compliant Properties

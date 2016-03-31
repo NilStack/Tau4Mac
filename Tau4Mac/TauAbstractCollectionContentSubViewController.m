@@ -81,12 +81,20 @@ NSString* const TauShouldExposeContentCollectionItemNotif = @"Should.ExposeConte
 
 - ( NSArray <TauToolbarItem*>* ) exposedToolbarItemsWhileActive
     {
-    return @[ [ TauToolbarItem switcherItem ]
-            , [ TauToolbarItem adaptiveSpaceItem ]
-            , [ [ TauToolbarItem alloc ] initWithIdentifier: nil label: nil view: self.appWideSummaryViewLabel_ ]
-            , [ TauToolbarItem flexibleSpaceItem ]
-            , [ [ TauToolbarItem alloc ] initWithIdentifier: nil label: nil view: self.contentCollectionViewController.controlInspectorButton ]
-            ];
+    NSArray <TauToolbarItem*>* intrinsicItems =
+        @[ [ TauToolbarItem switcherItem ]
+         , [ TauToolbarItem adaptiveSpaceItem ]
+         , [ [ TauToolbarItem alloc ] initWithIdentifier: nil label: nil view: self.appWideSummaryViewLabel_ ]
+         , [ TauToolbarItem flexibleSpaceItem ]
+         ];
+
+    // Inherited items from content collection view controller.
+    // We put all of them next to the intrinsicItems.
+    NSArray <TauToolbarItem*>* inheritedItems = self.contentCollectionViewController.exposedToolbarItems;
+    if ( inheritedItems.count > 0 )
+        intrinsicItems = [ intrinsicItems arrayByAddingObjectsFromArray: inheritedItems ];
+
+    return intrinsicItems;
     }
 
 #pragma mark - Conforms to <TauContentCollectionViewRelayDataSource>

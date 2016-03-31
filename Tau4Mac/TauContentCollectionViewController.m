@@ -10,6 +10,7 @@
 #import "TauContentInspectorViewController.h"
 #import "TauContentCollectionItem.h"
 #import "TauNormalFlowLayout.h"
+#import "TauToolbarItem.h"
 
 // PriHasSelectedTransformer_ class
 @interface PriHasSelectedTransformer_ : NSValueTransformer
@@ -54,11 +55,22 @@
 
 /***/
 
+@property ( strong, readonly ) NSButton* controlInspectorButton_;
+
 // Internal Actions
 
 - ( void ) controlInspectorAction_: ( NSButton* )_Sender;
 
 @end // Private
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
+// Toolbar item identifiers
+NSString* const TauToolbarControlInspectorButtonItemIdentifier = @"home.bedroom.TongKuo.Tau.Toolbar.ControlInspectorButton";
 
 
 
@@ -117,32 +129,7 @@ TauDeallocBegin
                      );
 TauDeallocEnd
 
-@synthesize controlInspectorButton = priControlInspectorButton_;
-- ( NSButton* ) controlInspectorButton
-    {
-    if ( !priControlInspectorButton_ )
-        {
-        priControlInspectorButton_ = [ [ NSButton alloc ] initWithFrame: NSMakeRect( 0, 0, 30.f, 29.f ) ];
-
-        [ priControlInspectorButton_ setButtonType: NSToggleButton ];
-        [ priControlInspectorButton_ setIdentifier: @"fucking-button" ];
-        [ priControlInspectorButton_ setKeyEquivalent: @"0" ];
-        [ priControlInspectorButton_ setKeyEquivalentModifierMask: NSAlternateKeyMask | NSCommandKeyMask ];
-
-        [ priControlInspectorButton_ setTarget: self ];
-        [ priControlInspectorButton_ setAction: @selector( controlInspectorAction_: ) ];
-
-        NSImage* icon = [ NSImage imageNamed: @"tau-show-details-inspector" ];
-        [ icon setSize: NSMakeSize( 13.f, 12.f ) ];
-        [ icon setTemplate: YES ];
-
-        [ priControlInspectorButton_ setBezelStyle: NSTexturedRoundedBezelStyle ];
-        [ priControlInspectorButton_ setImage: icon ];
-        [ priControlInspectorButton_ setImagePosition: NSImageOnly ];
-        }
-
-    return priControlInspectorButton_;
-    }
+#pragma mark - External KVB Copliant Properties
 
 @synthesize inspectorCollapsed = inspectorCollapsed_;
 + ( BOOL ) automaticallyNotifiesObserversOfInspectorCollapsed
@@ -155,13 +142,25 @@ TauDeallocEnd
     TauChangeValueForKVOStrictKey( inspectorCollapsed,
      ( ^{
         inspectorCollapsed_ = _Flag;
-        [ self.controlInspectorButton setState: ( NSCellStateValue )!inspectorCollapsed_ ];
+        [ self.controlInspectorButton_ setState: ( NSCellStateValue )!inspectorCollapsed_ ];
         } ) );
     }
 
 - ( BOOL ) inspectorCollapsed
     {
     return inspectorCollapsed_;
+    }
+
+#pragma mark - Feeding TauToolbarController
+
+@synthesize exposedToolbarItems = priExposedToolbarItems_;
+- ( NSArray <TauToolbarItem*>* ) exposedToolbarItems
+    {
+    if ( !priExposedToolbarItems_ )
+        priExposedToolbarItems_ =
+            @[ [ [ TauToolbarItem alloc ] initWithIdentifier: TauToolbarControlInspectorButtonItemIdentifier label: nil view: self.controlInspectorButton_ ] ];
+
+    return priExposedToolbarItems_;
     }
 
 #pragma mark - Relay the Model Data
@@ -277,6 +276,8 @@ TauDeallocEnd
     return priContentCollectionSplitViewItem_;
     }
 
+/***/
+
 - ( NSSplitViewItem* ) contentInspectorSplitViewItem_
     {
     if ( !priContentInspectorSplitViewItem_ )
@@ -300,6 +301,32 @@ TauDeallocEnd
         }
 
     return priContentInspectorSplitViewItem_;
+    }
+
+@synthesize controlInspectorButton_ = priControlInspectorButton_;
+- ( NSButton* ) controlInspectorButton_
+    {
+    if ( !priControlInspectorButton_ )
+        {
+        priControlInspectorButton_ = [ [ NSButton alloc ] initWithFrame: NSMakeRect( 0, 0, 30.f, 29.f ) ];
+
+        [ priControlInspectorButton_ setButtonType: NSToggleButton ];
+        [ priControlInspectorButton_ setKeyEquivalent: @"0" ];
+        [ priControlInspectorButton_ setKeyEquivalentModifierMask: NSAlternateKeyMask | NSCommandKeyMask ];
+
+        [ priControlInspectorButton_ setTarget: self ];
+        [ priControlInspectorButton_ setAction: @selector( controlInspectorAction_: ) ];
+
+        NSImage* icon = [ NSImage imageNamed: @"tau-show-details-inspector" ];
+        [ icon setSize: NSMakeSize( 13.f, 12.f ) ];
+        [ icon setTemplate: YES ];
+
+        [ priControlInspectorButton_ setBezelStyle: NSTexturedRoundedBezelStyle ];
+        [ priControlInspectorButton_ setImage: icon ];
+        [ priControlInspectorButton_ setImagePosition: NSImageOnly ];
+        }
+
+    return priControlInspectorButton_;
     }
 
 // Internal Actions
