@@ -9,9 +9,9 @@
 @class TauAbstractContentInspectorView;
 
 typedef NS_ENUM ( NSInteger, TauContentInspectorMode )
-    { TauContentInspectorNoSelectionMode       = 0
-    , TauContentInspectorSingleSelectionMode   = 1
-    , TauContentInspectorMultipleSelectionMode = 2
+    { TauContentInspectorNoSelectionMode        = 0
+    , TauContentInspectorSingleSelectionMode    = 1
+    , TauContentInspectorMultipleSelectionsMode = 2
     };
 
 // TauContentInspectorViewController class

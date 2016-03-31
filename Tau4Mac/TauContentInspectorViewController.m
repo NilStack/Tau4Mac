@@ -77,6 +77,8 @@ TauDeallocEnd
 
 - ( void ) viewDidAppear
     {
+    // Established a fucking retain-circle through the self-observing.
+    // Will break it in viewDidDisappear
     [ self.selfObservController_ observe: self keyPath: TauKVOStrictKey( mode )
                                  options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial
                                    block:
@@ -91,6 +93,7 @@ TauDeallocEnd
 
 - ( void ) viewDidDisappear
     {
+    // Break the retain-circle causing by the self-observing
     [ self.selfObservController_ unobserve: self keyPath: TauKVOStrictKey( mode ) ];
     }
 
@@ -133,7 +136,7 @@ TauDeallocEnd
     else if ( cnt == 1 )
         return TauContentInspectorSingleSelectionMode;
     else
-        return TauContentInspectorMultipleSelectionMode;
+        return TauContentInspectorMultipleSelectionsMode;
     }
 
 #pragma mark - Private
