@@ -25,7 +25,7 @@
         </customView>
         <arrayController objectClassName="GTLObject" id="nkQ-0u-50I" userLabel="YouTube Content Objects Model Controller">
             <connections>
-                <binding destination="-2" name="contentArray" keyPath="self.ytContents" id="uIL-wf-d3q"/>
+                <binding destination="-2" name="contentArray" keyPath="self.YouTubeContents" id="WBP-OY-xAf"/>
             </connections>
         </arrayController>
         <userDefaultsController representsSharedInstance="YES" id="1QY-hg-lk7"/>

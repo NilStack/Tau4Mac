@@ -76,26 +76,26 @@ TauDeallocEnd
 
 #pragma mark - External KVB Compliant Properties
 
-@synthesize ytContents = ytContents_;
-+ ( NSSet <NSString*>* ) keyPathsForValuesAffectingYtContents
+@synthesize YouTubeContents = YouTubeContents_;
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingYouTubeContents
     {
     return [ NSSet setWithObjects: TauKVOStrictKey( representedObject ), nil ];
     }
 
-+ ( BOOL ) automaticallyNotifiesObserversOfYtContents
++ ( BOOL ) automaticallyNotifiesObserversOfYouTubeContents
     {
     return NO;
     }
 
-- ( void ) setYtContents: ( NSArray <GTLObject*>* )_New
+- ( void ) setYouTubeContents: ( NSArray <GTLObject*>* )_New
     {
-    if ( ytContents_ != _New )
-        TauChangeValueForKVOStrictKey( ytContents, ^{ ytContents_ = _New; } );
+    if ( YouTubeContents_ != _New )
+        TauChangeValueForKVOStrictKey( YouTubeContents, ^{ YouTubeContents_ = _New; } );
     }
 
-- ( NSArray <GTLObject*>* ) ytContents
+- ( NSArray <GTLObject*>* ) YouTubeContents
     {
-    return ytContents_;
+    return YouTubeContents_;
     }
 
 #pragma mark - Private

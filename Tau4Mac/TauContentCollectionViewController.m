@@ -103,7 +103,7 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
 
     // Estanlishing bindings between inspector view and myself
     [ self.wrapperOfContentInspectorView_
-            bind: TauKVOStrictKey( ytContents )
+            bind: TauKVOStrictKey( YouTubeContents )
         toObject: self
      withKeyPath: TauKVOStrictKey( selectedItems )
          options: nil ];
@@ -122,7 +122,7 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
 
 TauDeallocBegin
     // Get rid of bindings
-    [ self.wrapperOfContentInspectorView_ unbind: TauKVOStrictKey( ytContents ) ];
+    [ self.wrapperOfContentInspectorView_ unbind: TauKVOStrictKey( YouTubeContents ) ];
 
     TauMutuallyUnbind( self, TauKVOStrictKey( inspectorCollapsed )
                      , self.contentInspectorSplitViewItem_, TauKVOStrictClassKeyPath( NSSplitViewItem, collapsed )

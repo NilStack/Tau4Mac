@@ -11,6 +11,6 @@
 // TauContentInspectorViewController class
 @interface TauContentInspectorViewController : NSViewController
 
-@property ( strong, readwrite ) NSArray <GTLObject*>* ytContents;   // KVB-Compliant
+@property ( strong, readwrite ) NSArray <GTLObject*>* YouTubeContents;   // KVB-Compliant
 
 @end // TauContentInspectorViewController class
