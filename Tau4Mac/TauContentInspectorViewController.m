@@ -90,9 +90,7 @@ TauDeallocEnd
 - ( void ) setYtContents: ( NSArray <GTLObject*>* )_New
     {
     if ( ytContents_ != _New )
-        {
         TauChangeValueForKVOStrictKey( ytContents, ^{ ytContents_ = _New; } );
-        }
     }
 
 - ( NSArray <GTLObject*>* ) ytContents

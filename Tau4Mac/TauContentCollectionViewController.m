@@ -11,6 +11,30 @@
 #import "TauContentCollectionItem.h"
 #import "TauNormalFlowLayout.h"
 
+// PriHasSelectedTransformer_ class
+@interface PriHasSelectedTransformer_ : NSValueTransformer
+@end
+
+@implementation PriHasSelectedTransformer_
+
++ ( Class ) transformedValueClass
+    {
+    return [ NSNumber class ];
+    }
+
+- ( id ) transformedValue: ( id )_Value
+    {
+    return [ NSNumber numberWithNegateBool: [ ( NSArray* )_Value count ] == 1 ];
+    }
+
+@end // PriHasSelectedTransformer_ class
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
 // Private
 @interface TauContentCollectionViewController ()
 
@@ -65,7 +89,7 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
     [ self.view addSubview: [ splitViewController.view configureForAutoLayout ] ];
     [ splitViewController.view autoPinEdgesToSuperviewEdges ];
 
-    // Estanlishing bindings
+    // Estanlishing bindings between inspector view and myself
     [ self.wrapperOfContentInspectorView_
             bind: TauKVOStrictKey( ytContents )
         toObject: self
@@ -74,6 +98,12 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
 
     TauMutuallyBind( self, TauKVOStrictKey( inspectorCollapsed )
                    , self.contentInspectorSplitViewItem_, TauKVOStrictClassKeyPath( NSSplitViewItem, collapsed ) );
+
+    //???: Automatically show/hide inspector
+    //    [ self bind: TauKVOStrictKey( inspectorCollapsed )
+    //       toObject: self
+    //    withKeyPath: TauKVOStrictKey( selectedItems )
+    //        options: @{ NSValueTransformerNameBindingOption : @"PriHasSelectedTransformer_" } ];
 
     [ self setInspectorCollapsed: YES ];
     }
@@ -250,7 +280,7 @@ TauDeallocEnd
         priContentCollectionSplitViewItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfContentCollectionView_ ];
         [ priContentCollectionSplitViewItem_ setCanCollapse: NO ];
 
-        //
+        /***/
         [ priContentCollectionSplitViewItem_ setMinimumThickness: TauVideoLayoutItemWidth + 65.f ];
         }
 

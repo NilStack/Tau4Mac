@@ -24,7 +24,7 @@
 
 #pragma mark - Relay the Controllers & Views State
 
-@property ( copy ) NSSet <NSIndexPath*>* selectionIndexPaths;    // KVB-Compliant
+@property ( copy ) NSSet <NSIndexPath*>* selectionIndexPaths;   // KVB-Compliant
 @property ( strong, readonly ) NSArray <NSCollectionViewItem*>* selectedItems;  // KVO-Compliant
 
 @end // TauContentCollectionViewController class
