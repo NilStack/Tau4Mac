@@ -31,7 +31,7 @@
 // Private
 @interface TauContentCollectionItemView ()
 
-@property ( strong, readwrite ) NSImage* thumbnailImage_;
+@property ( strong, readwrite ) NSImage* coverImage_;
 
 // Sub Content Background Layer
 
@@ -91,7 +91,7 @@ TauDeallocEnd
         case TauYouTubeVideo:
         case TauYouTubePlayList:
         case TauYouTubeChannel:
-            self.subContentBgLayer_.contents = thumbnailImage_; break;
+            self.subContentBgLayer_.contents = coverImage_; break;
 
         default:
             self.subContentBgLayer_.contents = nil; break;
@@ -104,7 +104,7 @@ TauDeallocEnd
 
         [ self addSubview: borderView ];
 
-        if ( ytContent_.tauContentType == TauYouTubeChannel )
+        if ( YouTubeContent_.tauContentType == TauYouTubeChannel )
             priBorderViewPinEdgesCache_ = [ borderView autoPinEdgesToSuperviewEdgesWithInsets: NSEdgeInsetsZero excludingEdge: ALEdgeLeading ];
         else
             priBorderViewPinEdgesCache_ = [ borderView autoPinEdgesToSuperviewEdges ];
@@ -126,26 +126,26 @@ TauDeallocEnd
 
 #pragma mark - Properties
 
-@synthesize ytContent = ytContent_;
+@synthesize YouTubeContent = YouTubeContent_;
 @dynamic type;
 
-- ( void ) setYtContent: ( GTLObject* )_New
+- ( void ) setYouTubeContent: ( GTLObject* )_New
     {
-    if ( ytContent_ != _New )
+    if ( YouTubeContent_ != _New )
         {
-        ytContent_ = _New;
+        YouTubeContent_ = _New;
         [ self redrawWithYouTubeContent_ ];
         }
     }
 
-- ( GTLObject* ) ytContent
+- ( GTLObject* ) YouTubeContent
     {
-    return ytContent_;
+    return YouTubeContent_;
     }
 
 - ( TauYouTubeContentType ) type
     {
-    return ytContent_.tauContentType;
+    return YouTubeContent_.tauContentType;
     }
 
 @synthesize isSelected = isSelected_;
@@ -184,17 +184,18 @@ TauDeallocEnd
 
 #pragma mark - Private
 
-@synthesize thumbnailImage_;
-- ( void ) setThumbnailImage_: ( NSImage* )_New
+@synthesize coverImage_;
+- ( void ) setCoverImage_: ( NSImage* )_New
     {
-    // Omitted "if ( thumbnailImage_ != _New )"
-    thumbnailImage_ = _New;
+    // Omitted the self-assignment determination
+
+    coverImage_ = _New;
     [ self setNeedsDisplay: YES ];
     }
 
-- ( NSImage* ) thumbnailImage_
+- ( NSImage* ) coverImage_
     {
-    return thumbnailImage_;
+    return coverImage_;
     }
 
 // Sub Content Background Layer
@@ -218,7 +219,7 @@ TauDeallocEnd
 @dynamic subContentBgLayerConstraints_;
 - ( NSArray <CAConstraint*>* ) subContentBgLayerConstraints_
     {
-    switch ( self.ytContent.tauContentType )
+    switch ( self.YouTubeContent.tauContentType )
         {
         case TauYouTubeVideo:
         case TauYouTubePlayList:
@@ -228,7 +229,7 @@ TauDeallocEnd
             return self.channelItemLayerConstraints_;
 
         case TauYouTubeUnknownContent:
-            DDLogUnexpected( @"Unkown content type {%@}", self.ytContent );
+            DDLogUnexpected( @"Unkown content type {%@}", self.YouTubeContent );
             return nil;
         }
     }
@@ -278,7 +279,7 @@ CGFloat  static  const sSublayerOffset = -10.f;
     [ priFocusRing_ removeFromSuperview ];
     [ priFocusRing_ removeConstraints: priFocusRing_.constraints ];
 
-    if ( ytContent_.tauContentType == TauYouTubeChannel )
+    if ( YouTubeContent_.tauContentType == TauYouTubeChannel )
         [ priFocusRing_ autoMatchDimension: ALDimensionWidth toDimension: ALDimensionHeight ofView: priFocusRing_ withOffset: ABS( sSublayerOffset ) ];
 
     return priFocusRing_;
@@ -304,7 +305,7 @@ CGFloat  static  const sSublayerOffset = -10.f;
     {
     GTLYouTubeThumbnailDetails* thumbnailDetails = nil;
     @try {
-    thumbnailDetails = [ self.ytContent valueForKeyPath: @"snippet.thumbnails" ];
+    thumbnailDetails = [ self.YouTubeContent valueForKeyPath: @"snippet.thumbnails" ];
     } @catch ( NSException* _Ex )
         {
         DDLogFatal( @"%@", _Ex );
@@ -319,9 +320,9 @@ CGFloat  static  const sSublayerOffset = -10.f;
             [ [ NSColor blackColor ] set ];
             NSRectFill( _DstRect );
 
-            NSString* noCover = @"NO COVER";
+            NSString* noCover = NSLocalizedString( @"NO COVER", @"Text displays when there's no cover image for a YouTube content item" );
             NSDictionary* attrs = @{ NSForegroundColorAttributeName : [ NSColor whiteColor ]
-                                   , NSFontAttributeName : [ NSFont fontWithName: @"Helvetica Neue Light" size: 15 ]
+                                   , NSFontAttributeName : [ NSFont fontWithName: @"Helvetica Neue" size: 17 ]
                                    };
 
             NSSize size = [ noCover sizeWithAttributes: attrs ];
@@ -330,17 +331,17 @@ CGFloat  static  const sSublayerOffset = -10.f;
             return YES;
             } ];
 
-        self.thumbnailImage_ = replacement;
+        self.coverImage_ = replacement;
         return;
         }
 
-    self.thumbnailImage_ = nil;
+    self.coverImage_ = nil;
     [ [ TauYTDataService sharedService ] fetchPreferredThumbnailFrom: thumbnailDetails
                                                              success:
     ^( NSImage* _Image, GTLYouTubeThumbnailDetails* _ThumbnailDetails, BOOL _LoadsFromCache )
         {
-        if ( _ThumbnailDetails == [ self.ytContent valueForKeyPath: @"snippet.thumbnails" ] )
-            self.thumbnailImage_ = _Image;
+        if ( _ThumbnailDetails == [ self.YouTubeContent valueForKeyPath: @"snippet.thumbnails" ] )
+            self.coverImage_ = _Image;
 
         } failure:
             ^( NSError* _Error )
@@ -379,6 +380,8 @@ CGFloat  static  const sSublayerOffset = -10.f;
 
     return self;
     }
+
+#pragma mark - Managing the View Hierarchy
 
 - ( void ) viewWillMoveToSuperview: ( NSView* )_NewSuperview
     {

@@ -12,7 +12,7 @@
 
 #pragma mark - Properties
 
-@property ( strong, readwrite ) GTLObject* ytContent;
+@property ( strong, readwrite ) GTLObject* YouTubeContent;
 @property ( assign, readonly ) TauYouTubeContentType type;
 
 @property ( assign, readwrite, setter = setSelected: ) BOOL isSelected;
