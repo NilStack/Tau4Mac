@@ -105,7 +105,11 @@ TauDeallocEnd
         [ self addSubview: borderView ];
 
         if ( YouTubeContent_.tauContentType == TauYouTubeChannel )
-            priBorderViewPinEdgesCache_ = [ borderView autoPinEdgesToSuperviewEdgesWithInsets: NSEdgeInsetsZero excludingEdge: ALEdgeLeading ];
+            {
+            priBorderViewPinEdgesCache_ = @[ [ borderView autoPinEdgeToSuperviewEdge: ALEdgeTop ] ];
+            priBorderViewPinEdgesCache_ = [ priBorderViewPinEdgesCache_ arrayByAddingObject: [ borderView autoPinEdgeToSuperviewEdge: ALEdgeBottom ] ];
+            priBorderViewPinEdgesCache_ = [ priBorderViewPinEdgesCache_ arrayByAddingObject: [ borderView autoAlignAxisToSuperviewAxis: ALAxisVertical ] ];
+            }
         else
             priBorderViewPinEdgesCache_ = [ borderView autoPinEdgesToSuperviewEdges ];
         }
@@ -283,7 +287,7 @@ CGFloat  static  const sSublayerOffset = -10.f;
     if ( !priChannelItemLayerConstraints_ )
         {
         priChannelItemLayerConstraints_ =
-            @[ [ CAConstraint constraintWithAttribute: kCAConstraintMaxX relativeTo: sSuperlayerName attribute: kCAConstraintMaxX offset: ( sSublayerOffset / 2.f ) ]
+            @[ [ CAConstraint constraintWithAttribute: kCAConstraintMidX relativeTo: sSuperlayerName attribute: kCAConstraintMidX ]
              , [ CAConstraint constraintWithAttribute: kCAConstraintMidY relativeTo: sSuperlayerName attribute: kCAConstraintMidY ]
              , [ CAConstraint constraintWithAttribute: kCAConstraintHeight relativeTo: sSuperlayerName attribute: kCAConstraintHeight offset: sSublayerOffset ]
              , [ CAConstraint constraintWithAttribute: kCAConstraintWidth relativeTo: sSuperlayerName attribute: kCAConstraintHeight ]
