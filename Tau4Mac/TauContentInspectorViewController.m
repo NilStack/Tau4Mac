@@ -43,6 +43,8 @@
 
 @property ( weak ) IBOutlet NSArrayController* ytContentModelController_;
 
+@property ( strong, readonly ) FBKVOController* selfObservController_;
+
 @end // Private
 
 
@@ -56,6 +58,7 @@
     {
     // Layout Constraints Cache
     NSArray <NSLayoutConstraint*>* inspectorLayoutConstraintsCache_;
+
     }
 
 TauDeallocBegin
@@ -70,6 +73,25 @@ TauDeallocEnd
     [ self addChildViewController: self.splitInspectorViewController_ ];
     [ self.view addSubview: self.splitInspectorViewController_.view ];
     [ [ self.splitInspectorViewController_.view configureForAutoLayout ] autoPinEdgesToSuperviewEdges ];
+    }
+
+- ( void ) viewDidAppear
+    {
+    [ self.selfObservController_ observe: self keyPath: TauKVOStrictKey( mode )
+                                 options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial
+                                   block:
+    ^( id _Nullable _Observer, id _Nonnull _Object, NSDictionary <NSString*, id>* _Nonnull _Change )
+        {
+        TauContentInspectorMode newMode = ( TauContentInspectorMode )( [ _Change[ NSKeyValueChangeNewKey ] integerValue ] );
+        TauContentInspectorMode oldMode = ( TauContentInspectorMode )( [ _Change[ NSKeyValueChangeNewKey ] integerValue ] );
+
+        NSLog( @"New: %ld vs. Old: %ld", newMode, oldMode );
+        } ];
+    }
+
+- ( void ) viewDidDisappear
+    {
+    [ self.selfObservController_ unobserve: self keyPath: TauKVOStrictKey( mode ) ];
     }
 
 #pragma mark - External KVB Compliant Properties
@@ -165,6 +187,14 @@ TauDeallocEnd
     if ( !priSingleContentInformationSectionItem_ )
         priSingleContentInformationSectionItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfSingleContentInformationSectionView_ ];
     return priSingleContentInformationSectionItem_;
+    }
+
+@synthesize selfObservController_ = priSelfObservController_;
+- ( FBKVOController* ) selfObservController_
+    {
+    if ( !priSelfObservController_ )
+        priSelfObservController_ = [ [ FBKVOController alloc ] initWithObserver: self retainObserved: NO ];
+    return priSelfObservController_;
     }
 
 @end // TauContentInspectorViewController class
