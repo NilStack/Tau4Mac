@@ -13,14 +13,14 @@
 #import "NSImage+Tau.h"
 #import "NSColor+TauDrawing.h"
 
-// PriItemBorderView_ class
-@interface PriItemBorderView_ : NSView
+// PriItemFocusRing_ class
+@interface PriItemFocusRing_ : NSView
 
 #pragma mark - External Properties
 
 @property ( strong, readwrite ) NSColor* borderColor;
 
-@end // PriItemBorderView_ class
+@end // PriItemFocusRing_ class
 
 
 
@@ -32,13 +32,26 @@
 @interface TauContentCollectionItemView ()
 
 @property ( strong, readwrite ) NSImage* thumbnailImage_;
+
+// Sub Content Background Layer
+
 @property ( strong, readonly ) TauContentCollectionItemSubLayer* subContentBgLayer_;
 
 @property ( strong, readonly ) NSArray <CAConstraint*>* subContentBgLayerConstraints_;
 @property ( strong, readonly ) NSArray <CAConstraint*>* videoItemLayerConstraints_;
 @property ( strong, readonly ) NSArray <CAConstraint*>* channelItemLayerConstraints_;
 
-@property ( strong, readonly ) PriItemBorderView_* borderView_;
+// Focus Ring
+
+@property ( strong, readonly ) PriItemFocusRing_* focusRing_;
+
+// Init
+
+- ( void ) doInit_;
+
+// Content
+
+- ( void ) redrawWithYouTubeContent_;
 
 @end // Private
 
@@ -86,7 +99,7 @@ TauDeallocEnd
 
     if ( isSelected_ || ( highlightState_ == NSCollectionViewItemHighlightForSelection ) )
         {
-        PriItemBorderView_* borderView = self.borderView_;
+        PriItemFocusRing_* borderView = self.focusRing_;
         [ borderView setBorderColor: isSelected_ ? nil : [ NSColor lightGrayColor ] ];
 
         [ self addSubview: borderView ];
@@ -101,8 +114,8 @@ TauDeallocEnd
         if ( priBorderViewPinEdgesCache_ && priBorderViewPinEdgesCache_.count > 0 )
             [ self removeConstraints: priBorderViewPinEdgesCache_ ];
 
-        if ( priBorderView_ )
-            [ priBorderView_ removeFromSuperview ];
+        if ( priFocusRing_ )
+            [ priFocusRing_ removeFromSuperview ];
         }
     }
 
@@ -121,7 +134,7 @@ TauDeallocEnd
     if ( ytContent_ != _New )
         {
         ytContent_ = _New;
-        [ self updateYtContent_ ];
+        [ self redrawWithYouTubeContent_ ];
         }
     }
 
@@ -172,6 +185,19 @@ TauDeallocEnd
 #pragma mark - Private
 
 @synthesize thumbnailImage_;
+- ( void ) setThumbnailImage_: ( NSImage* )_New
+    {
+    // Omitted "if ( thumbnailImage_ != _New )"
+    thumbnailImage_ = _New;
+    [ self setNeedsDisplay: YES ];
+    }
+
+- ( NSImage* ) thumbnailImage_
+    {
+    return thumbnailImage_;
+    }
+
+// Sub Content Background Layer
 
 @synthesize subContentBgLayer_ = priSubContentBgLayer_;
 - ( TauContentCollectionItemSubLayer* ) subContentBgLayer_
@@ -242,23 +268,24 @@ CGFloat  static  const sSublayerOffset = -10.f;
     return priChannelItemLayerConstraints_;
     }
 
-@synthesize borderView_ = priBorderView_;
-- ( PriItemBorderView_* ) borderView_
+@synthesize focusRing_ = priFocusRing_;
+- ( PriItemFocusRing_* ) focusRing_
     {
-    if ( !priBorderView_ )
-        priBorderView_ = [ [ [ PriItemBorderView_ alloc ] initWithFrame: NSZeroRect ] configureForAutoLayout ];
+    if ( !priFocusRing_ )
+        priFocusRing_ = [ [ [ PriItemFocusRing_ alloc ] initWithFrame: NSZeroRect ] configureForAutoLayout ];
 
-    [ priBorderView_ setFrame: NSZeroRect ];
-    [ priBorderView_ removeFromSuperview ];
-    [ priBorderView_ removeConstraints: priBorderView_.constraints ];
+    [ priFocusRing_ setFrame: NSZeroRect ];
+    [ priFocusRing_ removeFromSuperview ];
+    [ priFocusRing_ removeConstraints: priFocusRing_.constraints ];
 
     if ( ytContent_.tauContentType == TauYouTubeChannel )
-        [ priBorderView_ autoMatchDimension: ALDimensionWidth toDimension: ALDimensionHeight ofView: priBorderView_ withOffset: ABS( sSublayerOffset ) ];
+        [ priFocusRing_ autoMatchDimension: ALDimensionWidth toDimension: ALDimensionHeight ofView: priFocusRing_ withOffset: ABS( sSublayerOffset ) ];
 
-    return priBorderView_;
+    return priFocusRing_;
     }
 
 // Init
+
 - ( void ) doInit_
     {
     [ self configureForAutoLayout ].wantsLayer = YES;
@@ -272,7 +299,8 @@ CGFloat  static  const sSublayerOffset = -10.f;
     }
 
 // Content
-- ( void ) updateYtContent_
+
+- ( void ) redrawWithYouTubeContent_
     {
     GTLYouTubeThumbnailDetails* thumbnailDetails = nil;
     @try {
@@ -285,9 +313,7 @@ CGFloat  static  const sSublayerOffset = -10.f;
     if ( !thumbnailDetails )
         {
         NSSize imageSize = self.bounds.size;
-        NSImage* replacement = [ NSImage imageWithSize: imageSize
-                                               flipped: NO
-                                        drawingHandler:
+        NSImage* replacement = [ NSImage imageWithSize: imageSize flipped: NO drawingHandler:
         ^BOOL ( NSRect _DstRect )
             {
             [ [ NSColor blackColor ] set ];
@@ -304,19 +330,18 @@ CGFloat  static  const sSublayerOffset = -10.f;
             return YES;
             } ];
 
-        thumbnailImage_ = replacement;
+        self.thumbnailImage_ = replacement;
         return;
         }
 
-    thumbnailImage_ = nil;
+    self.thumbnailImage_ = nil;
     [ [ TauYTDataService sharedService ] fetchPreferredThumbnailFrom: thumbnailDetails
                                                              success:
     ^( NSImage* _Image, GTLYouTubeThumbnailDetails* _ThumbnailDetails, BOOL _LoadsFromCache )
         {
         if ( _ThumbnailDetails == [ self.ytContent valueForKeyPath: @"snippet.thumbnails" ] )
-            {
-            thumbnailImage_ = _Image;
-            }
+            self.thumbnailImage_ = _Image;
+
         } failure:
             ^( NSError* _Error )
                 {
@@ -332,8 +357,8 @@ CGFloat  static  const sSublayerOffset = -10.f;
 
 
 
-// PriItemBorderView_ class
-@implementation PriItemBorderView_
+// PriItemFocusRing_ class
+@implementation PriItemFocusRing_
     {
     LRNotificationObserver __strong* appWillBecomeActObserv_;
     LRNotificationObserver __strong* appWillResignActObserv_;
@@ -406,4 +431,4 @@ CGFloat  static  const sSublayerOffset = -10.f;
     return borderColor_;
     }
 
-@end // PriItemBorderView_ class
+@end // PriItemFocusRing_ class
