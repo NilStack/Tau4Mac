@@ -72,6 +72,56 @@
 
 @end // PriContentTitleView_ class
 
+// PriContentActionView_ class
+@interface PriContentActionSectionView_ : NSView
+@property ( strong, readwrite ) GTLObject* YouTubeContent;
+@property ( weak ) IBOutlet NSSegmentedControl* actionSegControl;
+@end
+
+@implementation PriContentActionSectionView_
+
+@synthesize YouTubeContent = YouTubeContent_;
+
+- ( void ) setYouTubeContent: ( GTLObject* )_New
+    {
+    if ( YouTubeContent_ != _New )
+        {
+        YouTubeContent_ = _New;
+
+        switch ( YouTubeContent_.tauContentType )
+            {
+            case TauYouTubeVideo:
+//                [ self.actionSegControl setLabel: @"Play" forSegment: 0 ];
+                break;
+
+            case TauYouTubeChannel:
+                [ self.actionSegControl setImage: [ NSImage imageNamed: NSImageNameIconViewTemplate ] forSegment: 0 ];
+                break;
+
+            case TauYouTubePlayList:
+                [ self.actionSegControl setImage: [ NSImage imageNamed: NSImageNameListViewTemplate ] forSegment: 0 ];
+                break;
+
+            case TauYouTubeUnknownContent:;
+            }
+        }
+    }
+
+- ( GTLObject* ) YouTubeContent
+    {
+    return YouTubeContent_;
+    }
+
+@end // PriContentActionView_ class
+
+// PriContentDescriptionSectionView_ class
+@interface PriContentDescriptionSectionView_ : NSView
+@property ( strong ) IBOutlet NSTextView* textView_;
+@end
+
+@implementation PriContentDescriptionSectionView_
+@end // PriContentDescriptionSectionView_ class
+
 // Private
 @interface TauContentInspectorSingleSelectionSubView ()
 
@@ -94,6 +144,7 @@
 /*************** Embedding the split view controller ***************/
 
 @property ( weak ) IBOutlet PriContentTitleSectionView_* contentTitleSectionView_;
+@property ( weak ) IBOutlet PriContentActionSectionView_* contentActionSectionView_;
 
 @end // Private
 
@@ -112,7 +163,12 @@
 - ( void ) setYouTubeContent: ( GTLObject* )_New
     {
     YouTubeContent_ = _New;
-    [ self.contentTitleSectionView_ setTitle: YouTubeContent_.JSON[ @"snippet" ][ @"title" ] ];
+
+    NSString* title = YouTubeContent_.JSON[ @"snippet" ][ @"title" ];
+    [ self.contentTitleSectionView_ setTitle: title ];
+    [ self.contentTitleSectionView_ setToolTip: title ];
+
+    [ self.contentActionSectionView_ setYouTubeContent: YouTubeContent_ ];
     }
 
 - ( GTLObject* ) YouTubeContent
@@ -134,7 +190,7 @@
         [ priSplitInspectorViewController_ addSplitViewItem: self.singleContentTitleSectionItem_ ];
         [ priSplitInspectorViewController_ addSplitViewItem: self.singleContentActionSectionItem_ ];
         [ priSplitInspectorViewController_ addSplitViewItem: self.singleContentDescriptionSectionItem_ ];
-        [ priSplitInspectorViewController_ addSplitViewItem: self.singleContentInformationSectionItem_ ];
+        // [ priSplitInspectorViewController_ addSplitViewItem: self.singleContentInformationSectionItem_ ];
         }
 
     return priSplitInspectorViewController_;
@@ -159,7 +215,13 @@
 - ( NSSplitViewItem* ) singleContentActionSectionItem_
     {
     if ( !priSingleContentActionSectionItem_ )
+        {
         priSingleContentActionSectionItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfSingleContentActionSectionView_ ];
+
+        priSingleContentActionSectionItem_.minimumThickness = 50.f;
+        priSingleContentActionSectionItem_.maximumThickness = 50.f;
+        }
+
     return priSingleContentActionSectionItem_;
     }
 

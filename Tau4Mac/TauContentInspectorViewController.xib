@@ -27,31 +27,36 @@
             </connections>
         </arrayController>
         <userDefaultsController representsSharedInstance="YES" id="1QY-hg-lk7"/>
-        <customView id="dhK-De-Q8r" userLabel="Single Content Action Section" customClass="TauContentInspectorSectionView">
-            <rect key="frame" x="0.0" y="0.0" width="269" height="41"/>
+        <customView id="dhK-De-Q8r" userLabel="Single Content Action Section" customClass="PriContentActionSectionView_">
+            <rect key="frame" x="0.0" y="0.0" width="193" height="41"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dZ5-kf-zgD">
-                    <rect key="frame" x="27" y="3" width="215" height="32"/>
+                <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GeL-C0-pBs">
+                    <rect key="frame" x="18" y="11" width="157" height="20"/>
                     <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="5lp-mq-djW"/>
-                        <constraint firstAttribute="height" constant="21" id="WuN-EE-Zrv"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="08N-pH-iH5"/>
+                        <constraint firstAttribute="height" constant="18" id="DsB-Cb-nXG"/>
                     </constraints>
-                    <buttonCell key="cell" type="push" title="Action" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3b9-fT-7SM">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                        <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                    </buttonCell>
-                </button>
+                    <segmentedCell key="cell" borderStyle="border" alignment="left" style="roundRect" trackingMode="momentary" id="5de-QV-RRd">
+                        <font key="font" metaFont="cellTitle"/>
+                        <segments>
+                            <segment width="75">
+                                <nil key="label"/>
+                            </segment>
+                            <segment image="NSShareTemplate" width="75" tag="1">
+                                <nil key="label"/>
+                            </segment>
+                        </segments>
+                    </segmentedCell>
+                </segmentedControl>
             </subviews>
             <constraints>
-                <constraint firstItem="dZ5-kf-zgD" firstAttribute="leading" secondItem="dhK-De-Q8r" secondAttribute="leading" constant="33" id="GXo-pH-mgi"/>
-                <constraint firstAttribute="bottom" secondItem="dZ5-kf-zgD" secondAttribute="bottom" constant="10" id="c8q-bI-zCm"/>
-                <constraint firstAttribute="trailing" secondItem="dZ5-kf-zgD" secondAttribute="trailing" constant="33" id="cOn-9L-vD0"/>
-                <constraint firstItem="dZ5-kf-zgD" firstAttribute="top" secondItem="dhK-De-Q8r" secondAttribute="top" constant="10" id="e1V-7h-QLZ"/>
+                <constraint firstItem="GeL-C0-pBs" firstAttribute="centerX" secondItem="dhK-De-Q8r" secondAttribute="centerX" id="Zph-r0-dmi"/>
+                <constraint firstItem="GeL-C0-pBs" firstAttribute="centerY" secondItem="dhK-De-Q8r" secondAttribute="centerY" id="p4X-dt-E3u"/>
             </constraints>
+            <connections>
+                <outlet property="actionSegControl" destination="GeL-C0-pBs" id="4Z7-Vk-BsU"/>
+            </connections>
             <point key="canvasLocation" x="802.5" y="80.5"/>
         </customView>
         <customView id="yUE-5Y-ndY" userLabel="Single Content Title Section" customClass="PriContentTitleSectionView_">
@@ -59,25 +64,25 @@ DQ
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <point key="canvasLocation" x="802" y="-35"/>
         </customView>
-        <customView wantsLayer="YES" id="eG4-cM-th3" userLabel="Single Content Description Section" customClass="TauContentInspectorSectionView">
+        <customView wantsLayer="YES" id="eG4-cM-th3" userLabel="Single Content Description Section" customClass="PriContentDescriptionSectionView_">
             <rect key="frame" x="0.0" y="0.0" width="290" height="111"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="3UD-cT-lJL">
-                    <rect key="frame" x="15" y="11" width="260" height="89"/>
-                    <clipView key="contentView" id="nU5-zQ-TjM">
-                        <rect key="frame" x="0.0" y="0.0" width="260" height="89"/>
+                <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="3UD-cT-lJL">
+                    <rect key="frame" x="15" y="0.0" width="260" height="111"/>
+                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="nU5-zQ-TjM">
+                        <rect key="frame" x="0.0" y="0.0" width="260" height="111"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView editable="NO" selectable="NO" importsGraphics="NO" horizontallyResizable="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" linkDetection="YES" dashSubstitution="YES" id="x6x-jN-cff">
-                                <rect key="frame" x="0.0" y="0.0" width="260" height="89"/>
+                            <textView editable="NO" importsGraphics="NO" horizontallyResizable="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" linkDetection="YES" dashSubstitution="YES" id="x6x-jN-cff">
+                                <rect key="frame" x="0.0" y="0.0" width="260" height="111"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="deviceRGB"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <size key="minSize" width="260" height="89"/>
+                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <size key="minSize" width="260" height="111"/>
                                 <size key="maxSize" width="463" height="10000000"/>
                                 <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                <size key="minSize" width="260" height="89"/>
+                                <size key="minSize" width="260" height="111"/>
                                 <size key="maxSize" width="463" height="10000000"/>
                                 <connections>
                                     <binding destination="nkQ-0u-50I" name="attributedString" keyPath="selection.snippet.descriptionProperty" id="7NG-df-SmT">
@@ -90,37 +95,41 @@ DQ
                                 </connections>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                     </clipView>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" id="OTC-I9-IVX"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" id="X6J-gq-hs7"/>
                     </constraints>
+                    <edgeInsets key="contentInsets" left="0.0" right="0.0" top="10" bottom="10"/>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="Gli-gb-RYh">
                         <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" canDrawConcurrently="YES" verticalHuggingPriority="750" mirrorLayoutDirectionWhenInternationalizing="never" arrowsPosition="none" horizontal="NO" id="pB8-y6-6Oz">
-                        <rect key="frame" x="244" y="0.0" width="16" height="89"/>
+                        <rect key="frame" x="-100" y="-100" width="16" height="89"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
             </subviews>
             <constraints>
                 <constraint firstItem="3UD-cT-lJL" firstAttribute="leading" secondItem="eG4-cM-th3" secondAttribute="leading" constant="15" id="2r0-sD-iFm"/>
-                <constraint firstItem="3UD-cT-lJL" firstAttribute="top" secondItem="eG4-cM-th3" secondAttribute="top" constant="11" id="YMd-HN-kVQ"/>
+                <constraint firstItem="3UD-cT-lJL" firstAttribute="top" secondItem="eG4-cM-th3" secondAttribute="top" id="Hrg-dd-eCh"/>
+                <constraint firstAttribute="bottom" secondItem="3UD-cT-lJL" secondAttribute="bottom" id="Q0u-N0-PpG"/>
                 <constraint firstAttribute="trailing" secondItem="3UD-cT-lJL" secondAttribute="trailing" constant="15" id="fKf-DZ-4bg"/>
-                <constraint firstAttribute="bottom" secondItem="3UD-cT-lJL" secondAttribute="bottom" constant="11" id="tPX-hP-6xF"/>
             </constraints>
-            <point key="canvasLocation" x="802" y="235.5"/>
+            <connections>
+                <outlet property="textView_" destination="x6x-jN-cff" id="z55-xw-Dwy"/>
+            </connections>
+            <point key="canvasLocation" x="1066" y="232.5"/>
         </customView>
-        <customView id="wnM-W4-bI1" userLabel="Single Content Meta Info Section" customClass="TauContentInspectorSectionView">
+        <customView id="wnM-W4-bI1" userLabel="Single Content Meta Info Section">
             <rect key="frame" x="0.0" y="0.0" width="369" height="247"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oy1-wi-lfm" userLabel="Scroll - Single Content Meta Info Section">
                     <rect key="frame" x="0.0" y="0.0" width="369" height="247"/>
-                    <clipView key="contentView" id="KSV-yE-7tF">
+                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="KSV-yE-7tF">
                         <rect key="frame" x="0.0" y="0.0" width="369" height="247"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -128,7 +137,7 @@ DQ
                                 <rect key="frame" x="0.0" y="0.0" width="369" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
-                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
                                     <tableColumn width="116" minWidth="40" maxWidth="1000" id="At2-HQ-J3G">
@@ -198,7 +207,7 @@ DQ
                                 </tableColumns>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                     </clipView>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" id="0jZ-Ik-Fvi"/>
@@ -277,6 +286,7 @@ DQ
             <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <connections>
+                <outlet property="contentActionSectionView_" destination="dhK-De-Q8r" id="JiN-Gj-LRf"/>
                 <outlet property="contentTitleSectionView_" destination="yUE-5Y-ndY" id="Czp-Ve-q1B"/>
                 <outlet property="wrapperOfSingleContentActionSectionView_" destination="aov-uw-QZu" id="377-61-tEB"/>
                 <outlet property="wrapperOfSingleContentDescriptionSectionView_" destination="Ovr-2Y-XCS" id="3D9-4u-GjS"/>
@@ -291,4 +301,7 @@ DQ
             <point key="canvasLocation" x="394.5" y="314"/>
         </customView>
     </objects>
+    <resources>
+        <image name="NSShareTemplate" width="11" height="16"/>
+    </resources>
 </document>

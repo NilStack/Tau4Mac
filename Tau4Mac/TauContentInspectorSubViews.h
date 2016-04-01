@@ -17,10 +17,8 @@
 
 
 // TauContentInspectorSingleSelectionSubView class
-@interface TauContentInspectorSingleSelectionSubView : NSView
-
+@interface TauContentInspectorSingleSelectionSubView : NSVisualEffectView
 @property ( strong, readwrite ) GTLObject* YouTubeContent;
-
 @end // TauContentInspectorSingleSelectionSubView class
 
 

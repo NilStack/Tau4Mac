@@ -81,8 +81,6 @@ TauDeallocEnd
                 }
             }
 
-//        NSLog( @"New: %ld vs. Old: %ld", newMode, oldMode );
-
         if ( newMode == TauContentInspectorSingleSelectionMode )
             [ self.activedSelectionSubView_ setValue: self.YouTubeContents.firstObject forKey: @"YouTubeContent" ];
 
@@ -173,11 +171,17 @@ TauDeallocEnd
     return [ NSAttributedString class ];
     }
 
-- ( id ) transformedValue: ( id )_Value
+- ( id ) transformedValue: ( NSString* )_Value
     {
-    return [ [ NSAttributedString alloc ] initWithString: _Value attributes:
-        @{ NSFontAttributeName : [ NSFont fontWithName: @"Helvetica Neue Light" size: 11.f ]
-         , NSForegroundColorAttributeName : [ NSColor grayColor ]
+    NSString* text = ( _Value.length > 0 ) ? _Value : NSLocalizedString( @"No Description", nil );
+
+    NSMutableParagraphStyle* ps = [ [ NSMutableParagraphStyle defaultParagraphStyle ] mutableCopy ];
+    [ ps setLineSpacing: 4.f ];
+
+    return [ [ NSAttributedString alloc ] initWithString: text attributes:
+        @{ NSFontAttributeName : [ NSFont fontWithName: @"Helvetica Neue Light" size: 13.f ]
+         , NSForegroundColorAttributeName : [ [ NSColor blackColor ] colorWithAlphaComponent: .5f ]
+         , NSParagraphStyleAttributeName : ps
          } ];
     }
 
