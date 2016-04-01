@@ -52,6 +52,13 @@
 // TauPlayerContentSubViewController class
 @implementation TauPlayerContentSubViewController
 
+- ( void ) viewDidLoad
+    {
+    AVPlayerView* globalPlayerView = [ [ TauPlayerController defaultPlayerController ] playerView ];
+    [ self.view addSubview: globalPlayerView ];
+    [ globalPlayerView autoPinEdgesToSuperviewEdges ];
+    }
+
 - ( NSAppearance* ) windowAppearanceWhileActive
     {
     return [ NSAppearance appearanceNamed: NSAppearanceNameVibrantDark ];

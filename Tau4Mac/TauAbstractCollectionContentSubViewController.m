@@ -155,7 +155,8 @@ NSString* const TauShouldExposeContentCollectionItemNotif = @"Should.ExposeConte
                 {
                 case TauYouTubeVideo:
                     {
-                    NSLog( @"%@", _Notif );
+                    NSString* videoIdentifier = _Notif.videoIdentifier;
+                    [ [ TauPlayerController defaultPlayerController ] playYouTubeVideoWithVideoIdentifier: videoIdentifier switchToPlayer: YES ];
                     } break;
 
                 case TauYouTubePlayList:

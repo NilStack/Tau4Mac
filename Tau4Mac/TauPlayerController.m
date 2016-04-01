@@ -7,6 +7,7 @@
 //
 
 #import "TauPlayerController.h"
+#import "TauToolbarController.h"
 
 // Private
 @interface TauPlayerController ()
@@ -18,7 +19,25 @@
 // TauPlayerController class
 @implementation TauPlayerController
 
-- ( void ) playYouTubeVideo: ( GTLObject* )_YouTubeObject
+#pragma mark - UI Elements
+
+@synthesize playerView = priPlayerView_;
+- ( AVPlayerView* ) playerView
+    {
+    if ( !priPlayerView_ )
+        {
+        priPlayerView_ = [ [ AVPlayerView alloc ] initWithFrame: NSZeroRect ];
+
+        [ priPlayerView_ setControlsStyle: AVPlayerViewControlsStyleFloating ];
+        [ priPlayerView_ setPlayer: self.queuePlayer_ ];
+        }
+
+    return priPlayerView_;
+    }
+
+#pragma mark - Player Operations
+
+- ( void ) playYouTubeVideo: ( GTLObject* )_YouTubeObject switchToPlayer: ( BOOL )_Flag
     {
     if ( _YouTubeObject.tauContentType != TauYouTubeVideo )
         {
@@ -32,8 +51,16 @@
     else if ( [ _YouTubeObject isKindOfClass: [ GTLYouTubeSearchResult class ] ] )
         videoIdentifier = [ ( GTLYouTubeSearchResult* )_YouTubeObject identifier ].JSON[ @"videoId" ];
 
+    [ self playYouTubeVideoWithVideoIdentifier: videoIdentifier switchToPlayer: _Flag ];
+    }
+
+- ( void ) playYouTubeVideoWithVideoIdentifier: ( NSString* )_VideoIdentifier switchToPlayer: ( BOOL )_Flag
+    {
+    if ( _Flag )
+        [ [ TauToolbarController sharedController ] setContentViewAffiliatedTo: TauPlayerContentViewTag ];
+
     [ [ XCDYouTubeClient defaultClient ]
-        getVideoWithIdentifier: videoIdentifier
+        getVideoWithIdentifier: _VideoIdentifier
              completionHandler:
         ^( XCDYouTubeVideo* _Nullable _Video, NSError* _Nullable _Error )
             {
@@ -48,26 +75,15 @@
 
                 AVPlayerItem* playerItem = [ AVPlayerItem playerItemWithURL: preferURL ];
                 [ self.queuePlayer_ replaceCurrentItemWithPlayerItem: playerItem ];
+                [ self.queuePlayer_ play ];
                 }
             } ];
-    }
-
-@synthesize playerView = priPlayerView_;
-- ( AVPlayerView* ) playerView
-    {
-    if ( !priPlayerView_ )
-        {
-        priPlayerView_ = [ [ AVPlayerView alloc ] initWithFrame: NSZeroRect ];
-        [ priPlayerView_ setPlayer: self.queuePlayer_ ];
-        }
-
-    return priPlayerView_;
     }
 
 #pragma mark - Singleton
 
 TauPlayerController static* sPlayerController;
-+ ( instancetype ) defaultTheater
++ ( instancetype ) defaultPlayerController
     {
     return [ [ TauPlayerController alloc ] init ];
     }

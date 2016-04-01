@@ -38,6 +38,7 @@
 
 #import "TauConstants.h"
 #import "TauYTDataService.h"
+#import "TauPlayerController.h"
 
 #import "TauValueTransformers.h"
 
