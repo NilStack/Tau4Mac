@@ -57,15 +57,9 @@
     return [ NSAppearance appearanceNamed: NSAppearanceNameVibrantDark ];
     }
 
-//- ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
-//    {
-//    return [ [ AccessoryBarViewController alloc ] initWithNibName: nil bundle: nil ];
-//    }
-
 - ( NSArray <TauToolbarItem*>* ) exposedToolbarItemsWhileActive
     {
-    return @[ [ TauToolbarItem flexibleSpaceItem ]
-            , [ TauToolbarItem switcherItem ]
+    return @[ [ TauToolbarItem switcherItem ]
             , [ TauToolbarItem flexibleSpaceItem ]
             ];
     }

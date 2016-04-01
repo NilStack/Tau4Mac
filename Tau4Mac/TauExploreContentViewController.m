@@ -116,13 +116,32 @@ TauDeallocEnd
     return c;
     }
 
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingExposedToolbarItemsWhileActive
+    {
+    return [ NSSet setWithObjects:
+          TauKVOStrictKey( activedExploreTabViewTag )
+        , @"MeTubeController_.exposedToolbarItemsWhileActive"
+        , @"subscriptionsController_.exposedToolbarItemsWhileActive"
+        , nil ];
+    }
+
 - ( NSArray <TauToolbarItem*>* ) exposedToolbarItemsWhileActive
     {
-    return @[ [ TauToolbarItem switcherItem ]
-            , [ TauToolbarItem adaptiveSpaceItem ]
-            , [ [ TauToolbarItem alloc ] initWithIdentifier: nil label: nil view: self.exploreTabControl ]
-            , [ TauToolbarItem flexibleSpaceItem ]
-            ];
+    NSArray <TauToolbarItem*>* intrinsicItems =
+        @[ [ TauToolbarItem switcherItem ]
+         , [ TauToolbarItem adaptiveSpaceItem ]
+         , [ [ TauToolbarItem alloc ] initWithIdentifier: nil label: nil view: self.exploreTabControl ]
+         , [ TauToolbarItem flexibleSpaceItem ]
+         ];
+
+    // Inherited items from actived explore tab view controller.
+    // We put the needed one of them next to the intrinsicItems.
+    NSArray <TauToolbarItem*>* inheritedItems = [ self.activedExploreTabViewController valueForKey: TauKVOStrictKey( exposedToolbarItemsWhileActive ) ];
+    for ( TauToolbarItem* _Candidate in inheritedItems )
+        if ( [ _Candidate.identifier isEqualToString: TauToolbarControlInspectorButtonItemIdentifier ] )
+            return [ intrinsicItems arrayByAddingObject: _Candidate ];
+
+    return intrinsicItems;
     }
 
 #pragma mark - External KVB Compliant Properties

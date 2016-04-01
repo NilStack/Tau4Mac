@@ -10,16 +10,16 @@
 
 @interface TauContentCollectionItemView : NSControl
 
-#pragma mark - Initializations
-
-- ( instancetype ) initWithGTLObject: ( GTLObject* )_GTLObject;
-
 #pragma mark - Properties
 
-@property ( strong, readwrite ) GTLObject* ytContent;
+@property ( strong, readwrite ) GTLObject* YouTubeContent;
 @property ( assign, readonly ) TauYouTubeContentType type;
 
 @property ( assign, readwrite, setter = setSelected: ) BOOL isSelected;
 @property ( assign, readwrite ) NSCollectionViewItemHighlightState highlightState;
+
+#pragma mark - Drawing
+
+@property ( assign, readonly ) NSRect focusArea;
 
 @end // TauContentCollectionItemView class

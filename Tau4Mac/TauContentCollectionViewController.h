@@ -7,10 +7,22 @@
 //
 
 @protocol TauContentCollectionViewRelayDataSource;
+@class TauToolbarItem;
+
+// Toolbar item identifiers
+NSString extern* const TauToolbarControlInspectorButtonItemIdentifier;
 
 // TauContentCollectionViewController class
 @interface TauContentCollectionViewController : NSViewController
     <NSCollectionViewDataSource, NSCollectionViewDelegate, NSCollectionViewDelegateFlowLayout>
+
+#pragma mark - External KVB Copliant Properties
+
+@property ( assign, readwrite ) BOOL inspectorCollapsed;
+
+#pragma mark - Feeding TauToolbarController
+
+@property ( strong, readonly ) NSArray <TauToolbarItem*>* exposedToolbarItems;
 
 #pragma mark - Relay the Model Data
 
@@ -21,7 +33,7 @@
 
 #pragma mark - Relay the Controllers & Views State
 
-@property ( copy ) NSSet <NSIndexPath*>* selectionIndexPaths;    // KVB-Compliant
+@property ( copy ) NSSet <NSIndexPath*>* selectionIndexPaths;   // KVB-Compliant
 @property ( strong, readonly ) NSArray <NSCollectionViewItem*>* selectedItems;  // KVO-Compliant
 
 @end // TauContentCollectionViewController class
@@ -48,5 +60,4 @@
 
 // TauAccessoryBarContentCollectionSummaryView class
 @interface TauAccessoryBarContentCollectionSummaryView : NSView
-//@property ( strong, readwrite ) NS
 @end // TauAccessoryBarContentCollectionSummaryView class

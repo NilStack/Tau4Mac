@@ -13,16 +13,14 @@
 #import "NSImage+Tau.h"
 #import "NSColor+TauDrawing.h"
 
-#import "PriTauYouTubeContentView_.h"
-
-// _PriItemBorderView class
-@interface _PriItemBorderView : NSView
+// PriItemFocusRing_ class
+@interface PriItemFocusRing_ : NSView
 
 #pragma mark - External Properties
 
 @property ( strong, readwrite ) NSColor* borderColor;
 
-@end // _PriItemBorderView class
+@end // PriItemFocusRing_ class
 
 
 
@@ -33,26 +31,36 @@
 // Private
 @interface TauContentCollectionItemView ()
 
-@property ( strong, readonly ) TauContentCollectionItemSubLayer* subLayer_;
-@property ( strong, readonly ) _PriItemBorderView* borderView_;
+@property ( strong, readwrite ) NSImage* coverImage_;
+
+// Sub Content Background Layer
+
+@property ( strong, readonly ) TauContentCollectionItemSubLayer* subContentBgLayer_;
+
+@property ( strong, readonly ) NSArray <CAConstraint*>* subContentBgLayerConstraints_;
+@property ( strong, readonly ) NSArray <CAConstraint*>* videoItemLayerConstraints_;
+@property ( strong, readonly ) NSArray <CAConstraint*>* channelItemLayerConstraints_;
+
+// Focus Ring
+
+@property ( strong, readonly ) PriItemFocusRing_* focusRing_;
+
+// Init
+
+- ( void ) doInit_;
+
+// Content
+
+- ( void ) redrawWithYouTubeContent_;
 
 @end // Private
-
-
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-
 
 // TauContentCollectionItemView class
 @implementation TauContentCollectionItemView
     {
 @protected
-    NSImage __strong* priThumbnailImage_;
-    GTLObject __strong* ytContent_;
-
-    // Layout caches
-    NSArray __strong* priBorderViewPinEdgesCache_;
+    // Layout constraints caches
+    NSArray <NSLayoutConstraint*> __strong* priBorderViewPinEdgesCache_;
     }
 
 TauDeallocBegin
@@ -74,13 +82,6 @@ TauDeallocEnd
     return self;
     }
 
-- ( instancetype ) initWithGTLObject: ( GTLObject* )_GTLObject
-    {
-    if ( self = [ self initWithFrame: NSZeroRect ] )
-        self.ytContent = _GTLObject;
-    return self;
-    }
-
 #pragma mark - Drawing
 
 - ( void ) updateLayer
@@ -88,27 +89,37 @@ TauDeallocEnd
     switch ( self.type )
         {
         case TauYouTubeVideo:
-        case TauYouTubePlayList: self.subLayer_.contents = priThumbnailImage_;  break;
-//        case TauYouTubeChannel:  self.subLayer_.contents = [ priThumbnailImage_ gaussianBluredOfRadius: 10.f ]; break;
-        case TauYouTubeChannel:  self.subLayer_.contents = priThumbnailImage_; break;
-                       default:  self.subLayer_.contents = nil;
+        case TauYouTubePlayList:
+        case TauYouTubeChannel:
+            self.subContentBgLayer_.contents = coverImage_; break;
+
+        default:
+            self.subContentBgLayer_.contents = nil; break;
         }
 
     if ( isSelected_ || ( highlightState_ == NSCollectionViewItemHighlightForSelection ) )
         {
-        _PriItemBorderView* borderView = self.borderView_;
+        PriItemFocusRing_* borderView = self.focusRing_;
         [ borderView setBorderColor: isSelected_ ? nil : [ NSColor lightGrayColor ] ];
 
         [ self addSubview: borderView ];
-        priBorderViewPinEdgesCache_ = [ borderView autoPinEdgesToSuperviewEdges ];
+
+        if ( YouTubeContent_.tauContentType == TauYouTubeChannel )
+            {
+            priBorderViewPinEdgesCache_ = @[ [ borderView autoPinEdgeToSuperviewEdge: ALEdgeTop ] ];
+            priBorderViewPinEdgesCache_ = [ priBorderViewPinEdgesCache_ arrayByAddingObject: [ borderView autoPinEdgeToSuperviewEdge: ALEdgeBottom ] ];
+            priBorderViewPinEdgesCache_ = [ priBorderViewPinEdgesCache_ arrayByAddingObject: [ borderView autoAlignAxisToSuperviewAxis: ALAxisVertical ] ];
+            }
+        else
+            priBorderViewPinEdgesCache_ = [ borderView autoPinEdgesToSuperviewEdges ];
         }
     else
         {
         if ( priBorderViewPinEdgesCache_ && priBorderViewPinEdgesCache_.count > 0 )
             [ self removeConstraints: priBorderViewPinEdgesCache_ ];
 
-        if ( priBorderView_ )
-            [ self.borderView_ removeFromSuperview ];
+        if ( priFocusRing_ )
+            [ priFocusRing_ removeFromSuperview ];
         }
     }
 
@@ -119,22 +130,26 @@ TauDeallocEnd
 
 #pragma mark - Properties
 
-@dynamic ytContent;
+@synthesize YouTubeContent = YouTubeContent_;
 @dynamic type;
 
-- ( void ) setYtContent: ( GTLObject* )_ytContent
+- ( void ) setYouTubeContent: ( GTLObject* )_New
     {
-    [ self updateYtContent_: _ytContent ];
+    if ( YouTubeContent_ != _New )
+        {
+        YouTubeContent_ = _New;
+        [ self redrawWithYouTubeContent_ ];
+        }
     }
 
-- ( GTLObject* ) ytContent
+- ( GTLObject* ) YouTubeContent
     {
-    return ytContent_;
+    return YouTubeContent_;
     }
 
 - ( TauYouTubeContentType ) type
     {
-    return ytContent_.tauContentType;
+    return YouTubeContent_.tauContentType;
     }
 
 @synthesize isSelected = isSelected_;
@@ -171,36 +186,196 @@ TauDeallocEnd
     return highlightState_;
     }
 
+#pragma mark - Drawing
+
+@dynamic focusArea;
+- ( NSRect ) focusArea
+    {
+    switch ( self.type )
+        {
+        case TauYouTubeVideo:
+        case TauYouTubePlayList:
+            return self.bounds;
+
+        case TauYouTubeChannel:
+            {
+            NSRect area = self.bounds;
+            area.size.width = NSHeight( area ) + 10.f;
+            area.origin.x += NSWidth( area );
+            return area;
+            }
+
+        case TauYouTubeUnknownContent:
+            return NSZeroRect;
+        }
+    }
+
 #pragma mark - Private
 
-@synthesize subLayer_ = priSubLayer_;
-- ( TauContentCollectionItemSubLayer* ) subLayer_
+@synthesize coverImage_;
+- ( void ) setCoverImage_: ( NSImage* )_New
     {
-    if ( !priSubLayer_ )
+    // Omitted the self-assignment determination
+
+    coverImage_ = _New;
+    [ self setNeedsDisplay: YES ];
+    }
+
+- ( NSImage* ) coverImage_
+    {
+    return coverImage_;
+    }
+
+// Sub Content Background Layer
+
+@synthesize subContentBgLayer_ = priSubContentBgLayer_;
+- ( TauContentCollectionItemSubLayer* ) subContentBgLayer_
+    {
+    if ( !priSubContentBgLayer_ )
         {
         CALayer* superlayer = self.layer;
-        priSubLayer_ = [ [ TauContentCollectionItemSubLayer alloc ] init ];
-        [ superlayer addSublayer: priSubLayer_ ];
+        priSubContentBgLayer_ = [ [ TauContentCollectionItemSubLayer alloc ] init ];
+        [ superlayer addSublayer: priSubContentBgLayer_ ];
 
         if ( !superlayer.layoutManager )
             [ superlayer setLayoutManager: [ CAConstraintLayoutManager layoutManager ] ];
-
-        NSString* superlayerName = @"superlayer";
-        [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintMidX relativeTo: superlayerName attribute: kCAConstraintMidX ] ];
-        [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintMidY relativeTo: superlayerName attribute: kCAConstraintMidY ] ];
-        [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintWidth relativeTo: superlayerName attribute: kCAConstraintWidth offset: -10.f ] ];
-        [ priSubLayer_ addConstraint: [ CAConstraint constraintWithAttribute: kCAConstraintHeight relativeTo: superlayerName attribute: kCAConstraintHeight offset: -10.f ] ];
         }
 
-    return priSubLayer_;
+    return [ priSubContentBgLayer_ replaceAllConstraintsWithConstraints: self.subContentBgLayerConstraints_ ];
     }
 
-@synthesize borderView_ = priBorderView_;
-- ( _PriItemBorderView* ) borderView_
+@dynamic subContentBgLayerConstraints_;
+- ( NSArray <CAConstraint*>* ) subContentBgLayerConstraints_
     {
-    if ( !priBorderView_ )
-        priBorderView_ = [ [ _PriItemBorderView alloc ] initWithFrame: self.bounds ];
-    return priBorderView_;
+    switch ( self.YouTubeContent.tauContentType )
+        {
+        case TauYouTubeVideo:
+        case TauYouTubePlayList:
+            return self.videoItemLayerConstraints_;
+
+        case TauYouTubeChannel:
+            return self.channelItemLayerConstraints_;
+
+        case TauYouTubeUnknownContent:
+            DDLogUnexpected( @"Unkown content type {%@}", self.YouTubeContent );
+            return nil;
+        }
+    }
+
+NSString static* const sSuperlayerName = @"superlayer";
+CGFloat  static  const sSublayerOffset = -10.f;
+
+@synthesize videoItemLayerConstraints_ = priVideoItemLayerConstraints_;
+- ( NSArray <CAConstraint*>* ) videoItemLayerConstraints_
+    {
+    if ( !priVideoItemLayerConstraints_ )
+        {
+        priVideoItemLayerConstraints_ =
+            @[ [ CAConstraint constraintWithAttribute: kCAConstraintMidX relativeTo: sSuperlayerName attribute: kCAConstraintMidX ]
+             , [ CAConstraint constraintWithAttribute: kCAConstraintMidY relativeTo: sSuperlayerName attribute: kCAConstraintMidY ]
+             , [ CAConstraint constraintWithAttribute: kCAConstraintWidth relativeTo: sSuperlayerName attribute: kCAConstraintWidth offset: sSublayerOffset ]
+             , [ CAConstraint constraintWithAttribute: kCAConstraintHeight relativeTo: sSuperlayerName attribute: kCAConstraintHeight offset: sSublayerOffset ]
+             ];
+        }
+
+    return priVideoItemLayerConstraints_;
+    }
+
+@synthesize channelItemLayerConstraints_ = priChannelItemLayerConstraints_;
+- ( NSArray <CAConstraint*>* ) channelItemLayerConstraints_
+    {
+    if ( !priChannelItemLayerConstraints_ )
+        {
+        priChannelItemLayerConstraints_ =
+            @[ [ CAConstraint constraintWithAttribute: kCAConstraintMidX relativeTo: sSuperlayerName attribute: kCAConstraintMidX ]
+             , [ CAConstraint constraintWithAttribute: kCAConstraintMidY relativeTo: sSuperlayerName attribute: kCAConstraintMidY ]
+             , [ CAConstraint constraintWithAttribute: kCAConstraintHeight relativeTo: sSuperlayerName attribute: kCAConstraintHeight offset: sSublayerOffset ]
+             , [ CAConstraint constraintWithAttribute: kCAConstraintWidth relativeTo: sSuperlayerName attribute: kCAConstraintHeight ]
+             ];
+        }
+
+    return priChannelItemLayerConstraints_;
+    }
+
+@synthesize focusRing_ = priFocusRing_;
+- ( PriItemFocusRing_* ) focusRing_
+    {
+    if ( !priFocusRing_ )
+        priFocusRing_ = [ [ [ PriItemFocusRing_ alloc ] initWithFrame: NSZeroRect ] configureForAutoLayout ];
+
+    [ priFocusRing_ setFrame: NSZeroRect ];
+    [ priFocusRing_ removeFromSuperview ];
+    [ priFocusRing_ removeConstraints: priFocusRing_.constraints ];
+
+    if ( YouTubeContent_.tauContentType == TauYouTubeChannel )
+        [ priFocusRing_ autoMatchDimension: ALDimensionWidth toDimension: ALDimensionHeight ofView: priFocusRing_ withOffset: ABS( sSublayerOffset ) ];
+
+    return priFocusRing_;
+    }
+
+// Init
+
+- ( void ) doInit_
+    {
+    [ self configureForAutoLayout ].wantsLayer = YES;
+
+    self.layer.masksToBounds = YES;
+    self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
+    self.layerContentsPlacement = NSViewLayerContentsPlacementScaleProportionallyToFill;
+
+    NSTrackingArea* mouseEventTrackingArea = [ [ NSTrackingArea alloc ] initWithRect: self.bounds options: NSTrackingMouseEnteredAndExited | NSTrackingActiveInActiveApp | NSTrackingInVisibleRect owner: self userInfo: nil ];
+    [ self addTrackingArea: mouseEventTrackingArea ];
+    }
+
+// Content
+
+- ( void ) redrawWithYouTubeContent_
+    {
+    GTLYouTubeThumbnailDetails* thumbnailDetails = nil;
+    @try {
+    thumbnailDetails = [ self.YouTubeContent valueForKeyPath: @"snippet.thumbnails" ];
+    } @catch ( NSException* _Ex )
+        {
+        DDLogFatal( @"%@", _Ex );
+        }
+
+    if ( !thumbnailDetails )
+        {
+        NSSize imageSize = self.bounds.size;
+        NSImage* replacement = [ NSImage imageWithSize: imageSize flipped: NO drawingHandler:
+        ^BOOL ( NSRect _DstRect )
+            {
+            [ [ NSColor blackColor ] set ];
+            NSRectFill( _DstRect );
+
+            NSString* noCover = NSLocalizedString( @"NO COVER", @"Text displays when there's no cover image for a YouTube content item" );
+            NSDictionary* attrs = @{ NSForegroundColorAttributeName : [ NSColor whiteColor ]
+                                   , NSFontAttributeName : [ NSFont fontWithName: @"Helvetica Neue" size: 17 ]
+                                   };
+
+            NSSize size = [ noCover sizeWithAttributes: attrs ];
+            [ noCover drawAtPoint: NSMakePoint( ( NSWidth( _DstRect ) * .6f - size.width ) / 2, ( NSHeight( _DstRect ) - size.height ) / 2 ) withAttributes: attrs ];
+
+            return YES;
+            } ];
+
+        self.coverImage_ = replacement;
+        return;
+        }
+
+    self.coverImage_ = nil;
+    [ [ TauYTDataService sharedService ] fetchPreferredThumbnailFrom: thumbnailDetails
+                                                             success:
+    ^( NSImage* _Image, GTLYouTubeThumbnailDetails* _ThumbnailDetails, BOOL _LoadsFromCache )
+        {
+        if ( _ThumbnailDetails == [ self.YouTubeContent valueForKeyPath: @"snippet.thumbnails" ] )
+            self.coverImage_ = _Image;
+
+        } failure:
+            ^( NSError* _Error )
+                {
+                DDLogFatal( @"%@", _Error );
+                } ];
     }
 
 @end // TauContentCollectionItemView class
@@ -211,116 +386,15 @@ TauDeallocEnd
 
 
 
-// TauContentCollectionItemView + PriTauYouTubeContentView_
-@implementation TauContentCollectionItemView ( PriTauYouTubeContentView_ )
-
-// Init
-- ( void ) doInit_
-    {
-    [ self configureForAutoLayout ].wantsLayer = YES;
-
-    self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
-    self.layer.masksToBounds = YES;
-    self.layerContentsPlacement = NSViewLayerContentsPlacementScaleProportionallyToFill;
-
-    NSTrackingArea* mouseEventTrackingArea =
-        [ [ NSTrackingArea alloc ] initWithRect: self.bounds
-                                        options: NSTrackingMouseEnteredAndExited | NSTrackingActiveInActiveApp | NSTrackingInVisibleRect
-                                          owner: self
-                                       userInfo: nil ];
-    [ self addTrackingArea: mouseEventTrackingArea ];
-    }
-
-// Content
-- ( void ) updateYtContent_: ( GTLObject* )_New
-    {
-    if ( ytContent_ != _New )
-        {
-        ytContent_ = _New;
-
-        if ( !ytContent_ )
-            {
-//            [ self cleanUp_ ];
-            return;
-            }
-
-        GTLYouTubeThumbnailDetails* thumbnailDetails = nil;
-        @try {
-        thumbnailDetails = [ self.ytContent valueForKeyPath: @"snippet.thumbnails" ];
-        } @catch ( NSException* _Ex )
-            {
-            DDLogFatal( @"%@", _Ex );
-            }
-
-        if ( !thumbnailDetails )
-            {
-            NSSize imageSize = self.bounds.size;
-            NSImage* replacement = [ NSImage imageWithSize: imageSize
-                                                   flipped: NO
-                                            drawingHandler:
-            ^BOOL ( NSRect _DstRect )
-                {
-                [ [ NSColor blackColor ] set ];
-                NSRectFill( _DstRect );
-
-                NSString* noCover = @"NO COVER";
-                NSDictionary* attrs = @{ NSForegroundColorAttributeName : [ NSColor whiteColor ]
-                                       , NSFontAttributeName : [ NSFont fontWithName: @"Helvetica Neue Light" size: 15 ]
-                                       };
-
-                NSSize size = [ noCover sizeWithAttributes: attrs ];
-                [ noCover drawAtPoint: NSMakePoint( ( NSWidth( _DstRect ) * .6f - size.width ) / 2, ( NSHeight( _DstRect ) - size.height ) / 2 ) withAttributes: attrs ];
-
-                return YES;
-                } ];
-
-            priThumbnailImage_ = replacement;
-            [ self updateUI_ ];
-            return;
-            }
-
-        priThumbnailImage_ = nil;
-        [ self updateUI_ ];
-        [ [ TauYTDataService sharedService ] fetchPreferredThumbnailFrom: thumbnailDetails
-                                                                 success:
-        ^( NSImage* _Image, GTLYouTubeThumbnailDetails* _ThumbnailDetails, BOOL _LoadsFromCache )
-            {
-            if ( _ThumbnailDetails == [ self.ytContent valueForKeyPath: @"snippet.thumbnails" ] )
-                {
-                priThumbnailImage_ = _Image;
-                [ self updateUI_ ];
-                }
-            } failure:
-                ^( NSError* _Error )
-                    {
-                    DDLogFatal( @"%@", _Error );
-                    } ];
-        }
-    }
-
-- ( void ) updateUI_
-    {
-    [ self.layer setContents: nil ];
-    [ self.layer setNeedsDisplay ];
-    }
-
-@end // TauContentCollectionItemView + PriTauYouTubeContentView_
-
-
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-
-
-// _PriItemBorderView class
-@implementation _PriItemBorderView
+// PriItemFocusRing_ class
+@implementation PriItemFocusRing_
     {
     LRNotificationObserver __strong* appWillBecomeActObserv_;
     LRNotificationObserver __strong* appWillResignActObserv_;
     }
 
-TauDeallocBegin
-TauDeallocEnd
+//TauDeallocBegin
+//TauDeallocEnd
 
 #pragma mark - Initializations
 
@@ -334,6 +408,8 @@ TauDeallocEnd
 
     return self;
     }
+
+#pragma mark - Managing the View Hierarchy
 
 - ( void ) viewWillMoveToSuperview: ( NSView* )_NewSuperview
     {
@@ -386,4 +462,4 @@ TauDeallocEnd
     return borderColor_;
     }
 
-@end // _PriItemBorderView class
+@end // PriItemFocusRing_ class

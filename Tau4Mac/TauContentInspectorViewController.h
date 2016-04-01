@@ -8,9 +8,16 @@
 
 @class TauAbstractContentInspectorView;
 
+typedef NS_ENUM ( NSInteger, TauContentInspectorMode )
+    { TauContentInspectorNoSelectionMode        = 0
+    , TauContentInspectorSingleSelectionMode    = 1
+    , TauContentInspectorMultipleSelectionsMode = 2
+    };
+
 // TauContentInspectorViewController class
 @interface TauContentInspectorViewController : NSViewController
 
-@property ( strong, readwrite ) NSArray <GTLObject*>* ytContents;   // KVB-Compliant
+@property ( strong, readwrite ) NSArray <GTLObject*>* YouTubeContents;   // KVB-Compliant
+@property ( assign, readonly ) TauContentInspectorMode mode;    // KVB-Compliant
 
 @end // TauContentInspectorViewController class

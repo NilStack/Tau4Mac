@@ -6,26 +6,23 @@
     This is the "WrappedLayout" class implementation.
 */
 
-#import "TauNormalWrappedLayout.h"
+#import "TauNormalFlowLayout.h"
 
-// TauNormalWrappedLayout class
-@implementation TauNormalWrappedLayout
+// TauNormalFlowLayout class
+@implementation TauNormalFlowLayout
 
 #pragma mark - Overrides
 
 - ( instancetype ) init
     {
-    self = [ super init ];
-
-    if ( self )
+    if ( self = [ super init ] )
         {
-        [ self setItemSize: NSMakeSize( TauNormalWrappedLayoutItemWidth, TauNormalWrappedLayoutItemHeight ) ];
-        [ self setMinimumInteritemSpacing: TauNormalWrappedLayoutXPadding ];
-        [ self setMinimumLineSpacing: TauNormalWrappedLayoutYPadding ];
+        [ self setItemSize: NSMakeSize( TauVideoLayoutItemWidth, TauVideoLayoutItemHeight ) ];
+        [ self setMinimumInteritemSpacing: TauNormalFlowLayoutXPadding ];
+        [ self setMinimumLineSpacing: TauNormalFlowLayoutYPadding ];
 
-        [ self setSectionInset: NSEdgeInsetsMake( TauNormalWrappedLayoutYPadding, TauNormalWrappedLayoutXPadding
-                                                , TauNormalWrappedLayoutYPadding, TauNormalWrappedLayoutXPadding
-                                                ) ];
+        [ self setSectionInset: NSEdgeInsetsMake(
+            TauNormalFlowLayoutYPadding, TauNormalFlowLayoutXPadding, TauNormalFlowLayoutYPadding, TauNormalFlowLayoutXPadding ) ];
         }
 
     return self;
@@ -47,4 +44,4 @@
     return layoutAttributesArray;
     }
 
-@end // TauNormalWrappedLayout class
+@end // TauNormalFlowLayout class

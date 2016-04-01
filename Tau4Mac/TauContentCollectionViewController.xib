@@ -49,12 +49,7 @@
                 <autoresizingMask key="autoresizingMask"/>
             </scroller>
         </scrollView>
-        <viewController id="Zck-vY-Rir" customClass="NSSplitViewController">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="boolean" keyPath="splitView.vertical" value="YES"/>
-                <userDefinedRuntimeAttribute type="boolean" keyPath="view.wantsLayer" value="YES"/>
-            </userDefinedRuntimeAttributes>
-        </viewController>
+        <viewController id="Zck-vY-Rir" customClass="NSSplitViewController"/>
         <viewController id="Wkr-Ye-h5w" userLabel="View Controller Wrapper of Inspector View" customClass="TauContentInspectorViewController"/>
         <viewController id="O4A-2w-EFh" userLabel="View Controller Wrapper of Content Collection View">
             <connections>

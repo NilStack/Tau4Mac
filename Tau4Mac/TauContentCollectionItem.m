@@ -17,17 +17,14 @@
 // TauContentCollectionItem class
 @implementation TauContentCollectionItem
 
-- ( void ) viewDidLoad
-    {
-    [ super viewDidLoad ];
-    }
-
 TauDeallocBegin
 TauDeallocEnd
 
+#pragma mark - Overrides
+
 - ( void ) setRepresentedObject: ( id )_RepresentedObject
     {
-    [ ( TauContentCollectionItemView* )( self.view ) setYtContent: _RepresentedObject ];
+    [ ( TauContentCollectionItemView* )( self.view ) setYouTubeContent: _RepresentedObject ];
     }
 
 #pragma mark - Events
@@ -37,7 +34,7 @@ TauDeallocEnd
     {
     if ( _Event.clickCount == 2 )
         {
-        GTLObject* ytContent = [ ( TauContentCollectionItemView* )( self.view ) ytContent ];
+        GTLObject* ytContent = [ ( TauContentCollectionItemView* )( self.view ) YouTubeContent ];
 
         if ( ytContent.tauContentType != TauYouTubeUnknownContent )
             {

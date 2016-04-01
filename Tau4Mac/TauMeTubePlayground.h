@@ -7,6 +7,7 @@
 //
 
 @class TauMeTubeTabItem;
+@class TauToolbarItem;
 
 // TauMeTubePlayground class
 @interface TauMeTubePlayground : NSView
@@ -16,7 +17,13 @@
 // Relay the delicious that will be used to feed the singleton of TauToolbarController class
 // from self.selectedTab to the instance of TauExploreSubContentViewController
 
+// Relay the title bar accessory view controller
+// from current selected instances of TauMeTubeTabItem to the TauMeTubeContentSubViewController
 @property ( strong, readonly ) NSTitlebarAccessoryViewController* titlebarAccessoryViewControllerWhileActive;   // KVO-observable
+
+// Relay the Tau toolbar items
+// from current selected instances of TauMeTubeTabItem to the TauMeTubeContentSubViewController
+@property ( strong, readonly ) NSArray <TauToolbarItem*>* exposedToolbarItemsWhileActive;   // KVO-observable
 
 #pragma mark - External KVB Comliant Properties
 

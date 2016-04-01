@@ -7,6 +7,7 @@
 //
 
 #import "TauMeTubePlayground.h"
+#import "TauToolbarItem.h"
 
 // TauMeTubePlayground class
 @implementation TauMeTubePlayground
@@ -19,6 +20,8 @@
 
 // Relay the delicious that will be used to feed the singleton of TauToolbarController class
 
+// Relay the title bar accessory view controller
+// from current selected instances of TauMeTubeTabItem to the TauMeTubeContentSubViewController
 @dynamic titlebarAccessoryViewControllerWhileActive;
 + ( NSSet <NSString*>* ) keyPathsForValuesAffectingTitlebarAccessoryViewControllerWhileActive
     {
@@ -28,6 +31,19 @@
 - ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
     {
     return [ self.selectedTabs.firstObject.viewController valueForKey: TauKVOStrictKey( titlebarAccessoryViewControllerWhileActive ) ];
+    }
+
+// Relay the Tau toolbar items
+// from current selected instances of TauMeTubeTabItem to the TauMeTubeContentSubViewController
+@dynamic exposedToolbarItemsWhileActive;
++ ( NSSet <NSString*>* ) keyPathsForValuesAffectingExposedToolbarItemsWhileActive
+    {
+    return [ NSSet setWithObjects: TauKVOStrictKey( selectedTabs ), nil ];
+    }
+
+- ( NSArray <TauToolbarItem*>* ) exposedToolbarItemsWhileActive
+    {
+    return [ self.selectedTabs.firstObject.viewController valueForKey: TauKVOStrictKey( exposedToolbarItemsWhileActive ) ];
     }
 
 #pragma mark - External KVB Comliant Properties

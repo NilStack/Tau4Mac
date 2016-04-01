@@ -9,7 +9,33 @@
 #import "TauContentCollectionViewController.h"
 #import "TauContentInspectorViewController.h"
 #import "TauContentCollectionItem.h"
-#import "TauNormalWrappedLayout.h"
+#import "TauNormalFlowLayout.h"
+#import "TauToolbarItem.h"
+#import "TauSplitView.h"
+
+// PriHasSelectedTransformer_ class
+@interface PriHasSelectedTransformer_ : NSValueTransformer
+@end
+
+@implementation PriHasSelectedTransformer_
+
++ ( Class ) transformedValueClass
+    {
+    return [ NSNumber class ];
+    }
+
+- ( id ) transformedValue: ( id )_Value
+    {
+    return [ NSNumber numberWithNegateBool: [ ( NSArray* )_Value count ] == 1 ];
+    }
+
+@end // PriHasSelectedTransformer_ class
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
 
 // Private
 @interface TauContentCollectionViewController ()
@@ -28,9 +54,24 @@
 @property ( weak ) IBOutlet NSViewController* wrapperOfContentCollectionView_;
 @property ( weak ) IBOutlet TauContentInspectorViewController* wrapperOfContentInspectorView_;
 
-/*************** Embedding the split view controller ***************/
+/***/
+
+@property ( strong, readonly ) NSButton* controlInspectorButton_;
+
+// Internal Actions
+
+- ( void ) controlInspectorAction_: ( NSButton* )_Sender;
 
 @end // Private
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
+// Toolbar item identifiers
+NSString* const TauToolbarControlInspectorButtonItemIdentifier = @"home.bedroom.TongKuo.Tau.Toolbar.ControlInspectorButton";
 
 
 
@@ -49,7 +90,7 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
     {
     // Registering for data source of collection view
     [ self.contentCollectionView_ registerClass: [ TauContentCollectionItem class ] forItemWithIdentifier: kContentCollectionItemID ];
-    [ self.contentCollectionView_ setCollectionViewLayout: [ [ TauNormalWrappedLayout alloc ] init ] ];
+    [ self.contentCollectionView_ setCollectionViewLayout: [ [ TauNormalFlowLayout alloc ] init ] ];
 
     // Embeding the split view controller
     // Required setting up done in the IB Identity insepector
@@ -61,18 +102,67 @@ NSString static* const kContentCollectionItemID = @"kContentCollectionItemID";
     [ self.view addSubview: [ splitViewController.view configureForAutoLayout ] ];
     [ splitViewController.view autoPinEdgesToSuperviewEdges ];
 
-    // Estanlishing bindings
+    // Estanlishing bindings between inspector view and myself
     [ self.wrapperOfContentInspectorView_
-            bind: TauKVOStrictKey( ytContents )
+            bind: TauKVOStrictKey( YouTubeContents )
         toObject: self
      withKeyPath: TauKVOStrictKey( selectedItems )
          options: nil ];
+
+    TauMutuallyBind( self, TauKVOStrictKey( inspectorCollapsed )
+                   , self.contentInspectorSplitViewItem_, TauKVOStrictClassKeyPath( NSSplitViewItem, collapsed ) );
+
+    //???: Automatically show/hide inspector
+    //    [ self bind: TauKVOStrictKey( inspectorCollapsed )
+    //       toObject: self
+    //    withKeyPath: TauKVOStrictKey( selectedItems )
+    //        options: @{ NSValueTransformerNameBindingOption : @"PriHasSelectedTransformer_" } ];
+
+    [ self setInspectorCollapsed: NO ];
     }
 
 TauDeallocBegin
     // Get rid of bindings
-    [ self.wrapperOfContentInspectorView_ unbind: TauKVOStrictKey( ytContents ) ];
+    [ self.wrapperOfContentInspectorView_ unbind: TauKVOStrictKey( YouTubeContents ) ];
+
+    TauMutuallyUnbind( self, TauKVOStrictKey( inspectorCollapsed )
+                     , self.contentInspectorSplitViewItem_, TauKVOStrictClassKeyPath( NSSplitViewItem, collapsed )
+                     );
 TauDeallocEnd
+
+#pragma mark - External KVB Copliant Properties
+
+@synthesize inspectorCollapsed = inspectorCollapsed_;
++ ( BOOL ) automaticallyNotifiesObserversOfInspectorCollapsed
+    {
+    return NO;
+    }
+
+- ( void ) setInspectorCollapsed: ( BOOL )_Flag
+    {
+    TauChangeValueForKVOStrictKey( inspectorCollapsed,
+     ( ^{
+        inspectorCollapsed_ = _Flag;
+        [ self.controlInspectorButton_ setState: ( NSCellStateValue )!inspectorCollapsed_ ];
+        } ) );
+    }
+
+- ( BOOL ) inspectorCollapsed
+    {
+    return inspectorCollapsed_;
+    }
+
+#pragma mark - Feeding TauToolbarController
+
+@synthesize exposedToolbarItems = priExposedToolbarItems_;
+- ( NSArray <TauToolbarItem*>* ) exposedToolbarItems
+    {
+    if ( !priExposedToolbarItems_ )
+        priExposedToolbarItems_ =
+            @[ [ [ TauToolbarItem alloc ] initWithIdentifier: TauToolbarControlInspectorButtonItemIdentifier label: nil view: self.controlInspectorButton_ ] ];
+
+    return priExposedToolbarItems_;
+    }
 
 #pragma mark - Relay the Model Data
 
@@ -166,9 +256,26 @@ TauDeallocEnd
 // TODO:
 
 #pragma mark - Conforms to <NSCollectionViewDelegateFlowLayout>
-// TODO: Customize flow layout of collection view
+// TODO;
 
 #pragma mark - Private
+
+@synthesize splitViewController_;
+- ( void ) setSplitViewController_: ( NSSplitViewController* )_New
+    {
+    if ( splitViewController_ != _New )
+        {
+        splitViewController_ = _New;
+        [ splitViewController_ setSplitView: [ [ TauSplitView alloc ] initWithFrame: NSZeroRect ] ];
+        [ splitViewController_.splitView setVertical: YES ];
+        [ splitViewController_.view setWantsLayer: YES ];
+        }
+    }
+
+- ( NSSplitViewController* ) splitViewController_
+    {
+    return splitViewController_;
+    }
 
 @synthesize contentCollectionSplitViewItem_ = priContentCollectionSplitViewItem_;
 @synthesize contentInspectorSplitViewItem_ = priContentInspectorSplitViewItem_;
@@ -180,12 +287,14 @@ TauDeallocEnd
         priContentCollectionSplitViewItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfContentCollectionView_ ];
         [ priContentCollectionSplitViewItem_ setCanCollapse: NO ];
 
-        //
-        [ priContentCollectionSplitViewItem_ setMinimumThickness: TauNormalWrappedLayoutItemWidth + 65.f ];
+        /***/
+        [ priContentCollectionSplitViewItem_ setMinimumThickness: TauVideoLayoutItemWidth + 65.f ];
         }
 
     return priContentCollectionSplitViewItem_;
     }
+
+/***/
 
 - ( NSSplitViewItem* ) contentInspectorSplitViewItem_
     {
@@ -194,13 +303,56 @@ TauDeallocEnd
         priContentInspectorSplitViewItem_ = [ NSSplitViewItem contentListWithViewController: self.wrapperOfContentInspectorView_ ];
         [ priContentInspectorSplitViewItem_ setCanCollapse: YES ];
 
-        //
+        // TODO: Animate collapsed property of priContentInspectorSplitViewItem_
+        //        CATransition* trans = [ [ CATransition alloc ] init ];
+        //        [ trans setDuration: 2.f ];
+        //        [ trans setType: kCATransitionMoveIn ];
+        //        [ trans setSubtype: kCATransitionFromRight ];
+        //        [ trans setStartProgress: 0.f ];
+        //        [ trans setEndProgress: 1.f ];
+        //        [ priContentInspectorSplitViewItem_ setAnimations: @{ @"collapsed" : trans } ];
+
+        /***/
         [ priContentInspectorSplitViewItem_ setMaximumThickness: 600.f ];
         [ priContentInspectorSplitViewItem_ setMinimumThickness:
             TAU_APP_MIN_WIDTH - self.contentCollectionSplitViewItem_.minimumThickness - self.splitViewController_.splitView.dividerThickness ];
         }
 
     return priContentInspectorSplitViewItem_;
+    }
+
+@synthesize controlInspectorButton_ = priControlInspectorButton_;
+- ( NSButton* ) controlInspectorButton_
+    {
+    if ( !priControlInspectorButton_ )
+        {
+        priControlInspectorButton_ = [ [ NSButton alloc ] initWithFrame: NSMakeRect( 0, 0, 30.f, 29.f ) ];
+
+        [ priControlInspectorButton_ setButtonType: NSToggleButton ];
+        [ priControlInspectorButton_ setKeyEquivalent: @"0" ];
+        [ priControlInspectorButton_ setKeyEquivalentModifierMask: NSAlternateKeyMask | NSCommandKeyMask ];
+
+        [ priControlInspectorButton_ setTarget: self ];
+        [ priControlInspectorButton_ setAction: @selector( controlInspectorAction_: ) ];
+
+        NSImage* icon = [ NSImage imageNamed: @"tau-show-details-inspector" ];
+        [ icon setSize: NSMakeSize( 13.f, 12.f ) ];
+        [ icon setTemplate: YES ];
+
+        [ priControlInspectorButton_ setBezelStyle: NSTexturedRoundedBezelStyle ];
+        [ priControlInspectorButton_ setImage: icon ];
+        [ priControlInspectorButton_ setImagePosition: NSImageOnly ];
+        }
+
+    return priControlInspectorButton_;
+    }
+
+// Internal Actions
+
+- ( void ) controlInspectorAction_: ( NSButton* )_Sender
+    {
+    NSLog( @"%@", [ priContentInspectorSplitViewItem_ animations ] );
+    [ self setInspectorCollapsed : ![ _Sender state ] ];
     }
 
 @end // TauContentCollectionViewController class
