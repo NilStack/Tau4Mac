@@ -43,7 +43,7 @@
                             <segment width="75">
                                 <nil key="label"/>
                             </segment>
-                            <segment image="NSShareTemplate" width="75" tag="1">
+                            <segment toolTip="Share" image="NSShareTemplate" width="75" tag="1">
                                 <nil key="label"/>
                             </segment>
                         </segments>

@@ -94,22 +94,41 @@
         {
         YouTubeContent_ = _New;
 
+        NSImage* segImage = nil;
+        NSString* toolTip = nil;
         switch ( YouTubeContent_.tauContentType )
             {
             case TauYouTubeVideo:
-//                [ self.actionSegControl setLabel: @"Play" forSegment: 0 ];
-                break;
+                {
+                segImage = [ NSImage imageNamed: @"tau-play-video" ];
+                segImage.size = NSMakeSize( 11.f, 12.f );
+
+                toolTip = NSLocalizedString( @"Play Video", nil );
+                } break;
 
             case TauYouTubeChannel:
-                [ self.actionSegControl setImage: [ NSImage imageNamed: NSImageNameIconViewTemplate ] forSegment: 0 ];
-                break;
+                {
+                segImage = [ NSImage imageNamed: NSImageNameIconViewTemplate ];
+                toolTip = NSLocalizedString( @"Show Channel", nil );
+                } break;
 
             case TauYouTubePlayList:
-                [ self.actionSegControl setImage: [ NSImage imageNamed: NSImageNameListViewTemplate ] forSegment: 0 ];
-                break;
+                {
+                segImage = [ NSImage imageNamed: NSImageNameListViewTemplate ];
+                    toolTip = NSLocalizedString( @"Show Play List", nil );
+                } break;
 
             case TauYouTubeUnknownContent:;
             }
+
+        if ( segImage )
+            {
+            [ segImage setTemplate: YES ];
+            [ self.actionSegControl setImage: segImage forSegment: 0 ];
+            [ ( NSSegmentedCell* )( self.actionSegControl.cell ) setToolTip: toolTip forSegment: 0 ];
+            }
+        else
+            DDLogUnexpected( @"segImage shouldn't be nil" );
         }
     }
 
@@ -244,8 +263,8 @@
         {
         priSingleContentActionSectionItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfSingleContentActionSectionView_ ];
 
-        priSingleContentActionSectionItem_.minimumThickness = 50.f;
-        priSingleContentActionSectionItem_.maximumThickness = 50.f;
+        priSingleContentActionSectionItem_.minimumThickness = 40.f;
+        priSingleContentActionSectionItem_.maximumThickness = 40.f;
         }
 
     return priSingleContentActionSectionItem_;
