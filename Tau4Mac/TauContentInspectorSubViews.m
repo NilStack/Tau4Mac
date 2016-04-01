@@ -72,6 +72,12 @@
 
 @end // PriContentTitleView_ class
 
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
 // PriContentActionView_ class
 @interface PriContentActionSectionView_ : NSView
 @property ( strong, readwrite ) GTLObject* YouTubeContent;
@@ -114,13 +120,30 @@
 
 @end // PriContentActionView_ class
 
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
 // PriContentDescriptionSectionView_ class
-@interface PriContentDescriptionSectionView_ : NSView
+@interface PriContentDescriptionSectionView_ : NSView <NSTextViewDelegate>
+
+@property ( strong, readwrite ) GTLObject* YouTubeContent;
+
+@property ( weak ) IBOutlet NSClipView* clipView_;
 @property ( strong ) IBOutlet NSTextView* textView_;
+
 @end
 
 @implementation PriContentDescriptionSectionView_
 @end // PriContentDescriptionSectionView_ class
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
 
 // Private
 @interface TauContentInspectorSingleSelectionSubView ()
@@ -145,6 +168,7 @@
 
 @property ( weak ) IBOutlet PriContentTitleSectionView_* contentTitleSectionView_;
 @property ( weak ) IBOutlet PriContentActionSectionView_* contentActionSectionView_;
+@property ( weak ) IBOutlet PriContentDescriptionSectionView_* contentDescriptionSectionView_;
 
 @end // Private
 
@@ -169,6 +193,8 @@
     [ self.contentTitleSectionView_ setToolTip: title ];
 
     [ self.contentActionSectionView_ setYouTubeContent: YouTubeContent_ ];
+    [ self.contentDescriptionSectionView_ setYouTubeContent: YouTubeContent_ ];
+    [ self.contentDescriptionSectionView_.clipView_ scrollToPoint: NSMakePoint( 0.f, -10.f ) ];
     }
 
 - ( GTLObject* ) YouTubeContent

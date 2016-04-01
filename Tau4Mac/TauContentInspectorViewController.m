@@ -42,11 +42,6 @@ TauDeallocEnd
 
 #pragma mark - Initializations
 
-- ( void ) viewDidLoad
-    {
-    [ super viewDidLoad ];
-    }
-
 - ( NSView* ) selectionSubViewWithMode_: ( TauContentInspectorMode )_Mode
     {
     switch ( _Mode )
@@ -154,35 +149,3 @@ TauDeallocEnd
     }
 
 @end // TauContentInspectorViewController class
-
-
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-
-
-@interface TauTextViewAttributedStringTransformer : NSValueTransformer
-@end
-
-@implementation TauTextViewAttributedStringTransformer
-
-+ ( Class ) transformedValueClass
-    {
-    return [ NSAttributedString class ];
-    }
-
-- ( id ) transformedValue: ( NSString* )_Value
-    {
-    NSString* text = ( _Value.length > 0 ) ? _Value : NSLocalizedString( @"No Description", nil );
-
-    NSMutableParagraphStyle* ps = [ [ NSMutableParagraphStyle defaultParagraphStyle ] mutableCopy ];
-    [ ps setLineSpacing: 4.f ];
-
-    return [ [ NSAttributedString alloc ] initWithString: text attributes:
-        @{ NSFontAttributeName : [ NSFont fontWithName: @"Helvetica Neue Light" size: 13.f ]
-         , NSForegroundColorAttributeName : [ [ NSColor blackColor ] colorWithAlphaComponent: .5f ]
-         , NSParagraphStyleAttributeName : ps
-         } ];
-    }
-
-@end

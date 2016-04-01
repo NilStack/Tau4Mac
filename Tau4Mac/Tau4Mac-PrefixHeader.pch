@@ -39,6 +39,8 @@
 #import "TauConstants.h"
 #import "TauYTDataService.h"
 
+#import "TauValueTransformers.h"
+
 #import "NSObject+TauDataServiceConsumer.h"
 #import "GTLObject+Tau.h"
 #import "CALayer+Tau.h"

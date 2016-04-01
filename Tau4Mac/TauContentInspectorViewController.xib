@@ -92,6 +92,7 @@
                                             <string key="NSValueTransformerName">TauTextViewAttributedStringTransformer</string>
                                         </dictionary>
                                     </binding>
+                                    <outlet property="delegate" destination="eG4-cM-th3" id="aV2-jL-bsv"/>
                                 </connections>
                             </textView>
                         </subviews>
@@ -119,6 +120,7 @@
                 <constraint firstAttribute="trailing" secondItem="3UD-cT-lJL" secondAttribute="trailing" constant="15" id="fKf-DZ-4bg"/>
             </constraints>
             <connections>
+                <outlet property="clipView_" destination="nU5-zQ-TjM" id="OcK-yh-kiI"/>
                 <outlet property="textView_" destination="x6x-jN-cff" id="z55-xw-Dwy"/>
             </connections>
             <point key="canvasLocation" x="1066" y="232.5"/>
@@ -269,7 +271,6 @@
                     </textFieldCell>
                     <connections>
                         <binding destination="nkQ-0u-50I" name="hidden" keyPath="arrangedObjects.@count" id="hqn-IA-ruJ"/>
-                        <binding destination="nkQ-0u-50I" name="value" keyPath="selection.snippet.title" id="Vz8-s1-fD2"/>
                     </connections>
                 </textField>
             </subviews>
@@ -287,6 +288,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <connections>
                 <outlet property="contentActionSectionView_" destination="dhK-De-Q8r" id="JiN-Gj-LRf"/>
+                <outlet property="contentDescriptionSectionView_" destination="eG4-cM-th3" id="kDE-oi-Gea"/>
                 <outlet property="contentTitleSectionView_" destination="yUE-5Y-ndY" id="Czp-Ve-q1B"/>
                 <outlet property="wrapperOfSingleContentActionSectionView_" destination="aov-uw-QZu" id="377-61-tEB"/>
                 <outlet property="wrapperOfSingleContentDescriptionSectionView_" destination="Ovr-2Y-XCS" id="3D9-4u-GjS"/>

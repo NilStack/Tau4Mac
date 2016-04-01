@@ -124,6 +124,7 @@
 		83EB745C1C90590F004EB117 /* NSAffineTransform+TauDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB745B1C90590F004EB117 /* NSAffineTransform+TauDrawing.m */; };
 		83EEED921CAD71E60074E73D /* TauContentInspectorSubViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EEED911CAD71E60074E73D /* TauContentInspectorSubViews.m */; };
 		83EEEDC11CAE1C5C0074E73D /* TauSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EEEDC01CAE1C5C0074E73D /* TauSplitView.m */; };
+		83EEEDC41CAE57E90074E73D /* TauValueTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EEEDC31CAE57E90074E73D /* TauValueTransformers.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -645,6 +646,8 @@
 		83EEED911CAD71E60074E73D /* TauContentInspectorSubViews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauContentInspectorSubViews.m; sourceTree = "<group>"; };
 		83EEEDBF1CAE1C5C0074E73D /* TauSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauSplitView.h; sourceTree = "<group>"; };
 		83EEEDC01CAE1C5C0074E73D /* TauSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauSplitView.m; sourceTree = "<group>"; };
+		83EEEDC21CAE57E90074E73D /* TauValueTransformers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauValueTransformers.h; sourceTree = "<group>"; };
+		83EEEDC31CAE57E90074E73D /* TauValueTransformers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauValueTransformers.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -784,6 +787,8 @@
 				833E76191CABE583008FA650 /* CALayer+Tau.m */,
 				833E76471CAD1FB0008FA650 /* NSNumber+Tau.h */,
 				833E76481CAD1FB0008FA650 /* NSNumber+Tau.m */,
+				83EEEDC21CAE57E90074E73D /* TauValueTransformers.h */,
+				83EEEDC31CAE57E90074E73D /* TauValueTransformers.m */,
 			);
 			name = extensions;
 			sourceTree = "<group>";
@@ -1661,6 +1666,7 @@
 				834458CB1C9D9CB6001A8603 /* TauToolbarItem.m in Sources */,
 				833E76491CAD1FB0008FA650 /* NSNumber+Tau.m in Sources */,
 				8399E2141C88200000A42C44 /* GTLYouTube_Sources.m in Sources */,
+				83EEEDC41CAE57E90074E73D /* TauValueTransformers.m in Sources */,
 				83EB73491C8D33BC004EB117 /* TauAbstractBeautifulView.m in Sources */,
 				835FDB801CA5794C00A2A031 /* TauPlaylistResultsCollectionContentSubViewController.m in Sources */,
 				83B5FEEB1CAA961C009FB9E4 /* TauSubscriptionsCollectionContentSubViewController.m in Sources */,
