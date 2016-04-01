@@ -72,6 +72,9 @@ NSString* const TauShouldExposeContentCollectionItemNotif = @"Should.ExposeConte
     // Do view setup here.
     }
 
+TauDeallocBegin
+TauDeallocEnd
+
 #pragma mark - Overrides <TauContentSubViewController>
 
 - ( NSTitlebarAccessoryViewController* ) titlebarAccessoryViewControllerWhileActive
