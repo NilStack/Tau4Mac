@@ -80,14 +80,17 @@
 
 // PriContentActionView_ class
 @interface PriContentActionSectionView_ : NSView
+
 @property ( strong, readwrite ) GTLObject* YouTubeContent;
 @property ( weak ) IBOutlet NSSegmentedControl* actionSegControl;
+
+- ( IBAction ) actionSegControlClicked: ( id )_Sender;
+
 @end
 
 @implementation PriContentActionSectionView_
 
 @synthesize YouTubeContent = YouTubeContent_;
-
 - ( void ) setYouTubeContent: ( GTLObject* )_New
     {
     if ( YouTubeContent_ != _New )
@@ -135,6 +138,12 @@
 - ( GTLObject* ) YouTubeContent
     {
     return YouTubeContent_;
+    }
+
+- ( IBAction ) actionSegControlClicked: ( NSSegmentedControl* )_Sender
+    {
+    if ( _Sender.selectedSegment == 0 )
+        [ self.YouTubeContent exposeMeOnBahalfOf: self ];
     }
 
 @end // PriContentActionView_ class

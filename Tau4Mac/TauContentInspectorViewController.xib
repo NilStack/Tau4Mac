@@ -48,6 +48,9 @@
                             </segment>
                         </segments>
                     </segmentedCell>
+                    <connections>
+                        <action selector="actionSegControlClicked:" target="dhK-De-Q8r" id="nn6-rM-ZLt"/>
+                    </connections>
                 </segmentedControl>
             </subviews>
             <constraints>

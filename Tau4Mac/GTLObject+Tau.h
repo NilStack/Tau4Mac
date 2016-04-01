@@ -11,4 +11,6 @@
 
 @property ( assign, readonly ) TauYouTubeContentType tauContentType;
 
+- ( void ) exposeMeOnBahalfOf: ( id )_Sender;
+
 @end // GTLObject + Tau

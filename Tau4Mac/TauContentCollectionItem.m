@@ -35,16 +35,7 @@ TauDeallocEnd
     if ( _Event.clickCount == 2 )
         {
         GTLObject* ytContent = [ ( TauContentCollectionItemView* )( self.view ) YouTubeContent ];
-
-        if ( ytContent.tauContentType != TauYouTubeUnknownContent )
-            {
-            NSNotificationCenter* defaultNotifCenter = [ NSNotificationCenter defaultCenter ];
-            NSNotification* exposeNotif = [ NSNotification exposeYouTubeContentNotificationWithYouTubeObject: ytContent poster: self.collectionView ];
-
-            [ defaultNotifCenter postNotification: exposeNotif ];
-            }
-        else
-            DDLogUnexpected( @"Encountered unknown content collection item type" );
+        [ ytContent exposeMeOnBahalfOf: self.collectionView ];
         }
     else
         [ super mouseDown: _Event ];

@@ -34,4 +34,17 @@
     return type;
     }
 
+- ( void ) exposeMeOnBahalfOf: ( id )_Sender
+    {
+    if ( self.tauContentType != TauYouTubeUnknownContent )
+        {
+        NSNotificationCenter* defaultNotifCenter = [ NSNotificationCenter defaultCenter ];
+        NSNotification* exposeNotif = [ NSNotification exposeYouTubeContentNotificationWithYouTubeObject: self poster: _Sender ];
+
+        [ defaultNotifCenter postNotification: exposeNotif ];
+        }
+    else
+        DDLogUnexpected( @"Encountered unknown content collection item type" );
+    }
+
 @end // GTLObject + Tau

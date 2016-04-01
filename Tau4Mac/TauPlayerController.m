@@ -59,6 +59,8 @@
     if ( _Flag )
         [ [ TauToolbarController sharedController ] setContentViewAffiliatedTo: TauPlayerContentViewTag ];
 
+    [ self.queuePlayer_ removeAllItems ];
+
     [ [ XCDYouTubeClient defaultClient ]
         getVideoWithIdentifier: _VideoIdentifier
              completionHandler:
