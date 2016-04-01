@@ -83,6 +83,9 @@ TauDeallocEnd
 
 //        NSLog( @"New: %ld vs. Old: %ld", newMode, oldMode );
 
+        if ( newMode == TauContentInspectorSingleSelectionMode )
+            [ self.activedSelectionSubView_ setValue: self.YouTubeContents.firstObject forKey: @"YouTubeContent" ];
+
         [ self.view addSubview: self.activedSelectionSubView_ ];
         inspectorSubViewPinEdgesCache_ = [ self.activedSelectionSubView_ autoPinEdgesToSuperviewEdges ];
         } ];

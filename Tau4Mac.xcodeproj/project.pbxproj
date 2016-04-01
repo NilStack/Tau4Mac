@@ -123,6 +123,7 @@
 		83EB74591C9058C4004EB117 /* NSBezierPath+TauDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB74581C9058C4004EB117 /* NSBezierPath+TauDrawing.m */; };
 		83EB745C1C90590F004EB117 /* NSAffineTransform+TauDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB745B1C90590F004EB117 /* NSAffineTransform+TauDrawing.m */; };
 		83EEED921CAD71E60074E73D /* TauContentInspectorSubViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EEED911CAD71E60074E73D /* TauContentInspectorSubViews.m */; };
+		83EEEDC11CAE1C5C0074E73D /* TauSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EEEDC01CAE1C5C0074E73D /* TauSplitView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -642,6 +643,8 @@
 		83EB745B1C90590F004EB117 /* NSAffineTransform+TauDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAffineTransform+TauDrawing.m"; sourceTree = "<group>"; };
 		83EEED901CAD71E60074E73D /* TauContentInspectorSubViews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauContentInspectorSubViews.h; sourceTree = "<group>"; };
 		83EEED911CAD71E60074E73D /* TauContentInspectorSubViews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauContentInspectorSubViews.m; sourceTree = "<group>"; };
+		83EEEDBF1CAE1C5C0074E73D /* TauSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauSplitView.h; sourceTree = "<group>"; };
+		83EEEDC01CAE1C5C0074E73D /* TauSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauSplitView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -946,6 +949,8 @@
 				8356B1FF1C9C11C300AC4B36 /* TauToolbarController.m */,
 				834458C91C9D9CB6001A8603 /* TauToolbarItem.h */,
 				834458CA1C9D9CB6001A8603 /* TauToolbarItem.m */,
+				83EEEDBF1CAE1C5C0074E73D /* TauSplitView.h */,
+				83EEEDC01CAE1C5C0074E73D /* TauSplitView.m */,
 				83B0202E1C96B1A5006333CB /* models */,
 				83765B0D1C8816F300D93554 /* views */,
 				830F55891C92F492005E431B /* controllers */,
@@ -1645,6 +1650,7 @@
 				8351509A1CA77DA3009B3608 /* TauShouldExposeCollectionItemNotif.m in Sources */,
 				835FDC2E1CA62F3700A2A031 /* LRNotificationObserver+NSNotificationCenter.m in Sources */,
 				83765AE21C8811DD00D93554 /* main.m in Sources */,
+				83EEEDC11CAE1C5C0074E73D /* TauSplitView.m in Sources */,
 				83D2E82F1C9A87C300A6AD3D /* TauLogging.m in Sources */,
 				83B174961C98F19800F6578B /* TauYTDataService.m in Sources */,
 				833846CB1C9FE39400F49885 /* TauNormalFlowLayout.m in Sources */,

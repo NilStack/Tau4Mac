@@ -277,6 +277,7 @@ DQ
             <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <connections>
+                <outlet property="contentTitleSectionView_" destination="yUE-5Y-ndY" id="Czp-Ve-q1B"/>
                 <outlet property="wrapperOfSingleContentActionSectionView_" destination="aov-uw-QZu" id="377-61-tEB"/>
                 <outlet property="wrapperOfSingleContentDescriptionSectionView_" destination="Ovr-2Y-XCS" id="3D9-4u-GjS"/>
                 <outlet property="wrapperOfSingleContentInformationSectionView_" destination="PbZ-U2-L2H" id="DzS-Cb-SQX"/>

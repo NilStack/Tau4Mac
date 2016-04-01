@@ -11,6 +11,7 @@
 #import "TauContentCollectionItem.h"
 #import "TauNormalFlowLayout.h"
 #import "TauToolbarItem.h"
+#import "TauSplitView.h"
 
 // PriHasSelectedTransformer_ class
 @interface PriHasSelectedTransformer_ : NSValueTransformer
@@ -258,6 +259,23 @@ TauDeallocEnd
 // TODO;
 
 #pragma mark - Private
+
+@synthesize splitViewController_;
+- ( void ) setSplitViewController_: ( NSSplitViewController* )_New
+    {
+    if ( splitViewController_ != _New )
+        {
+        splitViewController_ = _New;
+        [ splitViewController_ setSplitView: [ [ TauSplitView alloc ] initWithFrame: NSZeroRect ] ];
+        [ splitViewController_.splitView setVertical: YES ];
+        [ splitViewController_.view setWantsLayer: YES ];
+        }
+    }
+
+- ( NSSplitViewController* ) splitViewController_
+    {
+    return splitViewController_;
+    }
 
 @synthesize contentCollectionSplitViewItem_ = priContentCollectionSplitViewItem_;
 @synthesize contentInspectorSplitViewItem_ = priContentInspectorSplitViewItem_;

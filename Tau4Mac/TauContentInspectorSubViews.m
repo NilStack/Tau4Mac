@@ -42,6 +42,7 @@
         cell_ = [ [ NSTextFieldCell alloc ] initTextCell: @"" ];
         [ cell_ setFont: [ NSFont fontWithName: @"PingFang SC Regular" size: 18.f ] ];
         [ cell_ setTextColor: [ NSColor colorWithSRGBRed: 51.f / 255 green: 51.f / 255 blue: 51.f / 255 alpha: 1.f ] ];
+        [ cell_ setLineBreakMode: NSLineBreakByTruncatingTail ];
         [ cell_ setUsesSingleLineMode: YES ];
         [ cell_ setTruncatesLastVisibleLine: YES ];
         }
@@ -54,7 +55,7 @@
 - ( void ) drawRect: ( NSRect )_DirtyRect
     {
     [ super drawRect: _DirtyRect ];
-    [ cell_ drawWithFrame: _DirtyRect inView: self ];
+    [ cell_ drawWithFrame: NSInsetRect( _DirtyRect, 15.f, 10.f ) inView: self ];
     }
 
 @dynamic title;
@@ -92,6 +93,8 @@
 
 /*************** Embedding the split view controller ***************/
 
+@property ( weak ) IBOutlet PriContentTitleSectionView_* contentTitleSectionView_;
+
 @end // Private
 
 // TauContentInspectorSingleSelectionSubView class
@@ -103,6 +106,18 @@
     {
     [ [ self configureForAutoLayout ] addSubview: self.splitInspectorViewController_.view ];
     [ [ self.splitInspectorViewController_.view configureForAutoLayout ] autoPinEdgesToSuperviewEdges ];
+    }
+
+@synthesize YouTubeContent = YouTubeContent_;
+- ( void ) setYouTubeContent: ( GTLObject* )_New
+    {
+    YouTubeContent_ = _New;
+    [ self.contentTitleSectionView_ setTitle: YouTubeContent_.JSON[ @"snippet" ][ @"title" ] ];
+    }
+
+- ( GTLObject* ) YouTubeContent
+    {
+    return YouTubeContent_;
     }
 
 #pragma mark - Private
@@ -130,7 +145,13 @@
 - ( NSSplitViewItem* ) singleContentTitleSectionItem_
     {
     if ( !priSingleContentTitleSectionItem_ )
+        {
         priSingleContentTitleSectionItem_ = [ NSSplitViewItem splitViewItemWithViewController: self.wrapperOfSingleContentTitleSectionView_ ];
+        priSingleContentTitleSectionItem_.canCollapse = NO;
+        priSingleContentTitleSectionItem_.minimumThickness = 40.f;
+        priSingleContentTitleSectionItem_.maximumThickness = 40.f;
+        }
+
     return priSingleContentTitleSectionItem_;
     }
 
