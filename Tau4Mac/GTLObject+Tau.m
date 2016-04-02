@@ -29,6 +29,8 @@
     else if ( [ self isKindOfClass: [ GTLYouTubePlaylist class ] ]
             || ( [ self isKindOfClass: [ GTLYouTubeSearchResult class ] ] && [ [ ( GTLYouTubeSearchResult* )self identifier ].kind isEqualToString: @"youtube#playlist" ] ) )
         type = TauYouTubePlayList;
+    else
+        DDLogNotice( @"{%@} is not an object that can be recognized by %@.", self, THIS_METHOD );
 
     return type;
     }
@@ -70,14 +72,22 @@
         NSDictionary* jsonDict = [ resourceIdentifier JSON ];
         identifier = [ jsonDict objectForKey: [ [ resourceIdentifier.kind componentsSeparatedByString: @"#" ].lastObject stringByAppendingString: @"Id" ] ];
         }
+    else
+        DDLogNotice( @"{%@} is not an object that can be recognized by %@.", self, THIS_METHOD );
 
-    return [ identifier copy ];
+    return identifier ? [ identifier copy ] : nil;
     }
 
 @dynamic tauEssentialTitle;
 - ( NSString* ) tauEssentialTitle
     {
-    return [ [ self valueForKeyPath: @"snippet.title" ] copy ];
+    NSString* title = nil;
+    @try {
+    [ self valueForKeyPath: @"snippet.title" ];
+    } @catch ( NSException* _Ex )
+        { DDLogNotice( @"{%@} doesn't contain a title property that can be recognized by %@.", self, THIS_METHOD ); }
+
+    return title ? [ title copy ] : nil;
     }
 
 - ( void ) exposeMeOnBahalfOf: ( id )_Sender
