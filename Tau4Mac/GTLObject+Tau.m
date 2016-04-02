@@ -94,11 +94,6 @@
     {
     if ( self.tauContentType == TauYouTubeUnknownContent )
         DDLogUnexpected( @"Encountered unknown content collection item type" );
-    else if ( self.tauContentType == TauYouTubeVideo )
-        {
-        NSString* videoIdentifier = self.tauEssentialIdentifier;
-        [ [ TauPlayerController defaultPlayerController ] playYouTubeVideoWithVideoIdentifier: videoIdentifier switchToPlayer: YES ];
-        }
     else
         {
         NSNotificationCenter* defaultNotifCenter = [ NSNotificationCenter defaultCenter ];
