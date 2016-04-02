@@ -123,14 +123,63 @@ TauDeallocEnd
 
 - ( void ) contentSubViewWillPop
     {
-    shouldExposeContentItemObserv_ = nil;
-
     id consumer = self;
     [ [ TauYTDataService sharedService ] unregisterConsumer: consumer withCredential: priCredential_ ];
 
     [ self unbind: TauKVOStrictKey( results ) ];
 
     [ super contentSubViewWillPop ];
+    }
+
+- ( void ) viewWillAppear
+    {
+    DDLogExpecting( @"Begin observing the {%@} notification in %@", TauShouldExposeContentCollectionItemNotif, self );
+    shouldExposeContentItemObserv_ =
+    [ LRNotificationObserver observerForName: TauShouldExposeContentCollectionItemNotif
+                                      object: nil
+                                       block:
+    ^( NSNotification /* TauShouldExposeCollectionItemNotif*/ * _Notif )
+        {
+        TauAbstractCollectionContentSubViewController* c = nil;
+
+        switch ( _Notif.contentType )
+            {
+            case TauYouTubeVideo:
+                {
+                // We processed this situation in self-exposing stage
+                // and therefore code block in this range will never be excuted.
+                // Content type of _Notif will never be YouTubeVideo.
+                } break;
+
+            case TauYouTubePlayList:
+                {
+                c = [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
+                [ c setValue: _Notif.playlistIdentifier forKey: TauKVOStrictKey( playlistIdentifier ) ];
+                [ c setValue: _Notif.playlistName forKey: TauKVOStrictKey( playlistName ) ];
+                } break;
+
+            case TauYouTubeChannel:
+                {
+                c = [ [ TauChannelResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
+                [ c setValue: _Notif.channelIdentifier forKey: TauKVOStrictKey( channelIdentifier ) ];
+                [ c setValue: _Notif.channelName forKey: TauKVOStrictKey( channelName ) ];
+                } break;
+
+            case TauYouTubeUnknownContent:
+                {
+                DDLogUnexpected( @"Content type is unknown." );
+                } break;
+            }
+
+        if ( c )
+            [ self.masterContentViewController pushContentSubView: c ];
+        } ];
+    }
+
+- ( void ) viewWillDisappear
+    {
+    shouldExposeContentItemObserv_ = nil;
+    DDLogExpecting( @"Stop observing the {%@} notification in %@", TauShouldExposeContentCollectionItemNotif, self );
     }
 
 #pragma mark - UI
@@ -141,51 +190,14 @@ TauDeallocEnd
     if ( !priContentCollectionViewController_ )
         {
         priContentCollectionViewController_ = [ [ TauContentCollectionViewController alloc ] initWithNibName: nil bundle: nil ];
+
+        // self provides the required collection model data by conforming the <TauContentCollectionViewRelayDataSource> protocol
+        // and then the priContentCollectionViewController_ relays them to its internal collection view
         [ priContentCollectionViewController_ setRelayDataSource: self ];
+
         [ self addChildViewController: priContentCollectionViewController_ ];
         [ self.view addSubview: priContentCollectionViewController_.view ];
         [ priContentCollectionViewController_.view autoPinEdgesToSuperviewEdges ];
-
-        shouldExposeContentItemObserv_ =
-        [ LRNotificationObserver observerForName: TauShouldExposeContentCollectionItemNotif
-                                          object: [ priContentCollectionViewController_ valueForKey: TauKVOLiberalKey( contentCollectionView_ ) ]
-                                           block:
-        ^( NSNotification /* TauShouldExposeCollectionItemNotif*/ * _Notif )
-            {
-            TauAbstractCollectionContentSubViewController* c = nil;
-
-            switch ( _Notif.contentType )
-                {
-                case TauYouTubeVideo:
-                    {
-                    // We processed this situation in self-exposing stage
-                    // and therefore code block in this range will never be excuted.
-                    // Content type of _Notif will never be YouTubeVideo.
-                    } break;
-
-                case TauYouTubePlayList:
-                    {
-                    c = [ [ TauPlaylistResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
-                    [ c setValue: _Notif.playlistIdentifier forKey: TauKVOStrictKey( playlistIdentifier ) ];
-                    [ c setValue: _Notif.playlistName forKey: TauKVOStrictKey( playlistName ) ];
-                    } break;
-
-                case TauYouTubeChannel:
-                    {
-                    c = [ [ TauChannelResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
-                    [ c setValue: _Notif.channelIdentifier forKey: TauKVOStrictKey( channelIdentifier ) ];
-                    [ c setValue: _Notif.channelName forKey: TauKVOStrictKey( channelName ) ];
-                    } break;
-
-                case TauYouTubeUnknownContent:
-                    {
-                    DDLogUnexpected( @"Content type is unknown." );
-                    } break;
-                }
-
-            if ( c )
-                [ self.masterContentViewController pushContentSubView: c ];
-            } ];
         }
 
     return priContentCollectionViewController_;
