@@ -12,6 +12,7 @@
 @property ( assign, readonly ) TauYouTubeContentType tauContentType;
 @property ( copy, readonly ) NSString* tauEssentialIdentifier;
 @property ( copy, readonly ) NSString* tauEssentialTitle;
+@property ( copy, readonly ) NSURL* urlOnWebsite;
 
 - ( void ) exposeMeOnBahalfOf: ( id )_Sender;
 

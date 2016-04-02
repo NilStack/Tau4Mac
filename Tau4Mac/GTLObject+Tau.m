@@ -83,7 +83,7 @@
     {
     NSString* title = nil;
     @try {
-    [ self valueForKeyPath: @"snippet.title" ];
+    title = [ self valueForKeyPath: @"snippet.title" ];
     } @catch ( NSException* _Ex )
         { DDLogNotice( @"{%@} doesn't contain a title property that can be recognized by %@.", self, THIS_METHOD ); }
 
@@ -98,9 +98,36 @@
         {
         NSNotificationCenter* defaultNotifCenter = [ NSNotificationCenter defaultCenter ];
         NSNotification* exposeNotif = [ NSNotification exposeYouTubeContentNotificationWithYouTubeObject: self poster: _Sender ];
-
         [ defaultNotifCenter postNotification: exposeNotif ];
         }
+    }
+
+@dynamic urlOnWebsite;
+- ( NSURL* ) urlOnWebsite
+    {
+    NSURL* url = [ NSURL URLWithString: @"https://www.youtube.com" ];
+
+    switch ( self.tauContentType )
+        {
+        case TauYouTubeVideo:
+            url = [ url URLByAppendingPathComponent: [ NSString stringWithFormat: @"/watch?v=%@", self.tauEssentialIdentifier ] ];
+            break;
+
+        case TauYouTubePlayList:
+            url = [ url URLByAppendingPathComponent: [ NSString stringWithFormat: @"/playlist?list=%@", self.tauEssentialIdentifier ] ];
+            break;
+
+        case TauYouTubeChannel:
+            url = [ url URLByAppendingPathComponent: [ NSString stringWithFormat: @"/channel/%@", self.tauEssentialIdentifier ] ];
+            break;
+
+        case TauYouTubeUnknownContent:
+            DDLogUnexpected( @"Unknown YouTube content {%@}.", self );
+            url = nil;
+            break;
+        }
+
+    return url ? [ url copy ] : nil;
     }
 
 @end // GTLObject + Tau

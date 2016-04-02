@@ -79,7 +79,7 @@
 
 
 // PriContentActionView_ class
-@interface PriContentActionSectionView_ : NSView
+@interface PriContentActionSectionView_ : NSView <NSSharingServiceDelegate, NSSharingServicePickerDelegate>
 
 @property ( strong, readwrite ) GTLObject* YouTubeContent;
 @property ( weak ) IBOutlet NSSegmentedControl* actionSegControl;
@@ -140,10 +140,56 @@
     return YouTubeContent_;
     }
 
+@synthesize actionSegControl = actionSegControl_;
+- ( void ) setActionSegControl: ( NSSegmentedControl* )_New
+    {
+    if ( actionSegControl_ != _New )
+        {
+        actionSegControl_ = _New;
+        [ actionSegControl_ sendActionOn: NSLeftMouseDownMask ];
+        }
+    }
+
+- ( NSSegmentedControl* ) actionSegControl
+    {
+    return actionSegControl_;
+    }
+
 - ( IBAction ) actionSegControlClicked: ( NSSegmentedControl* )_Sender
     {
     if ( _Sender.selectedSegment == 0 )
         [ self.YouTubeContent exposeMeOnBahalfOf: self ];
+    else if ( _Sender.selectedSegment == 1 )
+        {
+        NSArray* sharingItems = @[ self.YouTubeContent.tauEssentialTitle, self.YouTubeContent.urlOnWebsite.absoluteString.stringByRemovingPercentEncoding ];
+        NSSharingServicePicker* sharingServicePicker = [ [ NSSharingServicePicker alloc ] initWithItems: sharingItems ];
+        [ sharingServicePicker setDelegate: self ];
+        [ sharingServicePicker showRelativeToRect: _Sender.bounds ofView: _Sender preferredEdge: NSRectEdgeMaxY ];
+        }
+    }
+
+#pragma mark - Conforms to <NSSharingServicePickerDelegate>
+
+- ( NSArray <NSSharingService*>* ) sharingServicePicker: ( NSSharingServicePicker* )_SharingServicePicker
+                                sharingServicesForItems: ( NSArray* )_Items
+                                proposedSharingServices: ( NSArray <NSSharingService*>* )_ProposedServices
+    {
+    return _ProposedServices;
+    }
+
+- ( id <NSSharingServiceDelegate> ) sharingServicePicker: ( NSSharingServicePicker* )_SharingServicePicker
+                               delegateForSharingService: ( NSSharingService* )_SharingService
+    {
+    return self;
+    }
+
+#pragma mark - Conforms to <NSSharingServiceDelegate>
+
+- ( NSWindow* ) sharingService: ( NSSharingService* )_SharingService
+     sourceWindowForShareItems: ( NSArray* )_Items
+           sharingContentScope: ( NSSharingContentScope* )_SharingContentScope
+    {
+    return self.window;
     }
 
 @end // PriContentActionView_ class
