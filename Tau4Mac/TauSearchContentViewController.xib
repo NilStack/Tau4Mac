@@ -301,14 +301,14 @@ DQ
                 </textField>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aP4-bd-XvA">
                     <rect key="frame" x="148" y="394" width="219" height="26"/>
-                    <popUpButtonCell key="cell" type="push" title="Relevance" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1Rh-AM-dwN" id="QN1-p6-bgD">
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="QN1-p6-bgD">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" id="4ew-cZ-esg">
                             <items>
                                 <menuItem title="Date" id="5jD-1I-xQw"/>
                                 <menuItem title="Rating" id="TJ6-s5-ApW"/>
-                                <menuItem title="Relevance" state="on" id="1Rh-AM-dwN"/>
+                                <menuItem title="Relevance" id="1Rh-AM-dwN"/>
                                 <menuItem title="Title" id="NM6-pj-g5B"/>
                                 <menuItem title="Video Count" id="wWX-xn-Xdg"/>
                                 <menuItem title="View Count" id="G70-sc-AfY"/>

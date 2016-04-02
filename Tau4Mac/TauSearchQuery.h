@@ -1,5 +1,5 @@
 //
-//  TauSearchObject.h
+//  TauSearchQuery.h
 //  Tau4Mac
 //
 //  Created by Tong G. on 4/2/16.
@@ -55,8 +55,8 @@ typedef NS_ENUM ( NSUInteger, TauSearchChannelType )
     , TauSearchChannelAnyType = NSUIntegerMax
     };
 
-// TauSearchObject class
-@interface TauSearchObject : NSObject
+// TauSearchQuery class
+@interface TauSearchQuery : NSObject
 
 #pragma mark - Generic Search Options
 
@@ -81,4 +81,8 @@ typedef NS_ENUM ( NSUInteger, TauSearchChannelType )
 
 @property ( assign, readwrite ) TauSearchChannelType channelType;
 
-@end // TauSearchObject class
+#pragma mark - Compatibility with GTL
+
+@property ( copy, readonly ) GTLQueryYouTube* gtlSearchQuery;
+
+@end // TauSearchQuery class

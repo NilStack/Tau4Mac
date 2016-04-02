@@ -1,15 +1,15 @@
 //
-//  TauSearchObject.m
+//  TauSearchQuery.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 4/2/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauSearchObject.h"
+#import "TauSearchQuery.h"
 
-// TauSearchObject class
-@implementation TauSearchObject
+// TauSearchQuery class
+@implementation TauSearchQuery
 
 #pragma mark - Generic Search Options
 
@@ -23,4 +23,14 @@
 
 @synthesize channelType;
 
-@end // TauSearchObject class
+#pragma mark - Compatibility with GTL
+
+@dynamic gtlSearchQuery;
+
+- ( GTLQueryYouTube* ) gtlSearchQuery
+    {
+    // TODO: Whatever to derive instance of GTLQueryYouTube from TauSearchQuery's
+    return nil;
+    }
+
+@end // TauSearchQuery class
