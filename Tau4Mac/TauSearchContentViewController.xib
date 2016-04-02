@@ -222,8 +222,8 @@ DQ
                                     <menu key="menu" id="2Wv-oI-CYS">
                                         <items>
                                             <menuItem title="Any" id="Dh0-xg-yV8"/>
-                                            <menuItem title="Creative Commons" id="ukC-Ja-dyH"/>
-                                            <menuItem title="Standard YouTube License" id="TVK-Zo-vBX"/>
+                                            <menuItem title="Creative Commons" tag="1" id="ukC-Ja-dyH"/>
+                                            <menuItem title="Standard YouTube License" tag="2" id="TVK-Zo-vBX"/>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
@@ -307,11 +307,11 @@ DQ
                         <menu key="menu" id="4ew-cZ-esg">
                             <items>
                                 <menuItem title="Date" id="5jD-1I-xQw"/>
-                                <menuItem title="Rating" id="TJ6-s5-ApW"/>
-                                <menuItem title="Relevance" id="1Rh-AM-dwN"/>
-                                <menuItem title="Title" id="NM6-pj-g5B"/>
-                                <menuItem title="Video Count" id="wWX-xn-Xdg"/>
-                                <menuItem title="View Count" id="G70-sc-AfY"/>
+                                <menuItem title="Rating" tag="1" id="TJ6-s5-ApW"/>
+                                <menuItem title="Relevance" tag="2" id="1Rh-AM-dwN"/>
+                                <menuItem title="Title" tag="3" id="NM6-pj-g5B"/>
+                                <menuItem title="Video Count" tag="4" id="wWX-xn-Xdg"/>
+                                <menuItem title="View Count" tag="5" id="G70-sc-AfY"/>
                             </items>
                         </menu>
                     </popUpButtonCell>
