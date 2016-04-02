@@ -11,9 +11,14 @@
 #import "TauToolbarController.h"
 #import "TauAbstractContentSubViewController.h"
 #import "TauSearchResultsCollectionContentSubViewController.h"
+#import "TauSearchDashboardController.h"
 
 // TauSearchContentSubViewController class
 @interface TauSearchContentSubViewController : TauAbstractContentSubViewController
+
+@property ( weak ) IBOutlet NSClipView* clipView;
+@property ( weak ) IBOutlet TauSearchDashboardController* searchDashboardController;
+
 @end // TauSearchContentSubViewController class
 
 
@@ -24,17 +29,8 @@
 
 // Private
 @interface TauSearchContentViewController ()
-
 @property ( weak ) IBOutlet TauSearchContentSubViewController* initialSearchContentSubViewController_;
-//@property ( strong, readwrite ) NSArray <GTLYouTubeSearchResult*>* searchResults;
-
 @end // Private
-
-
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-
 
 // TauSearchContentViewController class
 @implementation TauSearchContentViewController
@@ -70,9 +66,44 @@
 
 // ------------------------------------------------------------------------------------------------------------ //
 
+// PriCenterClipView_ class
+@interface PriCenterClipView_ : NSClipView
+@end
 
+@implementation PriCenterClipView_
+
+#pragma mark - Overrides
+
+- ( NSRect ) constrainBoundsRect: ( NSRect )_ProposedClipViewBoundsRect
+    {
+    NSRect proposedRect = [ super constrainBoundsRect: _ProposedClipViewBoundsRect ];
+    NSView* docView = self.documentView;
+
+    if ( docView )
+        {
+        if ( NSWidth( proposedRect ) > NSWidth( docView.frame ) )
+            proposedRect.origin.x = ( NSWidth( docView.frame ) - NSWidth( proposedRect ) ) / 2.f;
+
+//        if ( NSHeight( proposedRect ) > NSHeight( docView.frame ) )
+//            proposedRect.origin.y = NSMinY( proposedRect );
+        }
+
+    return proposedRect;
+    }
+
+- ( BOOL ) isFlipped
+    {
+    return YES;
+    }
+
+@end // PriCenterClipView_ class
 
 // TauSearchContentSubViewController class
 @implementation TauSearchContentSubViewController
+
+- ( void ) viewDidLoad
+    {
+    [ self.clipView setDocumentView: self.searchDashboardController.view ];
+    }
 
 @end // TauSearchContentSubViewController class
