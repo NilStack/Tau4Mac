@@ -10,6 +10,8 @@
 @interface GTLObject ( Tau )
 
 @property ( assign, readonly ) TauYouTubeContentType tauContentType;
+@property ( copy, readonly ) NSString* tauEssentialIdentifier;
+@property ( copy, readonly ) NSString* tauEssentialTitle;
 
 - ( void ) exposeMeOnBahalfOf: ( id )_Sender;
 

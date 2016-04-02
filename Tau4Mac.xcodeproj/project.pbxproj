@@ -126,7 +126,6 @@
 		83EEEDC11CAE1C5C0074E73D /* TauSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EEEDC01CAE1C5C0074E73D /* TauSplitView.m */; };
 		83EEEDC41CAE57E90074E73D /* TauValueTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EEEDC31CAE57E90074E73D /* TauValueTransformers.m */; };
 		83EEEDD11CAE69820074E73D /* TauPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EEEDD01CAE69820074E73D /* TauPlayerController.m */; };
-		83EEEE0B1CAEBC3D0074E73D /* TauNotifierProxies.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EEEE0A1CAEBC3D0074E73D /* TauNotifierProxies.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -652,8 +651,6 @@
 		83EEEDC31CAE57E90074E73D /* TauValueTransformers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauValueTransformers.m; sourceTree = "<group>"; };
 		83EEEDCF1CAE69820074E73D /* TauPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauPlayerController.h; sourceTree = "<group>"; };
 		83EEEDD01CAE69820074E73D /* TauPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauPlayerController.m; sourceTree = "<group>"; };
-		83EEEE091CAEBC3D0074E73D /* TauNotifierProxies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauNotifierProxies.h; sourceTree = "<group>"; };
-		83EEEE0A1CAEBC3D0074E73D /* TauNotifierProxies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauNotifierProxies.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -795,8 +792,6 @@
 				833E76481CAD1FB0008FA650 /* NSNumber+Tau.m */,
 				83EEEDC21CAE57E90074E73D /* TauValueTransformers.h */,
 				83EEEDC31CAE57E90074E73D /* TauValueTransformers.m */,
-				83EEEE091CAEBC3D0074E73D /* TauNotifierProxies.h */,
-				83EEEE0A1CAEBC3D0074E73D /* TauNotifierProxies.m */,
 			);
 			name = extensions;
 			sourceTree = "<group>";
@@ -1668,7 +1663,6 @@
 				83EEEDC11CAE1C5C0074E73D /* TauSplitView.m in Sources */,
 				83D2E82F1C9A87C300A6AD3D /* TauLogging.m in Sources */,
 				83B174961C98F19800F6578B /* TauYTDataService.m in Sources */,
-				83EEEE0B1CAEBC3D0074E73D /* TauNotifierProxies.m in Sources */,
 				833846CB1C9FE39400F49885 /* TauNormalFlowLayout.m in Sources */,
 				83224A961CA167B9008931C6 /* TAAdaptiveSpaceItemView.m in Sources */,
 				8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */,

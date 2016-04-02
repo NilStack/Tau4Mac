@@ -71,8 +71,8 @@ void static* const kContentTypeAssocKey = @"kContentTypeAssocKey";
     NSString* name = nil;
 
     @try {
-    identifier = [ self identifierOfYouTubeObject_: _YouTubeObject ];
-    name = [ self nameOfYouTubeObject_: _YouTubeObject ];
+    identifier = _YouTubeObject.tauEssentialIdentifier;
+    name = _YouTubeObject.tauEssentialTitle;
     } @catch ( NSException* _Ex )
         {
         DDLogFatal( @"Captured an exception: {%@}.", _Ex );
@@ -97,52 +97,6 @@ void static* const kContentTypeAssocKey = @"kContentTypeAssocKey";
 
     [ notif setContentType: _YouTubeObject.tauContentType ];
     return notif;
-    }
-
-#pragma mark - Private
-
-+ ( NSString* ) identifierOfYouTubeObject_: ( GTLObject* )_YouTubeObject
-    {
-    NSString* identifier = nil;
-
-    // If _YouTubeObject is instance of ...
-
-    /* one of three classes below:
-
-     * GTLYouTubeVideo
-     * GTLYouTubeChannel
-     * GTLYouTubePlaylist
-
-     * its identifier property is simply an NSString object encapsulated in the outermost layer.
-     */
-    if ( [ _YouTubeObject isKindOfClass: [ GTLYouTubeVideo class ] ]
-            || [ _YouTubeObject isKindOfClass: [ GTLYouTubeChannel class ] ]
-            || [ _YouTubeObject isKindOfClass: [ GTLYouTubePlaylist class ] ] )
-        identifier = [ _YouTubeObject valueForKey: TauKVOStrictKey( identifier ) ];
-
-    /* GTLYouTubePlaylistItem, its identifier property is an NSString object encapsulated in a GTLYouTubePlaylistItemContentDetails object.
-     */
-    else if ( [ _YouTubeObject isKindOfClass: [ GTLYouTubePlaylistItem class ] ] )
-        identifier = [ _YouTubeObject valueForKeyPath: @"contentDetails.videoId" ];
-
-    else if ( [ _YouTubeObject isKindOfClass: [ GTLYouTubeSubscription class ] ] )
-        identifier = [ [ _YouTubeObject valueForKeyPath: @"snippet.resourceId" ] JSON ][ @"channelId" ];
-
-    /* GTLYouTubeSearchResult, its identifier property is an NSString object encapsulated in a GTLYouTubeResourceId object, instead.
-     */
-    else if ( [ _YouTubeObject isKindOfClass: [ GTLYouTubeSearchResult class ] ] )
-        {
-        GTLYouTubeResourceId* resourceIdentifier = [ _YouTubeObject valueForKey: TauKVOStrictKey( identifier ) ];
-        NSDictionary* jsonDict = [ resourceIdentifier JSON ];
-        identifier = [ jsonDict objectForKey: [ [ resourceIdentifier.kind componentsSeparatedByString: @"#" ].lastObject stringByAppendingString: @"Id" ] ];
-        }
-
-    return identifier;
-    }
-
-+ ( NSString* ) nameOfYouTubeObject_: ( GTLObject* )_YouTubeObject
-    {
-    return [ _YouTubeObject valueForKeyPath: @"snippet.title" ];
     }
 
 @end // NSNotification + TauShouldExposeCollectionItemNotif
