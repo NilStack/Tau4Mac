@@ -93,7 +93,7 @@ DQ
             <point key="canvasLocation" x="360" y="85"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="Dia-np-IVh"/>
-        <customView id="tQ4-SQ-ogK">
+        <customView id="tQ4-SQ-ogK" userLabel="Search Dashboard View">
             <rect key="frame" x="0.0" y="0.0" width="408" height="470"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
@@ -351,5 +351,24 @@ DQ
             </subviews>
             <point key="canvasLocation" x="868" y="46"/>
         </customView>
+        <viewController id="4Ak-oT-pxJ" customClass="TauSearchDashboardController">
+            <connections>
+                <outlet property="channelTypeSegControl" destination="mfN-xM-tVU" id="obq-6G-Kgr"/>
+                <outlet property="languageCodesPopUp" destination="9sc-Oe-KS0" id="R4a-su-B8L"/>
+                <outlet property="publishedAfterDatePicker" destination="drf-rx-SNG" id="2YU-ge-AIP"/>
+                <outlet property="publishedBeforeDatePicker" destination="TcX-hZ-7hP" id="egR-sD-c0p"/>
+                <outlet property="regionCodesPopUp" destination="0Qa-ti-ZGn" id="ihY-U5-xHu"/>
+                <outlet property="searchChannelCheckBox" destination="PcK-n9-HLY" id="erI-hw-dwE"/>
+                <outlet property="searchOrderPopUp" destination="aP4-bd-XvA" id="yXW-6G-a0d"/>
+                <outlet property="searchPlaylistCheckBox" destination="Luo-Qs-vKb" id="m1Y-bM-4k4"/>
+                <outlet property="searchVideoCheckBox" destination="gjy-X5-UMf" id="1dD-Bk-dbl"/>
+                <outlet property="syndicatedVideoCheckBox" destination="mks-xs-hwl" id="cZw-KY-aCa"/>
+                <outlet property="videoDefinitionSegControl" destination="5Kq-p2-IiS" id="aEN-36-WyG"/>
+                <outlet property="videoDurationSegControl" destination="n1A-1R-AJS" id="cBO-qZ-hFB"/>
+                <outlet property="videoLicensePopUp" destination="43X-8p-Bgx" id="rbi-A5-oTc"/>
+                <outlet property="videoTypeSegControl" destination="6qJ-2Y-MOE" id="EV9-Fj-gso"/>
+                <outlet property="view" destination="tQ4-SQ-ogK" id="45b-g3-8mB"/>
+            </connections>
+        </viewController>
     </objects>
 </document>

@@ -22,25 +22,22 @@ typedef NS_ENUM ( NSInteger, TauSearchContentOrder )
     };
 
 typedef NS_ENUM ( NSUInteger, TauSearchVideoDefinition )
-    { TauSearchVideoHighDefinition
+    { TauSearchVideoAnyDefinition
+    , TauSearchVideoHighDefinition
     , TauSearchVideoStandardDefinition
-
-    , TauSearchVideoAnyDefinition = NSUIntegerMax
     };
 
 typedef NS_ENUM ( NSUInteger, TauSearchVideoDuration )
-    { TauSearchVideoLongDuration
+    { TauSearchVideoAnyDuration
+    , TauSearchVideoLongDuration
     , TauSearchVideoMediumDuration
     , TauSearchVideoShortDuration
-
-    , TauSearchVideoAnyDuration = NSUIntegerMax
     };
 
 typedef NS_ENUM ( NSUInteger, TauSearchVideoType )
-    { TauSearchVideoEpisodeType
+    { TauSearchVideoAnyType
+    , TauSearchVideoEpisodeType
     , TauSearchVideoMovieType
-
-    , TauSearchVideoAnyType = NSUIntegerMax
     };
 
 typedef NS_ENUM ( NSUInteger, TauSearchVideoLicense )
@@ -50,9 +47,8 @@ typedef NS_ENUM ( NSUInteger, TauSearchVideoLicense )
     };
 
 typedef NS_ENUM ( NSUInteger, TauSearchChannelType )
-    { TauSearchChannelOnlyShowType
-
-    , TauSearchChannelAnyType = NSUIntegerMax
+    { TauSearchChannelAnyType
+    , TauSearchChannelOnlyShowType
     };
 
 // TauSearchQuery class

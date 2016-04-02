@@ -83,6 +83,7 @@
 		838342FF1C9840A200BE6378 /* TauYouTubePlaylistItemsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 838342FB1C981C2400BE6378 /* TauYouTubePlaylistItemsCollection.m */; };
 		838D405A1C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 838D40581C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.m */; };
 		838E22D11CAFD5030008D7E5 /* TauSearchQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 838E22D01CAFD5030008D7E5 /* TauSearchQuery.m */; };
+		838E23031CAFE1BE0008D7E5 /* TauSearchDashboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 838E23021CAFE1BE0008D7E5 /* TauSearchDashboardController.m */; };
 		8399E2141C88200000A42C44 /* GTLYouTube_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2121C88200000A42C44 /* GTLYouTube_Sources.m */; };
 		8399E21A1C88231400A42C44 /* TauMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E2191C88231400A42C44 /* TauMainWindowController.m */; };
 		8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E21C1C88232E00A42C44 /* TauMainWindow.m */; };
@@ -591,6 +592,8 @@
 		838D40581C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauSearchResultsCollectionContentSubViewController.m; sourceTree = "<group>"; };
 		838E22CF1CAFD5030008D7E5 /* TauSearchQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauSearchQuery.h; sourceTree = "<group>"; };
 		838E22D01CAFD5030008D7E5 /* TauSearchQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauSearchQuery.m; sourceTree = "<group>"; };
+		838E23011CAFE1BE0008D7E5 /* TauSearchDashboardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauSearchDashboardController.h; sourceTree = "<group>"; };
+		838E23021CAFE1BE0008D7E5 /* TauSearchDashboardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauSearchDashboardController.m; sourceTree = "<group>"; };
 		8399E2121C88200000A42C44 /* GTLYouTube_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLYouTube_Sources.m; path = ../Deps/GTL/Source/Services/YouTube/Generated/GTLYouTube_Sources.m; sourceTree = "<group>"; };
 		8399E2131C88200000A42C44 /* GTLYouTube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLYouTube.h; path = ../Deps/GTL/Source/Services/YouTube/Generated/GTLYouTube.h; sourceTree = "<group>"; };
 		8399E2181C88231400A42C44 /* TauMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauMainWindowController.h; sourceTree = "<group>"; };
@@ -804,6 +807,8 @@
 			children = (
 				838E22CF1CAFD5030008D7E5 /* TauSearchQuery.h */,
 				838E22D01CAFD5030008D7E5 /* TauSearchQuery.m */,
+				838E23011CAFE1BE0008D7E5 /* TauSearchDashboardController.h */,
+				838E23021CAFE1BE0008D7E5 /* TauSearchDashboardController.m */,
 				834E78101C9ECEE200802301 /* sub */,
 				836D26F61C9ACDA300290BE7 /* TauSearchContentViewController.h */,
 				836D26F71C9ACDA300290BE7 /* TauSearchContentViewController.m */,
@@ -1688,6 +1693,7 @@
 				83EB745C1C90590F004EB117 /* NSAffineTransform+TauDrawing.m in Sources */,
 				8356B2031C9D35F900AC4B36 /* TauAbstractContentSubViewController.m in Sources */,
 				836D26F41C9ACB1E00290BE7 /* TauMainContentViewController.m in Sources */,
+				838E23031CAFE1BE0008D7E5 /* TauSearchDashboardController.m in Sources */,
 				831BD6CC1C883FA300122AF6 /* TauContentCollectionItemView.m in Sources */,
 				838342F61C98189B00BE6378 /* TauYouTubeChannelsCollection.m in Sources */,
 				83EEEDD11CAE69820074E73D /* TauPlayerController.m in Sources */,
