@@ -72,6 +72,8 @@ typedef NS_ENUM ( NSUInteger, TauSearchChannelType )
 
 @property ( weak ) IBOutlet NSSegmentedControl* channelTypeSegControl;
 
+#pragma mark - Compatible with GTL
+
 @property ( copy, readonly ) GTLQueryYouTube* YouTubeQuery;
 
 @end // TauSearchDashboardController class

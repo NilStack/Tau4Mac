@@ -37,12 +37,14 @@
     // Do view setup here.
     }
 
+#pragma mark - Compatible with GTL
+
 @dynamic YouTubeQuery;
 - ( GTLQueryYouTube* ) YouTubeQuery
     {
     GTLQueryYouTube* query = [ GTLQueryYouTube queryForSearchListWithPart: @"snippet" ];
 
-    // Converting contentTypes field
+    // Converting `type` field
     {
     NSMutableArray* types = [ @[] mutableCopy ];
     if ( [ searchVideoCheckBox state ] == NSOnState ) [ types addObject: @"video" ];
@@ -52,7 +54,7 @@
     query.type = [ types componentsJoinedByString: @" " ];
     }
 
-    // Converting order field
+    // Converting `order` field
     {
     NSString* orderString = nil;
     switch ( searchOrderPopUp.selectedTag )
@@ -75,7 +77,7 @@
     query.relevanceLanguage = [ [ [ languageCodesPopUp selectedItem ] title ] uppercaseString ];
     }
 
-    // Converting videoDefinition field
+    // Converting `videoDefinition` field
     {
     NSString* videoDefString = nil;
     switch ( videoDefinitionSegControl.selectedSegment )
@@ -88,7 +90,7 @@
     query.videoDefinition = videoDefString;
     }
 
-    // Converting videoDuration field
+    // Converting `videoDuration` field
     {
     NSString* durationString = nil;
     switch ( videoDurationSegControl.selectedSegment )
@@ -102,7 +104,7 @@
     query.videoDuration = durationString;
     }
 
-    // Converting videoType field
+    // Converting `videoType` field
     {
     NSString* videoTypeString = nil;
     switch ( videoTypeSegControl.selectedSegment )
@@ -115,7 +117,7 @@
     query.videoType = videoTypeString;
     }
 
-    // Converting videoLicense field
+    // Converting `videoLicense` field
     {
     NSString* license = nil;
     switch ( videoLicensePopUp.selectedTag )
@@ -128,10 +130,10 @@
     query.videoLicense = license;
     }
 
-    // Converting syndicatedVideo field
+    // Converting `videoSyndicated` field
     query.videoSyndicated = syndicatedVideoCheckBox.state ? @"true" : nil;
 
-    // Converting channelType field
+    // Converting `channelType` field
     {
     NSString* channelTypeString = nil;
     switch ( channelTypeSegControl.selectedSegment )

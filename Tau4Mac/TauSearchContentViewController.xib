@@ -15,16 +15,17 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="Hz6-mo-xeY">
+        <customView id="Hz6-mo-xeY" userLabel="Master View">
             <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <point key="canvasLocation" x="868" y="552"/>
         </customView>
         <viewController id="kSU-tu-Iji" customClass="TauSearchContentSubViewController">
             <connections>
                 <outlet property="view" destination="6cY-mM-JgI" id="XZ9-2A-29w"/>
             </connections>
         </viewController>
-        <customView id="6cY-mM-JgI">
+        <customView id="6cY-mM-JgI" userLabel="Search Sub Content View">
             <rect key="frame" x="0.0" y="0.0" width="486" height="248"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
@@ -90,7 +91,7 @@ DQ
                 <constraint firstItem="0WL-ro-eLk" firstAttribute="centerX" secondItem="6cY-mM-JgI" secondAttribute="centerX" id="281-1U-OdC"/>
                 <constraint firstItem="0WL-ro-eLk" firstAttribute="centerY" secondItem="6cY-mM-JgI" secondAttribute="centerY" id="Rir-59-yez"/>
             </constraints>
-            <point key="canvasLocation" x="360" y="85"/>
+            <point key="canvasLocation" x="868" y="-428"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="Dia-np-IVh"/>
         <customView id="tQ4-SQ-ogK" userLabel="Search Dashboard View">
