@@ -54,6 +54,7 @@ NSString* const kRequester = @"kRequester";
 
 - ( void ) applicationWillFinishLaunching: ( NSNotification* )_Notif
     {
+    NSLog( @"%@", [ GTLDateTime dateTimeWithDate: [ NSDate date ] timeZone: [ NSTimeZone timeZoneForSecondsFromGMT: 8 ] ].RFC3339String );
     TauToolbarController* sharedToolbarController = [ TauToolbarController sharedController ];
 
     [ sharedToolbarController bind: @"appearance" toObject: self.contentViewController withKeyPath: @"activedContentViewController.activedSubViewController.windowAppearanceWhileActive" options: nil ];
