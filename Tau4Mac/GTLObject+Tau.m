@@ -39,7 +39,7 @@
     NSString* identifier = nil;
     GTLObject* YouTubeObject = self;
 
-    // If _YouTubeObject is instance of ...
+    // If YouTubeObject is instance of ...
 
     /* one of three classes below:
 

@@ -158,8 +158,9 @@ TauDeallocEnd
                 {
                 case TauYouTubeVideo:
                     {
-                    NSString* videoIdentifier = _Notif.videoIdentifier;
-                    [ [ TauPlayerController defaultPlayerController ] playYouTubeVideoWithVideoIdentifier: videoIdentifier switchToPlayer: YES ];
+                    // We processed this situation in self-exposing stage
+                    // and therefore code block in this range will never be excuted.
+                    // Content type of _Notif will never be YouTubeVideo.
                     } break;
 
                 case TauYouTubePlayList:
