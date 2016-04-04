@@ -23,6 +23,21 @@
 
 
 
+// Private
+@interface TauContentInspectorMultipleSelectionsSubView ()
+@property ( weak ) IBOutlet NSView* multipleSelectionLabelSection_;
+@end // Private
+
+// TauContentInspectorMultipleSelectionsSubView class
+@implementation TauContentInspectorMultipleSelectionsSubView
+@end // TauContentInspectorMultipleSelectionsSubView class
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
 // PriContentTitleView_ class
 @interface PriContentTitleSectionView_ : NSView
 @property ( copy ) NSString* title;
@@ -342,13 +357,3 @@
     }
 
 @end // TauContentInspectorSingleSelectionSubView class
-
-
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-
-
-// TauContentInspectorMultipleSelectionsSubView class
-@implementation TauContentInspectorMultipleSelectionsSubView
-@end // TauContentInspectorMultipleSelectionsSubView class

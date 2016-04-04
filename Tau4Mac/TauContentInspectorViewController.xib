@@ -257,17 +257,60 @@
                 <outlet property="view" destination="wnM-W4-bI1" id="A4P-R6-Ire"/>
             </connections>
         </viewController>
+        <customView id="DeI-dZ-qVA" customClass="TauContentInspectorMultipleSelectionsSubView">
+            <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x7u-dB-CgK">
+                    <rect key="frame" x="13" y="36" width="136" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="gv5-7f-d2T"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="jgh-gB-7Rh"/>
+                    </constraints>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="No Acceptable" id="Dj8-bJ-yey">
+                        <font key="font" size="20" name="HelveticaNeue-Light"/>
+                        <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="nkQ-0u-50I" name="hidden" keyPath="arrangedObjects.@count" id="cZW-GV-Pfu"/>
+                    </connections>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="x7u-dB-CgK" firstAttribute="centerX" secondItem="DeI-dZ-qVA" secondAttribute="centerX" id="PNa-0C-l3m"/>
+                <constraint firstItem="x7u-dB-CgK" firstAttribute="centerY" secondItem="DeI-dZ-qVA" secondAttribute="centerY" id="iIb-Zy-egX"/>
+            </constraints>
+            <connections>
+                <outlet property="multipleSelectionLabelSection_" destination="x7u-dB-CgK" id="tOd-nZ-Lmf"/>
+            </connections>
+            <point key="canvasLocation" x="394.5" y="314"/>
+        </customView>
+        <customView id="c9S-GL-zfS" customClass="TauContentInspectorSingleSelectionSubView">
+            <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <connections>
+                <outlet property="contentActionSectionView_" destination="dhK-De-Q8r" id="JiN-Gj-LRf"/>
+                <outlet property="contentDescriptionSectionView_" destination="eG4-cM-th3" id="kDE-oi-Gea"/>
+                <outlet property="contentTitleSectionView_" destination="yUE-5Y-ndY" id="Czp-Ve-q1B"/>
+                <outlet property="wrapperOfSingleContentActionSectionView_" destination="aov-uw-QZu" id="377-61-tEB"/>
+                <outlet property="wrapperOfSingleContentDescriptionSectionView_" destination="Ovr-2Y-XCS" id="3D9-4u-GjS"/>
+                <outlet property="wrapperOfSingleContentInformationSectionView_" destination="PbZ-U2-L2H" id="DzS-Cb-SQX"/>
+                <outlet property="wrapperOfSingleContentTitleSectionView_" destination="O0U-D9-J1q" id="pr2-wx-RZ2"/>
+            </connections>
+            <point key="canvasLocation" x="608.5" y="-101"/>
+        </customView>
         <customView id="AnE-3J-eXW" customClass="TauContentInspectorNoSelectionSubView">
             <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jJL-pR-HgS" userLabel="No Selection Label Section">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jJL-pR-HgS">
                     <rect key="frame" x="23" y="36" width="118" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="EdU-5O-fNI"/>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" id="OhS-8O-faf"/>
                     </constraints>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="No Selection" id="OMI-cO-AhS">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="No Selection" id="OMI-cO-AhS">
                         <font key="font" size="20" name="HelveticaNeue-Light"/>
                         <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -284,26 +327,7 @@
             <connections>
                 <outlet property="noSelectionLabelSection_" destination="jJL-pR-HgS" id="vWN-jh-DKr"/>
             </connections>
-            <point key="canvasLocation" x="691.5" y="225"/>
-        </customView>
-        <customView id="c9S-GL-zfS" customClass="TauContentInspectorSingleSelectionSubView">
-            <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <connections>
-                <outlet property="contentActionSectionView_" destination="dhK-De-Q8r" id="JiN-Gj-LRf"/>
-                <outlet property="contentDescriptionSectionView_" destination="eG4-cM-th3" id="kDE-oi-Gea"/>
-                <outlet property="contentTitleSectionView_" destination="yUE-5Y-ndY" id="Czp-Ve-q1B"/>
-                <outlet property="wrapperOfSingleContentActionSectionView_" destination="aov-uw-QZu" id="377-61-tEB"/>
-                <outlet property="wrapperOfSingleContentDescriptionSectionView_" destination="Ovr-2Y-XCS" id="3D9-4u-GjS"/>
-                <outlet property="wrapperOfSingleContentInformationSectionView_" destination="PbZ-U2-L2H" id="DzS-Cb-SQX"/>
-                <outlet property="wrapperOfSingleContentTitleSectionView_" destination="O0U-D9-J1q" id="pr2-wx-RZ2"/>
-            </connections>
-            <point key="canvasLocation" x="755.5" y="51"/>
-        </customView>
-        <customView id="DeI-dZ-qVA" customClass="TauContentInspectorMultipleSelectionsSubView">
-            <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <point key="canvasLocation" x="394.5" y="314"/>
+            <point key="canvasLocation" x="386.5" y="81"/>
         </customView>
     </objects>
     <resources>

@@ -9,8 +9,6 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TauSearchContentViewController">
             <connections>
                 <outlet property="initialSearchContentSubViewController_" destination="kSU-tu-Iji" id="onu-Lm-XcC"/>
-                <outlet property="searchButton" destination="bPR-PX-JHq" id="nos-RT-w6x"/>
-                <outlet property="searchField" destination="SbD-cY-M05" id="fTb-4W-fsB"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
