@@ -53,7 +53,7 @@
         = @selector( contentViewsMenuItemSwitchedAction_: );
 
     // Active the initial content view
-    self.activedContentViewTag = TauExploreContentViewTag;
+    self.activedContentViewTag = TauSearchContentViewTag;
     }
 
 - ( void ) dealloc
