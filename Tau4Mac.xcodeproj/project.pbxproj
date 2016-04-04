@@ -21,6 +21,7 @@
 		832555581CA50B23000C8A48 /* font-lato-regular.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = 8325554F1CA50AF9000C8A48 /* font-lato-regular.ttf */; };
 		8325555C1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8325555B1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m */; };
 		8325555E1CA54143000C8A48 /* TauAbstractCollectionContentSubViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8325555D1CA54143000C8A48 /* TauAbstractCollectionContentSubViewController.xib */; };
+		832922001CB28563008EFBCB /* Sparkle.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 832921F51CB2854B008EFBCB /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		833846CB1C9FE39400F49885 /* TauNormalFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 833846CA1C9FE39400F49885 /* TauNormalFlowLayout.m */; };
 		833846FA1CA10D8D00F49885 /* TauContentCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 833846F81CA10D8D00F49885 /* TauContentCollectionViewController.m */; };
 		833846FB1CA10D8D00F49885 /* TauContentCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 833846F91CA10D8D00F49885 /* TauContentCollectionViewController.xib */; };
@@ -157,6 +158,48 @@
 			proxyType = 2;
 			remoteGlobalIDString = 81EC40F81CA3639C00BD9226;
 			remoteInfo = "FBKVOController-OSX-Dynamic";
+		};
+		832921F41CB2854B008EFBCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 832921E81CB2854B008EFBCB /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = Sparkle;
+		};
+		832921F61CB2854B008EFBCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 832921E81CB2854B008EFBCB /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 61B5F90209C4CEE200B25A18;
+			remoteInfo = "Sparkle Test App";
+		};
+		832921F81CB2854B008EFBCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 832921E81CB2854B008EFBCB /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 612279D90DB5470200AB99EA;
+			remoteInfo = "Sparkle Unit Tests";
+		};
+		832921FA1CB2854B008EFBCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 832921E81CB2854B008EFBCB /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5D06E8D00FD68C7C005AE3F6;
+			remoteInfo = BinaryDelta;
+		};
+		832921FC1CB2854B008EFBCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 832921E81CB2854B008EFBCB /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 55C14BB7136EEF1500649790;
+			remoteInfo = Autoupdate;
+		};
+		832921FE1CB2854B008EFBCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 832921E81CB2854B008EFBCB /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 726B2B5D1C645FC900388755;
+			remoteInfo = "UI Tests";
 		};
 		835FDC231CA62F2000A2A031 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -468,6 +511,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				832922001CB28563008EFBCB /* Sparkle.framework in Copy Third-Party Frameworks */,
 				8325553E1CA4E007000C8A48 /* KVOController.framework in Copy Third-Party Frameworks */,
 				83EB73C31C8E6531004EB117 /* XCDYouTubeKit.framework in Copy Third-Party Frameworks */,
 				83765B971C881EA900D93554 /* GTL.framework in Copy Third-Party Frameworks */,
@@ -501,6 +545,7 @@
 		8325555A1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauAbstractCollectionContentSubViewController.h; sourceTree = "<group>"; };
 		8325555B1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAbstractCollectionContentSubViewController.m; sourceTree = "<group>"; };
 		8325555D1CA54143000C8A48 /* TauAbstractCollectionContentSubViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TauAbstractCollectionContentSubViewController.xib; sourceTree = "<group>"; };
+		832921E81CB2854B008EFBCB /* Sparkle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sparkle.xcodeproj; path = ../Deps/Sparkle/Sparkle.xcodeproj; sourceTree = "<group>"; };
 		833846C91C9FE39400F49885 /* TauNormalFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauNormalFlowLayout.h; sourceTree = "<group>"; };
 		833846CA1C9FE39400F49885 /* TauNormalFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauNormalFlowLayout.m; sourceTree = "<group>"; };
 		833846F71CA10D8D00F49885 /* TauContentCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauContentCollectionViewController.h; sourceTree = "<group>"; };
@@ -761,6 +806,19 @@
 				83B9919D1CA90B7C00F40EA2 /* TauMeTubePlayground.m */,
 			);
 			name = sub;
+			sourceTree = "<group>";
+		};
+		832921E91CB2854B008EFBCB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				832921F51CB2854B008EFBCB /* Sparkle.framework */,
+				832921F71CB2854B008EFBCB /* Sparkle Test App.app */,
+				832921F91CB2854B008EFBCB /* Sparkle Unit Tests.xctest */,
+				832921FB1CB2854B008EFBCB /* BinaryDelta */,
+				832921FD1CB2854B008EFBCB /* Autoupdate.app */,
+				832921FF1CB2854B008EFBCB /* UI Tests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		8349D39A1C8986E2000D091F /* pri */ = {
@@ -1025,6 +1083,7 @@
 		83765B121C88173300D93554 /* Deps */ = {
 			isa = PBXGroup;
 			children = (
+				832921E81CB2854B008EFBCB /* Sparkle.xcodeproj */,
 				83DA1C591C8893D5007B084F /* libcommonCrypto.tbd */,
 				83765B101C88171400D93554 /* QuartzCore.framework */,
 				83765B0E1C88170F00D93554 /* Cocoa.framework */,
@@ -1294,6 +1353,10 @@
 					ProjectRef = 83765B131C8818F500D93554 /* PureLayout.xcodeproj */;
 				},
 				{
+					ProductGroup = 832921E91CB2854B008EFBCB /* Products */;
+					ProjectRef = 832921E81CB2854B008EFBCB /* Sparkle.xcodeproj */;
+				},
+				{
 					ProductGroup = 83EB73AA1C8E6514004EB117 /* Products */;
 					ProjectRef = 83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */;
 				},
@@ -1334,6 +1397,48 @@
 			fileType = wrapper.framework;
 			path = KVOController.framework;
 			remoteRef = 832555161CA4DF6F000C8A48 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		832921F51CB2854B008EFBCB /* Sparkle.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Sparkle.framework;
+			remoteRef = 832921F41CB2854B008EFBCB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		832921F71CB2854B008EFBCB /* Sparkle Test App.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Sparkle Test App.app";
+			remoteRef = 832921F61CB2854B008EFBCB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		832921F91CB2854B008EFBCB /* Sparkle Unit Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Sparkle Unit Tests.xctest";
+			remoteRef = 832921F81CB2854B008EFBCB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		832921FB1CB2854B008EFBCB /* BinaryDelta */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = BinaryDelta;
+			remoteRef = 832921FA1CB2854B008EFBCB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		832921FD1CB2854B008EFBCB /* Autoupdate.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Autoupdate.app;
+			remoteRef = 832921FC1CB2854B008EFBCB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		832921FF1CB2854B008EFBCB /* UI Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "UI Tests.xctest";
+			remoteRef = 832921FE1CB2854B008EFBCB /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		835FDC241CA62F2000A2A031 /* KVOController.framework */ = {

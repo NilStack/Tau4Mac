@@ -28,6 +28,7 @@
 @import XCDYouTubeKit;
 @import PureLayout;
 @import KVOController;
+@import Sparkle;
 
 #import "GTLYouTube.h"
 #import "OAuthSigningConstants.h"
