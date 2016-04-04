@@ -9,6 +9,7 @@
 #import "TauMainWindowController.h"
 #import "TauContentCollectionItemView.h"
 #import "TauToolbarController.h"
+#import "TauMainContentViewController.h"
 
 #import "GTL/GTMOAuth2WindowController.h"
 
@@ -59,6 +60,10 @@ NSString* const kRequester = @"kRequester";
     [ sharedToolbarController bind: @"appearance" toObject: self.contentViewController withKeyPath: @"activedContentViewController.activedSubViewController.windowAppearanceWhileActive" options: nil ];
     [ sharedToolbarController bind: @"accessoryViewController" toObject: self.contentViewController withKeyPath: @"activedContentViewController.activedSubViewController.titlebarAccessoryViewControllerWhileActive" options: nil ];
     [ sharedToolbarController bind: @"toolbarItems" toObject: self.contentViewController withKeyPath: @"activedContentViewController.activedSubViewController.exposedToolbarItemsWhileActive" options: nil ];
+
+    NSMenuItem* signOutItem = [ [ NSMenuItem alloc ] initWithTitle: @"Sign Out" action: @selector( signOutAction: ) keyEquivalent: @"" ];
+    NSMenu* appMenu = [ [ [ NSApp menu ] itemWithTag: TauAppMenuItem ] submenu ];
+    [ appMenu insertItem: signOutItem atIndex: 1 ];
     }
 
 - ( void ) applicationWillTerminate: ( NSNotification* )_Notif
@@ -127,11 +132,10 @@ NSString* const kRequester = @"kRequester";
     }
 
 // Signing Out
-//- ( void ) signOutAction: ( id )_Sender
-//    {
-//    [ TauYTDataService sharedService ].ytService.authorizer = nil;
-//    [ GTMOAuth2WindowController removeAuthFromKeychainForName: TauKeychainItemName ];
-//    [ self runSignInThenHandler_: nil ];
-//    }
+- ( IBAction ) signOutAction: ( id )_Sender;
+    {
+    [ GTMOAuth2WindowController removeAuthFromKeychainForName: TauKeychainItemName ];
+    [ NSApp terminate: self ];
+    }
 
 @end

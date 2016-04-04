@@ -193,6 +193,11 @@ TauYTDataService static* sYTDataService_;
     return [ self signedInUsername ] != nil;
     }
 
++ ( void ) signOut
+    {
+    sYTDataService_ = nil;
+    }
+
 #pragma mark - Consumers
 
 - ( TauYTDataServiceCredential* ) registerConsumer: ( id <TauYTDataServiceConsumer> )_Consumer

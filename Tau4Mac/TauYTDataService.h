@@ -33,6 +33,8 @@ NSString extern* const TauTDSOperationRequirements;
 @property ( strong, readonly ) NSString* signedInUsername;
 @property ( assign, readonly ) BOOL isSignedIn;
 
++ ( void ) signOut;
+
 #pragma mark - Consumers
 
 - ( TauYTDataServiceCredential* ) registerConsumer: ( id <TauYTDataServiceConsumer> )_Consumer withMethodSignature: ( NSMethodSignature* )_Sig consumptionType: ( TauYTDataServiceConsumptionType )_ConsumptionType;
