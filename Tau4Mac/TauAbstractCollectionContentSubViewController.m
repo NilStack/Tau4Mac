@@ -375,7 +375,7 @@ TauDeallocEnd
 
         } failure: ^( NSError* _Error )
             {
-            DDLogRecoverable( @"Failed to execute the consumer operation due to {%@}.", _Error );
+            DDLogRecoverable( @"Failed to execute the consumer operation with error: {%@}.", _Error );
             self.isPaging = NO;
             } ];
     }

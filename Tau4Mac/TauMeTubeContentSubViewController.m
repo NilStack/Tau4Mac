@@ -67,7 +67,7 @@
         executeConsumerOperations: operations withCredential: channelMineCredential_ success: nil failure:
     ^( NSError* _Error )
         {
-        DDLogRecoverable( @"Failed to fetch \"mine channel\" due to {%@}", _Error );
+        DDLogRecoverable( @"Failed to fetch \"mine channel\" with error: {%@}", _Error );
         } ];
     }
 

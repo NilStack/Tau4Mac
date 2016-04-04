@@ -278,7 +278,7 @@ TauYTDataService static* sYTDataService_;
         if ( _FailureHandler )
             _FailureHandler( error );
         else
-            DDLogUnexpected( @"Failed to execute consumer operations due to: {%@}", error );
+            DDLogUnexpected( @"Failed to execute consumer operations with error: {%@}", error );
         }
     }
 
@@ -410,7 +410,7 @@ NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
     NSURL* cacheURL = [ [ NSFileManager defaultManager ] URLForDirectory: NSCachesDirectory inDomain: NSUserDomainMask appropriateForURL: nil create: YES error: &err ];
     cacheURL = [ cacheURL URLByAppendingPathComponent: hashedCacheName.description ];
     if ( !cacheURL )
-        DDLogFatal( @"Failed to create the cache dir due to {%@}.", err );
+        DDLogFatal( @"Failed to create the cache dir with error: {%@}.", err );
 
     return cacheURL;
     }
