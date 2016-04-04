@@ -19,7 +19,7 @@
 
 - ( instancetype ) initWithConsumer: ( id <TauYTDataServiceConsumer> )_Consumer credential: ( TauYTDataServiceCredential* )_Credential;
 
-- ( void ) executeConsumerOperations: ( NSDictionary* )_OperationsDict
+- ( void ) executeConsumerOperations: ( id )_OperationsDictOrGTLQuery
                              success: ( void (^)( NSString* _PrevPageToken, NSString* _NextPageToken ) )_CompletionHandler
                              failure: ( void (^)( NSError* _Error ) )_FailureHandler;
 

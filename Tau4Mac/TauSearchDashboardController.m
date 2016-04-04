@@ -44,6 +44,8 @@
     {
     GTLQueryYouTube* query = [ GTLQueryYouTube queryForSearchListWithPart: @"snippet" ];
 
+    query.maxResults = 50;
+
     // Converting `type` field
     {
     NSMutableArray* types = [ @[] mutableCopy ];

@@ -21,7 +21,7 @@
 
 // Operations Combination
 
-- ( BOOL ) validateOperationsCombination_: ( NSDictionary* )_OperationsDict hostSel_: ( SEL )_HostSEL error_: ( NSError** )_Error;
+- ( BOOL ) validateOperationsCombination_: ( id )_OperationsDictOrGTLQuery hostSel_: ( SEL )_HostSEL error_: ( NSError** )_Error;
 
 // Images Caching
 
@@ -246,7 +246,7 @@ TauYTDataService static* sYTDataService_;
         }
     }
 
-- ( void ) executeConsumerOperations: ( NSDictionary* )_OperationsDict
+- ( void ) executeConsumerOperations: ( id )_OperationsDictOrGTLQuery
                       withCredential: ( TauYTDataServiceCredential* )_Credential
                              success: ( void (^)( NSString* _PrevPageToken, NSString* _NextPageToken ) )_CompletionHandler
                              failure: ( void (^)( NSError* _Error ) )_FailureHandler
@@ -257,8 +257,8 @@ TauYTDataService static* sYTDataService_;
         TauYTDataServiceConsumerDataUnit* dataUnit = [ mapTable_ objectForKey: _Credential ];
         if ( dataUnit )
             {
-            if ( [ self validateOperationsCombination_: _OperationsDict hostSel_: _cmd error_: &error ] )
-                [ dataUnit executeConsumerOperations: _OperationsDict success: _CompletionHandler failure: _FailureHandler ];
+            if ( [ self validateOperationsCombination_: _OperationsDictOrGTLQuery hostSel_: _cmd error_: &error ] )
+                [ dataUnit executeConsumerOperations: _OperationsDictOrGTLQuery success: _CompletionHandler failure: _FailureHandler ];
             }
         else
             error = [ NSError errorWithDomain: TauCentralDataServiceErrorDomain
@@ -275,6 +275,14 @@ TauYTDataService static* sYTDataService_;
         else
             DDLogUnexpected( @"Failed to execute consumer operations due to: {%@}", error );
         }
+    }
+
+// FIXME: Duplicate code
+- ( void ) executeGTLQuery: ( GTLQueryYouTube* )_Query
+                   success: ( void (^)( NSString* _PrevPageToken, NSString* _NextPageToken ) )_CompletionHandler
+                   failure: ( void (^)( NSError* _Error ) )_FailureHandler
+    {
+
     }
 
 #pragma mark - Remote Image & Video Fetching
@@ -315,18 +323,21 @@ NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
 
 // Operations Combination
 
-- ( BOOL ) validateOperationsCombination_: ( NSDictionary* )_OperationsDict
+- ( BOOL ) validateOperationsCombination_: ( id )_OperationsDictOrGTLQuery
                                  hostSel_: ( SEL )_HostSEL
                                    error_: ( NSError** )_Error
     {
+    if ( [ _OperationsDictOrGTLQuery isKindOfClass: [ GTLQueryYouTube class ] ] )
+        return YES;
+
     NSError* error = nil;
     NSString* errorDomain = nil;
     NSInteger errorCode = 0;
     NSDictionary* userInfo = nil;
 
-    if ( _OperationsDict )
+    if ( _OperationsDictOrGTLQuery )
         {
-        id requirementsField = _OperationsDict[ TauTDSOperationRequirements ];
+        id requirementsField = _OperationsDictOrGTLQuery[ TauTDSOperationRequirements ];
         if ( !requirementsField )
             {
             errorDomain = TauCentralDataServiceErrorDomain;
@@ -343,7 +354,7 @@ NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
             userInfo = @{ NSLocalizedDescriptionKey :
                             [ NSString stringWithFormat: @"Value of TauTDSOperationRequirements{%@} must be a dictionary", TauTDSOperationRequirements ] };
             }
-        else if ( [ _OperationsDict[ TauTDSOperationRequirements ] count ] == 0 )
+        else if ( [ _OperationsDictOrGTLQuery[ TauTDSOperationRequirements ] count ] == 0 )
             {
             errorDomain = TauCentralDataServiceErrorDomain;
             userInfo = @{ NSLocalizedDescriptionKey :
@@ -352,13 +363,13 @@ NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
             errorCode = TauCentralDataServiceInvalidOrConflictingOperationsCombination;
             }
 
-        if ( !( _OperationsDict[ TauTDSOperationPartFilter ] ) )
+        if ( !( _OperationsDictOrGTLQuery[ TauTDSOperationPartFilter ] ) )
             DDLogNotice( @"Tau Data Service noticed that there is no TauTDSOperationPartFilter{%@} field found within operations combination. "
                          @"Tau Data Service will select the default {part} filter that may cause the absence of your expecting data fregments."
                        , TauTDSOperationPartFilter
                        );
 
-        if ( !( _OperationsDict[ TauTDSOperationMaxResultsPerPage ] ) )
+        if ( !( _OperationsDictOrGTLQuery[ TauTDSOperationMaxResultsPerPage ] ) )
             DDLogNotice( @"Tau Data Service noticed that there is no TauTDSOperationMaxResultsPerPage{%@} field found within operations combination. "
                           "Tau Data Service will select the default value that is subject to the change made by Google and this behavior may be not your expectation."
                        , TauTDSOperationMaxResultsPerPage

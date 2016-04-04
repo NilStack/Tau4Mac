@@ -78,14 +78,20 @@ NSString* bindKeyPath = [ self bindKeyPathForConsumptionType_: credential_.consu
 [ ( NSObject* )consumer_ unbind: bindKeyPath ];
 TauDeallocEnd
 
-- ( void ) executeConsumerOperations: ( NSDictionary* )_OperationsDict
+- ( void ) executeConsumerOperations: ( id )_OperationsDictOrGTLQuery
                              success: ( void (^)( NSString* _PrevPageToken, NSString* _NextPageToken ) )_CompletionHandler
                              failure: ( void (^)( NSError* _Error ) )_FailureHandler
     {
     if ( ytTicket_ )
         [ ytTicket_ cancelTicket ];
 
-    GTLQueryYouTube* ytQuery = [ self queryForConsumptionType_: credential_.consumptionType operationsDict_: _OperationsDict ];
+    GTLQueryYouTube* ytQuery = nil;
+
+    if ( [ _OperationsDictOrGTLQuery isKindOfClass: [ NSDictionary class ] ] )
+        ytQuery = [ self queryForConsumptionType_: credential_.consumptionType operationsDict_: _OperationsDictOrGTLQuery ];
+    else if ( [ _OperationsDictOrGTLQuery isKindOfClass: [ GTLQueryYouTube class ] ] )
+        ytQuery = _OperationsDictOrGTLQuery;
+
     ytTicket_ = [ [ TauYTDataService sharedService ].ytService executeQuery: ytQuery
                                                           completionHandler:
     ^( GTLServiceTicket* _Ticket, GTLCollectionObject* _Resp, NSError* _Error )
