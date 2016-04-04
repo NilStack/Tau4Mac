@@ -261,12 +261,19 @@ TauDeallocEnd
     }
 
 @synthesize originalOperationsCombination = originalOperationsCombination_;
-- ( void ) setOriginalOperationsCombination: ( NSDictionary* )_New
+- ( void ) setOriginalOperationsCombination: ( id )_New
     {
     if ( originalOperationsCombination_ != _New )
         {
         originalOperationsCombination_ = _New;
-        [ self executePagingOperationWithPageToken_: originalOperationsCombination_[ TauTDSOperationPageToken ] ];
+
+        NSString* pageToken = nil;
+        if ( [ originalOperationsCombination_ isKindOfClass: [ NSDictionary class ] ] )
+            pageToken = [ ( NSDictionary* )originalOperationsCombination_ objectForKey: TauTDSOperationPageToken ];
+        else if ( [ originalOperationsCombination_ isKindOfClass: [ GTLQueryYouTube class ] ] )
+            pageToken = [ ( GTLQueryYouTube* )originalOperationsCombination_ pageToken ];
+
+        [ self executePagingOperationWithPageToken_: pageToken ];
         }
     }
 
@@ -336,18 +343,26 @@ TauDeallocEnd
 
 - ( void ) executePagingOperationWithPageToken_: ( NSString* )_PageToken
     {
-    NSDictionary* operationsCombination = nil;
+    id query = nil;
     if ( _PageToken && ( _PageToken.length > 0 ) )
         {
-        NSMutableDictionary* modified = [ NSMutableDictionary dictionaryWithDictionary: originalOperationsCombination_ ];
-        [ modified setObject: _PageToken forKey: TauTDSOperationPageToken ];
-        operationsCombination = modified;
+        if ( [ originalOperationsCombination_ isKindOfClass: [ NSDictionary class ] ] )
+            {
+            NSMutableDictionary* modified = [ NSMutableDictionary dictionaryWithDictionary: originalOperationsCombination_ ];
+            [ modified setObject: _PageToken forKey: TauTDSOperationPageToken ];
+            query = modified;
+            }
+        else if ( [ originalOperationsCombination_ isKindOfClass: [ GTLQueryYouTube class ] ] )
+            {
+            GTLQueryYouTube* copy = [ originalOperationsCombination_ copy ];
+            [ copy setPageToken: _PageToken ];
+            }
         }
     else
-        operationsCombination = originalOperationsCombination_;
+        query = originalOperationsCombination_;
 
     self.isPaging = ( _PageToken != nil );
-    [ [ TauYTDataService sharedService ] executeConsumerOperations: operationsCombination
+    [ [ TauYTDataService sharedService ] executeConsumerOperations: query
                                                     withCredential: self.credential_
                                                            success:
     ^( NSString* _PrevPageToken, NSString* _NextPageToken )

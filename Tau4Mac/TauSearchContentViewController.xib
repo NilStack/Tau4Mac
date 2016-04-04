@@ -24,7 +24,9 @@
         <viewController id="kSU-tu-Iji" customClass="TauSearchContentSubViewController">
             <connections>
                 <outlet property="clipView" destination="AVF-Fh-4V2" id="mdb-OD-ASG"/>
+                <outlet property="searchButton" destination="bPR-PX-JHq" id="XzY-dS-bn7"/>
                 <outlet property="searchDashboardController" destination="4Ak-oT-pxJ" id="XKr-LV-7hj"/>
+                <outlet property="searchField" destination="SbD-cY-M05" id="Qmm-BY-nUp"/>
                 <outlet property="view" destination="6cY-mM-JgI" id="XZ9-2A-29w"/>
             </connections>
         </viewController>
@@ -44,7 +46,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </searchFieldCell>
                     <connections>
-                        <outlet property="delegate" destination="-2" id="anu-0a-ThT"/>
+                        <outlet property="delegate" destination="kSU-tu-Iji" id="NsP-PK-TmS"/>
                     </connections>
                 </searchField>
                 <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="vMP-FL-tG8">
@@ -81,7 +83,7 @@ DQ
 </string>
                     </buttonCell>
                     <connections>
-                        <action selector="searchAction:" target="-2" id="0wT-2Y-Dxh"/>
+                        <action selector="searchAction:" target="kSU-tu-Iji" id="hmB-yw-77i"/>
                     </connections>
                 </button>
             </subviews>
@@ -100,7 +102,7 @@ DQ
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="Dia-np-IVh"/>
         <customView id="tQ4-SQ-ogK" userLabel="Search Dashboard View">
-            <rect key="frame" x="0.0" y="0.0" width="408" height="470"/>
+            <rect key="frame" x="0.0" y="0.0" width="408" height="499"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pUb-kW-n8Y">
@@ -113,19 +115,21 @@ DQ
                 </textField>
                 <datePicker verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="drf-rx-SNG">
                     <rect key="frame" x="150" y="359" width="97" height="27"/>
-                    <datePickerCell key="cell" borderStyle="bezel" alignment="left" id="6IU-gV-eWB">
+                    <datePickerCell key="cell" enabled="NO" borderStyle="bezel" alignment="left" id="6IU-gV-eWB">
                         <font key="font" metaFont="system"/>
-                        <calendarDate key="date" timeIntervalSinceReferenceDate="-595929600" calendarFormat="%Y-%m-%d %H:%M:%S %z">
-                            <!--1982-02-12 08:00:00 -0800-->
-                            <timeZone key="timeZone" name="US/Pacific"/>
-                        </calendarDate>
+                        <date key="date" timeIntervalSinceReferenceDate="-974620800">
+                            <!--1970-02-12 16:00:00 +0000-->
+                        </date>
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                     </datePickerCell>
+                    <connections>
+                        <binding destination="4Ak-oT-pxJ" name="enabled" keyPath="self.limitPublishedDateCheckBox.cell.state" id="raL-Qd-6U3"/>
+                    </connections>
                 </datePicker>
                 <datePicker verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TcX-hZ-7hP">
                     <rect key="frame" x="270" y="359" width="97" height="27"/>
-                    <datePickerCell key="cell" borderStyle="bezel" alignment="left" id="KBG-Ud-Buv">
+                    <datePickerCell key="cell" enabled="NO" borderStyle="bezel" alignment="left" id="KBG-Ud-Buv">
                         <font key="font" metaFont="system"/>
                         <calendarDate key="date" timeIntervalSinceReferenceDate="-595929600" calendarFormat="%Y-%m-%d %H:%M:%S %z">
                             <!--1982-02-12 08:00:00 -0800-->
@@ -134,6 +138,9 @@ DQ
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                     </datePickerCell>
+                    <connections>
+                        <binding destination="4Ak-oT-pxJ" name="enabled" keyPath="self.limitPublishedDateCheckBox.cell.state" id="qok-kD-X61"/>
+                    </connections>
                 </datePicker>
                 <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="CBV-h0-Yek">
                     <rect key="frame" x="249" y="368" width="15" height="5"/>
@@ -165,6 +172,27 @@ DQ
                                         <segment label="Standard"/>
                                     </segments>
                                 </segmentedCell>
+                                <connections>
+                                    <binding destination="4Ak-oT-pxJ" name="enabled2" keyPath="self.searchPlaylistCheckBox.cell.state" previousBinding="oR9-ZD-YSV" id="foO-27-Xuj">
+                                        <dictionary key="options">
+                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                            <integer key="NSNullPlaceholder" value="-1"/>
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="4Ak-oT-pxJ" name="enabled3" keyPath="self.searchChannelCheckBox.cell.state" previousBinding="foO-27-Xuj" id="J84-Gp-2cx">
+                                        <dictionary key="options">
+                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                            <integer key="NSNullPlaceholder" value="-1"/>
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="4Ak-oT-pxJ" name="enabled" keyPath="self.searchVideoCheckBox.cell.state" id="oR9-ZD-YSV"/>
+                                </connections>
                             </segmentedControl>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0O2-ma-TJc">
                                 <rect key="frame" x="25" y="124" width="98" height="17"/>
@@ -185,6 +213,27 @@ DQ
                                         <segment label="Short"/>
                                     </segments>
                                 </segmentedCell>
+                                <connections>
+                                    <binding destination="4Ak-oT-pxJ" name="enabled2" keyPath="self.searchPlaylistCheckBox.cell.state" previousBinding="tzc-RZ-dXU" id="BZg-qo-Gw9">
+                                        <dictionary key="options">
+                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                            <integer key="NSNullPlaceholder" value="-1"/>
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="4Ak-oT-pxJ" name="enabled3" keyPath="self.searchChannelCheckBox.cell.state" previousBinding="BZg-qo-Gw9" id="Rkp-Iu-1ww">
+                                        <dictionary key="options">
+                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                            <integer key="NSNullPlaceholder" value="-1"/>
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="4Ak-oT-pxJ" name="enabled" keyPath="self.searchVideoCheckBox.cell.state" id="tzc-RZ-dXU"/>
+                                </connections>
                             </segmentedControl>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aif-iw-ecb">
                                 <rect key="frame" x="47" y="87" width="76" height="17"/>
@@ -204,6 +253,27 @@ DQ
                                         <segment label="Movie"/>
                                     </segments>
                                 </segmentedCell>
+                                <connections>
+                                    <binding destination="4Ak-oT-pxJ" name="enabled2" keyPath="self.searchPlaylistCheckBox.cell.state" previousBinding="Dib-yP-jFM" id="Hxg-i0-BDg">
+                                        <dictionary key="options">
+                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                            <integer key="NSNullPlaceholder" value="-1"/>
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="4Ak-oT-pxJ" name="enabled3" keyPath="self.searchChannelCheckBox.cell.state" previousBinding="Hxg-i0-BDg" id="1cE-qu-3sv">
+                                        <dictionary key="options">
+                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                            <integer key="NSNullPlaceholder" value="-1"/>
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="4Ak-oT-pxJ" name="enabled" keyPath="self.searchVideoCheckBox.cell.state" id="Dib-yP-jFM"/>
+                                </connections>
                             </segmentedControl>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="43X-8p-Bgx">
                                 <rect key="frame" x="129" y="45" width="226" height="26"/>
@@ -218,6 +288,27 @@ DQ
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
+                                <connections>
+                                    <binding destination="4Ak-oT-pxJ" name="enabled2" keyPath="self.searchPlaylistCheckBox.cell.state" previousBinding="MBt-5s-Uuy" id="77M-DS-suR">
+                                        <dictionary key="options">
+                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                            <integer key="NSNullPlaceholder" value="-1"/>
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="4Ak-oT-pxJ" name="enabled3" keyPath="self.searchChannelCheckBox.cell.state" previousBinding="77M-DS-suR" id="qMh-Zd-NJs">
+                                        <dictionary key="options">
+                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                            <integer key="NSNullPlaceholder" value="-1"/>
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="4Ak-oT-pxJ" name="enabled" keyPath="self.searchVideoCheckBox.cell.state" id="MBt-5s-Uuy"/>
+                                </connections>
                             </popUpButton>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YoB-lv-pYu">
                                 <rect key="frame" x="68" y="50" width="55" height="17"/>
@@ -233,6 +324,27 @@ DQ
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <binding destination="4Ak-oT-pxJ" name="enabled2" keyPath="self.searchPlaylistCheckBox.cell.state" previousBinding="7vg-sd-pvM" id="Ir1-Qu-NP9">
+                                        <dictionary key="options">
+                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                            <integer key="NSNullPlaceholder" value="-1"/>
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="4Ak-oT-pxJ" name="enabled3" keyPath="self.searchChannelCheckBox.cell.state" previousBinding="Ir1-Qu-NP9" id="uoJ-Xg-IwM">
+                                        <dictionary key="options">
+                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                            <integer key="NSNullPlaceholder" value="-1"/>
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="4Ak-oT-pxJ" name="enabled" keyPath="self.searchVideoCheckBox.cell.state" id="7vg-sd-pvM"/>
+                                </connections>
                             </button>
                         </subviews>
                     </view>
@@ -240,21 +352,21 @@ DQ
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gjy-X5-UMf">
-                    <rect key="frame" x="81" y="434" width="57" height="18"/>
+                    <rect key="frame" x="81" y="463" width="57" height="18"/>
                     <buttonCell key="cell" type="check" title="Video" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Ftb-6a-SKV">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Luo-Qs-vKb">
-                    <rect key="frame" x="164" y="434" width="65" height="18"/>
+                    <rect key="frame" x="164" y="463" width="65" height="18"/>
                     <buttonCell key="cell" type="check" title="Playlist" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="KQp-9S-ezE">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PcK-n9-HLY">
-                    <rect key="frame" x="255" y="434" width="72" height="18"/>
+                    <rect key="frame" x="255" y="463" width="72" height="18"/>
                     <buttonCell key="cell" type="check" title="Channel" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="EgC-Tu-glT">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -283,6 +395,30 @@ DQ
                                         <segment label="Only Show" tag="1"/>
                                     </segments>
                                 </segmentedCell>
+                                <connections>
+                                    <binding destination="4Ak-oT-pxJ" name="enabled2" keyPath="self.searchPlaylistCheckBox.cell.state" previousBinding="ffi-Fp-vF8" id="eQa-EL-iia">
+                                        <dictionary key="options">
+                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                            <integer key="NSNullPlaceholder" value="-1"/>
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="4Ak-oT-pxJ" name="enabled3" keyPath="self.searchChannelCheckBox.cell.state" previousBinding="eQa-EL-iia" id="OWT-2T-Pao">
+                                        <dictionary key="options">
+                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                            <integer key="NSNullPlaceholder" value="-1"/>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="4Ak-oT-pxJ" name="enabled" keyPath="self.searchVideoCheckBox.cell.state" id="ffi-Fp-vF8">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                     </view>
@@ -290,7 +426,7 @@ DQ
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kCh-HB-KRF">
-                    <rect key="frame" x="99" y="400" width="43" height="17"/>
+                    <rect key="frame" x="99" y="429" width="43" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Order:" id="BhA-JB-vDa">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -298,7 +434,7 @@ DQ
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aP4-bd-XvA">
-                    <rect key="frame" x="148" y="394" width="219" height="26"/>
+                    <rect key="frame" x="148" y="423" width="219" height="26"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="QN1-p6-bgD">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -331,7 +467,7 @@ DQ
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Qa-ti-ZGn">
-                    <rect key="frame" x="148" y="319" width="76" height="26"/>
+                    <rect key="frame" x="148" y="319" width="219" height="26"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="2og-mX-4Ff">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -339,20 +475,28 @@ DQ
                     </popUpButtonCell>
                 </popUpButton>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9sc-Oe-KS0">
-                    <rect key="frame" x="148" y="282" width="76" height="26"/>
+                    <rect key="frame" x="148" y="282" width="219" height="26"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="0m1-Sc-I7l">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" id="YZj-sO-qKV"/>
                     </popUpButtonCell>
                 </popUpButton>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yq2-yU-NB4">
+                    <rect key="frame" x="148" y="395" width="147" height="18"/>
+                    <buttonCell key="cell" type="check" title="Limit Published Date" bezelStyle="regularSquare" imagePosition="left" inset="2" id="tnx-d1-EXd">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
             </subviews>
-            <point key="canvasLocation" x="868" y="46"/>
+            <point key="canvasLocation" x="868" y="60.5"/>
         </customView>
         <viewController id="4Ak-oT-pxJ" customClass="TauSearchDashboardController">
             <connections>
                 <outlet property="channelTypeSegControl" destination="mfN-xM-tVU" id="obq-6G-Kgr"/>
                 <outlet property="languageCodesPopUp" destination="9sc-Oe-KS0" id="R4a-su-B8L"/>
+                <outlet property="limitPublishedDateCheckBox" destination="Yq2-yU-NB4" id="X5M-69-yFL"/>
                 <outlet property="publishedAfterDatePicker" destination="drf-rx-SNG" id="2YU-ge-AIP"/>
                 <outlet property="publishedBeforeDatePicker" destination="TcX-hZ-7hP" id="egR-sD-c0p"/>
                 <outlet property="regionCodesPopUp" destination="0Qa-ti-ZGn" id="ihY-U5-xHu"/>

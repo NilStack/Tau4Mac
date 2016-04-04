@@ -11,6 +11,7 @@
 // TauSearchResultsCollectionContentSubViewController class
 @interface TauSearchResultsCollectionContentSubViewController : TauAbstractCollectionContentSubViewController
 
+@property ( strong, readwrite ) GTLQueryYouTube* gtlQuery;  // KVO compliant
 @property ( strong, readwrite ) NSString* searchText;   // KVB compliant
 
 @end // TauSearchResultsCollectionContentSubViewController class

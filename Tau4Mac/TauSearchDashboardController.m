@@ -19,6 +19,7 @@
 #pragma mark - Generic Search Options
 
 @synthesize searchVideoCheckBox, searchPlaylistCheckBox, searchChannelCheckBox;
+@synthesize limitPublishedDateCheckBox;
 @synthesize searchOrderPopUp, publishedAfterDatePicker, publishedBeforeDatePicker, regionCodesPopUp, languageCodesPopUp;
 
 #pragma mark - Specific to YouTune Videos
@@ -31,10 +32,26 @@
 
 #pragma mark - Initializations
 
+NSString static* const kWorldWideItemTitle = @"World Wide";
+NSString static* const kAnyLanguageItemTitle = @"Any";
+
 - ( void ) viewDidLoad
     {
     [ super viewDidLoad ];
     // Do view setup here.
+
+    [ searchOrderPopUp selectItemWithTag: TauSearchContentRelevanceOrder ];
+
+    [ publishedAfterDatePicker setDateValue: [ NSDate dateWithTimeIntervalSince1970: 1108339200 ] ];
+    [ publishedBeforeDatePicker setDateValue: [ NSDate date ] ];
+
+    [ regionCodesPopUp removeAllItems ];
+    [ regionCodesPopUp addItemWithTitle: NSLocalizedString( kWorldWideItemTitle, nil ) ];
+    [ regionCodesPopUp addItemsWithTitles: [ NSLocale ISOCountryCodes ] ];
+
+    [ languageCodesPopUp removeAllItems ];
+    [ languageCodesPopUp addItemWithTitle: NSLocalizedString( kAnyLanguageItemTitle, nil ) ];
+    [ languageCodesPopUp addItemsWithTitles: [ NSLocale ISOLanguageCodes ] ];
     }
 
 #pragma mark - Compatible with GTL
@@ -73,79 +90,90 @@
     }
 
     {
-    query.publishedAfter = [ GTLDateTime dateTimeWithDate: publishedAfterDatePicker.dateValue timeZone: [ NSTimeZone localTimeZone ] ];
-    query.publishedBefore = [ GTLDateTime dateTimeWithDate: publishedBeforeDatePicker.dateValue timeZone: [ NSTimeZone localTimeZone ] ];
-    query.regionCode = [ [ [ regionCodesPopUp selectedItem ] title ] uppercaseString ];
-    query.relevanceLanguage = [ [ [ languageCodesPopUp selectedItem ] title ] uppercaseString ];
-    }
-
-    // Converting `videoDefinition` field
-    {
-    NSString* videoDefString = nil;
-    switch ( videoDefinitionSegControl.selectedSegment )
+    if ( limitPublishedDateCheckBox.state == NSOnState )
         {
-        case TauSearchVideoAnyDefinition: videoDefString = @"any"; break;
-        case TauSearchVideoHighDefinition: videoDefString = @"high"; break;
-        case TauSearchVideoStandardDefinition: videoDefString = @"standard"; break;
+        query.publishedAfter = [ GTLDateTime dateTimeWithDate: publishedAfterDatePicker.dateValue timeZone: [ NSTimeZone localTimeZone ] ];
+        query.publishedBefore = [ GTLDateTime dateTimeWithDate: publishedBeforeDatePicker.dateValue timeZone: [ NSTimeZone localTimeZone ] ];
         }
 
-    query.videoDefinition = videoDefString;
+    if ( ![ regionCodesPopUp.selectedItem.title isEqualToString: kWorldWideItemTitle ] )
+        query.regionCode = [ [ [ regionCodesPopUp selectedItem ] title ] uppercaseString ];
+
+    if ( ![ languageCodesPopUp.selectedItem.title isEqualToString: kAnyLanguageItemTitle ] )
+        query.relevanceLanguage = [ [ [ languageCodesPopUp selectedItem ] title ] uppercaseString ];
     }
 
-    // Converting `videoDuration` field
-    {
-    NSString* durationString = nil;
-    switch ( videoDurationSegControl.selectedSegment )
+    if ( videoDefinitionSegControl.enabled )
         {
-        case TauSearchVideoAnyDuration: durationString = @"any"; break;
-        case TauSearchVideoLongDuration: durationString = @"long"; break;
-        case TauSearchVideoMediumDuration: durationString = @"medium"; break;
-        case TauSearchVideoShortDuration: durationString = @"short"; break;
+        // Converting `videoDefinition` field
+        {
+        NSString* videoDefString = nil;
+        switch ( videoDefinitionSegControl.selectedSegment )
+            {
+            case TauSearchVideoAnyDefinition: videoDefString = @"any"; break;
+            case TauSearchVideoHighDefinition: videoDefString = @"high"; break;
+            case TauSearchVideoStandardDefinition: videoDefString = @"standard"; break;
+            }
+
+        query.videoDefinition = videoDefString;
         }
 
-    query.videoDuration = durationString;
-    }
-
-    // Converting `videoType` field
-    {
-    NSString* videoTypeString = nil;
-    switch ( videoTypeSegControl.selectedSegment )
+        // Converting `videoDuration` field
         {
-        case TauSearchVideoAnyType: videoTypeString = @"any"; break;
-        case TauSearchVideoEpisodeType: videoTypeString = @"episode"; break;
-        case TauSearchVideoMovieType: videoTypeString = @"movie"; break;
+        NSString* durationString = nil;
+        switch ( videoDurationSegControl.selectedSegment )
+            {
+            case TauSearchVideoAnyDuration: durationString = @"any"; break;
+            case TauSearchVideoLongDuration: durationString = @"long"; break;
+            case TauSearchVideoMediumDuration: durationString = @"medium"; break;
+            case TauSearchVideoShortDuration: durationString = @"short"; break;
+            }
+
+        query.videoDuration = durationString;
         }
 
-    query.videoType = videoTypeString;
-    }
-
-    // Converting `videoLicense` field
-    {
-    NSString* license = nil;
-    switch ( videoLicensePopUp.selectedTag )
+        // Converting `videoType` field
         {
-        case TauSearchVideoAnyLicense: license = @"any"; break;
-        case TauSearchVideoCreativeCommonsLicense: license = @"creativeCommon"; break;
-        case TauSearchVideoStandardYouTubeLicense: license = @"youtube"; break;
+        NSString* videoTypeString = nil;
+        switch ( videoTypeSegControl.selectedSegment )
+            {
+            case TauSearchVideoAnyType: videoTypeString = @"any"; break;
+            case TauSearchVideoEpisodeType: videoTypeString = @"episode"; break;
+            case TauSearchVideoMovieType: videoTypeString = @"movie"; break;
+            }
+
+        query.videoType = videoTypeString;
         }
 
-    query.videoLicense = license;
-    }
-
-    // Converting `videoSyndicated` field
-    query.videoSyndicated = syndicatedVideoCheckBox.state ? @"true" : nil;
-
-    // Converting `channelType` field
-    {
-    NSString* channelTypeString = nil;
-    switch ( channelTypeSegControl.selectedSegment )
+        // Converting `videoLicense` field
         {
-        case TauSearchChannelAnyType: channelTypeString = @"any"; break;
-        case TauSearchChannelOnlyShowType: channelTypeString = @"show"; break;
+        NSString* license = nil;
+        switch ( videoLicensePopUp.selectedTag )
+            {
+            case TauSearchVideoAnyLicense: license = @"any"; break;
+            case TauSearchVideoCreativeCommonsLicense: license = @"creativeCommon"; break;
+            case TauSearchVideoStandardYouTubeLicense: license = @"youtube"; break;
+            }
+
+        query.videoLicense = license;
         }
 
-    query.channelType = channelTypeString;
-    }
+        // Converting `videoSyndicated` field
+        query.videoSyndicated = syndicatedVideoCheckBox.state ? @"true" : nil;
+        }
+
+    if ( channelTypeSegControl.enabled )
+        // Converting `channelType` field
+        {
+        NSString* channelTypeString = nil;
+        switch ( channelTypeSegControl.selectedSegment )
+            {
+            case TauSearchChannelAnyType: channelTypeString = @"any"; break;
+            case TauSearchChannelOnlyShowType: channelTypeString = @"show"; break;
+            }
+
+        query.channelType = channelTypeString;
+        }
 
     return query;
     }

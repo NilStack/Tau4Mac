@@ -8,6 +8,7 @@
 
 #import "TauSearchResultsCollectionContentSubViewController.h"
 #import "TauToolbarItem.h"
+#import "TauSearchDashboardController.h"
 
 // Private
 @interface TauSearchResultsCollectionContentSubViewController ()
@@ -39,6 +40,27 @@ TauDeallocBegin
 TauDeallocEnd
 
 #pragma mark - External KVB Compliant
+
+@synthesize gtlQuery = gtlQuery_;
++ ( BOOL ) automaticallyNotifiesObserversOfGtlQuery
+    {
+    return NO;
+    }
+
+- ( void ) setGtlQuery: ( GTLQueryYouTube* )_New
+    {
+    gtlQuery_ = _New;
+    TauChangeValueForKVOStrictKey( gtlQuery,
+     ( ^{
+        if ( gtlQuery_ )
+            self.originalOperationsCombination = gtlQuery_;
+        } ) );
+    }
+
+- ( GTLQueryYouTube* ) gtlQuery
+    {
+    return gtlQuery_;
+    }
 
 @synthesize searchText = searchText_;
 + ( BOOL ) automaticallyNotifiesObserversOfSearchText

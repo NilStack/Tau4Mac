@@ -54,6 +54,8 @@ typedef NS_ENUM ( NSUInteger, TauSearchChannelType )
 @property ( weak ) IBOutlet NSButton* searchPlaylistCheckBox;
 @property ( weak ) IBOutlet NSButton* searchChannelCheckBox;
 
+@property ( weak ) IBOutlet NSButton* limitPublishedDateCheckBox;
+
 @property ( weak ) IBOutlet NSPopUpButton* searchOrderPopUp;
 @property ( weak ) IBOutlet NSDatePicker* publishedAfterDatePicker;
 @property ( weak ) IBOutlet NSDatePicker* publishedBeforeDatePicker;

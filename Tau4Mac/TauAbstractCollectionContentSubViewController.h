@@ -32,7 +32,7 @@
 
 //@property ( weak, readonly ) NSArray <GTLObject*>* results;    // KVB compliant
 @property ( weak, readonly ) TauAbstractResultCollection* results;    // KVB compliant
-@property ( strong, readwrite ) NSDictionary* originalOperationsCombination;
+@property ( strong, readwrite ) id originalOperationsCombination;
 
 #pragma mark - Actions
 

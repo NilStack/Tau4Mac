@@ -14,10 +14,19 @@
 #import "TauSearchDashboardController.h"
 
 // TauSearchContentSubViewController class
-@interface TauSearchContentSubViewController : TauAbstractContentSubViewController
+@interface TauSearchContentSubViewController : TauAbstractContentSubViewController <NSTextFieldDelegate>
 
 @property ( weak ) IBOutlet NSClipView* clipView;
 @property ( weak ) IBOutlet TauSearchDashboardController* searchDashboardController;
+
+#pragma mark - Outlets
+
+@property ( weak ) IBOutlet NSSearchField* searchField;
+@property ( weak ) IBOutlet NSButton* searchButton;
+
+#pragma mark - Actions
+
+- ( IBAction ) searchAction: ( id )_Sender;
 
 @end // TauSearchContentSubViewController class
 
@@ -39,25 +48,6 @@
     {
     [ super viewDidLoad ];
     [ self setBackgroundViewController: self.initialSearchContentSubViewController_ ];
-    }
-
-#pragma mark - Conforms to <NSTextFieldDelegate>
-
-- ( void ) controlTextDidChange: ( NSNotification* )_Notif
-    {
-    NSText* fieldEditor = _Notif.userInfo[ @"NSFieldEditor" ];
-    self.searchButton.enabled = ( fieldEditor.string.length > 0 );
-    }
-
-#pragma mark - Actions
-
-- ( IBAction ) searchAction: ( id )_Sender
-    {
-    NSString* userInput = self.searchField.stringValue;
-
-    TauSearchResultsCollectionContentSubViewController* searchResultsCollectionContentSubView = [ [ TauSearchResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
-    [ self pushContentSubView: searchResultsCollectionContentSubView ];
-    [ searchResultsCollectionContentSubView setSearchText: userInput ];
     }
 
 @end // TauSearchContentViewController class
@@ -104,6 +94,30 @@
 - ( void ) viewDidLoad
     {
     [ self.clipView setDocumentView: self.searchDashboardController.view ];
+    }
+
+#pragma mark - Conforms to <NSTextFieldDelegate>
+
+- ( void ) controlTextDidChange: ( NSNotification* )_Notif
+    {
+    NSText* fieldEditor = _Notif.userInfo[ @"NSFieldEditor" ];
+    self.searchButton.enabled = ( fieldEditor.string.length > 0 );
+    }
+
+#pragma mark - Actions
+
+- ( IBAction ) searchAction: ( id )_Sender
+    {
+    NSString* userInput = self.searchField.stringValue;
+
+    GTLQueryYouTube* query = [ self.searchDashboardController YouTubeQuery ];
+    query.q = userInput;
+    DDLogDebug( @"%@", query.JSON );
+
+    TauSearchResultsCollectionContentSubViewController* searchResultsCollectionContentSubView = [ [ TauSearchResultsCollectionContentSubViewController alloc ] initWithNibName: nil bundle: nil ];
+    [ self.masterContentViewController pushContentSubView: searchResultsCollectionContentSubView ];
+//    [ searchResultsCollectionContentSubView setSearchText: userInput ];
+    [ searchResultsCollectionContentSubView setGtlQuery: query ];
     }
 
 @end // TauSearchContentSubViewController class
