@@ -8,10 +8,13 @@
 
 #import "TauSparkleController.h"
 
-@interface TauVersionDisplayer : NSObject <SUVersionDisplay>
+// SparkleVersionDisplayerPri_ class
+@interface SparkleVersionDisplayerPri_ : NSObject <SUVersionDisplay>
 @end
 
-@implementation TauVersionDisplayer
+@implementation SparkleVersionDisplayerPri_
+
+#pragma mark - Conforms to <SUVersionDisplay>
 
 - ( void ) formatVersion: ( NSString** )_InOutVersionA andVersion: ( NSString** )_InOutVersionB
     {
@@ -24,7 +27,13 @@
     *_InOutVersionB = currentVersion;
     }
 
-@end
+@end // SparkleVersionDisplayerPri_ class
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
 
 // Private
 @interface TauSparkleController ()
@@ -102,7 +111,7 @@ SUUpdater static* sSparkleUpdater;
 
 - ( id <SUVersionDisplay> ) versionDisplayerForUpdater: ( SUUpdater* )_Updater;
     {
-    return [ [ TauVersionDisplayer alloc ] init ];
+    return [ [ SparkleVersionDisplayerPri_ alloc ] init ];
     }
 
 - ( NSString* ) feedURLStringForUpdater: ( SUUpdater* )_Updater
