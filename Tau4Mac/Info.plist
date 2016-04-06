@@ -28,6 +28,17 @@
 	<string>public.app-category.video</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>file:///Users/EsquireTongG/Desktop/debug.rss</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2016 Tong Kuo. All rights reserved.</string>
 	<key>NSMainStoryboardFile</key>
@@ -38,9 +49,9 @@
 	<true/>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
-	<key>SUFeedURL</key>
-	<string>https://raw.githubusercontent.com/TauProject/appcast-feed/master/feed.rss</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>appcast/dsa_codesign_pub.pem</string>
+	<key>SUShowReleaseNotes</key>
+	<true/>
 </dict>
 </plist>

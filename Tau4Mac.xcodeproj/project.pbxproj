@@ -2015,6 +2015,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 					"DEBUG_MODEL_CLASSES=1",
+					"debugSparkle=DEBUG&&1",
+					"debugSparkleWithLocalAppcastFeed=debugSparkle&&1",
 				);
 				INFOPLIST_FILE = Tau4Mac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";

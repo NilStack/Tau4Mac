@@ -8,10 +8,30 @@
 
 #import "TauSparkleController.h"
 
+@interface TauVersionDisplayer : NSObject <SUVersionDisplay>
+@end
+
+@implementation TauVersionDisplayer
+
+- ( void ) formatVersion: ( NSString** )_InOutVersionA andVersion: ( NSString** )_InOutVersionB
+    {
+    NSBundle* mainBundle = [ NSBundle mainBundle ];
+
+    NSString* humanReadableVer = [ mainBundle objectForInfoDictionaryKey: @"CFBundleShortVersionString" ];
+    NSString* machineVer = [ mainBundle objectForInfoDictionaryKey: @"CFBundleVersion" ];
+    NSString* currentVersion = [ NSString stringWithFormat: @"%@ (%@)", humanReadableVer, machineVer ];
+
+    *_InOutVersionB = currentVersion;
+    }
+
+@end
+
 // Private
 @interface TauSparkleController ()
 
-@property ( assign, readwrite ) BOOL isUpdating;
+// Debugging Sparkle
+
+- ( NSURL* ) locateDebugSampleDirFrom_: ( NSURL* )_BeginningURL;
 
 @end // Private
 
@@ -79,6 +99,73 @@ SUUpdater static* sSparkleUpdater;
     }
 
 #pragma mark - Conforms to <SUUpdaterDelegate>
-// TODO:
+
+- ( id <SUVersionDisplay> ) versionDisplayerForUpdater: ( SUUpdater* )_Updater;
+    {
+    return [ [ TauVersionDisplayer alloc ] init ];
+    }
+
+- ( NSString* ) feedURLStringForUpdater: ( SUUpdater* )_Updater
+    {
+    #if debugSparkleWithLocalAppcastFeed
+        NSString* srcLoc = [ NSString stringWithUTF8String: __FILE__ ];
+        NSURL* srcURL = [ NSURL fileURLWithPath: srcLoc ];
+        return [ [ self locateDebugSampleDirFrom_: srcURL ] URLByAppendingPathComponent: @"appcast-feed-debug.rss" ].absoluteString;
+    #endif
+
+    return @"https://raw.githubusercontent.com/TauProject/appcast-feed/master/feed.rss";
+    }
+
+#pragma mark - Private
+
+// Debugging Sparkle
+
+- ( NSURL* ) locateDebugSampleDirFrom_: ( NSURL* )_BeginningURL
+    {
+    sint8 static reasonableRecursionTimes;
+
+    reasonableRecursionTimes++;
+
+    // debug-sample dir isn't very far from the root of TauProject and therefore limitation of 10 times is enough.
+    // Once recursion times exceed the resonable value, the debug-sample dir was removed by mistake perhaps.
+    if ( reasonableRecursionTimes > 10 )
+        {
+        DDLogNotice( @"Recursion times exceeds a reasonable value." );
+        reasonableRecursionTimes = 0;
+        return nil;
+        }
+
+    NSURL* workspaceURL = [ _BeginningURL URLByDeletingLastPathComponent ];
+    NSDirectoryEnumerator* enumerator = [ [ NSFileManager defaultManager ]
+               enumeratorAtURL: workspaceURL
+    includingPropertiesForKeys: @[ NSURLNameKey, NSURLIsDirectoryKey ]
+                       options: NSDirectoryEnumerationSkipsSubdirectoryDescendants
+                                    | NSDirectoryEnumerationSkipsPackageDescendants
+                                    | NSDirectoryEnumerationSkipsHiddenFiles
+                  errorHandler:
+    ^BOOL ( NSURL* _Nonnull _URL, NSError* _Nonnull _Error )
+        {
+        DDLogRecoverable( @"Error {%@} occured while enuemrating \"%@\".", _Error, _URL );
+        return YES;
+        } ];
+
+    NSURL* resultURL = nil;
+    for ( NSURL* _CandidateURL in enumerator )
+        {
+        NSString* fileName = nil;
+        [ _CandidateURL getResourceValue: &fileName forKey: NSURLNameKey error: nil ];
+
+        NSNumber* isDir = nil;
+        [ _CandidateURL getResourceValue: &isDir forKey: NSURLIsDirectoryKey error: nil ];
+
+        if ( isDir && [ fileName isEqualToString: @"debug-sample" ] )
+            {
+            resultURL = _CandidateURL;
+            break;
+            }
+        }
+
+    return resultURL ?: [ self locateDebugSampleDirFrom_: workspaceURL ];
+    }
 
 @end // TauSparkleController class
