@@ -19,11 +19,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>&quot;Confucius&quot;</string>
+	<string>"Confucius"</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>0.1.0</string>
+	<string>0.1.1</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.video</string>
 	<key>LSMinimumSystemVersion</key>
@@ -34,15 +34,15 @@
 	<string>Main</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>SUFeedURL</key>
-	<string>https://raw.githubusercontent.com/TauProject/appcast-feed/master/feed.rss</string>
+	<key>SUAllowsAutomaticUpdates</key>
+	<true/>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
+	<key>SUFeedURL</key>
+	<string>https://raw.githubusercontent.com/TauProject/appcast-feed/master/feed.rss</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>appcast/dsa_codesign_pub.pem</string>
 	<key>SUScheduledCheckInterval</key>
 	<integer>86400</integer>
-	<key>SUAllowsAutomaticUpdates</key>
-	<true/>
 </dict>
 </plist>

@@ -21,13 +21,6 @@
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="z9Z-7c-lDT"/>
-                                        <menuItem title="Check for Updates…" id="nlY-er-bFU">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="checkForUpdates:" target="JmI-Vx-h4u" id="8y6-qB-bPR"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -643,7 +636,7 @@
                 <customObject id="Voe-Tx-rLC" customClass="TauAppDelegate"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController representsSharedInstance="YES" id="jWc-aw-5QW"/>
-                <customObject id="JmI-Vx-h4u" customClass="SUUpdater"/>
+                <customObject id="JmI-Vx-h4u" customClass="TauSparkleController"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
         </scene>

@@ -61,11 +61,11 @@ NSString* const kRequester = @"kRequester";
     [ sharedToolbarController bind: @"accessoryViewController" toObject: self.contentViewController withKeyPath: @"activedContentViewController.activedSubViewController.titlebarAccessoryViewControllerWhileActive" options: nil ];
     [ sharedToolbarController bind: @"toolbarItems" toObject: self.contentViewController withKeyPath: @"activedContentViewController.activedSubViewController.exposedToolbarItemsWhileActive" options: nil ];
 
-    NSMenuItem* signOutItem = [ [ NSMenuItem alloc ] initWithTitle: @"Sign Out" action: @selector( signOutAction: ) keyEquivalent: @"" ];
+    NSMenuItem* signOutItem = [ [ NSMenuItem alloc ] initWithTitle: @"Sign Out…" action: @selector( signOutAction: ) keyEquivalent: @"" ];
     NSMenu* appMenu = [ [ [ NSApp menu ] itemWithTag: TauAppMenuItem ] submenu ];
     [ appMenu insertItem: signOutItem atIndex: 1 ];
 
-    NSLog( @"%d", [ [ NSBundle mainBundle ] isSandboxed ] );
+    NSLog( @"%@", [ TauSparkleController sharedController ].requiresSparkle ? @"YES" : @"NO" );
     }
 
 - ( void ) applicationWillTerminate: ( NSNotification* )_Notif

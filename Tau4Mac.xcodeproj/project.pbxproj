@@ -11,6 +11,7 @@
 		8304EB241CB4AFA0004930A7 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832921F51CB2854B008EFBCB /* Sparkle.framework */; };
 		8304EB251CB4AFA7004930A7 /* Sparkle.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 832921F51CB2854B008EFBCB /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8304EB301CB4DF56004930A7 /* TauAppIntrospection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304EB2F1CB4DF56004930A7 /* TauAppIntrospection.m */; };
+		8304EB331CB4EA98004930A7 /* TauSparkleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304EB321CB4EA98004930A7 /* TauSparkleController.m */; };
 		830F55881C92CE20005E431B /* NSObject+TauDataServiceConsumer.m in Sources */ = {isa = PBXBuildFile; fileRef = 830F55871C92CE20005E431B /* NSObject+TauDataServiceConsumer.m */; };
 		8318A5481C89205700F3E9CD /* TauContentCollectionItemSubLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8318A5471C89205700F3E9CD /* TauContentCollectionItemSubLayer.m */; };
 		831BD6CC1C883FA300122AF6 /* TauContentCollectionItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6CB1C883FA300122AF6 /* TauContentCollectionItemView.m */; };
@@ -541,6 +542,8 @@
 		8304EAE21CB4AB8C004930A7 /* dsa_codesign_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_codesign_pub.pem; path = ../dsa_codesign_pub.pem; sourceTree = "<group>"; };
 		8304EB2E1CB4DF56004930A7 /* TauAppIntrospection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauAppIntrospection.h; sourceTree = "<group>"; };
 		8304EB2F1CB4DF56004930A7 /* TauAppIntrospection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAppIntrospection.m; sourceTree = "<group>"; };
+		8304EB311CB4EA98004930A7 /* TauSparkleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauSparkleController.h; sourceTree = "<group>"; };
+		8304EB321CB4EA98004930A7 /* TauSparkleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauSparkleController.m; sourceTree = "<group>"; };
 		830F55861C92CE20005E431B /* NSObject+TauDataServiceConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+TauDataServiceConsumer.h"; sourceTree = "<group>"; };
 		830F55871C92CE20005E431B /* NSObject+TauDataServiceConsumer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+TauDataServiceConsumer.m"; sourceTree = "<group>"; };
 		830F558D1C92F588005E431B /* TauLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauLogging.h; sourceTree = "<group>"; };
@@ -1028,6 +1031,8 @@
 				83765ADD1C8811DD00D93554 /* TauAppDelegate.h */,
 				83765ADE1C8811DD00D93554 /* TauAppDelegate.m */,
 				83765AE81C8811DD00D93554 /* Main.storyboard */,
+				8304EB311CB4EA98004930A7 /* TauSparkleController.h */,
+				8304EB321CB4EA98004930A7 /* TauSparkleController.m */,
 				83EB73471C8D33BC004EB117 /* TauAbstractBeautifulView.h */,
 				83EB73481C8D33BC004EB117 /* TauAbstractBeautifulView.m */,
 				8399E2181C88231400A42C44 /* TauMainWindowController.h */,
@@ -1332,7 +1337,7 @@
 						DevelopmentTeam = 89BSC2UYH8;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -1820,6 +1825,7 @@
 				83EEEDD11CAE69820074E73D /* TauPlayerController.m in Sources */,
 				838D405A1C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.m in Sources */,
 				8349D3DF1C899444000D091F /* NSImage+Tau.m in Sources */,
+				8304EB331CB4EA98004930A7 /* TauSparkleController.m in Sources */,
 				830F55881C92CE20005E431B /* NSObject+TauDataServiceConsumer.m in Sources */,
 				8321F6681C8AA0A500D11FE0 /* TauViewsStack.m in Sources */,
 				83EEED921CAD71E60074E73D /* TauContentInspectorSubViews.m in Sources */,
@@ -2001,7 +2007,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Tau4Mac/Tau.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2030,7 +2035,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Tau4Mac/Tau.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2163,7 +2167,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Tau4Mac/Tau.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(SYMROOT)/Debug$(EFFECTIVE_PLATFORM_NAME)";
