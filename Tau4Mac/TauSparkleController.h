@@ -13,6 +13,12 @@
 
 + ( instancetype ) sharedController;
 
-@property ( assign, readonly ) BOOL requiresSparkle;
+#pragma mark - Determine Necessity of Sparkle
+
+@property ( assign, readonly ) BOOL requiresSparkle;    // KVB-Compliant
+
+#pragma mark - Update Operation
+
+- ( IBAction ) checkForUpdates: ( id )_Sender;
 
 @end // TauSparkleController class

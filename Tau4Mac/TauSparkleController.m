@@ -35,12 +35,6 @@ SUUpdater static* sSparkleUpdater;
                 // SUUpdater has a singleton for each bundle.
                 // An NSBundle instances are also singletons.
                 sSparkleUpdater = [ [ SUUpdater alloc ] init ];
-
-                if ( self.requiresSparkle )
-                    {
-                    NSMenu* appMenu = [ NSApp menu ];
-                    NSLog( @"%@", appMenu );
-                    }
                 }
 
             sController = self;
@@ -50,10 +44,22 @@ SUUpdater static* sSparkleUpdater;
     return sController;
     }
 
+#pragma mark - Determine Necessity of Sparkle
+
 @dynamic requiresSparkle;
 - ( BOOL ) requiresSparkle
     {
     return ( sSparkleUpdater != nil );
+    }
+
+#pragma mark - Update Operation
+
+- ( IBAction ) checkForUpdates: ( id )_Sender
+    {
+    if ( self.requiresSparkle )
+        [ sSparkleUpdater checkForUpdates: _Sender ];
+    else
+        DDLogFatal( @"We don't need the Sparkle for MAS version of Tau4Mac. Sender of %@ should not be visible for user, it's a programmer error", THIS_METHOD );
     }
 
 @end // TauSparkleController class
