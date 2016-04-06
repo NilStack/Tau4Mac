@@ -47,6 +47,7 @@
 #import "GTLObject+Tau.h"
 #import "CALayer+Tau.h"
 #import "NSNumber+Tau.h"
+#import "TauAppIntrospection.h"
 
 #import <objc/runtime.h>
 
