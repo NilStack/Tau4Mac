@@ -25,13 +25,13 @@
                                         <menuItem title="Check for Updates…" id="2bo-kn-yY8">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="checkForUpdates:" target="JmI-Vx-h4u" id="I0p-Ut-cwK"/>
-                                                <binding destination="JmI-Vx-h4u" name="enabled" keyPath="self.isUpdating" id="tWW-Dl-MjJ">
+                                                <action selector="checkForUpdates:" target="JmI-Vx-h4u" id="Wlh-F5-12m"/>
+                                                <binding destination="JmI-Vx-h4u" name="enabled" keyPath="self.isUpdating" id="LN2-7g-53d">
                                                     <dictionary key="options">
                                                         <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                     </dictionary>
                                                 </binding>
-                                                <binding destination="JmI-Vx-h4u" name="hidden" keyPath="self.requiresSparkle" previousBinding="tWW-Dl-MjJ" id="gq5-mR-eTb">
+                                                <binding destination="JmI-Vx-h4u" name="hidden" keyPath="self.requiresSparkle" previousBinding="LN2-7g-53d" id="FRj-wm-zp5">
                                                     <dictionary key="options">
                                                         <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                     </dictionary>

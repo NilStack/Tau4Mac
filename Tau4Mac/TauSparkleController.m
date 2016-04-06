@@ -56,7 +56,14 @@ SUUpdater static* sSparkleUpdater;
     return ( sSparkleUpdater != nil );
     }
 
-@synthesize isUpdating;
+@dynamic isUpdating;
+- ( BOOL ) isUpdating
+    {
+    if ( !self.requiresSparkle )
+        return NO;
+
+    return sSparkleUpdater.updateInProgress;
+    }
 
 #pragma mark - Update Operation
 
@@ -72,30 +79,6 @@ SUUpdater static* sSparkleUpdater;
     }
 
 #pragma mark - Conforms to <SUUpdaterDelegate>
-
-- ( BOOL ) updaterMayCheckForUpdates: ( SUUpdater* )_Updater
-    {
-    return ( self.isUpdating = YES );
-    }
-
-- ( void ) updater: ( SUUpdater* )_Updater failedToDownloadUpdate: ( SUAppcastItem* )_Item error: ( NSError* )_Error
-    {
-    self.isUpdating = NO;
-    }
-
-- (void)updaterDidNotFindUpdate:(SUUpdater *)updater
-    {
-    self.isUpdating = NO;
-    }
-
-- ( void ) userDidCancelDownload: ( SUUpdater* )_Updater
-    {
-    self.isUpdating = NO;
-    }
-
-- ( void ) updater: ( SUUpdater* )_Updater didAbortWithError: ( NSError* )_Error
-    {
-    self.isUpdating = NO;
-    }
+// TODO:
 
 @end // TauSparkleController class
