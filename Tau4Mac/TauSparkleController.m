@@ -35,6 +35,8 @@
 
 
 
+#define TAU_APPCAST_FEED_URL @"https://raw.githubusercontent.com/TauProject/appcast-feed/master/feed.rss"
+
 // Private
 @interface TauSparkleController ()
 
@@ -122,7 +124,7 @@ SUUpdater static* sSparkleUpdater;
         return [ [ self locateDebugSampleDirFrom_: srcURL ] URLByAppendingPathComponent: @"appcast-feed-debug.rss" ].absoluteString;
     #endif
 
-    return @"https://raw.githubusercontent.com/TauProject/appcast-feed/master/feed.rss";
+    return TAU_APPCAST_FEED_URL;
     }
 
 #pragma mark - Private
@@ -144,7 +146,9 @@ SUUpdater static* sSparkleUpdater;
         return nil;
         }
 
+    // Search parent dir
     NSURL* workspaceURL = [ _BeginningURL URLByDeletingLastPathComponent ];
+
     NSDirectoryEnumerator* enumerator = [ [ NSFileManager defaultManager ]
                enumeratorAtURL: workspaceURL
     includingPropertiesForKeys: @[ NSURLNameKey, NSURLIsDirectoryKey ]
