@@ -171,7 +171,7 @@ DQ
                                     </segments>
                                 </segmentedCell>
                                 <connections>
-                                    <binding destination="4Ak-oT-pxJ" name="enabled2" keyPath="self.searchPlaylistCheckBox.cell.state" previousBinding="oR9-ZD-YSV" id="foO-27-Xuj">
+                                    <binding destination="4Ak-oT-pxJ" name="enabled3" keyPath="self.searchChannelCheckBox.cell.state" previousBinding="foO-27-Xuj" id="J84-Gp-2cx">
                                         <dictionary key="options">
                                             <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                             <integer key="NSNoSelectionPlaceholder" value="-1"/>
@@ -180,7 +180,7 @@ DQ
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
                                     </binding>
-                                    <binding destination="4Ak-oT-pxJ" name="enabled3" keyPath="self.searchChannelCheckBox.cell.state" previousBinding="foO-27-Xuj" id="J84-Gp-2cx">
+                                    <binding destination="4Ak-oT-pxJ" name="enabled2" keyPath="self.searchPlaylistCheckBox.cell.state" previousBinding="oR9-ZD-YSV" id="foO-27-Xuj">
                                         <dictionary key="options">
                                             <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                             <integer key="NSNoSelectionPlaceholder" value="-1"/>
@@ -212,7 +212,7 @@ DQ
                                     </segments>
                                 </segmentedCell>
                                 <connections>
-                                    <binding destination="4Ak-oT-pxJ" name="enabled2" keyPath="self.searchPlaylistCheckBox.cell.state" previousBinding="tzc-RZ-dXU" id="BZg-qo-Gw9">
+                                    <binding destination="4Ak-oT-pxJ" name="enabled3" keyPath="self.searchChannelCheckBox.cell.state" previousBinding="BZg-qo-Gw9" id="Rkp-Iu-1ww">
                                         <dictionary key="options">
                                             <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                             <integer key="NSNoSelectionPlaceholder" value="-1"/>
@@ -221,7 +221,7 @@ DQ
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
                                     </binding>
-                                    <binding destination="4Ak-oT-pxJ" name="enabled3" keyPath="self.searchChannelCheckBox.cell.state" previousBinding="BZg-qo-Gw9" id="Rkp-Iu-1ww">
+                                    <binding destination="4Ak-oT-pxJ" name="enabled2" keyPath="self.searchPlaylistCheckBox.cell.state" previousBinding="tzc-RZ-dXU" id="BZg-qo-Gw9">
                                         <dictionary key="options">
                                             <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                             <integer key="NSNoSelectionPlaceholder" value="-1"/>
@@ -252,7 +252,7 @@ DQ
                                     </segments>
                                 </segmentedCell>
                                 <connections>
-                                    <binding destination="4Ak-oT-pxJ" name="enabled2" keyPath="self.searchPlaylistCheckBox.cell.state" previousBinding="Dib-yP-jFM" id="Hxg-i0-BDg">
+                                    <binding destination="4Ak-oT-pxJ" name="enabled3" keyPath="self.searchChannelCheckBox.cell.state" previousBinding="Hxg-i0-BDg" id="1cE-qu-3sv">
                                         <dictionary key="options">
                                             <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                             <integer key="NSNoSelectionPlaceholder" value="-1"/>
@@ -261,7 +261,7 @@ DQ
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
                                     </binding>
-                                    <binding destination="4Ak-oT-pxJ" name="enabled3" keyPath="self.searchChannelCheckBox.cell.state" previousBinding="Hxg-i0-BDg" id="1cE-qu-3sv">
+                                    <binding destination="4Ak-oT-pxJ" name="enabled2" keyPath="self.searchPlaylistCheckBox.cell.state" previousBinding="Dib-yP-jFM" id="Hxg-i0-BDg">
                                         <dictionary key="options">
                                             <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                             <integer key="NSNoSelectionPlaceholder" value="-1"/>
@@ -287,7 +287,7 @@ DQ
                                     </menu>
                                 </popUpButtonCell>
                                 <connections>
-                                    <binding destination="4Ak-oT-pxJ" name="enabled2" keyPath="self.searchPlaylistCheckBox.cell.state" previousBinding="MBt-5s-Uuy" id="77M-DS-suR">
+                                    <binding destination="4Ak-oT-pxJ" name="enabled3" keyPath="self.searchChannelCheckBox.cell.state" previousBinding="77M-DS-suR" id="qMh-Zd-NJs">
                                         <dictionary key="options">
                                             <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                             <integer key="NSNoSelectionPlaceholder" value="-1"/>
@@ -296,7 +296,7 @@ DQ
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
                                     </binding>
-                                    <binding destination="4Ak-oT-pxJ" name="enabled3" keyPath="self.searchChannelCheckBox.cell.state" previousBinding="77M-DS-suR" id="qMh-Zd-NJs">
+                                    <binding destination="4Ak-oT-pxJ" name="enabled2" keyPath="self.searchPlaylistCheckBox.cell.state" previousBinding="MBt-5s-Uuy" id="77M-DS-suR">
                                         <dictionary key="options">
                                             <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                             <integer key="NSNoSelectionPlaceholder" value="-1"/>
@@ -323,7 +323,7 @@ DQ
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="4Ak-oT-pxJ" name="enabled2" keyPath="self.searchPlaylistCheckBox.cell.state" previousBinding="7vg-sd-pvM" id="Ir1-Qu-NP9">
+                                    <binding destination="4Ak-oT-pxJ" name="enabled3" keyPath="self.searchChannelCheckBox.cell.state" previousBinding="Ir1-Qu-NP9" id="uoJ-Xg-IwM">
                                         <dictionary key="options">
                                             <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                             <integer key="NSNoSelectionPlaceholder" value="-1"/>
@@ -332,7 +332,7 @@ DQ
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
                                     </binding>
-                                    <binding destination="4Ak-oT-pxJ" name="enabled3" keyPath="self.searchChannelCheckBox.cell.state" previousBinding="Ir1-Qu-NP9" id="uoJ-Xg-IwM">
+                                    <binding destination="4Ak-oT-pxJ" name="enabled2" keyPath="self.searchPlaylistCheckBox.cell.state" previousBinding="7vg-sd-pvM" id="Ir1-Qu-NP9">
                                         <dictionary key="options">
                                             <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                             <integer key="NSNoSelectionPlaceholder" value="-1"/>
@@ -394,6 +394,14 @@ DQ
                                     </segments>
                                 </segmentedCell>
                                 <connections>
+                                    <binding destination="4Ak-oT-pxJ" name="enabled3" keyPath="self.searchChannelCheckBox.cell.state" previousBinding="eQa-EL-iia" id="OWT-2T-Pao">
+                                        <dictionary key="options">
+                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                            <integer key="NSNullPlaceholder" value="-1"/>
+                                        </dictionary>
+                                    </binding>
                                     <binding destination="4Ak-oT-pxJ" name="enabled2" keyPath="self.searchPlaylistCheckBox.cell.state" previousBinding="ffi-Fp-vF8" id="eQa-EL-iia">
                                         <dictionary key="options">
                                             <integer key="NSMultipleValuesPlaceholder" value="-1"/>
@@ -401,14 +409,6 @@ DQ
                                             <integer key="NSNotApplicablePlaceholder" value="-1"/>
                                             <integer key="NSNullPlaceholder" value="-1"/>
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
-                                    <binding destination="4Ak-oT-pxJ" name="enabled3" keyPath="self.searchChannelCheckBox.cell.state" previousBinding="eQa-EL-iia" id="OWT-2T-Pao">
-                                        <dictionary key="options">
-                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
-                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
-                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
-                                            <integer key="NSNullPlaceholder" value="-1"/>
                                         </dictionary>
                                     </binding>
                                     <binding destination="4Ak-oT-pxJ" name="enabled" keyPath="self.searchVideoCheckBox.cell.state" id="ffi-Fp-vF8">

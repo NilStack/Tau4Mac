@@ -7,7 +7,7 @@
 //
 
 // TauSparkleController class
-@interface TauSparkleController : NSObject
+@interface TauSparkleController : NSObject <SUUpdaterDelegate>
 
 #pragma mark - Singleton
 
@@ -16,6 +16,7 @@
 #pragma mark - Determine Necessity of Sparkle
 
 @property ( assign, readonly ) BOOL requiresSparkle;    // KVB-Compliant
+@property ( assign, readonly ) BOOL isUpdating; // KVB-Compliant
 
 #pragma mark - Update Operation
 

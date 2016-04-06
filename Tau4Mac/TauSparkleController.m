@@ -10,6 +10,9 @@
 
 // Private
 @interface TauSparkleController ()
+
+@property ( assign, readwrite ) BOOL isUpdating;
+
 @end // Private
 
 // TauSparkleController class
@@ -35,6 +38,7 @@ SUUpdater static* sSparkleUpdater;
                 // SUUpdater has a singleton for each bundle.
                 // An NSBundle instances are also singletons.
                 sSparkleUpdater = [ [ SUUpdater alloc ] init ];
+                sSparkleUpdater.delegate = self;
                 }
 
             sController = self;
@@ -52,14 +56,46 @@ SUUpdater static* sSparkleUpdater;
     return ( sSparkleUpdater != nil );
     }
 
+@synthesize isUpdating;
+
 #pragma mark - Update Operation
 
 - ( IBAction ) checkForUpdates: ( id )_Sender
     {
     if ( self.requiresSparkle )
+        {
         [ sSparkleUpdater checkForUpdates: _Sender ];
+        [ _Sender setEnabled: !sSparkleUpdater.updateInProgress ];
+        }
     else
         DDLogFatal( @"We don't need the Sparkle for MAS version of Tau4Mac. Sender of %@ should not be visible for user, it's a programmer error", THIS_METHOD );
+    }
+
+#pragma mark - Conforms to <SUUpdaterDelegate>
+
+- ( BOOL ) updaterMayCheckForUpdates: ( SUUpdater* )_Updater
+    {
+    return ( self.isUpdating = YES );
+    }
+
+- ( void ) updater: ( SUUpdater* )_Updater failedToDownloadUpdate: ( SUAppcastItem* )_Item error: ( NSError* )_Error
+    {
+    self.isUpdating = NO;
+    }
+
+- (void)updaterDidNotFindUpdate:(SUUpdater *)updater
+    {
+    self.isUpdating = NO;
+    }
+
+- ( void ) userDidCancelDownload: ( SUUpdater* )_Updater
+    {
+    self.isUpdating = NO;
+    }
+
+- ( void ) updater: ( SUUpdater* )_Updater didAbortWithError: ( NSError* )_Error
+    {
+    self.isUpdating = NO;
     }
 
 @end // TauSparkleController class

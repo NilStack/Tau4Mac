@@ -26,7 +26,12 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="checkForUpdates:" target="JmI-Vx-h4u" id="I0p-Ut-cwK"/>
-                                                <binding destination="JmI-Vx-h4u" name="hidden" keyPath="self.requiresSparkle" id="1tx-X7-Tlp">
+                                                <binding destination="JmI-Vx-h4u" name="enabled" keyPath="self.isUpdating" id="tWW-Dl-MjJ">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                    </dictionary>
+                                                </binding>
+                                                <binding destination="JmI-Vx-h4u" name="hidden" keyPath="self.requiresSparkle" previousBinding="tWW-Dl-MjJ" id="gq5-mR-eTb">
                                                     <dictionary key="options">
                                                         <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                     </dictionary>

@@ -23,7 +23,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>0.1.1</string>
+	<string>0.1.2</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.video</string>
 	<key>LSMinimumSystemVersion</key>
@@ -42,7 +42,5 @@
 	<string>https://raw.githubusercontent.com/TauProject/appcast-feed/master/feed.rss</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>appcast/dsa_codesign_pub.pem</string>
-	<key>SUScheduledCheckInterval</key>
-	<integer>86400</integer>
 </dict>
 </plist>
