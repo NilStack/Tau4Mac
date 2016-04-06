@@ -21,6 +21,7 @@
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="z9Z-7c-lDT"/>
                                         <menuItem title="Check for Updates…" id="nlY-er-bFU">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
