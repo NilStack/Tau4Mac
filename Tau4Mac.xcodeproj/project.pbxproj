@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8304EB1A1CB4ABAA004930A7 /* dsa_codesign_pub.pem in Copy DSA Codesign Pubkey */ = {isa = PBXBuildFile; fileRef = 8304EAE21CB4AB8C004930A7 /* dsa_codesign_pub.pem */; };
+		8304EB241CB4AFA0004930A7 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832921F51CB2854B008EFBCB /* Sparkle.framework */; };
+		8304EB251CB4AFA7004930A7 /* Sparkle.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 832921F51CB2854B008EFBCB /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		830F55881C92CE20005E431B /* NSObject+TauDataServiceConsumer.m in Sources */ = {isa = PBXBuildFile; fileRef = 830F55871C92CE20005E431B /* NSObject+TauDataServiceConsumer.m */; };
 		8318A5481C89205700F3E9CD /* TauContentCollectionItemSubLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8318A5471C89205700F3E9CD /* TauContentCollectionItemSubLayer.m */; };
 		831BD6CC1C883FA300122AF6 /* TauContentCollectionItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6CB1C883FA300122AF6 /* TauContentCollectionItemView.m */; };
@@ -21,7 +24,6 @@
 		832555581CA50B23000C8A48 /* font-lato-regular.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = 8325554F1CA50AF9000C8A48 /* font-lato-regular.ttf */; };
 		8325555C1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8325555B1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m */; };
 		8325555E1CA54143000C8A48 /* TauAbstractCollectionContentSubViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8325555D1CA54143000C8A48 /* TauAbstractCollectionContentSubViewController.xib */; };
-		832922001CB28563008EFBCB /* Sparkle.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 832921F51CB2854B008EFBCB /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		833846CB1C9FE39400F49885 /* TauNormalFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 833846CA1C9FE39400F49885 /* TauNormalFlowLayout.m */; };
 		833846FA1CA10D8D00F49885 /* TauContentCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 833846F81CA10D8D00F49885 /* TauContentCollectionViewController.m */; };
 		833846FB1CA10D8D00F49885 /* TauContentCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 833846F91CA10D8D00F49885 /* TauContentCollectionViewController.xib */; };
@@ -491,6 +493,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		8304EB191CB4AB97004930A7 /* Copy DSA Codesign Pubkey */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = appcast;
+			dstSubfolderSpec = 7;
+			files = (
+				8304EB1A1CB4ABAA004930A7 /* dsa_codesign_pub.pem in Copy DSA Codesign Pubkey */,
+			);
+			name = "Copy DSA Codesign Pubkey";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		832555541CA50B05000C8A48 /* Copy Fonts */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -511,7 +524,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				832922001CB28563008EFBCB /* Sparkle.framework in Copy Third-Party Frameworks */,
+				8304EB251CB4AFA7004930A7 /* Sparkle.framework in Copy Third-Party Frameworks */,
 				8325553E1CA4E007000C8A48 /* KVOController.framework in Copy Third-Party Frameworks */,
 				83EB73C31C8E6531004EB117 /* XCDYouTubeKit.framework in Copy Third-Party Frameworks */,
 				83765B971C881EA900D93554 /* GTL.framework in Copy Third-Party Frameworks */,
@@ -524,6 +537,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8304EAE21CB4AB8C004930A7 /* dsa_codesign_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_codesign_pub.pem; path = ../dsa_codesign_pub.pem; sourceTree = "<group>"; };
 		830F55861C92CE20005E431B /* NSObject+TauDataServiceConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+TauDataServiceConsumer.h"; sourceTree = "<group>"; };
 		830F55871C92CE20005E431B /* NSObject+TauDataServiceConsumer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+TauDataServiceConsumer.m"; sourceTree = "<group>"; };
 		830F558D1C92F588005E431B /* TauLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauLogging.h; sourceTree = "<group>"; };
@@ -706,6 +720,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8304EB241CB4AFA0004930A7 /* Sparkle.framework in Frameworks */,
 				8325553D1CA4DF7A000C8A48 /* KVOController.framework in Frameworks */,
 				83EB73C91C8E65A2004EB117 /* AVFoundation.framework in Frameworks */,
 				83EB73CA1C8E65A2004EB117 /* AVKit.framework in Frameworks */,
@@ -1035,6 +1050,7 @@
 		83765AE01C8811DD00D93554 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8304EAE21CB4AB8C004930A7 /* dsa_codesign_pub.pem */,
 				83765B991C881EBC00D93554 /* Tau.entitlements */,
 				83765AEB1C8811DD00D93554 /* Info.plist */,
 				83765AE61C8811DD00D93554 /* Assets.xcassets */,
@@ -1250,6 +1266,7 @@
 				83765AD81C8811DD00D93554 /* Resources */,
 				83765B321C88190300D93554 /* Copy Third-Party Frameworks */,
 				832555541CA50B05000C8A48 /* Copy Fonts */,
+				8304EB191CB4AB97004930A7 /* Copy DSA Codesign Pubkey */,
 			);
 			buildRules = (
 			);
