@@ -6,10 +6,10 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-// NSBundle + Tau
+// NSBundle + TauAppIntrospection
 @interface NSBundle ( TauAppIntrospection )
 
 @property ( assign, readonly ) BOOL comesFromMacAppStore;
 @property ( assign, readonly ) BOOL isSandboxed;
 
-@end // NSBundle + Tau
+@end // NSBundle + TauAppIntrospection
