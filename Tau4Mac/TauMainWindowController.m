@@ -69,7 +69,7 @@ NSString* const kRequester = @"kRequester";
     [ appMenu insertItem: signOutItem atIndex: 1 ];
 
     mediaServFetchingUnit_ = [ [ MediaServiceFetchingUnit_ alloc ] init ];
-    NSURL* url = [ NSURL URLWithString: @"https://avatars3.githubusercontent.com/u/4256649?v=3&u=198226670f93c418e2e909dd7f16822bf02d0508&s=140" ];
+    NSURL* url = [ NSURL URLWithString: @"https://keybase.io/tongkuo" ];
     [ mediaServFetchingUnit_ fetchImageWithURL: url
                                        success:
     ^( NSImage*_Image )

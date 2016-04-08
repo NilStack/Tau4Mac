@@ -10,87 +10,91 @@
 
 // Private
 @interface MediaServiceFetchingUnit_ ()
+
 @property ( strong, readonly ) dispatch_queue_t fetchingQ_;
+
+@property ( strong, readwrite, atomic ) NSURLSessionDataTask* fetchingTask_;
+
+@property ( strong, readwrite, atomic ) NSImage* image_;
+@property ( strong, readwrite, atomic ) NSError* error_;
+@property ( assign, readwrite, atomic, setter = setFetchingInProgress_: ) BOOL isFetchingInProgres_;
+
 @end // Private
 
 @implementation MediaServiceFetchingUnit_
+
+- ( void ) fetchImageWithURL: ( NSURL* )_URL
+                     success: ( void (^)( NSImage* _Image ) )_SuccessHandler
+                     failure: ( void (^)( NSError* _Error ) )_FailureHandler
     {
-    NSImage __strong* image_;
-    NSError __strong* error_;
-    BOOL fetchingInProgres_;
-
-    NSURLSessionDataTask __strong* fetchingTask_;
-
-    OSSpinLock spinLock_;
-    }
-
-- ( instancetype ) init
-    {
-    if ( self = [ super init ] )
+    if ( !self.isFetchingInProgres_ )
         {
-        spinLock_ = OS_SPINLOCK_INIT;
-
-        OSSpinLockLock( &spinLock_ );
-        image_ = nil;
-        error_ = nil;
-        OSSpinLockUnlock( &spinLock_ );
-        }
-
-    return self;
-    }
-
-- ( void ) fetchImageWithURL: ( NSURL* )_URL success: ( void (^)( NSImage* _Image ) )_SuccessHandler failure: ( void (^)( NSError* _Error ) )_FailureHandler
-    {
-    if ( !fetchingInProgres_ )
-        {
-        OSSpinLockLock( &spinLock_ );
-        fetchingInProgres_ = YES;
-        OSSpinLockUnlock( &spinLock_ );
+        self.isFetchingInProgres_ = YES;
 
         dispatch_barrier_async( self.fetchingQ_, ( dispatch_block_t )^{
             dispatch_semaphore_t sema = dispatch_semaphore_create( 0 );
 
-            fetchingTask_ = [ [ NSURLSession sharedSession ] dataTaskWithURL: _URL
-                                                           completionHandler:
+            self.fetchingTask_ = [ [ NSURLSession sharedSession ] dataTaskWithURL: _URL
+                                                                completionHandler:
             ^( NSData* _Nullable _Data, NSURLResponse* _Nullable _Response, NSError* _Nullable _Error )
                 {
-                DDLogDebug( @"Callback!" );
+                DDLogDebug( @"Callback was invoked." );
+
                 if ( _Data && !_Error )
                     {
-                    OSSpinLockLock( &spinLock_ );
-                    image_ = [ [ NSImage alloc ] initWithData: _Data ];
-                    OSSpinLockUnlock( &spinLock_ );
+                    self.image_ = [ [ NSImage alloc ] initWithData: _Data ];
+
+                    if ( !self.image_ )
+                        {
+                        self.error_ = [ NSError
+                            errorWithDomain: TauCentralDataServiceErrorDomain
+                                       code: TauCentralDataServiceInvalidImageURL
+                                   userInfo:
+                            @{ NSLocalizedDescriptionKey : [ NSString stringWithFormat: @"URL {%@} doesn't point to valid image data.", _Response.URL ]
+                             , NSLocalizedRecoverySuggestionErrorKey : @"Please specify a valid image URL."
+                             } ];
+                        }
                     }
                 else
-                    {
-                    OSSpinLockLock( &spinLock_ );
-                    error_ = _Error;
-                    OSSpinLockUnlock( &spinLock_ );
-                    }
+                    self.error_ = _Error;
 
-                OSSpinLockLock( &spinLock_ );
-                fetchingInProgres_ = NO;
-                OSSpinLockUnlock( &spinLock_ );
+                self.isFetchingInProgres_ = NO;
+                self.fetchingTask_ = nil;
 
+                /* The dispatch_semaphore_signal function increments the count variable by 1
+                 * to indicate that a resource has been freed up. */
                 dispatch_semaphore_signal( sema );
                 } ];
 
-            [ fetchingTask_ resume ];
+            [ self.fetchingTask_ resume ];
 
+            /* Semaphore count will be -1 */
             dispatch_semaphore_wait( sema, DISPATCH_TIME_FOREVER );
+
+            /* Current concurrent queue is guaranteed to block right now as description in Apple documentation:
+             * "If the resulting value is negative, the function tells the kernel to block your thread." */
+
+            /* Since semaphore count is negative value,
+             * "The only time it calls down into the kernel is when the resource is not available
+             * and the system needs to park your thread until the semaphore is signaled." */
             } );
         }
 
     dispatch_async( self.fetchingQ_, ( dispatch_block_t )^{
-        if ( image_ && !error_ )
+
+        /* dispatch_semaphore_signal( sem ); was invoked by barrier block.
+         * "If there are tasks blocked and waiting for a resource,
+         * one of them is subsequently unblocked and allowed to do its work." */
+
+        if ( self.image_ && !self.error_ )
             {
             if ( _SuccessHandler )
-                _SuccessHandler( image_ );
+                _SuccessHandler( self.image_ );
             }
         else
             {
             if ( _FailureHandler )
-                _FailureHandler( error_ );
+                _FailureHandler( self.error_ );
             }
         } );
     }

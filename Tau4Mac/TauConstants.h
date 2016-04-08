@@ -218,6 +218,7 @@ typedef NS_ENUM ( NSInteger, TauCentralDataServiceErrorCode )
     { TauCentralDataServiceUnknownError = -1
     , TauCentralDataServiceInvalidCredentialError   = -1000
     , TauCentralDataServiceInvalidOrConflictingOperationsCombination = -1001
+    , TauCentralDataServiceInvalidImageURL = -1002
     };
 
 NSString extern* const TauUnderlyingErrorDomain;
