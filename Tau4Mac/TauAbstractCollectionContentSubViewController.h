@@ -11,7 +11,7 @@
 
 // TauAbstractCollectionContentSubViewController class
 @interface TauAbstractCollectionContentSubViewController : TauAbstractContentSubViewController
-    <TauYTDataServiceConsumer, TauContentCollectionViewRelayDataSource>
+    <TauAPIServiceConsumer, TauContentCollectionViewRelayDataSource>
 
 #pragma mark - UI
 

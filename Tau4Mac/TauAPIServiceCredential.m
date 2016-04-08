@@ -1,22 +1,22 @@
 //
-//  TauYTDataServiceCredential.m
+//  TauAPIServiceCredential.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/16/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauYTDataServiceCredential.h"
-#import "PriTauYTDataServiceCredential_.h"
+#import "TauAPIServiceCredential.h"
+#import "PriTauAPIServiceCredential_.h"
 
 // Private Interfaces
-@interface TauYTDataServiceCredential ()
+@interface TauAPIServiceCredential ()
 @end // Private Interfaces
 
-// TauYTDataServiceCredential class
-@implementation TauYTDataServiceCredential
+// TauAPIServiceCredential class
+@implementation TauAPIServiceCredential
     {
-    TauYTDataServiceConsumptionType consumptionType_;
+    TauAPIServiceConsumptionType consumptionType_;
 
     NSString __strong* id_;
 
@@ -34,7 +34,7 @@
 @dynamic identifier;
 @dynamic applyingMethodSignature;
 
-- ( TauYTDataServiceConsumptionType ) consumptionType
+- ( TauAPIServiceConsumptionType ) consumptionType
     {
     return consumptionType_;
     }
@@ -58,8 +58,8 @@
 
 - ( instancetype ) copyWithZone: ( NSZone* )_Zone
     {
-    TauYTDataServiceCredential* copy =
-        [ [ TauYTDataServiceCredential alloc ] initWithConsumer: nil applyingMethodSignature: applyingMethodSig_ consumptionType: consumptionType_ ];
+    TauAPIServiceCredential* copy =
+        [ [ TauAPIServiceCredential alloc ] initWithConsumer: nil applyingMethodSignature: applyingMethodSig_ consumptionType: consumptionType_ ];
 
     copy.identifier = id_;
     copy.consumerFingerprint = fingerprint_;
@@ -69,7 +69,7 @@
 
 #pragma mark - Comparing
 
-- ( BOOL ) isEqualToCredential: ( TauYTDataServiceCredential* )_Rhs
+- ( BOOL ) isEqualToCredential: ( TauAPIServiceCredential* )_Rhs
     {
     if ( self == _Rhs )
         return YES;
@@ -83,8 +83,8 @@
     if ( self == _Object )
         return YES;
 
-    if ( [ _Object isKindOfClass: [ TauYTDataServiceCredential class ] ] )
-        return [ self isEqualToCredential: ( TauYTDataServiceCredential* )_Object ];
+    if ( [ _Object isKindOfClass: [ TauAPIServiceCredential class ] ] )
+        return [ self isEqualToCredential: ( TauAPIServiceCredential* )_Object ];
 
     return [ super isEqual: _Object ];
     }
@@ -97,10 +97,10 @@
                                       , self, self.identifier, self.consumptionType, self.consumerFingerprint, self.applyingMethodSignature ];
     }
 
-@end // TauYTDataServiceCredential class
+@end // TauAPIServiceCredential class
 
-// TauYTDataServiceCredential + PriTau_
-@implementation TauYTDataServiceCredential ( PriTau_ )
+// TauAPIServiceCredential + PriTau_
+@implementation TauAPIServiceCredential ( PriTau_ )
 
 @dynamic identifier;
 @dynamic consumerFingerprint;
@@ -118,7 +118,7 @@
     }
 
 
-- ( instancetype ) initWithConsumer: ( id )_Consumer applyingMethodSignature: ( NSMethodSignature* )_Sig consumptionType: ( TauYTDataServiceConsumptionType )_Type
+- ( instancetype ) initWithConsumer: ( id )_Consumer applyingMethodSignature: ( NSMethodSignature* )_Sig consumptionType: ( TauAPIServiceConsumptionType )_Type
     {
     if ( !_Sig )
         {
@@ -139,4 +139,4 @@
     return self;
     }
 
-@end // TauYTDataServiceCredential + PriTau_
+@end // TauAPIServiceCredential + PriTau_

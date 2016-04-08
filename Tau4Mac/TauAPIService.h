@@ -1,14 +1,14 @@
 //
-//  TauYTDataService.h
+//  TauAPIService.h
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/16/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-@class TauYTDataServiceCredential;
+@class TauAPIServiceCredential;
 
-@protocol TauYTDataServiceConsumer;
+@protocol TauAPIServiceConsumer;
 
 NSString extern* const TauTDSOperationPartFilter;
 NSString extern* const TauTDSOperationFieldsFilter;
@@ -23,8 +23,8 @@ NSString extern* const TauTDSOperationRequirements;
     NSString extern* const TauTDSOperationRequirementMine;
     NSString extern* const TauTDSOperationRequirementType;
 
-// TauYTDataService class
-@interface TauYTDataService : NSObject
+// TauAPIService class
+@interface TauAPIService : NSObject
 
 #pragma mark - Core
 
@@ -37,11 +37,11 @@ NSString extern* const TauTDSOperationRequirements;
 
 #pragma mark - Consumers
 
-- ( TauYTDataServiceCredential* ) registerConsumer: ( id <TauYTDataServiceConsumer> )_Consumer withMethodSignature: ( NSMethodSignature* )_Sig consumptionType: ( TauYTDataServiceConsumptionType )_ConsumptionType;
-- ( void ) unregisterConsumer: ( id <TauYTDataServiceConsumer> )_Consumer withCredential: ( TauYTDataServiceCredential* )_Credential;
+- ( TauAPIServiceCredential* ) registerConsumer: ( id <TauAPIServiceConsumer> )_Consumer withMethodSignature: ( NSMethodSignature* )_Sig consumptionType: ( TauAPIServiceConsumptionType )_ConsumptionType;
+- ( void ) unregisterConsumer: ( id <TauAPIServiceConsumer> )_Consumer withCredential: ( TauAPIServiceCredential* )_Credential;
 
 - ( void ) executeConsumerOperations: ( id )_OperationsDictOrGTLQuery
-                      withCredential: ( TauYTDataServiceCredential* )_Credential
+                      withCredential: ( TauAPIServiceCredential* )_Credential
                              success: ( void (^)( NSString* _PrevPageToken, NSString* _NextPageToken ) )_CompletionHandler
                              failure: ( void (^)( NSError* _Error ) )_FailureHandler;
 
@@ -55,13 +55,13 @@ NSString extern* const TauTDSOperationRequirements;
 
 + ( instancetype ) sharedService;
 
-@end // TauYTDataService class
+@end // TauAPIService class
 
-// TauYTDataServiceConsumer protocol
-@protocol TauYTDataServiceConsumer <NSObject>
+// TauAPIServiceConsumer protocol
+@protocol TauAPIServiceConsumer <NSObject>
 @required
 @optional
-@end // TauYTDataServiceConsumer protocol
+@end // TauAPIServiceConsumer protocol
 
 #import "TauYouTubeSearchResultsCollection.h"
 #import "TauYouTubeChannelsCollection.h"

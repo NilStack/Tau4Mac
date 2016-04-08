@@ -93,12 +93,12 @@
 		8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 8399E21C1C88232E00A42C44 /* TauMainWindow.m */; };
 		83B020561C96B1B8006333CB /* TauAbstractResultCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B020551C96B1B8006333CB /* TauAbstractResultCollection.m */; };
 		83B020591C96B2C9006333CB /* TauYouTubeSearchResultsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B020581C96B2C9006333CB /* TauYouTubeSearchResultsCollection.m */; };
-		83B174931C98F14800F6578B /* TauYTDataServiceCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B174921C98F14800F6578B /* TauYTDataServiceCredential.m */; };
-		83B174961C98F19800F6578B /* TauYTDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B174951C98F19800F6578B /* TauYTDataService.m */; };
-		83B1749B1C99071700F6578B /* TauYTDataServiceConsumerDataUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1749A1C99071700F6578B /* TauYTDataServiceConsumerDataUnit.m */; };
-		83B1749C1C990B7100F6578B /* TauYTDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B174951C98F19800F6578B /* TauYTDataService.m */; };
-		83B1749D1C990BCA00F6578B /* TauYTDataServiceConsumerDataUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1749A1C99071700F6578B /* TauYTDataServiceConsumerDataUnit.m */; };
-		83B1749E1C990BCD00F6578B /* TauYTDataServiceCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B174921C98F14800F6578B /* TauYTDataServiceCredential.m */; };
+		83B174931C98F14800F6578B /* TauAPIServiceCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B174921C98F14800F6578B /* TauAPIServiceCredential.m */; };
+		83B174961C98F19800F6578B /* TauAPIService.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B174951C98F19800F6578B /* TauAPIService.m */; };
+		83B1749B1C99071700F6578B /* TauAPIServiceConsumerDataUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1749A1C99071700F6578B /* TauAPIServiceConsumerDataUnit.m */; };
+		83B1749C1C990B7100F6578B /* TauAPIService.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B174951C98F19800F6578B /* TauAPIService.m */; };
+		83B1749D1C990BCA00F6578B /* TauAPIServiceConsumerDataUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1749A1C99071700F6578B /* TauAPIServiceConsumerDataUnit.m */; };
+		83B1749E1C990BCD00F6578B /* TauAPIServiceCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B174921C98F14800F6578B /* TauAPIServiceCredential.m */; };
 		83B1749F1C990E0E00F6578B /* OAuthSigningConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C571C8893BF007B084F /* OAuthSigningConstants.m */; };
 		83B174A21C990F0E00F6578B /* TestsTauDataServiceMachanism.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B174A11C990F0E00F6578B /* TestsTauDataServiceMachanism.m */; };
 		83B174A51C996B8500F6578B /* TauTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B174A41C996B8500F6578B /* TauTestCase.m */; };
@@ -666,13 +666,13 @@
 		83B020551C96B1B8006333CB /* TauAbstractResultCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAbstractResultCollection.m; sourceTree = "<group>"; };
 		83B020571C96B2C9006333CB /* TauYouTubeSearchResultsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauYouTubeSearchResultsCollection.h; sourceTree = "<group>"; };
 		83B020581C96B2C9006333CB /* TauYouTubeSearchResultsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauYouTubeSearchResultsCollection.m; sourceTree = "<group>"; };
-		83B174911C98F14800F6578B /* TauYTDataServiceCredential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauYTDataServiceCredential.h; sourceTree = "<group>"; };
-		83B174921C98F14800F6578B /* TauYTDataServiceCredential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauYTDataServiceCredential.m; sourceTree = "<group>"; };
-		83B174941C98F19800F6578B /* TauYTDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauYTDataService.h; sourceTree = "<group>"; };
-		83B174951C98F19800F6578B /* TauYTDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = TauYTDataService.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
-		83B174971C98F6B700F6578B /* PriTauYTDataServiceCredential_.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriTauYTDataServiceCredential_.h; sourceTree = "<group>"; };
-		83B174991C99071700F6578B /* TauYTDataServiceConsumerDataUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauYTDataServiceConsumerDataUnit.h; sourceTree = "<group>"; };
-		83B1749A1C99071700F6578B /* TauYTDataServiceConsumerDataUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauYTDataServiceConsumerDataUnit.m; sourceTree = "<group>"; };
+		83B174911C98F14800F6578B /* TauAPIServiceCredential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauAPIServiceCredential.h; sourceTree = "<group>"; };
+		83B174921C98F14800F6578B /* TauAPIServiceCredential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAPIServiceCredential.m; sourceTree = "<group>"; };
+		83B174941C98F19800F6578B /* TauAPIService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauAPIService.h; sourceTree = "<group>"; };
+		83B174951C98F19800F6578B /* TauAPIService.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = TauAPIService.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
+		83B174971C98F6B700F6578B /* PriTauAPIServiceCredential_.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriTauAPIServiceCredential_.h; sourceTree = "<group>"; };
+		83B174991C99071700F6578B /* TauAPIServiceConsumerDataUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauAPIServiceConsumerDataUnit.h; sourceTree = "<group>"; };
+		83B1749A1C99071700F6578B /* TauAPIServiceConsumerDataUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAPIServiceConsumerDataUnit.m; sourceTree = "<group>"; };
 		83B174A11C990F0E00F6578B /* TestsTauDataServiceMachanism.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestsTauDataServiceMachanism.m; sourceTree = "<group>"; };
 		83B174A31C996B8500F6578B /* TauTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauTestCase.h; sourceTree = "<group>"; };
 		83B174A41C996B8500F6578B /* TauTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauTestCase.m; sourceTree = "<group>"; };
@@ -846,7 +846,7 @@
 			isa = PBXGroup;
 			children = (
 				83EB744C1C8FF7B9004EB117 /* PriTauBadgeTextInternalCell_.h */,
-				83B174971C98F6B700F6578B /* PriTauYTDataServiceCredential_.h */,
+				83B174971C98F6B700F6578B /* PriTauAPIServiceCredential_.h */,
 			);
 			name = pri;
 			sourceTree = "<group>";
@@ -950,12 +950,12 @@
 		836D26F51C9ACD2A00290BE7 /* tds */ = {
 			isa = PBXGroup;
 			children = (
-				83B174941C98F19800F6578B /* TauYTDataService.h */,
-				83B174951C98F19800F6578B /* TauYTDataService.m */,
-				83B174991C99071700F6578B /* TauYTDataServiceConsumerDataUnit.h */,
-				83B1749A1C99071700F6578B /* TauYTDataServiceConsumerDataUnit.m */,
-				83B174911C98F14800F6578B /* TauYTDataServiceCredential.h */,
-				83B174921C98F14800F6578B /* TauYTDataServiceCredential.m */,
+				83B174941C98F19800F6578B /* TauAPIService.h */,
+				83B174951C98F19800F6578B /* TauAPIService.m */,
+				83B174991C99071700F6578B /* TauAPIServiceConsumerDataUnit.h */,
+				83B1749A1C99071700F6578B /* TauAPIServiceConsumerDataUnit.m */,
+				83B174911C98F14800F6578B /* TauAPIServiceCredential.h */,
+				83B174921C98F14800F6578B /* TauAPIServiceCredential.m */,
 			);
 			name = tds;
 			sourceTree = "<group>";
@@ -1785,12 +1785,12 @@
 			files = (
 				83E072E01CA7B96700CD1FCF /* GTLObject+Tau.m in Sources */,
 				8399E21A1C88231400A42C44 /* TauMainWindowController.m in Sources */,
-				83B1749B1C99071700F6578B /* TauYTDataServiceConsumerDataUnit.m in Sources */,
+				83B1749B1C99071700F6578B /* TauAPIServiceConsumerDataUnit.m in Sources */,
 				838342F91C98198F00BE6378 /* TauYouTubePlaylistsCollection.m in Sources */,
 				836D27071C9ACEC200290BE7 /* TauAbstractContentViewController.m in Sources */,
 				8356B2001C9C11C300AC4B36 /* TauToolbarController.m in Sources */,
 				83B5FEF21CAAD0DB009FB9E4 /* TauMeTubeContentSubViewController.m in Sources */,
-				83B174931C98F14800F6578B /* TauYTDataServiceCredential.m in Sources */,
+				83B174931C98F14800F6578B /* TauAPIServiceCredential.m in Sources */,
 				83EB74591C9058C4004EB117 /* NSBezierPath+TauDrawing.m in Sources */,
 				833846FA1CA10D8D00F49885 /* TauContentCollectionViewController.m in Sources */,
 				83B020591C96B2C9006333CB /* TauYouTubeSearchResultsCollection.m in Sources */,
@@ -1799,7 +1799,7 @@
 				83765AE21C8811DD00D93554 /* main.m in Sources */,
 				83EEEDC11CAE1C5C0074E73D /* TauSplitView.m in Sources */,
 				83D2E82F1C9A87C300A6AD3D /* TauLogging.m in Sources */,
-				83B174961C98F19800F6578B /* TauYTDataService.m in Sources */,
+				83B174961C98F19800F6578B /* TauAPIService.m in Sources */,
 				833846CB1C9FE39400F49885 /* TauNormalFlowLayout.m in Sources */,
 				83224A961CA167B9008931C6 /* TAAdaptiveSpaceItemView.m in Sources */,
 				8399E21D1C88232E00A42C44 /* TauMainWindow.m in Sources */,
@@ -1866,17 +1866,17 @@
 				836D270D1C9BA55400290BE7 /* TauViewsStack.m in Sources */,
 				838342FD1C98409C00BE6378 /* TauYouTubeChannelsCollection.m in Sources */,
 				83B174A51C996B8500F6578B /* TauTestCase.m in Sources */,
-				83B1749C1C990B7100F6578B /* TauYTDataService.m in Sources */,
+				83B1749C1C990B7100F6578B /* TauAPIService.m in Sources */,
 				836D270C1C9BA51400290BE7 /* TestsViewStack.m in Sources */,
 				83B5FEE81CAA9304009FB9E4 /* TauYouTubeSubscriptionsCollection.m in Sources */,
 				83B175001C9A765200F6578B /* TauAbstractLogFormatter.m in Sources */,
 				83B174FF1C9A75ED00F6578B /* TauTTYLogFormatter.m in Sources */,
-				83B1749D1C990BCA00F6578B /* TauYTDataServiceConsumerDataUnit.m in Sources */,
+				83B1749D1C990BCA00F6578B /* TauAPIServiceConsumerDataUnit.m in Sources */,
 				838342EE1C96E9AB00BE6378 /* GTLYouTube_Sources.m in Sources */,
 				83D2E8551C9A880800A6AD3D /* TauLogging.m in Sources */,
 				838342FF1C9840A200BE6378 /* TauYouTubePlaylistItemsCollection.m in Sources */,
 				838342F21C96EFC100BE6378 /* TauAbstractResultCollection.m in Sources */,
-				83B1749E1C990BCD00F6578B /* TauYTDataServiceCredential.m in Sources */,
+				83B1749E1C990BCD00F6578B /* TauAPIServiceCredential.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

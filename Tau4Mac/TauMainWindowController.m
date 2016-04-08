@@ -75,7 +75,7 @@ NSString* const kRequester = @"kRequester";
 
 - ( void ) applicationDidFinishLaunching: ( NSNotification* )_Notif
     {
-    if ( ![ [ TauYTDataService sharedService ] isSignedIn ] )
+    if ( ![ [ TauAPIService sharedService ] isSignedIn ] )
         [ self runSignInThenHandler_: nil ];
     }
 
@@ -87,7 +87,7 @@ NSString* const kRequester = @"kRequester";
     else
         [ self.window makeKeyAndOrderFront: self ];
 
-    if ( !( [ TauYTDataService sharedService ].isSignedIn ) )
+    if ( !( [ TauAPIService sharedService ].isSignedIn ) )
         [ self runSignInThenHandler_: nil ];
 
     return YES;
@@ -120,7 +120,7 @@ NSString* const kRequester = @"kRequester";
             {
             if ( _Auth && !_Error )
                 {
-                [ [ TauYTDataService sharedService ].ytService setAuthorizer: _Auth ];
+                [ [ TauAPIService sharedService ].ytService setAuthorizer: _Auth ];
                 if ( _Handler ) _Handler();
                 }
             else

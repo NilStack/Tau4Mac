@@ -1,12 +1,12 @@
 //
-//  TauYTDataService.m
+//  TauAPIService.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/3/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauYTDataServiceConsumerDataUnit.h"
+#import "TauAPIServiceConsumerDataUnit.h"
 
 #import "GTL/GTLUtilities.h"
 #import "GTL/GTMSessionFetcher.h"
@@ -14,10 +14,10 @@
 #import "GTL/GTMOAuth2WindowController.h"
 #import "GTL/GTMSessionFetcher.h"
 
-#import "PriTauYTDataServiceCredential_.h"
+#import "PriTauAPIServiceCredential_.h"
 
 // Private
-@interface TauYTDataService ()
+@interface TauAPIService ()
 
 // Operations Combination
 
@@ -99,10 +99,10 @@ NSString* const TauUnderlyingErrorDomain = @"home.bedroom.TongKuo.Tau4Mac.Underl
 
 
 
-// TauYTDataService class
-@implementation TauYTDataService
+// TauAPIService class
+@implementation TauAPIService
     {
-    NSMapTable __strong* mapTable_; // A TauYTDataServiceCredential -> TauYTDataServiceConsumerDataUnit lookup table
+    NSMapTable __strong* mapTable_; // A TauAPIServiceCredential -> TauAPIServiceConsumerDataUnit lookup table
     }
 
 + ( BOOL ) accessInstanceVariablesDirectly
@@ -112,7 +112,7 @@ NSString* const TauUnderlyingErrorDomain = @"home.bedroom.TongKuo.Tau4Mac.Underl
 
 #pragma mark - Singleton Instance
 
-TauYTDataService static* sYTDataService_;
+TauAPIService static* sYTDataService_;
 + ( instancetype ) sharedService
     {
     return [ [ self alloc ] init ];
@@ -200,26 +200,26 @@ TauYTDataService static* sYTDataService_;
 
 #pragma mark - Consumers
 
-- ( TauYTDataServiceCredential* ) registerConsumer: ( id <TauYTDataServiceConsumer> )_Consumer
+- ( TauAPIServiceCredential* ) registerConsumer: ( id <TauAPIServiceConsumer> )_Consumer
                                withMethodSignature: ( NSMethodSignature* )_Sig
-                                   consumptionType: ( TauYTDataServiceConsumptionType )_ConsumptionType
+                                   consumptionType: ( TauAPIServiceConsumptionType )_ConsumptionType
     {
-    Protocol* protocol = @protocol( TauYTDataServiceConsumer );
+    Protocol* protocol = @protocol( TauAPIServiceConsumer );
     if ( ![ _Consumer conformsToProtocol: protocol ] )
         DDLogUnexpected( @"Consumer registering should conform to <%@> protocol", NSStringFromProtocol( protocol ) );
 
-    TauYTDataServiceCredential* credential =
-        [ [ TauYTDataServiceCredential alloc ] initWithConsumer: _Consumer applyingMethodSignature: _Sig consumptionType: _ConsumptionType ];
+    TauAPIServiceCredential* credential =
+        [ [ TauAPIServiceCredential alloc ] initWithConsumer: _Consumer applyingMethodSignature: _Sig consumptionType: _ConsumptionType ];
 
-    TauYTDataServiceConsumerDataUnit* dataUnit =
-        [ [ TauYTDataServiceConsumerDataUnit alloc ] initWithConsumer: _Consumer credential: credential ];
+    TauAPIServiceConsumerDataUnit* dataUnit =
+        [ [ TauAPIServiceConsumerDataUnit alloc ] initWithConsumer: _Consumer credential: credential ];
 
     [ mapTable_ setObject: dataUnit forKey: credential ];
 
     return credential;
     }
 
-- ( void ) unregisterConsumer: ( id <TauYTDataServiceConsumer> )_UnregisteringConsumer withCredential: ( TauYTDataServiceCredential* )_Credential
+- ( void ) unregisterConsumer: ( id <TauAPIServiceConsumer> )_UnregisteringConsumer withCredential: ( TauAPIServiceCredential* )_Credential
     {
     if ( !_UnregisteringConsumer )
         {
@@ -235,15 +235,15 @@ TauYTDataService static* sYTDataService_;
     else
         {
         NSMutableArray* unregisteringCredentials = [ @[] mutableCopy ];
-        for ( TauYTDataServiceCredential* _Cred in mapTable_ )
+        for ( TauAPIServiceCredential* _Cred in mapTable_ )
             {
             // FIXME: Faield to search for consumer
-            TauYTDataServiceConsumerDataUnit* dataUnit = [ mapTable_ objectForKey: _Cred ];
+            TauAPIServiceConsumerDataUnit* dataUnit = [ mapTable_ objectForKey: _Cred ];
             if ( dataUnit.consumer == _UnregisteringConsumer )
                 [ unregisteringCredentials addObject: _Cred ];
             }
 
-        for ( TauYTDataServiceCredential* _Credential in unregisteringCredentials )
+        for ( TauAPIServiceCredential* _Credential in unregisteringCredentials )
             {
             [ mapTable_ removeObjectForKey: _Credential ];
             DDLogDebug( @"Batch Removing... Removed consumer with credential {%@}.\nCurrent consumers in TDS: {%@}", _Credential, mapTable_ );
@@ -252,14 +252,14 @@ TauYTDataService static* sYTDataService_;
     }
 
 - ( void ) executeConsumerOperations: ( id )_OperationsDictOrGTLQuery
-                      withCredential: ( TauYTDataServiceCredential* )_Credential
+                      withCredential: ( TauAPIServiceCredential* )_Credential
                              success: ( void (^)( NSString* _PrevPageToken, NSString* _NextPageToken ) )_CompletionHandler
                              failure: ( void (^)( NSError* _Error ) )_FailureHandler
     {
     NSError* error = nil;
     if ( _Credential )
         {
-        TauYTDataServiceConsumerDataUnit* dataUnit = [ mapTable_ objectForKey: _Credential ];
+        TauAPIServiceConsumerDataUnit* dataUnit = [ mapTable_ objectForKey: _Credential ];
         if ( dataUnit )
             {
             if ( [ self validateOperationsCombination_: _OperationsDictOrGTLQuery hostSel_: _cmd error_: &error ] )
@@ -568,4 +568,4 @@ NSString static* const kSFFetchIdUserDataKey = @"GTM.Session.Fetcher.FetchId.Use
         } ];
     }
 
-@end // TauYTDataService class
+@end // TauAPIService class

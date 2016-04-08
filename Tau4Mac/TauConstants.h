@@ -132,14 +132,14 @@ typedef NS_ENUM ( NSUInteger, TauYouTubeContentType )
     , TauYouTubeUnknownContent  = 0
     };
 
-typedef NS_ENUM ( NSUInteger, TauYTDataServiceConsumptionType )
-    { TauYTDataServiceConsumptionSearchResultsType = 1
-    , TauYTDataServiceConsumptionChannelsType      = 2
-    , TauYTDataServiceConsumptionPlaylistsType     = 3
-    , TauYTDataServiceConsumptionPlaylistItemsType = 4
-    , TauYTDataServiceConsumptionSubscriptionsType = 5
+typedef NS_ENUM ( NSUInteger, TauAPIServiceConsumptionType )
+    { TauAPIServiceConsumptionSearchResultsType = 1
+    , TauAPIServiceConsumptionChannelsType      = 2
+    , TauAPIServiceConsumptionPlaylistsType     = 3
+    , TauAPIServiceConsumptionPlaylistItemsType = 4
+    , TauAPIServiceConsumptionSubscriptionsType = 5
 
-    , TauYTDataServiceConsumptionUnknownType       = 0
+    , TauAPIServiceConsumptionUnknownType       = 0
     };
 
 #define TAU_APP_MIN_WIDTH  500.f

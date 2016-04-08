@@ -1,29 +1,29 @@
 //
-//  TauYTDataServiceConsumerDataUnit.m
+//  TauAPIServiceConsumerDataUnit.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/16/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauYTDataServiceConsumerDataUnit.h"
-#import "TauYTDataServiceCredential.h"
+#import "TauAPIServiceConsumerDataUnit.h"
+#import "TauAPIServiceCredential.h"
 
 // Private
-@interface TauYTDataServiceConsumerDataUnit ()
+@interface TauAPIServiceConsumerDataUnit ()
 
 @property ( strong, readwrite ) TauAbstractResultCollection* resultCollection_;
 
 @end // Private
 
-// TauYTDataServiceConsumerDataUnit class
-@implementation TauYTDataServiceConsumerDataUnit
+// TauAPIServiceConsumerDataUnit class
+@implementation TauAPIServiceConsumerDataUnit
     {
     // We'll establish the binding between consumer_ and self,
     // therefore there is no need to strong referense consumer_
-    id <TauYTDataServiceConsumer> __weak consumer_;
+    id <TauAPIServiceConsumer> __weak consumer_;
 
-    TauYTDataServiceCredential __strong* credential_;
+    TauAPIServiceCredential __strong* credential_;
 
     GTLServiceTicket __strong* ytTicket_;
     }
@@ -38,19 +38,19 @@
 @dynamic consumer;
 @dynamic credential;
 
-- ( id <TauYTDataServiceConsumer> ) consumer
+- ( id <TauAPIServiceConsumer> ) consumer
     {
     return consumer_;
     }
 
-- ( TauYTDataServiceCredential* ) credential
+- ( TauAPIServiceCredential* ) credential
     {
     return credential_;
     }
 
 #pragma mark - Initializations
 
-- ( instancetype ) initWithConsumer: ( id <TauYTDataServiceConsumer> )_Consumer credential: ( TauYTDataServiceCredential* )_Credential
+- ( instancetype ) initWithConsumer: ( id <TauAPIServiceConsumer> )_Consumer credential: ( TauAPIServiceCredential* )_Credential
     {
     if ( !_Consumer || !_Credential )
         {
@@ -64,7 +64,7 @@
         credential_ = [ _Credential copy ];
 
         NSString* bindKeyPath = [ self bindKeyPathForConsumptionType_: credential_.consumptionType ];
-        [ ( NSObject* )consumer_ bind: bindKeyPath toObject: self withKeyPath: TauKVOStrictClassKeyPath( TauYTDataServiceConsumerDataUnit, resultCollection_ ) options: nil ];
+        [ ( NSObject* )consumer_ bind: bindKeyPath toObject: self withKeyPath: TauKVOStrictClassKeyPath( TauAPIServiceConsumerDataUnit, resultCollection_ ) options: nil ];
         }
 
     return self;
@@ -92,7 +92,7 @@ TauDeallocEnd
     else if ( [ _OperationsDictOrGTLQuery isKindOfClass: [ GTLQueryYouTube class ] ] )
         ytQuery = _OperationsDictOrGTLQuery;
 
-    ytTicket_ = [ [ TauYTDataService sharedService ].ytService executeQuery: ytQuery
+    ytTicket_ = [ [ TauAPIService sharedService ].ytService executeQuery: ytQuery
                                                           completionHandler:
     ^( GTLServiceTicket* _Ticket, GTLCollectionObject* _Resp, NSError* _Error )
         {
@@ -129,78 +129,78 @@ TauDeallocEnd
         } ];
     }
 
-- ( NSString* ) bindKeyPathForConsumptionType_: ( TauYTDataServiceConsumptionType )_ConsumptionType
+- ( NSString* ) bindKeyPathForConsumptionType_: ( TauAPIServiceConsumptionType )_ConsumptionType
     {
     NSString* key = nil;
 
     switch ( _ConsumptionType )
         {
-        case TauYTDataServiceConsumptionSearchResultsType: key = @"searchResults"; break;
-        case TauYTDataServiceConsumptionChannelsType:      key = @"channels";      break;
-        case TauYTDataServiceConsumptionPlaylistsType:     key = @"playlists";     break;
-        case TauYTDataServiceConsumptionPlaylistItemsType: key = @"playlistItems"; break;
-        case TauYTDataServiceConsumptionSubscriptionsType: key = @"subscriptions"; break;
-        case TauYTDataServiceConsumptionUnknownType:;break;
+        case TauAPIServiceConsumptionSearchResultsType: key = @"searchResults"; break;
+        case TauAPIServiceConsumptionChannelsType:      key = @"channels";      break;
+        case TauAPIServiceConsumptionPlaylistsType:     key = @"playlists";     break;
+        case TauAPIServiceConsumptionPlaylistItemsType: key = @"playlistItems"; break;
+        case TauAPIServiceConsumptionSubscriptionsType: key = @"subscriptions"; break;
+        case TauAPIServiceConsumptionUnknownType:;break;
         }
 
     return key;
     }
 
-- ( Class ) modelClassForConsumptionType_: ( TauYTDataServiceConsumptionType )_ConsumptionType
+- ( Class ) modelClassForConsumptionType_: ( TauAPIServiceConsumptionType )_ConsumptionType
     {
     Class modelClass = nil;
 
     switch ( _ConsumptionType )
         {
-        case TauYTDataServiceConsumptionSearchResultsType: modelClass = [ TauYouTubeSearchResultsCollection class ]; break;
-        case TauYTDataServiceConsumptionChannelsType:      modelClass = [ TauYouTubeChannelsCollection class ];      break;
-        case TauYTDataServiceConsumptionPlaylistsType:     modelClass = [ TauYouTubePlaylistsCollection class ];     break;
-        case TauYTDataServiceConsumptionPlaylistItemsType: modelClass = [ TauYouTubePlaylistItemsCollection class ]; break;
-        case TauYTDataServiceConsumptionSubscriptionsType: modelClass = [ TauYouTubeSubscriptionsCollection class ]; break;
-        case TauYTDataServiceConsumptionUnknownType:;break;
+        case TauAPIServiceConsumptionSearchResultsType: modelClass = [ TauYouTubeSearchResultsCollection class ]; break;
+        case TauAPIServiceConsumptionChannelsType:      modelClass = [ TauYouTubeChannelsCollection class ];      break;
+        case TauAPIServiceConsumptionPlaylistsType:     modelClass = [ TauYouTubePlaylistsCollection class ];     break;
+        case TauAPIServiceConsumptionPlaylistItemsType: modelClass = [ TauYouTubePlaylistItemsCollection class ]; break;
+        case TauAPIServiceConsumptionSubscriptionsType: modelClass = [ TauYouTubeSubscriptionsCollection class ]; break;
+        case TauAPIServiceConsumptionUnknownType:;break;
         }
 
     return modelClass;
     }
 
-- ( GTLQueryYouTube* ) queryForConsumptionType_: ( TauYTDataServiceConsumptionType )_ConsumptionType operationsDict_: ( NSDictionary* )_Dict
+- ( GTLQueryYouTube* ) queryForConsumptionType_: ( TauAPIServiceConsumptionType )_ConsumptionType operationsDict_: ( NSDictionary* )_Dict
     {
     GTLQueryYouTube* ytQuery = nil;
 
     NSString* partFilter = _Dict[ TauTDSOperationPartFilter ];
     switch ( _ConsumptionType )
         {
-        case TauYTDataServiceConsumptionSearchResultsType:
+        case TauAPIServiceConsumptionSearchResultsType:
             {
             ytQuery = [ GTLQueryYouTube queryForSearchListWithPart: partFilter ?: @"snippet" ];
             ytQuery.q = _Dict[ TauTDSOperationRequirements ][ TauTDSOperationRequirementQ ];
             } break;
 
-        case TauYTDataServiceConsumptionChannelsType:
+        case TauAPIServiceConsumptionChannelsType:
             {
             ytQuery = [ GTLQueryYouTube queryForChannelsListWithPart: partFilter ?:  @"snippet,contentDetails" ];
             ytQuery.identifier = _Dict[ TauTDSOperationRequirements ][ TauTDSOperationRequirementChannelID ];
             } break;
 
-        case TauYTDataServiceConsumptionPlaylistsType:
+        case TauAPIServiceConsumptionPlaylistsType:
             {
             ytQuery = [ GTLQueryYouTube queryForPlaylistsListWithPart: partFilter ?: @"snippet,contentDetails" ];
             ytQuery.channelId = _Dict[ TauTDSOperationRequirements ][ TauTDSOperationRequirementChannelID ];
             } break;
 
-        case TauYTDataServiceConsumptionPlaylistItemsType:
+        case TauAPIServiceConsumptionPlaylistItemsType:
             {
             ytQuery = [ GTLQueryYouTube queryForPlaylistItemsListWithPart: partFilter ?: @"contentDetails,id,snippet,status" ];
             ytQuery.playlistId = _Dict[ TauTDSOperationRequirements ][ TauTDSOperationRequirementPlaylistID ];
             } break;
 
-        case TauYTDataServiceConsumptionSubscriptionsType:
+        case TauAPIServiceConsumptionSubscriptionsType:
             {
             ytQuery = [ GTLQueryYouTube queryForSubscriptionsListWithPart: partFilter ?: @"snippet,contentDetails" ];
             ytQuery.channelId = _Dict[ TauTDSOperationRequirements ][ TauTDSOperationRequirementChannelID ];
             } break;
 
-        case TauYTDataServiceConsumptionUnknownType:;break;
+        case TauAPIServiceConsumptionUnknownType:;break;
         }
 
     NSNumber* maxResults = _Dict[ TauTDSOperationMaxResultsPerPage ];
@@ -226,4 +226,4 @@ TauDeallocEnd
     return ytQuery;
     }
 
-@end // TauYTDataServiceConsumerDataUnit class
+@end // TauAPIServiceConsumerDataUnit class

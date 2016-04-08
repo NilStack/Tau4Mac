@@ -20,7 +20,7 @@
 // TauChannelResultsCollectionContentSubViewController class
 @implementation TauChannelResultsCollectionContentSubViewController
     {
-    TauYTDataServiceCredential* channelsCredential_;
+    TauAPIServiceCredential* channelsCredential_;
     }
 
 TauDeallocBegin
@@ -50,8 +50,8 @@ TauDeallocEnd
                  , TauTDSOperationPartFilter : @"contentDetails,snippet,statistics,topicDetails"
                  };
 
-            TauYTDataService* sharedDataService = [ TauYTDataService sharedService ];
-            channelsCredential_ = [ [ TauYTDataService sharedService ] registerConsumer: self withMethodSignature: [ self methodSignatureForSelector: _cmd ] consumptionType: TauYTDataServiceConsumptionChannelsType ];
+            TauAPIService* sharedDataService = [ TauAPIService sharedService ];
+            channelsCredential_ = [ [ TauAPIService sharedService ] registerConsumer: self withMethodSignature: [ self methodSignatureForSelector: _cmd ] consumptionType: TauAPIServiceConsumptionChannelsType ];
             [ sharedDataService executeConsumerOperations: operations
                                            withCredential: channelsCredential_
                                                   success: nil
@@ -72,7 +72,7 @@ TauDeallocEnd
 
 - ( void ) contentSubViewWillPop
     {
-    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: channelsCredential_ ];
+    [ [ TauAPIService sharedService ] unregisterConsumer: self withCredential: channelsCredential_ ];
     [ super contentSubViewWillPop ];
     }
 

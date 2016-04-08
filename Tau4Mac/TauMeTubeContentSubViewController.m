@@ -37,7 +37,7 @@
 // TauMeTubeContentSubViewController class
 @implementation TauMeTubeContentSubViewController
     {
-    TauYTDataServiceCredential __strong* channelMineCredential_;
+    TauAPIServiceCredential __strong* channelMineCredential_;
     }
 
 - ( void ) viewDidLoad
@@ -62,8 +62,8 @@
          };
 
     id consumer = self;
-    channelMineCredential_ = [ [ TauYTDataService sharedService ] registerConsumer: consumer withMethodSignature: [ self methodSignatureForSelector: _cmd ] consumptionType: TauYTDataServiceConsumptionChannelsType ];
-    [ [ TauYTDataService sharedService ]
+    channelMineCredential_ = [ [ TauAPIService sharedService ] registerConsumer: consumer withMethodSignature: [ self methodSignatureForSelector: _cmd ] consumptionType: TauAPIServiceConsumptionChannelsType ];
+    [ [ TauAPIService sharedService ]
         executeConsumerOperations: operations withCredential: channelMineCredential_ success: nil failure:
     ^( NSError* _Error )
         {

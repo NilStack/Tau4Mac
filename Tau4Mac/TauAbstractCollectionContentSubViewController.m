@@ -38,7 +38,7 @@
 @property ( strong, readwrite ) NSString* prevToken_;   // KVB-compliant
 @property ( strong, readwrite ) NSString* nextToken_;   // KVB-compliant
 
-@property ( strong, readonly ) TauYTDataServiceCredential* credential_;
+@property ( strong, readonly ) TauAPIServiceCredential* credential_;
 
 // Feeding TauToolbarController
 @property ( weak ) IBOutlet TauResultsAccessoryBarViewController* accessoryBarViewController_;
@@ -128,7 +128,7 @@ TauDeallocEnd
 - ( void ) contentSubViewWillPop
     {
     id consumer = self;
-    [ [ TauYTDataService sharedService ] unregisterConsumer: consumer withCredential: priCredential_ ];
+    [ [ TauAPIService sharedService ] unregisterConsumer: consumer withCredential: priCredential_ ];
 
     [ self unbind: TauKVOStrictKey( results ) ];
 
@@ -292,7 +292,7 @@ TauDeallocEnd
 @synthesize credential_ = priCredential_;
 
 // Self-generating the required credential
-- ( TauYTDataServiceCredential* ) credential_
+- ( TauAPIServiceCredential* ) credential_
     {
     if ( [ self class ] == [ TauAbstractCollectionContentSubViewController class ] )
         {
@@ -310,25 +310,25 @@ TauDeallocEnd
         {
         id consumer = self;
 
-        TauYTDataServiceConsumptionType consumptionType = TauYTDataServiceConsumptionUnknownType;
+        TauAPIServiceConsumptionType consumptionType = TauAPIServiceConsumptionUnknownType;
 
         /*************** Get the correct consumption type ***************/
 
         if ( [ self isKindOfClass: [ TauSearchResultsCollectionContentSubViewController class ] ] )
-            consumptionType = TauYTDataServiceConsumptionSearchResultsType;
+            consumptionType = TauAPIServiceConsumptionSearchResultsType;
 
         else if ( [ self isKindOfClass: [ TauPlaylistResultsCollectionContentSubViewController class ] ] )
-            consumptionType = TauYTDataServiceConsumptionPlaylistItemsType;
+            consumptionType = TauAPIServiceConsumptionPlaylistItemsType;
 
         else if ( [ self isKindOfClass: [ TauSubscriptionsCollectionContentSubViewController class ] ] )
-            consumptionType = TauYTDataServiceConsumptionSubscriptionsType; // TODO: Expecting other consumption types
+            consumptionType = TauAPIServiceConsumptionSubscriptionsType; // TODO: Expecting other consumption types
 
         /*************** Get the correct consumption type ***************/
 
-        if ( consumptionType == TauYTDataServiceConsumptionUnknownType )
+        if ( consumptionType == TauAPIServiceConsumptionUnknownType )
             DDLogUnexpected( @"TDS consumption is unkown." );
         else
-            priCredential_ = [ [ TauYTDataService sharedService ]
+            priCredential_ = [ [ TauAPIService sharedService ]
                 registerConsumer: consumer withMethodSignature: [ self methodSignatureForSelector: _cmd ] consumptionType: consumptionType ];
         }
 
@@ -362,7 +362,7 @@ TauDeallocEnd
         query = originalOperationsCombination_;
 
     self.isPaging = ( _PageToken != nil );
-    [ [ TauYTDataService sharedService ] executeConsumerOperations: query
+    [ [ TauAPIService sharedService ] executeConsumerOperations: query
                                                     withCredential: self.credential_
                                                            success:
     ^( NSString* _PrevPageToken, NSString* _NextPageToken )
