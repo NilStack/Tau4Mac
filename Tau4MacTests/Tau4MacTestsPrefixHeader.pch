@@ -25,7 +25,8 @@
 #import <objc/runtime.h>
 
 #import "TauConstants.h"
-#import "TauYTDataService.h"
+#import "TauAPIService.h"
+#import "TauMediaService.h"
 #import "TestsConstants.h"
 
 #import "TauTestCase.h"

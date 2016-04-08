@@ -39,6 +39,7 @@
 
 #import "TauConstants.h"
 #import "TauAPIService.h"
+#import "TauMediaService.h"
 #import "TauPlayerController.h"
 #import "TauSparkleController.h"
 

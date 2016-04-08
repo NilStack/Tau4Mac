@@ -34,6 +34,9 @@ NSString* const TauShouldPlayVideoNotif = @"Should.PlayVideo.Notif";
 NSString* const kRequester = @"kRequester";
 
 @implementation TauMainWindowController
+    {
+    MediaServiceFetchingUnit_ __strong* mediaServFetchingUnit_;
+    }
 
 #pragma mark - Initializations
 
@@ -64,6 +67,63 @@ NSString* const kRequester = @"kRequester";
     NSMenuItem* signOutItem = [ [ NSMenuItem alloc ] initWithTitle: @"Sign Out…" action: @selector( signOutAction: ) keyEquivalent: @"" ];
     NSMenu* appMenu = [ [ [ NSApp menu ] itemWithTag: TauAppMenuItem ] submenu ];
     [ appMenu insertItem: signOutItem atIndex: 1 ];
+
+    mediaServFetchingUnit_ = [ [ MediaServiceFetchingUnit_ alloc ] init ];
+    NSURL* url = [ NSURL URLWithString: @"https://avatars3.githubusercontent.com/u/4256649?v=3&u=198226670f93c418e2e909dd7f16822bf02d0508&s=140" ];
+    [ mediaServFetchingUnit_ fetchImageWithURL: url
+                                       success:
+    ^( NSImage*_Image )
+        {
+        DDLogExpecting( @"%@", _Image );
+        } failure:
+            ^( NSError* _Error )
+                {
+                DDLogRecoverable( @"%@", _Error );
+                } ];
+
+    [ mediaServFetchingUnit_ fetchImageWithURL: url
+                                       success:
+    ^( NSImage*_Image )
+        {
+        DDLogExpecting( @"%@", _Image );
+        } failure:
+            ^( NSError* _Error )
+                {
+                DDLogRecoverable( @"%@", _Error );
+                } ];
+
+    [ mediaServFetchingUnit_ fetchImageWithURL: url
+                                       success:
+    ^( NSImage*_Image )
+        {
+        DDLogExpecting( @"%@", _Image );
+        } failure:
+            ^( NSError* _Error )
+                {
+                DDLogRecoverable( @"%@", _Error );
+                } ];
+
+    [ mediaServFetchingUnit_ fetchImageWithURL: url
+                                       success:
+    ^( NSImage*_Image )
+        {
+        DDLogExpecting( @"%@", _Image );
+        } failure:
+            ^( NSError* _Error )
+                {
+                DDLogRecoverable( @"%@", _Error );
+                } ];
+
+    [ mediaServFetchingUnit_ fetchImageWithURL: url
+                                       success:
+    ^( NSImage*_Image )
+        {
+        DDLogExpecting( @"%@", _Image );
+        } failure:
+            ^( NSError* _Error )
+                {
+                DDLogRecoverable( @"%@", _Error );
+                } ];
     }
 
 - ( void ) applicationWillTerminate: ( NSNotification* )_Notif

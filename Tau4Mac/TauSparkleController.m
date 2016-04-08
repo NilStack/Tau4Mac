@@ -171,7 +171,7 @@ SUUpdater static* sSparkleUpdater;
         NSNumber* isDir = nil;
         [ _CandidateURL getResourceValue: &isDir forKey: NSURLIsDirectoryKey error: nil ];
 
-        if ( isDir && [ fileName isEqualToString: @"debug-sample" ] )
+        if ( isDir.boolValue && [ fileName isEqualToString: @"debug-sample" ] )
             {
             resultURL = _CandidateURL;
             break;

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauYTDataServiceCredential.h"
+#import "TauAPIServiceCredential.h"
 
 #define searchResults  searchResults
 #define channels       channels
@@ -14,7 +14,7 @@
 #define playlistItems  playlistItems
 
 // TestsTauDataServiceMachanism class
-@interface TestsTauDataServiceMachanism : TauTestCase <TauYTDataServiceConsumer>
+@interface TestsTauDataServiceMachanism : TauTestCase <TauAPIServiceConsumer>
 
 @property ( strong, readwrite ) TauYouTubeSearchResultsCollection*  searchResults;
 @property ( strong, readwrite ) TauYouTubeChannelsCollection*       channels;
@@ -29,7 +29,7 @@
 - ( void ) loop_: ( NSString* )_ModelKey onBehalfOf_: ( SEL )_Sel;
 
 - ( void ) executeTDSOperations_: ( NSDictionary* )_OperationsDict
-                     credential_: ( TauYTDataServiceCredential* )_Credential
+                     credential_: ( TauAPIServiceCredential* )_Credential
                           expec_: ( XCTestExpectation* )_Expec
                      onBehalfOf_: ( SEL )_Sel;
 @end // Private
@@ -37,12 +37,12 @@
 // TestsTauDataServiceMachanism class
 @implementation TestsTauDataServiceMachanism
     {
-    TauYTDataService __weak* sharedDataService_;
+    TauAPIService __weak* sharedDataService_;
 
-    TauYTDataServiceCredential __strong* searchResultsConsCredential_;
-    TauYTDataServiceCredential __strong* channelsConsCredential_;
-    TauYTDataServiceCredential __strong* playlistsConsCredential_;
-    TauYTDataServiceCredential __strong* playlistItemsConsCredential_;
+    TauAPIServiceCredential __strong* searchResultsConsCredential_;
+    TauAPIServiceCredential __strong* channelsConsCredential_;
+    TauAPIServiceCredential __strong* playlistsConsCredential_;
+    TauAPIServiceCredential __strong* playlistItemsConsCredential_;
 
     NSArray <NSDictionary*> __strong* posSearchResultsInitialOperations_;
     NSArray <NSDictionary*> __strong* posChannelsInitialOperations_;
@@ -68,7 +68,7 @@
     {
     [ super setUp ];
 
-    sharedDataService_ = [ TauYTDataService sharedService ];
+    sharedDataService_ = [ TauAPIService sharedService ];
     NSMethodSignature* sig = [ self methodSignatureForSelector: _cmd ];
 
     // Because before accessing the keychain for a group of persistent OAuth credentials,
@@ -76,10 +76,10 @@
     // Make it think of we have previously saved one
     [ [ NSUserDefaults standardUserDefaults ] setBool: YES forKey: @"OAuth2: home.bedroom.TongKuo.Tau4Mac-dev" ];
 
-    searchResultsConsCredential_ = [ sharedDataService_ registerConsumer: self withMethodSignature: sig consumptionType: TauYTDataServiceConsumptionSearchResultsType ];
-    channelsConsCredential_ = [ sharedDataService_ registerConsumer: self withMethodSignature: sig consumptionType: TauYTDataServiceConsumptionChannelsType ];
-    playlistsConsCredential_ = [ sharedDataService_ registerConsumer: self withMethodSignature: sig consumptionType: TauYTDataServiceConsumptionPlaylistsType ];
-    playlistItemsConsCredential_ = [ sharedDataService_ registerConsumer: self withMethodSignature: sig consumptionType: TauYTDataServiceConsumptionPlaylistItemsType ];
+    searchResultsConsCredential_ = [ sharedDataService_ registerConsumer: self withMethodSignature: sig consumptionType: TauAPIServiceConsumptionSearchResultsType ];
+    channelsConsCredential_ = [ sharedDataService_ registerConsumer: self withMethodSignature: sig consumptionType: TauAPIServiceConsumptionChannelsType ];
+    playlistsConsCredential_ = [ sharedDataService_ registerConsumer: self withMethodSignature: sig consumptionType: TauAPIServiceConsumptionPlaylistsType ];
+    playlistItemsConsCredential_ = [ sharedDataService_ registerConsumer: self withMethodSignature: sig consumptionType: TauAPIServiceConsumptionPlaylistItemsType ];
 
     // Search Results
     posSearchResultsInitialOperations_ =
@@ -135,10 +135,10 @@
 
 - ( void ) tearDown
     {
-    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: searchResultsConsCredential_ ];
-    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: channelsConsCredential_ ];
-    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: playlistsConsCredential_ ];
-    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: playlistItemsConsCredential_ ];
+    [ [ TauAPIService sharedService ] unregisterConsumer: self withCredential: searchResultsConsCredential_ ];
+    [ [ TauAPIService sharedService ] unregisterConsumer: self withCredential: channelsConsCredential_ ];
+    [ [ TauAPIService sharedService ] unregisterConsumer: self withCredential: playlistsConsCredential_ ];
+    [ [ TauAPIService sharedService ] unregisterConsumer: self withCredential: playlistItemsConsCredential_ ];
     }
 
 #pragma mark - Positive Test
@@ -204,12 +204,12 @@
 
 - ( void ) testTDSConsumerRegistration_neg0
     {
-    NSString* credentialKey = [ self credentialKeyWithModelKey_: TauKVOKey( searchResults ) ];
+    NSString* credentialKey = [ self credentialKeyWithModelKey_: TauKVOStrictKey( searchResults ) ];
 
-    [ [ TauYTDataService sharedService ] unregisterConsumer: self withCredential: [ self valueForKey: credentialKey ] ];
-    [ self loop_: TauKVOKey( searchResults ) onBehalfOf_: _cmd ];
+    [ [ TauAPIService sharedService ] unregisterConsumer: self withCredential: [ self valueForKey: credentialKey ] ];
+    [ self loop_: TauKVOStrictKey( searchResults ) onBehalfOf_: _cmd ];
 
-    [ self setValue: [ [ TauYTDataService sharedService ] registerConsumer: self withMethodSignature: [ self methodSignatureForSelector: _cmd ] consumptionType: TauYTDataServiceConsumptionSearchResultsType ]
+    [ self setValue: [ [ TauAPIService sharedService ] registerConsumer: self withMethodSignature: [ self methodSignatureForSelector: _cmd ] consumptionType: TauAPIServiceConsumptionSearchResultsType ]
              forKey: credentialKey ];
     }
 
@@ -256,7 +256,7 @@
     }
 
 - ( void ) executeTDSOperations_: ( NSDictionary* )_OperationsDict
-                     credential_: ( TauYTDataServiceCredential* )_Credential
+                     credential_: ( TauAPIServiceCredential* )_Credential
                           expec_: ( XCTestExpectation* )_Expec
                      onBehalfOf_: ( SEL )_Sel
     {
