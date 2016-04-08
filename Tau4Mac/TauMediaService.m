@@ -8,10 +8,16 @@
 
 #import "TauMediaService.h"
 
+NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUnit.BecomeDiscardable.Notif";
+
 // Private
-@interface MediaServiceFetchingUnit_ ()
+@interface MediaServiceDisposableFetchingUnit_ ()
+
+// Writability Swizzling
+@property ( assign, readwrite, atomic, setter = setDiscardable: ) BOOL isDiscardable;
 
 @property ( strong, readonly ) dispatch_queue_t fetchingQ_;
+@property ( strong, readonly ) dispatch_group_t syncGroup_;
 
 @property ( strong, readwrite, atomic ) NSURLSessionDataTask* fetchingTask_;
 
@@ -21,7 +27,14 @@
 
 @end // Private
 
-@implementation MediaServiceFetchingUnit_
+@implementation MediaServiceDisposableFetchingUnit_
+
+- ( instancetype ) init
+    {
+    if ( self = [ super init ] )
+        self.isDiscardable = YES;
+    return self;
+    }
 
 - ( void ) fetchImageWithURL: ( NSURL* )_URL
                      success: ( void (^)( NSImage* _Image ) )_SuccessHandler
@@ -30,6 +43,7 @@
     if ( !self.isFetchingInProgres_ )
         {
         self.isFetchingInProgres_ = YES;
+        self.isDiscardable = NO;
 
         dispatch_barrier_async( self.fetchingQ_, ( dispatch_block_t )^{
             dispatch_semaphore_t sema = dispatch_semaphore_create( 0 );
@@ -62,7 +76,10 @@
                 self.fetchingTask_ = nil;
 
                 /* The dispatch_semaphore_signal function increments the count variable by 1
-                 * to indicate that a resource has been freed up. */
+                 * to indicate that a resource has been freed up. 
+                 
+                 
+                 */
                 dispatch_semaphore_signal( sema );
                 } ];
 
@@ -80,7 +97,7 @@
             } );
         }
 
-    dispatch_async( self.fetchingQ_, ( dispatch_block_t )^{
+    dispatch_group_async( self.syncGroup_, self.fetchingQ_, ( dispatch_block_t )^{
 
         /* dispatch_semaphore_signal( sem ); was invoked by barrier block.
          * "If there are tasks blocked and waiting for a resource,
@@ -97,6 +114,14 @@
                 _FailureHandler( self.error_ );
             }
         } );
+
+    dispatch_once_t static onceToken;
+    dispatch_once( &onceToken, ( dispatch_block_t )^{
+        dispatch_group_notify( self.syncGroup_, dispatch_get_main_queue(), ^{
+            self.isDiscardable = YES;
+            [ [ NSNotificationCenter defaultCenter ] postNotificationName: kFetchingUnitBecomeDiscardable object: self ];
+            } );
+        } );
     }
 
 #pragma mark - Private
@@ -109,7 +134,15 @@
     return priFetchingQ_;
     }
 
-@end // MediaServiceFetchingUnit_ class
+@synthesize syncGroup_ = priSyncGroup_;
+- ( dispatch_group_t ) syncGroup_
+    {
+    if ( !priSyncGroup_ )
+        priSyncGroup_ = dispatch_group_create();
+    return priSyncGroup_;
+    }
+
+@end // MediaServiceDisposableFetchingUnit_ class
 
 
 
@@ -300,7 +333,7 @@ NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
 
 - ( void ) getPreferredTrialUrl_: ( out NSURL* __autoreleasing* )_Urlptr
          preferredTrialThumbKey_: ( out NSString* __autoreleasing* )_Keyptr
-      fromOptThumbsUrlDict_: ( NSDictionary <NSString*, NSURL*>* )_OptUrlsDict
+           fromOptThumbsUrlDict_: ( NSDictionary <NSString*, NSURL*>* )_OptUrlsDict
     {
     NSURL* url = nil;
     NSString* thumbKey = nil;

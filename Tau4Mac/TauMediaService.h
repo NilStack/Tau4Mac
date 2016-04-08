@@ -6,9 +6,13 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-// MediaServiceFetchingUnit_ class
-@interface MediaServiceFetchingUnit_ : NSObject
-- ( void ) fetchImageWithURL: ( NSURL* )_URL success: ( void (^)( NSImage* _Image) )_SuccessHandler failure: ( void (^)( NSError* _Error ) )_FailureHandler;
+// MediaServiceDisposableFetchingUnit_ class
+@interface MediaServiceDisposableFetchingUnit_ : NSObject
+
+@property ( assign, readonly, atomic ) BOOL isDiscardable;
+
+- ( void ) fetchImageWithURL: ( NSURL* )_URL success: ( void (^)( NSImage* _Image ) )_SuccessHandler failure: ( void (^)( NSError* _Error ) )_FailureHandler;
+
 @end
 
 // TauMediaService class

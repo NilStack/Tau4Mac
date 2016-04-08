@@ -35,7 +35,7 @@ NSString* const kRequester = @"kRequester";
 
 @implementation TauMainWindowController
     {
-    MediaServiceFetchingUnit_ __strong* mediaServFetchingUnit_;
+    MediaServiceDisposableFetchingUnit_ __strong* mediaServFetchingUnit_;
     }
 
 #pragma mark - Initializations
@@ -68,8 +68,8 @@ NSString* const kRequester = @"kRequester";
     NSMenu* appMenu = [ [ [ NSApp menu ] itemWithTag: TauAppMenuItem ] submenu ];
     [ appMenu insertItem: signOutItem atIndex: 1 ];
 
-    mediaServFetchingUnit_ = [ [ MediaServiceFetchingUnit_ alloc ] init ];
-    NSURL* url = [ NSURL URLWithString: @"https://keybase.io/tongkuo" ];
+    mediaServFetchingUnit_ = [ [ MediaServiceDisposableFetchingUnit_ alloc ] init ];
+    NSURL* url = [ NSURL URLWithString: @"https://twitter.com" ];
     [ mediaServFetchingUnit_ fetchImageWithURL: url
                                        success:
     ^( NSImage*_Image )
