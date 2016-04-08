@@ -47,6 +47,7 @@
 		835C9FDE1CB76F6A003BF386 /* TauMediaService.m in Sources */ = {isa = PBXBuildFile; fileRef = 835C9FDD1CB76F6A003BF386 /* TauMediaService.m */; };
 		835CA01D1CB79A70003BF386 /* TauMediaService.m in Sources */ = {isa = PBXBuildFile; fileRef = 835C9FDD1CB76F6A003BF386 /* TauMediaService.m */; };
 		835CA01F1CB79A9D003BF386 /* TestsTauMediaService.m in Sources */ = {isa = PBXBuildFile; fileRef = 835CA01E1CB79A9D003BF386 /* TestsTauMediaService.m */; };
+		835CA0221CB7AC4D003BF386 /* GuiKitsMainThreadGuard.m in Sources */ = {isa = PBXBuildFile; fileRef = 835CA0211CB7AC4D003BF386 /* GuiKitsMainThreadGuard.m */; };
 		835FDB801CA5794C00A2A031 /* TauPlaylistResultsCollectionContentSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 835FDB7F1CA5794C00A2A031 /* TauPlaylistResultsCollectionContentSubViewController.m */; };
 		835FDC2E1CA62F3700A2A031 /* LRNotificationObserver+NSNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 835FDC291CA62F3700A2A031 /* LRNotificationObserver+NSNotificationCenter.m */; };
 		835FDC2F1CA62F3700A2A031 /* LRNotificationObserver+Owner.m in Sources */ = {isa = PBXBuildFile; fileRef = 835FDC2B1CA62F3700A2A031 /* LRNotificationObserver+Owner.m */; };
@@ -604,6 +605,7 @@
 		835C9FDC1CB76F6A003BF386 /* TauMediaService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauMediaService.h; sourceTree = "<group>"; };
 		835C9FDD1CB76F6A003BF386 /* TauMediaService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauMediaService.m; sourceTree = "<group>"; };
 		835CA01E1CB79A9D003BF386 /* TestsTauMediaService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestsTauMediaService.m; sourceTree = "<group>"; };
+		835CA0211CB7AC4D003BF386 /* GuiKitsMainThreadGuard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuiKitsMainThreadGuard.m; sourceTree = "<group>"; };
 		835FDB7E1CA5794C00A2A031 /* TauPlaylistResultsCollectionContentSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauPlaylistResultsCollectionContentSubViewController.h; sourceTree = "<group>"; };
 		835FDB7F1CA5794C00A2A031 /* TauPlaylistResultsCollectionContentSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauPlaylistResultsCollectionContentSubViewController.m; sourceTree = "<group>"; };
 		835FDC281CA62F3700A2A031 /* LRNotificationObserver+NSNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LRNotificationObserver+NSNotificationCenter.h"; sourceTree = "<group>"; };
@@ -961,6 +963,14 @@
 			name = tis;
 			sourceTree = "<group>";
 		};
+		835CA0201CB7AC4D003BF386 /* GuiKitsMainThreadGuard */ = {
+			isa = PBXGroup;
+			children = (
+				835CA0211CB7AC4D003BF386 /* GuiKitsMainThreadGuard.m */,
+			);
+			path = GuiKitsMainThreadGuard;
+			sourceTree = "<group>";
+		};
 		835FDC271CA62F3700A2A031 /* LRNotificationObserver */ = {
 			isa = PBXGroup;
 			children = (
@@ -1144,6 +1154,7 @@
 				83DA1C551C8893BF007B084F /* OAuthSigningConstants */,
 				83224A901CA167B9008931C6 /* TAAdaptiveSpaceItem */,
 				835FDC271CA62F3700A2A031 /* LRNotificationObserver */,
+				835CA0201CB7AC4D003BF386 /* GuiKitsMainThreadGuard */,
 				832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */,
 				83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */,
 				83765B351C881A5700D93554 /* Lumberjack.xcodeproj */,
@@ -1814,6 +1825,7 @@
 				838342F91C98198F00BE6378 /* TauYouTubePlaylistsCollection.m in Sources */,
 				836D27071C9ACEC200290BE7 /* TauAbstractContentViewController.m in Sources */,
 				8356B2001C9C11C300AC4B36 /* TauToolbarController.m in Sources */,
+				835CA0221CB7AC4D003BF386 /* GuiKitsMainThreadGuard.m in Sources */,
 				83B5FEF21CAAD0DB009FB9E4 /* TauMeTubeContentSubViewController.m in Sources */,
 				83B174931C98F14800F6578B /* TauAPIServiceCredential.m in Sources */,
 				83EB74591C9058C4004EB117 /* NSBezierPath+TauDrawing.m in Sources */,
