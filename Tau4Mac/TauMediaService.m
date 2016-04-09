@@ -8,7 +8,14 @@
 
 #import "TauMediaService.h"
 
+NSString static* const kPreferredThumbOptKey = @"kPreferredThumbKey";
+NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
+
+// Internal Notification Names
 NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUnit.BecomeDiscardable.Notif";
+
+// Internal Notification UserInfo Keys
+NSString static* const kImageData = @"kImageData";
 
 // Private
 @interface MediaServiceDisposableFetchingUnit_ ()
@@ -21,9 +28,12 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
 
 @property ( strong, readwrite, atomic ) NSURLSessionDataTask* fetchingTask_;
 
+@property ( strong, readwrite, atomic ) NSData* imageData_;
 @property ( strong, readwrite, atomic ) NSImage* image_;
 @property ( strong, readwrite, atomic ) NSError* error_;
 @property ( assign, readwrite, atomic, setter = setFetchingInProgress_: ) BOOL isFetchingInProgres_;
+
++ ( void ) getPreferredTrialUrl_: ( out NSURL* __autoreleasing* )_Urlptr preferredTrialThumbKey_: ( out NSString* __autoreleasing* )_Keyptr fromOptThumbsUrlDict_: ( NSDictionary <NSString*, NSURL*>* )_OptUrlsDict;
 
 @end // Private
 
@@ -36,9 +46,31 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
     return self;
     }
 
-- ( void ) fetchImageWithURL: ( NSURL* )_URL
-                     success: ( void (^)( NSImage* _Image ) )_SuccessHandler
-                     failure: ( void (^)( NSError* _Error ) )_FailureHandler
+NSString static* const kSFTrialsUserDataKey = @"GTM.Session.Fetcher.Trials.UserData.Key";
+NSString static* const kSFFetchIdUserDataKey = @"GTM.Session.Fetcher.FetchId.UserData.Key";
+
++ ( void ) getPreferredTrialUrl_: ( out NSURL* __autoreleasing* )_Urlptr
+         preferredTrialThumbKey_: ( out NSString* __autoreleasing* )_Keyptr
+           fromOptThumbsUrlDict_: ( NSDictionary <NSString*, NSURL*>* )_OptUrlsDict
+    {
+    NSURL* url = nil;
+    NSString* thumbKey = nil;
+
+    if ( ( url = _OptUrlsDict[ kPreferredThumbOptKey ] ) )
+        thumbKey = kPreferredThumbOptKey;
+    else if ( ( url = _OptUrlsDict[ kBackingThumbOptKey ] ) )
+        thumbKey = kBackingThumbOptKey;
+
+    if ( url && _Urlptr )
+        *_Urlptr = url;
+
+    if ( thumbKey && _Keyptr )
+        *_Keyptr = thumbKey;
+    }
+
+- ( void ) fetchPreferredThumbImageFromOptThumbUrlsDict: ( NSDictionary <NSString*, NSURL*>* )_OptThumbUrlsDict
+                                                success: ( void (^)( NSImage* _Image, BOOL _LoadsFromCache ) )_SuccessHandler
+                                                failure: ( void (^)( NSError* _Errpr ) )_FailureHandler
     {
     if ( !self.isFetchingInProgres_ )
         {
@@ -46,44 +78,69 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
         self.isDiscardable = NO;
 
         dispatch_barrier_async( self.fetchingQ_, ( dispatch_block_t )^{
+
             dispatch_semaphore_t sema = dispatch_semaphore_create( 0 );
 
-            self.fetchingTask_ = [ [ NSURLSession sharedSession ] dataTaskWithURL: _URL
-                                                                completionHandler:
-            ^( NSData* _Nullable _Data, NSURLResponse* _Nullable _Response, NSError* _Nullable _Error )
-                {
-                DDLogDebug( @"Callback was invoked." );
+            NSURL* trialUrl = nil;
+            NSString* trialThumbKey = nil;
+            NSMutableDictionary* trials = [ _OptThumbUrlsDict mutableCopy ];
+            [ self.class getPreferredTrialUrl_: &trialUrl preferredTrialThumbKey_: &trialThumbKey fromOptThumbsUrlDict_: trials ];
 
+            GTMSessionFetcher* fetcher = [ GTMSessionFetcher fetcherWithURL: trialUrl ];
+            NSString* fetchID = [ NSString stringWithFormat: @"(fetchId=%@)", TKNonce() ];
+
+            [ fetcher setUserData: @{ kSFTrialsUserDataKey : trials, kSFFetchIdUserDataKey : fetchID } ];
+
+            [ fetcher beginFetchWithCompletionHandler:
+            ^( NSData* _Nullable _Data, NSError* _Nullable _Error )
+                {
                 if ( _Data && !_Error )
                     {
-                    self.image_ = [ [ NSImage alloc ] initWithData: _Data ];
+                    DDLogDebug( @"Finished fetching with identifier %@", fetchID );
 
+                    self.image_ = [ [ NSImage alloc ] initWithData: _Data ];
                     if ( !self.image_ )
                         {
                         self.error_ = [ NSError
                             errorWithDomain: TauCentralDataServiceErrorDomain
                                        code: TauCentralDataServiceInvalidImageURL
                                    userInfo:
-                            @{ NSLocalizedDescriptionKey : [ NSString stringWithFormat: @"URL {%@} doesn't point to valid image data.", _Response.URL ]
+                            @{ NSLocalizedDescriptionKey : [ NSString stringWithFormat: @"URL {%@} doesn't point to valid image data.", @"" /* TODO: Expecting a valid URL */ ]
                              , NSLocalizedRecoverySuggestionErrorKey : @"Please specify a valid image URL."
                              } ];
                         }
+                    else
+                        self.imageData_ = _Data;
+
+                    self.isFetchingInProgres_ = NO;
+
+                    /* The dispatch_semaphore_signal function increments the count variable by 1
+                     * to indicate that a resource has been freed up. */
+                    dispatch_semaphore_signal( sema );
                     }
                 else
-                    self.error_ = _Error;
+                    {
+                    if ( [ _Error.domain isEqualToString: kGTMSessionFetcherStatusDomain ] && ( _Error.code == 404 ) )
+                        {
+                        NSMutableDictionary* currentTrails = fetcher.userData[ kSFTrialsUserDataKey ];
+                        DDLogNotice( @"404 not found. Couldn't fetch the thumb at {%@} error={%@} comment=%@.\n"
+                                      "(Attempting to fetch the backing thumbnail...)"
+                                   , currentTrails[ kPreferredThumbOptKey ]
+                                   , _Error
+                                   , fetcher.comment
+                                   );
 
-                self.isFetchingInProgres_ = NO;
-                self.fetchingTask_ = nil;
-
-                /* The dispatch_semaphore_signal function increments the count variable by 1
-                 * to indicate that a resource has been freed up. 
-                 
-                 
-                 */
-                dispatch_semaphore_signal( sema );
+                        [ currentTrails removeObjectForKey: trialThumbKey ];
+                        [ self fetchPreferredThumbImageFromOptThumbUrlsDict: currentTrails success: _SuccessHandler failure: _FailureHandler ];
+                        }
+                    else
+                        {
+                        self.error_ = _Error;
+                        self.isFetchingInProgres_ = NO;
+                        dispatch_semaphore_signal( sema );
+                        }
+                    }
                 } ];
-
-            [ self.fetchingTask_ resume ];
 
             /* Semaphore count will be -1 */
             dispatch_semaphore_wait( sema, DISPATCH_TIME_FOREVER );
@@ -106,7 +163,7 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
         if ( self.image_ && !self.error_ )
             {
             if ( _SuccessHandler )
-                _SuccessHandler( self.image_ );
+                _SuccessHandler( self.image_, NO );
             }
         else
             {
@@ -119,7 +176,10 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
     dispatch_once( &onceToken, ( dispatch_block_t )^{
         dispatch_group_notify( self.syncGroup_, dispatch_get_main_queue(), ^{
             self.isDiscardable = YES;
-            [ [ NSNotificationCenter defaultCenter ] postNotificationName: kFetchingUnitBecomeDiscardable object: self ];
+            NSMutableDictionary* userInfoDict = [ NSMutableDictionary dictionary ];
+            userInfoDict[ kImageData ] = self.imageData_;
+            NSNotification* notif = [ NSNotification notificationWithName: kFetchingUnitBecomeDiscardable object: self userInfo: ( userInfoDict.count > 0 ) ? userInfoDict : nil ];
+            [ [ NSNotificationCenter defaultCenter ] postNotification: notif ];
             } );
         } );
     }
@@ -153,16 +213,16 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
 // Private
 @interface TauMediaService ()
 
+@property ( strong, readonly ) NSMapTable <NSDictionary <NSString*, NSURL*>*, MediaServiceDisposableFetchingUnit_*>* disposableFetchingUnits_;
+
 // Images Caching
 
 @property ( strong, readonly ) NSCache* imageCache_;
 
-- ( NSURL* _Nonnull ) imageCacheUrl_: ( NSURL* )_ImageUrl;
 - ( NSImage* _Nullable ) loadCacheForImageNamedUrl_: ( NSURL* )_ImageUrl;
+- ( NSURL* _Nonnull ) imageCacheUrl_: ( NSURL* )_ImageUrl;
 - ( void ) getOptThumbUrlsDict_: ( out NSDictionary <NSString*, NSURL*>* __autoreleasing* _Nonnull )_OptUrlsDictptr fromGTLThumbnailDetails_: ( GTLYouTubeThumbnailDetails* )_ThumbnailDetails;
 - ( void ) getPreferredImageInCache_: ( out NSImage* __autoreleasing* _Nonnull )_Imageptr forOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_UrlDict;
-- ( void ) getPreferredTrialUrl_: ( out NSURL* __autoreleasing* )_Urlptr preferredTrialThumbKey_: ( out NSString* __autoreleasing* )_Keyptr fromOptThumbsUrlDict_: ( NSDictionary <NSString*, NSURL*>* )_OptUrlsDict;
-- ( void ) fetchPreferredThumbImageFromOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_UrlsDict success_: ( void (^)( NSImage* _Nullable _Image, BOOL _LoadsFromCache ) )_SuccessHandler failure_: ( void (^)( NSError* _Nullable _Errpr ) )_FailureHandler;
 
 @end // Private
 
@@ -188,9 +248,6 @@ TauMediaService static* sMediaService_;
 
 #pragma mark - Remote Image & Video Fetching
 
-NSString static* const kPreferredThumbOptKey = @"kPreferredThumbKey";
-NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
-
 - ( void ) fetchPreferredThumbnailFrom: ( GTLYouTubeThumbnailDetails* )_ThumbnailDetails
                                success: ( void (^)( NSImage* _Image, GTLYouTubeThumbnailDetails* _ThumbnailDetails, BOOL _LoadsFromCache ) )_SuccessHandler
                                failure: ( void (^)( NSError* _Error ) )_FailureHandler
@@ -207,17 +264,38 @@ NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
         return;
         }
 
-    [ self fetchPreferredThumbImageFromOptThumbUrlsDict_: optThumbUrlsDict
-                                                success_:
+    MediaServiceDisposableFetchingUnit_* fetchingUnit = nil;
+    if ( !( fetchingUnit = [ self.disposableFetchingUnits_ objectForKey: optThumbUrlsDict ] ) )
+        {
+        fetchingUnit = [ [ MediaServiceDisposableFetchingUnit_ alloc ] init ];
+        [ self.disposableFetchingUnits_ setObject: fetchingUnit forKey: optThumbUrlsDict ];
+        }
+
+    [ fetchingUnit fetchPreferredThumbImageFromOptThumbUrlsDict: optThumbUrlsDict
+                                                        success:
     ^( NSImage* _Nullable _ThumbImage, BOOL _LoadsFromCache )
         {
         if ( _SuccessHandler )
-            _SuccessHandler( _ThumbImage, _ThumbnailDetails, _LoadsFromCache );
-        } failure_: ^( NSError* _Errpr )
+            dispatch_sync( dispatch_get_main_queue(), ( dispatch_block_t )^{
+                _SuccessHandler( _ThumbImage, _ThumbnailDetails, _LoadsFromCache );
+            } );
+        } failure: ^( NSError* _Errpr )
             {
             if ( _FailureHandler )
-                _FailureHandler( _Errpr );
+                dispatch_sync( dispatch_get_main_queue(), ( dispatch_block_t )^{
+                    _FailureHandler( _Errpr );
+                } );
             } ];
+    }
+
+#pragma mark - Private
+
+@synthesize disposableFetchingUnits_ = priDisposableFetchingUnits_;
+- ( NSMapTable <NSDictionary <NSString*, NSURL*>*, MediaServiceDisposableFetchingUnit_*>* ) disposableFetchingUnits_
+    {
+    if ( !priDisposableFetchingUnits_ )
+        priDisposableFetchingUnits_ = [ NSMapTable mapTableWithKeyOptions: NSPointerFunctionsStrongMemory valueOptions: NSPointerFunctionsStrongMemory ];
+    return priDisposableFetchingUnits_;
     }
 
 // Images Caching
@@ -235,21 +313,6 @@ NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
     return priImageCache_;
     }
 
-- ( NSURL* _Nonnull ) imageCacheUrl_: ( NSURL* )_ImageUrl
-    {
-    NSData* cacheNameData = [ [ _ImageUrl.path stringByRemovingPercentEncoding ] dataUsingEncoding: NSUTF8StringEncoding ];
-    unsigned char buffer[ CC_SHA1_DIGEST_LENGTH ];
-    CC_SHA1( cacheNameData.bytes, ( unsigned int )( cacheNameData.length ), buffer );
-
-    NSData* hashedCacheName = [ NSData dataWithBytes: buffer length: CC_SHA1_DIGEST_LENGTH ];
-    NSError* err = nil;
-    NSURL* cacheURL = [ [ NSFileManager defaultManager ] URLForDirectory: NSCachesDirectory inDomain: NSUserDomainMask appropriateForURL: nil create: YES error: &err ];
-    cacheURL = [ cacheURL URLByAppendingPathComponent: hashedCacheName.description ];
-    if ( !cacheURL )
-        DDLogFatal( @"Failed to create the cache dir with error: {%@}.", err );
-
-    return cacheURL;
-    }
 
 - ( NSImage* _Nullable ) loadCacheForImageNamedUrl_: ( NSURL* )_ImageUrl
     {
@@ -308,12 +371,28 @@ NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
         DDLogUnexpected( @"Urls dict I/O argument didn't get polulated from {%@}.", _ThumbnailDetails );
     }
 
+- ( NSURL* _Nonnull ) imageCacheUrl_: ( NSURL* )_ImageUrl
+    {
+    NSData* cacheNameData = [ [ _ImageUrl.path stringByRemovingPercentEncoding ] dataUsingEncoding: NSUTF8StringEncoding ];
+    unsigned char buffer[ CC_SHA1_DIGEST_LENGTH ];
+    CC_SHA1( cacheNameData.bytes, ( unsigned int )( cacheNameData.length ), buffer );
+
+    NSData* hashedCacheName = [ NSData dataWithBytes: buffer length: CC_SHA1_DIGEST_LENGTH ];
+    NSError* err = nil;
+    NSURL* cacheURL = [ [ NSFileManager defaultManager ] URLForDirectory: NSCachesDirectory inDomain: NSUserDomainMask appropriateForURL: nil create: YES error: &err ];
+    cacheURL = [ cacheURL URLByAppendingPathComponent: hashedCacheName.description ];
+    if ( !cacheURL )
+        DDLogFatal( @"Failed to create the cache dir with error: {%@}.", err );
+
+    return cacheURL;
+    }
+
 - ( void ) getPreferredImageInCache_: ( out NSImage* __autoreleasing* _Nonnull )_Imageptr forOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_OptThumbUrlsDict
     {
     NSURL* trialUrl = nil;
     NSString* trialThumbKey = nil;
     NSMutableDictionary* trails = [ _OptThumbUrlsDict mutableCopy ];
-    [ self getPreferredTrialUrl_: &trialUrl preferredTrialThumbKey_: &trialThumbKey fromOptThumbsUrlDict_: trails ];
+    [ MediaServiceDisposableFetchingUnit_ getPreferredTrialUrl_: &trialUrl preferredTrialThumbKey_: &trialThumbKey fromOptThumbsUrlDict_: trails ];
 
     NSImage* image = [ self loadCacheForImageNamedUrl_: trialUrl ];
     if ( image )
@@ -329,79 +408,6 @@ NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
             [ self getPreferredImageInCache_: _Imageptr forOptThumbUrlsDict_: trails ];
             }
         }
-    }
-
-- ( void ) getPreferredTrialUrl_: ( out NSURL* __autoreleasing* )_Urlptr
-         preferredTrialThumbKey_: ( out NSString* __autoreleasing* )_Keyptr
-           fromOptThumbsUrlDict_: ( NSDictionary <NSString*, NSURL*>* )_OptUrlsDict
-    {
-    NSURL* url = nil;
-    NSString* thumbKey = nil;
-
-    if ( ( url = _OptUrlsDict[ kPreferredThumbOptKey ] ) )
-        thumbKey = kPreferredThumbOptKey;
-    else if ( ( url = _OptUrlsDict[ kBackingThumbOptKey ] ) )
-        thumbKey = kBackingThumbOptKey;
-
-    if ( url && _Urlptr )
-        *_Urlptr = url;
-
-    if ( thumbKey && _Keyptr )
-        *_Keyptr = thumbKey;
-    }
-
-NSString static* const kSFTrialsUserDataKey = @"GTM.Session.Fetcher.Trials.UserData.Key";
-NSString static* const kSFFetchIdUserDataKey = @"GTM.Session.Fetcher.FetchId.UserData.Key";
-
-- ( void ) fetchPreferredThumbImageFromOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_OptThumbUrlsDict
-                                                success_: ( void (^)( NSImage* _Nullable _Image, BOOL _LoadsFromCache ) )_SuccessHandler
-                                                failure_: ( void (^)( NSError* _Nullable _Errpr ) )_FailureHandler
-    {
-    NSURL* trialUrl = nil;
-    NSString* trialThumbKey = nil;
-    NSMutableDictionary* trials = [ _OptThumbUrlsDict mutableCopy ];
-    [ self getPreferredTrialUrl_: &trialUrl preferredTrialThumbKey_: &trialThumbKey fromOptThumbsUrlDict_: trials ];
-
-    GTMSessionFetcher* fetcher = [ GTMSessionFetcher fetcherWithURL: trialUrl ];
-    NSString* fetchID = [ NSString stringWithFormat: @"(fetchID=%@)", TKNonce() ];
-
-    [ fetcher setUserData: @{ kSFTrialsUserDataKey : trials
-                            , kSFFetchIdUserDataKey : fetchID
-                            } ];
-
-    [ fetcher beginFetchWithCompletionHandler:
-    ^( NSData* _Nullable _Data, NSError* _Nullable _Error )
-        {
-        if ( _Data && !_Error )
-            {
-            DDLogDebug( @"Finished fetching thumbnail %@", fetchID );
-
-            NSImage* image = [ [ NSImage alloc ] initWithData: _Data ];
-            [ _Data writeToURL: [ self imageCacheUrl_: trialUrl ] atomically: YES ];
-
-            if ( _SuccessHandler )
-                _SuccessHandler( image, NO );
-            }
-        else
-            {
-            if ( [ _Error.domain isEqualToString: kGTMSessionFetcherStatusDomain ] && ( _Error.code == 404 ) )
-                {
-                NSMutableDictionary* currentTrails = fetcher.userData[ kSFTrialsUserDataKey ];
-                DDLogRecoverable( @"404 NOT FOUND. Couldn't fetch the thumb at {%@} error={%@} comment=%@.\n"
-                                  "(Attempting to fetch the backing thumbnail...)"
-                                 , currentTrails[ kPreferredThumbOptKey ]
-                                 , _Error
-                                 , fetcher.comment
-                                 );
-
-                [ currentTrails removeObjectForKey: trialThumbKey ];
-                [ self fetchPreferredThumbImageFromOptThumbUrlsDict_: currentTrails success_: _SuccessHandler failure_: _FailureHandler ];
-                }
-            else
-                if ( _FailureHandler )
-                    _FailureHandler( _Error );
-            }
-        } ];
     }
 
 @end // TauMediaService class

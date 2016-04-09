@@ -11,8 +11,9 @@
 
 @property ( assign, readonly, atomic ) BOOL isDiscardable;
 
-- ( void ) fetchImageWithURL: ( NSURL* )_URL success: ( void (^)( NSImage* _Image ) )_SuccessHandler failure: ( void (^)( NSError* _Error ) )_FailureHandler;
-
+- ( void ) fetchPreferredThumbImageFromOptThumbUrlsDict: ( NSDictionary <NSString*, NSURL*>* )_UrlsDict
+                                                success: ( void (^)( NSImage* _Image, BOOL _LoadsFromCache ) )_SuccessHandler
+                                                failure: ( void (^)( NSError* _Errpr ) )_FailureHandler;
 @end
 
 // TauMediaService class

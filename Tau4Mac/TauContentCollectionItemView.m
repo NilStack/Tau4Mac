@@ -364,7 +364,7 @@ CGFloat  static  const sSublayerOffset = -10.f;
         }
 
     self.coverImage_ = nil;
-    [ [ TauAPIService sharedService ] fetchPreferredThumbnailFrom: thumbnailDetails
+    [ [ TauMediaService sharedService ] fetchPreferredThumbnailFrom: thumbnailDetails
                                                              success:
     ^( NSImage* _Image, GTLYouTubeThumbnailDetails* _ThumbnailDetails, BOOL _LoadsFromCache )
         {
