@@ -954,13 +954,13 @@
 			name = tas;
 			sourceTree = "<group>";
 		};
-		835C9FDB1CB76F5B003BF386 /* tis */ = {
+		835C9FDB1CB76F5B003BF386 /* tms */ = {
 			isa = PBXGroup;
 			children = (
 				835C9FDC1CB76F6A003BF386 /* TauMediaService.h */,
 				835C9FDD1CB76F6A003BF386 /* TauMediaService.m */,
 			);
-			name = tis;
+			name = tms;
 			sourceTree = "<group>";
 		};
 		835CA0201CB7AC4D003BF386 /* GuiKitsMainThreadGuard */ = {
@@ -989,7 +989,7 @@
 			isa = PBXGroup;
 			children = (
 				835C9FDA1CB76F50003BF386 /* tas */,
-				835C9FDB1CB76F5B003BF386 /* tis */,
+				835C9FDB1CB76F5B003BF386 /* tms */,
 			);
 			name = tds;
 			sourceTree = "<group>";

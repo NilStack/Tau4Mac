@@ -76,7 +76,8 @@ NSString static* const kSFFetchIdUserDataKey = @"GTM.Session.Fetcher.FetchId.Use
     [ self.class getPreferredTrialUrl_: &trialUrl preferredTrialThumbKey_: &trialThumbKey fromOptThumbsUrlDict_: trials ];
 
     GTMSessionFetcher* fetcher = [ GTMSessionFetcher fetcherWithURL: trialUrl ];
-    NSString* fetchID = [ NSString stringWithFormat: @"(fetchID=%@)", TKNonce() ];
+    NSLog( @"(initialTriaUrl=\U0001F349%@)", trialUrl ); // Emoji: Watermelon
+    NSString* fetchID = [ NSString stringWithFormat: @"(fetchID=%@ url=%@)", TKNonce(), trialUrl ];
 
     [ fetcher setUserData: @{ kSFTrialsUserDataKey : trials
                             , kSFFetchIdUserDataKey : fetchID
@@ -149,6 +150,8 @@ NSString static* const kSFFetchIdUserDataKey = @"GTM.Session.Fetcher.FetchId.Use
                                                         success_:
             ^( NSImage* _Nullable _Image, NSURL* _ChosenURL, BOOL _LoadsFromCache )
                 {
+                NSLog( @"(chosenURL=\U0001F916%@)", _ChosenURL ); // Robot Face
+
                 self.isFetchingInProgres_ = NO;
                 self.image_ = _Image;
                 self.url_ = _ChosenURL;
@@ -177,6 +180,8 @@ NSString static* const kSFFetchIdUserDataKey = @"GTM.Session.Fetcher.FetchId.Use
         }
 
     dispatch_group_async( self.syncGroup_, self.fetchingQ_, ( dispatch_block_t )^{
+
+        NSLog( @"(chosenURL=\U0001F47D%@)", self.url_ ); // Extraterrestrial Alien
 
         /* dispatch_semaphore_signal( sem ); was invoked by barrier block.
          * "If there are tasks blocked and waiting for a resource,
@@ -291,6 +296,8 @@ TauMediaService static* sMediaService_;
         fetchingUnit = [ [ MediaServiceDisposableFetchingUnit_ alloc ] init ];
         [ self.disposableFetchingUnits_ setObject: fetchingUnit forKey: optThumbUrlsDict ];
         }
+    else
+        NSLog( @"\U0001F34A %@", optThumbUrlsDict ); // Emoji: Tangerine
 
     [ fetchingUnit fetchPreferredThumbImageFromOptThumbUrlsDict: optThumbUrlsDict
                                                         success:
