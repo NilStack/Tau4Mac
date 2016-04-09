@@ -363,8 +363,8 @@ TauDeallocEnd
 
     self.isPaging = ( _PageToken != nil );
     [ [ TauAPIService sharedService ] executeConsumerOperations: query
-                                                    withCredential: self.credential_
-                                                           success:
+                                                 withCredential: self.credential_
+                                                        success:
     ^( NSString* _PrevPageToken, NSString* _NextPageToken )
         {
         DDLogDebug( @"%@", self.results );

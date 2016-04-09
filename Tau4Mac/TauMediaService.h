@@ -19,4 +19,6 @@
                                success: ( void (^)( NSImage* _Image, GTLYouTubeThumbnailDetails* _ThumbnailDetails, BOOL _LoadsFromCache ) )_SuccessHandler
                                failure: ( void (^)( NSError* _Error ) )_FailureHandler;
 
+- ( void ) archiveAllMemoryCache;
+
 @end // TauMediaService class

@@ -35,6 +35,7 @@
 		833E76491CAD1FB0008FA650 /* NSNumber+Tau.m in Sources */ = {isa = PBXBuildFile; fileRef = 833E76481CAD1FB0008FA650 /* NSNumber+Tau.m */; };
 		834458CB1C9D9CB6001A8603 /* TauToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 834458CA1C9D9CB6001A8603 /* TauToolbarItem.m */; };
 		8349D3DF1C899444000D091F /* NSImage+Tau.m in Sources */ = {isa = PBXBuildFile; fileRef = 8349D3DE1C899444000D091F /* NSImage+Tau.m */; };
+		834C4CA81CB913560095DCB7 /* TauPurgeableImageData.m in Sources */ = {isa = PBXBuildFile; fileRef = 834C4CA71CB913560095DCB7 /* TauPurgeableImageData.m */; };
 		834E78161C9ECFB900802301 /* TauContentCollectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 834E78141C9ECFB900802301 /* TauContentCollectionItem.m */; };
 		834E78171C9ECFB900802301 /* TauContentCollectionItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 834E78151C9ECFB900802301 /* TauContentCollectionItem.xib */; };
 		8351506B1CA68C5F009B3608 /* TauAppWideSummaryLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8351506A1CA68C5F009B3608 /* TauAppWideSummaryLabel.m */; };
@@ -586,6 +587,8 @@
 		834458CA1C9D9CB6001A8603 /* TauToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauToolbarItem.m; sourceTree = "<group>"; };
 		8349D3DD1C899444000D091F /* NSImage+Tau.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+Tau.h"; sourceTree = "<group>"; };
 		8349D3DE1C899444000D091F /* NSImage+Tau.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+Tau.m"; sourceTree = "<group>"; };
+		834C4CA61CB913560095DCB7 /* TauPurgeableImageData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauPurgeableImageData.h; sourceTree = "<group>"; };
+		834C4CA71CB913560095DCB7 /* TauPurgeableImageData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauPurgeableImageData.m; sourceTree = "<group>"; };
 		834E78131C9ECFB900802301 /* TauContentCollectionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauContentCollectionItem.h; sourceTree = "<group>"; };
 		834E78141C9ECFB900802301 /* TauContentCollectionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauContentCollectionItem.m; sourceTree = "<group>"; };
 		834E78151C9ECFB900802301 /* TauContentCollectionItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TauContentCollectionItem.xib; sourceTree = "<group>"; };
@@ -959,6 +962,8 @@
 			children = (
 				835C9FDC1CB76F6A003BF386 /* TauMediaService.h */,
 				835C9FDD1CB76F6A003BF386 /* TauMediaService.m */,
+				834C4CA61CB913560095DCB7 /* TauPurgeableImageData.h */,
+				834C4CA71CB913560095DCB7 /* TauPurgeableImageData.m */,
 			);
 			name = tms;
 			sourceTree = "<group>";
@@ -1883,6 +1888,7 @@
 				833E761A1CABE583008FA650 /* CALayer+Tau.m in Sources */,
 				8325555C1CA53ABC000C8A48 /* TauAbstractCollectionContentSubViewController.m in Sources */,
 				837B79981CA8D3250034904C /* TauExploreTabControl.m in Sources */,
+				834C4CA81CB913560095DCB7 /* TauPurgeableImageData.m in Sources */,
 				836D26FE1C9ACDDE00290BE7 /* TauExploreContentViewController.m in Sources */,
 				836D26F91C9ACDA300290BE7 /* TauSearchContentViewController.m in Sources */,
 				838342FC1C981C2400BE6378 /* TauYouTubePlaylistItemsCollection.m in Sources */,

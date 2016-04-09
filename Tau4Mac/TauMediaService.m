@@ -7,6 +7,7 @@
 //
 
 #import "TauMediaService.h"
+#import "TauPurgeableImageData.h"
 
 NSString static* const kPreferredThumbOptKey = @"kPreferredThumbKey";
 NSString static* const kBackingThumbOptKey = @"kBackingThumbKey";
@@ -371,8 +372,9 @@ TauMediaService static* sMediaService_;
             {
             if ( [ _Rep isKindOfClass: [ NSBitmapImageRep class ] ] )
                 {
-                NSData* data = [ ( NSBitmapImageRep* )_Rep representationUsingType: NSJPEG2000FileType properties: @{} ];
-                [ data writeToURL: [ self imageCacheUrl_: _ChosenURL ] atomically: YES ];
+                TauPurgeableImageData* cacheData = [ TauPurgeableImageData dataWithData: [ ( NSBitmapImageRep* )_Rep representationUsingType: NSJPEG2000FileType properties: @{} ] ];
+                cacheData.urlAtDisk = [ self imageCacheUrl_: _ChosenURL ];
+                [ self.imageCache_ setObject: cacheData forKey: _ChosenURL cost: cacheData.length ];
                 }
             }
 
@@ -388,6 +390,12 @@ TauMediaService static* sMediaService_;
                     _FailureHandler( _Errpr );
                 } );
             } ];
+    }
+
+- ( void ) archiveAllMemoryCache
+    {
+    if ( priImageCache_ )
+        [ self.imageCache_ removeAllObjects ];
     }
 
 #pragma mark - Private
@@ -429,22 +437,50 @@ TauMediaService static* sMediaService_;
     if ( !priImageCache_ )
         {
         priImageCache_ = [ [ NSCache alloc ] init ];
-        [ priImageCache_ setTotalCostLimit: 100 * pow( 1024, 2 ) ];
+        [ priImageCache_ setTotalCostLimit: 60 * pow( 1024, 2 ) ];
         [ priImageCache_ setDelegate: self ];
         }
 
     return priImageCache_;
     }
 
+#pragma mark - Conforms to <NSCacheDelegate>
+
+- ( void ) cache: ( NSCache* )_Cache willEvictObject: ( TauPurgeableImageData* )_Data
+    {
+    if ( _Cache == priImageCache_ )
+        {
+        DDLogDebug( @"Archiving to disk" );
+        [ _Data writeToURL: _Data.urlAtDisk atomically: YES ];
+        }
+    }
 
 - ( NSImage* _Nullable ) loadCacheForImageNamedUrl_: ( NSURL* )_ImageUrl
     {
     NSImage* awakenImage = nil;
 
-    NSURL* cacheURL = [ self imageCacheUrl_: _ImageUrl ];
-    BOOL isDir = NO;
-    if ( [ [ NSFileManager defaultManager ] fileExistsAtPath: cacheURL.path isDirectory: &isDir ] && !isDir )
-        awakenImage = [ [ NSImage alloc ] initWithContentsOfURL: cacheURL ];
+    NSPurgeableData* data = [ self.imageCache_ objectForKey: _ImageUrl ];
+    if ( [ data beginContentAccess ] )
+        {
+        awakenImage = [ [ NSImage alloc ] initWithData: data ];
+        [ data endContentAccess ];
+        }
+    else
+        {
+        NSURL* cacheURL = [ self imageCacheUrl_: _ImageUrl ];
+        BOOL isDir = NO;
+        if ( [ [ NSFileManager defaultManager ] fileExistsAtPath: cacheURL.path isDirectory: &isDir ] && !isDir )
+            {
+            TauPurgeableImageData* cacheData = [ TauPurgeableImageData dataWithContentsOfURL: cacheURL ];
+
+            dispatch_async( dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0 ), ^{
+                cacheData.urlAtDisk = cacheURL;
+                [ self.imageCache_ setObject: cacheData forKey: _ImageUrl cost: data.length ];
+                } );
+
+            awakenImage = [ [ NSImage alloc ] initWithData: cacheData ];
+            }
+        }
 
     return awakenImage;
     }

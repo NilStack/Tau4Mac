@@ -71,6 +71,8 @@ NSString* const kRequester = @"kRequester";
     [ [ TauToolbarController sharedController ] unbind: @"appearance" ];
     [ [ TauToolbarController sharedController ] unbind: @"accessoryViewController" ];
     [ [ TauToolbarController sharedController ] unbind: @"toolbarItemIdentifiers" ];
+
+    [ [ TauMediaService sharedService ] archiveAllMemoryCache ];
     }
 
 - ( void ) applicationDidFinishLaunching: ( NSNotification* )_Notif
