@@ -459,28 +459,29 @@ TauMediaService static* sMediaService_;
     {
     NSImage* awakenImage = nil;
 
-    NSPurgeableData* data = [ self.imageCache_ objectForKey: _ImageUrl ];
-    if ( [ data beginContentAccess ] )
-        {
-        awakenImage = [ [ NSImage alloc ] initWithData: data ];
-        [ data endContentAccess ];
-        }
-    else
+    TauPurgeableImageData* cachedData = nil;
+
+    cachedData = [ self.imageCache_ objectForKey: _ImageUrl ];
+
+    BOOL hasAvailableCache = NO;
+    if ( !( hasAvailableCache = [ cachedData beginContentAccess ] ) )
         {
         NSURL* cacheURL = [ self imageCacheUrl_: _ImageUrl ];
         BOOL isDir = NO;
         if ( [ [ NSFileManager defaultManager ] fileExistsAtPath: cacheURL.path isDirectory: &isDir ] && !isDir )
             {
-            TauPurgeableImageData* cacheData = [ TauPurgeableImageData dataWithContentsOfURL: cacheURL ];
-
-            dispatch_async( dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0 ), ^{
-                cacheData.urlAtDisk = cacheURL;
-                [ self.imageCache_ setObject: cacheData forKey: _ImageUrl cost: data.length ];
-                } );
-
-            awakenImage = [ [ NSImage alloc ] initWithData: cacheData ];
+            cachedData = [ TauPurgeableImageData dataWithContentsOfURL: cacheURL ];
+            [ self.imageCache_ setObject: cachedData forKey: _ImageUrl cost: cachedData.length ];
             }
         }
+
+    if ( hasAvailableCache ?: [ cachedData beginContentAccess ] )
+        {
+        awakenImage = [ [ NSImage alloc ] initWithData: cachedData ];
+        [ cachedData endContentAccess ];
+        }
+    else
+        DDLogUnexpected( @"[tms]failed accessing memory cache." );
 
     return awakenImage;
     }
