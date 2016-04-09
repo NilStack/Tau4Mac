@@ -61,7 +61,7 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
     {
     if ( self.isDiscardable )
         {
-        DDLogFatal( @"[TMS]the disposable fetching unit {%@} has been marked as discardable.", self );
+        DDLogFatal( @"[tms]the disposable fetching unit {%@} has been marked as discardable.", self );
         return;
         }
 
@@ -76,7 +76,7 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
                                                            success_:
             ^( NSImage* _Nullable _Image, NSURL* _ChosenURL, BOOL _LoadsFromCache )
                 {
-                NSLog( @"[TMS](chosenURL=\U0001F916%@)", _ChosenURL ); // Robot Face
+                NSLog( @"[tms](chosenURL=\U0001F916%@)", _ChosenURL ); // Robot Face
 
                 self.isFetchingInProgres_ = NO;
                 self.image_ = _Image;
@@ -107,7 +107,7 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
         }
 
     dispatch_group_async( self.syncGroup_, self.fetchingQ_, ( dispatch_block_t )^{
-        NSLog( @"[TMS](chosenURL=\U0001F47D%@) disposableFetchingUnit={%@}", self.url_, self ); // Extraterrestrial Alien
+        NSLog( @"[tms](chosenURL=\U0001F47D%@) disposableFetchingUnit={%@}", self.url_, self ); // Extraterrestrial Alien
 
         /* dispatch_semaphore_signal( sem ); was invoked by barrier block.
          * "If there are tasks blocked and waiting for a resource,
@@ -128,7 +128,7 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
     if ( !self.hasSetUpGroupNotify_ )
         {
         dispatch_group_notify( self.syncGroup_, dispatch_get_main_queue(), ^{
-            NSLog( @"[TMS]\U0001F525 disposableFetchingUnit={%@} became discardable", self ); // Emoji: Fire
+            NSLog( @"[tms]\U0001F525 disposableFetchingUnit={%@} became discardable", self ); // Emoji: Fire
             self.isDiscardable = YES;
 
             NSMutableDictionary* userInfoDict = [ NSMutableDictionary dictionary ];
@@ -150,7 +150,7 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
     if ( !priIsDiscardable_ && _Flag )
         @synchronized( self ) { priIsDiscardable_ = _Flag; }
     else if ( priIsDiscardable_ && !_Flag )
-        DDLogUnexpected( @"[TMS]discard operation against disposable fetching unit cannot be inversed" );
+        DDLogUnexpected( @"[tms]discard operation against disposable fetching unit cannot be inversed" );
     }
 
 - ( BOOL ) isDiscardable
@@ -191,7 +191,7 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
     if ( !priHasSetUpGroupNotify_ && _Flag )
         @synchronized( self ) { priHasSetUpGroupNotify_ = _Flag; }
     else if ( priHasSetUpGroupNotify_ && !_Flag )
-        DDLogUnexpected( @"[TMS]required dispatch_group_notify has been set up, it cannot be inversed" );
+        DDLogUnexpected( @"[tms]required dispatch_group_notify has been set up, it cannot be inversed" );
     }
 
 - ( BOOL ) hasSetUpGroupNotify_
@@ -239,13 +239,13 @@ NSString static* const kSFFetchIdUserDataKey = @"GTM.Session.Fetcher.FetchId.Use
                             , kSFFetchIdUserDataKey : fetchID
                             } ];
 
-    NSLog( @"[TMS](initialTriaUrl=\U0001F349%@)", trialUrl ); // Emoji: Watermelon
+    NSLog( @"[tms](initialTriaUrl=\U0001F349%@)", trialUrl ); // Emoji: Watermelon
     [ fetcher beginFetchWithCompletionHandler:
     ^( NSData* _Nullable _Data, NSError* _Nullable _Error )
         {
         if ( _Data && !_Error )
             {
-            DDLogDebug( @"[TMS]finished fetching thumbnail %@", fetchID );
+            DDLogDebug( @"[tms]finished fetching thumbnail %@", fetchID );
 
             NSImage* image = [ [ NSImage alloc ] initWithData: _Data ];
             if ( !image )
@@ -273,7 +273,7 @@ NSString static* const kSFFetchIdUserDataKey = @"GTM.Session.Fetcher.FetchId.Use
             if ( [ _Error.domain isEqualToString: kGTMSessionFetcherStatusDomain ] && ( _Error.code == 404 ) )
                 {
                 NSMutableDictionary* currentTrails = fetcher.userData[ kSFTrialsUserDataKey ];
-                DDLogNotice( @"[TMS]404 not found. Couldn't fetch the thumb at {%@} error={%@} comment=%@.\n"
+                DDLogNotice( @"[tms]404 not found. Couldn't fetch the thumb at {%@} error={%@} comment=%@.\n"
                               "(Attempting to fetch the backing thumbnail...)"
                            , currentTrails[ kPreferredThumbOptKey ]
                            , _Error
@@ -355,12 +355,12 @@ TauMediaService static* sMediaService_;
     MediaServiceDisposableFetchingUnit_* fetchingUnit = nil;
     if ( !( fetchingUnit = [ self.disposableFetchingUnits_ objectForKey: optThumbUrlsDict ] ) )
         {
-        NSLog( @"[TMS]\U0001F64A is about to create fetching unit for thumbUrlsDict @{%@}", optThumbUrlsDict ); // Emoji: Speak-No-Evil Monkey
+        NSLog( @"[tms]\U0001F64A is about to create fetching unit for thumbUrlsDict @{%@}", optThumbUrlsDict ); // Emoji: Speak-No-Evil Monkey
         fetchingUnit = [ [ MediaServiceDisposableFetchingUnit_ alloc ] init ];
         [ self.disposableFetchingUnits_ setObject: fetchingUnit forKey: optThumbUrlsDict ];
         }
     else
-        NSLog( @"[TMS]\U0001F34A %@", optThumbUrlsDict ); // Emoji: Tangerine
+        NSLog( @"[tms]\U0001F34A %@", optThumbUrlsDict ); // Emoji: Tangerine
 
     [ fetchingUnit fetchPreferredThumbImageFromOptThumbUrlsDict: optThumbUrlsDict
                                                         success:
@@ -414,7 +414,7 @@ TauMediaService static* sMediaService_;
 
             [ priDisposableFetchingUnits_ removeObjectForKey: key ];
 
-            NSLog( @"[TMS]\U0001F319 %lu", priDisposableFetchingUnits_.count ); // Emoji: Crescent Moon
+            NSLog( @"[tms]\U0001F319 %lu", priDisposableFetchingUnits_.count ); // Emoji: Crescent Moon
             } ];
         }
 
@@ -468,7 +468,7 @@ TauMediaService static* sMediaService_;
 
     if ( !preferredThumbnail )
         {
-        DDLogUnexpected( @"[TMS]Coundn't find out the preferred thumbnail from {%@}.", preferredThumbnail );
+        DDLogUnexpected( @"[tms]Coundn't find out the preferred thumbnail from {%@}.", preferredThumbnail );
         return;
         }
 
@@ -491,7 +491,7 @@ TauMediaService static* sMediaService_;
             *_OptUrlsDictptr = [ urlsDictResult copy ];
         }
     else
-        DDLogUnexpected( @"[TMS]urls dict I/O argument didn't get polulated from {%@}.", _ThumbnailDetails );
+        DDLogUnexpected( @"[tms]urls dict I/O argument didn't get polulated from {%@}.", _ThumbnailDetails );
     }
 
 - ( NSURL* _Nonnull ) imageCacheUrl_: ( NSURL* )_ImageUrl
@@ -505,7 +505,7 @@ TauMediaService static* sMediaService_;
     NSURL* cacheURL = [ [ NSFileManager defaultManager ] URLForDirectory: NSCachesDirectory inDomain: NSUserDomainMask appropriateForURL: nil create: YES error: &err ];
     cacheURL = [ cacheURL URLByAppendingPathComponent: hashedCacheName.description ];
     if ( !cacheURL )
-        DDLogFatal( @"[TMS]failed to create the cache dir with error: {%@}.", err );
+        DDLogFatal( @"[tms]failed to create the cache dir with error: {%@}.", err );
 
     return cacheURL;
     }
