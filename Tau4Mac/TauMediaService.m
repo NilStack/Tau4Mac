@@ -24,17 +24,18 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
 @interface MediaServiceDisposableFetchingUnit_ : NSObject
 
 @property ( assign, readonly, atomic ) BOOL isDiscardable;
+- ( void ) fetchPreferredThumbImageFromOptThumbUrlsDict: ( NSDictionary <NSString*, NSURL*>* )_OptThumbUrlsDict success: ( void (^)( NSImage* _Image, NSURL* _ChosenURL, BOOL _LoadsFromCache ) )_SuccessHandler failure: ( void (^)( NSError* _Errpr ) )_FailureHandler;
 
-- ( void ) fetchPreferredThumbImageFromOptThumbUrlsDict: ( NSDictionary <NSString*, NSURL*>* )_OptThumbUrlsDict
-                                                success: ( void (^)( NSImage* _Image, NSURL* _ChosenURL, BOOL _LoadsFromCache ) )_SuccessHandler
-                                                failure: ( void (^)( NSError* _Errpr ) )_FailureHandler;
 @end
 
 // Private
 @interface MediaServiceDisposableFetchingUnit_ ()
 
 // Writability Swizzling
+
 @property ( assign, readwrite, atomic, setter = setDiscardable: ) BOOL isDiscardable;
+
+// Internal
 
 @property ( strong, readonly ) dispatch_queue_t fetchingQ_;
 @property ( strong, readonly ) dispatch_group_t syncGroup_;
@@ -43,15 +44,13 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
 @property ( strong, readwrite, atomic ) NSError* error_;
 @property ( copy, readwrite, atomic ) NSURL* url_;
 
-@property ( assign, readwrite, atomic ) BOOL hasSetUpGroupNotify;
+@property ( assign, readwrite, atomic ) BOOL hasSetUpGroupNotify_;
 
 @property ( assign, readwrite, atomic, setter = setFetchingInProgress_: ) BOOL isFetchingInProgres_;
 
 + ( void ) getPreferredTrialUrl_: ( out NSURL* __autoreleasing* )_Urlptr preferredTrialThumbKey_: ( out NSString* __autoreleasing* )_Keyptr fromOptThumbsUrlDict_: ( NSDictionary <NSString*, NSURL*>* )_OptUrlsDict;
+- ( void ) priFetchPreferredThumbImageFromOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_OptThumbUrlsDict success_: ( void (^)( NSImage* _Image, NSURL* _ChosenURL, BOOL _LoadsFromCache ) )_SuccessHandler failure_: ( void (^)( NSError* _Nullable _Errpr ) )_FailureHandler;
 
-- ( void ) priFetchPreferredThumbImageFromOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_OptThumbUrlsDict
-                                                   success_: ( void (^)( NSImage* _Image, NSURL* _ChosenURL, BOOL _LoadsFromCache ) )_SuccessHandler
-                                                   failure_: ( void (^)( NSError* _Nullable _Errpr ) )_FailureHandler;
 @end // Private
 
 @implementation MediaServiceDisposableFetchingUnit_
@@ -85,6 +84,7 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
                     {
                     self.isFetchingInProgres_ = NO;
                     self.error_ = _Errpr;
+
                     dispatch_semaphore_signal( sema );
                     } ];
 
@@ -101,7 +101,6 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
         }
 
     dispatch_group_async( self.syncGroup_, self.fetchingQ_, ( dispatch_block_t )^{
-
         NSLog( @"[tms](chosenURL=\U0001F47D%@) disposableFetchingUnit={%@}", self.url_, self ); // Extraterrestrial Alien
 
         /* dispatch_semaphore_signal( sem ); was invoked by barrier block.
@@ -120,7 +119,7 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
             }
         } );
 
-    if ( !self.hasSetUpGroupNotify )
+    if ( !self.hasSetUpGroupNotify_ )
         {
         dispatch_group_notify( self.syncGroup_, dispatch_get_main_queue(), ^{
             NSLog( @"[tms]\U0001F525 disposableFetchingUnit={%@} became discardable", self ); // Emoji: Fire
@@ -129,18 +128,38 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
             [ [ NSNotificationCenter defaultCenter ] postNotification: notif ];
             } );
 
-        self.hasSetUpGroupNotify = YES;
+        self.hasSetUpGroupNotify_ = YES;
         }
     }
 
 #pragma mark - Private
+
+// Writability Swizzling
+
+@synthesize isDiscardable = priIsDiscardable_;
+- ( void ) setDiscardable: ( BOOL )_Flag
+    {
+    if ( !priIsDiscardable_ && _Flag )
+        @synchronized( self ) { priIsDiscardable_ = _Flag; }
+    else if ( priIsDiscardable_ && !_Flag )
+        DDLogUnexpected( @"[tms]discard operation against disposable fetching unit cannot be inversed" );
+    }
+
+- ( BOOL ) isDiscardable
+    {
+    BOOL flag = NO;
+    @synchronized( self ) { flag = priIsDiscardable_; }
+    return flag;
+    }
+
+// Internal
 
 @synthesize fetchingQ_ = priFetchingQ_;
 - ( dispatch_queue_t ) fetchingQ_
     {
     if ( !priFetchingQ_ )
         {
-        NSString* qLabel = [ NSString stringWithFormat: @"TauMediaService.DisposableFetchingUnit (url=%@)", TKNonce() ];
+        NSString* qLabel = [ NSString stringWithFormat: @"TauMediaService.DisposableFetchingUnit.AsyncFetchingQueue (identifier=%@)", TKNonce() ];
         priFetchingQ_ = dispatch_queue_create( qLabel.UTF8String, DISPATCH_QUEUE_CONCURRENT );
         }
 
@@ -156,6 +175,23 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
     }
 
 @synthesize image_, error_, url_;
+
+@synthesize hasSetUpGroupNotify_ = priHasSetUpGroupNotify_;
+- ( void ) setHasSetUpGroupNotify_: ( BOOL )_Flag
+    {
+    // hasSetUpGroupNotify_ has initial state
+    if ( !priHasSetUpGroupNotify_ && _Flag )
+        @synchronized( self ) { priHasSetUpGroupNotify_ = _Flag; }
+    else if ( priHasSetUpGroupNotify_ && !_Flag )
+        DDLogUnexpected( @"[tms]required dispatch_group_notify has been set up, it cannot be inversed" );
+    }
+
+- ( BOOL ) hasSetUpGroupNotify_
+    {
+    BOOL flag = NO;
+    @synchronized( self ){ flag = priHasSetUpGroupNotify_; }
+    return flag;
+    }
 
 NSString static* const kSFTrialsUserDataKey = @"GTM.Session.Fetcher.Trials.UserData.Key";
 NSString static* const kSFFetchIdUserDataKey = @"GTM.Session.Fetcher.FetchId.UserData.Key";
