@@ -6,16 +6,6 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-// MediaServiceDisposableFetchingUnit_ class
-@interface MediaServiceDisposableFetchingUnit_ : NSObject
-
-@property ( assign, readonly, atomic ) BOOL isDiscardable;
-
-- ( void ) fetchPreferredThumbImageFromOptThumbUrlsDict: ( NSDictionary <NSString*, NSURL*>* )_OptThumbUrlsDict
-                                                success: ( void (^)( NSImage* _Image, NSURL* _ChosenURL, BOOL _LoadsFromCache ) )_SuccessHandler
-                                                failure: ( void (^)( NSError* _Errpr ) )_FailureHandler;
-@end
-
 // TauMediaService class
 @interface TauMediaService : NSObject <NSCacheDelegate>
 
