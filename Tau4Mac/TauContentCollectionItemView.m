@@ -365,7 +365,7 @@ CGFloat  static  const sSublayerOffset = -10.f;
 
     self.coverImage_ = nil;
     [ [ TauMediaService sharedService ] fetchPreferredThumbnailFrom: thumbnailDetails
-                                                             success:
+                                                            success:
     ^( NSImage* _Image, GTLYouTubeThumbnailDetails* _ThumbnailDetails, BOOL _LoadsFromCache )
         {
         if ( _ThumbnailDetails == [ self.YouTubeContent valueForKeyPath: @"snippet.thumbnails" ] )
