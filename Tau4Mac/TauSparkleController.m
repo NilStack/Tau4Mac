@@ -121,7 +121,8 @@ SUUpdater static* sSparkleUpdater;
     #if debugSparkleWithLocalAppcastFeed
         NSString* srcLoc = [ NSString stringWithUTF8String: __FILE__ ];
         NSURL* srcURL = [ NSURL fileURLWithPath: srcLoc ];
-        return [ [ self locateDebugSampleDirFrom_: srcURL ] URLByAppendingPathComponent: @"appcast-feed-debug.rss" ].absoluteString;
+        NSURL* debugRSS = [ [ self locateDebugSampleDirFrom_: srcURL ] URLByAppendingPathComponent: @"appcast-feed-debug.rss" ];
+        return debugRSS.absoluteString;
     #endif
 
     return TAU_APPCAST_FEED_URL;
@@ -178,7 +179,13 @@ SUUpdater static* sSparkleUpdater;
             }
         }
 
-    return resultURL ?: [ self locateDebugSampleDirFrom_: workspaceURL ];
+    if ( resultURL )
+        {
+        reasonableRecursionTimes = 0;
+        return resultURL;
+        }
+    else
+        return [ self locateDebugSampleDirFrom_: workspaceURL ];
     }
 
 @end // TauSparkleController class
