@@ -11,8 +11,8 @@
 
 @property ( assign, readonly, atomic ) BOOL isDiscardable;
 
-- ( void ) fetchPreferredThumbImageFromOptThumbUrlsDict: ( NSDictionary <NSString*, NSURL*>* )_UrlsDict
-                                                success: ( void (^)( NSImage* _Image, BOOL _LoadsFromCache ) )_SuccessHandler
+- ( void ) fetchPreferredThumbImageFromOptThumbUrlsDict: ( NSDictionary <NSString*, NSURL*>* )_OptThumbUrlsDict
+                                                success: ( void (^)( NSImage* _Image, NSURL* _ChosenURL, BOOL _LoadsFromCache ) )_SuccessHandler
                                                 failure: ( void (^)( NSError* _Errpr ) )_FailureHandler;
 @end
 
