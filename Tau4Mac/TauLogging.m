@@ -11,13 +11,11 @@
 #import "NSColor+TauDrawing.h"
 
 __attribute__( ( constructor ) )
-static void sConfigureLogging()
+void TAU_PRIVATE sConfigureLogging()
     {
     dispatch_once_t static onceToken;
 
-    dispatch_once( &onceToken,
-    ( dispatch_block_t )^( void )
-        {
+    dispatch_once( &onceToken, ( dispatch_block_t )^{
         DDTTYLogger* sharedTTYLogger = [ DDTTYLogger sharedInstance ];
 
         NSColor* fatalColor =          [ NSColor colorWithHTMLColor: @"CC0066" ];

@@ -262,8 +262,8 @@ TauDeallocEnd
         }
     }
 
-NSString static* const sSuperlayerName = @"superlayer";
-CGFloat  static  const sSublayerOffset = -10.f;
+NSString TAU_PRIVATE* const sSuperlayerName = @"superlayer";
+CGFloat TAU_PRIVATE const sSublayerOffset = -10.f;
 
 @synthesize videoItemLayerConstraints_ = priVideoItemLayerConstraints_;
 - ( NSArray <CAConstraint*>* ) videoItemLayerConstraints_

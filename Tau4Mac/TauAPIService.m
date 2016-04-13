@@ -129,10 +129,10 @@ TauAPIService static* sYTDataService_;
 @dynamic signedInUsername;
 @dynamic isSignedIn;
 
+GTLServiceYouTube TAU_PRIVATE* service;
+
 - ( GTLServiceYouTube* ) ytService
     {
-    GTLServiceYouTube static* service;
-
     dispatch_once_t static onceToken;
     dispatch_once( &onceToken,
     ^( void )
