@@ -12,9 +12,11 @@
 @implementation TauArchiveService
 
 sqlite3 TAU_PRIVATE* sdb_;
-void TAU_PRIVATE err_log_cbk ( void* _pArgc, int _err, char const* zMsg )
+dispatch_queue_t sSerialArchiveQueryingQ_;
+
+void TAU_PRIVATE err_log_cbk ( void* _pArgc, int _err, char const* _zMsg )
     {
-    DDLogFatal( @"[tas](errcode=%d msg=%s)", _err, zMsg );
+    DDLogFatal( @"[tas](errcode=%d msg=%s)", _err, _zMsg );
     }
 
 + ( void ) initialize
@@ -55,12 +57,19 @@ void TAU_PRIVATE err_log_cbk ( void* _pArgc, int _err, char const* zMsg )
 
     if ( needsCreate )
         rc = sqlite3_open_v2( archiveDBLoc.absoluteString.UTF8String, &sdb_, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL );
+
+    if ( rc == SQLITE_OK )
+        rc = sqlite3_exec( sdb_, "create table ZIMG_ARCHIVE ( ZID integer primary key, Z_IMG_URL_TXT text not null, Z_IMG_BLOB blob not null, unique( Z_IMG_URL_TXT ) );", NULL, NULL, NULL );
+    else
+        ; // TODO: Expecting to raise an exception
+
+    sSerialArchiveQueryingQ_ = dispatch_queue_create( "home.bedroom.TongKuo.Tau4Mac.TauArchiveService", DISPATCH_QUEUE_SERIAL );
     }
 
 + ( void ) imageArchiveWithImageName: ( NSString* )_ImageName
                    completionHandler: ( void (^)( NSImage* _Image, NSError* _Error ) )_Handler
     {
-
+    
     }
 
 @end // TauArchiveService class
