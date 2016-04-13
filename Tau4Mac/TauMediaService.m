@@ -454,16 +454,15 @@ TauMediaService static* sMediaService_;
     {
     if ( _Cache == priImageCache_ )
         {
-        DDLogDebug( @"[tms]archiving to disk" );
+        NSError* err = nil;
 
-        [ TauArchiveService asyncArchiveImage: _Data
-                                         name: _Data.originalUrl.absoluteString
-                                dispatchQueue: NULL
-                            completionHandler:
-        ^( NSError* _Error )
-            {
-            
-            } ];
+        NSString* imageName = _Data.originalUrl.absoluteString;
+        [ TauArchiveService syncArchiveImage: _Data name: imageName error: &err ];
+
+        if ( err )
+            DDLogRecoverable( @"[tms]error occured while archiving image {%@} to disk", imageName );
+        else
+            DDLogDebug( @"[tms]archived image {%@} to disk", imageName );
         }
     }
 
