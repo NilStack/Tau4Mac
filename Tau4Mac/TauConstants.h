@@ -45,6 +45,16 @@ TAU_FATAL_UNDECLARED_SELECTOR_WARNING_BEGIN \
 TAU_FATAL_UNDECLARED_SELECTOR_WARNING_COMMIT \
 } while ( 0 )
 
+#define TauAssert( CONDITION, FRMT, ... ) \
+if ( !( CONDITION ) ) { \
+NSString* desc = [ NSString stringWithFormat: FRMT, ## __VA_ARGS__ ]; \
+NSLog( @"%@", desc ); \
+assert( CONDITION ); \
+}
+
+#define TauAssertCondition( CONDITION ) \
+TauAssert( CONDITION, @"condition not satisfied: %s", #CONDITION )
+
 #ifdef TAU_PRIVATE
 #   undef TAU_PRIVATE
 #endif

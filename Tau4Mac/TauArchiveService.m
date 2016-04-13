@@ -40,16 +40,6 @@ sqlite3_stmt TAU_PRIVATE* stmt_CREATE_img_archive_tb_;
 sqlite3_stmt TAU_PRIVATE* stmt_SELECT_from_img_archive_tb_;
 sqlite3_stmt TAU_PRIVATE* stmt_INSERT_into_img_archive_tb_;
 
-#define TauAssert( CONDITION, FRMT, ... ) \
-if ( !( CONDITION ) ) { \
-NSString* desc = [ NSString stringWithFormat: FRMT, ## __VA_ARGS__ ]; \
-NSLog( @"%@", desc ); \
-assert( CONDITION ); \
-}
-
-#define TauAssertCondition( CONDITION ) \
-TauAssert( CONDITION, @"condition not satisfied: %s", #CONDITION )
-
 #define TVSAssertSQLite3PrepareV2( DB, SQL, STMT_PTR ) \
 do { \
 int rc = SQLITE_OK; \
