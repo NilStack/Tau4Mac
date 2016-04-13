@@ -13,6 +13,7 @@
 		8304EB301CB4DF56004930A7 /* TauAppIntrospection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304EB2F1CB4DF56004930A7 /* TauAppIntrospection.m */; };
 		8304EB331CB4EA98004930A7 /* TauSparkleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304EB321CB4EA98004930A7 /* TauSparkleController.m */; };
 		830F55881C92CE20005E431B /* NSObject+TauDataServiceConsumer.m in Sources */ = {isa = PBXBuildFile; fileRef = 830F55871C92CE20005E431B /* NSObject+TauDataServiceConsumer.m */; };
+		831175381CBDE22500393A60 /* libsqlite4tau.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831175301CBDE21700393A60 /* libsqlite4tau.a */; };
 		8318A5481C89205700F3E9CD /* TauContentCollectionItemSubLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8318A5471C89205700F3E9CD /* TauContentCollectionItemSubLayer.m */; };
 		831BD6CC1C883FA300122AF6 /* TauContentCollectionItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6CB1C883FA300122AF6 /* TauContentCollectionItemView.m */; };
 		8321F6681C8AA0A500D11FE0 /* TauViewsStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6671C8AA0A500D11FE0 /* TauViewsStack.m */; };
@@ -140,6 +141,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8311752F1CBDE21700393A60 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 831174FD1CBDE21700393A60 /* sqlite4tau.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 83BCB4B21CBB8B75008F492E;
+			remoteInfo = sqlite4tau;
+		};
 		832555101CA4DF6F000C8A48 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */;
@@ -552,6 +560,7 @@
 		830F55861C92CE20005E431B /* NSObject+TauDataServiceConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+TauDataServiceConsumer.h"; sourceTree = "<group>"; };
 		830F55871C92CE20005E431B /* NSObject+TauDataServiceConsumer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+TauDataServiceConsumer.m"; sourceTree = "<group>"; };
 		830F558D1C92F588005E431B /* TauLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauLogging.h; sourceTree = "<group>"; };
+		831174FD1CBDE21700393A60 /* sqlite4tau.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = sqlite4tau.xcodeproj; path = ../Deps/sqlite4tau/sqlite4tau.xcodeproj; sourceTree = "<group>"; };
 		8318A5461C89205700F3E9CD /* TauContentCollectionItemSubLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauContentCollectionItemSubLayer.h; sourceTree = "<group>"; };
 		8318A5471C89205700F3E9CD /* TauContentCollectionItemSubLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauContentCollectionItemSubLayer.m; sourceTree = "<group>"; };
 		831BD6CA1C883FA300122AF6 /* TauContentCollectionItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauContentCollectionItemView.h; sourceTree = "<group>"; };
@@ -737,6 +746,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				831175381CBDE22500393A60 /* libsqlite4tau.a in Frameworks */,
 				8304EB241CB4AFA0004930A7 /* Sparkle.framework in Frameworks */,
 				8325553D1CA4DF7A000C8A48 /* KVOController.framework in Frameworks */,
 				83EB73C91C8E65A2004EB117 /* AVFoundation.framework in Frameworks */,
@@ -781,6 +791,14 @@
 				834E78121C9ECEF900802301 /* player */,
 			);
 			name = controllers;
+			sourceTree = "<group>";
+		};
+		831174FE1CBDE21700393A60 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				831175301CBDE21700393A60 /* libsqlite4tau.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		83224A901CA167B9008931C6 /* TAAdaptiveSpaceItem */ = {
@@ -1160,6 +1178,7 @@
 				83224A901CA167B9008931C6 /* TAAdaptiveSpaceItem */,
 				835FDC271CA62F3700A2A031 /* LRNotificationObserver */,
 				835CA0201CB7AC4D003BF386 /* GuiKitsMainThreadGuard */,
+				831174FD1CBDE21700393A60 /* sqlite4tau.xcodeproj */,
 				832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */,
 				83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */,
 				83765B351C881A5700D93554 /* Lumberjack.xcodeproj */,
@@ -1425,6 +1444,10 @@
 					ProjectRef = 832921E81CB2854B008EFBCB /* Sparkle.xcodeproj */;
 				},
 				{
+					ProductGroup = 831174FE1CBDE21700393A60 /* Products */;
+					ProjectRef = 831174FD1CBDE21700393A60 /* sqlite4tau.xcodeproj */;
+				},
+				{
 					ProductGroup = 83EB73AA1C8E6514004EB117 /* Products */;
 					ProjectRef = 83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */;
 				},
@@ -1439,6 +1462,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		831175301CBDE21700393A60 /* libsqlite4tau.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = libsqlite4tau.a;
+			remoteRef = 8311752F1CBDE21700393A60 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		832555111CA4DF6F000C8A48 /* libFBKVOController.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
