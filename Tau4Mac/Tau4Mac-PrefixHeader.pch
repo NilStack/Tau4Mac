@@ -51,6 +51,7 @@
 #import "NSNumber+Tau.h"
 #import "TauAppIntrospection.h"
 
+#import "sqlite3.h"
 #import <objc/runtime.h>
 
 #import "TauShouldExposeCollectionItemNotif.h"

@@ -64,6 +64,8 @@ NSString* const kRequester = @"kRequester";
     NSMenuItem* signOutItem = [ [ NSMenuItem alloc ] initWithTitle: @"Sign Out…" action: @selector( signOutAction: ) keyEquivalent: @"" ];
     NSMenu* appMenu = [ [ [ NSApp menu ] itemWithTag: TauAppMenuItem ] submenu ];
     [ appMenu insertItem: signOutItem atIndex: 1 ];
+
+    NSLog( @"SQLite Ver: %s", sqlite3_version );
     }
 
 - ( void ) applicationWillTerminate: ( NSNotification* )_Notif

@@ -13,8 +13,10 @@
 		8304EB301CB4DF56004930A7 /* TauAppIntrospection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304EB2F1CB4DF56004930A7 /* TauAppIntrospection.m */; };
 		8304EB331CB4EA98004930A7 /* TauSparkleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304EB321CB4EA98004930A7 /* TauSparkleController.m */; };
 		830F55881C92CE20005E431B /* NSObject+TauDataServiceConsumer.m in Sources */ = {isa = PBXBuildFile; fileRef = 830F55871C92CE20005E431B /* NSObject+TauDataServiceConsumer.m */; };
-		831175381CBDE22500393A60 /* libsqlite4tau.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831175301CBDE21700393A60 /* libsqlite4tau.a */; };
 		8311753B1CBDE32600393A60 /* TauCacheService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8311753A1CBDE32600393A60 /* TauCacheService.m */; };
+		8311753E1CBDE42700393A60 /* libsqlite4tau.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831175301CBDE21700393A60 /* libsqlite4tau.a */; };
+		831175411CBDE58700393A60 /* XCDYouTubeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EB73B81C8E6514004EB117 /* XCDYouTubeKit.framework */; };
+		831175431CBDE5C100393A60 /* XCDYouTubeKit.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 83EB73B81C8E6514004EB117 /* XCDYouTubeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8318A5481C89205700F3E9CD /* TauContentCollectionItemSubLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8318A5471C89205700F3E9CD /* TauContentCollectionItemSubLayer.m */; };
 		831BD6CC1C883FA300122AF6 /* TauContentCollectionItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 831BD6CB1C883FA300122AF6 /* TauContentCollectionItemView.m */; };
 		8321F6681C8AA0A500D11FE0 /* TauViewsStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 8321F6671C8AA0A500D11FE0 /* TauViewsStack.m */; };
@@ -129,8 +131,6 @@
 		83E072E01CA7B96700CD1FCF /* GTLObject+Tau.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E072DF1CA7B96700CD1FCF /* GTLObject+Tau.m */; };
 		83E073141CA7CB8D00CD1FCF /* TauChannelResultsCollectionContentSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E073131CA7CB8D00CD1FCF /* TauChannelResultsCollectionContentSubViewController.m */; };
 		83EB73491C8D33BC004EB117 /* TauAbstractBeautifulView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB73481C8D33BC004EB117 /* TauAbstractBeautifulView.m */; };
-		83EB73C11C8E6520004EB117 /* XCDYouTubeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EB73B81C8E6514004EB117 /* XCDYouTubeKit.framework */; };
-		83EB73C31C8E6531004EB117 /* XCDYouTubeKit.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 83EB73B81C8E6514004EB117 /* XCDYouTubeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83EB73C91C8E65A2004EB117 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EB73C71C8E65A2004EB117 /* AVFoundation.framework */; };
 		83EB73CA1C8E65A2004EB117 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EB73C81C8E65A2004EB117 /* AVKit.framework */; };
 		83EB74591C9058C4004EB117 /* NSBezierPath+TauDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB74581C9058C4004EB117 /* NSBezierPath+TauDrawing.m */; };
@@ -540,9 +540,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				831175431CBDE5C100393A60 /* XCDYouTubeKit.framework in Copy Third-Party Frameworks */,
 				8304EB251CB4AFA7004930A7 /* Sparkle.framework in Copy Third-Party Frameworks */,
 				8325553E1CA4E007000C8A48 /* KVOController.framework in Copy Third-Party Frameworks */,
-				83EB73C31C8E6531004EB117 /* XCDYouTubeKit.framework in Copy Third-Party Frameworks */,
 				83765B971C881EA900D93554 /* GTL.framework in Copy Third-Party Frameworks */,
 				83765B691C881A6800D93554 /* CocoaLumberjack.framework in Copy Third-Party Frameworks */,
 				83765B341C88191C00D93554 /* PureLayout.framework in Copy Third-Party Frameworks */,
@@ -749,18 +749,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				831175381CBDE22500393A60 /* libsqlite4tau.a in Frameworks */,
+				831175411CBDE58700393A60 /* XCDYouTubeKit.framework in Frameworks */,
 				8304EB241CB4AFA0004930A7 /* Sparkle.framework in Frameworks */,
 				8325553D1CA4DF7A000C8A48 /* KVOController.framework in Frameworks */,
 				83EB73C91C8E65A2004EB117 /* AVFoundation.framework in Frameworks */,
 				83EB73CA1C8E65A2004EB117 /* AVKit.framework in Frameworks */,
-				83EB73C11C8E6520004EB117 /* XCDYouTubeKit.framework in Frameworks */,
 				83DA1C421C886138007B084F /* WebKit.framework in Frameworks */,
 				83765B941C881E2300D93554 /* GTL.framework in Frameworks */,
 				83765B681C881A6200D93554 /* CocoaLumberjack.framework in Frameworks */,
 				83765B311C8818FC00D93554 /* PureLayout.framework in Frameworks */,
 				83765B111C88171400D93554 /* QuartzCore.framework in Frameworks */,
 				83765B0F1C88170F00D93554 /* Cocoa.framework in Frameworks */,
+				8311753E1CBDE42700393A60 /* libsqlite4tau.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
