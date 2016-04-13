@@ -862,6 +862,15 @@
 			name = sub;
 			sourceTree = "<group>";
 		};
+		83263B9B1CBE2D7100C14804 /* tvs */ = {
+			isa = PBXGroup;
+			children = (
+				831175391CBDE32600393A60 /* TauArchiveService.h */,
+				8311753A1CBDE32600393A60 /* TauArchiveService.m */,
+			);
+			name = tvs;
+			sourceTree = "<group>";
+		};
 		832921E91CB2854B008EFBCB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1016,8 +1025,7 @@
 			isa = PBXGroup;
 			children = (
 				831175441CBDE89800393A60 /* TauDataService.h */,
-				831175391CBDE32600393A60 /* TauArchiveService.h */,
-				8311753A1CBDE32600393A60 /* TauArchiveService.m */,
+				83263B9B1CBE2D7100C14804 /* tvs */,
 				835C9FDA1CB76F50003BF386 /* tas */,
 				835C9FDB1CB76F5B003BF386 /* tms */,
 			);

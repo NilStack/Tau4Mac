@@ -133,16 +133,16 @@ void TAU_PRIVATE err_log_cbk ( void* _pArgc, int _err, char const* _zMsg )
                 }
             }
 
+        TauPurgeableImageData* dat = nil;
         if ( blob && ( blob_len > 0 ) )
+            dat = [ [ TauPurgeableImageData alloc ] initWithBytes: blob length: blob_len ];
+
+        if ( _Handler )
             {
-            TauPurgeableImageData* dat = [ [ TauPurgeableImageData alloc ] initWithBytes: blob length: blob_len ];
-            if ( _Handler )
-                {
-                dispatch_queue_t q = _DispatchQueue ?: dispatch_get_main_queue();
-                dispatch_async( q, ( dispatch_block_t )^{
-                    _Handler( dat, nil );
-                    } );
-                }
+            dispatch_queue_t q = _DispatchQueue ?: dispatch_get_main_queue();
+            dispatch_async( q, ( dispatch_block_t )^{
+                _Handler( dat, nil );
+                } );
             }
 
         sqlite3_reset( sselect_stmt_ );
