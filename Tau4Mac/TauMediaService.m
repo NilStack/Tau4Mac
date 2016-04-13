@@ -373,6 +373,7 @@ TauMediaService static* sMediaService_;
             if ( [ _Rep isKindOfClass: [ NSBitmapImageRep class ] ] )
                 {
                 TauPurgeableImageData* cacheData = [ TauPurgeableImageData dataWithData: [ ( NSBitmapImageRep* )_Rep representationUsingType: NSJPEG2000FileType properties: @{} ] ];
+                cacheData.originalUrl = _ChosenURL;
                 cacheData.urlAtDisk = [ self imageCacheUrl_: _ChosenURL ];
                 [ self.imageCache_ setObject: cacheData forKey: _ChosenURL cost: cacheData.length ];
                 }
@@ -452,6 +453,7 @@ TauMediaService static* sMediaService_;
         {
         DDLogDebug( @"Archiving to disk" );
         [ _Data writeToURL: _Data.urlAtDisk atomically: YES ];
+        [ TauArchiveService archiveImage: _Data name: _Data.originalUrl.absoluteString dispatchQueue: NULL completionHandler: nil ];
         }
     }
 
@@ -467,6 +469,14 @@ TauMediaService static* sMediaService_;
     if ( !( hasAvailableCache = [ cachedData beginContentAccess ] ) )
         {
         NSURL* cacheURL = [ self imageCacheUrl_: _ImageUrl ];
+
+        [ TauArchiveService imageArchiveWithImageName: _ImageUrl.absoluteString
+                                        dispatchQueue: NULL completionHandler:
+        ^( TauPurgeableImageData *_ImageDat, NSError* _Error )
+            {
+            NSLog( @"✨%@", _ImageDat );
+            } ];
+
         BOOL isDir = NO;
         if ( [ [ NSFileManager defaultManager ] fileExistsAtPath: cacheURL.path isDirectory: &isDir ] && !isDir )
             {

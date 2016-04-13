@@ -18,7 +18,7 @@ sqlite3_stmt TAU_PRIVATE* ssinsert_stmt_;
 
 char TAU_PRIVATE const* s_sql_create_img_archive_table = "create table ZTAS_IMG_ARCHIVE ( ZTAS_ID integer primary key, ZTAS_IMG_NAME text not null, ZTAS_IMG_BLOB blob not null, unique( ZTAS_IMG_NAME ) );";
 char TAU_PRIVATE const* s_sql_insert_img_archive = "insert into ZTAS_IMG_ARCHIVE ( ZTAS_IMG_NAME, ZTAS_IMG_BLOB ) values( :zimgname, :zimgblob );";
-char TAU_PRIVATE const* s_sql_select_img_archive = "select from ZTAS_IMG_ARCHIVE where ZTAS_IMG_NAME=:zimgname;";
+char TAU_PRIVATE const* s_sql_select_img_archive = "select ZTAS_IMG_BLOB from ZTAS_IMG_ARCHIVE where ZTAS_IMG_NAME=:zimgname;";
 
 dispatch_queue_t TAU_PRIVATE sSerialArchiveQueryingQ_;
 
@@ -108,10 +108,10 @@ void TAU_PRIVATE err_log_cbk ( void* _pArgc, int _err, char const* _zMsg )
         int rc = SQLITE_OK;
 
         int idx_of_zimgname = sqlite3_bind_parameter_index( sselect_stmt_, ":zimgname" );
-        sqlite3_bind_text( sselect_stmt_, idx_of_zimgname, _ImageName.UTF8String, ( int )_ImageName.length, SQLITE_STATIC );
+        rc = sqlite3_bind_text( sselect_stmt_, idx_of_zimgname, _ImageName.UTF8String, ( int )_ImageName.length, SQLITE_STATIC );
 
         rc = sqlite3_step( sselect_stmt_ );
-        if ( rc != SQLITE_ROW || rc != SQLITE_DONE )
+        if ( rc != SQLITE_ROW && rc != SQLITE_DONE )
             {
             DDLogFatal( @"error occured" );
             sqlite3_reset( sselect_stmt_ );
