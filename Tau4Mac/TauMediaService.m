@@ -490,7 +490,7 @@ TauMediaService static* sMediaService_;
                                     completionHandler:
         ^( TauPurgeableImageData* _ImageDat, NSError* _Error )
             {
-            NSLog( @"\U00002728 imageLen=%lu <%p>", _ImageDat.length, _ImageDat ); // Emoji: Sparkles
+//            NSLog( @"\U00002728 imageLen=%lu <%p>", _ImageDat.length, _ImageDat ); // Emoji: Sparkles
 
             NSImage* image = nil;
             if ( _ImageDat )
