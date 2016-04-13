@@ -55,6 +55,7 @@ do { \
 int rc = SQLITE_OK; \
 rc = sqlite3_prepare_v2( DB, SQL.UTF8String, -1, &STMT_PTR, NULL ); \
 TauAssert( ( rc == SQLITE_OK ), @"[tvs]failed preparing the SQL statement {%@} with error code: %d", SQL, rc ); \
+DDLogExpecting( @"[tvs]prepared SQL statement {%@} for execution.", SQL ); \
 } while ( 0 )
 
 inline void TAU_PRIVATE prepared_sql_init_()
