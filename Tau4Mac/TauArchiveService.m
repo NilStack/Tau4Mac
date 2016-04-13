@@ -79,30 +79,35 @@ void TAU_PRIVATE err_log_cbk ( void* _pArgc, int _err, char const* _zMsg )
     sSerialArchiveQueryingQ_ = dispatch_queue_create( "home.bedroom.TongKuo.Tau4Mac.TauArchiveService", DISPATCH_QUEUE_SERIAL );
     }
 
-+ ( void ) archiveImage: ( TauPurgeableImageData* )_ImageDat
-                   name: ( NSString* )_ImageName
-          dispatchQueue: ( dispatch_queue_t )_DispatchQueue
-      completionHandler: ( void (^)( NSError* _Error ) )_Handler
++ ( void ) syncArchiveImage: ( TauPurgeableImageData* )_ImageDat
+                       name: ( NSString* )_ImageName
+                      error: ( NSError** )_Error
+    {
+    int rc = SQLITE_OK;
+
+    int idx_of_zimgname = sqlite3_bind_parameter_index( ssinsert_stmt_, ":zimgname" );
+    rc = sqlite3_bind_text( ssinsert_stmt_, idx_of_zimgname, _ImageName.UTF8String, ( int )_ImageName.length, SQLITE_STATIC );
+
+    int idx_of_zimgblob = sqlite3_bind_parameter_index( ssinsert_stmt_, ":zimgblob" );
+    rc = sqlite3_bind_blob64( ssinsert_stmt_, idx_of_zimgblob, _ImageDat.bytes, ( int )_ImageDat.length, SQLITE_STATIC );
+
+    rc = sqlite3_step( ssinsert_stmt_ );
+    sqlite3_reset( ssinsert_stmt_ );
+    }
+
++ ( void ) asyncArchiveImage: ( TauPurgeableImageData* )_ImageDat
+                        name: ( NSString* )_ImageName
+               dispatchQueue: ( dispatch_queue_t )_DispatchQueue
+           completionHandler: ( void (^)( NSError* _Error ) )_Handler
     {
     dispatch_async( sSerialArchiveQueryingQ_, ( dispatch_block_t )^{
-
-        int rc = SQLITE_OK;
-
-        int idx_of_zimgname = sqlite3_bind_parameter_index( ssinsert_stmt_, ":zimgname" );
-        rc = sqlite3_bind_text( ssinsert_stmt_, idx_of_zimgname, _ImageName.UTF8String, ( int )_ImageName.length, SQLITE_STATIC );
-
-        int idx_of_zimgblob = sqlite3_bind_parameter_index( ssinsert_stmt_, ":zimgblob" );
-        rc = sqlite3_bind_blob64( ssinsert_stmt_, idx_of_zimgblob, _ImageDat.bytes, ( int )_ImageDat.length, SQLITE_STATIC );
-
-//        rc = sqlite3_exec( sdb_, [ NSString stringWithFormat: @"delete from ZTAS_IMG_ARCHIVE where ZTAS_IMG_NAME='%@';", _ImageName ].UTF8String, NULL, NULL, NULL );
-
-        rc = sqlite3_step( ssinsert_stmt_ );
-        sqlite3_reset( ssinsert_stmt_ );
+        NSError* err = nil;
+        [ self syncArchiveImage: _ImageDat name: _ImageName error: &err ];
 
         dispatch_queue_t q = _DispatchQueue ?: dispatch_get_main_queue();
         dispatch_async( q, ( dispatch_block_t )^{
             // TODO: Expecting the error handling
-            _Handler( nil );
+            _Handler( err );
             } );
         } );
     }

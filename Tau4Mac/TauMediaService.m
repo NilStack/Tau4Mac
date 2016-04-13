@@ -456,10 +456,10 @@ TauMediaService static* sMediaService_;
         {
         DDLogDebug( @"[tms]archiving to disk" );
 
-        [ TauArchiveService archiveImage: _Data
-                                    name: _Data.originalUrl.absoluteString
-                           dispatchQueue: NULL
-                       completionHandler:
+        [ TauArchiveService asyncArchiveImage: _Data
+                                         name: _Data.originalUrl.absoluteString
+                                dispatchQueue: NULL
+                            completionHandler:
         ^( NSError* _Error )
             {
             

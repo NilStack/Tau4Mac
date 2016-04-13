@@ -11,10 +11,14 @@
 // TauArchiveService class
 @interface TauArchiveService : NSObject
 
-+ ( void ) archiveImage: ( TauPurgeableImageData* )_ImageDat
-                   name: ( NSString* )_ImageName
-          dispatchQueue: ( dispatch_queue_t )_DispatchQueue
-      completionHandler: ( void (^)( NSError* _Error ) )_Handler;
++ ( void ) syncArchiveImage: ( TauPurgeableImageData* )_ImageDat
+                       name: ( NSString* )_ImageName
+                      error: ( NSError** )_Error;
+
++ ( void ) asyncArchiveImage: ( TauPurgeableImageData* )_ImageDat
+                        name: ( NSString* )_ImageName
+               dispatchQueue: ( dispatch_queue_t )_DispatchQueue
+           completionHandler: ( void (^)( NSError* _Error ) )_Handler;
 
 + ( void ) imageArchiveWithImageName: ( NSString* )_ImageName
                        dispatchQueue: ( dispatch_queue_t )_DispatchQueue
