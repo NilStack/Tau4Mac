@@ -310,7 +310,7 @@ NSString static* const kSFFetchIdUserDataKey = @"GTM.Session.Fetcher.FetchId.Use
 
 - ( void ) loadCacheForImageNamedUrl_: ( NSURL* )_ImageUrl completionHandler_: ( void ( ^_Nullable )( NSImage* _Nullable _Image ) )_Handeler;
 - ( void ) getOptThumbUrlsDict_: ( out NSDictionary <NSString*, NSURL*>* __autoreleasing* _Nonnull )_OptUrlsDictptr fromGTLThumbnailDetails_: ( GTLYouTubeThumbnailDetails* )_ThumbnailDetails;
-- ( void ) getPreferredImageInCache_: ( out NSImage* __autoreleasing* _Nonnull )_Imageptr forOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_UrlDict;
+- ( void ) preferredImageInCacheForOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_OptThumbUrlsDict dispatchQueue_: ( dispatch_queue_t )_DispatchQueue completionHandler_: ( void ( ^_Nullable )( NSImage* _Image ) )_Handler;
 
 @end // Private
 
@@ -343,52 +343,60 @@ TauMediaService static* sMediaService_;
     NSDictionary <NSString*, NSURL*>* optThumbUrlsDict = nil;
     [ self getOptThumbUrlsDict_: &optThumbUrlsDict fromGTLThumbnailDetails_: _ThumbnailDetails ];
 
-    NSImage* cachedImage = nil;
-    [ self getPreferredImageInCache_: &cachedImage forOptThumbUrlsDict_: optThumbUrlsDict ];
-    if ( cachedImage )
-        {
-        if ( _SuccessHandler )
-            _SuccessHandler ( cachedImage, _ThumbnailDetails, YES );
-        return;
-        }
 
-    MediaServiceDisposableFetchingUnit_* fetchingUnit = nil;
-    if ( !( fetchingUnit = [ self.disposableFetchingUnits_ objectForKey: optThumbUrlsDict ] ) )
+    [ self preferredImageInCacheForOptThumbUrlsDict_: optThumbUrlsDict
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+                                      dispatchQueue_: dispatch_get_current_queue()
+#pragma clang diagnostic pop
+                                  completionHandler_:
+    ^( NSImage* _Image )
         {
-        NSLog( @"[tms]\U0001F64A is about to create fetching unit for thumbUrlsDict @{%@}", optThumbUrlsDict ); // Emoji: Speak-No-Evil Monkey
-        fetchingUnit = [ [ MediaServiceDisposableFetchingUnit_ alloc ] init ];
-        [ self.disposableFetchingUnits_ setObject: fetchingUnit forKey: optThumbUrlsDict ];
-        }
-    else
-        NSLog( @"[tms]\U0001F34A %@", optThumbUrlsDict ); // Emoji: Tangerine
-
-    [ fetchingUnit fetchPreferredThumbImageFromOptThumbUrlsDict: optThumbUrlsDict
-                                                        success:
-    ^( NSImage* _Nullable _ThumbImage, NSURL* _ChosenURL, BOOL _LoadsFromCache )
-        {
-        NSArray <NSImageRep*>* reps = [ _ThumbImage representations ];
-        for ( NSImageRep* _Rep in reps )
+        if ( _Image )
             {
-            if ( [ _Rep isKindOfClass: [ NSBitmapImageRep class ] ] )
-                {
-                TauPurgeableImageData* cacheData = [ TauPurgeableImageData dataWithData: [ ( NSBitmapImageRep* )_Rep representationUsingType: NSJPEG2000FileType properties: @{} ] ];
-                cacheData.originalUrl = _ChosenURL;
-                [ self.imageCache_ setObject: cacheData forKey: _ChosenURL cost: cacheData.length ];
-                }
+            if ( _SuccessHandler )
+                _SuccessHandler ( _Image, _ThumbnailDetails, YES );
+            return;
             }
 
-        if ( _SuccessHandler )
-            dispatch_sync( dispatch_get_main_queue(), ( dispatch_block_t )^{
-                _SuccessHandler( _ThumbImage, _ThumbnailDetails, _LoadsFromCache );
-            } );
-
-        } failure: ^( NSError* _Errpr )
+        MediaServiceDisposableFetchingUnit_* fetchingUnit = nil;
+        if ( !( fetchingUnit = [ self.disposableFetchingUnits_ objectForKey: optThumbUrlsDict ] ) )
             {
-            if ( _FailureHandler )
+            NSLog( @"[tms]\U0001F64A is about to create fetching unit for thumbUrlsDict @{%@}", optThumbUrlsDict ); // Emoji: Speak-No-Evil Monkey
+            fetchingUnit = [ [ MediaServiceDisposableFetchingUnit_ alloc ] init ];
+            [ self.disposableFetchingUnits_ setObject: fetchingUnit forKey: optThumbUrlsDict ];
+            }
+        else
+            NSLog( @"[tms]\U0001F34A %@", optThumbUrlsDict ); // Emoji: Tangerine
+
+        [ fetchingUnit fetchPreferredThumbImageFromOptThumbUrlsDict: optThumbUrlsDict
+                                                            success:
+        ^( NSImage* _Nullable _ThumbImage, NSURL* _ChosenURL, BOOL _LoadsFromCache )
+            {
+            NSArray <NSImageRep*>* reps = [ _ThumbImage representations ];
+            for ( NSImageRep* _Rep in reps )
+                {
+                if ( [ _Rep isKindOfClass: [ NSBitmapImageRep class ] ] )
+                    {
+                    TauPurgeableImageData* cacheData = [ TauPurgeableImageData dataWithData: [ ( NSBitmapImageRep* )_Rep representationUsingType: NSJPEG2000FileType properties: @{} ] ];
+                    cacheData.originalUrl = _ChosenURL;
+                    [ self.imageCache_ setObject: cacheData forKey: _ChosenURL cost: cacheData.length ];
+                    }
+                }
+
+            if ( _SuccessHandler )
                 dispatch_sync( dispatch_get_main_queue(), ( dispatch_block_t )^{
-                    _FailureHandler( _Errpr );
+                    _SuccessHandler( _ThumbImage, _ThumbnailDetails, _LoadsFromCache );
                 } );
-            } ];
+
+            } failure: ^( NSError* _Errpr )
+                {
+                if ( _FailureHandler )
+                    dispatch_sync( dispatch_get_main_queue(), ( dispatch_block_t )^{
+                        _FailureHandler( _Errpr );
+                    } );
+                } ];
+        } ];
     }
 
 - ( void ) archiveAllMemoryCache
@@ -450,7 +458,6 @@ TauMediaService static* sMediaService_;
     if ( _Cache == priImageCache_ )
         {
         DDLogDebug( @"Archiving to disk" );
-        [ _Data writeToURL: _Data.urlAtDisk atomically: YES ];
         [ TauArchiveService archiveImage: _Data name: _Data.originalUrl.absoluteString dispatchQueue: NULL completionHandler: nil ];
         }
     }
@@ -536,30 +543,40 @@ TauMediaService static* sMediaService_;
         DDLogUnexpected( @"[tms]urls dict I/O argument didn't get polulated from {%@}.", _ThumbnailDetails );
     }
 
-- ( void ) getPreferredImageInCache_: ( out NSImage* __autoreleasing* _Nonnull )_Imageptr forOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_OptThumbUrlsDict
+- ( void ) preferredImageInCacheForOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_OptThumbUrlsDict
+                                      dispatchQueue_: ( dispatch_queue_t )_DispatchQueue
+                                  completionHandler_: ( void ( ^_Nullable )( NSImage* _Image ) )_Handler
     {
-    NSURL* trialUrl = nil;
-    NSString* trialThumbKey = nil;
-    NSMutableDictionary* trails = [ _OptThumbUrlsDict mutableCopy ];
-    [ MediaServiceDisposableFetchingUnit_ getPreferredTrialUrl_: &trialUrl preferredTrialThumbKey_: &trialThumbKey fromOptThumbsUrlDict_: trails ];
+//    dispatch_async( dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0 ), ( dispatch_block_t )^{
 
-    [ self loadCacheForImageNamedUrl_: trialUrl completionHandler_:
-    ^( NSImage* _Nullable _Image )
-        {
-        if ( _Image )
+        NSURL* trialUrl = nil;
+        NSString* trialThumbKey = nil;
+        NSMutableDictionary* trails = [ _OptThumbUrlsDict mutableCopy ];
+        [ MediaServiceDisposableFetchingUnit_ getPreferredTrialUrl_: &trialUrl preferredTrialThumbKey_: &trialThumbKey fromOptThumbsUrlDict_: trails ];
+
+        [ self loadCacheForImageNamedUrl_: trialUrl completionHandler_:
+        ^( NSImage* _Nullable _Image )
             {
-            if ( _Imageptr )
-                *_Imageptr = _Image;
-            }
-        else
-            {
-            if ( trails.count > 0 )
+            if ( _Image )
                 {
-                [ trails removeObjectForKey: trialThumbKey ];
-                [ self getPreferredImageInCache_: _Imageptr forOptThumbUrlsDict_: trails ];
+                if ( _Handler )
+                    {
+                    dispatch_queue_t q = _DispatchQueue ?: dispatch_get_main_queue();
+                    dispatch_async( q, ( dispatch_block_t )^{
+                        _Handler( _Image );
+                        } );
+                    }
                 }
-            }
-        } ];
+            else
+                {
+                if ( trails.count > 0 )
+                    {
+                    [ trails removeObjectForKey: trialThumbKey ];
+                    [ self preferredImageInCacheForOptThumbUrlsDict_: _OptThumbUrlsDict dispatchQueue_: _DispatchQueue completionHandler_: _Handler ];
+                    }
+                }
+            } ];
+//        }
     }
 
 @end // TauMediaService class
