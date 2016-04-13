@@ -564,6 +564,7 @@
 		831174FD1CBDE21700393A60 /* sqlite4tau.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = sqlite4tau.xcodeproj; path = ../Deps/sqlite4tau/sqlite4tau.xcodeproj; sourceTree = "<group>"; };
 		831175391CBDE32600393A60 /* TauArchiveService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauArchiveService.h; sourceTree = "<group>"; };
 		8311753A1CBDE32600393A60 /* TauArchiveService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauArchiveService.m; sourceTree = "<group>"; };
+		831175441CBDE89800393A60 /* TauDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauDataService.h; sourceTree = "<group>"; };
 		8318A5461C89205700F3E9CD /* TauContentCollectionItemSubLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauContentCollectionItemSubLayer.h; sourceTree = "<group>"; };
 		8318A5471C89205700F3E9CD /* TauContentCollectionItemSubLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauContentCollectionItemSubLayer.m; sourceTree = "<group>"; };
 		831BD6CA1C883FA300122AF6 /* TauContentCollectionItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauContentCollectionItemView.h; sourceTree = "<group>"; };
@@ -1014,6 +1015,7 @@
 		836D26F51C9ACD2A00290BE7 /* tds */ = {
 			isa = PBXGroup;
 			children = (
+				831175441CBDE89800393A60 /* TauDataService.h */,
 				831175391CBDE32600393A60 /* TauArchiveService.h */,
 				8311753A1CBDE32600393A60 /* TauArchiveService.m */,
 				835C9FDA1CB76F50003BF386 /* tas */,

@@ -9,4 +9,6 @@
 // TauArchiveService class
 @interface TauArchiveService : NSObject
 
++ ( void ) imageArchiveWithImageName: ( NSString* )_ImageName completionHandler: ( void (^)( NSImage* _Image, NSError* _Error ) )_Handler;
+
 @end // TauArchiveService class

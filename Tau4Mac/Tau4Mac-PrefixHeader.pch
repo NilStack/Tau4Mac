@@ -38,8 +38,7 @@
 #import "LRNotificationObserver+NSNotificationCenter.h"
 
 #import "TauConstants.h"
-#import "TauAPIService.h"
-#import "TauMediaService.h"
+#import "TauDataService.h"
 #import "TauPlayerController.h"
 #import "TauSparkleController.h"
 

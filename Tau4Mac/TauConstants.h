@@ -45,6 +45,12 @@ TAU_FATAL_UNDECLARED_SELECTOR_WARNING_BEGIN \
 TAU_FATAL_UNDECLARED_SELECTOR_WARNING_COMMIT \
 } while ( 0 )
 
+#ifdef TAU_PRIVATE
+#   undef TAU_PRIVATE
+#endif
+
+#define TAU_PRIVATE static
+
 
 
 // ------------------------------------------------------------------------------------------------------------ //

@@ -65,7 +65,7 @@ NSString* const kRequester = @"kRequester";
     NSMenu* appMenu = [ [ [ NSApp menu ] itemWithTag: TauAppMenuItem ] submenu ];
     [ appMenu insertItem: signOutItem atIndex: 1 ];
 
-    NSLog( @"SQLite Ver: %s", sqlite3_version );
+    NSLog( @"%@", NSStringFromClass( TauArchiveService.class ) );
     }
 
 - ( void ) applicationWillTerminate: ( NSNotification* )_Notif
