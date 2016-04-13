@@ -10,6 +10,5 @@
 @interface TauPurgeableImageData : NSPurgeableData
 
 @property ( copy, readwrite, atomic ) NSURL* originalUrl;
-@property ( copy, readwrite, atomic ) NSURL* urlAtDisk;
 
 @end // TauPurgeableImageData class

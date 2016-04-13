@@ -308,8 +308,7 @@ NSString static* const kSFFetchIdUserDataKey = @"GTM.Session.Fetcher.FetchId.Use
 
 @property ( strong, readonly ) NSCache* imageCache_;
 
-- ( NSImage* _Nullable ) loadCacheForImageNamedUrl_: ( NSURL* )_ImageUrl;
-- ( NSURL* _Nonnull ) imageCacheUrl_: ( NSURL* )_ImageUrl;
+- ( void ) loadCacheForImageNamedUrl_: ( NSURL* )_ImageUrl completionHandler_: ( void ( ^_Nullable )( NSImage* _Nullable _Image ) )_Handeler;
 - ( void ) getOptThumbUrlsDict_: ( out NSDictionary <NSString*, NSURL*>* __autoreleasing* _Nonnull )_OptUrlsDictptr fromGTLThumbnailDetails_: ( GTLYouTubeThumbnailDetails* )_ThumbnailDetails;
 - ( void ) getPreferredImageInCache_: ( out NSImage* __autoreleasing* _Nonnull )_Imageptr forOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_UrlDict;
 
@@ -374,7 +373,6 @@ TauMediaService static* sMediaService_;
                 {
                 TauPurgeableImageData* cacheData = [ TauPurgeableImageData dataWithData: [ ( NSBitmapImageRep* )_Rep representationUsingType: NSJPEG2000FileType properties: @{} ] ];
                 cacheData.originalUrl = _ChosenURL;
-                cacheData.urlAtDisk = [ self imageCacheUrl_: _ChosenURL ];
                 [ self.imageCache_ setObject: cacheData forKey: _ChosenURL cost: cacheData.length ];
                 }
             }
@@ -457,43 +455,40 @@ TauMediaService static* sMediaService_;
         }
     }
 
-- ( NSImage* _Nullable ) loadCacheForImageNamedUrl_: ( NSURL* )_ImageUrl
+- ( void ) loadCacheForImageNamedUrl_: ( NSURL* )_ImageUrl
+                   completionHandler_: ( void ( ^_Nullable )( NSImage* _Nullable _Image ) )_Handler
     {
     NSImage* awakenImage = nil;
 
-    TauPurgeableImageData* cachedData = nil;
+    TauPurgeableImageData* cachedData = [ self.imageCache_ objectForKey: _ImageUrl ];
 
-    cachedData = [ self.imageCache_ objectForKey: _ImageUrl ];
-
-    BOOL hasAvailableCache = NO;
-    if ( !( hasAvailableCache = [ cachedData beginContentAccess ] ) )
-        {
-        NSURL* cacheURL = [ self imageCacheUrl_: _ImageUrl ];
-
-        [ TauArchiveService imageArchiveWithImageName: _ImageUrl.absoluteString
-                                        dispatchQueue: NULL completionHandler:
-        ^( TauPurgeableImageData *_ImageDat, NSError* _Error )
-            {
-            NSLog( @"✨%@", _ImageDat );
-            } ];
-
-        BOOL isDir = NO;
-        if ( [ [ NSFileManager defaultManager ] fileExistsAtPath: cacheURL.path isDirectory: &isDir ] && !isDir )
-            {
-            cachedData = [ TauPurgeableImageData dataWithContentsOfURL: cacheURL ];
-            [ self.imageCache_ setObject: cachedData forKey: _ImageUrl cost: cachedData.length ];
-            }
-        }
-
-    if ( hasAvailableCache ?: [ cachedData beginContentAccess ] )
+    if ( [ cachedData beginContentAccess ] )
         {
         awakenImage = [ [ NSImage alloc ] initWithData: cachedData ];
         [ cachedData endContentAccess ];
+
+        if ( _Handler )
+            _Handler( awakenImage );
         }
     else
-        DDLogUnexpected( @"[tms]failed accessing memory cache." );
+        {
+        [ TauArchiveService imageArchiveWithImageName: _ImageUrl.absoluteString
+                                        dispatchQueue: NULL
+                                    completionHandler:
+        ^( TauPurgeableImageData *_ImageDat, NSError* _Error )
+            {
+            NSLog( @"\U00002728 imageLen=%lu <%p>", _ImageDat.length, _ImageDat ); // Emoji: Sparkles
 
-    return awakenImage;
+            if ( _ImageDat )
+                {
+                [ self.imageCache_ setObject: _ImageDat forKey: _ImageUrl cost: cachedData.length ];
+
+                NSImage* image = [ [ NSImage alloc ] initWithData: cachedData ];
+                if ( _Handler )
+                    _Handler( image );
+                }
+            } ];
+        }
     }
 
 - ( void ) getOptThumbUrlsDict_: ( out NSDictionary <NSString*, NSURL*>* __autoreleasing* _Nonnull )_OptUrlsDictptr
@@ -541,22 +536,6 @@ TauMediaService static* sMediaService_;
         DDLogUnexpected( @"[tms]urls dict I/O argument didn't get polulated from {%@}.", _ThumbnailDetails );
     }
 
-- ( NSURL* _Nonnull ) imageCacheUrl_: ( NSURL* )_ImageUrl
-    {
-    NSData* cacheNameData = [ [ _ImageUrl.path stringByRemovingPercentEncoding ] dataUsingEncoding: NSUTF8StringEncoding ];
-    unsigned char buffer[ CC_SHA1_DIGEST_LENGTH ];
-    CC_SHA1( cacheNameData.bytes, ( unsigned int )( cacheNameData.length ), buffer );
-
-    NSData* hashedCacheName = [ NSData dataWithBytes: buffer length: CC_SHA1_DIGEST_LENGTH ];
-    NSError* err = nil;
-    NSURL* cacheURL = [ [ NSFileManager defaultManager ] URLForDirectory: NSCachesDirectory inDomain: NSUserDomainMask appropriateForURL: nil create: YES error: &err ];
-    cacheURL = [ cacheURL URLByAppendingPathComponent: hashedCacheName.description ];
-    if ( !cacheURL )
-        DDLogFatal( @"[tms]failed to create the cache dir with error: {%@}.", err );
-
-    return cacheURL;
-    }
-
 - ( void ) getPreferredImageInCache_: ( out NSImage* __autoreleasing* _Nonnull )_Imageptr forOptThumbUrlsDict_: ( NSDictionary <NSString*, NSURL*>* )_OptThumbUrlsDict
     {
     NSURL* trialUrl = nil;
@@ -564,20 +543,23 @@ TauMediaService static* sMediaService_;
     NSMutableDictionary* trails = [ _OptThumbUrlsDict mutableCopy ];
     [ MediaServiceDisposableFetchingUnit_ getPreferredTrialUrl_: &trialUrl preferredTrialThumbKey_: &trialThumbKey fromOptThumbsUrlDict_: trails ];
 
-    NSImage* image = [ self loadCacheForImageNamedUrl_: trialUrl ];
-    if ( image )
+    [ self loadCacheForImageNamedUrl_: trialUrl completionHandler_:
+    ^( NSImage* _Nullable _Image )
         {
-        if ( _Imageptr )
-            *_Imageptr = image;
-        }
-    else
-        {
-        if ( trails.count > 0 )
+        if ( _Image )
             {
-            [ trails removeObjectForKey: trialThumbKey ];
-            [ self getPreferredImageInCache_: _Imageptr forOptThumbUrlsDict_: trails ];
+            if ( _Imageptr )
+                *_Imageptr = _Image;
             }
-        }
+        else
+            {
+            if ( trails.count > 0 )
+                {
+                [ trails removeObjectForKey: trialThumbKey ];
+                [ self getPreferredImageInCache_: _Imageptr forOptThumbUrlsDict_: trails ];
+                }
+            }
+        } ];
     }
 
 @end // TauMediaService class

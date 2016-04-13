@@ -12,6 +12,5 @@
 @implementation TauPurgeableImageData
 
 @synthesize originalUrl = originalUrl_;
-@synthesize urlAtDisk = urlAtDisk_;
 
 @end // TauPurgeableImageData class
