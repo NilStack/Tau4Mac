@@ -22,30 +22,30 @@ sqlite3 TAU_PRIVATE* s_db_;
 
 dispatch_queue_t TAU_PRIVATE s_serial_archive_querying_queue_;
 
-// Logging callback
-void TAU_PRIVATE err_log_cbk ( void* _pArgc, int _err, char const* _zMsg )
-    {
-    DDLogFatal( @"[tvs](errcode=%d msg=%s)", _err, _zMsg );
-    }
+#if DEBUG
+void TAU_PRIVATE err_log_cbk ( void* _pArgc, int _err, char const* _zMsg ) { DDLogFatal( @"[tvs](errcode=%d msg=%s)", _err, _zMsg ); }
+#endif
 
 #define TVSTbNameImgArchive @"ZTVS_IMG_ARCHIVE"
 #define TVSColNameID        @"ZTVS_ID"
 #define TVSColNameImgName   @"ZTVS_IMG_NAME"
 #define TVSColNameImgBlob   @"ZTVS_IMG_BLOB"
 
-#define TVS_IMGNAME_BIND_PARAM ":zimgname"
-#define TVS_IMGBLOB_BIND_PARAM ":zimgblob"
+#define TVS_IMGNAME_BIND_PARAM @":zimgname"
+#define TVS_IMGBLOB_BIND_PARAM @":zimgblob"
 
 sqlite3_stmt TAU_PRIVATE* stmt_CREATE_img_archive_tb_;
 sqlite3_stmt TAU_PRIVATE* stmt_SELECT_from_img_archive_tb_;
 sqlite3_stmt TAU_PRIVATE* stmt_INSERT_into_img_archive_tb_;
 
-#define TVSAssertSQLite3PrepareV2( DB, SQL, STMT_PTR ) \
+#define TVSAssertSQLite3PrepareV2( DB, SQL, STMT ) \
 do { \
 int rc = SQLITE_OK; \
-rc = sqlite3_prepare_v2( DB, SQL.UTF8String, -1, &STMT_PTR, NULL ); \
-TauAssert( ( rc == SQLITE_OK ), @"[tvs]failed preparing the SQL statement {%@} with error code: %d", SQL, rc ); \
-DDLogExpecting( @"[tvs]prepared SQL statement {%@} for execution.", SQL ); \
+char copy[ strlen( SQL.UTF8String ) + 1 ]; \
+stpncpy( copy, SQL.UTF8String, SQL.length ); \
+rc = sqlite3_prepare_v2( DB, copy, ( int )strlen( copy ), &STMT, NULL ); \
+TauAssert( ( rc == SQLITE_OK ), @"[tvs]failed preparing the SQL statement {\n\t%s\n} with error code (%d) in SQLite domain.", copy, rc ); \
+DDLogExpecting( @"[tvs]prepared SQL statement {\n\t%s\n} for execution.", copy ); \
 } while ( 0 )
 
 inline void TAU_PRIVATE prepared_sql_init_()
@@ -73,13 +73,23 @@ inline void TAU_PRIVATE prepared_sql_init_()
               , /*(*/TVSColNameImgName, TVSColNameImgBlob /*)*/
               , /*VALUES(*/ TVS_IMGNAME_BIND_PARAM, TVS_IMGBLOB_BIND_PARAM /*)*/
                 /*);*/ ];
-
-        TVSAssertSQLite3PrepareV2( s_db_, sql, stmt_INSERT_into_img_archive_tb_ );
+#if 1 // DEBUG
+        do {
+        int rc = SQLITE_OK;
+        char copy[ strlen( sql.UTF8String ) + 1 ];
+        stpcpy( copy, sql.UTF8String );
+        rc = sqlite3_prepare_v2( s_db_, copy, ( int )strlen( copy ), &stmt_INSERT_into_img_archive_tb_, NULL );
+        TauAssert( ( rc == SQLITE_OK ), @"[tvs]failed preparing the SQL statement {\n\t%s\n} with error code (%d) in SQLite domain.", copy, rc );
+        DDLogExpecting( @"[tvs]prepared SQL statement {\n\t%s\n} for execution.", copy );
+        } while ( 0 );
+#endif
+//        TVSAssertSQLite3PrepareV2( s_db_, sql, stmt_INSERT_into_img_archive_tb_ );
 
         // Get the img_blob corresponding img_name
         sqlTemplate = @"select %@ from %@ where %@=%@;";
         sql = [ NSString stringWithFormat: sqlTemplate
-              , /*SELECT*/ TVSColNameImgBlob, /*FROM*/ TVSTbNameImgArchive, /*WHERE*/ TVSColNameImgName, /*=*/ TVS_IMGNAME_BIND_PARAM ];
+              , /*SELECT*/ TVSColNameImgBlob, /*FROM*/ TVSTbNameImgArchive, /*WHERE*/ TVSColNameImgName, /*=*/ TVS_IMGNAME_BIND_PARAM
+                /*;*/ ];
 
         TVSAssertSQLite3PrepareV2( s_db_, sql, stmt_SELECT_from_img_archive_tb_ );
         } );
@@ -110,7 +120,9 @@ inline sqlite3_stmt TAU_PRIVATE* prepared_sql_insert_into_img_archive_tb ()
     {
     DDLogInfo( @"SQLite Ver: %s", sqlite3_version );
 
+#if DEBUG
     sqlite3_config( SQLITE_CONFIG_LOG, err_log_cbk, NULL );
+#endif
     sqlite3_initialize();
 
     NSError* err = nil;
@@ -147,10 +159,8 @@ inline sqlite3_stmt TAU_PRIVATE* prepared_sql_insert_into_img_archive_tb ()
 
     if ( rc == SQLITE_OK )
         {
-        sqlite3_stmt* stmt = sqlite3_prepared_sql_create_img_archive_tb();
-        sqlite3_bind_text( stmt, <#int#>, <#const char *#>, <#int#>, <#void (*)(void *)#>)
-
-        rc = sqlite3_exec( s_db_, s_sql_create_img_archive_table, NULL, NULL, NULL );
+        sqlite3_stmt* stmt = prepared_sql_create_img_archive_tb();
+        sqlite3_step( stmt );
         }
     else
         ; // TODO: Expecting to raise an exception
@@ -164,14 +174,16 @@ inline sqlite3_stmt TAU_PRIVATE* prepared_sql_insert_into_img_archive_tb ()
     {
     int rc = SQLITE_OK;
 
-    int idx_of_zimgname = sqlite3_bind_parameter_index( stmt_INSERT_into_img_archive_tb_, TVS_IMGNAME_BIND_PARAM );
-    rc = sqlite3_bind_text( stmt_INSERT_into_img_archive_tb_, idx_of_zimgname, _ImageName.UTF8String, ( int )_ImageName.length, SQLITE_STATIC );
+    sqlite3_stmt* stmt = prepared_sql_insert_into_img_archive_tb();
 
-    int idx_of_zimgblob = sqlite3_bind_parameter_index( stmt_INSERT_into_img_archive_tb_, TVS_IMGBLOB_BIND_PARAM );
-    rc = sqlite3_bind_blob64( stmt_INSERT_into_img_archive_tb_, idx_of_zimgblob, _ImageDat.bytes, ( int )_ImageDat.length, SQLITE_STATIC );
+    int idx_of_zimgname = sqlite3_bind_parameter_index( stmt, TVS_IMGNAME_BIND_PARAM.UTF8String );
+    rc = sqlite3_bind_text( stmt, idx_of_zimgname, _ImageName.UTF8String, ( int )_ImageName.length, SQLITE_STATIC );
 
-    rc = sqlite3_step( stmt_INSERT_into_img_archive_tb_ );
-    sqlite3_reset( stmt_INSERT_into_img_archive_tb_ );
+    int idx_of_zimgblob = sqlite3_bind_parameter_index( stmt, TVS_IMGBLOB_BIND_PARAM.UTF8String );
+    rc = sqlite3_bind_blob64( stmt, idx_of_zimgblob, _ImageDat.bytes, ( int )_ImageDat.length, SQLITE_STATIC );
+
+    rc = sqlite3_step( stmt );
+    sqlite3_reset( stmt );
     }
 
 + ( void ) asyncArchiveImage: ( TauPurgeableImageData* )_ImageDat
@@ -199,29 +211,31 @@ inline sqlite3_stmt TAU_PRIVATE* prepared_sql_insert_into_img_archive_tb ()
 
         int rc = SQLITE_OK;
 
-        int idx_of_zimgname = sqlite3_bind_parameter_index( stmt_SELECT_from_img_archive_tb_, ":zimgname" );
-        rc = sqlite3_bind_text( stmt_SELECT_from_img_archive_tb_, idx_of_zimgname, _ImageName.UTF8String, ( int )_ImageName.length, SQLITE_STATIC );
+        sqlite3_stmt* stmt = prepared_sql_select_from_img_archive_tb();
 
-        rc = sqlite3_step( stmt_SELECT_from_img_archive_tb_ );
+        int idx_of_zimgname = sqlite3_bind_parameter_index( stmt, ":zimgname" );
+        rc = sqlite3_bind_text( stmt, idx_of_zimgname, _ImageName.UTF8String, ( int )_ImageName.length, SQLITE_STATIC );
+
+        rc = sqlite3_step( stmt );
         if ( rc != SQLITE_ROW && rc != SQLITE_DONE )
             {
             DDLogFatal( @"[tvs]error occured" );
-            sqlite3_reset( stmt_SELECT_from_img_archive_tb_ );
+            sqlite3_reset( stmt );
             return;
             }
 
-        int cols = sqlite3_column_count( stmt_SELECT_from_img_archive_tb_ );
+        int cols = sqlite3_column_count( stmt );
         char const* expec = "ZTAS_IMG_BLOB";
         void const* blob = NULL;
         int blob_len = 0;
 
         for ( int _Index = 0; _Index < cols; _Index++ )
             {
-            char const* colName = sqlite3_column_name( stmt_SELECT_from_img_archive_tb_, _Index );
+            char const* colName = sqlite3_column_name( stmt, _Index );
             if ( strncmp( colName, expec, strlen( expec ) ) == 0 )
                 {
-                blob = sqlite3_column_blob( stmt_SELECT_from_img_archive_tb_, _Index );
-                blob_len = sqlite3_column_bytes( stmt_SELECT_from_img_archive_tb_, _Index );
+                blob = sqlite3_column_blob( stmt, _Index );
+                blob_len = sqlite3_column_bytes( stmt, _Index );
                 }
             }
 
@@ -237,7 +251,7 @@ inline sqlite3_stmt TAU_PRIVATE* prepared_sql_insert_into_img_archive_tb ()
                 } );
             }
 
-        sqlite3_reset( stmt_SELECT_from_img_archive_tb_ );
+        sqlite3_reset( stmt );
         } );
     }
 
