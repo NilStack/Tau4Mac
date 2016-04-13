@@ -128,7 +128,7 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
 
     if ( !self.hasSetUpGroupNotify_ )
         {
-        dispatch_group_notify( self.syncGroup_, dispatch_get_main_queue(), ^{
+        dispatch_group_notify( self.syncGroup_, dispatch_get_main_queue(), ( dispatch_block_t )^{
             NSLog( @"[tms]\U0001F525 disposableFetchingUnit={%@} became discardable", self ); // Emoji: Fire
             self.isDiscardable = YES;
 
@@ -241,9 +241,7 @@ NSString static* const kSFFetchIdUserDataKey = @"GTM.Session.Fetcher.FetchId.Use
                             } ];
 
     NSLog( @"[tms](initialTriaUrl=\U0001F349%@)", trialUrl ); // Emoji: Watermelon
-    [ fetcher beginFetchWithCompletionHandler:
-    ^( NSData* _Nullable _Data, NSError* _Nullable _Error )
-        {
+    [ fetcher beginFetchWithCompletionHandler: ^( NSData* _Nullable _Data, NSError* _Nullable _Error ) {
         if ( _Data && !_Error )
             {
             DDLogDebug( @"[tms]finished fetching thumbnail %@", fetchID );
@@ -456,10 +454,20 @@ TauMediaService static* sMediaService_;
     {
     if ( _Cache == priImageCache_ )
         {
-        DDLogDebug( @"Archiving to disk" );
-        [ TauArchiveService archiveImage: _Data name: _Data.originalUrl.absoluteString dispatchQueue: NULL completionHandler: nil ];
+        DDLogDebug( @"[tms]archiving to disk" );
+
+        [ TauArchiveService archiveImage: _Data
+                                    name: _Data.originalUrl.absoluteString
+                           dispatchQueue: NULL
+                       completionHandler:
+        ^( NSError* _Error )
+            {
+            
+            } ];
         }
     }
+
+#pragma mark -
 
 - ( void ) loadCacheForImageNamedUrl_: ( NSURL* )_ImageUrl
                    completionHandler_: ( void ( ^_Nullable )( NSImage* _Nullable _Image ) )_Handler

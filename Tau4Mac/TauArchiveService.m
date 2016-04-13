@@ -24,7 +24,7 @@ dispatch_queue_t TAU_PRIVATE sSerialArchiveQueryingQ_;
 
 void TAU_PRIVATE err_log_cbk ( void* _pArgc, int _err, char const* _zMsg )
     {
-    DDLogFatal( @"[tas](errcode=%d msg=%s)", _err, _zMsg );
+    DDLogFatal( @"[tvs](errcode=%d msg=%s)", _err, _zMsg );
     }
 
 + ( void ) initialize
@@ -94,8 +94,16 @@ void TAU_PRIVATE err_log_cbk ( void* _pArgc, int _err, char const* _zMsg )
         int idx_of_zimgblob = sqlite3_bind_parameter_index( ssinsert_stmt_, ":zimgblob" );
         rc = sqlite3_bind_blob64( ssinsert_stmt_, idx_of_zimgblob, _ImageDat.bytes, ( int )_ImageDat.length, SQLITE_STATIC );
 
+//        rc = sqlite3_exec( sdb_, [ NSString stringWithFormat: @"delete from ZTAS_IMG_ARCHIVE where ZTAS_IMG_NAME='%@';", _ImageName ].UTF8String, NULL, NULL, NULL );
+
         rc = sqlite3_step( ssinsert_stmt_ );
         sqlite3_reset( ssinsert_stmt_ );
+
+        dispatch_queue_t q = _DispatchQueue ?: dispatch_get_main_queue();
+        dispatch_async( q, ( dispatch_block_t )^{
+            // TODO: Expecting the error handling
+            _Handler( nil );
+            } );
         } );
     }
 
@@ -113,7 +121,7 @@ void TAU_PRIVATE err_log_cbk ( void* _pArgc, int _err, char const* _zMsg )
         rc = sqlite3_step( sselect_stmt_ );
         if ( rc != SQLITE_ROW && rc != SQLITE_DONE )
             {
-            DDLogFatal( @"error occured" );
+            DDLogFatal( @"[tvs]error occured" );
             sqlite3_reset( sselect_stmt_ );
             return;
             }
