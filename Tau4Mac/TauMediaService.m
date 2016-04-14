@@ -497,6 +497,9 @@ TauMediaService static* sMediaService_;
                 image = [ [ NSImage alloc ] initWithData: _ImageDat ];
                 }
 
+            if ( _Error )
+                DDLogFatal( @"%@", _Error );
+
             if ( _Handler )
                 _Handler( image );
             } ];

@@ -9,6 +9,9 @@
 #ifndef TauLogging_h
 #define TauLogging_h
 
+#define TAU_LOG_PATH_OF_FILE( FILENAME ) [ NSString stringWithFormat: @"/Users/$(USER_ROOT)/../$(PROJECT_ROOT)/../%@", FILENAME ]
+#define TAU_THIS_FILE TAU_LOG_PATH_OF_FILE( THIS_FILE )
+
 // We want to use the following log levels:
 // 
 // Fatal

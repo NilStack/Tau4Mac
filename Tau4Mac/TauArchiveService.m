@@ -29,17 +29,6 @@ sqlite3_stmt TAU_PRIVATE* stmt_CREATE_img_archive_tb_;
 sqlite3_stmt TAU_PRIVATE* stmt_SELECT_from_img_archive_tb_;
 sqlite3_stmt TAU_PRIVATE* stmt_INSERT_into_img_archive_tb_;
 
-#define TVSAssertSQLiteV3PrepareV2( DB, SQL, STMT ) \
-do { \
-int __rc__ = SQLITE_OK; \
-size_t sqllen = strlen( SQL.UTF8String ) + 1; \
-char copy[ sqllen ]; \
-stpncpy( copy, SQL.UTF8String, sqllen ); \
-__rc__ = sqlite3_prepare_v2( DB, copy, -1, &STMT, NULL ); \
-TauStrictAssert( ( __rc__ == SQLITE_OK ), @"[tvs]failed preparing the SQL statement {\n\t%s\n} with error code (%d) in SQLite domain.", copy, __rc__ ); \
-DDLogExpecting( @"[tvs]prepared SQL statement {\n\t%s\n} for execution.", copy ); \
-} while ( 0 )
-
 #define TVSSQLiteErrorHandlingPoint TVS_SQLITE_ERROR_HANDLING_POINT
 
 #define TVSExecuteSQLiteV3Func( FUNC, ERRORpr, FLAGpr ) \
@@ -52,7 +41,7 @@ if ( ( __rc__ != SQLITE_OK ) && ( __rc__ != SQLITE_DONE ) && ( __rc__ != SQLITE_
 if ( __flagpr__ ) *__flagpr__ = NO; \
 /* constructing underlying SQLite error... */ \
 NSError* underlyingErr = [ NSError errorWithDomain: TauSQLiteV3ErrorDomain code: __rc__ \
-userInfo: @{ NSLocalizedDescriptionKey : [ NSString stringWithUTF8String: sqlite3_errstr( __rc__ ) ] } ]; \
+userInfo: @{ NSLocalizedDescriptionKey : [ NSString stringWithFormat: @"%s. ~ L:%d (%@.m)", sqlite3_errstr( __rc__ ), __LINE__, TAU_THIS_FILE ] } ]; \
 /* constructing the TVS level error... */ \
 NSError* __err__ = [ NSError errorWithDomain: TauCentralDataServiceErrorDomain code: TauCentralDataServiceSQLiteError \
 userInfo: @{ \
@@ -83,7 +72,7 @@ inline void TAU_PRIVATE prepared_sql_init_ ()
     dispatch_once_t static onceToken;
     dispatch_once( &onceToken, ( dispatch_block_t )^{
 
-        int rc = SQLITE_OK;
+        NSError* error = nil;
 
         // Create img_archive_tb table
         NSString* sqlTemplate = nil;
@@ -96,8 +85,8 @@ inline void TAU_PRIVATE prepared_sql_init_ ()
               , /*UNIQUE(*/ TVSColNameImgName /*)*/
                 /*);*/ ];
 
-        TVSAssertSQLiteV3PrepareV2( db_, sql, stmt_CREATE_img_archive_tb_ );
-        rc = sqlite3_step( stmt_CREATE_img_archive_tb_ );
+        TVSStrictExecuteSQLiteV3Func( sqlite3_prepare_v2( db_, sql.UTF8String, -1, &stmt_CREATE_img_archive_tb_, NULL ), &error );
+        TVSStrictExecuteSQLiteV3Func( sqlite3_step( stmt_CREATE_img_archive_tb_ ), &error );
 
         // Insert values ( img_name, img_blob ) into img_archive_tb, only if the unique key (img_name) does not exist
         sqlTemplate = @"insert OR IGNORE into %s ( %s, %s ) values( %s, %s );";
@@ -107,7 +96,7 @@ inline void TAU_PRIVATE prepared_sql_init_ ()
               , /*VALUES(*/ TVS_IMGNAME_BIND_PARAM, TVS_IMGBLOB_BIND_PARAM /*)*/
                 /*);*/ ];
 
-        TVSAssertSQLiteV3PrepareV2( db_, sql, stmt_INSERT_into_img_archive_tb_ );
+        TVSStrictExecuteSQLiteV3Func( sqlite3_prepare_v2( db_, sql.UTF8String, -1, &stmt_INSERT_into_img_archive_tb_, NULL ), &error );
 
         // Get the img_blob corresponding img_name
         sqlTemplate = @"select %s from %s WHERE %s=%s;";
@@ -115,7 +104,22 @@ inline void TAU_PRIVATE prepared_sql_init_ ()
               , /*SELECT*/ TVSColNameImgBlob, /*FROM*/ TVSTbNameImgArchive, /*WHERE*/ TVSColNameImgName, /*=*/ TVS_IMGNAME_BIND_PARAM
                 /*;*/ ];
 
-        TVSAssertSQLiteV3PrepareV2( db_, sql, stmt_SELECT_from_img_archive_tb_ );
+        TVSStrictExecuteSQLiteV3Func( sqlite3_prepare_v2( db_, sql.UTF8String, -1, &stmt_SELECT_from_img_archive_tb_, NULL ), &error );
+
+TVSSQLiteErrorHandlingPoint:
+        if ( error )
+            {
+            // Invoking sqlite3_finalize() on a NULL pointer is a harmless no-op.
+            sqlite3_finalize( stmt_CREATE_img_archive_tb_ );
+            sqlite3_finalize( stmt_INSERT_into_img_archive_tb_ );
+            sqlite3_finalize( stmt_SELECT_from_img_archive_tb_ );
+
+            stmt_CREATE_img_archive_tb_ = NULL;
+            stmt_INSERT_into_img_archive_tb_ = NULL;
+            stmt_SELECT_from_img_archive_tb_ = NULL;
+            }
+
+        TauStrictAssert( !error, @"[tvs]failed to pre-prepare the required SQL statements with error {\n\t%@\n}.", error );
         } );
     }
 
@@ -140,7 +144,7 @@ inline sqlite3_stmt TAU_PRIVATE* tvs_prepared_sql_insert_into_img_archive_tb ()
 
 + ( void ) initialize
     {
-    DDLogInfo( @"SQLite Ver: %s", sqlite3_version );
+    DDLogInfo( @"Linking to SQLite v%s", sqlite3_version );
 
 #if DEBUG
     sqlite3_config( SQLITE_CONFIG_LOG, err_log_cbk, NULL );
@@ -234,21 +238,14 @@ TVSSQLiteErrorHandlingPoint:
                    completionHandler: ( void (^)( TauPurgeableImageData* _ImageDat, NSError* _Error ) )_Handler
     {
     dispatch_async( serial_archive_querying_queue_, ( dispatch_block_t )^{
-
-        int rc = SQLITE_OK;
+        NSError* error = nil;
+        TauPurgeableImageData* dat = nil;
 
         sqlite3_stmt* stmt = tvs_prepared_sql_select_from_img_archive_tb();
 
         int idx_of_zimgname = sqlite3_bind_parameter_index( stmt, TVS_IMGNAME_BIND_PARAM );
-        rc = sqlite3_bind_text( stmt, idx_of_zimgname, _ImageName.UTF8String, ( int )_ImageName.length, SQLITE_STATIC );
-
-        rc = sqlite3_step( stmt );
-        if ( rc != SQLITE_ROW && rc != SQLITE_DONE )
-            {
-            DDLogFatal( @"[tvs]error occured" );
-            sqlite3_reset( stmt );
-            return;
-            }
+        TVSStrictExecuteSQLiteV3Func( sqlite3_bind_text( stmt, idx_of_zimgname, _ImageName.UTF8String, ( int )_ImageName.length, SQLITE_STATIC ), &error );
+        TVSStrictExecuteSQLiteV3Func( sqlite3_step( stmt ), &error );
 
         int cols = sqlite3_column_count( stmt );
         char const* expec = TVSColNameImgBlob;
@@ -265,19 +262,20 @@ TVSSQLiteErrorHandlingPoint:
                 }
             }
 
-        TauPurgeableImageData* dat = nil;
+
         if ( blob && ( blob_len > 0 ) )
             dat = [ [ TauPurgeableImageData alloc ] initWithBytes: blob length: blob_len ];
+
+TVSSQLiteErrorHandlingPoint:
+        sqlite3_reset( stmt );
 
         if ( _Handler )
             {
             dispatch_queue_t q = _DispatchQueue ?: dispatch_get_main_queue();
             dispatch_async( q, ( dispatch_block_t )^{
-                _Handler( dat, nil );
+                _Handler( dat, error );
                 } );
             }
-
-        sqlite3_reset( stmt );
         } );
     }
 

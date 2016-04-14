@@ -36,15 +36,18 @@
         case DDLogFlagVerbose:      logLevel = @"VVVVVVVERBOSE";     break;
         }
 
-    return [ NSString stringWithFormat: @">>>> %@ (%@) (%@) ~ %@, L:%@ (%@)"
+    NSString* fileName = TAU_LOG_PATH_OF_FILE( _LogMsg.fileName );
+
+    return [ NSString stringWithFormat: @">>>> %@ (%@) (%@) ~ %@, L:%@ (%@.m)"
            , logLevel
            , _LogMsg.timestamp
            , _LogMsg.message
 #if !RELEASE
-           , _LogMsg.function , @( _LogMsg.line ), _LogMsg.file
+           , _LogMsg.function , @( _LogMsg.line )
 #else
-           , @"?[unknown unknown:]", @"unknown", _LogMsg.fileName
+           , @"?[unknown unknown:]", @"unknown"
 #endif
+           , fileName
            ];
     }
 
