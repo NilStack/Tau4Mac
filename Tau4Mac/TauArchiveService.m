@@ -43,7 +43,7 @@ do { \
 int rc = SQLITE_OK; \
 char copy[ strlen( SQL.UTF8String ) + 1 ]; \
 stpncpy( copy, SQL.UTF8String, SQL.length ); \
-rc = sqlite3_prepare_v2( DB, copy, ( int )strlen( copy ), &STMT, NULL ); \
+rc = sqlite3_prepare_v2( DB, copy, -1, &STMT, NULL ); \
 TauAssert( ( rc == SQLITE_OK ), @"[tvs]failed preparing the SQL statement {\n\t%s\n} with error code (%d) in SQLite domain.", copy, rc ); \
 DDLogExpecting( @"[tvs]prepared SQL statement {\n\t%s\n} for execution.", copy ); \
 } while ( 0 )
@@ -53,18 +53,21 @@ inline void TAU_PRIVATE prepared_sql_init_()
     dispatch_once_t static onceToken;
     dispatch_once( &onceToken, ( dispatch_block_t )^{
 
+        int rc = SQLITE_OK;
+
         // Create img_archive_tb table
         NSString* sqlTemplate = nil;
         NSString* sql = nil;
 
-        sqlTemplate = @"create table %@ ( %@ integer primary key, %@ text not null, %@ blob not null, unique( %@ ) );";
+        sqlTemplate = @"create table IF NOT EXISTS %@ ( %@ integer primary key, %@ text not null, %@ blob not null, unique( %@ ) );";
         sql = [ NSString stringWithFormat: sqlTemplate
-              , /*CREATE TABLE*/ TVSTbNameImgArchive
+              , /*CREATE TABLE IF NOT EXISTS*/ TVSTbNameImgArchive
               , /*(*/ TVSColNameID /*INTEGER PRIMARY KEY*/, TVSColNameImgName /*TEXT NOT NULL*/, TVSColNameImgBlob /*BLOB NOT NULL*/
               , /*UNIQUE(*/ TVSColNameImgName /*)*/
                 /*);*/ ];
 
         TVSAssertSQLite3PrepareV2( s_db_, sql, stmt_CREATE_img_archive_tb_ );
+        rc = sqlite3_step( stmt_CREATE_img_archive_tb_ );
 
         // Insert values ( img_name, img_blob ) into img_archive_tb, only if the unique key (img_name) does not exist
         sqlTemplate = @"insert or ignore into %@ ( %@, %@ ) values( %@, %@ );";
@@ -73,17 +76,8 @@ inline void TAU_PRIVATE prepared_sql_init_()
               , /*(*/TVSColNameImgName, TVSColNameImgBlob /*)*/
               , /*VALUES(*/ TVS_IMGNAME_BIND_PARAM, TVS_IMGBLOB_BIND_PARAM /*)*/
                 /*);*/ ];
-#if 1 // DEBUG
-        do {
-        int rc = SQLITE_OK;
-        char copy[ strlen( sql.UTF8String ) + 1 ];
-        stpcpy( copy, sql.UTF8String );
-        rc = sqlite3_prepare_v2( s_db_, copy, ( int )strlen( copy ), &stmt_INSERT_into_img_archive_tb_, NULL );
-        TauAssert( ( rc == SQLITE_OK ), @"[tvs]failed preparing the SQL statement {\n\t%s\n} with error code (%d) in SQLite domain.", copy, rc );
-        DDLogExpecting( @"[tvs]prepared SQL statement {\n\t%s\n} for execution.", copy );
-        } while ( 0 );
-#endif
-//        TVSAssertSQLite3PrepareV2( s_db_, sql, stmt_INSERT_into_img_archive_tb_ );
+
+        TVSAssertSQLite3PrepareV2( s_db_, sql, stmt_INSERT_into_img_archive_tb_ );
 
         // Get the img_blob corresponding img_name
         sqlTemplate = @"select %@ from %@ where %@=%@;";
@@ -93,12 +87,6 @@ inline void TAU_PRIVATE prepared_sql_init_()
 
         TVSAssertSQLite3PrepareV2( s_db_, sql, stmt_SELECT_from_img_archive_tb_ );
         } );
-    }
-
-inline sqlite3_stmt TAU_PRIVATE* prepared_sql_create_img_archive_tb ()
-    {
-    prepared_sql_init_();
-    return stmt_CREATE_img_archive_tb_;
     }
 
 inline sqlite3_stmt TAU_PRIVATE* prepared_sql_select_from_img_archive_tb ()
@@ -158,10 +146,7 @@ inline sqlite3_stmt TAU_PRIVATE* prepared_sql_insert_into_img_archive_tb ()
         rc = sqlite3_open_v2( archiveDBLoc.absoluteString.UTF8String, &s_db_, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL );
 
     if ( rc == SQLITE_OK )
-        {
-        sqlite3_stmt* stmt = prepared_sql_create_img_archive_tb();
-        sqlite3_step( stmt );
-        }
+        ; // TODO:
     else
         ; // TODO: Expecting to raise an exception
 
@@ -225,7 +210,7 @@ inline sqlite3_stmt TAU_PRIVATE* prepared_sql_insert_into_img_archive_tb ()
             }
 
         int cols = sqlite3_column_count( stmt );
-        char const* expec = "ZTAS_IMG_BLOB";
+        char const* expec = TVSColNameImgBlob.UTF8String;
         void const* blob = NULL;
         int blob_len = 0;
 
