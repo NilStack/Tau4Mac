@@ -40,6 +40,45 @@ TauStrictAssert( ( rc == SQLITE_OK ), @"[tvs]failed preparing the SQL statement 
 DDLogExpecting( @"[tvs]prepared SQL statement {\n\t%s\n} for execution.", copy ); \
 } while ( 0 )
 
+#define TVSSQLiteErrorHandlingPoint TVS_SQLITE_ERROR_HANDLING_POINT
+
+#define TVSExecuteSQLiteV3Func( FUNC, ERRORpr, FLAGpr ) \
+do { \
+int rc = SQLITE_OK; \
+BOOL* flagpr = FLAGpr; \
+rc = FUNC; \
+\
+if ( ( rc != SQLITE_OK ) && ( rc != SQLITE_DONE ) && ( rc != SQLITE_ROW ) ) { \
+if ( flagpr ) *flagpr = NO; \
+/* constructing underlying SQLite error... */ \
+NSError* underlyingErr = [ NSError errorWithDomain: TauSQLiteV3ErrorDomain code: rc \
+userInfo: @{ NSLocalizedDescriptionKey : [ NSString stringWithUTF8String: sqlite3_errstr( rc ) ] } ]; \
+/* constructing the TVS level error... */ \
+NSError* err = [ NSError errorWithDomain: TauCentralDataServiceErrorDomain code: TauCentralDataServiceSQLiteError \
+userInfo: @{ \
+  NSLocalizedDescriptionKey : NSLocalizedString( @"[tvs]this error was occured while interacting with the underlying SQLite database.", nil ) \
+, NSLocalizedRecoverySuggestionErrorKey : [ NSString stringWithFormat: \
+    NSLocalizedString( @"For details just examine the error description within {%@} filed. For futher information about SQLite error code, reference https://www.sqlite.org/rescode.html", nil ), NSUnderlyingErrorKey ] \
+, NSUnderlyingErrorKey : underlyingErr \
+} ]; \
+\
+NSError* __autoreleasing* errpr = ERRORpr; \
+if ( errpr ) *errpr = err; else DDLogFatal( @"%@", err ); \
+} else if ( flagpr ) *flagpr = YES; \
+} while ( 0 )
+
+#define TVSLiberalExecuteSQLiteV3Func( FUNC, ERRORpr ) \
+do { \
+TVSExecuteSQLiteV3Func( FUNC, ERRORpr, nil ); \
+} while ( 0 )
+
+#define TVSStrictExecuteSQLiteV3Func( FUNC, ERRORpr ) \
+do { \
+BOOL flag = NO; \
+TVSExecuteSQLiteV3Func( FUNC, ERRORpr, &flag ); \
+if ( !flag ) goto TVSSQLiteErrorHandlingPoint; \
+} while ( 0 )
+
 inline void TAU_PRIVATE prepared_sql_init_ ()
     {
     dispatch_once_t static onceToken;
@@ -148,46 +187,6 @@ inline sqlite3_stmt TAU_PRIVATE* tvs_prepared_sql_insert_into_img_archive_tb ()
 
     serial_archive_querying_queue_ = dispatch_queue_create( "home.bedroom.TongKuo.Tau4Mac.TauArchiveService", DISPATCH_QUEUE_SERIAL );
     }
-
-#define TVSSQLiteErrorHandlingPoint TVS_SQLITE_ERROR_HANDLING_POINT
-
-#define TVSExecuteSQLiteV3Func( FUNC, ERRORpr, FLAGpr ) \
-do { \
-int rc = SQLITE_OK; \
-BOOL* flagpr = FLAGpr; \
-rc = FUNC; \
-\
-if ( ( rc != SQLITE_OK ) && ( rc != SQLITE_DONE ) && ( rc != SQLITE_ROW ) ) { \
-if ( flagpr ) *flagpr = NO; \
-/* constructing underlying SQLite error... */ \
-NSError* underlyingErr = [ NSError errorWithDomain: TauSQLiteV3ErrorDomain code: rc \
-userInfo: @{ NSLocalizedDescriptionKey : [ NSString stringWithUTF8String: sqlite3_errstr( rc ) ] } ]; \
-/* constructing the TVS level error... */ \
-NSError* err = [ NSError errorWithDomain: TauCentralDataServiceErrorDomain code: TauCentralDataServiceSQLiteError \
-userInfo: @{ \
-  NSLocalizedDescriptionKey : NSLocalizedString( @"[tvs]this error was occured while interacting with the underlying SQLite database.", nil ) \
-, NSLocalizedRecoverySuggestionErrorKey : [ NSString stringWithFormat: \
-    NSLocalizedString( @"For details just examine the error description within {%@} filed. For futher information about SQLite error code, reference https://www.sqlite.org/rescode.html", nil ), NSUnderlyingErrorKey ] \
-, NSUnderlyingErrorKey : underlyingErr \
-} ]; \
-\
-NSError* __autoreleasing* errpr = ERRORpr; \
-if ( errpr ) *errpr = err; else DDLogFatal( @"%@", err ); \
-} \
-else if ( flagpr ) *flagpr = YES; \
-} while ( 0 )
-
-#define TVSLiberalExecuteSQLiteV3Func( FUNC, ERRORpr ) \
-do { \
-TVSExecuteSQLiteV3Func( FUNC, ERRORpr, nil ); \
-} while ( 0 )
-
-#define TVSStrictExecuteSQLiteV3Func( FUNC, ERRORpr ) \
-do { \
-BOOL flag = NO; \
-TVSExecuteSQLiteV3Func( FUNC, ERRORpr, &flag ); \
-if ( !flag ) goto TVSSQLiteErrorHandlingPoint; \
-} while ( 0 )
 
 + ( void ) syncArchiveImage: ( TauPurgeableImageData* )_ImageDat
                        name: ( NSString* )_ImageName
