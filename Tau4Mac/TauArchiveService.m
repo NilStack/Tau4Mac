@@ -59,7 +59,7 @@ userInfo: @{ \
   NSLocalizedDescriptionKey : NSLocalizedString( @"[tvs]this error occured while interacting with the underlying SQLite database.", nil ) \
 , NSLocalizedRecoverySuggestionErrorKey : [ NSString stringWithFormat: \
     NSLocalizedString( @"For details just examine the error description within {%@} field. " \
-                        "More futher information about SQLite error code at https://www.sqlite.org/rescode.html", nil ), NSUnderlyingErrorKey ] \
+                        "More further information about SQLite error code at https://www.sqlite.org/rescode.html", nil ), NSUnderlyingErrorKey ] \
 , NSUnderlyingErrorKey : underlyingErr } ]; \
 NSError* __strong* __errpr__ = ERRORpr; \
 if ( __errpr__ ) *__errpr__ = __err__; else DDLogFatal( @"%@", __err__ ); \
@@ -181,7 +181,7 @@ inline sqlite3_stmt TAU_PRIVATE* tvs_prepared_sql_insert_into_img_archive_tb ()
     serial_archive_querying_queue_ = dispatch_queue_create( "home.bedroom.TongKuo.Tau4Mac.TauArchiveService", DISPATCH_QUEUE_SERIAL );
 
 TVSSQLiteErrorHandlingPoint:
-    NSAssert( error == nil, @"fuck you" );
+    TauStrictAssert( error == nil, @"[tvs]failed initializing the Tau Archive Service with error {%@}", error );
     }
 
 + ( void ) syncArchiveImage: ( TauPurgeableImageData* )_ImageDat
@@ -193,7 +193,6 @@ TVSSQLiteErrorHandlingPoint:
     sqlite3_stmt* stmt = tvs_prepared_sql_insert_into_img_archive_tb();
 
     int idx_of_zimgname = sqlite3_bind_parameter_index( stmt, TVS_IMGNAME_BIND_PARAM );
-//    int idx_of_zimgname = sqlite3_bind_parameter_index( stmt, "ff" );
     TVSStrictExecuteSQLiteV3Func( sqlite3_bind_text( stmt, idx_of_zimgname, _ImageName.UTF8String, ( int )_ImageName.length, SQLITE_STATIC ), &error );
 
     int idx_of_zimgblob = sqlite3_bind_parameter_index( stmt, TVS_IMGBLOB_BIND_PARAM );
