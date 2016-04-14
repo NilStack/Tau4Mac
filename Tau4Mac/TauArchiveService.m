@@ -9,13 +9,13 @@
 #import "TauArchiveService.h"
 #import "TauPurgeableImageData.h"
 
-#define TVSTbNameImgArchive @"ZTVS_IMG_ARCHIVE"
-#define TVSColNameID        @"ZTVS_ID"
-#define TVSColNameImgName   @"ZTVS_IMG_NAME"
-#define TVSColNameImgBlob   @"ZTVS_IMG_BLOB"
+#define TVSTbNameImgArchive "ZTVS_IMG_ARCHIVE"
+#define TVSColNameID        "ZTVS_ID"
+#define TVSColNameImgName   "ZTVS_IMG_NAME"
+#define TVSColNameImgBlob   "ZTVS_IMG_BLOB"
 
-#define TVS_IMGNAME_BIND_PARAM @":zimgname"
-#define TVS_IMGBLOB_BIND_PARAM @":zimgblob"
+#define TVS_IMGNAME_BIND_PARAM ":zimgname"
+#define TVS_IMGBLOB_BIND_PARAM ":zimgblob"
 
 sqlite3 TAU_PRIVATE* db_;
 
@@ -32,8 +32,9 @@ sqlite3_stmt TAU_PRIVATE* stmt_INSERT_into_img_archive_tb_;
 #define TVSAssertSQLite3PrepareV2( DB, SQL, STMT ) \
 do { \
 int rc = SQLITE_OK; \
-char copy[ strlen( SQL.UTF8String ) + 1 ]; \
-stpncpy( copy, SQL.UTF8String, SQL.length ); \
+size_t sqllen = strlen( SQL.UTF8String ) + 1; \
+char copy[ sqllen ]; \
+stpncpy( copy, SQL.UTF8String, sqllen ); \
 rc = sqlite3_prepare_v2( DB, copy, -1, &STMT, NULL ); \
 TauAssert( ( rc == SQLITE_OK ), @"[tvs]failed preparing the SQL statement {\n\t%s\n} with error code (%d) in SQLite domain.", copy, rc ); \
 DDLogExpecting( @"[tvs]prepared SQL statement {\n\t%s\n} for execution.", copy ); \
@@ -50,7 +51,7 @@ inline void TAU_PRIVATE prepared_sql_init_ ()
         NSString* sqlTemplate = nil;
         NSString* sql = nil;
 
-        sqlTemplate = @"create table IF NOT EXISTS %@ ( %@ integer primary key, %@ text not null, %@ blob not null, unique( %@ ) );";
+        sqlTemplate = @"create table IF NOT EXISTS %s ( %s integer primary key, %s text NOT null, %s blob NOT null, unique( %s ) );";
         sql = [ NSString stringWithFormat: sqlTemplate
               , /*CREATE TABLE IF NOT EXISTS*/ TVSTbNameImgArchive
               , /*(*/ TVSColNameID /*INTEGER PRIMARY KEY*/, TVSColNameImgName /*TEXT NOT NULL*/, TVSColNameImgBlob /*BLOB NOT NULL*/
@@ -61,7 +62,7 @@ inline void TAU_PRIVATE prepared_sql_init_ ()
         rc = sqlite3_step( stmt_CREATE_img_archive_tb_ );
 
         // Insert values ( img_name, img_blob ) into img_archive_tb, only if the unique key (img_name) does not exist
-        sqlTemplate = @"insert or ignore into %@ ( %@, %@ ) values( %@, %@ );";
+        sqlTemplate = @"insert OR IGNORE into %s ( %s, %s ) values( %s, %s );";
         sql = [ NSString stringWithFormat: sqlTemplate
               , /*INSERT OR IGNORE INTO*/ TVSTbNameImgArchive
               , /*(*/TVSColNameImgName, TVSColNameImgBlob /*)*/
@@ -71,7 +72,7 @@ inline void TAU_PRIVATE prepared_sql_init_ ()
         TVSAssertSQLite3PrepareV2( db_, sql, stmt_INSERT_into_img_archive_tb_ );
 
         // Get the img_blob corresponding img_name
-        sqlTemplate = @"select %@ from %@ where %@=%@;";
+        sqlTemplate = @"select %s from %s WHERE %s=%s;";
         sql = [ NSString stringWithFormat: sqlTemplate
               , /*SELECT*/ TVSColNameImgBlob, /*FROM*/ TVSTbNameImgArchive, /*WHERE*/ TVSColNameImgName, /*=*/ TVS_IMGNAME_BIND_PARAM
                 /*;*/ ];
@@ -156,10 +157,10 @@ inline sqlite3_stmt TAU_PRIVATE* tvs_prepared_sql_insert_into_img_archive_tb ()
 
     sqlite3_stmt* stmt = tvs_prepared_sql_insert_into_img_archive_tb();
 
-    int idx_of_zimgname = sqlite3_bind_parameter_index( stmt, TVS_IMGNAME_BIND_PARAM.UTF8String );
+    int idx_of_zimgname = sqlite3_bind_parameter_index( stmt, TVS_IMGNAME_BIND_PARAM );
     rc = sqlite3_bind_text( stmt, idx_of_zimgname, _ImageName.UTF8String, ( int )_ImageName.length, SQLITE_STATIC );
 
-    int idx_of_zimgblob = sqlite3_bind_parameter_index( stmt, TVS_IMGBLOB_BIND_PARAM.UTF8String );
+    int idx_of_zimgblob = sqlite3_bind_parameter_index( stmt, TVS_IMGBLOB_BIND_PARAM );
     rc = sqlite3_bind_blob64( stmt, idx_of_zimgblob, _ImageDat.bytes, ( int )_ImageDat.length, SQLITE_STATIC );
 
     rc = sqlite3_step( stmt );
@@ -193,7 +194,7 @@ inline sqlite3_stmt TAU_PRIVATE* tvs_prepared_sql_insert_into_img_archive_tb ()
 
         sqlite3_stmt* stmt = tvs_prepared_sql_select_from_img_archive_tb();
 
-        int idx_of_zimgname = sqlite3_bind_parameter_index( stmt, ":zimgname" );
+        int idx_of_zimgname = sqlite3_bind_parameter_index( stmt, TVS_IMGNAME_BIND_PARAM );
         rc = sqlite3_bind_text( stmt, idx_of_zimgname, _ImageName.UTF8String, ( int )_ImageName.length, SQLITE_STATIC );
 
         rc = sqlite3_step( stmt );
@@ -205,7 +206,7 @@ inline sqlite3_stmt TAU_PRIVATE* tvs_prepared_sql_insert_into_img_archive_tb ()
             }
 
         int cols = sqlite3_column_count( stmt );
-        char const* expec = TVSColNameImgBlob.UTF8String;
+        char const* expec = TVSColNameImgBlob;
         void const* blob = NULL;
         int blob_len = 0;
 

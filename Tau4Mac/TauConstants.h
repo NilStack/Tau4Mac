@@ -48,8 +48,8 @@ TAU_FATAL_UNDECLARED_SELECTOR_WARNING_COMMIT \
 #define TauAssert( CONDITION, FRMT, ... ) \
 if ( !( CONDITION ) ) { \
 NSString* desc = [ NSString stringWithFormat: FRMT, ## __VA_ARGS__ ]; \
-NSLog( @"%@", desc ); \
-assert( CONDITION ); \
+DDLogFatal( @"%@", desc ); \
+assert( ( CONDITION ) ); \
 }
 
 #define TauAssertCondition( CONDITION ) \
