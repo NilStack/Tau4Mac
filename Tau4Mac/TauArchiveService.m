@@ -22,7 +22,7 @@ sqlite3 TAU_PRIVATE* db_;
 dispatch_queue_t TAU_PRIVATE serial_archive_querying_queue_;
 
 #if DEBUG
-void TAU_PRIVATE err_log_cbk ( void* _pArgc, int _err, char const* _zMsg ) { DDLogFatal( @"[tvs](errcode=%d msg=%s)", _err, _zMsg ); }
+void TAU_PRIVATE err_log_cbk ( void* _pArgc, int _err, char const* _zMsg ) { DDLogUnexpected( @"[tvs](errcode=%d msg=%s)", _err, _zMsg ); }
 #endif
 
 sqlite3_stmt TAU_PRIVATE* stmt_CREATE_img_archive_tb_;
@@ -31,12 +31,12 @@ sqlite3_stmt TAU_PRIVATE* stmt_INSERT_into_img_archive_tb_;
 
 #define TVSAssertSQLiteV3PrepareV2( DB, SQL, STMT ) \
 do { \
-int rc = SQLITE_OK; \
+int __rc__ = SQLITE_OK; \
 size_t sqllen = strlen( SQL.UTF8String ) + 1; \
 char copy[ sqllen ]; \
 stpncpy( copy, SQL.UTF8String, sqllen ); \
-rc = sqlite3_prepare_v2( DB, copy, -1, &STMT, NULL ); \
-TauStrictAssert( ( rc == SQLITE_OK ), @"[tvs]failed preparing the SQL statement {\n\t%s\n} with error code (%d) in SQLite domain.", copy, rc ); \
+__rc__ = sqlite3_prepare_v2( DB, copy, -1, &STMT, NULL ); \
+TauStrictAssert( ( __rc__ == SQLITE_OK ), @"[tvs]failed preparing the SQL statement {\n\t%s\n} with error code (%d) in SQLite domain.", copy, __rc__ ); \
 DDLogExpecting( @"[tvs]prepared SQL statement {\n\t%s\n} for execution.", copy ); \
 } while ( 0 )
 
@@ -44,27 +44,26 @@ DDLogExpecting( @"[tvs]prepared SQL statement {\n\t%s\n} for execution.", copy )
 
 #define TVSExecuteSQLiteV3Func( FUNC, ERRORpr, FLAGpr ) \
 do { \
-int rc = SQLITE_OK; \
-BOOL* flagpr = FLAGpr; \
-rc = FUNC; \
+int __rc__ = SQLITE_OK; \
+BOOL* __flagpr__ = FLAGpr; \
+__rc__ = FUNC; \
 \
-if ( ( rc != SQLITE_OK ) && ( rc != SQLITE_DONE ) && ( rc != SQLITE_ROW ) ) { \
-if ( flagpr ) *flagpr = NO; \
+if ( ( __rc__ != SQLITE_OK ) && ( __rc__ != SQLITE_DONE ) && ( __rc__ != SQLITE_ROW ) ) { \
+if ( __flagpr__ ) *__flagpr__ = NO; \
 /* constructing underlying SQLite error... */ \
-NSError* underlyingErr = [ NSError errorWithDomain: TauSQLiteV3ErrorDomain code: rc \
-userInfo: @{ NSLocalizedDescriptionKey : [ NSString stringWithUTF8String: sqlite3_errstr( rc ) ] } ]; \
+NSError* underlyingErr = [ NSError errorWithDomain: TauSQLiteV3ErrorDomain code: __rc__ \
+userInfo: @{ NSLocalizedDescriptionKey : [ NSString stringWithUTF8String: sqlite3_errstr( __rc__ ) ] } ]; \
 /* constructing the TVS level error... */ \
-NSError* err = [ NSError errorWithDomain: TauCentralDataServiceErrorDomain code: TauCentralDataServiceSQLiteError \
+NSError* __err__ = [ NSError errorWithDomain: TauCentralDataServiceErrorDomain code: TauCentralDataServiceSQLiteError \
 userInfo: @{ \
-  NSLocalizedDescriptionKey : NSLocalizedString( @"[tvs]this error was occured while interacting with the underlying SQLite database.", nil ) \
+  NSLocalizedDescriptionKey : NSLocalizedString( @"[tvs]this error occured while interacting with the underlying SQLite database.", nil ) \
 , NSLocalizedRecoverySuggestionErrorKey : [ NSString stringWithFormat: \
-    NSLocalizedString( @"For details just examine the error description within {%@} filed. For futher information about SQLite error code, reference https://www.sqlite.org/rescode.html", nil ), NSUnderlyingErrorKey ] \
-, NSUnderlyingErrorKey : underlyingErr \
-} ]; \
-\
-NSError* __autoreleasing* errpr = ERRORpr; \
-if ( errpr ) *errpr = err; else DDLogFatal( @"%@", err ); \
-} else if ( flagpr ) *flagpr = YES; \
+    NSLocalizedString( @"For details just examine the error description within {%@} field. " \
+                        "More futher information about SQLite error code at https://www.sqlite.org/rescode.html", nil ), NSUnderlyingErrorKey ] \
+, NSUnderlyingErrorKey : underlyingErr } ]; \
+NSError* __strong* __errpr__ = ERRORpr; \
+if ( __errpr__ ) *__errpr__ = __err__; else DDLogFatal( @"%@", __err__ ); \
+} else if ( __flagpr__ ) *__flagpr__ = YES; \
 } while ( 0 )
 
 #define TVSLiberalExecuteSQLiteV3Func( FUNC, ERRORpr ) \
@@ -148,16 +147,14 @@ inline sqlite3_stmt TAU_PRIVATE* tvs_prepared_sql_insert_into_img_archive_tb ()
 #endif
     sqlite3_initialize();
 
-    NSError* err = nil;
-    int rc = SQLITE_OK;
-
+    NSError* error = nil;
     NSFileManager* fm = [ NSFileManager defaultManager ];
 
-    NSURL* appLvlArchiveDir = [ [ NSFileManager defaultManager ] URLForDirectory: NSCachesDirectory inDomain: NSUserDomainMask appropriateForURL: nil create: YES error: &err ];
+    NSURL* appLvlArchiveDir = [ [ NSFileManager defaultManager ] URLForDirectory: NSCachesDirectory inDomain: NSUserDomainMask appropriateForURL: nil create: YES error: &error ];
     appLvlArchiveDir = [ appLvlArchiveDir URLByAppendingPathComponent: [ NSBundle mainBundle ].bundleIdentifier ];
 
     if ( ![ appLvlArchiveDir checkResourceIsReachableAndReturnError: nil ] )
-        [ fm createDirectoryAtURL: appLvlArchiveDir withIntermediateDirectories: YES attributes: nil error: nil ];
+        [ fm createDirectoryAtURL: appLvlArchiveDir withIntermediateDirectories: YES attributes: nil error: &error ];
 
     NSURL* archiveDBLoc = [ appLvlArchiveDir URLByAppendingPathComponent: @"usrdat.archive" ];
     BOOL isDir = NO;
@@ -167,43 +164,53 @@ inline sqlite3_stmt TAU_PRIVATE* tvs_prepared_sql_insert_into_img_archive_tb ()
         if ( isDir )
             {
             // FIXME: sqlite3_open_v2() wouldn't be invoked successfully after executing this line of code
-            [ fm removeItemAtURL: archiveDBLoc error: &err ];
+            [ fm removeItemAtURL: archiveDBLoc error: &error ];
             needsCreate = YES;
             }
         else
             {
-            if ( ( rc = sqlite3_open_v2( archiveDBLoc.absoluteString.UTF8String, &db_, SQLITE_OPEN_READWRITE, NULL ) ) != SQLITE_OK )
-                needsCreate = YES;
+            BOOL res = NO;
+            TVSExecuteSQLiteV3Func( sqlite3_open_v2( archiveDBLoc.absoluteString.UTF8String, &db_, SQLITE_OPEN_READWRITE, NULL ), nil, &res );
+            needsCreate = !res;
             }
         }
 
     if ( needsCreate )
-        rc = sqlite3_open_v2( archiveDBLoc.absoluteString.UTF8String, &db_, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL );
-
-    if ( rc == SQLITE_OK )
-        ; // TODO:
-    else
-        ; // TODO: Expecting to raise an exception
+        TVSStrictExecuteSQLiteV3Func( sqlite3_open_v2( archiveDBLoc.absoluteString.UTF8String, &db_, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL ), &error );
 
     serial_archive_querying_queue_ = dispatch_queue_create( "home.bedroom.TongKuo.Tau4Mac.TauArchiveService", DISPATCH_QUEUE_SERIAL );
+
+TVSSQLiteErrorHandlingPoint:
+    NSAssert( error == nil, @"fuck you" );
     }
 
 + ( void ) syncArchiveImage: ( TauPurgeableImageData* )_ImageDat
                        name: ( NSString* )_ImageName
                       error: ( NSError** )_Error
     {
+    NSError* error = nil;
+
     sqlite3_stmt* stmt = tvs_prepared_sql_insert_into_img_archive_tb();
 
-//    int idx_of_zimgname = sqlite3_bind_parameter_index( stmt, TVS_IMGNAME_BIND_PARAM );
-    int idx_of_zimgname = sqlite3_bind_parameter_index( stmt, "ffaj" );
-    TVSStrictExecuteSQLiteV3Func( sqlite3_bind_text( stmt, idx_of_zimgname, _ImageName.UTF8String, ( int )_ImageName.length, SQLITE_STATIC ), _Error );
-//     int idx_of_zimgblob = sqlite3_bind_parameter_index( stmt, TVS_IMGBLOB_BIND_PARAM );
-    int idx_of_zimgblob = sqlite3_bind_parameter_index( stmt, "rrj" );
-    TVSStrictExecuteSQLiteV3Func( sqlite3_bind_blob64( stmt, idx_of_zimgblob, _ImageDat.bytes, ( int )_ImageDat.length, SQLITE_STATIC ), _Error );
-    TVSStrictExecuteSQLiteV3Func( sqlite3_step( stmt ), _Error );
+    int idx_of_zimgname = sqlite3_bind_parameter_index( stmt, TVS_IMGNAME_BIND_PARAM );
+//    int idx_of_zimgname = sqlite3_bind_parameter_index( stmt, "ff" );
+    TVSStrictExecuteSQLiteV3Func( sqlite3_bind_text( stmt, idx_of_zimgname, _ImageName.UTF8String, ( int )_ImageName.length, SQLITE_STATIC ), &error );
+
+    int idx_of_zimgblob = sqlite3_bind_parameter_index( stmt, TVS_IMGBLOB_BIND_PARAM );
+    TVSStrictExecuteSQLiteV3Func( sqlite3_bind_blob64( stmt, idx_of_zimgblob, _ImageDat.bytes, ( int )_ImageDat.length, SQLITE_STATIC ), &error );
+
+    TVSStrictExecuteSQLiteV3Func( sqlite3_step( stmt ), &error );
 
 TVSSQLiteErrorHandlingPoint:
     sqlite3_reset( stmt );
+
+    if ( error )
+        {
+        if ( _Error )
+            *_Error = error;
+        else
+            DDLogFatal( @"%@", error );
+        }
     }
 
 + ( void ) asyncArchiveImage: ( TauPurgeableImageData* )_ImageDat

@@ -64,7 +64,7 @@ if ( !passed ) assert( CONDITION ); \
 } while ( 0 )
 
 #define TauAssertCondition( CONDITION ) \
-TauAssert( CONDITION, @"condition not satisfied: %s", #CONDITION )
+TauStrictAssert( CONDITION, @"condition not satisfied: %s", #CONDITION )
 
 #ifdef TAU_PRIVATE
 #   undef TAU_PRIVATE

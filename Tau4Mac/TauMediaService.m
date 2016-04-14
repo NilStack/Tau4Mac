@@ -460,7 +460,7 @@ TauMediaService static* sMediaService_;
         [ TauArchiveService syncArchiveImage: _Data name: imageName error: &err ];
 
         if ( err )
-            DDLogRecoverable( @"[tms]failed archiving image {%@} to disk with error: {\n\t%@\n}.", imageName, err );
+            DDLogFatal( @"[tms]failed archiving image {%@} to disk with error: {\n\t%@\n}.", imageName, err );
         else
             DDLogDebug( @"[tms]archived image {%@} to disk", imageName );
         }
@@ -490,8 +490,6 @@ TauMediaService static* sMediaService_;
                                     completionHandler:
         ^( TauPurgeableImageData* _ImageDat, NSError* _Error )
             {
-//            NSLog( @"\U00002728 imageLen=%lu <%p>", _ImageDat.length, _ImageDat ); // Emoji: Sparkles
-
             NSImage* image = nil;
             if ( _ImageDat )
                 {
