@@ -83,6 +83,7 @@ NSString* const TauTDSOperationRequirements = @"TauTDSOperationRequirements";
 NSString* const TauGeneralErrorDomain = @"home.bedroom.TongKuo.Tau4Mac.GeneralErrorDomain";
 NSString* const TauCentralDataServiceErrorDomain = @"home.bedroom.TongKuo.Tau4Mac.CentralDataServiceErrorDomain";
 NSString* const TauUnderlyingErrorDomain = @"home.bedroom.TongKuo.Tau4Mac.UnderlyingErrorDomain";
+NSString* const TauSQLiteV3ErrorDomain = @"home.bedroom.TongKuo.Tau4Mac.SQLiteV3ErrorDomain";
 
 
 

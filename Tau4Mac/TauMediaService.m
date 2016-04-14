@@ -460,7 +460,7 @@ TauMediaService static* sMediaService_;
         [ TauArchiveService syncArchiveImage: _Data name: imageName error: &err ];
 
         if ( err )
-            DDLogRecoverable( @"[tms]error occured while archiving image {%@} to disk", imageName );
+            DDLogRecoverable( @"[tms]failed archiving image {%@} to disk with error: {\n\t%@\n}.", imageName, err );
         else
             DDLogDebug( @"[tms]archived image {%@} to disk", imageName );
         }

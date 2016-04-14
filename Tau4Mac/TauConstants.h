@@ -53,15 +53,14 @@ NSString* desc = [ NSString stringWithFormat: FRMT, ## __VA_ARGS__ ]; \
 DDLogFatal( @"%@", desc ); \
 } \
 BOOL* boolptr = BOOLPTR; \
-if ( boolptr ) \
-    *boolptr = passed; \
+if ( boolptr ) *boolptr = passed; \
 } while ( 0 )
 
 #define TauStrictAssert( CONDITION, FRMT, ... ) \
 do { \
 BOOL passed = NO; \
 TauLiberalAssert( CONDITION, &passed, FRMT, __VA_ARGS__ ); \
-if ( !passed ) assert( CONDITION );\
+if ( !passed ) assert( CONDITION ); \
 } while ( 0 )
 
 #define TauAssertCondition( CONDITION ) \
@@ -84,14 +83,14 @@ TauAssert( CONDITION, @"condition not satisfied: %s", #CONDITION )
 
 #define TauMutuallyBind( _Lhs, _LhsKeyPath, _Rhs, _RhsKeyPath ) \
 do { \
-    [ _Lhs bind: _LhsKeyPath toObject: _Rhs withKeyPath: _RhsKeyPath options: nil ]; \
-    [ _Rhs bind: _RhsKeyPath toObject: _Lhs withKeyPath: _LhsKeyPath options: nil ]; \
+[ _Lhs bind: _LhsKeyPath toObject: _Rhs withKeyPath: _RhsKeyPath options: nil ]; \
+[ _Rhs bind: _RhsKeyPath toObject: _Lhs withKeyPath: _LhsKeyPath options: nil ]; \
 } while ( 0 )
 
 #define TauMutuallyUnbind( _Lhs, _LhsKeyPath, _Rhs, _RhsKeyPath ) \
 do { \
-    [ _Lhs unbind: _LhsKeyPath ]; \
-    [ _Rhs unbind: _RhsKeyPath ]; \
+[ _Lhs unbind: _LhsKeyPath ]; \
+[ _Rhs unbind: _RhsKeyPath ]; \
 } while ( 0 )
 
 
@@ -242,11 +241,21 @@ typedef NS_ENUM ( NSInteger, TauGeneralErrorCode )
 // Error domains that is specific to central data service mechanism
 NSString extern* const TauCentralDataServiceErrorDomain;
 
+// Error domains that is specific to the pure C API of SQLite v3
+NSString extern* const TauSQLiteV3ErrorDomain;
+
 typedef NS_ENUM ( NSInteger, TauCentralDataServiceErrorCode )
     { TauCentralDataServiceUnknownError = -1
+
+    // Specific to Tau API Service (TAS)
     , TauCentralDataServiceInvalidCredentialError   = -1000
     , TauCentralDataServiceInvalidOrConflictingOperationsCombination = -1001
+
+    // Specific to Tau Media Service (TMS)
     , TauCentralDataServiceInvalidImageURL = -1002
+
+    // Specific to Tau Archive Service (TVS)
+    , TauCentralDataServiceSQLiteError = -1003
     };
 
 NSString extern* const TauUnderlyingErrorDomain;

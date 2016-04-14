@@ -29,7 +29,7 @@ sqlite3_stmt TAU_PRIVATE* stmt_CREATE_img_archive_tb_;
 sqlite3_stmt TAU_PRIVATE* stmt_SELECT_from_img_archive_tb_;
 sqlite3_stmt TAU_PRIVATE* stmt_INSERT_into_img_archive_tb_;
 
-#define TVSAssertSQLite3PrepareV2( DB, SQL, STMT ) \
+#define TVSAssertSQLiteV3PrepareV2( DB, SQL, STMT ) \
 do { \
 int rc = SQLITE_OK; \
 size_t sqllen = strlen( SQL.UTF8String ) + 1; \
@@ -58,7 +58,7 @@ inline void TAU_PRIVATE prepared_sql_init_ ()
               , /*UNIQUE(*/ TVSColNameImgName /*)*/
                 /*);*/ ];
 
-        TVSAssertSQLite3PrepareV2( db_, sql, stmt_CREATE_img_archive_tb_ );
+        TVSAssertSQLiteV3PrepareV2( db_, sql, stmt_CREATE_img_archive_tb_ );
         rc = sqlite3_step( stmt_CREATE_img_archive_tb_ );
 
         // Insert values ( img_name, img_blob ) into img_archive_tb, only if the unique key (img_name) does not exist
@@ -69,7 +69,7 @@ inline void TAU_PRIVATE prepared_sql_init_ ()
               , /*VALUES(*/ TVS_IMGNAME_BIND_PARAM, TVS_IMGBLOB_BIND_PARAM /*)*/
                 /*);*/ ];
 
-        TVSAssertSQLite3PrepareV2( db_, sql, stmt_INSERT_into_img_archive_tb_ );
+        TVSAssertSQLiteV3PrepareV2( db_, sql, stmt_INSERT_into_img_archive_tb_ );
 
         // Get the img_blob corresponding img_name
         sqlTemplate = @"select %s from %s WHERE %s=%s;";
@@ -77,7 +77,7 @@ inline void TAU_PRIVATE prepared_sql_init_ ()
               , /*SELECT*/ TVSColNameImgBlob, /*FROM*/ TVSTbNameImgArchive, /*WHERE*/ TVSColNameImgName, /*=*/ TVS_IMGNAME_BIND_PARAM
                 /*;*/ ];
 
-        TVSAssertSQLite3PrepareV2( db_, sql, stmt_SELECT_from_img_archive_tb_ );
+        TVSAssertSQLiteV3PrepareV2( db_, sql, stmt_SELECT_from_img_archive_tb_ );
         } );
     }
 
@@ -149,21 +149,61 @@ inline sqlite3_stmt TAU_PRIVATE* tvs_prepared_sql_insert_into_img_archive_tb ()
     serial_archive_querying_queue_ = dispatch_queue_create( "home.bedroom.TongKuo.Tau4Mac.TauArchiveService", DISPATCH_QUEUE_SERIAL );
     }
 
+#define TVSSQLiteErrorHandlingPoint TVS_SQLITE_ERROR_HANDLING_POINT
+
+#define TVSExecuteSQLiteV3Func( FUNC, ERRORpr, FLAGpr ) \
+do { \
+int rc = SQLITE_OK; \
+BOOL* flagpr = FLAGpr; \
+rc = FUNC; \
+\
+if ( ( rc != SQLITE_OK ) && ( rc != SQLITE_DONE ) && ( rc != SQLITE_ROW ) ) { \
+if ( flagpr ) *flagpr = NO; \
+/* constructing underlying SQLite error... */ \
+NSError* underlyingErr = [ NSError errorWithDomain: TauSQLiteV3ErrorDomain code: rc \
+userInfo: @{ NSLocalizedDescriptionKey : [ NSString stringWithUTF8String: sqlite3_errstr( rc ) ] } ]; \
+/* constructing the TVS level error... */ \
+NSError* err = [ NSError errorWithDomain: TauCentralDataServiceErrorDomain code: TauCentralDataServiceSQLiteError \
+userInfo: @{ \
+  NSLocalizedDescriptionKey : NSLocalizedString( @"[tvs]this error was occured while interacting with the underlying SQLite database.", nil ) \
+, NSLocalizedRecoverySuggestionErrorKey : [ NSString stringWithFormat: \
+    NSLocalizedString( @"For details just examine the error description within {%@} filed. For futher information about SQLite error code, reference https://www.sqlite.org/rescode.html", nil ), NSUnderlyingErrorKey ] \
+, NSUnderlyingErrorKey : underlyingErr \
+} ]; \
+\
+NSError* __autoreleasing* errpr = ERRORpr; \
+if ( errpr ) *errpr = err; else DDLogFatal( @"%@", err ); \
+} \
+else if ( flagpr ) *flagpr = YES; \
+} while ( 0 )
+
+#define TVSLiberalExecuteSQLiteV3Func( FUNC, ERRORpr ) \
+do { \
+TVSExecuteSQLiteV3Func( FUNC, ERRORpr, nil ); \
+} while ( 0 )
+
+#define TVSStrictExecuteSQLiteV3Func( FUNC, ERRORpr ) \
+do { \
+BOOL flag = NO; \
+TVSExecuteSQLiteV3Func( FUNC, ERRORpr, &flag ); \
+if ( !flag ) goto TVSSQLiteErrorHandlingPoint; \
+} while ( 0 )
+
 + ( void ) syncArchiveImage: ( TauPurgeableImageData* )_ImageDat
                        name: ( NSString* )_ImageName
                       error: ( NSError** )_Error
     {
-    int rc = SQLITE_OK;
-
     sqlite3_stmt* stmt = tvs_prepared_sql_insert_into_img_archive_tb();
 
-    int idx_of_zimgname = sqlite3_bind_parameter_index( stmt, TVS_IMGNAME_BIND_PARAM );
-    rc = sqlite3_bind_text( stmt, idx_of_zimgname, _ImageName.UTF8String, ( int )_ImageName.length, SQLITE_STATIC );
+//    int idx_of_zimgname = sqlite3_bind_parameter_index( stmt, TVS_IMGNAME_BIND_PARAM );
+    int idx_of_zimgname = sqlite3_bind_parameter_index( stmt, "ffaj" );
+    TVSStrictExecuteSQLiteV3Func( sqlite3_bind_text( stmt, idx_of_zimgname, _ImageName.UTF8String, ( int )_ImageName.length, SQLITE_STATIC ), _Error );
+//     int idx_of_zimgblob = sqlite3_bind_parameter_index( stmt, TVS_IMGBLOB_BIND_PARAM );
+    int idx_of_zimgblob = sqlite3_bind_parameter_index( stmt, "rrj" );
+    TVSStrictExecuteSQLiteV3Func( sqlite3_bind_blob64( stmt, idx_of_zimgblob, _ImageDat.bytes, ( int )_ImageDat.length, SQLITE_STATIC ), _Error );
+    TVSStrictExecuteSQLiteV3Func( sqlite3_step( stmt ), _Error );
 
-    int idx_of_zimgblob = sqlite3_bind_parameter_index( stmt, TVS_IMGBLOB_BIND_PARAM );
-    rc = sqlite3_bind_blob64( stmt, idx_of_zimgblob, _ImageDat.bytes, ( int )_ImageDat.length, SQLITE_STATIC );
-
-    rc = sqlite3_step( stmt );
+TVSSQLiteErrorHandlingPoint:
     sqlite3_reset( stmt );
     }
 
