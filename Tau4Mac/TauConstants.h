@@ -45,12 +45,24 @@ TAU_FATAL_UNDECLARED_SELECTOR_WARNING_BEGIN \
 TAU_FATAL_UNDECLARED_SELECTOR_WARNING_COMMIT \
 } while ( 0 )
 
-#define TauAssert( CONDITION, FRMT, ... ) \
-if ( !( CONDITION ) ) { \
+#define TauLiberalAssert( CONDITION, BOOLPTR, FRMT, ... ) \
+do { \
+BOOL passed = ( CONDITION ); \
+if ( !passed ) { \
 NSString* desc = [ NSString stringWithFormat: FRMT, ## __VA_ARGS__ ]; \
 DDLogFatal( @"%@", desc ); \
-assert( ( CONDITION ) ); \
-}
+} \
+BOOL* boolptr = BOOLPTR; \
+if ( boolptr ) \
+    *boolptr = passed; \
+} while ( 0 )
+
+#define TauStrictAssert( CONDITION, FRMT, ... ) \
+do { \
+BOOL passed = NO; \
+TauLiberalAssert( CONDITION, &passed, FRMT, __VA_ARGS__ ); \
+if ( !passed ) assert( CONDITION );\
+} while ( 0 )
 
 #define TauAssertCondition( CONDITION ) \
 TauAssert( CONDITION, @"condition not satisfied: %s", #CONDITION )

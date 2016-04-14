@@ -36,7 +36,7 @@ size_t sqllen = strlen( SQL.UTF8String ) + 1; \
 char copy[ sqllen ]; \
 stpncpy( copy, SQL.UTF8String, sqllen ); \
 rc = sqlite3_prepare_v2( DB, copy, -1, &STMT, NULL ); \
-TauAssert( ( rc == SQLITE_OK ), @"[tvs]failed preparing the SQL statement {\n\t%s\n} with error code (%d) in SQLite domain.", copy, rc ); \
+TauStrictAssert( ( rc == SQLITE_OK ), @"[tvs]failed preparing the SQL statement {\n\t%s\n} with error code (%d) in SQLite domain.", copy, rc ); \
 DDLogExpecting( @"[tvs]prepared SQL statement {\n\t%s\n} for execution.", copy ); \
 } while ( 0 )
 
