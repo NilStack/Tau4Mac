@@ -72,6 +72,8 @@ TauStrictAssert( CONDITION, @"condition not satisfied: %s", #CONDITION )
 
 #define TAU_PRIVATE static
 
+#define TauPreferredQueue( DISPATCH_QUEUE ) DISPATCH_QUEUE ?: dispatch_get_main_queue()
+
 
 
 // ------------------------------------------------------------------------------------------------------------ //

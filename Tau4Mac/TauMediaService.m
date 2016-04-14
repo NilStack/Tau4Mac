@@ -567,10 +567,9 @@ TauMediaService static* sMediaService_;
         if ( _Image )
             {
             if ( _Handler )
-                {
-                dispatch_queue_t q = _DispatchQueue ?: dispatch_get_main_queue();
-                dispatch_async( q, ( dispatch_block_t )^{ _Handler( _Image ); } );
-                }
+                dispatch_async( TauPreferredQueue( _DispatchQueue ), ( dispatch_block_t )^{
+                    _Handler( _Image );
+                    } );
             }
         else
             {
@@ -582,10 +581,9 @@ TauMediaService static* sMediaService_;
             else
                 {
                 if ( _Handler )
-                    {
-                    dispatch_queue_t q = _DispatchQueue ?: dispatch_get_main_queue();
-                    dispatch_async( q, ( dispatch_block_t )^{ _Handler( nil ); } );
-                    }
+                    dispatch_async( TauPreferredQueue( _DispatchQueue ), ( dispatch_block_t )^{
+                        _Handler( nil );
+                        } );
                 }
             }
         } ];

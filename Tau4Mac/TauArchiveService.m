@@ -222,14 +222,14 @@ TVSSQLiteErrorHandlingPoint:
            completionHandler: ( void (^)( NSError* _Error ) )_Handler
     {
     dispatch_async( serial_archive_querying_queue_, ( dispatch_block_t )^{
+
         NSError* err = nil;
         [ self syncArchiveImage: _ImageDat name: _ImageName error: &err ];
 
-        dispatch_queue_t q = _DispatchQueue ?: dispatch_get_main_queue();
-        dispatch_async( q, ( dispatch_block_t )^{
-            // TODO: Expecting the error handling
-            _Handler( err );
-            } );
+        if ( _Handler )
+            dispatch_async( TauPreferredQueue( _DispatchQueue ), ( dispatch_block_t )^{
+                _Handler( err );
+                } );
         } );
     }
 
@@ -271,8 +271,7 @@ TVSSQLiteErrorHandlingPoint:
 
         if ( _Handler )
             {
-            dispatch_queue_t q = _DispatchQueue ?: dispatch_get_main_queue();
-            dispatch_async( q, ( dispatch_block_t )^{
+            dispatch_async( TauPreferredQueue( _DispatchQueue ), ( dispatch_block_t )^{
                 _Handler( dat, error );
                 } );
             }
