@@ -262,7 +262,6 @@ TVSSQLiteErrorHandlingPoint:
                 }
             }
 
-
         if ( blob && ( blob_len > 0 ) )
             dat = [ [ TauPurgeableImageData alloc ] initWithBytes: blob length: blob_len ];
 
