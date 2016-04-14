@@ -9,23 +9,6 @@
 #import "TauArchiveService.h"
 #import "TauPurgeableImageData.h"
 
-sqlite3 TAU_PRIVATE* s_db_;
-
-/* Create img_archive_tb table */
-//char TAU_PRIVATE const* s_sql_create_img_archive_table = "create table ZTAS_IMG_ARCHIVE ( ZTAS_ID integer primary key, ZTAS_IMG_NAME text not null, ZTAS_IMG_BLOB blob not null, unique( ZTAS_IMG_NAME ) );";
-
-/* Insert values ( img_name, img_blob ) into img_archive_tb, only if the unique key (img_name) does not exist. */
-//char TAU_PRIVATE const* s_sql_insert_img_archive = "insert or ignore into ZTAS_IMG_ARCHIVE ( ZTAS_IMG_NAME, ZTAS_IMG_BLOB ) values( :zimgname, :zimgblob );";
-
-/* Get the img_blob corresponding img_name */
-//char TAU_PRIVATE const* s_sql_select_img_archive = "select ZTAS_IMG_BLOB from ZTAS_IMG_ARCHIVE where ZTAS_IMG_NAME=:zimgname;";
-
-dispatch_queue_t TAU_PRIVATE s_serial_archive_querying_queue_;
-
-#if DEBUG
-void TAU_PRIVATE err_log_cbk ( void* _pArgc, int _err, char const* _zMsg ) { DDLogFatal( @"[tvs](errcode=%d msg=%s)", _err, _zMsg ); }
-#endif
-
 #define TVSTbNameImgArchive @"ZTVS_IMG_ARCHIVE"
 #define TVSColNameID        @"ZTVS_ID"
 #define TVSColNameImgName   @"ZTVS_IMG_NAME"
@@ -33,6 +16,14 @@ void TAU_PRIVATE err_log_cbk ( void* _pArgc, int _err, char const* _zMsg ) { DDL
 
 #define TVS_IMGNAME_BIND_PARAM @":zimgname"
 #define TVS_IMGBLOB_BIND_PARAM @":zimgblob"
+
+sqlite3 TAU_PRIVATE* db_;
+
+dispatch_queue_t TAU_PRIVATE serial_archive_querying_queue_;
+
+#if DEBUG
+void TAU_PRIVATE err_log_cbk ( void* _pArgc, int _err, char const* _zMsg ) { DDLogFatal( @"[tvs](errcode=%d msg=%s)", _err, _zMsg ); }
+#endif
 
 sqlite3_stmt TAU_PRIVATE* stmt_CREATE_img_archive_tb_;
 sqlite3_stmt TAU_PRIVATE* stmt_SELECT_from_img_archive_tb_;
@@ -48,7 +39,7 @@ TauAssert( ( rc == SQLITE_OK ), @"[tvs]failed preparing the SQL statement {\n\t%
 DDLogExpecting( @"[tvs]prepared SQL statement {\n\t%s\n} for execution.", copy ); \
 } while ( 0 )
 
-inline void TAU_PRIVATE prepared_sql_init_()
+inline void TAU_PRIVATE prepared_sql_init_ ()
     {
     dispatch_once_t static onceToken;
     dispatch_once( &onceToken, ( dispatch_block_t )^{
@@ -66,7 +57,7 @@ inline void TAU_PRIVATE prepared_sql_init_()
               , /*UNIQUE(*/ TVSColNameImgName /*)*/
                 /*);*/ ];
 
-        TVSAssertSQLite3PrepareV2( s_db_, sql, stmt_CREATE_img_archive_tb_ );
+        TVSAssertSQLite3PrepareV2( db_, sql, stmt_CREATE_img_archive_tb_ );
         rc = sqlite3_step( stmt_CREATE_img_archive_tb_ );
 
         // Insert values ( img_name, img_blob ) into img_archive_tb, only if the unique key (img_name) does not exist
@@ -77,7 +68,7 @@ inline void TAU_PRIVATE prepared_sql_init_()
               , /*VALUES(*/ TVS_IMGNAME_BIND_PARAM, TVS_IMGBLOB_BIND_PARAM /*)*/
                 /*);*/ ];
 
-        TVSAssertSQLite3PrepareV2( s_db_, sql, stmt_INSERT_into_img_archive_tb_ );
+        TVSAssertSQLite3PrepareV2( db_, sql, stmt_INSERT_into_img_archive_tb_ );
 
         // Get the img_blob corresponding img_name
         sqlTemplate = @"select %@ from %@ where %@=%@;";
@@ -85,21 +76,25 @@ inline void TAU_PRIVATE prepared_sql_init_()
               , /*SELECT*/ TVSColNameImgBlob, /*FROM*/ TVSTbNameImgArchive, /*WHERE*/ TVSColNameImgName, /*=*/ TVS_IMGNAME_BIND_PARAM
                 /*;*/ ];
 
-        TVSAssertSQLite3PrepareV2( s_db_, sql, stmt_SELECT_from_img_archive_tb_ );
+        TVSAssertSQLite3PrepareV2( db_, sql, stmt_SELECT_from_img_archive_tb_ );
         } );
     }
 
-inline sqlite3_stmt TAU_PRIVATE* prepared_sql_select_from_img_archive_tb ()
+#pragma mark - Internal Interfaces
+
+inline sqlite3_stmt TAU_PRIVATE* tvs_prepared_sql_select_from_img_archive_tb ()
     {
     prepared_sql_init_();
     return stmt_SELECT_from_img_archive_tb_;
     }
 
-inline sqlite3_stmt TAU_PRIVATE* prepared_sql_insert_into_img_archive_tb ()
+inline sqlite3_stmt TAU_PRIVATE* tvs_prepared_sql_insert_into_img_archive_tb ()
     {
     prepared_sql_init_();
     return stmt_INSERT_into_img_archive_tb_;
     }
+
+#pragma mark -
 
 // TauArchiveService class
 @implementation TauArchiveService
@@ -137,20 +132,20 @@ inline sqlite3_stmt TAU_PRIVATE* prepared_sql_insert_into_img_archive_tb ()
             }
         else
             {
-            if ( ( rc = sqlite3_open_v2( archiveDBLoc.absoluteString.UTF8String, &s_db_, SQLITE_OPEN_READWRITE, NULL ) ) != SQLITE_OK )
+            if ( ( rc = sqlite3_open_v2( archiveDBLoc.absoluteString.UTF8String, &db_, SQLITE_OPEN_READWRITE, NULL ) ) != SQLITE_OK )
                 needsCreate = YES;
             }
         }
 
     if ( needsCreate )
-        rc = sqlite3_open_v2( archiveDBLoc.absoluteString.UTF8String, &s_db_, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL );
+        rc = sqlite3_open_v2( archiveDBLoc.absoluteString.UTF8String, &db_, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL );
 
     if ( rc == SQLITE_OK )
         ; // TODO:
     else
         ; // TODO: Expecting to raise an exception
 
-    s_serial_archive_querying_queue_ = dispatch_queue_create( "home.bedroom.TongKuo.Tau4Mac.TauArchiveService", DISPATCH_QUEUE_SERIAL );
+    serial_archive_querying_queue_ = dispatch_queue_create( "home.bedroom.TongKuo.Tau4Mac.TauArchiveService", DISPATCH_QUEUE_SERIAL );
     }
 
 + ( void ) syncArchiveImage: ( TauPurgeableImageData* )_ImageDat
@@ -159,7 +154,7 @@ inline sqlite3_stmt TAU_PRIVATE* prepared_sql_insert_into_img_archive_tb ()
     {
     int rc = SQLITE_OK;
 
-    sqlite3_stmt* stmt = prepared_sql_insert_into_img_archive_tb();
+    sqlite3_stmt* stmt = tvs_prepared_sql_insert_into_img_archive_tb();
 
     int idx_of_zimgname = sqlite3_bind_parameter_index( stmt, TVS_IMGNAME_BIND_PARAM.UTF8String );
     rc = sqlite3_bind_text( stmt, idx_of_zimgname, _ImageName.UTF8String, ( int )_ImageName.length, SQLITE_STATIC );
@@ -176,7 +171,7 @@ inline sqlite3_stmt TAU_PRIVATE* prepared_sql_insert_into_img_archive_tb ()
                dispatchQueue: ( dispatch_queue_t )_DispatchQueue
            completionHandler: ( void (^)( NSError* _Error ) )_Handler
     {
-    dispatch_async( s_serial_archive_querying_queue_, ( dispatch_block_t )^{
+    dispatch_async( serial_archive_querying_queue_, ( dispatch_block_t )^{
         NSError* err = nil;
         [ self syncArchiveImage: _ImageDat name: _ImageName error: &err ];
 
@@ -192,11 +187,11 @@ inline sqlite3_stmt TAU_PRIVATE* prepared_sql_insert_into_img_archive_tb ()
                        dispatchQueue: ( dispatch_queue_t )_DispatchQueue
                    completionHandler: ( void (^)( TauPurgeableImageData* _ImageDat, NSError* _Error ) )_Handler
     {
-    dispatch_async( s_serial_archive_querying_queue_, ( dispatch_block_t )^{
+    dispatch_async( serial_archive_querying_queue_, ( dispatch_block_t )^{
 
         int rc = SQLITE_OK;
 
-        sqlite3_stmt* stmt = prepared_sql_select_from_img_archive_tb();
+        sqlite3_stmt* stmt = tvs_prepared_sql_select_from_img_archive_tb();
 
         int idx_of_zimgname = sqlite3_bind_parameter_index( stmt, ":zimgname" );
         rc = sqlite3_bind_text( stmt, idx_of_zimgname, _ImageName.UTF8String, ( int )_ImageName.length, SQLITE_STATIC );
