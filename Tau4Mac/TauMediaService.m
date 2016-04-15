@@ -356,7 +356,7 @@ TauMediaService static* sMediaService_;
         MediaServiceDisposableFetchingUnit_* fetchingUnit = nil;
         if ( !( fetchingUnit = [ self.disposableFetchingUnits_ objectForKey: optThumbUrlsDict ] ) )
             {
-            TMSLogCreateFetchingUnit( @"is about to create fetching unit for thumbUrlsDict @{%@}", optThumbUrlsDict );
+            TMSLogCreateFetchingUnit( @"is about to create fetching unit for thumbUrlsDict: {%@}", optThumbUrlsDict );
             fetchingUnit = [ [ MediaServiceDisposableFetchingUnit_ alloc ] init ];
             [ self.disposableFetchingUnits_ setObject: fetchingUnit forKey: optThumbUrlsDict ];
             }
