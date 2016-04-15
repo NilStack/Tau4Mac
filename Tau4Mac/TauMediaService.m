@@ -77,8 +77,6 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
                                                            success_:
             ^( NSImage* _Nullable _Image, NSURL* _ChosenURL, BOOL _LoadsFromCache )
                 {
-                NSLog( @"[tms](chosenURL=\U0001F916%@)", _ChosenURL ); // Robot Face
-
                 self.isFetchingInProgres_ = NO;
                 self.image_ = _Image;
                 self.url_ = _ChosenURL;
@@ -108,7 +106,6 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
         }
 
     dispatch_group_async( self.syncGroup_, self.fetchingQ_, ( dispatch_block_t )^{
-        NSLog( @"[tms](chosenURL=\U0001F47D%@) disposableFetchingUnit={%@}", self.url_, self ); // Extraterrestrial Alien
 
         /* dispatch_semaphore_signal( sem ); was invoked by barrier block.
          * "If there are tasks blocked and waiting for a resource,
@@ -129,7 +126,7 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
     if ( !self.hasSetUpGroupNotify_ )
         {
         dispatch_group_notify( self.syncGroup_, dispatch_get_main_queue(), ( dispatch_block_t )^{
-            TMSLogFetchingUnitDiscardable( @"[tms]\U0001F525 disposableFetchingUnit={%@} became discardable", self ); // Emoji: Fire
+            TMSLogFetchingUnitDiscardable( @"disposableFetchingUnit={%@} became discardable", self );
             self.isDiscardable = YES;
 
             NSMutableDictionary* userInfoDict = [ NSMutableDictionary dictionary ];
@@ -240,7 +237,7 @@ NSString static* const kSFFetchIdUserDataKey = @"GTM.Session.Fetcher.FetchId.Use
                             , kSFFetchIdUserDataKey : fetchID
                             } ];
 
-    TMSLogInitialTrial( @"[tms](initialTrialUrl=\U0001F349%@)", trialUrl ); // Emoji: Watermelon
+    TMSLogInitialTrial( @"(initialTrialUrl=%@)", trialUrl );
     [ fetcher beginFetchWithCompletionHandler: ^( NSData* _Nullable _Data, NSError* _Nullable _Error ) {
         if ( _Data && !_Error )
             {
@@ -359,12 +356,12 @@ TauMediaService static* sMediaService_;
         MediaServiceDisposableFetchingUnit_* fetchingUnit = nil;
         if ( !( fetchingUnit = [ self.disposableFetchingUnits_ objectForKey: optThumbUrlsDict ] ) )
             {
-            TMSLogCreateFetchingUnit( @"[tms]\U0001F64A is about to create fetching unit for thumbUrlsDict @{%@}", optThumbUrlsDict ); // Emoji: Speak-No-Evil Monkey
+            TMSLogCreateFetchingUnit( @"is about to create fetching unit for thumbUrlsDict @{%@}", optThumbUrlsDict );
             fetchingUnit = [ [ MediaServiceDisposableFetchingUnit_ alloc ] init ];
             [ self.disposableFetchingUnits_ setObject: fetchingUnit forKey: optThumbUrlsDict ];
             }
         else
-            TMSLogEnqueueFetchingUnit( @"[tms]\U0001F34A %@", optThumbUrlsDict ); // Emoji: Tangerine
+            TMSLogEnqueueFetchingUnit( @"enqueued the duplicated fetching request: %@", optThumbUrlsDict );
 
         [ fetchingUnit fetchPreferredThumbImageFromOptThumbUrlsDict: optThumbUrlsDict
                                                             success:
@@ -426,7 +423,8 @@ TauMediaService static* sMediaService_;
 
             [ priDisposableFetchingUnits_ removeObjectForKey: key ];
 
-            TMSLogFetchingUnitsCount( @"[tms]\U0001F319 %lu", priDisposableFetchingUnits_.count ); // Emoji: Crescent Moon
+            NSUInteger count = priDisposableFetchingUnits_.count;
+            TMSLogFetchingUnitsCount( @"remaining fetching units count: %lu%@.", count, ( count == 0 ) ? @" (🍺)" : @"" );
             } ];
         }
 

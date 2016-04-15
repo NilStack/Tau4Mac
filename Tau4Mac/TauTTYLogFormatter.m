@@ -34,6 +34,16 @@
         case DDLogFlagExpecting:    logLevel = @"EXPECTING";         break;
         case DDLogFlagInfo:         logLevel = @"INFO";              break;
         case DDLogFlagVerbose:      logLevel = @"VVVVVVVERBOSE";     break;
+
+        case TMSLogFlagInitialTrial:
+        case TMSLogFlagCreateFetchingUnit:
+        case TMSLogFlagEnqueueFetchingUnit:
+        case TMSLogFlagFetchingUnitsCount:
+        case TMSLogFlagFetchingUnitDiscardable:
+            logLevel = @"[tms]";
+             return [ NSString stringWithFormat: @">>>> %@%@"
+           , logLevel
+           , _LogMsg.message ];
         }
 
     NSString* fileName = TAU_LOG_PATH_OF_FILE( _LogMsg.fileName );
