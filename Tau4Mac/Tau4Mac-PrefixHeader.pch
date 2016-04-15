@@ -24,6 +24,7 @@
 @import CocoaLumberjack;
 
 #import "TauLogging.h"
+#import "TMSLogging.h"
 
 @import XCDYouTubeKit;
 @import PureLayout;

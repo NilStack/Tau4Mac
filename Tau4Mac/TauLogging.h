@@ -89,11 +89,11 @@
 #define DDLogLevelInfo         ( DDLogFlagInfo | DDLogLevelNotice)
 #define DDLogLevelDebug        ( DDLogFlagDebug | DDLogLevelInfo  )
 #define DDLogLevelExpecting    ( DDLogFlagExpecting | DDLogLevelDebug  )
-#define DDLogLevelVerbose      ( DDLogFlagVerbose | DDLogLevelDebug )
+#define DDLogLevelVerbose      ( NSUIntegerMax )
 
 DDLogLevel static const ddLogLevel =
 #if DEBUG
-DDLogLevelExpecting
+DDLogLevelVerbose
 #elif RELEASE
 DDLogLevelNotice
 #elif ANALYSIS

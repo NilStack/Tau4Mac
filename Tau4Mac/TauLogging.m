@@ -42,6 +42,18 @@ void TAU_PRIVATE sConfigureLogging()
         [ sharedTTYLogger setForegroundColor: expectingColor backgroundColor: nil forFlag: DDLogFlagExpecting ];
         [ sharedTTYLogger setForegroundColor: verboseColor backgroundColor: nil forFlag: DDLogFlagVerbose ];
 
+        NSColor* tmsInitialTrialColor = [ NSColor colorWithHTMLColor: @"FC85C8" ];
+        NSColor* tmsCreateFetchingUnitColor = [ NSColor colorWithHTMLColor: @"BF7A3E" ];
+        NSColor* tmsFetchingUnitsCountColor = [ NSColor colorWithHTMLColor: @"07DFE2" ];
+        NSColor* tmsEnqueueColor = [ NSColor colorWithHTMLColor: @"FFAE29" ];
+        NSColor* tmsDiscardableColor = [ NSColor colorWithHTMLColor: @"941751" ];
+
+        [ sharedTTYLogger setForegroundColor: tmsInitialTrialColor backgroundColor: nil forFlag: TMSLogFlagInitialTrial ];
+        [ sharedTTYLogger setForegroundColor: tmsCreateFetchingUnitColor backgroundColor: nil forFlag: TMSLogFlagCreateFetchingUnit ];
+        [ sharedTTYLogger setForegroundColor: tmsFetchingUnitsCountColor backgroundColor: nil forFlag: TMSLogFlagFetchingUnitsCount ];
+        [ sharedTTYLogger setForegroundColor: tmsEnqueueColor backgroundColor: nil forFlag: TMSLogFlagEnqueueFetchingUnit ];
+        [ sharedTTYLogger setForegroundColor: tmsDiscardableColor backgroundColor: nil forFlag: TMSLogFlagFetchingUnitDiscardable ];
+
         [ sharedTTYLogger setLogFormatter: [ [ TauTTYLogFormatter alloc ] init ] ];
         [ DDLog addLogger: sharedTTYLogger ];
         } );

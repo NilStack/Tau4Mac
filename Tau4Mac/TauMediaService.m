@@ -129,7 +129,7 @@ NSString static* const kFetchingUnitBecomeDiscardable = @"MediaServiceFetchingUn
     if ( !self.hasSetUpGroupNotify_ )
         {
         dispatch_group_notify( self.syncGroup_, dispatch_get_main_queue(), ( dispatch_block_t )^{
-            NSLog( @"[tms]\U0001F525 disposableFetchingUnit={%@} became discardable", self ); // Emoji: Fire
+            TMSLogFetchingUnitDiscardable( @"[tms]\U0001F525 disposableFetchingUnit={%@} became discardable", self ); // Emoji: Fire
             self.isDiscardable = YES;
 
             NSMutableDictionary* userInfoDict = [ NSMutableDictionary dictionary ];
@@ -240,7 +240,7 @@ NSString static* const kSFFetchIdUserDataKey = @"GTM.Session.Fetcher.FetchId.Use
                             , kSFFetchIdUserDataKey : fetchID
                             } ];
 
-    NSLog( @"[tms](initialTriaUrl=\U0001F349%@)", trialUrl ); // Emoji: Watermelon
+    TMSLogInitialTrial( @"[tms](initialTrialUrl=\U0001F349%@)", trialUrl ); // Emoji: Watermelon
     [ fetcher beginFetchWithCompletionHandler: ^( NSData* _Nullable _Data, NSError* _Nullable _Error ) {
         if ( _Data && !_Error )
             {
@@ -359,12 +359,12 @@ TauMediaService static* sMediaService_;
         MediaServiceDisposableFetchingUnit_* fetchingUnit = nil;
         if ( !( fetchingUnit = [ self.disposableFetchingUnits_ objectForKey: optThumbUrlsDict ] ) )
             {
-            NSLog( @"[tms]\U0001F64A is about to create fetching unit for thumbUrlsDict @{%@}", optThumbUrlsDict ); // Emoji: Speak-No-Evil Monkey
+            TMSLogCreateFetchingUnit( @"[tms]\U0001F64A is about to create fetching unit for thumbUrlsDict @{%@}", optThumbUrlsDict ); // Emoji: Speak-No-Evil Monkey
             fetchingUnit = [ [ MediaServiceDisposableFetchingUnit_ alloc ] init ];
             [ self.disposableFetchingUnits_ setObject: fetchingUnit forKey: optThumbUrlsDict ];
             }
         else
-            NSLog( @"[tms]\U0001F34A %@", optThumbUrlsDict ); // Emoji: Tangerine
+            TMSLogEnqueueFetchingUnit( @"[tms]\U0001F34A %@", optThumbUrlsDict ); // Emoji: Tangerine
 
         [ fetchingUnit fetchPreferredThumbImageFromOptThumbUrlsDict: optThumbUrlsDict
                                                             success:
@@ -426,7 +426,7 @@ TauMediaService static* sMediaService_;
 
             [ priDisposableFetchingUnits_ removeObjectForKey: key ];
 
-            NSLog( @"[tms]\U0001F319 %lu", priDisposableFetchingUnits_.count ); // Emoji: Crescent Moon
+            TMSLogFetchingUnitsCount( @"[tms]\U0001F319 %lu", priDisposableFetchingUnits_.count ); // Emoji: Crescent Moon
             } ];
         }
 
