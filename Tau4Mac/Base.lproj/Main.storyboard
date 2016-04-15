@@ -22,31 +22,6 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                                        <menuItem title="Check for Updates…" id="2bo-kn-yY8">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="checkForUpdates:" target="JmI-Vx-h4u" id="Wlh-F5-12m"/>
-                                                <binding destination="JmI-Vx-h4u" name="enabled" keyPath="self.isUpdating" id="LN2-7g-53d">
-                                                    <dictionary key="options">
-                                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                    </dictionary>
-                                                </binding>
-                                                <binding destination="JmI-Vx-h4u" name="hidden" keyPath="self.requiresSparkle" previousBinding="LN2-7g-53d" id="FRj-wm-zp5">
-                                                    <dictionary key="options">
-                                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                    </dictionary>
-                                                </binding>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="7dN-rI-i8u">
-                                            <connections>
-                                                <binding destination="JmI-Vx-h4u" name="hidden" keyPath="self.requiresSparkle" id="yVd-iM-Tgh">
-                                                    <dictionary key="options">
-                                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                    </dictionary>
-                                                </binding>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>

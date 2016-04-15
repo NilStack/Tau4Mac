@@ -8,10 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8304EB1A1CB4ABAA004930A7 /* dsa_codesign_pub.pem in Copy DSA Codesign Pubkey */ = {isa = PBXBuildFile; fileRef = 8304EAE21CB4AB8C004930A7 /* dsa_codesign_pub.pem */; };
-		8304EB241CB4AFA0004930A7 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832921F51CB2854B008EFBCB /* Sparkle.framework */; };
-		8304EB251CB4AFA7004930A7 /* Sparkle.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 832921F51CB2854B008EFBCB /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8304EB301CB4DF56004930A7 /* TauAppIntrospection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304EB2F1CB4DF56004930A7 /* TauAppIntrospection.m */; };
-		8304EB331CB4EA98004930A7 /* TauSparkleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304EB321CB4EA98004930A7 /* TauSparkleController.m */; };
 		830F55881C92CE20005E431B /* NSObject+TauDataServiceConsumer.m in Sources */ = {isa = PBXBuildFile; fileRef = 830F55871C92CE20005E431B /* NSObject+TauDataServiceConsumer.m */; };
 		8311753B1CBDE32600393A60 /* TauArchiveService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8311753A1CBDE32600393A60 /* TauArchiveService.m */; };
 		8311753E1CBDE42700393A60 /* libsqlite4tau.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831175301CBDE21700393A60 /* libsqlite4tau.a */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -542,7 +539,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				831175431CBDE5C100393A60 /* XCDYouTubeKit.framework in Copy Third-Party Frameworks */,
-				8304EB251CB4AFA7004930A7 /* Sparkle.framework in Copy Third-Party Frameworks */,
 				8325553E1CA4E007000C8A48 /* KVOController.framework in Copy Third-Party Frameworks */,
 				83765B971C881EA900D93554 /* GTL.framework in Copy Third-Party Frameworks */,
 				83765B691C881A6800D93554 /* CocoaLumberjack.framework in Copy Third-Party Frameworks */,
@@ -557,8 +553,6 @@
 		8304EAE21CB4AB8C004930A7 /* dsa_codesign_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_codesign_pub.pem; path = ../dsa_codesign_pub.pem; sourceTree = "<group>"; };
 		8304EB2E1CB4DF56004930A7 /* TauAppIntrospection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauAppIntrospection.h; sourceTree = "<group>"; };
 		8304EB2F1CB4DF56004930A7 /* TauAppIntrospection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAppIntrospection.m; sourceTree = "<group>"; };
-		8304EB311CB4EA98004930A7 /* TauSparkleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauSparkleController.h; sourceTree = "<group>"; };
-		8304EB321CB4EA98004930A7 /* TauSparkleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauSparkleController.m; sourceTree = "<group>"; };
 		830F55861C92CE20005E431B /* NSObject+TauDataServiceConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+TauDataServiceConsumer.h"; sourceTree = "<group>"; };
 		830F55871C92CE20005E431B /* NSObject+TauDataServiceConsumer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+TauDataServiceConsumer.m"; sourceTree = "<group>"; };
 		830F558D1C92F588005E431B /* TauLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauLogging.h; sourceTree = "<group>"; };
@@ -754,7 +748,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				831175411CBDE58700393A60 /* XCDYouTubeKit.framework in Frameworks */,
-				8304EB241CB4AFA0004930A7 /* Sparkle.framework in Frameworks */,
 				8325553D1CA4DF7A000C8A48 /* KVOController.framework in Frameworks */,
 				83EB73C91C8E65A2004EB117 /* AVFoundation.framework in Frameworks */,
 				83EB73CA1C8E65A2004EB117 /* AVKit.framework in Frameworks */,
@@ -1100,8 +1093,6 @@
 				83765ADD1C8811DD00D93554 /* TauAppDelegate.h */,
 				83765ADE1C8811DD00D93554 /* TauAppDelegate.m */,
 				83765AE81C8811DD00D93554 /* Main.storyboard */,
-				8304EB311CB4EA98004930A7 /* TauSparkleController.h */,
-				8304EB321CB4EA98004930A7 /* TauSparkleController.m */,
 				83EB73471C8D33BC004EB117 /* TauAbstractBeautifulView.h */,
 				83EB73481C8D33BC004EB117 /* TauAbstractBeautifulView.m */,
 				8399E2181C88231400A42C44 /* TauMainWindowController.h */,
@@ -1920,7 +1911,6 @@
 				83EEEDD11CAE69820074E73D /* TauPlayerController.m in Sources */,
 				838D405A1C9E883100E1120B /* TauSearchResultsCollectionContentSubViewController.m in Sources */,
 				8349D3DF1C899444000D091F /* NSImage+Tau.m in Sources */,
-				8304EB331CB4EA98004930A7 /* TauSparkleController.m in Sources */,
 				830F55881C92CE20005E431B /* NSObject+TauDataServiceConsumer.m in Sources */,
 				8321F6681C8AA0A500D11FE0 /* TauViewsStack.m in Sources */,
 				83EEED921CAD71E60074E73D /* TauContentInspectorSubViews.m in Sources */,

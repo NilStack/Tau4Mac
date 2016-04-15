@@ -29,7 +29,6 @@
 @import XCDYouTubeKit;
 @import PureLayout;
 @import KVOController;
-@import Sparkle;
 
 #import "GTLYouTube.h"
 #import "OAuthSigningConstants.h"
@@ -41,7 +40,6 @@
 #import "TauConstants.h"
 #import "TauDataService.h"
 #import "TauPlayerController.h"
-#import "TauSparkleController.h"
 
 #import "TauValueTransformers.h"
 
