@@ -9,13 +9,19 @@
 #import "TauArchiveService.h"
 #import "TauPurgeableImageData.h"
 
+#define TVSTbVer "ZTVS_VER"
 #define TVSTbNameImgArchive "ZTVS_IMG_ARCHIVE"
+
 #define TVSColNameID        "ZTVS_ID"
+#define TVSColVerDesc       "ZTVS_VER_DESC"
+#define TVSColVerNumber     "ZTVS_VER_NO"
 #define TVSColNameImgName   "ZTVS_IMG_NAME"
 #define TVSColNameImgBlob   "ZTVS_IMG_BLOB"
 
 #define TVS_IMGNAME_BIND_PARAM ":zimgname"
 #define TVS_IMGBLOB_BIND_PARAM ":zimgblob"
+
+#define TVSImageArchiveTableVer 1
 
 sqlite3 TAU_PRIVATE* db_;
 
@@ -24,6 +30,8 @@ dispatch_queue_t TAU_PRIVATE serial_archive_querying_queue_;
 #if DEBUG
 void TAU_PRIVATE err_log_cbk ( void* _pArgc, int _err, char const* _zMsg ) { DDLogUnexpected( @"[tvs](errcode=%d msg=%s)", _err, _zMsg ); }
 #endif
+
+sqlite3_stmt TAU_PRIVATE* stmt_CREATE_ver_tb_;
 
 sqlite3_stmt TAU_PRIVATE* stmt_CREATE_img_archive_tb_;
 sqlite3_stmt TAU_PRIVATE* stmt_SELECT_from_img_archive_tb_;
@@ -77,6 +85,25 @@ inline void TAU_PRIVATE prepared_sql_init_ ()
         // Create img_archive_tb table
         NSString* sqlTemplate = nil;
         NSString* sql = nil;
+
+        sqlTemplate = @"create table IF NOT EXISTS %s ( %s integer primary key, %s text NOT null, %s integer NOT null, unique( %s ) );";
+        sql = [ NSString stringWithFormat: sqlTemplate
+              , /*CREATE TABLE IF NOT EXISTS*/ TVSTbVer
+              , /*(*/ TVSColNameID /*INTEGER PRIMARY KEY*/, TVSColVerDesc /*TEXT NOT NULL*/, TVSColVerNumber /*integer NOT NULL*/
+              , /*UNIQUE(*/ TVSColVerDesc /*)*/
+                /*);*/ ];
+
+        TVSStrictExecuteSQLiteV3Func( sqlite3_prepare_v2( db_, sql.UTF8String, -1, &stmt_CREATE_ver_tb_, NULL ), &error );
+        TVSStrictExecuteSQLiteV3Func( sqlite3_step( stmt_CREATE_ver_tb_ ), &error );
+
+        sqlTemplate = @"insert OR IGNORE into %s ( %s, %s ) values( '%s', '%d' );";
+        sql = [ NSString stringWithFormat: sqlTemplate
+              , /*INSERT OR IGNORE INTO*/ TVSTbVer
+              , /*(*/TVSColVerDesc, TVSColVerNumber /*)*/
+              , /*VALUES(*/ TVSTbNameImgArchive, TVSImageArchiveTableVer /*)*/
+                /*);*/ ];
+
+        TVSStrictExecuteSQLiteV3Func( sqlite3_exec( db_, sql.UTF8String, NULL, NULL, NULL ), &error );
 
         sqlTemplate = @"create table IF NOT EXISTS %s ( %s integer primary key, %s text NOT null, %s blob NOT null, unique( %s ) );";
         sql = [ NSString stringWithFormat: sqlTemplate
