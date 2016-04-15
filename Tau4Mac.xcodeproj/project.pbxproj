@@ -14,7 +14,7 @@
 		8304EB331CB4EA98004930A7 /* TauSparkleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304EB321CB4EA98004930A7 /* TauSparkleController.m */; };
 		830F55881C92CE20005E431B /* NSObject+TauDataServiceConsumer.m in Sources */ = {isa = PBXBuildFile; fileRef = 830F55871C92CE20005E431B /* NSObject+TauDataServiceConsumer.m */; };
 		8311753B1CBDE32600393A60 /* TauArchiveService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8311753A1CBDE32600393A60 /* TauArchiveService.m */; };
-		8311753E1CBDE42700393A60 /* libsqlite4tau.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831175301CBDE21700393A60 /* libsqlite4tau.a */; };
+		8311753E1CBDE42700393A60 /* libsqlite4tau.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831175301CBDE21700393A60 /* libsqlite4tau.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		831175411CBDE58700393A60 /* XCDYouTubeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EB73B81C8E6514004EB117 /* XCDYouTubeKit.framework */; };
 		831175431CBDE5C100393A60 /* XCDYouTubeKit.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 83EB73B81C8E6514004EB117 /* XCDYouTubeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8318A5481C89205700F3E9CD /* TauContentCollectionItemSubLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8318A5471C89205700F3E9CD /* TauContentCollectionItemSubLayer.m */; };
@@ -1418,7 +1418,7 @@
 						DevelopmentTeam = 89BSC2UYH8;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -2107,7 +2107,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_ENTITLEMENTS = Tau4Mac/Tau.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tau4Mac/Tau4Mac-PrefixHeader.pch";
@@ -2128,6 +2129,7 @@
 				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4Mac;
 				PRODUCT_NAME = Tau;
+				SKIP_INSTALL = NO;
 				VERSION_INFO_PREFIX = "";
 				VERSION_INFO_SUFFIX = "";
 			};
@@ -2138,7 +2140,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_ENTITLEMENTS = Tau4Mac/Tau.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tau4Mac/Tau4Mac-PrefixHeader.pch";
@@ -2153,6 +2156,7 @@
 				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4Mac;
 				PRODUCT_NAME = Tau;
+				SKIP_INSTALL = NO;
 				VERSION_INFO_PREFIX = "";
 				VERSION_INFO_SUFFIX = "";
 			};
@@ -2271,7 +2275,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_ENTITLEMENTS = Tau4Mac/Tau.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(SYMROOT)/Debug$(EFFECTIVE_PLATFORM_NAME)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2290,6 +2295,7 @@
 				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4Mac;
 				PRODUCT_NAME = Tau;
+				SKIP_INSTALL = NO;
 				VERSION_INFO_PREFIX = "";
 				VERSION_INFO_SUFFIX = "";
 			};
