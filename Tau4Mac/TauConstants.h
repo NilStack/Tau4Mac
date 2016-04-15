@@ -15,6 +15,10 @@
 
 
 
+#define TauPreferredQueue( DISPATCH_QUEUE ) DISPATCH_QUEUE ?: dispatch_get_main_queue()
+#define TauExecuteCodeFragmentOnMainQueue( FRAGMENT ) \
+dispatch_async( dispatch_get_main_queue(), ( dispatch_block_t )^{ do { FRAGMENT; } while ( 0 ); } )
+
 #define TauKeyOfSel( _Sel ) ( NSStringFromSelector( _Sel ) )
 
 #define TauKVOLiberalKey( _Sel ) \
@@ -71,8 +75,6 @@ TauStrictAssert( CONDITION, @"condition not satisfied: %s", #CONDITION )
 #endif
 
 #define TAU_PRIVATE static
-
-#define TauPreferredQueue( DISPATCH_QUEUE ) DISPATCH_QUEUE ?: dispatch_get_main_queue()
 
 
 

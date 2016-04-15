@@ -343,7 +343,7 @@ TauDeallocEnd
 
 - ( void ) executePagingOperationWithPageToken_: ( NSString* )_PageToken
     {
-    id query = nil;
+    id query = originalOperationsCombination_;
     if ( _PageToken && ( _PageToken.length > 0 ) )
         {
         if ( [ originalOperationsCombination_ isKindOfClass: [ NSDictionary class ] ] )
@@ -356,10 +356,9 @@ TauDeallocEnd
             {
             GTLQueryYouTube* copy = [ originalOperationsCombination_ copy ];
             [ copy setPageToken: _PageToken ];
+            query = copy;
             }
         }
-    else
-        query = originalOperationsCombination_;
 
     self.isPaging = ( _PageToken != nil );
     [ [ TauAPIService sharedService ] executeConsumerOperations: query

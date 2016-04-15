@@ -193,8 +193,8 @@ GTLServiceYouTube TAU_PRIVATE* service;
 #pragma mark - Consumers
 
 - ( TauAPIServiceCredential* ) registerConsumer: ( id <TauAPIServiceConsumer> )_Consumer
-                               withMethodSignature: ( NSMethodSignature* )_Sig
-                                   consumptionType: ( TauAPIServiceConsumptionType )_ConsumptionType
+                            withMethodSignature: ( NSMethodSignature* )_Sig
+                                consumptionType: ( TauAPIServiceConsumptionType )_ConsumptionType
     {
     Protocol* protocol = @protocol( TauAPIServiceConsumer );
     if ( ![ _Consumer conformsToProtocol: protocol ] )
@@ -268,7 +268,7 @@ GTLServiceYouTube TAU_PRIVATE* service;
     if ( error )
         {
         if ( _FailureHandler )
-            _FailureHandler( error );
+            TauExecuteCodeFragmentOnMainQueue( _FailureHandler( error ) );
         else
             DDLogUnexpected( @"Failed to execute consumer operations with error: {%@}", error );
         }
