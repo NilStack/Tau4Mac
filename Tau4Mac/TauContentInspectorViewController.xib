@@ -236,27 +236,6 @@
             </constraints>
             <point key="canvasLocation" x="802.5" y="491.5"/>
         </customView>
-        <viewController id="laU-6Z-BdN" customClass="NSSplitViewController"/>
-        <viewController id="O0U-D9-J1q">
-            <connections>
-                <outlet property="view" destination="yUE-5Y-ndY" id="xfU-r5-o3s"/>
-            </connections>
-        </viewController>
-        <viewController id="aov-uw-QZu">
-            <connections>
-                <outlet property="view" destination="dhK-De-Q8r" id="vPF-s1-kFp"/>
-            </connections>
-        </viewController>
-        <viewController id="Ovr-2Y-XCS">
-            <connections>
-                <outlet property="view" destination="eG4-cM-th3" id="0hG-CC-Py4"/>
-            </connections>
-        </viewController>
-        <viewController id="PbZ-U2-L2H">
-            <connections>
-                <outlet property="view" destination="wnM-W4-bI1" id="A4P-R6-Ire"/>
-            </connections>
-        </viewController>
         <customView id="DeI-dZ-qVA" customClass="TauContentInspectorMultipleSelectionsSubView">
             <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -287,18 +266,53 @@
             <point key="canvasLocation" x="394.5" y="314"/>
         </customView>
         <customView id="c9S-GL-zfS" customClass="TauContentInspectorSingleSelectionSubView">
-            <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
+            <rect key="frame" x="0.0" y="0.0" width="230" height="503"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <connections>
-                <outlet property="contentActionSectionView_" destination="dhK-De-Q8r" id="JiN-Gj-LRf"/>
-                <outlet property="contentDescriptionSectionView_" destination="eG4-cM-th3" id="kDE-oi-Gea"/>
-                <outlet property="contentTitleSectionView_" destination="yUE-5Y-ndY" id="Czp-Ve-q1B"/>
-                <outlet property="wrapperOfSingleContentActionSectionView_" destination="aov-uw-QZu" id="377-61-tEB"/>
-                <outlet property="wrapperOfSingleContentDescriptionSectionView_" destination="Ovr-2Y-XCS" id="3D9-4u-GjS"/>
-                <outlet property="wrapperOfSingleContentInformationSectionView_" destination="PbZ-U2-L2H" id="DzS-Cb-SQX"/>
-                <outlet property="wrapperOfSingleContentTitleSectionView_" destination="O0U-D9-J1q" id="pr2-wx-RZ2"/>
-            </connections>
-            <point key="canvasLocation" x="608.5" y="-101"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="rF6-Au-81u">
+                    <rect key="frame" x="0.0" y="475" width="230" height="28"/>
+                    <subviews>
+                        <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rKo-3A-SBu">
+                            <rect key="frame" x="83" y="1" width="65" height="25"/>
+                            <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="selectOne" id="eZO-QM-nVb" customClass="TauSwitcherSegmentedCell">
+                                <font key="font" metaFont="system"/>
+                                <segments>
+                                    <segment image="item-template" selected="YES">
+                                        <nil key="label"/>
+                                    </segment>
+                                    <segment toolTip="YouTube Content Inspector" image="item-info-template" tag="1">
+                                        <nil key="label"/>
+                                    </segment>
+                                </segments>
+                            </segmentedCell>
+                        </segmentedControl>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="rKo-3A-SBu" firstAttribute="centerY" secondItem="rF6-Au-81u" secondAttribute="centerY" id="15p-4J-VBd"/>
+                        <constraint firstItem="rKo-3A-SBu" firstAttribute="centerX" secondItem="rF6-Au-81u" secondAttribute="centerX" id="7Av-5H-fjm"/>
+                        <constraint firstAttribute="height" constant="28" id="az8-gl-Akt"/>
+                    </constraints>
+                </customView>
+                <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="pPg-Y7-e3e">
+                    <rect key="frame" x="0.0" y="473" width="230" height="5"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="AK4-tY-mxo"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="ULv-uu-s4i"/>
+                    </constraints>
+                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <font key="titleFont" metaFont="system"/>
+                </box>
+            </subviews>
+            <constraints>
+                <constraint firstItem="pPg-Y7-e3e" firstAttribute="leading" secondItem="c9S-GL-zfS" secondAttribute="leading" id="1Ht-vx-udd"/>
+                <constraint firstItem="rF6-Au-81u" firstAttribute="leading" secondItem="c9S-GL-zfS" secondAttribute="leading" id="38S-QV-rAx"/>
+                <constraint firstAttribute="trailing" secondItem="pPg-Y7-e3e" secondAttribute="trailing" id="3Wt-sW-Fi8"/>
+                <constraint firstItem="pPg-Y7-e3e" firstAttribute="top" secondItem="rF6-Au-81u" secondAttribute="bottom" constant="-1" id="O4A-tm-fsM"/>
+                <constraint firstAttribute="trailing" secondItem="rF6-Au-81u" secondAttribute="trailing" id="V09-xd-lQ0"/>
+                <constraint firstItem="rF6-Au-81u" firstAttribute="top" secondItem="c9S-GL-zfS" secondAttribute="top" id="tOc-Yq-uDh"/>
+            </constraints>
+            <point key="canvasLocation" x="383" y="80.5"/>
         </customView>
         <customView id="AnE-3J-eXW" customClass="TauContentInspectorNoSelectionSubView">
             <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
@@ -332,5 +346,7 @@
     </objects>
     <resources>
         <image name="NSShareTemplate" width="11" height="16"/>
+        <image name="item-info-template" width="15" height="15"/>
+        <image name="item-template" width="15" height="15"/>
     </resources>
 </document>

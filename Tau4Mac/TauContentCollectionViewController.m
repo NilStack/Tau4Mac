@@ -335,7 +335,7 @@ TauDeallocEnd
         [ priControlInspectorButton_ setTarget: self ];
         [ priControlInspectorButton_ setAction: @selector( controlInspectorAction_: ) ];
 
-        NSImage* icon = [ NSImage imageNamed: @"tau-show-details-inspector" ];
+        NSImage* icon = [ NSImage imageNamed: @"switch-inspector-template" ];
         [ icon setSize: NSMakeSize( 13.f, 12.f ) ];
         [ icon setTemplate: YES ];
 
