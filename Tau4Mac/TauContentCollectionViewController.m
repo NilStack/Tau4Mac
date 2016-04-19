@@ -351,7 +351,6 @@ TauDeallocEnd
 
 - ( void ) controlInspectorAction_: ( NSButton* )_Sender
     {
-    NSLog( @"%@", [ priContentInspectorSplitViewItem_ animations ] );
     [ self setInspectorCollapsed : ![ _Sender state ] ];
     }
 
