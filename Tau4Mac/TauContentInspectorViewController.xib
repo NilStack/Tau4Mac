@@ -595,7 +595,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="KjS-Yj-Q8E"/>
                                 </constraints>
-                                <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="9mt-vJ-kHM">
+                                <textFieldCell key="cell" controlSize="small" selectable="YES" sendsActionOnEndEditing="YES" id="9mt-vJ-kHM">
                                     <font key="font" metaFont="smallSystem"/>
                                     <string key="title">GitHub: How people build software. Watch Anna's story on how she builds software, then start your journey on GitHub.com or with GitHub </string>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
