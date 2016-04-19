@@ -556,6 +556,7 @@
                                 <rect key="frame" x="87" y="249" width="127" height="98"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="X4X-R2-c3j"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" id="s1x-Xq-zHp"/>
                                 </constraints>
                                 <textFieldCell key="cell" controlSize="small" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" id="KRY-1E-nqz">
                                     <font key="font" metaFont="smallSystem"/>
@@ -610,10 +611,12 @@
                             <constraint firstItem="p0Y-Sg-3ot" firstAttribute="top" secondItem="HN2-2d-8hp" secondAttribute="top" constant="8" id="8sS-jl-x8S"/>
                             <constraint firstItem="whc-nk-Xkz" firstAttribute="top" secondItem="xad-Kh-EXh" secondAttribute="top" id="AEu-qd-JVl"/>
                             <constraint firstItem="1aP-Xo-E05" firstAttribute="top" secondItem="whc-nk-Xkz" secondAttribute="bottom" constant="6" id="CJj-V8-VDt"/>
+                            <constraint firstItem="dbW-ie-TG7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HN2-2d-8hp" secondAttribute="leading" constant="12" id="F0B-1k-ZBg"/>
                             <constraint firstItem="whc-nk-Xkz" firstAttribute="top" secondItem="gXp-oc-AMp" secondAttribute="bottom" constant="6" id="FkN-2i-pHQ"/>
                             <constraint firstItem="6SP-HE-Hfq" firstAttribute="trailing" secondItem="xad-Kh-EXh" secondAttribute="trailing" id="GpC-4z-c1O"/>
                             <constraint firstItem="wAj-KH-Epu" firstAttribute="leading" secondItem="HN2-2d-8hp" secondAttribute="leading" constant="12" id="KQH-UM-HqH"/>
                             <constraint firstItem="QZn-ub-N9a" firstAttribute="top" secondItem="whc-nk-Xkz" secondAttribute="bottom" constant="6" id="Kz3-Z5-Vbi"/>
+                            <constraint firstItem="Iu6-Td-bZp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HN2-2d-8hp" secondAttribute="leading" constant="12" id="LmE-b7-Ltn"/>
                             <constraint firstItem="qOo-Yq-06G" firstAttribute="top" secondItem="wAj-KH-Epu" secondAttribute="bottom" constant="4" id="MJA-ks-LFg"/>
                             <constraint firstItem="wAj-KH-Epu" firstAttribute="top" secondItem="66s-aQ-nPs" secondAttribute="bottom" constant="6" id="OG1-va-dkv"/>
                             <constraint firstItem="QZn-ub-N9a" firstAttribute="trailing" secondItem="xad-Kh-EXh" secondAttribute="trailing" id="OfE-JI-kv0"/>
@@ -621,8 +624,8 @@
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1aP-Xo-E05" secondAttribute="trailing" constant="8" id="TGs-op-UqP"/>
                             <constraint firstItem="LQM-qd-GB9" firstAttribute="top" secondItem="p0Y-Sg-3ot" secondAttribute="bottom" constant="4" id="U1q-5X-ry3"/>
                             <constraint firstItem="hhP-jX-Elk" firstAttribute="trailing" secondItem="xad-Kh-EXh" secondAttribute="trailing" id="V9Q-pa-xXr"/>
+                            <constraint firstItem="xad-Kh-EXh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HN2-2d-8hp" secondAttribute="leading" constant="12" id="VB0-b6-KFV"/>
                             <constraint firstItem="QZn-ub-N9a" firstAttribute="top" relation="greaterThanOrEqual" secondItem="xad-Kh-EXh" secondAttribute="bottom" constant="90" id="VIl-nP-Y2o"/>
-                            <constraint firstItem="xad-Kh-EXh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HN2-2d-8hp" secondAttribute="leading" constant="8" id="Yl3-1x-0GR"/>
                             <constraint firstItem="eMd-lZ-lhm" firstAttribute="top" secondItem="1aP-Xo-E05" secondAttribute="bottom" constant="6" id="bDZ-V4-jIz"/>
                             <constraint firstItem="mKE-jA-cyg" firstAttribute="leading" secondItem="6SP-HE-Hfq" secondAttribute="trailing" constant="6" id="cCe-mP-P3j"/>
                             <constraint firstItem="1aP-Xo-E05" firstAttribute="baseline" secondItem="QZn-ub-N9a" secondAttribute="baseline" id="ciY-6U-GWJ"/>
