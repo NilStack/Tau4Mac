@@ -8,67 +8,54 @@
 
 #import "TauContentInspectorSubViews.h"
 
-// Private
-@interface TauContentInspectorNoSelectionSubView ()
-@property ( weak ) IBOutlet NSView* noSelectionLabelSection_;
-@end // Private
+#import "TauYouTubeVideoInspector.h"
 
 // TauContentInspectorNoSelectionSubView class
+@interface TauContentInspectorNoSelectionSubView ()
+@property ( weak ) IBOutlet NSView* noSelectionLabelSection_;
+@end
+
 @implementation TauContentInspectorNoSelectionSubView
 @end // TauContentInspectorNoSelectionSubView class
 
 
 
-// ------------------------------------------------------------------------------------------------------------ //
+// ---------------------------------------------------
 
 
-
-// Private
-@interface TauContentInspectorMultipleSelectionsSubView ()
-@property ( weak ) IBOutlet NSView* multipleSelectionLabelSection_;
-@end // Private
 
 // TauContentInspectorMultipleSelectionsSubView class
+@interface TauContentInspectorMultipleSelectionsSubView ()
+@property ( weak ) IBOutlet NSView* multipleSelectionLabelSection_;
+@end
+
 @implementation TauContentInspectorMultipleSelectionsSubView
 @end // TauContentInspectorMultipleSelectionsSubView class
 
 
 
-// ------------------------------------------------------------------------------------------------------------ //
+// ---------------------------------------------------
 
 
-
-// PriContentDescriptionSectionView_ class
-@interface PriContentDescriptionSectionView_ : NSView <NSTextViewDelegate>
-
-@property ( strong, readwrite ) GTLObject* YouTubeContent;
-
-@property ( weak ) IBOutlet NSClipView* clipView_;
-@property ( strong ) IBOutlet NSTextView* textView_;
-
-@end
-
-@implementation PriContentDescriptionSectionView_
-@end // PriContentDescriptionSectionView_ class
-
-
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-
-
-// Private
-@interface TauContentInspectorSingleSelectionSubView ()
-@end // Private
 
 // TauContentInspectorSingleSelectionSubView class
+@interface TauContentInspectorSingleSelectionSubView ()
+@property ( weak ) IBOutlet TauYouTubeVideoInspector* videoInspector_;
+@end
+
 @implementation TauContentInspectorSingleSelectionSubView
 
 #pragma mark - Initializations
 
+// ------------------------------------------------------
+/// setup UI
 - ( void ) awakeFromNib
+// ------------------------------------------------------
     {
     // TODO:
+
+    [ self addSubview: [ self.videoInspector_ configureForAutoLayout ] ];
+    [ self.videoInspector_ autoPinEdgesToSuperviewEdges ];
     }
 
 @synthesize YouTubeContent = YouTubeContent_;

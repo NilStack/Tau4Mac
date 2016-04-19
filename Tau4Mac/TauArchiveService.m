@@ -254,9 +254,7 @@ TVSSQLiteErrorHandlingPoint:
         [ self syncArchiveImage: _ImageDat name: _ImageName error: &err ];
 
         if ( _Handler )
-            dispatch_async( TauPreferredQueue( _DispatchQueue ), ( dispatch_block_t )^{
-                _Handler( err );
-                } );
+            dispatch_async( TauPreferredQueue( _DispatchQueue ), ( dispatch_block_t )^{ _Handler( err ); } );
         } );
     }
 
