@@ -562,7 +562,6 @@
                                 <rect key="frame" x="85" y="249" width="127" height="98"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="500" id="FFz-DU-G9L"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" id="s1x-Xq-zHp"/>
                                 </constraints>
                                 <textFieldCell key="cell" controlSize="small" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" id="KRY-1E-nqz">
                                     <font key="font" metaFont="smallSystem"/>
@@ -623,6 +622,7 @@
                             <constraint firstItem="LiG-Hd-PVt" firstAttribute="baseline" secondItem="qOf-8F-Mag" secondAttribute="baseline" id="A8J-tV-PWj"/>
                             <constraint firstItem="whc-nk-Xkz" firstAttribute="top" secondItem="xad-Kh-EXh" secondAttribute="top" id="AEu-qd-JVl"/>
                             <constraint firstItem="ajB-w0-Sgo" firstAttribute="leading" secondItem="HN2-2d-8hp" secondAttribute="leading" constant="8" id="Ap1-El-KUs"/>
+                            <constraint firstItem="1aP-Xo-E05" firstAttribute="top" secondItem="whc-nk-Xkz" secondAttribute="bottom" constant="6" id="DMc-dQ-T3t"/>
                             <constraint firstItem="Iu6-Td-bZp" firstAttribute="top" secondItem="hhP-jX-Elk" secondAttribute="bottom" constant="6" id="EIy-uS-sgk"/>
                             <constraint firstItem="dbW-ie-TG7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HN2-2d-8hp" secondAttribute="leading" constant="12" id="F0B-1k-ZBg"/>
                             <constraint firstItem="qOf-8F-Mag" firstAttribute="top" secondItem="JN6-4f-raF" secondAttribute="bottom" constant="4" id="FX9-1o-Kvh"/>
@@ -640,7 +640,6 @@
                             <constraint firstItem="xad-Kh-EXh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HN2-2d-8hp" secondAttribute="leading" constant="12" id="VB0-b6-KFV"/>
                             <constraint firstItem="hhP-jX-Elk" firstAttribute="top" secondItem="qOf-8F-Mag" secondAttribute="bottom" constant="6" id="VyG-nZ-8bl"/>
                             <constraint firstItem="LiG-Hd-PVt" firstAttribute="leading" secondItem="qOf-8F-Mag" secondAttribute="trailing" constant="8" symbolic="YES" id="WXN-qG-hP9"/>
-                            <constraint firstItem="QZn-ub-N9a" firstAttribute="top" secondItem="xad-Kh-EXh" secondAttribute="bottom" constant="90" id="WeI-iJ-5es"/>
                             <constraint firstItem="JN6-4f-raF" firstAttribute="top" secondItem="ajB-w0-Sgo" secondAttribute="bottom" constant="6" id="YLO-Vu-ReH"/>
                             <constraint firstItem="biH-pi-cTm" firstAttribute="baseline" secondItem="Iu6-Td-bZp" secondAttribute="baseline" id="ZNO-Kn-Txk"/>
                             <constraint firstItem="qOf-8F-Mag" firstAttribute="leading" secondItem="HN2-2d-8hp" secondAttribute="leading" constant="50" id="aJK-ie-65w"/>

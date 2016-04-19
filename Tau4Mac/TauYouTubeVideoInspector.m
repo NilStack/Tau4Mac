@@ -128,6 +128,11 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
 
 @implementation PriYouTubeVideoMetaInfoView_
 
+- ( void ) viewDidMoveToWindow
+    {
+    [ self.window visualizeConstraints: self.constraints ];
+    }
+
 @synthesize YouTubeContent = YouTubeContent_;
 - ( void ) setYouTubeContent: ( GTLObject* )_New
     {
