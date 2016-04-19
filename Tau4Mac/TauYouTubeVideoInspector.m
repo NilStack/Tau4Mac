@@ -130,7 +130,7 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
 
 - ( void ) viewDidMoveToWindow
     {
-    [ self.window visualizeConstraints: self.constraints ];
+//    [ self.window visualizeConstraints: self.constraints ];
     }
 
 @synthesize YouTubeContent = YouTubeContent_;
