@@ -1,5 +1,6 @@
 #import "TauSwitcherSegmentedCell.h"
 
+// TauSwitcherSegmentedCell class
 @implementation TauSwitcherSegmentedCell
 
 #pragma mark - Segmented Cell Methods
@@ -42,4 +43,4 @@
         } else [ super drawSegment: _Segment inFrame: _Frame withView: _ControlView ];
     }
 
-@end
+@end // TauSwitcherSegmentedCell class

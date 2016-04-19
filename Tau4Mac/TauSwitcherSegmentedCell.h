@@ -1,3 +1,5 @@
 @import Cocoa;
+
+// TauSwitcherSegmentedCell class
 @interface TauSwitcherSegmentedCell : NSSegmentedCell
-@end
+@end // TauSwitcherSegmentedCell class
