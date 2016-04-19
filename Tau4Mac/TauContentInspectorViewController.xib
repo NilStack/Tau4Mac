@@ -363,7 +363,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="220" height="393"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <customView verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HN2-2d-8hp" userLabel="Document View">
+                    <customView verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HN2-2d-8hp" userLabel="Document View">
                         <rect key="frame" x="0.0" y="0.0" width="220" height="393"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="p0Y-Sg-3ot">
@@ -489,8 +489,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="750" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="qOf-8F-Mag">
-                                <rect key="frame" x="18" y="46" width="63" height="14"/>
-                                <textFieldCell key="cell" controlSize="small" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="right" title="View Count" usesSingleLineMode="YES" id="fIh-zm-qdJ">
+                                <rect key="frame" x="48" y="46" width="33" height="14"/>
+                                <textFieldCell key="cell" controlSize="small" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="right" title="View " usesSingleLineMode="YES" id="fIh-zm-qdJ">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -505,8 +505,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="750" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="hhP-jX-Elk">
-                                <rect key="frame" x="18" y="26" width="63" height="14"/>
-                                <textFieldCell key="cell" controlSize="small" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="right" title="Like Count" usesSingleLineMode="YES" id="BUj-nl-m9g">
+                                <rect key="frame" x="48" y="26" width="33" height="14"/>
+                                <textFieldCell key="cell" controlSize="small" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="right" title="Likes" usesSingleLineMode="YES" id="BUj-nl-m9g">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -521,8 +521,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="750" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="Iu6-Td-bZp">
-                                <rect key="frame" x="6" y="6" width="75" height="14"/>
-                                <textFieldCell key="cell" controlSize="small" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="right" title="Dislike Count" usesSingleLineMode="YES" id="BaM-0f-A4F">
+                                <rect key="frame" x="36" y="6" width="45" height="14"/>
+                                <textFieldCell key="cell" controlSize="small" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="right" title="Dislikes" usesSingleLineMode="YES" id="BaM-0f-A4F">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -591,7 +591,6 @@
                 <constraints>
                     <constraint firstItem="HN2-2d-8hp" firstAttribute="top" secondItem="fFv-MT-ejF" secondAttribute="top" id="7x9-Ta-gU4"/>
                     <constraint firstItem="HN2-2d-8hp" firstAttribute="leading" secondItem="fFv-MT-ejF" secondAttribute="leading" id="Tdd-NE-ybe"/>
-                    <constraint firstAttribute="bottom" secondItem="HN2-2d-8hp" secondAttribute="bottom" id="Wle-bL-cBB"/>
                     <constraint firstAttribute="trailing" secondItem="HN2-2d-8hp" secondAttribute="trailing" id="hEh-gu-9jO"/>
                 </constraints>
             </clipView>
