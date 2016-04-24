@@ -69,14 +69,31 @@ typedef NS_ENUM ( NSUInteger, TRSCacheStrategy )
 
 #pragma mark - youtube.playlistItems.list
 
+/** A `playlistItem` resource identifies another resource, such as a video, that is included in a playlist.
+  * In addition, the `playlistItem` resource contains details about the included resource
+  * that pertain specifically to how that resource is used in that playlist.
+  
+  * For details, ref https://developers.google.com/youtube/v3/docs/playlistItems */
+
 + ( instancetype ) restPlaylistItemRequestWithIdentifier: ( NSString* )_Identifier;
 + ( instancetype ) restPlaylistItemsRequestWithPlaylistIdentifier: ( NSString* )_Identifier;
 
 #pragma mark - youtube.video.list
 
+/** A `video` resource represents a YouTube video.
+
+  * For details, ref https://developers.google.com/youtube/v3/docs/videos */
+
 + ( instancetype ) restVideoRequestWithVideoIdentifier: ( NSString* )_Identifier;
 
 #pragma mark - youtube.subscriptions.list
+
+/** A `subscription` resource contains information about a YouTube user subscription.
+  * A subscription notifies a user when new videos are added to a channel 
+  * or when another user takes one of several actions on YouTube, such as uploading a video, 
+  * rating a video, or commenting on a video.
+  
+  * For details, ref https://developers.google.com/youtube/v3/docs/subscriptions */
 
 + ( instancetype ) restSubscriptionsRequestWithChannelIdentifier: ( NSString* )_Identifier;
 + ( instancetype ) restSubscriptionsOfMineRequest;
