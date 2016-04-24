@@ -11,4 +11,16 @@
 // TauRestRequest class
 @implementation TauRestRequest
 
+#pragma mark - Conforms to <NSCopying>
+// TODO:
+
+#pragma mark - Conforms to <NSSecureCoding>
+
++ ( BOOL ) supportsSecureCoding
+    {
+    return [ self conformsToProtocol: @protocol( NSSecureCoding ) ];
+    }
+
+// TODO:
+
 @end // TauRestRequest class

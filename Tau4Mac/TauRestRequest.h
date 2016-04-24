@@ -37,16 +37,48 @@ typedef NS_ENUM ( NSUInteger, TRSCacheStrategy )
     };
 
 // TauRestRequest class
-@interface TauRestRequest : NSObject
+@interface TauRestRequest : NSObject <NSCopying, NSSecureCoding>
 
 @property ( assign, readonly ) TRSRestRequestType type;
+@property ( copy, readonly ) GTLQueryYouTube* ytQuery;
 
 @property ( copy, readwrite ) NSString* fieldFilter;
 @property ( assign, readwrite ) NSUInteger maxResultsPerPage;
 @property ( assign, readwrite ) TRSRestResponseVerboseFlag verboseLevelMask;
 
+@property ( copy, readwrite ) NSString* prevPageToken;
+@property ( copy, readwrite ) NSString* nextPageToken;
+
+@property ( assign, readwrite, setter = setMine: ) BOOL isMine;
+
 #pragma mark - youtube.search.list
 
-+ ( instancetype ) restRequestWithQ: ( NSString* )_Q;
++ ( instancetype ) restSearchResultsRequestWithQ: ( NSString* )_Q;
+
+#pragma mark - youtube.channel.list
+
++ ( instancetype ) restChannelRequestWithChannelIdentifier: ( NSString* )_Identifier;
++ ( instancetype ) restChannelRequestWithChannelName: ( NSString* )_Name;
++ ( instancetype ) restChannelsOfMineRequest;
+
+#pragma mark - youtube.playlists.list
+
++ ( instancetype ) restPlaylistRequestWithPlaylistIdentifier: ( NSString* )_Identifier;
++ ( instancetype ) restPlaylistsRequestWithChannelIdentifier: ( NSString* )_Identifier;
++ ( instancetype ) restPlaylistsOfMineRequest;
+
+#pragma mark - youtube.playlistItems.list
+
++ ( instancetype ) restPlaylistItemRequestWithIdentifier: ( NSString* )_Identifier;
++ ( instancetype ) restPlaylistItemsRequestWithPlaylistIdentifier: ( NSString* )_Identifier;
+
+#pragma mark - youtube.video.list
+
++ ( instancetype ) restVideoRequestWithVideoIdentifier: ( NSString* )_Identifier;
+
+#pragma mark - youtube.subscriptions.list
+
++ ( instancetype ) restSubscriptionsRequestWithChannelIdentifier: ( NSString* )_Identifier;
++ ( instancetype ) restSubscriptionsOfMineRequest;
 
 @end // TauRestRequest class
