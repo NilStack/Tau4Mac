@@ -26,7 +26,11 @@
     {
     NSMutableArray <NSString*>* parts = [ NSMutableArray array ];
 
-    for ( int _Index = 0; _Index < 7; _Index++ )
+    NSMutableIndexSet* flagsRanges = [ NSMutableIndexSet indexSet ];
+    [ flagsRanges addIndexesInRange: NSMakeRange( 0, 7 ) ];
+
+    [ flagsRanges enumerateIndexesUsingBlock:
+    ^( NSUInteger _Index, BOOL* _Nonnull _Stop )
         {
         TRSRestResponseVerboseFlag flag = ( 1 << _Index );
         if ( _Mask & flag )
@@ -40,11 +44,9 @@
                 case TRSRestRequestVerboseFlagLocalizations: [ parts addObject: @"localizations" ]; break;
                 case TRSRestRequestVerboseFlagSubscriberSnippet: [ parts addObject: @"subscriberSnippet" ]; break;
                 case TRSRestRequestVerboseFlagReplies: [ parts addObject: @"replies" ]; break;
-
-                case TRSRestRequestVerboseFlagUnknown:;
                 }
             }
-        }
+        } ];
 
     return [ parts componentsJoinedByString: @"," ];
     }
@@ -54,15 +56,13 @@
 // TauRestRequest class
 @implementation TauRestRequest
 
-@synthesize type, fieldFilter, maxResultsPerPage, verboseLevelMask, prevPageToken, nextPageToken;
-@dynamic isMine, YouTubeQuery;
-
 #pragma mark - Commons Initializing
 
 - ( instancetype ) init
     {
     if ( self = [ super init ] )
-        verboseLevelMask = TRSRestRequestVerboseFlagSnippet;
+        ;
+//        responseVerboseLevelMask_ = TRSRestRequestVerboseFlagSnippet;
 
     return self;
     }
@@ -78,12 +78,52 @@
         [ queryFactoryInvocation_ setSelector: sel ];
         [ queryFactoryInvocation_ setTarget: [ GTLQueryYouTube class ] ];
 
-        NSString* arg2 = [ NSString stringWithTauRestRequestVerboseLevelMask: self.verboseLevelMask ];
-        [ queryFactoryInvocation_ setArgument: &arg2 atIndex: 2 ];
+        [ self setResponseVerboseLevelMask: TRSRestRequestVerboseFlagSnippet ];
         }
 
     return self;
     }
+
+#pragma mark - External Properties
+
+@synthesize type = type_;
+@synthesize fieldFilter = fieldFilter_;
+@synthesize maxResultsPerPage = maxResultsPerPage_;
+
+@synthesize responseVerboseLevelMask = responseVerboseLevelMask_;
+- ( void ) setResponseVerboseLevelMask: ( TRSRestResponseVerboseFlag )_New
+    {
+    if ( responseVerboseLevelMask_ != _New )
+        {
+        responseVerboseLevelMask_ = _New;
+
+        if ( queryFactoryInvocation_.methodSignature.numberOfArguments == 2 )
+            return;
+
+        NSString* stringizedSel = NSStringFromSelector( queryFactoryInvocation_.selector );
+        NSArray <NSString*>* argFragments = [ stringizedSel componentsSeparatedByString: @":" ];
+        for ( NSString* _Arg in argFragments )
+            {
+            NSRange range = [ _Arg rangeOfString: @"part" options: NSCaseInsensitiveSearch | NSBackwardsSearch | NSAnchoredSearch ];
+            if ( range.location != NSNotFound )
+                {
+                NSString* arg2 = [ NSString stringWithTauRestRequestVerboseLevelMask: responseVerboseLevelMask_ ];
+                NSUInteger argIndex = [ argFragments indexOfObject: _Arg ] + 2;
+                [ queryFactoryInvocation_ setArgument: &arg2 atIndex: argIndex ];
+                }
+            }
+        }
+    }
+
+- ( TRSRestResponseVerboseFlag ) responseVerboseLevelMask
+    {
+    return responseVerboseLevelMask_;
+    }
+
+@synthesize prevPageToken = prevPageToken_;
+@synthesize nextPageToken = nextPageToken_;
+
+@dynamic isMine, YouTubeQuery;
 
 #pragma mark - Conforms to <NSCopying>
 // TODO:

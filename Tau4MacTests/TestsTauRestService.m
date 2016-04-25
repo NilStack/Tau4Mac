@@ -23,4 +23,10 @@
     [ super tearDown ];
     }
 
+- ( void ) testInitializingTauRestRequest_pos0
+    {
+    TauRestRequest* searchRequest = [ [ TauRestRequest alloc ] initSearchResultsRequestWithQ: @"gopro" ];
+    XCTAssertNotNil( searchRequest );
+    }
+
 @end // TestsTauRestService test case

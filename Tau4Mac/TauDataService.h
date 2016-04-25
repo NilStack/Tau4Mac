@@ -11,6 +11,7 @@
 
 #import "TauArchiveService.h"
 #import "TauAPIService.h"
+#import "TauRestRequest.h"
 #import "TauMediaService.h"
 
 #endif /* TauDataService_h */

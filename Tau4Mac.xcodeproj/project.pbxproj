@@ -33,6 +33,8 @@
 		8322D3E61CCDFF5E00B65263 /* TauArchiveService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8311753A1CBDE32600393A60 /* TauArchiveService.m */; settings = {ASSET_TAGS = (); }; };
 		8322D3E71CCE00D600B65263 /* TMSLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 838ECED81CC0CD47009AADAB /* TMSLogging.m */; settings = {ASSET_TAGS = (); }; };
 		8322D3EC1CCE03CD00B65263 /* libsqlite4tau.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831175301CBDE21700393A60 /* libsqlite4tau.a */; };
+		8322D3ED1CCE048400B65263 /* TauPurgeableImageData.m in Sources */ = {isa = PBXBuildFile; fileRef = 834C4CA71CB913560095DCB7 /* TauPurgeableImageData.m */; settings = {ASSET_TAGS = (); }; };
+		8322D3EE1CCE050B00B65263 /* TauRestRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8322D39A1CCCBD9E00B65263 /* TauRestRequest.m */; settings = {ASSET_TAGS = (); }; };
 		8325553D1CA4DF7A000C8A48 /* KVOController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832555171CA4DF6F000C8A48 /* KVOController.framework */; };
 		8325553E1CA4E007000C8A48 /* KVOController.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 832555171CA4DF6F000C8A48 /* KVOController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		832555551CA50B23000C8A48 /* font-lato-black-regular.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = 8325554C1CA50AF9000C8A48 /* font-lato-black-regular.ttf */; };
@@ -1996,11 +1998,13 @@
 				83B174A51C996B8500F6578B /* TauTestCase.m in Sources */,
 				8322D3E31CCDFF2100B65263 /* LRNotificationObserver+NSNotificationCenter.m in Sources */,
 				83B1749C1C990B7100F6578B /* TauAPIService.m in Sources */,
+				8322D3EE1CCE050B00B65263 /* TauRestRequest.m in Sources */,
 				8322D3AB1CCDFD5E00B65263 /* TestsTauRestService.m in Sources */,
 				8322D3E41CCDFF2300B65263 /* LRNotificationObserver+Owner.m in Sources */,
 				836D270C1C9BA51400290BE7 /* TestsViewStack.m in Sources */,
 				83B5FEE81CAA9304009FB9E4 /* TauYouTubeSubscriptionsCollection.m in Sources */,
 				8322D3E61CCDFF5E00B65263 /* TauArchiveService.m in Sources */,
+				8322D3ED1CCE048400B65263 /* TauPurgeableImageData.m in Sources */,
 				83B175001C9A765200F6578B /* TauAbstractLogFormatter.m in Sources */,
 				83B174FF1C9A75ED00F6578B /* TauTTYLogFormatter.m in Sources */,
 				83B1749D1C990BCA00F6578B /* TauAPIServiceConsumerDataUnit.m in Sources */,
@@ -2208,7 +2212,7 @@
 				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4MacTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)/Tau4Mac.app/Contents/MacOS/Tau4Mac";
+				TEST_HOST = "";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
@@ -2225,7 +2229,7 @@
 				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4MacTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tau4Mac.app/Contents/MacOS/Tau4Mac";
+				TEST_HOST = "";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
@@ -2347,7 +2351,7 @@
 				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4MacTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tau4Mac.app/Contents/MacOS/Tau4Mac";
+				TEST_HOST = "";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Analysis;

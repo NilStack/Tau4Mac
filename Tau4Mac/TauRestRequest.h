@@ -14,8 +14,6 @@ typedef NS_OPTIONS ( uint64, TRSRestResponseVerboseFlag )
     , TRSRestRequestVerboseFlagLocalizations     = ( 1 << 4 )
     , TRSRestRequestVerboseFlagSubscriberSnippet = ( 1 << 5 )
     , TRSRestRequestVerboseFlagReplies           = ( 1 << 6 )
-
-    , TRSRestRequestVerboseFlagUnknown = ( 0 )
     };
 
 typedef NS_ENUM ( NSInteger, TRSRestRequestType )
@@ -51,7 +49,7 @@ typedef NS_ENUM ( NSUInteger, TRSCacheStrategy )
 
 @property ( copy, readwrite ) NSString* fieldFilter;
 @property ( assign, readwrite ) NSUInteger maxResultsPerPage;
-@property ( assign, readwrite ) TRSRestResponseVerboseFlag verboseLevelMask;
+@property ( assign, readwrite ) TRSRestResponseVerboseFlag responseVerboseLevelMask;
 
 @property ( copy, readwrite ) NSString* prevPageToken;
 @property ( copy, readwrite ) NSString* nextPageToken;
