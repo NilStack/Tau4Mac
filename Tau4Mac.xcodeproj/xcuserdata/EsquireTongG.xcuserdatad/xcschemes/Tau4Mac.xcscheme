@@ -59,6 +59,9 @@
                   Identifier = "TestsTauDataServiceMachanism">
                </Test>
                <Test
+                  Identifier = "TestsTauMediaService">
+               </Test>
+               <Test
                   Identifier = "TestsViewStack">
                </Test>
                <Test

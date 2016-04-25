@@ -26,6 +26,13 @@
 		83224A961CA167B9008931C6 /* TAAdaptiveSpaceItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83224A941CA167B9008931C6 /* TAAdaptiveSpaceItemView.m */; };
 		8322D3981CCCBCB000B65263 /* TauRestService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8322D3971CCCBCB000B65263 /* TauRestService.m */; settings = {ASSET_TAGS = (); }; };
 		8322D39B1CCCBD9E00B65263 /* TauRestRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8322D39A1CCCBD9E00B65263 /* TauRestRequest.m */; settings = {ASSET_TAGS = (); }; };
+		8322D3AB1CCDFD5E00B65263 /* TestsTauRestService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8322D3AA1CCDFD5E00B65263 /* TestsTauRestService.m */; settings = {ASSET_TAGS = (); }; };
+		8322D3E31CCDFF2100B65263 /* LRNotificationObserver+NSNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 835FDC291CA62F3700A2A031 /* LRNotificationObserver+NSNotificationCenter.m */; settings = {ASSET_TAGS = (); }; };
+		8322D3E41CCDFF2300B65263 /* LRNotificationObserver+Owner.m in Sources */ = {isa = PBXBuildFile; fileRef = 835FDC2B1CA62F3700A2A031 /* LRNotificationObserver+Owner.m */; settings = {ASSET_TAGS = (); }; };
+		8322D3E51CCDFF2600B65263 /* LRNotificationObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 835FDC2D1CA62F3700A2A031 /* LRNotificationObserver.m */; settings = {ASSET_TAGS = (); }; };
+		8322D3E61CCDFF5E00B65263 /* TauArchiveService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8311753A1CBDE32600393A60 /* TauArchiveService.m */; settings = {ASSET_TAGS = (); }; };
+		8322D3E71CCE00D600B65263 /* TMSLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 838ECED81CC0CD47009AADAB /* TMSLogging.m */; settings = {ASSET_TAGS = (); }; };
+		8322D3EC1CCE03CD00B65263 /* libsqlite4tau.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831175301CBDE21700393A60 /* libsqlite4tau.a */; };
 		8325553D1CA4DF7A000C8A48 /* KVOController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832555171CA4DF6F000C8A48 /* KVOController.framework */; };
 		8325553E1CA4E007000C8A48 /* KVOController.framework in Copy Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 832555171CA4DF6F000C8A48 /* KVOController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		832555551CA50B23000C8A48 /* font-lato-black-regular.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = 8325554C1CA50AF9000C8A48 /* font-lato-black-regular.ttf */; };
@@ -55,7 +62,6 @@
 		8356B2031C9D35F900AC4B36 /* TauAbstractContentSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8356B2021C9D35F900AC4B36 /* TauAbstractContentSubViewController.m */; };
 		835C9FDE1CB76F6A003BF386 /* TauMediaService.m in Sources */ = {isa = PBXBuildFile; fileRef = 835C9FDD1CB76F6A003BF386 /* TauMediaService.m */; };
 		835CA01D1CB79A70003BF386 /* TauMediaService.m in Sources */ = {isa = PBXBuildFile; fileRef = 835C9FDD1CB76F6A003BF386 /* TauMediaService.m */; };
-		835CA01F1CB79A9D003BF386 /* TestsTauMediaService.m in Sources */ = {isa = PBXBuildFile; fileRef = 835CA01E1CB79A9D003BF386 /* TestsTauMediaService.m */; };
 		835FDB801CA5794C00A2A031 /* TauPlaylistResultsCollectionContentSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 835FDB7F1CA5794C00A2A031 /* TauPlaylistResultsCollectionContentSubViewController.m */; };
 		835FDC2E1CA62F3700A2A031 /* LRNotificationObserver+NSNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 835FDC291CA62F3700A2A031 /* LRNotificationObserver+NSNotificationCenter.m */; };
 		835FDC2F1CA62F3700A2A031 /* LRNotificationObserver+Owner.m in Sources */ = {isa = PBXBuildFile; fileRef = 835FDC2B1CA62F3700A2A031 /* LRNotificationObserver+Owner.m */; };
@@ -76,7 +82,6 @@
 		83765AE21C8811DD00D93554 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AE11C8811DD00D93554 /* main.m */; };
 		83765AE71C8811DD00D93554 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83765AE61C8811DD00D93554 /* Assets.xcassets */; };
 		83765AEA1C8811DD00D93554 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83765AE81C8811DD00D93554 /* Main.storyboard */; };
-		83765AF51C8811DE00D93554 /* TestsYouTubeModelClasses.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AF41C8811DE00D93554 /* TestsYouTubeModelClasses.m */; };
 		83765B001C8811DE00D93554 /* Tau4MacUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 83765AFF1C8811DE00D93554 /* Tau4MacUITests.m */; };
 		83765B0F1C88170F00D93554 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B0E1C88170F00D93554 /* Cocoa.framework */; };
 		83765B111C88171400D93554 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83765B101C88171400D93554 /* QuartzCore.framework */; };
@@ -115,7 +120,6 @@
 		83B1749D1C990BCA00F6578B /* TauAPIServiceConsumerDataUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B1749A1C99071700F6578B /* TauAPIServiceConsumerDataUnit.m */; };
 		83B1749E1C990BCD00F6578B /* TauAPIServiceCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B174921C98F14800F6578B /* TauAPIServiceCredential.m */; };
 		83B1749F1C990E0E00F6578B /* OAuthSigningConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C571C8893BF007B084F /* OAuthSigningConstants.m */; };
-		83B174A21C990F0E00F6578B /* TestsTauDataServiceMachanism.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B174A11C990F0E00F6578B /* TestsTauDataServiceMachanism.m */; };
 		83B174A51C996B8500F6578B /* TauTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B174A41C996B8500F6578B /* TauTestCase.m */; };
 		83B174FF1C9A75ED00F6578B /* TauTTYLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C481C8864E9007B084F /* TauTTYLogFormatter.m */; };
 		83B175001C9A765200F6578B /* TauAbstractLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C451C8864C0007B084F /* TauAbstractLogFormatter.m */; };
@@ -589,6 +593,8 @@
 		8322D3971CCCBCB000B65263 /* TauRestService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauRestService.m; sourceTree = "<group>"; };
 		8322D3991CCCBD9E00B65263 /* TauRestRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauRestRequest.h; sourceTree = "<group>"; };
 		8322D39A1CCCBD9E00B65263 /* TauRestRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauRestRequest.m; sourceTree = "<group>"; };
+		8322D3AA1CCDFD5E00B65263 /* TestsTauRestService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestsTauRestService.m; sourceTree = "<group>"; };
+		8322D3E21CCDFDA300B65263 /* TestsTauRestService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestsTauRestService.h; sourceTree = "<group>"; };
 		832555081CA4DF6F000C8A48 /* FBKVOController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FBKVOController.xcodeproj; path = ../Deps/KVOController/FBKVOController.xcodeproj; sourceTree = "<group>"; };
 		8325554C1CA50AF9000C8A48 /* font-lato-black-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-lato-black-regular.ttf"; sourceTree = "<group>"; };
 		8325554D1CA50AF9000C8A48 /* font-lato-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "font-lato-bold.ttf"; sourceTree = "<group>"; };
@@ -634,7 +640,6 @@
 		8356B2021C9D35F900AC4B36 /* TauAbstractContentSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAbstractContentSubViewController.m; sourceTree = "<group>"; };
 		835C9FDC1CB76F6A003BF386 /* TauMediaService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauMediaService.h; sourceTree = "<group>"; };
 		835C9FDD1CB76F6A003BF386 /* TauMediaService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauMediaService.m; sourceTree = "<group>"; };
-		835CA01E1CB79A9D003BF386 /* TestsTauMediaService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestsTauMediaService.m; sourceTree = "<group>"; };
 		835FDB7E1CA5794C00A2A031 /* TauPlaylistResultsCollectionContentSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauPlaylistResultsCollectionContentSubViewController.h; sourceTree = "<group>"; };
 		835FDB7F1CA5794C00A2A031 /* TauPlaylistResultsCollectionContentSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauPlaylistResultsCollectionContentSubViewController.m; sourceTree = "<group>"; };
 		835FDC281CA62F3700A2A031 /* LRNotificationObserver+NSNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LRNotificationObserver+NSNotificationCenter.h"; sourceTree = "<group>"; };
@@ -667,7 +672,6 @@
 		83765AE91C8811DD00D93554 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		83765AEB1C8811DD00D93554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83765AF01C8811DE00D93554 /* Tau4MacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tau4MacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		83765AF41C8811DE00D93554 /* TestsYouTubeModelClasses.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestsYouTubeModelClasses.m; sourceTree = "<group>"; };
 		83765AF61C8811DE00D93554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83765AFB1C8811DE00D93554 /* Tau4MacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tau4MacUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		83765AFF1C8811DE00D93554 /* Tau4MacUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tau4MacUITests.m; sourceTree = "<group>"; };
@@ -715,7 +719,6 @@
 		83B174971C98F6B700F6578B /* PriTauAPIServiceCredential_.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriTauAPIServiceCredential_.h; sourceTree = "<group>"; };
 		83B174991C99071700F6578B /* TauAPIServiceConsumerDataUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauAPIServiceConsumerDataUnit.h; sourceTree = "<group>"; };
 		83B1749A1C99071700F6578B /* TauAPIServiceConsumerDataUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAPIServiceConsumerDataUnit.m; sourceTree = "<group>"; };
-		83B174A11C990F0E00F6578B /* TestsTauDataServiceMachanism.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestsTauDataServiceMachanism.m; sourceTree = "<group>"; };
 		83B174A31C996B8500F6578B /* TauTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauTestCase.h; sourceTree = "<group>"; };
 		83B174A41C996B8500F6578B /* TauTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauTestCase.m; sourceTree = "<group>"; };
 		83B175011C9A7ADF00F6578B /* NSColor+TauDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+TauDrawing.h"; sourceTree = "<group>"; };
@@ -787,6 +790,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8322D3EC1CCE03CD00B65263 /* libsqlite4tau.a in Frameworks */,
 				838342E91C96D74900BE6378 /* CocoaLumberjack.framework in Frameworks */,
 				838342E61C96D59800BE6378 /* GTL.framework in Frameworks */,
 			);
@@ -1171,11 +1175,11 @@
 		83765AF31C8811DE00D93554 /* Tau4MacTests */ = {
 			isa = PBXGroup;
 			children = (
-				835CA01E1CB79A9D003BF386 /* TestsTauMediaService.m */,
+				8322D3E21CCDFDA300B65263 /* TestsTauRestService.h */,
+				8322D3AA1CCDFD5E00B65263 /* TestsTauRestService.m */,
 				838342F31C9710FD00BE6378 /* TestsConstants.h */,
 				83B174A31C996B8500F6578B /* TauTestCase.h */,
 				83B174A41C996B8500F6578B /* TauTestCase.m */,
-				83B174FD1C99A20F00F6578B /* model-tests */,
 				836D27091C9BA4F900290BE7 /* view-tests */,
 				838342E81C96D6B200BE6378 /* Supporting Files */,
 			);
@@ -1330,15 +1334,6 @@
 				83B5FEBA1CAA92FB009FB9E4 /* TauYouTubeSubscriptionsCollection.m */,
 			);
 			name = models;
-			sourceTree = "<group>";
-		};
-		83B174FD1C99A20F00F6578B /* model-tests */ = {
-			isa = PBXGroup;
-			children = (
-				83765AF41C8811DE00D93554 /* TestsYouTubeModelClasses.m */,
-				83B174A11C990F0E00F6578B /* TestsTauDataServiceMachanism.m */,
-			);
-			name = "model-tests";
 			sourceTree = "<group>";
 		};
 		83DA1C431C8864AC007B084F /* logging */ = {
@@ -1994,23 +1989,26 @@
 				8356B1D11C9BA6CB00AC4B36 /* BgViewController.m in Sources */,
 				838342FE1C98409F00BE6378 /* TauYouTubePlaylistsCollection.m in Sources */,
 				8356B1FB1C9BA77000AC4B36 /* ViewStackItem.m in Sources */,
-				83B174A21C990F0E00F6578B /* TestsTauDataServiceMachanism.m in Sources */,
-				83765AF51C8811DE00D93554 /* TestsYouTubeModelClasses.m in Sources */,
 				838342F11C96EFB800BE6378 /* TauYouTubeSearchResultsCollection.m in Sources */,
-				835CA01F1CB79A9D003BF386 /* TestsTauMediaService.m in Sources */,
 				83B1749F1C990E0E00F6578B /* OAuthSigningConstants.m in Sources */,
 				836D270D1C9BA55400290BE7 /* TauViewsStack.m in Sources */,
 				838342FD1C98409C00BE6378 /* TauYouTubeChannelsCollection.m in Sources */,
 				83B174A51C996B8500F6578B /* TauTestCase.m in Sources */,
+				8322D3E31CCDFF2100B65263 /* LRNotificationObserver+NSNotificationCenter.m in Sources */,
 				83B1749C1C990B7100F6578B /* TauAPIService.m in Sources */,
+				8322D3AB1CCDFD5E00B65263 /* TestsTauRestService.m in Sources */,
+				8322D3E41CCDFF2300B65263 /* LRNotificationObserver+Owner.m in Sources */,
 				836D270C1C9BA51400290BE7 /* TestsViewStack.m in Sources */,
 				83B5FEE81CAA9304009FB9E4 /* TauYouTubeSubscriptionsCollection.m in Sources */,
+				8322D3E61CCDFF5E00B65263 /* TauArchiveService.m in Sources */,
 				83B175001C9A765200F6578B /* TauAbstractLogFormatter.m in Sources */,
 				83B174FF1C9A75ED00F6578B /* TauTTYLogFormatter.m in Sources */,
 				83B1749D1C990BCA00F6578B /* TauAPIServiceConsumerDataUnit.m in Sources */,
 				835CA01D1CB79A70003BF386 /* TauMediaService.m in Sources */,
 				838342EE1C96E9AB00BE6378 /* GTLYouTube_Sources.m in Sources */,
 				83D2E8551C9A880800A6AD3D /* TauLogging.m in Sources */,
+				8322D3E71CCE00D600B65263 /* TMSLogging.m in Sources */,
+				8322D3E51CCDFF2600B65263 /* LRNotificationObserver.m in Sources */,
 				838342FF1C9840A200BE6378 /* TauYouTubePlaylistItemsCollection.m in Sources */,
 				838342F21C96EFC100BE6378 /* TauAbstractResultCollection.m in Sources */,
 				83B1749E1C990BCD00F6578B /* TauAPIServiceCredential.m in Sources */,
@@ -2210,7 +2208,7 @@
 				OTHER_CFLAGS = "-DGTL_BUILT_AS_FRAMEWORK=1";
 				PRODUCT_BUNDLE_IDENTIFIER = home.bedroom.TongKuo.Tau4MacTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tau4Mac.app/Contents/MacOS/Tau4Mac";
+				TEST_HOST = "$(BUNDLE_LOADER)/Tau4Mac.app/Contents/MacOS/Tau4Mac";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;

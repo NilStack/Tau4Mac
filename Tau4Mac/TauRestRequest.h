@@ -41,10 +41,13 @@ typedef NS_ENUM ( NSUInteger, TRSCacheStrategy )
     {
 @protected
     GTLQueryYouTube* ytQuery_;
+
+    NSInvocation* queryFactoryInvocation_;
+    NSDictionary <NSString*, NSInvocation*>* queryConfigIncocationsMap_;
     }
 
 @property ( assign, readonly ) TRSRestRequestType type;
-@property ( copy, readonly ) GTLQueryYouTube* ytQuery;
+@property ( copy, readonly ) GTLQueryYouTube* YouTubeQuery;
 
 @property ( copy, readwrite ) NSString* fieldFilter;
 @property ( assign, readwrite ) NSUInteger maxResultsPerPage;
@@ -68,11 +71,12 @@ typedef NS_ENUM ( NSUInteger, TRSCacheStrategy )
 /// Your \c Q expression can also use the Boolean NOT (-) and OR (|) operators
 /// to exclude videos or to find videos that are associated with one of several search terms.
 /// For example, to search for videos matching either "boating" or "sailing",
-/// set the q parameter value to boating|sailing.
+/// set the \c Q parameter value to boating|sailing.
 /// Similarly, to search for videos matching either "boating" or "sailing" but not "fishing",
-/// set the q parameter value to boating|sailing -fishing.
-/// \warning Note that the pipe character must be URL-escaped when it is sent in your API request. The URL-escaped value for the pipe character is %7C.
-+ ( instancetype ) restSearchResultsRequestWithQ: ( NSString* )_Q;
+/// set the \c Q parameter value to boating|sailing -fishing.
+/// \warning Note that the pipe character must be URL-escaped when it is sent in your API request.
+/// The URL-escaped value for the pipe character is %7C.
+- ( instancetype ) initSearchResultsRequestWithQ: ( NSString* )_Q;
 
 #pragma mark - youtube.channel.list
 
@@ -80,17 +84,17 @@ typedef NS_ENUM ( NSUInteger, TRSCacheStrategy )
   * For details, ref: https://developers.google.com/youtube/v3/docs/channels */
 
 /// The \c _Identifier parameter specifies a single YouTube channel ID for the resource that are being retrieved.
-+ ( instancetype ) restChannelRequestWithChannelIdentifier: ( NSString* )_Identifier;
+- ( instancetype ) initChannelRequestWithChannelIdentifier: ( NSString* )_Identifier;
 
 /// The \c _Identifiers parameter specifies a list of the YouTube channel ID(s) for the resource(s) that are being retrieved.
-+ ( instancetype ) restChannelsRequestWithChannelIdentifiers: ( NSArray <NSString*>* )_Identifiers;
+- ( instancetype ) initChannelsRequestWithChannelIdentifiers: ( NSArray <NSString*>* )_Identifiers;
 
 /// The \c _Name parameter specifies a YouTube channel name,
 /// thereby requesting the channel associated with that channel name.
-+ ( instancetype ) restChannelRequestWithChannelName: ( NSString* )_Name;
+- ( instancetype ) initChannelRequestWithChannelName: ( NSString* )_Name;
 
 /// This request is to return only the channels owned by the current authenticated user.
-+ ( instancetype ) restChannelsOfMineRequest;
+- ( instancetype ) initChannelsOfMineRequest;
 
 #pragma mark - youtube.playlists.list
 
@@ -102,16 +106,16 @@ typedef NS_ENUM ( NSUInteger, TRSCacheStrategy )
   * For details, ref https://developers.google.com/youtube/v3/docs/playlists */
 
 /// The \c _Identifier parameter specifies a single YouTube playlist ID for the resource that are being retrieved.
-+ ( instancetype ) restPlaylistRequestWithPlaylistIdentifier: ( NSString* )_Identifier;
+- ( instancetype ) initPlaylistRequestWithPlaylistIdentifier: ( NSString* )_Identifier;
 
 /// The \c _Identifiers parameter specifies a list of the YouTube playlist ID(s) for the resource(s) that are being retrieved.
-+ ( instancetype ) restPlaylistsRequestWithPlaylistIdentifiers: ( NSArray <NSString*>* )_Identifiers;
+- ( instancetype ) initPlaylistsRequestWithPlaylistIdentifiers: ( NSArray <NSString*>* )_Identifiers;
 
 /// This request is to return only the specified channel's playlists.
-+ ( instancetype ) restPlaylistsRequestWithChannelIdentifier: ( NSString* )_Identifier;
+- ( instancetype ) initPlaylistsRequestWithChannelIdentifier: ( NSString* )_Identifier;
 
 /// This request is to return only the playlists owned by the current authenticated user.
-+ ( instancetype ) restPlaylistsOfMineRequest;
+- ( instancetype ) initPlaylistsOfMineRequest;
 
 #pragma mark - youtube.playlistItems.list
 
@@ -122,13 +126,13 @@ typedef NS_ENUM ( NSUInteger, TRSCacheStrategy )
   * For details, ref https://developers.google.com/youtube/v3/docs/playlistItems */
 
 /// The \c _Identifier parameter specifies a single YouTube playlist item ID for the resource that are being retrieved.
-+ ( instancetype ) restPlaylistItemRequestWithPlaylistItemIdentifier: ( NSString* )_Identifier;
+- ( instancetype ) initPlaylistItemRequestWithPlaylistItemIdentifier: ( NSString* )_Identifier;
 
 /// The \c _Identifiers parameter specifies a list of the YouTube playlist item ID(s) for the resource(s) that are being retrieved.
-+ ( instancetype ) restPlaylistItemsRequestWithPlaylistItemIdentifiers: ( NSString* )_Identifier;
+- ( instancetype ) initPlaylistItemsRequestWithPlaylistItemIdentifiers: ( NSString* )_Identifier;
 
 /// The \c _Identifiers parameter specifies the unique ID of the playlist for which you want to retrieve playlist items.
-+ ( instancetype ) restPlaylistItemsRequestWithPlaylistIdentifiers: ( NSString* )_Identifier;
+- ( instancetype ) initPlaylistItemsRequestWithPlaylistIdentifiers: ( NSString* )_Identifier;
 
 #pragma mark - youtube.videos.list
 
@@ -137,16 +141,16 @@ typedef NS_ENUM ( NSUInteger, TRSCacheStrategy )
   * For details, ref https://developers.google.com/youtube/v3/docs/videos */
 
 /// The \c _Identifier parameter specifies a single YouTube video ID for the resource that are being retrieved.
-+ ( instancetype ) restVideoRequestWithVideoIdentifier: ( NSString* )_Identifier;
+- ( instancetype ) initVideoRequestWithVideoIdentifier: ( NSString* )_Identifier;
 
 /// The \c _Identifiers parameter specifies a list of the YouTube video ID(s) for the resource(s) that are being retrieved.
-+ ( instancetype ) restVideosRequestWithVideoIdentifiers: ( NSArray <NSString*>* )_Identifiers;
+- ( instancetype ) initVideosRequestWithVideoIdentifiers: ( NSArray <NSString*>* )_Identifiers;
 
 /// This request is to return only videos liked by the authenticated user.
-+ ( instancetype ) restLikedVideosByMeRequest;
+- ( instancetype ) initLikedVideosByMeRequest;
 
 /// This request is to return only videos disliked by the authenticated user.
-+ ( instancetype ) restDislikedVideosByMeRequest;
+- ( instancetype ) initDislikedVideosByMeRequest;
 
 #pragma mark - youtube.subscriptions.list
 
@@ -159,13 +163,13 @@ typedef NS_ENUM ( NSUInteger, TRSCacheStrategy )
 
 /// The \a _Identifier parameter specifies a YouTube channel ID.
 /// This request is to retrieve that channel's subscriptions.
-+ ( instancetype ) restSubscriptionsRequestWithChannelIdentifier: ( NSString* )_Identifier;
+- ( instancetype ) initSubscriptionsRequestWithChannelIdentifier: ( NSString* )_Identifier;
 
 /// This request can only be used in a properly authorized request.
 /// This request is to retrieve a feed of the authenticated user's subscriptions.
-+ ( instancetype ) restSubscriptionsOfMineRequest;
+- ( instancetype ) initSubscriptionsOfMineRequest;
 
 /// This request is retrieve a feed of the subscribers of the authenticated user.
-+ ( instancetype ) restMySubscriberRequest;
+- ( instancetype ) initMySubscribersRequest;
 
 @end // TauRestRequest class
