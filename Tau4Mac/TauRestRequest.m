@@ -11,6 +11,9 @@
 // TauRestRequest class
 @implementation TauRestRequest
 
+@synthesize type, fieldFilter, maxResultsPerPage, verboseLevelMask, prevPageToken, nextPageToken;
+@dynamic isMine, ytQuery;
+
 #pragma mark - Conforms to <NSCopying>
 // TODO:
 
