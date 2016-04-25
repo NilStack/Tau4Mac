@@ -27,6 +27,13 @@
     {
     TauRestRequest* searchRequest = [ [ TauRestRequest alloc ] initSearchResultsRequestWithQ: @"gopro" ];
     XCTAssertNotNil( searchRequest );
+
+    searchRequest.maxResultsPerPage = 50;
+    searchRequest.fieldFilter = @"items(id,snippet,statistics)";
+
+    GTLQueryYouTube* YouTubeQuery = [ searchRequest YouTubeQuery ];
+
+    searchRequest.fieldFilter = nil;
     }
 
 @end // TestsTauRestService test case

@@ -41,7 +41,6 @@ typedef NS_ENUM ( NSUInteger, TRSCacheStrategy )
     GTLQueryYouTube* ytQuery_;
 
     NSInvocation* queryFactoryInvocation_;
-    NSDictionary <NSString*, NSInvocation*>* queryConfigIncocationsMap_;
     }
 
 @property ( assign, readonly ) TRSRestRequestType type;
