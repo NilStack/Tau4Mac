@@ -141,7 +141,21 @@
         {
         [ queryFactoryInvok invoke ];
 
-        [ queryFactoryInvok getReturnValue: &result ];
+        GTLQueryYouTube __unsafe_unretained* res = nil;
+
+        /* The original `GTLQueryYouTube* res = nil;` just causes a fragment error when ARC is enabled: "Thread 1: EXC_BAD_ACCESS (code=1, adrress=0x20)"
+
+         The problem is with the line `[ queryFactoryInvok getReturnValue: &res ];`.
+         `getReturnValue:` just copies the bytes of the return value into the given memory buffer, regardless of type.
+         It doesn't know or care about memory management if the return type is a retainable object pointer type.
+         Since `res` is a __strong variable of object pointer type, ARC assumes that any value that has been put into the variable has been retained, and thus will release it when it goes out of scope.
+         That is not true in this case, so it crashes. 
+         
+         The solution found at here http://stackoverflow.com/questions/22018272/nsinvocation-returns-value-but-makes-app-crash-with-exc-bad-access 
+         is that we must give a pointer to a non-retained type to `getReturnValue:`: */
+
+        [ queryFactoryInvok getReturnValue: &res ];
+        result = res;
 
         if ( result )
             for ( NSString* _key in priQueryConfigInvocationsMap_ )
@@ -179,23 +193,19 @@
     NSInvocation* invok = [ NSInvocation invocationWithMethodSignature: sig ];
     [ invok setSelector: _Sel ];
 
-//    if ( !( *_FirstArg ) )
-//        {
-        [ self.queryConfigInvocationsMap_ removeObjectForKey: NSStringFromSelector( _Sel ) ];
-//        return;
-//        }
+    [ self.queryConfigInvocationsMap_ removeObjectForKey: NSStringFromSelector( _Sel ) ];
 
     [ invok setArgument: _FirstArg atIndex: 2 ];
 
     NSUInteger argIdx = 3;
-    va_list variableArguments;
-    va_start( variableArguments, _FirstArg );
+    va_list argv;
+    va_start( argv, _FirstArg );
     while ( true )
         {
-        void* arg = va_arg( variableArguments, void* );
+        void* arg = va_arg( argv, void* );
         if ( !arg ) break;
         [ invok setArgument: arg atIndex: argIdx++ ];
-        } va_end( variableArguments );
+        } va_end( argv );
 
     self.queryConfigInvocationsMap_[ NSStringFromSelector( _Sel ) ] = invok;
     }
