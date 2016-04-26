@@ -31,86 +31,123 @@
 // Private
 @interface TauRestRequest ()
 
-@property ( strong, readonly ) NSMutableDictionary <NSString*, NSInvocation*>* queryConfigInvocationsMap_;
+@property ( strong, readonly ) NSMutableDictionary <NSString*, id>* queryConfigInvocationsMap_;
+@property ( copy, readonly ) NSString* parentIdentifierName_;
 
-- ( void ) insertQueryConfigInvokWithSelector_: ( SEL )_Sel arguments_: ( void* _Nonnull )_FirstArg, ... NS_REQUIRES_NIL_TERMINATION;
+- ( void ) insertQueryConfigWithKeyPath_: ( NSString* )_KeyPath value_: ( id )_Value;
 
 @end // Private
 
 // TauRestRequest class
 @implementation TauRestRequest
 
+#pragma mark - Designed Initializer
+
+- ( instancetype ) initWithRestRequestType: ( TRSRestRequestType )_RequestType responseVerboseLevel: ( TRSRestResponseVerboseFlag )_VerboseLevelMask
+    {
+    if ( self = [ super init ] )
+        {
+        type_ = _RequestType;
+
+        NSString* selCharacteristic = nil;
+        SEL sel = nil;
+        switch ( _RequestType )
+            {
+            case TRSRestRequestTypeSearchResultsList: selCharacteristic = @"Search"; break;
+            case TRSRestRequestTypeChannelsList: selCharacteristic = @"Channels"; break;
+            case TRSRestRequestTypePlaylistsList: selCharacteristic = @"Playlists"; break;
+            case TRSRestRequestTypePlaylistItemsList: selCharacteristic = @"PlaylistItems"; break;
+            case TRSRestRequestTypeSubscriptionsList: selCharacteristic = @"Subscriptions"; break;
+            default:;
+            }
+
+        if ( selCharacteristic.length > 0 )
+            {
+            sel = NSSelectorFromString( [ NSString stringWithFormat: @"queryFor%@ListWithPart:", selCharacteristic ] );
+
+            queryFactoryInvocation_ = [ NSInvocation invocationWithMethodSignature: [ GTLQueryYouTube methodSignatureForSelector: sel ] ];
+            [ queryFactoryInvocation_ setSelector: sel ];
+            [ queryFactoryInvocation_ setTarget: [ GTLQueryYouTube class ] ];
+
+            [ self setResponseVerboseLevelMask: _VerboseLevelMask ];
+            }
+        }
+
+    return self;
+    }
+
 #pragma mark - youtube.search.list
 
 - ( instancetype ) initSearchResultsRequestWithQ: ( NSString* )_Q
     {
-    if ( self = [ super init ] )
-        {
-        SEL sel = @selector( queryForSearchListWithPart: );
-        queryFactoryInvocation_ = [ NSInvocation invocationWithMethodSignature: [ GTLQueryYouTube methodSignatureForSelector: sel ] ];
-        [ queryFactoryInvocation_ setSelector: sel ];
-        [ queryFactoryInvocation_ setTarget: [ GTLQueryYouTube class ] ];
-
-        [ self setResponseVerboseLevelMask: TRSRestRequestVerboseFlagSnippet ];
-
-        type_ = TRSRestRequestTypeSearchList;
-        }
-
-    return self;
+    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypeSearchResultsList responseVerboseLevel: TRSRestRequestVerboseFlagSnippet ];
+    [ new insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, q ) value_: _Q ];
+    return new;
     }
 
 #pragma mark - youtube.channel.list
 
 - ( instancetype ) initChannelRequestWithChannelIdentifier: ( NSString* )_Identifier
     {
-    if ( self = [ super init ] )
-        {
-        SEL sel = @selector( queryForChannelsListWithPart: );
-        queryFactoryInvocation_ = [ NSInvocation invocationWithMethodSignature: [ GTLQueryYouTube methodSignatureForSelector: sel ] ];
-        [ queryFactoryInvocation_ setSelector: sel ];
-        [ queryFactoryInvocation_ setTarget: [ GTLQueryYouTube class ] ];
+    return [ [ [ self class ] alloc ] initChannelsRequestWithChannelIdentifiers: @[ _Identifier ] ];
+    }
 
-        [ self setResponseVerboseLevelMask: TRSRestRequestVerboseFlagSnippet ];
-
-        type_ = TRSRestRequestTypeChannelList;
-        }
-
-    return self;
+- ( instancetype ) initChannelsRequestWithChannelIdentifiers: ( NSArray <NSString*>* )_Identifiers
+    {
+    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypeChannelsList responseVerboseLevel: TRSRestRequestVerboseFlagSnippet ];
+    [ new insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, identifier ) value_: _Identifiers ];
+    return new;
     }
 
 #pragma mark - External Properties
 
+@dynamic YouTubeQuery;
+- ( GTLQueryYouTube* ) YouTubeQuery
+    {
+    GTLQueryYouTube* result = nil;
+
+    NSInvocation* queryFactoryInvok = queryFactoryInvocation_;
+    if ( queryFactoryInvok )
+        {
+        [ queryFactoryInvok invoke ];
+
+        // GTLQueryYouTube* res = nil;
+
+        /* The original `GTLQueryYouTube* res = nil;` just causes a fragment error when ARC is enabled: 
+        
+         "Thread 1: EXC_BAD_ACCESS (code=1, adrress=0x20)"
+
+         The problem is with the line `[ queryFactoryInvok getReturnValue: &res ];`.
+         `getReturnValue:` just copies the bytes of the return value into the given memory buffer, regardless of type.
+         It doesn't know or care about memory management if the return type is a retainable object pointer type.
+         Since `res` is a __strong variable of object pointer type, ARC assumes that any value that has been put into the variable has been retained, and thus will release it when it goes out of scope.
+         That is not true in this case, so it crashes. 
+         
+         The solution found at [here](http://stackoverflow.com/questions/22018272/nsinvocation-returns-value-but-makes-app-crash-with-exc-bad-access)
+         is that we must give a pointer to a non-retained type to `getReturnValue:`: */
+
+        GTLQueryYouTube __unsafe_unretained* res = nil;
+
+        [ queryFactoryInvok getReturnValue: &res ];
+
+        if ( res )
+            {
+            for ( NSString* _key in priQueryConfigInvocationsMap_ )
+                {
+                @try {
+                [ res setValue: priQueryConfigInvocationsMap_[ _key ] forKeyPath: _key ];
+                } @catch ( NSException* _Ex )
+                    { DDLogFatal( @"captured exception raised by KVC mechanism: {\n\t%@\n}.", _Ex ); }
+                }
+
+            result = res;
+            }
+        }
+
+    return result;
+    }
+
 @synthesize type = type_;
-
-@synthesize fieldFilter = fieldFilter_;
-- ( void ) setFieldFilter: ( NSString* )_New
-    {
-    if ( fieldFilter_ != _New )
-        {
-        fieldFilter_ = _New;
-        [ self insertQueryConfigInvokWithSelector_: @selector( setFields: ) arguments_: &fieldFilter_, nil ];
-        }
-    }
-
-- ( NSString* ) fieldFilter
-    {
-    return fieldFilter_;
-    }
-
-@synthesize maxResultsPerPage = maxResultsPerPage_;
-- ( void ) setMaxResultsPerPage: ( NSUInteger )_New
-    {
-    if ( maxResultsPerPage_ != _New )
-        {
-        maxResultsPerPage_ = _New;
-        [ self insertQueryConfigInvokWithSelector_: @selector( setMaxResults: ) arguments_: &maxResultsPerPage_, nil ];
-        }
-    }
-
-- ( NSUInteger ) maxResultsPerPage
-    {
-    return maxResultsPerPage_;
-    }
 
 @synthesize responseVerboseLevelMask = responseVerboseLevelMask_;
 - ( void ) setResponseVerboseLevelMask: ( TRSRestResponseVerboseFlag )_New
@@ -145,13 +182,83 @@
     return responseVerboseLevelMask_;
     }
 
+@synthesize fieldFilter = fieldFilter_;
+- ( void ) setFieldFilter: ( NSString* )_New
+    {
+    if ( fieldFilter_ != _New )
+        {
+        fieldFilter_ = _New;
+        [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, fields ) value_: fieldFilter_ ];
+        }
+    }
+
+- ( NSString* ) fieldFilter
+    {
+    return fieldFilter_;
+    }
+
+@synthesize maxResultsPerPage = maxResultsPerPage_;
+- ( void ) setMaxResultsPerPage: ( NSUInteger )_New
+    {
+    if ( maxResultsPerPage_ != _New )
+        {
+        maxResultsPerPage_ = _New;
+        [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, maxResults ) value_: @( maxResultsPerPage_ ) ];
+        }
+    }
+
+- ( NSUInteger ) maxResultsPerPage
+    {
+    return maxResultsPerPage_;
+    }
+
+@synthesize identifiers = identifiers_;
+- ( void ) setIdentifiers: ( NSArray <NSString*>* )_New
+    {
+    if ( identifiers_ != _New )
+        {
+        identifiers_ = _New;
+
+        if ( identifiers_ )
+            parentIdentifier_ = nil;
+
+        [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, identifier ) value_: identifiers_ ];
+        }
+    }
+
+- ( NSArray <NSString*>* ) identifiers
+    {
+    return identifiers_;
+    }
+
+@synthesize parentIdentifier = parentIdentifier_;
+
+- ( void ) setParentIdentifier: ( NSString* )_New
+    {
+    if ( parentIdentifier_ != _New )
+        {
+        parentIdentifier_ = _New;
+
+        if ( parentIdentifier_ )
+            identifiers_ = nil;
+
+        NSString* parentId = self.parentIdentifierName_;
+        [ self insertQueryConfigWithKeyPath_: parentId value_: parentIdentifier_ ];
+        }
+    }
+
+- ( NSString* ) parentIdentifier
+    {
+    return parentIdentifier_;
+    }
+
 @synthesize pageToken = pageToken_;
 - ( void ) setPageToken: ( NSString* )_New
     {
     if ( pageToken_ != _New )
         {
         pageToken_ = _New;
-        [ self insertQueryConfigInvokWithSelector_: @selector( setPageToken: ) arguments_: &pageToken_, nil ];
+        [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, pageToken ) value_: pageToken_ ];
         }
     }
 
@@ -162,46 +269,18 @@
 
 @dynamic isMine;
 
-@dynamic YouTubeQuery;
-- ( GTLQueryYouTube* ) YouTubeQuery
-    {
-    GTLQueryYouTube* result = nil;
-
-    NSInvocation* queryFactoryInvok = queryFactoryInvocation_;
-    if ( queryFactoryInvok )
-        {
-        [ queryFactoryInvok invoke ];
-
-        // GTLQueryYouTube* res = nil;
-
-        /* The original `GTLQueryYouTube* res = nil;` just causes a fragment error when ARC is enabled: 
-        
-         "Thread 1: EXC_BAD_ACCESS (code=1, adrress=0x20)"
-
-         The problem is with the line `[ queryFactoryInvok getReturnValue: &res ];`.
-         `getReturnValue:` just copies the bytes of the return value into the given memory buffer, regardless of type.
-         It doesn't know or care about memory management if the return type is a retainable object pointer type.
-         Since `res` is a __strong variable of object pointer type, ARC assumes that any value that has been put into the variable has been retained, and thus will release it when it goes out of scope.
-         That is not true in this case, so it crashes. 
-         
-         The solution found at [here](http://stackoverflow.com/questions/22018272/nsinvocation-returns-value-but-makes-app-crash-with-exc-bad-access)
-         is that we must give a pointer to a non-retained type to `getReturnValue:`: */
-
-        GTLQueryYouTube __unsafe_unretained* res = nil;
-
-        [ queryFactoryInvok getReturnValue: &res ];
-        result = res;
-
-        if ( result )
-            for ( NSString* _key in priQueryConfigInvocationsMap_ )
-                [ priQueryConfigInvocationsMap_[ _key ] invokeWithTarget: result ];
-        }
-
-    return result;
-    }
-
 #pragma mark - Conforms to <NSCopying>
-// TODO:
+
+//- ( instancetype ) copyWithZone: ( NSZone* )_Zone
+//    {
+//    TauRestRequest* copy = [ [ self class ] allocWithZone: _Zone ];
+//
+//    SEL init = nil;
+//    switch ( type_ )
+//        {
+//        case
+//        }
+//    }
 
 #pragma mark - Conforms to <NSSecureCoding>
 
@@ -215,43 +294,48 @@
 #pragma mark - Private
 
 @synthesize queryConfigInvocationsMap_ = priQueryConfigInvocationsMap_;
-- ( NSMutableDictionary <NSString*, NSInvocation*>* ) queryConfigInvocationsMap_
+- ( NSMutableDictionary <NSString*, id>* ) queryConfigInvocationsMap_
     {
     if ( !priQueryConfigInvocationsMap_ )
         priQueryConfigInvocationsMap_ = [ NSMutableDictionary dictionary ];
     return priQueryConfigInvocationsMap_;
     }
 
+@dynamic parentIdentifierName_;
+- ( NSString* ) parentIdentifierName_
+    {
+    NSString* name = nil;
+
+    switch ( type_ )
+        {
+        case TRSRestRequestTypeChannelsList:
+            name = @"categoryId"; break;
+
+        case TRSRestRequestTypeSubscriptionsList:
+        case TRSRestRequestTypePlaylistsList:
+            name = @"channelId"; break;
+
+        case TRSRestRequestTypePlaylistItemsList:
+            name = @"playlistId"; break;
+
+        default:;
+        }
+
+    return name;
+    }
+
 #define TAU_ARG_FIRST_IDX 2
 
-- ( void ) insertQueryConfigInvokWithSelector_: ( SEL )_Sel arguments_: ( void* _Nonnull )_FirstArg, ... NS_REQUIRES_NIL_TERMINATION
+- ( void ) insertQueryConfigWithKeyPath_: ( NSString* )_KeyPath value_: ( id )_Value
     {
-    BOOL isDiscardable = YES;
-    NSInvocation* invok = nil;
-    NSMethodSignature* sig = nil;
+    id finalValue = _Value;
 
-    isDiscardable = !( *( ( char* )_FirstArg ) );
+    if ( !_Value
+            || ( [ _Value isKindOfClass: [ NSNumber class ] ] && [ _Value isEqualToNumber: @( 0 ) ] )
+            || ( [ _Value isKindOfClass: [ NSString class ] ] && ( [ _Value length ] == 0 ) ) )
+        finalValue = nil;
 
-    sig = [ [ [ GTLQueryYouTube alloc ] init ] methodSignatureForSelector: _Sel ];
-    invok = [ NSInvocation invocationWithMethodSignature: sig ];
-    [ invok setSelector: _Sel ];
-    [ invok setArgument: _FirstArg atIndex: TAU_ARG_FIRST_IDX ];
-
-    NSUInteger argIdx = TAU_ARG_FIRST_IDX + 1;
-    va_list argv;
-    va_start( argv, _FirstArg );
-    while ( true )
-        {
-        void* arg = va_arg( argv, void* );
-        if ( !arg ) break;
-        [ invok setArgument: arg atIndex: argIdx++ ];
-
-        if ( isDiscardable )
-            isDiscardable = !( *( ( char* )arg ) );
-        } va_end( argv );
-
-    self.queryConfigInvocationsMap_[ NSStringFromSelector( _Sel ) ]
-        = isDiscardable ? nil : invok;
+    self.queryConfigInvocationsMap_[ _KeyPath ] = finalValue;
     }
 
 @end // TauRestRequest class
@@ -271,7 +355,7 @@
     NSMutableArray <NSString*>* parts = [ NSMutableArray array ];
 
     NSMutableIndexSet* flagsRanges = [ NSMutableIndexSet indexSet ];
-    [ flagsRanges addIndexesInRange: NSMakeRange( 0, 7 ) ];
+    [ flagsRanges addIndexesInRange: NSMakeRange( 0, 8 ) ];
 
     [ flagsRanges enumerateIndexesUsingBlock:
     ^( NSUInteger _Index, BOOL* _Nonnull _Stop )
@@ -288,6 +372,7 @@
                 case TRSRestRequestVerboseFlagLocalizations: [ parts addObject: @"localizations" ]; break;
                 case TRSRestRequestVerboseFlagSubscriberSnippet: [ parts addObject: @"subscriberSnippet" ]; break;
                 case TRSRestRequestVerboseFlagReplies: [ parts addObject: @"replies" ]; break;
+                case TRSRestRequestVerboseFlagStatistics: [ parts addObject: @"statistics" ]; break;
                 }
             }
         } ];

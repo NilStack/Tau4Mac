@@ -14,12 +14,13 @@ typedef NS_OPTIONS ( uint64, TRSRestResponseVerboseFlag )
     , TRSRestRequestVerboseFlagLocalizations     = ( 1 << 4 )
     , TRSRestRequestVerboseFlagSubscriberSnippet = ( 1 << 5 )
     , TRSRestRequestVerboseFlagReplies           = ( 1 << 6 )
+    , TRSRestRequestVerboseFlagStatistics        = ( 1 << 7 )
     };
 
 typedef NS_ENUM ( NSInteger, TRSRestRequestType )
-    { TRSRestRequestTypeSearchList        = 1
-    , TRSRestRequestTypeChannelList       = 2
-    , TRSRestRequestTypePlaylistList      = 3
+    { TRSRestRequestTypeSearchResultsList = 1
+    , TRSRestRequestTypeChannelsList      = 2
+    , TRSRestRequestTypePlaylistsList     = 3
     , TRSRestRequestTypePlaylistItemsList = 4
     , TRSRestRequestTypeSubscriptionsList = 5
 
@@ -43,16 +44,23 @@ typedef NS_ENUM ( NSUInteger, TRSCacheStrategy )
     NSInvocation* queryFactoryInvocation_;
     }
 
-@property ( assign, readonly ) TRSRestRequestType type;
 @property ( copy, readonly ) GTLQueryYouTube* YouTubeQuery;
+@property ( assign, readonly ) TRSRestRequestType type;
+@property ( assign, readwrite ) TRSRestResponseVerboseFlag responseVerboseLevelMask;
 
 @property ( copy, readwrite ) NSString* fieldFilter;
 @property ( assign, readwrite ) NSUInteger maxResultsPerPage;
-@property ( assign, readwrite ) TRSRestResponseVerboseFlag responseVerboseLevelMask;
+
+@property ( strong, readwrite ) NSArray <NSString*>* identifiers;
+@property ( copy, readwrite ) NSString* parentIdentifier;
 
 @property ( copy, readwrite ) NSString* pageToken;
 
 @property ( assign, readonly ) BOOL isMine;
+
+#pragma mark - Designed Initializer
+
+- ( instancetype ) initWithRestRequestType: ( TRSRestRequestType )_RequestType responseVerboseLevel: ( TRSRestResponseVerboseFlag )_VerboseLevelMask;
 
 #pragma mark - youtube.search.list
 

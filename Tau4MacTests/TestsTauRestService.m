@@ -38,6 +38,14 @@
     searchRequest.maxResultsPerPage = 9;
     searchRequest.maxResultsPerPage = 0;
     YouTubeQuery = [ searchRequest YouTubeQuery ];
+
+    searchRequest = [ [ TauRestRequest alloc ] initChannelsRequestWithChannelIdentifiers: @[ @"UCqhnX4jA0A5paNd1v-zEysw", @"UClwg08ECyHnm_RzY1wnZC1A", @"UCqhnX4jA0A5paNd1v-zEysw" ] ];
+    searchRequest.fieldFilter = @"items(snippet)";
+    searchRequest.maxResultsPerPage = 30;
+    searchRequest.responseVerboseLevelMask |=
+        TRSRestRequestVerboseFlagContentDetails | TRSRestRequestVerboseFlagStatistics;
+        
+    YouTubeQuery = [ searchRequest YouTubeQuery ];
     }
 
 @end // TestsTauRestService test case
