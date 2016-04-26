@@ -6,17 +6,6 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-typedef NS_OPTIONS ( uint64, TRSRestResponseVerboseFlag )
-    { TRSRestResponseVerboseFlagSnippet           = ( 1 << 0 )
-    , TRSRestResponseVerboseFlagIdentifier        = ( 1 << 1 )
-    , TRSRestResponseVerboseFlagContentDetails    = ( 1 << 2 )
-    , TRSRestResponseVerboseFlagStatus            = ( 1 << 3 )
-    , TRSRestResponseVerboseFlagLocalizations     = ( 1 << 4 )
-    , TRSRestResponseVerboseFlagSubscriberSnippet = ( 1 << 5 )
-    , TRSRestResponseVerboseFlagReplies           = ( 1 << 6 )
-    , TRSRestResponseVerboseFlagStatistics        = ( 1 << 7 )
-    };
-
 typedef NS_ENUM ( NSInteger, TRSRestRequestType )
     { TRSRestRequestTypeSearchResultsList = 1
     , TRSRestRequestTypeChannelsList      = 2
@@ -26,6 +15,17 @@ typedef NS_ENUM ( NSInteger, TRSRestRequestType )
 
     , TRSRestRequestTypeUnknown = 0
     , TRSRestRequestTypeOthers  = -1
+    };
+
+typedef NS_OPTIONS ( uint64, TRSRestResponseVerboseFlag )
+    { TRSRestResponseVerboseFlagSnippet           = ( 1 << 0 )
+    , TRSRestResponseVerboseFlagIdentifier        = ( 1 << 1 )
+    , TRSRestResponseVerboseFlagContentDetails    = ( 1 << 2 )
+    , TRSRestResponseVerboseFlagStatus            = ( 1 << 3 )
+    , TRSRestResponseVerboseFlagLocalizations     = ( 1 << 4 )
+    , TRSRestResponseVerboseFlagSubscriberSnippet = ( 1 << 5 )
+    , TRSRestResponseVerboseFlagReplies           = ( 1 << 6 )
+    , TRSRestResponseVerboseFlagStatistics        = ( 1 << 7 )
     };
 
 typedef NS_ENUM ( NSUInteger, TRSCacheStrategy )
@@ -50,9 +50,6 @@ typedef NS_ENUM ( NSUInteger, TRSCacheStrategy )
 
 @property ( copy, readwrite ) NSString* fieldFilter;
 @property ( assign, readwrite ) NSUInteger maxResultsPerPage;
-
-@property ( strong, readwrite ) NSArray <NSString*>* identifiers;
-@property ( copy, readwrite ) NSString* parentIdentifier;
 
 @property ( copy, readwrite ) NSString* pageToken;
 

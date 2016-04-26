@@ -212,46 +212,6 @@
     return maxResultsPerPage_;
     }
 
-@synthesize identifiers = identifiers_;
-- ( void ) setIdentifiers: ( NSArray <NSString*>* )_New
-    {
-    if ( identifiers_ != _New )
-        {
-        identifiers_ = _New;
-
-        if ( identifiers_ )
-            parentIdentifier_ = nil;
-
-        [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, identifier ) value_: identifiers_ ];
-        }
-    }
-
-- ( NSArray <NSString*>* ) identifiers
-    {
-    return identifiers_;
-    }
-
-@synthesize parentIdentifier = parentIdentifier_;
-
-- ( void ) setParentIdentifier: ( NSString* )_New
-    {
-    if ( parentIdentifier_ != _New )
-        {
-        parentIdentifier_ = _New;
-
-        if ( parentIdentifier_ )
-            identifiers_ = nil;
-
-        NSString* parentId = self.parentIdentifierName_;
-        [ self insertQueryConfigWithKeyPath_: parentId value_: parentIdentifier_ ];
-        }
-    }
-
-- ( NSString* ) parentIdentifier
-    {
-    return parentIdentifier_;
-    }
-
 @synthesize pageToken = pageToken_;
 - ( void ) setPageToken: ( NSString* )_New
     {

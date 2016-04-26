@@ -43,7 +43,7 @@
     searchRequest.fieldFilter = @"items(snippet)";
     searchRequest.maxResultsPerPage = 30;
     searchRequest.responseVerboseLevelMask |=
-        TRSRestRequestVerboseFlagContentDetails | TRSRestRequestVerboseFlagStatistics;
+        TRSRestResponseVerboseFlagContentDetails | TRSRestResponseVerboseFlagStatistics;
         
     YouTubeQuery = [ searchRequest YouTubeQuery ];
     }
