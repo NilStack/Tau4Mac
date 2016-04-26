@@ -127,6 +127,7 @@
     }
 
 @synthesize prevPageToken = prevPageToken_;
+
 @synthesize nextPageToken = nextPageToken_;
 
 @dynamic isMine;
@@ -141,9 +142,11 @@
         {
         [ queryFactoryInvok invoke ];
 
-        GTLQueryYouTube __unsafe_unretained* res = nil;
+        // GTLQueryYouTube* res = nil;
 
-        /* The original `GTLQueryYouTube* res = nil;` just causes a fragment error when ARC is enabled: "Thread 1: EXC_BAD_ACCESS (code=1, adrress=0x20)"
+        /* The original `GTLQueryYouTube* res = nil;` just causes a fragment error when ARC is enabled: 
+        
+         "Thread 1: EXC_BAD_ACCESS (code=1, adrress=0x20)"
 
          The problem is with the line `[ queryFactoryInvok getReturnValue: &res ];`.
          `getReturnValue:` just copies the bytes of the return value into the given memory buffer, regardless of type.
@@ -151,8 +154,10 @@
          Since `res` is a __strong variable of object pointer type, ARC assumes that any value that has been put into the variable has been retained, and thus will release it when it goes out of scope.
          That is not true in this case, so it crashes. 
          
-         The solution found at here http://stackoverflow.com/questions/22018272/nsinvocation-returns-value-but-makes-app-crash-with-exc-bad-access 
+         The solution found at [here](http://stackoverflow.com/questions/22018272/nsinvocation-returns-value-but-makes-app-crash-with-exc-bad-access)
          is that we must give a pointer to a non-retained type to `getReturnValue:`: */
+
+        GTLQueryYouTube __unsafe_unretained* res = nil;
 
         [ queryFactoryInvok getReturnValue: &res ];
         result = res;
@@ -187,17 +192,18 @@
     return priQueryConfigInvocationsMap_;
     }
 
+#define TAU_ARG_FIRST_IDX 2
+
 - ( void ) insertQueryConfigInvokWithSelector_: ( SEL )_Sel arguments: ( void* _Nonnull )_FirstArg, ... NS_REQUIRES_NIL_TERMINATION
     {
     NSMethodSignature* sig = [ [ [ GTLQueryYouTube alloc ] init ] methodSignatureForSelector: _Sel ];
     NSInvocation* invok = [ NSInvocation invocationWithMethodSignature: sig ];
     [ invok setSelector: _Sel ];
+    [ invok setArgument: _FirstArg atIndex: TAU_ARG_FIRST_IDX ];
 
-    [ self.queryConfigInvocationsMap_ removeObjectForKey: NSStringFromSelector( _Sel ) ];
+    NSLog( @"Dereferenced: %d", *( ( char* )_FirstArg ) );
 
-    [ invok setArgument: _FirstArg atIndex: 2 ];
-
-    NSUInteger argIdx = 3;
+    NSUInteger argIdx = TAU_ARG_FIRST_IDX + 1;
     va_list argv;
     va_start( argv, _FirstArg );
     while ( true )
@@ -207,7 +213,21 @@
         [ invok setArgument: arg atIndex: argIdx++ ];
         } va_end( argv );
 
-    self.queryConfigInvocationsMap_[ NSStringFromSelector( _Sel ) ] = invok;
+    BOOL isDiscardable = NO;
+    NSUInteger numOfArgs = invok.methodSignature.numberOfArguments;
+    NSUInteger idx = TAU_ARG_FIRST_IDX;
+    while ( !isDiscardable && ( idx < numOfArgs ) )
+        {
+        id __unsafe_unretained argVal= nil;
+        [ invok getArgument: &argVal atIndex: idx++ ];
+        isDiscardable = !argVal;
+        }
+
+    NSString* stringizedSel = NSStringFromSelector( _Sel );
+    if ( isDiscardable )
+        [ self.queryConfigInvocationsMap_ removeObjectForKey: stringizedSel ];
+    else
+        self.queryConfigInvocationsMap_[ stringizedSel ] = invok;
     }
 
 @end // TauRestRequest class
