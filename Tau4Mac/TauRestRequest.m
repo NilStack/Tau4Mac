@@ -126,9 +126,20 @@
     return responseVerboseLevelMask_;
     }
 
-@synthesize prevPageToken = prevPageToken_;
+@synthesize pageToken = pageToken_;
+- ( void ) setPageToken: ( NSString* )_New
+    {
+    if ( pageToken_ != _New )
+        {
+        pageToken_ = _New;
+        [ self insertQueryConfigInvokWithSelector_: @selector( setPageToken: ) arguments_: &pageToken_, nil ];
+        }
+    }
 
-@synthesize nextPageToken = nextPageToken_;
+- ( NSString* ) pageToken
+    {
+    return pageToken_;
+    }
 
 @dynamic isMine;
 

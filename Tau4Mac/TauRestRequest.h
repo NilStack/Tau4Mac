@@ -50,8 +50,7 @@ typedef NS_ENUM ( NSUInteger, TRSCacheStrategy )
 @property ( assign, readwrite ) NSUInteger maxResultsPerPage;
 @property ( assign, readwrite ) TRSRestResponseVerboseFlag responseVerboseLevelMask;
 
-@property ( copy, readwrite ) NSString* prevPageToken;
-@property ( copy, readwrite ) NSString* nextPageToken;
+@property ( copy, readwrite ) NSString* pageToken;
 
 @property ( assign, readonly ) BOOL isMine;
 
