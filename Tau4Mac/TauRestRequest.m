@@ -33,7 +33,7 @@
 
 @property ( strong, readonly ) NSMutableDictionary <NSString*, NSInvocation*>* queryConfigInvocationsMap_;
 
-- ( void ) insertQueryConfigInvokWithSelector_: ( SEL )_Sel arguments: ( void* _Nonnull )_FirstArg, ... NS_REQUIRES_NIL_TERMINATION;
+- ( void ) insertQueryConfigInvokWithSelector_: ( SEL )_Sel arguments_: ( void* _Nonnull )_FirstArg, ... NS_REQUIRES_NIL_TERMINATION;
 
 @end // Private
 
@@ -69,7 +69,7 @@
     if ( fieldFilter_ != _New )
         {
         fieldFilter_ = _New;
-        [ self insertQueryConfigInvokWithSelector_: @selector( setFields: ) arguments: &fieldFilter_, nil ];
+        [ self insertQueryConfigInvokWithSelector_: @selector( setFields: ) arguments_: &fieldFilter_, nil ];
         }
     }
 
@@ -84,7 +84,7 @@
     if ( maxResultsPerPage_ != _New )
         {
         maxResultsPerPage_ = _New;
-        [ self insertQueryConfigInvokWithSelector_: @selector( setMaxResults: ) arguments: &maxResultsPerPage_, nil ];
+        [ self insertQueryConfigInvokWithSelector_: @selector( setMaxResults: ) arguments_: &maxResultsPerPage_, nil ];
         }
     }
 
@@ -194,14 +194,18 @@
 
 #define TAU_ARG_FIRST_IDX 2
 
-- ( void ) insertQueryConfigInvokWithSelector_: ( SEL )_Sel arguments: ( void* _Nonnull )_FirstArg, ... NS_REQUIRES_NIL_TERMINATION
+- ( void ) insertQueryConfigInvokWithSelector_: ( SEL )_Sel arguments_: ( void* _Nonnull )_FirstArg, ... NS_REQUIRES_NIL_TERMINATION
     {
-    NSMethodSignature* sig = [ [ [ GTLQueryYouTube alloc ] init ] methodSignatureForSelector: _Sel ];
-    NSInvocation* invok = [ NSInvocation invocationWithMethodSignature: sig ];
+    BOOL isDiscardable = YES;
+    NSInvocation* invok = nil;
+    NSMethodSignature* sig = nil;
+
+    isDiscardable = !( *( ( char* )_FirstArg ) );
+
+    sig = [ [ [ GTLQueryYouTube alloc ] init ] methodSignatureForSelector: _Sel ];
+    invok = [ NSInvocation invocationWithMethodSignature: sig ];
     [ invok setSelector: _Sel ];
     [ invok setArgument: _FirstArg atIndex: TAU_ARG_FIRST_IDX ];
-
-    NSLog( @"Dereferenced: %d", *( ( char* )_FirstArg ) );
 
     NSUInteger argIdx = TAU_ARG_FIRST_IDX + 1;
     va_list argv;
@@ -211,23 +215,13 @@
         void* arg = va_arg( argv, void* );
         if ( !arg ) break;
         [ invok setArgument: arg atIndex: argIdx++ ];
+
+        if ( isDiscardable )
+            isDiscardable = !( *( ( char* )arg ) );
         } va_end( argv );
 
-    BOOL isDiscardable = NO;
-    NSUInteger numOfArgs = invok.methodSignature.numberOfArguments;
-    NSUInteger idx = TAU_ARG_FIRST_IDX;
-    while ( !isDiscardable && ( idx < numOfArgs ) )
-        {
-        id __unsafe_unretained argVal= nil;
-        [ invok getArgument: &argVal atIndex: idx++ ];
-        isDiscardable = !argVal;
-        }
-
-    NSString* stringizedSel = NSStringFromSelector( _Sel );
-    if ( isDiscardable )
-        [ self.queryConfigInvocationsMap_ removeObjectForKey: stringizedSel ];
-    else
-        self.queryConfigInvocationsMap_[ stringizedSel ] = invok;
+    self.queryConfigInvocationsMap_[ NSStringFromSelector( _Sel ) ]
+        = isDiscardable ? nil : invok;
     }
 
 @end // TauRestRequest class
