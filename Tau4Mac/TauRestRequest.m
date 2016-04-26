@@ -59,6 +59,25 @@
     return self;
     }
 
+#pragma mark - youtube.channel.list
+
+- ( instancetype ) initChannelRequestWithChannelIdentifier: ( NSString* )_Identifier
+    {
+    if ( self = [ super init ] )
+        {
+        SEL sel = @selector( queryForChannelsListWithPart: );
+        queryFactoryInvocation_ = [ NSInvocation invocationWithMethodSignature: [ GTLQueryYouTube methodSignatureForSelector: sel ] ];
+        [ queryFactoryInvocation_ setSelector: sel ];
+        [ queryFactoryInvocation_ setTarget: [ GTLQueryYouTube class ] ];
+
+        [ self setResponseVerboseLevelMask: TRSRestRequestVerboseFlagSnippet ];
+
+        type_ = TRSRestRequestTypeChannelList;
+        }
+
+    return self;
+    }
+
 #pragma mark - External Properties
 
 @synthesize type = type_;
