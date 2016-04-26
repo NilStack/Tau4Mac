@@ -80,7 +80,7 @@
 
 - ( instancetype ) initSearchResultsRequestWithQ: ( NSString* )_Q
     {
-    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypeSearchResultsList responseVerboseLevel: TRSRestRequestVerboseFlagSnippet ];
+    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypeSearchResultsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ];
     [ new insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, q ) value_: _Q ];
     return new;
     }
@@ -94,7 +94,7 @@
 
 - ( instancetype ) initChannelsRequestWithChannelIdentifiers: ( NSArray <NSString*>* )_Identifiers
     {
-    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypeChannelsList responseVerboseLevel: TRSRestRequestVerboseFlagSnippet ];
+    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypeChannelsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ];
     [ new insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, identifier ) value_: _Identifiers ];
     return new;
     }
@@ -365,14 +365,14 @@
             {
             switch ( flag )
                 {
-                case TRSRestRequestVerboseFlagSnippet: [ parts addObject: @"snippet" ]; break;
-                case TRSRestRequestVerboseFlagIdentifier: [ parts addObject: @"id" ]; break;
-                case TRSRestRequestVerboseFlagContentDetails: [ parts addObject: @"contentDetails" ]; break;
-                case TRSRestRequestVerboseFlagStatus: [ parts addObject: @"status" ]; break;
-                case TRSRestRequestVerboseFlagLocalizations: [ parts addObject: @"localizations" ]; break;
-                case TRSRestRequestVerboseFlagSubscriberSnippet: [ parts addObject: @"subscriberSnippet" ]; break;
-                case TRSRestRequestVerboseFlagReplies: [ parts addObject: @"replies" ]; break;
-                case TRSRestRequestVerboseFlagStatistics: [ parts addObject: @"statistics" ]; break;
+                case TRSRestResponseVerboseFlagSnippet: [ parts addObject: @"snippet" ]; break;
+                case TRSRestResponseVerboseFlagIdentifier: [ parts addObject: @"id" ]; break;
+                case TRSRestResponseVerboseFlagContentDetails: [ parts addObject: @"contentDetails" ]; break;
+                case TRSRestResponseVerboseFlagStatus: [ parts addObject: @"status" ]; break;
+                case TRSRestResponseVerboseFlagLocalizations: [ parts addObject: @"localizations" ]; break;
+                case TRSRestResponseVerboseFlagSubscriberSnippet: [ parts addObject: @"subscriberSnippet" ]; break;
+                case TRSRestResponseVerboseFlagReplies: [ parts addObject: @"replies" ]; break;
+                case TRSRestResponseVerboseFlagStatistics: [ parts addObject: @"statistics" ]; break;
                 }
             }
         } ];

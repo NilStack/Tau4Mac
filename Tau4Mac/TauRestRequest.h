@@ -7,14 +7,14 @@
 //
 
 typedef NS_OPTIONS ( uint64, TRSRestResponseVerboseFlag )
-    { TRSRestRequestVerboseFlagSnippet           = ( 1 << 0 )
-    , TRSRestRequestVerboseFlagIdentifier        = ( 1 << 1 )
-    , TRSRestRequestVerboseFlagContentDetails    = ( 1 << 2 )
-    , TRSRestRequestVerboseFlagStatus            = ( 1 << 3 )
-    , TRSRestRequestVerboseFlagLocalizations     = ( 1 << 4 )
-    , TRSRestRequestVerboseFlagSubscriberSnippet = ( 1 << 5 )
-    , TRSRestRequestVerboseFlagReplies           = ( 1 << 6 )
-    , TRSRestRequestVerboseFlagStatistics        = ( 1 << 7 )
+    { TRSRestResponseVerboseFlagSnippet           = ( 1 << 0 )
+    , TRSRestResponseVerboseFlagIdentifier        = ( 1 << 1 )
+    , TRSRestResponseVerboseFlagContentDetails    = ( 1 << 2 )
+    , TRSRestResponseVerboseFlagStatus            = ( 1 << 3 )
+    , TRSRestResponseVerboseFlagLocalizations     = ( 1 << 4 )
+    , TRSRestResponseVerboseFlagSubscriberSnippet = ( 1 << 5 )
+    , TRSRestResponseVerboseFlagReplies           = ( 1 << 6 )
+    , TRSRestResponseVerboseFlagStatistics        = ( 1 << 7 )
     };
 
 typedef NS_ENUM ( NSInteger, TRSRestRequestType )
