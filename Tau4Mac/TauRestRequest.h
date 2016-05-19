@@ -12,6 +12,7 @@ typedef NS_ENUM ( NSInteger, TRSRestRequestType )
     , TRSRestRequestTypePlaylistsList     = 3
     , TRSRestRequestTypePlaylistItemsList = 4
     , TRSRestRequestTypeSubscriptionsList = 5
+    , TRSRestRequestTypeVideosList        = 6
 
     , TRSRestRequestTypeUnknown = 0
     , TRSRestRequestTypeOthers  = -1
@@ -49,7 +50,7 @@ typedef NS_ENUM ( NSUInteger, TRSCacheStrategy )
 @property ( assign, readwrite ) TRSRestResponseVerboseFlag responseVerboseLevelMask;
 
 @property ( copy, readwrite ) NSString* fieldFilter;
-@property ( assign, readwrite ) NSUInteger maxResultsPerPage;
+@property ( assign, readwrite ) NSNumber* maxResultsPerPage;
 
 @property ( copy, readwrite ) NSString* pageToken;
 
@@ -130,10 +131,10 @@ typedef NS_ENUM ( NSUInteger, TRSCacheStrategy )
 - ( instancetype ) initPlaylistItemRequestWithPlaylistItemIdentifier: ( NSString* )_Identifier;
 
 /// The \c _Identifiers parameter specifies a list of the YouTube playlist item ID(s) for the resource(s) that are being retrieved.
-- ( instancetype ) initPlaylistItemsRequestWithPlaylistItemIdentifiers: ( NSString* )_Identifier;
+- ( instancetype ) initPlaylistItemsRequestWithPlaylistItemIdentifiers: ( NSArray <NSString*>* )_Identifiers;
 
 /// The \c _Identifiers parameter specifies the unique ID of the playlist for which you want to retrieve playlist items.
-- ( instancetype ) initPlaylistItemsRequestWithPlaylistIdentifiers: ( NSString* )_Identifier;
+- ( instancetype ) initPlaylistItemsRequestWithPlaylistIdentifier: ( NSString* )_Identifier;
 
 #pragma mark - youtube.videos.list
 
