@@ -6,8 +6,6 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauTestCase.h"
-
 // TestsTauRestService test case
 @interface TestsTauRestService : TauTestCase
 

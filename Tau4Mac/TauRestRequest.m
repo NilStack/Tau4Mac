@@ -11,11 +11,11 @@
 // NSString + TauRestRequestInitializing
 @interface NSString ( TauRestRequestInitializing )
 
-#pragma mark - Creating and Initializing String
+#pragma mark - Creating and Initializing String -
 
 + ( instancetype ) stringWithTauRestRequestVerboseLevelMask: ( TRSRestResponseVerboseFlag )_Mask;
 
-#pragma mark - Identifying and Comparing Strings
+#pragma mark - Identifying and Comparing Strings -
 
 - ( BOOL ) hasCaseInsensitivePrefix: ( NSString* )_aString;
 - ( BOOL ) hasCaseInsensitiveSuffix: ( NSString* )_aString;
@@ -50,7 +50,7 @@ if ( LOWER##_ != _New ) { \
 // TauRestRequest class
 @implementation TauRestRequest
 
-#pragma mark - Designed Initializer
+#pragma mark - Designed Initializer -
 
 - ( instancetype ) initWithRestRequestType: ( TRSRestRequestType )_RequestType responseVerboseLevel: ( TRSRestResponseVerboseFlag )_VerboseLevelMask
     {
@@ -74,7 +74,9 @@ if ( LOWER##_ != _New ) { \
     return self;
     }
 
-#pragma mark - youtube.search.list
+#pragma mark - TauRestListingRequests -
+
+#pragma mark youtube.search.list
 
 - ( instancetype ) initSearchResultsRequestWithQ: ( NSString* )_Q
     {
@@ -83,7 +85,7 @@ if ( LOWER##_ != _New ) { \
     return self;
     }
 
-#pragma mark - youtube.channel.list
+#pragma mark youtube.channel.list
 
 - ( instancetype ) initChannelRequestWithChannelIdentifier: ( NSString* )_Identifier
     {
@@ -111,7 +113,7 @@ if ( LOWER##_ != _New ) { \
     return self;
     }
 
-#pragma mark - youtube.playlists.list
+#pragma mark youtube.playlists.list
 
 - ( instancetype ) initPlaylistRequestWithPlaylistIdentifier: ( NSString* )_Identifier
     {
@@ -139,7 +141,7 @@ if ( LOWER##_ != _New ) { \
     return self;
     }
 
-#pragma mark - youtube.playlistItems.list
+#pragma mark youtube.playlistItems.list
 
 - ( instancetype ) initPlaylistItemRequestWithPlaylistItemIdentifier: ( NSString* )_Identifier
     {
@@ -160,7 +162,7 @@ if ( LOWER##_ != _New ) { \
     return self;
     }
 
-#pragma mark - youtube.videos.list
+#pragma mark youtube.videos.list
 
 - ( instancetype ) initVideoRequestWithVideoIdentifier: ( NSString* )_Identifier
     {
@@ -188,7 +190,7 @@ if ( LOWER##_ != _New ) { \
     return self;
     }
 
-#pragma mark - youtube.subscriptions.list
+#pragma mark youtube.subscriptions.list
 
 - ( instancetype ) initSubscriptionsRequestWithChannelIdentifier: ( NSString* )_Identifier
     {
@@ -211,7 +213,7 @@ if ( LOWER##_ != _New ) { \
     return self;
     }
 
-#pragma mark - External Properties
+#pragma mark - External Properties -
 
 @dynamic YouTubeQuery;
 - ( GTLQueryYouTube* ) YouTubeQuery
@@ -340,7 +342,9 @@ TRSSynthProperty( pageToken, PageToken, pageToken );
     return [ [ priQueryConfigInvocationsMap_ objectForKey: TauKVOStrictClassKeyPath( GTLQueryYouTube, mine ) ] boolValue ];
     }
 
-#pragma mark - Conforms to <NSCopying>
+#pragma mark - Conforms to Vary Protocols -
+
+#pragma mark <NSCopying>
 
 - ( instancetype ) copyWithZone: ( NSZone* )_Zone
     {
@@ -364,7 +368,7 @@ TRSSynthProperty( pageToken, PageToken, pageToken );
     return copy;
     }
 
-#pragma mark - Conforms to <NSSecureCoding>
+#pragma mark <NSSecureCoding>
 
 + ( BOOL ) supportsSecureCoding
     {
@@ -373,7 +377,7 @@ TRSSynthProperty( pageToken, PageToken, pageToken );
 
 // TODO:
 
-#pragma mark - Private
+#pragma mark - Private -
 
 @synthesize queryConfigInvocationsMap_ = priQueryConfigInvocationsMap_;
 - ( NSMutableDictionary <NSString*, id>* ) queryConfigInvocationsMap_
@@ -428,7 +432,7 @@ TRSSynthProperty( pageToken, PageToken, pageToken );
 
 @implementation NSString ( TauRestRequestInitializing )
 
-#pragma mark - Creating and Initializing String
+#pragma mark - Creating and Initializing String -
 
 + ( instancetype ) stringWithTauRestRequestVerboseLevelMask: ( TRSRestResponseVerboseFlag )_Mask
     {
@@ -466,7 +470,7 @@ TRSSynthProperty( pageToken, PageToken, pageToken );
     return [ parts componentsJoinedByString: @"," ];
     }
 
-#pragma mark - Identifying and Comparing Strings
+#pragma mark - Identifying and Comparing Strings -
 
 - ( BOOL ) hasCaseInsensitivePrefix: ( NSString* )_aString
     {

@@ -23,8 +23,31 @@
     [ super tearDown ];
     }
 
-- ( void ) testInitializingTauRestRequest_pos0
+- ( void ) testCreatingReadOnlyRestRequest
     {
+    unsigned int count = 0;
+
+    struct objc_method_description* descrps = protocol_copyMethodDescriptionList( @protocol( TauRestListingRequests ), YES, YES, &count );
+    NSLog( @"count=%u", count );
+    for ( int _index = 0; _index < count; _index++ )
+        {
+        struct objc_method_description desc = *( descrps + _index );
+        SEL name = desc.name;
+        Method method = class_getInstanceMethod( NSClassFromString( @"TauRestRequest" ), name );
+        NSLog( @"%@ paraCnt=%u", NSStringFromSelector( name ), method_getNumberOfArguments( method ) );
+        }
+
+    free( descrps );
+
+//    Method* methodsList = class_copyMethodList( NSClassFromString( @"TauRestRequest" ), &count );
+//    for ( int _Index = 0; _Index < count; _Index++ )
+//        {
+//        SEL name = method_getName( *( methodsList + _Index ) );
+//        NSLog( @"%@ paraCnt=%u", NSStringFromSelector( name ), method_getNumberOfArguments( *( methodsList + _Index ) ) );
+//        }
+//
+//    free( methodsList );
+
     TauRestRequest* searchRequest = [ [ TauRestRequest alloc ] initSearchResultsRequestWithQ: @"gopro" ];
     XCTAssertNotNil( searchRequest );
 

@@ -8,9 +8,6 @@
 
 #define TAU_UNITTEST_SAMPLES_COUNT 15
 
-#define GENERATE_POS_SAMPLE ( TYPE, NAME, NUMBER ) \
-
-
 // TauTestCase class
 @interface TauTestCase : XCTestCase
 
