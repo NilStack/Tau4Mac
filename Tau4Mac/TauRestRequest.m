@@ -90,137 +90,138 @@ if ( LOWER##_ != _New ) { \
 
 - ( instancetype ) initSearchResultsRequestWithQ: ( NSString* )_Q
     {
-    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypeSearchResultsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ];
-    [ new insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, q ) value_: _Q ];
-    return new;
+    if ( self = [ self initWithRestRequestType: TRSRestRequestTypeSearchResultsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ] )
+        [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, q ) value_: _Q ];
+    return self;
     }
 
 #pragma mark - youtube.channel.list
 
 - ( instancetype ) initChannelRequestWithChannelIdentifier: ( NSString* )_Identifier
     {
-    return [ [ [ self class ] alloc ] initChannelsRequestWithChannelIdentifiers: @[ _Identifier ] ];
+    return [ self initChannelsRequestWithChannelIdentifiers: @[ _Identifier ] ];
     }
 
 - ( instancetype ) initChannelsRequestWithChannelIdentifiers: ( NSArray <NSString*>* )_Identifiers
     {
-    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypeChannelsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ];
-    [ new insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, identifier ) value_: [ _Identifiers componentsJoinedByString: @"," ] ];
-    return new;
+    if ( self = [ self initWithRestRequestType: TRSRestRequestTypeChannelsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ] )
+        [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, identifier ) value_: [ _Identifiers componentsJoinedByString: @"," ] ];
+    return self;
     }
 
 - ( instancetype ) initChannelRequestWithChannelName: ( NSString* )_Name
     {
-    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypeChannelsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ];
-    [ new insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, forUsername ) value_: _Name ];
-    return new;
+    if ( self = [ self initWithRestRequestType: TRSRestRequestTypeChannelsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ] )
+        [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, forUsername ) value_: _Name ];
+    return self;
     }
 
 - ( instancetype ) initChannelsOfMineRequest
     {
-    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypeChannelsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ];
-    [ new insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, mine ) value_: @YES ];
-    return new;
+    if ( self = [ self initWithRestRequestType: TRSRestRequestTypeChannelsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ] )
+        [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, mine ) value_: @YES ];
+    return self;
     }
 
 #pragma mark - youtube.playlists.list
 
 - ( instancetype ) initPlaylistRequestWithPlaylistIdentifier: ( NSString* )_Identifier
     {
-    return [ [ [ self class ] alloc ] initPlaylistsRequestWithPlaylistIdentifiers: @[ _Identifier ] ];
+    return [ self initPlaylistsRequestWithPlaylistIdentifiers: @[ _Identifier ] ];
     }
 
 - ( instancetype ) initPlaylistsRequestWithPlaylistIdentifiers: ( NSArray <NSString*>* )_Identifiers
     {
-    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypePlaylistsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ];
-    [ new insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, identifier ) value_: [ _Identifiers componentsJoinedByString: @"," ] ];
-    return new;
+    if ( self = [ self initWithRestRequestType: TRSRestRequestTypePlaylistsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ] )
+        [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, identifier ) value_: [ _Identifiers componentsJoinedByString: @"," ] ];
+    return self;
     }
 
 - ( instancetype ) initPlaylistsRequestWithChannelIdentifier: ( NSString* )_Identifier
     {
-    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypePlaylistsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ];
-    [ new insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, channelId ) value_: _Identifier ];
-    return new;
+    if ( self = [ self initWithRestRequestType: TRSRestRequestTypePlaylistsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ] )
+        [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, channelId ) value_: _Identifier ];
+    return self;
     }
 
 - ( instancetype ) initPlaylistsOfMineRequest
     {
-    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypePlaylistsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ];
-    [ new insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, mine ) value_: @YES ];
-    return new;
+    if ( self = [ self initWithRestRequestType: TRSRestRequestTypePlaylistsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ] )
+        [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, mine ) value_: @YES ];
+    return self;
     }
 
 #pragma mark - youtube.playlistItems.list
 
 - ( instancetype ) initPlaylistItemRequestWithPlaylistItemIdentifier: ( NSString* )_Identifier
     {
-    return [ [ [ self class ] alloc ] initPlaylistItemsRequestWithPlaylistItemIdentifiers: @[ _Identifier ] ];
+    return [ self initPlaylistItemsRequestWithPlaylistItemIdentifiers: @[ _Identifier ] ];
     }
 
 - ( instancetype ) initPlaylistItemsRequestWithPlaylistItemIdentifiers: ( NSArray <NSString*>* )_Identifiers
     {
-    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypePlaylistItemsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ];
-    [ new insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, identifier ) value_: [ _Identifiers componentsJoinedByString: @"," ] ];
-    return new;
+    if ( self = [ self initWithRestRequestType: TRSRestRequestTypePlaylistItemsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ] )
+        [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, identifier ) value_: [ _Identifiers componentsJoinedByString: @"," ] ];
+    return self;
     }
 
 - ( instancetype ) initPlaylistItemsRequestWithPlaylistIdentifier: ( NSString* )_Identifier
     {
-    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypePlaylistItemsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ];
-    [ new insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, playlistId ) value_: _Identifier ];
-    return new;
+    if ( self = [ self initWithRestRequestType: TRSRestRequestTypePlaylistItemsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ] )
+        [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, playlistId ) value_: _Identifier ];
+    return self;
     }
 
 #pragma mark - youtube.videos.list
 
 - ( instancetype ) initVideoRequestWithVideoIdentifier: ( NSString* )_Identifier
     {
-    return [ [ [ self class ] alloc ] initVideosRequestWithVideoIdentifiers: @[ _Identifier ] ];
+    if ( self = [ self initVideosRequestWithVideoIdentifiers: @[ _Identifier ] ] ) {;}
+    return self;
     }
 
 - ( instancetype ) initVideosRequestWithVideoIdentifiers: ( NSArray <NSString*>* )_Identifiers
     {
-    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypeVideosList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ];
-    [ new insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, identifier ) value_: _Identifiers ];
-    return new;
+    if ( self = [ self initWithRestRequestType: TRSRestRequestTypeVideosList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ] )
+        [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, identifier ) value_: _Identifiers ];
+    return self;
     }
 
 - ( instancetype ) initLikedVideosByMeRequest
     {
-    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypeVideosList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ];
-    [ new insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, myRating ) value_: @"like" ];
-    return new;
+    if ( self = [ self initWithRestRequestType: TRSRestRequestTypeVideosList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ] )
+        [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, myRating ) value_: @"like" ];
+    return self;
     }
 
 - ( instancetype ) initDislikedVideosByMeRequest
     {
-    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypeVideosList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ];
-    [ new insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, myRating ) value_: @"dislike" ];
-    return new;
+    if ( self = [ self initWithRestRequestType: TRSRestRequestTypeVideosList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ] )
+        [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, myRating ) value_: @"dislike" ];
+    return self;
     }
 
 #pragma mark - youtube.subscriptions.list
 
 - ( instancetype ) initSubscriptionsRequestWithChannelIdentifier: ( NSString* )_Identifier
     {
-    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypeSubscriptionsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ];
-    [ new insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, channelId ) value_: _Identifier ];
-    return new;
+    if ( self = [ self initWithRestRequestType: TRSRestRequestTypeSubscriptionsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ] )
+        [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, channelId ) value_: _Identifier ];
+    return self;
     }
 
 - ( instancetype ) initSubscriptionsOfMineRequest
     {
-    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypeSubscriptionsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ];
-    [ new insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, mine ) value_: @YES ];
-    return new;
+    if ( self = [ self initWithRestRequestType: TRSRestRequestTypeSubscriptionsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ] )
+        [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, mine ) value_: @YES ];
+    return self;
     }
 
 - ( instancetype ) initMySubscribersRequest
     {
-    TauRestRequest* new = [ [ [ self class ] alloc ] initWithRestRequestType: TRSRestRequestTypeSubscriptionsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ];
-    [ new insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, mySubscribers ) value_: @YES ];
-    return new;
+    if ( self = [ self initWithRestRequestType: TRSRestRequestTypeSubscriptionsList responseVerboseLevel: TRSRestResponseVerboseFlagSnippet ] )
+        [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, mySubscribers ) value_: @YES ];
+    return self;
     }
 
 #pragma mark - External Properties
