@@ -6,9 +6,9 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-@import XCTest;
+#import "TauTestCase.h"
 
 // TestsTauRestService test case
-@interface TestsTauRestService : XCTestCase
+@interface TestsTauRestService : TauTestCase
 
 @end // TestsTauRestService test case

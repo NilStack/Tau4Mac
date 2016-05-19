@@ -53,9 +53,6 @@
             </BuildableReference>
             <SkippedTests>
                <Test
-                  Identifier = "TauTestCase">
-               </Test>
-               <Test
                   Identifier = "TestsTauDataServiceMachanism">
                </Test>
                <Test
