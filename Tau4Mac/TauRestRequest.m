@@ -274,7 +274,7 @@ if ( LOWER##_ != _New ) { \
             case TRSRestRequestTypePlaylistItemsList: selCharacteristic_ = @"PlaylistItems"; break;
             case TRSRestRequestTypeSubscriptionsList: selCharacteristic_ = @"Subscriptions"; break;
             case TRSRestRequestTypeVideosList: selCharacteristic_ = @"Videos"; break;
-            default:;
+            default: {;}
             }
         }
     }
@@ -423,17 +423,21 @@ TRSSynthProperty( pageToken, PageToken, pageToken );
         TRSRestResponseVerboseFlag flag = ( 1 << _Index );
         if ( _Mask & flag )
             {
+            NSString* partString = nil;
             switch ( flag )
                 {
-                case TRSRestResponseVerboseFlagSnippet: [ parts addObject: @"snippet" ]; break;
-                case TRSRestResponseVerboseFlagIdentifier: [ parts addObject: @"id" ]; break;
-                case TRSRestResponseVerboseFlagContentDetails: [ parts addObject: @"contentDetails" ]; break;
-                case TRSRestResponseVerboseFlagStatus: [ parts addObject: @"status" ]; break;
-                case TRSRestResponseVerboseFlagLocalizations: [ parts addObject: @"localizations" ]; break;
-                case TRSRestResponseVerboseFlagSubscriberSnippet: [ parts addObject: @"subscriberSnippet" ]; break;
-                case TRSRestResponseVerboseFlagReplies: [ parts addObject: @"replies" ]; break;
-                case TRSRestResponseVerboseFlagStatistics: [ parts addObject: @"statistics" ]; break;
+                case TRSRestResponseVerboseFlagSnippet: partString = @"snippet"; break;
+                case TRSRestResponseVerboseFlagIdentifier: partString = @"id"; break;
+                case TRSRestResponseVerboseFlagContentDetails: partString = @"contentDetails"; break;
+                case TRSRestResponseVerboseFlagStatus: partString = @"status"; break;
+                case TRSRestResponseVerboseFlagLocalizations: partString = @"localizations"; break;
+                case TRSRestResponseVerboseFlagSubscriberSnippet: partString = @"subscriberSnippet"; break;
+                case TRSRestResponseVerboseFlagReplies: partString = @"replies"; break;
+                case TRSRestResponseVerboseFlagStatistics: partString = @"statistics"; break;
                 }
+
+            if ( partString )
+                [ parts addObject: partString ];
             }
         } ];
 
