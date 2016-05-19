@@ -91,7 +91,7 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
             {
             case TauYouTubeVideoMetaInfoInspector: activingView = self.videoMetaInfoView_; break;
             case TauYouTubeVideoCommentsInspector: activingView = self.commentsView_; break;
-            case TauYouTubeVideoUnknownInspector:;
+            case TauYouTubeVideoUnknownInspector: {;} break;
             }
 
         [ self.videoMetaInfoView_ removeFromSuperview ];

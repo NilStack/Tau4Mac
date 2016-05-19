@@ -140,7 +140,7 @@ TauDeallocEnd
         case TauAPIServiceConsumptionPlaylistsType:     key = @"playlists";     break;
         case TauAPIServiceConsumptionPlaylistItemsType: key = @"playlistItems"; break;
         case TauAPIServiceConsumptionSubscriptionsType: key = @"subscriptions"; break;
-        case TauAPIServiceConsumptionUnknownType:;break;
+        case TauAPIServiceConsumptionUnknownType: {;} break;
         }
 
     return key;
@@ -157,7 +157,7 @@ TauDeallocEnd
         case TauAPIServiceConsumptionPlaylistsType:     modelClass = [ TauYouTubePlaylistsCollection class ];     break;
         case TauAPIServiceConsumptionPlaylistItemsType: modelClass = [ TauYouTubePlaylistItemsCollection class ]; break;
         case TauAPIServiceConsumptionSubscriptionsType: modelClass = [ TauYouTubeSubscriptionsCollection class ]; break;
-        case TauAPIServiceConsumptionUnknownType:;break;
+        case TauAPIServiceConsumptionUnknownType: {;} break;
         }
 
     return modelClass;
@@ -200,7 +200,7 @@ TauDeallocEnd
             ytQuery.channelId = _Dict[ TauTDSOperationRequirements ][ TauTDSOperationRequirementChannelID ];
             } break;
 
-        case TauAPIServiceConsumptionUnknownType:;break;
+        case TauAPIServiceConsumptionUnknownType: {;} break;
         }
 
     NSNumber* maxResults = _Dict[ TauTDSOperationMaxResultsPerPage ];

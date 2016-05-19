@@ -378,13 +378,11 @@ TRSSynthProperty( pageToken, PageToken, pageToken );
         case TRSRestRequestTypePlaylistItemsList:
             name = @"playlistId"; break;
 
-        default:;
+        default: {;}
         }
 
     return name;
     }
-
-#define TAU_ARG_FIRST_IDX 2
 
 - ( void ) insertQueryConfigWithKeyPath_: ( NSString* )_KeyPath value_: ( id )_Value
     {
