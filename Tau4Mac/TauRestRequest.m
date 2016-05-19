@@ -335,6 +335,10 @@ TRSSynthProperty( maxResultsPerPage, MaxResultsPerPage, maxResults );
 TRSSynthProperty( pageToken, PageToken, pageToken );
 
 @dynamic isMine;
+- ( BOOL ) isMine
+    {
+    return [ [ priQueryConfigInvocationsMap_ objectForKey: TauKVOStrictClassKeyPath( GTLQueryYouTube, mine ) ] boolValue ];
+    }
 
 #pragma mark - Conforms to <NSCopying>
 
