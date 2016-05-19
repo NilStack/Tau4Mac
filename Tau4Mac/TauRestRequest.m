@@ -8,15 +8,6 @@
 
 #import "TauRestRequest.h"
 
-#define TRSSynthProperty( LOWER, UPPER, YTQUERY ) \
-@synthesize LOWER = LOWER##_; \
-- ( void ) set##UPPER: ( id )_New { \
-if ( LOWER##_ != _New ) { \
-    LOWER##_ = _New; \
-    [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, YTQUERY ) value_: LOWER##_ ]; \
-} } \
-- ( id ) LOWER { return LOWER##_; }
-
 // NSString + TauRestRequestInitializing
 @interface NSString ( TauRestRequestInitializing )
 
@@ -46,6 +37,15 @@ if ( LOWER##_ != _New ) { \
 - ( void ) insertQueryConfigWithKeyPath_: ( NSString* )_KeyPath value_: ( id )_Value;
 
 @end // Private
+
+#define TRSSynthProperty( LOWER, UPPER, YTQUERY ) \
+@synthesize LOWER = LOWER##_; \
+- ( void ) set##UPPER: ( id )_New { \
+if ( LOWER##_ != _New ) { \
+    LOWER##_ = _New; \
+    [ self insertQueryConfigWithKeyPath_: TauKVOStrictClassKeyPath( GTLQueryYouTube, YTQUERY ) value_: LOWER##_ ]; \
+} } \
+- ( id ) LOWER { return LOWER##_; }
 
 // TauRestRequest class
 @implementation TauRestRequest
