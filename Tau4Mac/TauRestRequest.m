@@ -227,7 +227,7 @@ if ( LOWER##_ != _New ) { \
 
         /* The original `GTLQueryYouTube* res = nil;` just causes a fragment error when ARC is enabled: 
         
-         "Thread 1: EXC_BAD_ACCESS (code=1, adrress=0x20)"
+         "Thread 1: EXC_BAD_ACCESS ( code=1, adrress=0x20 )"
 
          The problem is with the line `[ queryFactoryInvok getReturnValue: &res ];`.
          `getReturnValue:` just copies the bytes of the return value into the given memory buffer, regardless of type.
@@ -286,22 +286,40 @@ if ( LOWER##_ != _New ) { \
         {
         responseVerboseLevelMask_ = _New;
 
+        // Indices 0 and 1 indicate the hidden arguments self and _cmd, respectively,
+        // therefore, it means current invocation ( queryFactoryInvocation_ ) has no any arguments
+        // if numberOfArguments property of NSMethodSignature instance is equal to 2
         if ( queryFactoryInvocation_.methodSignature.numberOfArguments == 2 )
             return;
 
         NSString* stringizedSel = NSStringFromSelector( queryFactoryInvocation_.selector );
         NSMutableArray <NSString*>* argFragments = [ [ stringizedSel componentsSeparatedByString: @":" ] mutableCopy ];
 
-        // last string is an empty string so just drop it   
+        // drop the last element since it's just an empty string
         [ argFragments removeLastObject ];
 
         for ( NSString* _arg in argFragments )
             {
+            /*
+
+             For instances:
+
+               - queryForSearchListWithPart:
+               - queryForVideosListWithPart:
+               - queryForChannelsListWithPart:
+               - queryForSubscriptionsInsertWithObject:part:
+               - queryForLiveChatMessagesListWithLiveChatId:part:
+               ...
+
+             */
+
             if ( [ _arg hasCaseInsensitiveSuffix: @"part" ] )
                 {
                 NSString* arg2 = [ NSString stringWithTauRestRequestVerboseLevelMask: responseVerboseLevelMask_ ];
                 NSUInteger argIndex = [ argFragments indexOfObject: _arg ] + 2;
                 [ queryFactoryInvocation_ setArgument: &arg2 atIndex: argIndex ];
+
+                break;
                 }
             }
         }
@@ -410,6 +428,8 @@ TRSSynthProperty( pageToken, PageToken, pageToken );
 
 + ( instancetype ) stringWithTauRestRequestVerboseLevelMask: ( TRSRestResponseVerboseFlag )_Mask
     {
+    if ( !_Mask ) return nil;
+
     NSMutableArray <NSString*>* parts = [ NSMutableArray array ];
 
     NSMutableIndexSet* flagsRanges = [ NSMutableIndexSet indexSet ];
