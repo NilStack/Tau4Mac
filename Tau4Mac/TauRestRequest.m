@@ -56,24 +56,12 @@ if ( LOWER##_ != _New ) { \
     {
     if ( self = [ super init ] )
         {
-        type_ = _RequestType;
+        self.type = _RequestType;
 
-        NSString* selCharacteristic = nil;
         SEL sel = nil;
-        switch ( _RequestType )
+        if ( selCharacteristic_.length > 0 )
             {
-            case TRSRestRequestTypeSearchResultsList: selCharacteristic = @"Search"; break;
-            case TRSRestRequestTypeChannelsList: selCharacteristic = @"Channels"; break;
-            case TRSRestRequestTypePlaylistsList: selCharacteristic = @"Playlists"; break;
-            case TRSRestRequestTypePlaylistItemsList: selCharacteristic = @"PlaylistItems"; break;
-            case TRSRestRequestTypeSubscriptionsList: selCharacteristic = @"Subscriptions"; break;
-            case TRSRestRequestTypeVideosList: selCharacteristic = @"Videos"; break;
-            default:;
-            }
-
-        if ( selCharacteristic.length > 0 )
-            {
-            sel = NSSelectorFromString( [ NSString stringWithFormat: @"queryFor%@ListWithPart:", selCharacteristic ] );
+            sel = NSSelectorFromString( [ NSString stringWithFormat: @"queryFor%@ListWithPart:", selCharacteristic_ ] );
 
             queryFactoryInvocation_ = [ NSInvocation invocationWithMethodSignature: [ GTLQueryYouTube methodSignatureForSelector: sel ] ];
             [ queryFactoryInvocation_ setSelector: sel ];
@@ -176,8 +164,7 @@ if ( LOWER##_ != _New ) { \
 
 - ( instancetype ) initVideoRequestWithVideoIdentifier: ( NSString* )_Identifier
     {
-    if ( self = [ self initVideosRequestWithVideoIdentifiers: @[ _Identifier ] ] ) {;}
-    return self;
+    return [ self initVideosRequestWithVideoIdentifiers: @[ _Identifier ] ];
     }
 
 - ( instancetype ) initVideosRequestWithVideoIdentifiers: ( NSArray <NSString*>* )_Identifiers
@@ -273,6 +260,24 @@ if ( LOWER##_ != _New ) { \
     }
 
 @synthesize type = type_;
+- ( void ) setType: ( TRSRestRequestType )_New
+    {
+    if ( type_ != _New )
+        {
+        type_ = _New;
+
+        switch ( type_ )
+            {
+            case TRSRestRequestTypeSearchResultsList: selCharacteristic_ = @"Search"; break;
+            case TRSRestRequestTypeChannelsList: selCharacteristic_ = @"Channels"; break;
+            case TRSRestRequestTypePlaylistsList: selCharacteristic_ = @"Playlists"; break;
+            case TRSRestRequestTypePlaylistItemsList: selCharacteristic_ = @"PlaylistItems"; break;
+            case TRSRestRequestTypeSubscriptionsList: selCharacteristic_ = @"Subscriptions"; break;
+            case TRSRestRequestTypeVideosList: selCharacteristic_ = @"Videos"; break;
+            default:;
+            }
+        }
+    }
 
 @synthesize responseVerboseLevelMask = responseVerboseLevelMask_;
 - ( void ) setResponseVerboseLevelMask: ( TRSRestResponseVerboseFlag )_New
@@ -315,16 +320,27 @@ TRSSynthProperty( pageToken, PageToken, pageToken );
 
 #pragma mark - Conforms to <NSCopying>
 
-//- ( instancetype ) copyWithZone: ( NSZone* )_Zone
-//    {
-//    TauRestRequest* copy = [ [ self class ] allocWithZone: _Zone ];
-//
-//    SEL init = nil;
-//    switch ( type_ )
-//        {
-//        case
-//        }
-//    }
+- ( instancetype ) copyWithZone: ( NSZone* )_Zone
+    {
+    TauRestRequest* copy = nil;
+
+    if ( ( copy = [ [ self class ] allocWithZone: _Zone ] ) )
+        {
+        [ copy setType: type_ ];
+        [ copy setResponseVerboseLevelMask: responseVerboseLevelMask_ ];
+
+        [ copy setFieldFilter: fieldFilter_ ];
+        [ copy setMaxResultsPerPage: maxResultsPerPage_ ];
+        [ copy setPageToken: pageToken_ ];
+
+        [ copy.queryConfigInvocationsMap_ addEntriesFromDictionary: self.queryConfigInvocationsMap_ ];
+        }
+
+    if ( !copy )
+        DDLogFatal( @"[trs]failed creating the copy of {%@}.", self );
+
+    return copy;
+    }
 
 #pragma mark - Conforms to <NSSecureCoding>
 
