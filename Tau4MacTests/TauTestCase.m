@@ -17,7 +17,14 @@
     {
     [ super setUp ];
 
-    /*  valid channel identifiers:
+    /* valid search Qs: */
+    searchQSample0 = @[ @"gopro", @"github", @"Google", @"MICROSOFT", @"APple", @"張國榮", @"じえいたい" ];
+    searchQSample1 = @[ @"서울", @"काठमाडौं, काठमान्डु", @"བོད་རང་སྐྱོང་ལྗོངས།", @"دولت عالیه عثمانیه", @"微软公司", @"ביבליה", @"香港" ];
+    searchQSample2 = nil;
+    searchQSample3 = @[];
+    searchQSample4 = @[ @"", @"" ];
+
+    /* valid channel identifiers:
 
     UCqhnX4jA0A5paNd1v-zEysw        UClwg08ECyHnm_RzY1wnZC1A        UC15_JWyO0xsrV-W-pYdFtBQ        UCTs-d2DgyuJVRICivxe2Ktg        UCse-sH9XJlKIbtD3y-bch7w
     UCQMle4QI2zJuOI5W5TOyOcQ        UCPGBPIwECAUJON58-F2iuFA        UC7dLLOOzmcrYyNmIKBq1XjQ        UCHt_A74xM2Hs5L5otMhhQFw        UChqor0VU2yKWnCtXryIzOiw
@@ -94,6 +101,7 @@
 
 #pragma mark - Unit Test Samples
 
+@synthesize searchQSample0, searchQSample1, searchQSample2, searchQSample3, searchQSample4;
 @synthesize channelIdentifiersSample0, channelIdentifiersSample1, channelIdentifiersSample2, channelIdentifiersSample3, channelIdentifiersSample4;
 @synthesize playlistIdentifiersSample0, playlistIdentifiersSample1, playlistIdentifiersSample2, playlistIdentifiersSample3, playlistIdentifiersSample4;
 @synthesize playlistItemIdentifiersSample0, playlistItemIdentifiersSample1, playlistItemIdentifiersSample2, playlistItemIdentifiersSample3, playlistItemIdentifiersSample4;

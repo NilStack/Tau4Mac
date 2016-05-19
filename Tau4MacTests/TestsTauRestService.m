@@ -8,6 +8,16 @@
 
 #import "TestsTauRestService.h"
 
+enum { kTypeSearchResults = TRSRestRequestTypeSearchResultsList
+     , kTypeChannelsList = TRSRestRequestTypeChannelsList
+     , kTypePlaylistsList = TRSRestRequestTypePlaylistsList
+     , kTypePlaylistItemsList = TRSRestRequestTypePlaylistItemsList
+     , kTypeSubscriptionsList = TRSRestRequestTypeSubscriptionsList
+     , kTypeVideosList = TRSRestRequestTypeVideosList
+     , kTypeUnknown = TRSRestRequestTypeUnknown
+     , kTypeOthers = TRSRestRequestTypeOthers
+     };
+
 // TestsTauRestService test case
 @implementation TestsTauRestService
 
@@ -23,30 +33,60 @@
     [ super tearDown ];
     }
 
+- ( int ) type_: ( NSString* )_String
+    {
+    TRSRestRequestType resultsType = kTypeUnknown;
+
+    if ( [ _String isEqualToString: @"SearchResults" ] )
+        resultsType = kTypeSearchResults;
+    else if ( [ _String isEqualToString: @"Channel" ] || [ _String isEqualToString: @"Channels" ] )
+        resultsType = kTypeChannelsList;
+    else if ( [ _String isEqualToString: @"Playlist" ] || [ _String isEqualToString: @"Playlists" ] )
+        resultsType = kTypePlaylistsList;
+    else if ( [ _String isEqualToString: @"PlaylistItem" ] || [ _String isEqualToString: @"PlaylistItems" ] )
+        resultsType = kTypePlaylistItemsList;
+    else if ( [ _String isEqualToString: @"Subscriptions" ] )
+        resultsType = kTypeSubscriptionsList;
+    else if ( [ _String isEqualToString: @"Video" ] || [ _String isEqualToString: @"Videos" ] )
+        resultsType = kTypeVideosList;
+
+    return resultsType;
+    }
+
 - ( void ) testCreatingReadOnlyRestRequest
     {
     unsigned int count = 0;
-
     struct objc_method_description* descrps = protocol_copyMethodDescriptionList( @protocol( TauRestListingRequests ), YES, YES, &count );
-    NSLog( @"count=%u", count );
+
     for ( int _index = 0; _index < count; _index++ )
         {
         struct objc_method_description desc = *( descrps + _index );
-        SEL name = desc.name;
-        Method method = class_getInstanceMethod( NSClassFromString( @"TauRestRequest" ), name );
-        NSLog( @"%@ paraCnt=%u", NSStringFromSelector( name ), method_getNumberOfArguments( method ) );
+        SEL sel = desc.name;
+        NSString* selName = NSStringFromSelector( sel );
+        NSMethodSignature* sig = [ NSMethodSignature signatureWithObjCTypes: desc.types ];
+
+        NSInvocation* invok = [ NSInvocation invocationWithMethodSignature: sig ];
+        [ invok setSelector: sel ];
+
+        NSArray* components = [ [ selName stringByReplacingCharactersInRange: NSMakeRange( 0, @"init".length ) withString: @"" ] componentsSeparatedByString: @"RequestWith" ];
+
+        TRSRestRequestType resultsType = [ self type_: components.firstObject ];
+
+        NSUInteger length = [ components.lastObject rangeOfString: @"Identifier" options: NSBackwardsSearch ].location - 1;
+        NSRange range = NSMakeRange( 0, length );
+        TRSRestRequestType paramsType = [ self type_: [ components.lastObject substringWithRange: range ] ];
+        NSString* keyPathTemplate = nil;
+        switch ( paramsType )
+            {
+            case kTypeSearchResults: keyPathTemplate = @"channelIdentifiersSample"; break;
+            case kTypeSearchResults: keyPathTemplate = @"channelIdentifiersSample"; break;
+            case kTypeSearchResults: keyPathTemplate = @"channelIdentifiersSample"; break;
+            case kTypeSearchResults: keyPathTemplate = @"channelIdentifiersSample"; break;
+            case kTypeSearchResults: keyPathTemplate = @"channelIdentifiersSample"; break;
+            }
         }
 
     free( descrps );
-
-//    Method* methodsList = class_copyMethodList( NSClassFromString( @"TauRestRequest" ), &count );
-//    for ( int _Index = 0; _Index < count; _Index++ )
-//        {
-//        SEL name = method_getName( *( methodsList + _Index ) );
-//        NSLog( @"%@ paraCnt=%u", NSStringFromSelector( name ), method_getNumberOfArguments( *( methodsList + _Index ) ) );
-//        }
-//
-//    free( methodsList );
 
     TauRestRequest* searchRequest = [ [ TauRestRequest alloc ] initSearchResultsRequestWithQ: @"gopro" ];
     XCTAssertNotNil( searchRequest );
@@ -71,4 +111,4 @@
     YouTubeQuery = [ searchRequest YouTubeQuery ];
     }
 
-@end // TestsTauRestService test case
+@end // TestsTauRestService test ca

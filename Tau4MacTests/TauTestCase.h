@@ -13,6 +13,12 @@
 
 #pragma mark - Unit Test Samples
 
+@property ( strong, readonly ) NSArray <NSString*>* searchQSample0;
+@property ( strong, readonly ) NSArray <NSString*>* searchQSample1;
+@property ( strong, readonly ) NSArray <NSString*>* searchQSample2;
+@property ( strong, readonly ) NSArray <NSString*>* searchQSample3;
+@property ( strong, readonly ) NSArray <NSString*>* searchQSample4;
+
 @property ( strong, readonly ) NSArray <NSString*>* channelIdentifiersSample0;
 @property ( strong, readonly ) NSArray <NSString*>* channelIdentifiersSample1;
 @property ( strong, readonly ) NSArray <NSString*>* channelIdentifiersSample2;
