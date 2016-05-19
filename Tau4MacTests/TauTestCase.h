@@ -16,10 +16,29 @@
 
 #pragma mark - Unit Test Samples
 
-@property ( strong, readonly ) NSArray <NSString*>* channelIdentifiersSample0, channelIdentifiersSample1, channelIdentifiersSample2, channelIdentifiersSample3, channelIdentifiersSample4;
-@property ( strong, readonly ) NSArray <NSString*>* playlistIdentifiersSample0, playlistIdentifiersSample1, playlistIdentifiersSample2, playlistIdentifiersSample3, playlistIdentifiersSample4;
-@property ( strong, readonly ) NSArray <NSString*>* playlistItemIdentifiersSample0, playlistItemIdentifiersSample1, playlistItemIdentifiersSample2, playlistItemIdentifiersSample3, playlistItemIdentifiersSample4;
-@property ( strong, readonly ) NSArray <NSString*>* videoIdentifiersSample0, videoIdentifiersSample1, videoIdentifiersSample2, videoIdentifiersSample3, videoIdentifiersSample4;
+@property ( strong, readonly ) NSArray <NSString*>* channelIdentifiersSample0;
+@property ( strong, readonly ) NSArray <NSString*>* channelIdentifiersSample1;
+@property ( strong, readonly ) NSArray <NSString*>* channelIdentifiersSample2;
+@property ( strong, readonly ) NSArray <NSString*>* channelIdentifiersSample3;
+@property ( strong, readonly ) NSArray <NSString*>* channelIdentifiersSample4;
+
+@property ( strong, readonly ) NSArray <NSString*>* playlistIdentifiersSample0;
+@property ( strong, readonly ) NSArray <NSString*>* playlistIdentifiersSample1;
+@property ( strong, readonly ) NSArray <NSString*>* playlistIdentifiersSample2;
+@property ( strong, readonly ) NSArray <NSString*>* playlistIdentifiersSample3;
+@property ( strong, readonly ) NSArray <NSString*>* playlistIdentifiersSample4;
+
+@property ( strong, readonly ) NSArray <NSString*>* playlistItemIdentifiersSample0;
+@property ( strong, readonly ) NSArray <NSString*>* playlistItemIdentifiersSample1;
+@property ( strong, readonly ) NSArray <NSString*>* playlistItemIdentifiersSample2;
+@property ( strong, readonly ) NSArray <NSString*>* playlistItemIdentifiersSample3;
+@property ( strong, readonly ) NSArray <NSString*>* playlistItemIdentifiersSample4;
+
+@property ( strong, readonly ) NSArray <NSString*>* videoIdentifiersSample0;
+@property ( strong, readonly ) NSArray <NSString*>* videoIdentifiersSample1;
+@property ( strong, readonly ) NSArray <NSString*>* videoIdentifiersSample2;
+@property ( strong, readonly ) NSArray <NSString*>* videoIdentifiersSample3;
+@property ( strong, readonly ) NSArray <NSString*>* videoIdentifiersSample4;
 
 #pragma mark - Testing
 
