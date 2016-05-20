@@ -7,6 +7,7 @@
 //
 
 @class TauAPIServiceCredential;
+@class TauRestRequest;
 
 @protocol TauAPIServiceConsumer;
 
@@ -44,6 +45,8 @@ NSString extern* const TauTDSOperationRequirements;
                       withCredential: ( TauAPIServiceCredential* )_Credential
                              success: ( void (^)( NSString* _PrevPageToken, NSString* _NextPageToken ) )_CompletionHandler
                              failure: ( void (^)( NSError* _Error ) )_FailureHandler;
+
+- ( void ) executeRestRequest: ( TauRestRequest* )_Query completionHandler: ( void (^)( id _Response, NSError* _Error ) )_Handler;
 
 #pragma mark - Singleton Instance
 

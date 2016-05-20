@@ -274,6 +274,19 @@ GTLServiceYouTube TAU_PRIVATE* service;
         }
     }
 
+- ( void ) executeRestRequest: ( TauRestRequest* )_Request completionHandler: ( void (^)( id _Response, NSError* _Error ) )_Handler
+    {
+    GTLQueryYouTube* query = [ _Request YouTubeQuery ];
+
+    [ self.ytService executeQuery: query
+                completionHandler:
+    ^( GTLServiceTicket* _Ticket, id _Object, NSError* _Error )
+        {
+        if ( _Handler )
+            _Handler( _Object, _Error );
+        } ];
+    }
+
 // FIXME: Duplicate code
 - ( void ) executeGTLQuery: ( GTLQueryYouTube* )_Query
                    success: ( void (^)( NSString* _PrevPageToken, NSString* _NextPageToken ) )_CompletionHandler
