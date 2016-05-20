@@ -55,6 +55,11 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
     return self;
     }
 
+- ( void ) awakeFromNib
+    {
+    [ self setActivedInspectorType: TauYouTubeVideoMetaInfoInspector ];
+    }
+
 @synthesize YouTubeContent = YouTubeContent_;
 - ( void ) setYouTubeContent: ( GTLObject* )_New
     {
