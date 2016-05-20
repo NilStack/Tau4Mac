@@ -43,6 +43,12 @@
 @property ( strong, readonly ) NSArray <NSString*>* videoIdentifiersSample3;
 @property ( strong, readonly ) NSArray <NSString*>* videoIdentifiersSample4;
 
+@property ( strong, readonly ) NSArray <NSString*>* subscriptionIdentifiersSample0;
+@property ( strong, readonly ) NSArray <NSString*>* subscriptionIdentifiersSample1;
+@property ( strong, readonly ) NSArray <NSString*>* subscriptionIdentifiersSample2;
+@property ( strong, readonly ) NSArray <NSString*>* subscriptionIdentifiersSample3;
+@property ( strong, readonly ) NSArray <NSString*>* subscriptionIdentifiersSample4;
+
 #pragma mark - Testing
 
 + ( BOOL ) isTestMethodPositive: ( SEL )_TestMethodSel;

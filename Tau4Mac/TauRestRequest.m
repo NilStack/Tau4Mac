@@ -89,6 +89,7 @@ if ( LOWER##_ != _New ) { \
 
 - ( instancetype ) initChannelRequestWithChannelIdentifier: ( NSString* )_Identifier
     {
+    if ( [ _Identifier isKindOfClass: [ NSObject class ] ] ) return nil;
     return [ self initChannelsRequestWithChannelIdentifiers: @[ _Identifier ] ];
     }
 
@@ -117,6 +118,7 @@ if ( LOWER##_ != _New ) { \
 
 - ( instancetype ) initPlaylistRequestWithPlaylistIdentifier: ( NSString* )_Identifier
     {
+    if ( [ _Identifier isKindOfClass: [ NSObject class ] ] ) return nil;
     return [ self initPlaylistsRequestWithPlaylistIdentifiers: @[ _Identifier ] ];
     }
 
@@ -145,6 +147,7 @@ if ( LOWER##_ != _New ) { \
 
 - ( instancetype ) initPlaylistItemRequestWithPlaylistItemIdentifier: ( NSString* )_Identifier
     {
+    if ( [ _Identifier isKindOfClass: [ NSObject class ] ] ) return nil;
     return [ self initPlaylistItemsRequestWithPlaylistItemIdentifiers: @[ _Identifier ] ];
     }
 
@@ -166,6 +169,7 @@ if ( LOWER##_ != _New ) { \
 
 - ( instancetype ) initVideoRequestWithVideoIdentifier: ( NSString* )_Identifier
     {
+    if ( [ _Identifier isKindOfClass: [ NSObject class ] ] ) return nil;
     return [ self initVideosRequestWithVideoIdentifiers: @[ _Identifier ] ];
     }
 

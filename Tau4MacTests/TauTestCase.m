@@ -97,10 +97,25 @@
     playlistIdentifiersSample2 = nil;
     playlistIdentifiersSample3 = @[];
     playlistIdentifiersSample4 = @[ @"", @"" ];
+
+    /* valid subscription identifiers:
+    
+    tkPSinSx9OLJmKNp0n5l-Fwvdgf3fbHmOkwvr0MHY3A     tkPSinSx9OLJmKNp0n5l-N81C_jo6V0u1QwQ0wj85DY     tkPSinSx9OLJmKNp0n5l-P6d7hHffe8hhzeBapcYe1M     tkPSinSx9OLJmKNp0n5l-OxpFdWR3Es7SYVYb_53wyc     tkPSinSx9OLJmKNp0n5l-H5pFN85jdzsdI52GUW_zHo
+    tkPSinSx9OLJmKNp0n5l-AwkFEX_iRIrVbhxnzTfZoI     tkPSinSx9OLJmKNp0n5l-GICuwoQ8ePlCrfORVpn0cA     tkPSinSx9OLJmKNp0n5l-Js_UiHtBi6dsvS3SjmIPBw     tkPSinSx9OLJmKNp0n5l-Nch9FborPoNAm8ae_DPSBA     tkPSinSx9OLJmKNp0n5l-Dygj1sXAQEuGgDYqZHLTOw
+    tkPSinSx9OLJmKNp0n5l-I5s6Y_WENfBndWray5Lsfw     tkPSinSx9OLJmKNp0n5l-Fz8Ke8jXv-9ZXQLpHmR4aY     tkPSinSx9OLJmKNp0n5l-LFdPprdCbZv7Y_BRQK6Skg     tkPSinSx9OLJmKNp0n5l-DXU9JjTSyzhhoMFWtyVpEw     tkPSinSx9OLJmKNp0n5l-Gk7JUa8TQJ9vfLWJF3WuBg
+    tkPSinSx9OLJmKNp0n5l-Gd3DKLZau3bXAIpbSdFVaY     tkPSinSx9OLJmKNp0n5l-C8Ww69dxJxTzOfAMKJeZBA     tkPSinSx9OLJmKNp0n5l-LKAY9A4neKzJvHIFXtkTt4     tkPSinSx9OLJmKNp0n5l-Mdobq0_IjbBPDSeqMOhQAE     tkPSinSx9OLJmKNp0n5l-IeCaNIFHmL3-4QZFNt_1A8
+    */
+
+    subscriptionIdentifiersSample0 = @[ @"tkPSinSx9OLJmKNp0n5l-Fwvdgf3fbHmOkwvr0MHY3A", @"tkPSinSx9OLJmKNp0n5l-N81C_jo6V0u1QwQ0wj85DY", @"tkPSinSx9OLJmKNp0n5l-P6d7hHffe8hhzeBapcYe1M", @"tkPSinSx9OLJmKNp0n5l-OxpFdWR3Es7SYVYb_53wyc", @"tkPSinSx9OLJmKNp0n5l-H5pFN85jdzsdI52GUW_zHo" ];
+    subscriptionIdentifiersSample1 = @[ @"tkPSinSx9OLJmKNp0n5l-AwkFEX_iRIrVbhxnzTfZoI", @"tkPSinSx9OLJmKNp0n5l-GICuwoQ8ePlCrfORVpn0cA", @"tkPSinSx9OLJmKNp0n5l-Js_UiHtBi6dsvS3SjmIPBw", @"tkPSinSx9OLJmKNp0n5l-Nch9FborPoNAm8ae_DPSBA", @"tkPSinSx9OLJmKNp0n5l-Dygj1sXAQEuGgDYqZHLTOw" ];
+    subscriptionIdentifiersSample2 = nil;
+    subscriptionIdentifiersSample3 = @[];
+    subscriptionIdentifiersSample4 = @[ @"", @"" ];
     }
 
 #pragma mark - Unit Test Samples
 
+@synthesize subscriptionIdentifiersSample0, subscriptionIdentifiersSample1, subscriptionIdentifiersSample2, subscriptionIdentifiersSample3, subscriptionIdentifiersSample4;
 @synthesize searchQSample0, searchQSample1, searchQSample2, searchQSample3, searchQSample4;
 @synthesize channelIdentifiersSample0, channelIdentifiersSample1, channelIdentifiersSample2, channelIdentifiersSample3, channelIdentifiersSample4;
 @synthesize playlistIdentifiersSample0, playlistIdentifiersSample1, playlistIdentifiersSample2, playlistIdentifiersSample3, playlistIdentifiersSample4;

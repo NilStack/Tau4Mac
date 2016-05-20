@@ -63,52 +63,62 @@ enum { kTypeSearchResults = TRSRestRequestTypeSearchResultsList
         struct objc_method_description desc = *( descrps + _index );
         SEL sel = desc.name;
         NSString* selName = NSStringFromSelector( sel );
-        NSMethodSignature* sig = [ NSMethodSignature signatureWithObjCTypes: desc.types ];
 
+        if ( [ selName hasSuffix: @"Request" ] )
+            continue;
+
+        NSMethodSignature* sig = [ NSMethodSignature signatureWithObjCTypes: desc.types ];
         NSInvocation* invok = [ NSInvocation invocationWithMethodSignature: sig ];
         [ invok setSelector: sel ];
 
         NSArray* components = [ [ selName stringByReplacingCharactersInRange: NSMakeRange( 0, @"init".length ) withString: @"" ] componentsSeparatedByString: @"RequestWith" ];
 
-        TRSRestRequestType resultsType = [ self type_: components.firstObject ];
+//        TRSRestRequestType resultsType = [ self type_: components.firstObject ];
 
-        NSUInteger length = [ components.lastObject rangeOfString: @"Identifier" options: NSBackwardsSearch ].location - 1;
+        // init Channel RequestWith ChannelIdentifier:
+
+        NSUInteger length = 0;
+        for ( NSString* _str in @[ @"Identifier", @"Name" ] )
+            {
+            NSRange range = [ components.lastObject rangeOfString: _str options: NSBackwardsSearch ];
+            if ( range.location != NSNotFound )
+                {
+                length = range.location;
+                break;
+                }
+            }
+
         NSRange range = NSMakeRange( 0, length );
         TRSRestRequestType paramsType = [ self type_: [ components.lastObject substringWithRange: range ] ];
         NSString* keyPathTemplate = nil;
         switch ( paramsType )
             {
-            case kTypeSearchResults: keyPathTemplate = @"channelIdentifiersSample"; break;
-            case kTypeSearchResults: keyPathTemplate = @"channelIdentifiersSample"; break;
-            case kTypeSearchResults: keyPathTemplate = @"channelIdentifiersSample"; break;
-            case kTypeSearchResults: keyPathTemplate = @"channelIdentifiersSample"; break;
-            case kTypeSearchResults: keyPathTemplate = @"channelIdentifiersSample"; break;
+            case kTypeSearchResults: keyPathTemplate = @"searchQSample"; break;
+            case kTypeChannelsList: keyPathTemplate = @"channelIdentifiersSample"; break;
+            case kTypePlaylistsList: keyPathTemplate = @"playlistIdentifiersSample"; break;
+            case kTypePlaylistItemsList: keyPathTemplate = @"playlistItemIdentifiersSample"; break;
+            case kTypeSubscriptionsList: keyPathTemplate = @"subscriptionIdentifiersSample"; break;
+            case kTypeVideosList: keyPathTemplate = @"videoIdentifiersSample"; break;
+
+            default: {;}
+            }
+
+        for ( int _index = 0; _index < 5; _index++ )
+            {
+            id arg = [ self valueForKey: [ keyPathTemplate stringByAppendingString: @( _index ).stringValue ] ];
+            [ invok setArgument: &arg atIndex: 2 ];
+
+            TauRestRequest* allocated = [ [ TauRestRequest class ] alloc ];
+            TauRestRequest __unsafe_unretained* res = nil;
+            [ invok invokeWithTarget: allocated ];
+
+            [ invok getReturnValue: &res ];
+
+            XCTAssertNotNil( res );
             }
         }
 
     free( descrps );
-
-    TauRestRequest* searchRequest = [ [ TauRestRequest alloc ] initSearchResultsRequestWithQ: @"gopro" ];
-    XCTAssertNotNil( searchRequest );
-
-    GTLQueryYouTube* YouTubeQuery = nil;
-
-    searchRequest.maxResultsPerPage = @50;
-    searchRequest.fieldFilter = @"items(id,snippet,statistics)";
-    YouTubeQuery = [ searchRequest YouTubeQuery ];
-
-    searchRequest.fieldFilter = nil;
-    searchRequest.maxResultsPerPage = @9;
-    searchRequest.maxResultsPerPage = @0;
-    YouTubeQuery = [ searchRequest YouTubeQuery ];
-
-    searchRequest = [ [ TauRestRequest alloc ] initChannelsRequestWithChannelIdentifiers: @[ @"UCqhnX4jA0A5paNd1v-zEysw", @"UClwg08ECyHnm_RzY1wnZC1A", @"UCqhnX4jA0A5paNd1v-zEysw" ] ];
-    searchRequest.fieldFilter = @"items(snippet)";
-    searchRequest.maxResultsPerPage = @30;
-    searchRequest.responseVerboseLevelMask |=
-        TRSRestResponseVerboseFlagContentDetails | TRSRestResponseVerboseFlagStatistics;
-        
-    YouTubeQuery = [ searchRequest YouTubeQuery ];
     }
 
 @end // TestsTauRestService test ca
