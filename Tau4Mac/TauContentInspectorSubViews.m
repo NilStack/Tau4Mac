@@ -62,6 +62,7 @@
 - ( void ) setYouTubeContent: ( GTLObject* )_New
     {
     YouTubeContent_ = _New;
+    self.videoInspector_.YouTubeContent = YouTubeContent_;
     }
 
 - ( GTLObject* ) YouTubeContent

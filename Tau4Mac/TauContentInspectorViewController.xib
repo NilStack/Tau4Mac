@@ -692,6 +692,19 @@
                 <rect key="frame" x="204" y="0.0" width="14" height="402"/>
                 <autoresizingMask key="autoresizingMask"/>
             </scroller>
+            <connections>
+                <outlet property="captionBadge" destination="mKE-jA-cyg" id="bEq-Hv-rqn"/>
+                <outlet property="categoryField" destination="eMd-lZ-lhm" id="Mc9-lN-GIz"/>
+                <outlet property="channelField" destination="1aP-Xo-E05" id="ztO-Vh-70w"/>
+                <outlet property="descriptionField" destination="vRb-bE-Faa" id="dv3-Ij-bfY"/>
+                <outlet property="dimensionField" destination="9WN-uR-3by" id="dMZ-FM-XXG"/>
+                <outlet property="dislikesCountField" destination="biH-pi-cTm" id="4XW-vW-gqy"/>
+                <outlet property="durationField" destination="L6k-hP-DLX" id="o6B-W5-wTM"/>
+                <outlet property="licensedBadge" destination="ewf-uz-Y7g" id="mb2-Tz-lUK"/>
+                <outlet property="likesCountField" destination="Nag-1E-ZCK" id="INK-Go-BJy"/>
+                <outlet property="videoTitleField" destination="gXp-oc-AMp" id="Qny-bX-xVX"/>
+                <outlet property="viewCountField" destination="LiG-Hd-PVt" id="148-hH-epc"/>
+            </connections>
             <point key="canvasLocation" x="970" y="39"/>
         </scrollView>
         <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="fJ7-m9-Byi" customClass="PriYouTubeVideoCommentsView_">

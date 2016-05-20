@@ -13,7 +13,23 @@
 
 // PriYouTubeVideoMetaInfoView_ class
 @interface PriYouTubeVideoMetaInfoView_ : NSScrollView
+
 @property ( strong, readwrite ) GTLObject* YouTubeContent;
+
+@property ( weak ) IBOutlet NSTextField* videoTitleField;
+@property ( weak ) IBOutlet NSTextField* descriptionField;
+@property ( weak ) IBOutlet NSTextField* channelField;
+@property ( weak ) IBOutlet NSTextField* categoryField;
+
+@property ( weak ) IBOutlet NSTextField* durationField;
+@property ( weak ) IBOutlet NSTextField* dimensionField;
+@property ( weak ) IBOutlet NSImageView* captionBadge;
+@property ( weak ) IBOutlet NSImageView* licensedBadge;
+
+@property ( weak ) IBOutlet NSTextField* viewCountField;
+@property ( weak ) IBOutlet NSTextField* likesCountField;
+@property ( weak ) IBOutlet NSTextField* dislikesCountField;
+
 @end
 
 // PriYouTubeVideoCommentsView_ class
@@ -142,6 +158,10 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
 - ( void ) setYouTubeContent: ( GTLObject* )_New
     {
     YouTubeContent_ = _New;
+    self.videoTitleField.stringValue = [ YouTubeContent_ JSON ][ @"snippet" ][ @"title" ];
+    self.channelField.stringValue = [ YouTubeContent_ JSON ][ @"snippet" ][ @"channelTitle" ];
+    self.descriptionField.stringValue = [ YouTubeContent_ JSON ][ @"snippet" ][ @"description" ];
+    [ self.descriptionField sizeToFit ];
     }
 
 - ( GTLObject* ) YouTubeContent
