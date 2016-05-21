@@ -6,6 +6,7 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
+#import <objc/message.h>
 #import "TauYouTubeVideoInspector.h"
 
 // ---------------------------------------------------
@@ -162,6 +163,24 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
     self.channelField.stringValue = [ YouTubeContent_ JSON ][ @"snippet" ][ @"channelTitle" ];
     self.descriptionField.stringValue = [ YouTubeContent_ JSON ][ @"snippet" ][ @"description" ];
     [ self.descriptionField sizeToFit ];
+
+    if ( [ YouTubeContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ] )
+        {
+        NSString* idKey = nil;
+        SEL sel = nil;
+        switch ( YouTubeContent_.tauContentType )
+            {
+            case TauYouTubeVideo: idKey = @"videoId"; sel = @selector( initVideoRequestWithVideoIdentifier: ); break;
+            case TauYouTubeChannel: idKey = @"channelId"; sel = @selector( initChannelRequestWithChannelIdentifier: ); break;
+            case TauYouTubePlayList: idKey = @"playlistId"; sel = @selector( initPlaylistRequestWithPlaylistIdentifier: ); break;
+            default: {;}
+            }
+
+        NSString* idVal = [ YouTubeContent_ JSON ][ @"id" ][ idKey ];
+        id allocated = [ TauRestRequest alloc ];
+        TauRestRequest* req = objc_msgSend( allocated, sel, idVal );
+        NSLog( @"%@", req );
+        }
     }
 
 - ( GTLObject* ) YouTubeContent
