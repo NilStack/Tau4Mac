@@ -29,7 +29,7 @@
 /// set the \c Q parameter value to boating|sailing -fishing.
 /// \warning Note that the pipe character must be URL-escaped when it is sent in your API request.
 /// The URL-escaped value for the pipe character is %7C.
-- ( instancetype ) initSearchResultsRequestWithQ: ( NSString* )_Q;
++ ( instancetype ) searchResultsRequestWithQ: ( NSString* )_Q;
 
 #pragma mark - youtube.channel.list
 
@@ -37,17 +37,17 @@
   * For details, ref: https://developers.google.com/youtube/v3/docs/channels */
 
 /// The \c _Identifier parameter specifies a single YouTube channel ID for the resource that are being retrieved.
-- ( instancetype ) initChannelRequestWithChannelIdentifier: ( NSString* )_Identifier;
++ ( instancetype ) channelRequestWithChannelIdentifier: ( NSString* )_Identifier;
 
 /// The \c _Identifiers parameter specifies a list of the YouTube channel ID(s) for the resource(s) that are being retrieved.
-- ( instancetype ) initChannelsRequestWithChannelIdentifiers: ( NSArray <NSString*>* )_Identifiers;
++ ( instancetype ) channelsRequestWithChannelIdentifiers: ( NSArray <NSString*>* )_Identifiers;
 
 /// The \c _Name parameter specifies a YouTube channel name,
 /// thereby requesting the channel associated with that channel name.
-- ( instancetype ) initChannelRequestWithChannelName: ( NSString* )_Name;
++ ( instancetype ) channelRequestWithChannelName: ( NSString* )_Name;
 
 /// This request is to return only the channels owned by the current authenticated user.
-- ( instancetype ) initChannelsOfMineRequest;
++ ( instancetype ) channelsOfMineRequest;
 
 #pragma mark - youtube.playlists.list
 
@@ -59,16 +59,16 @@
   * For details, ref https://developers.google.com/youtube/v3/docs/playlists */
 
 /// The \c _Identifier parameter specifies a single YouTube playlist ID for the resource that are being retrieved.
-- ( instancetype ) initPlaylistRequestWithPlaylistIdentifier: ( NSString* )_Identifier;
++ ( instancetype ) playlistRequestWithPlaylistIdentifier: ( NSString* )_Identifier;
 
 /// The \c _Identifiers parameter specifies a list of the YouTube playlist ID(s) for the resource(s) that are being retrieved.
-- ( instancetype ) initPlaylistsRequestWithPlaylistIdentifiers: ( NSArray <NSString*>* )_Identifiers;
++ ( instancetype ) playlistsRequestWithPlaylistIdentifiers: ( NSArray <NSString*>* )_Identifiers;
 
 /// This request is to return only the specified channel's playlists.
-- ( instancetype ) initPlaylistsRequestWithChannelIdentifier: ( NSString* )_Identifier;
++ ( instancetype ) playlistsRequestWithChannelIdentifier: ( NSString* )_Identifier;
 
 /// This request is to return only the playlists owned by the current authenticated user.
-- ( instancetype ) initPlaylistsOfMineRequest;
++ ( instancetype ) playlistsOfMineRequest;
 
 #pragma mark - youtube.playlistItems.list
 
@@ -79,13 +79,13 @@
   * For details, ref https://developers.google.com/youtube/v3/docs/playlistItems */
 
 /// The \c _Identifier parameter specifies a single YouTube playlist item ID for the resource that are being retrieved.
-- ( instancetype ) initPlaylistItemRequestWithPlaylistItemIdentifier: ( NSString* )_Identifier;
++ ( instancetype ) playlistItemRequestWithPlaylistItemIdentifier: ( NSString* )_Identifier;
 
 /// The \c _Identifiers parameter specifies a list of the YouTube playlist item ID(s) for the resource(s) that are being retrieved.
-- ( instancetype ) initPlaylistItemsRequestWithPlaylistItemIdentifiers: ( NSArray <NSString*>* )_Identifiers;
++ ( instancetype ) playlistItemsRequestWithPlaylistItemIdentifiers: ( NSArray <NSString*>* )_Identifiers;
 
 /// The \c _Identifiers parameter specifies the unique ID of the playlist for which you want to retrieve playlist items.
-- ( instancetype ) initPlaylistItemsRequestWithPlaylistIdentifier: ( NSString* )_Identifier;
++ ( instancetype ) playlistItemsRequestWithPlaylistIdentifier: ( NSString* )_Identifier;
 
 #pragma mark - youtube.videos.list
 
@@ -94,16 +94,16 @@
   * For details, ref https://developers.google.com/youtube/v3/docs/videos */
 
 /// The \c _Identifier parameter specifies a single YouTube video ID for the resource that are being retrieved.
-- ( instancetype ) initVideoRequestWithVideoIdentifier: ( NSString* )_Identifier;
++ ( instancetype ) videoRequestWithVideoIdentifier: ( NSString* )_Identifier;
 
 /// The \c _Identifiers parameter specifies a list of the YouTube video ID(s) for the resource(s) that are being retrieved.
-- ( instancetype ) initVideosRequestWithVideoIdentifiers: ( NSArray <NSString*>* )_Identifiers;
++ ( instancetype ) videosRequestWithVideoIdentifiers: ( NSArray <NSString*>* )_Identifiers;
 
 /// This request is to return only videos liked by the authenticated user.
-- ( instancetype ) initLikedVideosByMeRequest;
++ ( instancetype ) likedVideosByMeRequest;
 
 /// This request is to return only videos disliked by the authenticated user.
-- ( instancetype ) initDislikedVideosByMeRequest;
++ ( instancetype ) dislikedVideosByMeRequest;
 
 #pragma mark - youtube.subscriptions.list
 
@@ -116,13 +116,13 @@
 
 /// The \a _Identifier parameter specifies a YouTube channel ID.
 /// This request is to retrieve that channel's subscriptions.
-- ( instancetype ) initSubscriptionsRequestWithChannelIdentifier: ( NSString* )_Identifier;
++ ( instancetype ) subscriptionsRequestWithChannelIdentifier: ( NSString* )_Identifier;
 
 /// This request can only be used in a properly authorized request.
 /// This request is to retrieve a feed of the authenticated user's subscriptions.
-- ( instancetype ) initSubscriptionsOfMineRequest;
++ ( instancetype ) subscriptionsOfMineRequest;
 
 /// This request is retrieve a feed of the subscribers of the authenticated user.
-- ( instancetype ) initMySubscribersRequest;
++ ( instancetype ) mySubscribersRequest;
 
 @end // TauRestListingRequests protocol

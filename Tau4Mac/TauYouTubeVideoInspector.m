@@ -170,16 +170,30 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
         SEL sel = nil;
         switch ( YouTubeContent_.tauContentType )
             {
-            case TauYouTubeVideo: idKey = @"videoId"; sel = @selector( initVideoRequestWithVideoIdentifier: ); break;
-            case TauYouTubeChannel: idKey = @"channelId"; sel = @selector( initChannelRequestWithChannelIdentifier: ); break;
-            case TauYouTubePlayList: idKey = @"playlistId"; sel = @selector( initPlaylistRequestWithPlaylistIdentifier: ); break;
+            case TauYouTubeVideo: idKey = @"videoId"; sel = @selector( videoRequestWithVideoIdentifier: ); break;
+            case TauYouTubeChannel: idKey = @"channelId"; sel = @selector( channelRequestWithChannelIdentifier: ); break;
+            case TauYouTubePlayList: idKey = @"playlistId"; sel = @selector( playlistRequestWithPlaylistIdentifier: ); break;
             default: {;}
             }
 
         NSString* idVal = [ YouTubeContent_ JSON ][ @"id" ][ idKey ];
-        id allocated = [ TauRestRequest alloc ];
-        TauRestRequest* req = objc_msgSend( allocated, sel, idVal );
+        TauRestRequest* req = objc_msgSend( [ TauRestRequest class ], sel, idVal );
+        req.responseVerboseLevelMask |= TRSRestResponseVerboseFlagContentDetails;
         NSLog( @"%@", req );
+
+        [ [ TauAPIService sharedService ] executeRestRequest: req
+                                           completionHandler:
+        ^( GTLObject* _Response, NSError* _Error )
+            {
+            if ( !_Error )
+                {
+                NSLog( @"%@", _Response.JSON );
+                }
+            else
+                {
+                DDLogLocalError( @"%@", _Error );
+                }
+            } ];
         }
     }
 
