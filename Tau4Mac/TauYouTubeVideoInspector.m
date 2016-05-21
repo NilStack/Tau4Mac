@@ -150,19 +150,17 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
 
 @implementation PriYouTubeVideoMetaInfoView_
 
-- ( void ) viewDidMoveToWindow
-    {
-//    [ self.window visualizeConstraints: self.constraints ];
-    }
-
 @synthesize YouTubeContent = YouTubeContent_;
 - ( void ) setYouTubeContent: ( GTLObject* )_New
     {
     YouTubeContent_ = _New;
-    self.videoTitleField.stringValue = [ YouTubeContent_ JSON ][ @"snippet" ][ @"title" ];
-    self.channelField.stringValue = [ YouTubeContent_ JSON ][ @"snippet" ][ @"channelTitle" ];
-    self.descriptionField.stringValue = [ YouTubeContent_ JSON ][ @"snippet" ][ @"description" ];
-    [ self.descriptionField sizeToFit ];
+
+    NSDictionary* json = [ YouTubeContent_ JSON ];
+    NSDictionary* snippetJson = json[ @"snippet" ];
+
+    self.videoTitleField.stringValue = snippetJson[ @"title" ];
+    self.channelField.stringValue = snippetJson[ @"channelTitle" ];
+    self.descriptionField.stringValue = snippetJson[ @"description" ];
 
     if ( [ YouTubeContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ] )
         {
@@ -190,9 +188,7 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
                 NSLog( @"%@", _Response.JSON );
                 }
             else
-                {
                 DDLogLocalError( @"%@", _Error );
-                }
             } ];
         }
     }
@@ -201,12 +197,6 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
     {
     return YouTubeContent_;
     }
-
-//- ( void ) drawRect:(NSRect)dirtyRect
-//    {
-//    [ [ NSColor orangeColor ] set ];
-//    NSRectFill( dirtyRect );
-//    }
 
 @end // PriYouTubeVideoMetaInfoView_ class
 
