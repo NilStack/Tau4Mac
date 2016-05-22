@@ -162,6 +162,8 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
     self.channelField.stringValue = snippetJson[ @"channelTitle" ];
     self.descriptionField.stringValue = snippetJson[ @"description" ];
 
+    NSString* resourceId = nil;
+
     if ( [ YouTubeContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ] )
         {
         NSString* idKey = nil;
@@ -174,8 +176,8 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
             default: {;}
             }
 
-        NSString* idVal = [ YouTubeContent_ JSON ][ @"id" ][ idKey ];
-        TauRestRequest* req = objc_msgSend( [ TauRestRequest class ], sel, idVal );
+        resourceId = [ YouTubeContent_ JSON ][ @"id" ][ idKey ];
+        TauRestRequest* req = objc_msgSend( [ TauRestRequest class ], sel, resourceId );
         req.responseVerboseLevelMask |= TRSRestResponseVerboseFlagContentDetails;
         NSLog( @"%@", req );
 
