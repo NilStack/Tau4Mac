@@ -558,7 +558,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mKE-jA-cyg">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mKE-jA-cyg" customClass="TauBooleanStatusBadge">
                                 <rect key="frame" x="87" y="126" width="16" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="Jjf-Fd-CGS"/>
@@ -566,7 +566,7 @@
                                 </constraints>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSStatusUnavailable" id="Rva-ZW-WTS"/>
                             </imageView>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ewf-uz-Y7g">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ewf-uz-Y7g" customClass="TauBooleanStatusBadge">
                                 <rect key="frame" x="87" y="105" width="16" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="16" id="5dl-Hc-Vtb"/>

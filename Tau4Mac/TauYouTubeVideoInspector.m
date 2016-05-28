@@ -8,6 +8,7 @@
 
 #import <objc/message.h>
 #import "TauYouTubeVideoInspector.h"
+#import "TauBooleanStatusBadge.h"
 
 // ---------------------------------------------------
 /// Required Headers
@@ -24,8 +25,8 @@
 
 @property ( weak ) IBOutlet NSTextField* durationField;
 @property ( weak ) IBOutlet NSTextField* dimensionField;
-@property ( weak ) IBOutlet NSImageView* captionBadge;
-@property ( weak ) IBOutlet NSImageView* licensedBadge;
+@property ( weak ) IBOutlet TauBooleanStatusBadge* captionBadge;
+@property ( weak ) IBOutlet TauBooleanStatusBadge* licensedBadge;
 
 @property ( weak ) IBOutlet NSTextField* viewCountField;
 @property ( weak ) IBOutlet NSTextField* likesCountField;
@@ -188,10 +189,10 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
             {
             if ( _Response && !_Error )
                 {
-                GTLYouTubeVideo* videoItem = _Response.items.firstObject;
-                GTLYouTubeVideoSnippet* snippet = videoItem.snippet;
-                GTLYouTubeVideoContentDetails* contentDetails = videoItem.contentDetails;
-                GTLYouTubeVideoStatistics* statistics = videoItem.statistics;
+                GTLYouTubeVideo* video = _Response.items.firstObject;
+                GTLYouTubeVideoSnippet* snippet = video.snippet;
+                GTLYouTubeVideoContentDetails* contentDetails = video.contentDetails;
+                GTLYouTubeVideoStatistics* statistics = video.statistics;
 
                 self.descriptionField.stringValue = snippet.descriptionProperty ?: TauUIUnknownPlaceholder;
 
@@ -208,11 +209,8 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
                 self.likesCountField.stringValue = likesCount ? likesCount.stringValue : TauUIUncountedPlaceholder;
                 self.dislikesCountField.stringValue = dislikesCount ? dislikesCount.stringValue : TauUIUncountedPlaceholder;
 
-                BOOL hasCaption = [ [ contentDetails caption ] boolValue ];
-                BOOL isLicensed = [ [ contentDetails licensedContent ] boolValue ];
-
-                self.captionBadge.image = [ NSImage imageNamed: hasCaption ? NSImageNameStatusAvailable : NSImageNameStatusUnavailable ];
-                self.licensedBadge.image = [ NSImage imageNamed: isLicensed ? NSImageNameStatusAvailable : NSImageNameStatusUnavailable ];
+                self.captionBadge.booleanStatus = [ [ contentDetails caption ] boolValue ];
+                self.licensedBadge.booleanStatus = [ [ contentDetails licensedContent ] boolValue ];
                 }
             else
                 DDLogLocalError( @"failed fetching the details of a YouTube video due to {%@}.", _Error );
