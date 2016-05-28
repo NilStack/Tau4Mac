@@ -18,6 +18,8 @@
     return [ self numberWithBool: !_Flag ];
     }
 
+#pragma mark - YouTube Contents
+
 @dynamic youtubeCategoryName;
 - ( NSString* ) youtubeCategoryName
     {

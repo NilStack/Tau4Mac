@@ -142,6 +142,7 @@
 		83DA1C581C8893BF007B084F /* OAuthSigningConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA1C571C8893BF007B084F /* OAuthSigningConstants.m */; };
 		83E072E01CA7B96700CD1FCF /* GTLObject+Tau.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E072DF1CA7B96700CD1FCF /* GTLObject+Tau.m */; };
 		83E073141CA7CB8D00CD1FCF /* TauChannelResultsCollectionContentSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E073131CA7CB8D00CD1FCF /* TauChannelResultsCollectionContentSubViewController.m */; };
+		83E78B2A1CF985CF00715E69 /* NSDate+Tau.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E78B291CF985CF00715E69 /* NSDate+Tau.m */; };
 		83EB73491C8D33BC004EB117 /* TauAbstractBeautifulView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EB73481C8D33BC004EB117 /* TauAbstractBeautifulView.m */; };
 		83EB73C91C8E65A2004EB117 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EB73C71C8E65A2004EB117 /* AVFoundation.framework */; };
 		83EB73CA1C8E65A2004EB117 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EB73C81C8E65A2004EB117 /* AVKit.framework */; };
@@ -748,6 +749,8 @@
 		83E072DF1CA7B96700CD1FCF /* GTLObject+Tau.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTLObject+Tau.m"; sourceTree = "<group>"; };
 		83E073121CA7CB8D00CD1FCF /* TauChannelResultsCollectionContentSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauChannelResultsCollectionContentSubViewController.h; sourceTree = "<group>"; };
 		83E073131CA7CB8D00CD1FCF /* TauChannelResultsCollectionContentSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauChannelResultsCollectionContentSubViewController.m; sourceTree = "<group>"; };
+		83E78B281CF985CF00715E69 /* NSDate+Tau.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Tau.h"; sourceTree = "<group>"; };
+		83E78B291CF985CF00715E69 /* NSDate+Tau.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Tau.m"; sourceTree = "<group>"; };
 		83EB73471C8D33BC004EB117 /* TauAbstractBeautifulView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TauAbstractBeautifulView.h; sourceTree = "<group>"; };
 		83EB73481C8D33BC004EB117 /* TauAbstractBeautifulView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TauAbstractBeautifulView.m; sourceTree = "<group>"; };
 		83EB735D1C8E650E004EB117 /* XCDYouTubeKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XCDYouTubeKit.xcodeproj; path = ../Deps/XCDYouTubeKit/XCDYouTubeKit.xcodeproj; sourceTree = "<group>"; };
@@ -951,6 +954,8 @@
 				833E76191CABE583008FA650 /* CALayer+Tau.m */,
 				833E76471CAD1FB0008FA650 /* NSNumber+Tau.h */,
 				833E76481CAD1FB0008FA650 /* NSNumber+Tau.m */,
+				83E78B281CF985CF00715E69 /* NSDate+Tau.h */,
+				83E78B291CF985CF00715E69 /* NSDate+Tau.m */,
 				8304EB2E1CB4DF56004930A7 /* TauAppIntrospection.h */,
 				8304EB2F1CB4DF56004930A7 /* TauAppIntrospection.m */,
 				83EEEDC21CAE57E90074E73D /* TauValueTransformers.h */,
@@ -1958,6 +1963,7 @@
 				838ED0581CC48ED6009AADAB /* TauSwitcherSegmentedCell.m in Sources */,
 				830F55881C92CE20005E431B /* NSObject+TauDataServiceConsumer.m in Sources */,
 				8321F6681C8AA0A500D11FE0 /* TauViewsStack.m in Sources */,
+				83E78B2A1CF985CF00715E69 /* NSDate+Tau.m in Sources */,
 				83EEED921CAD71E60074E73D /* TauContentInspectorSubViews.m in Sources */,
 				8351506B1CA68C5F009B3608 /* TauAppWideSummaryLabel.m in Sources */,
 				835FDC301CA62F3700A2A031 /* LRNotificationObserver.m in Sources */,

@@ -207,7 +207,7 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
                 Please refer to the ISO 8601 specification for complete details. */
                 NSString* iso8601Duration = videoItemContentDetailsJson[ @"duration" ];
 
-                const char *stringToParse = [ iso8601Duration cStringUsingEncoding: NSASCIIStringEncoding ];
+                char const* stringToParse = [ iso8601Duration cStringUsingEncoding: NSASCIIStringEncoding ];
 
                 int days = 0, hours = 0, minutes = 0, seconds = 0;
                 char const* ptr = stringToParse;

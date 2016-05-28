@@ -13,6 +13,8 @@
 
 + ( instancetype ) numberWithNegateBool: ( BOOL )_Flag;
 
+#pragma mark - YouTube Contents
+
 @property ( copy, readonly ) NSString* youtubeCategoryName;
 
 @end // NSNumber + Tau
