@@ -17,6 +17,9 @@
     {
     NSTimeInterval interval = -1;
 
+    if ( !( _ISO8601Duration.length > 0 ) )
+        return interval;
+
     /* The length of the video. The tag value is an ISO 8601 duration.
     For example, for a video that is at least one minute long and less than one hour long, the duration is in the format PT#M#S,
     in which the letters PT indicate that the value specifies a period of time,
@@ -27,7 +30,10 @@
     If the video is at least one hour long, the duration is in the format PT#H#M#S,
     in which the # preceding the letter H specifies the length of the video in hours and all of the other details are the same as described above.
     If the video is at least one day long, the letters P and T are separated, and the value's format is P#DT#H#M#S.
-    Please refer to the ISO 8601 specification for complete details. */
+    Please refer to the ISO 8601 specification for complete details. 
+    
+    For more details, please ref https://en.wikipedia.org/wiki/ISO_8601#Durations */
+
     char const* stringToParse = [ _ISO8601Duration cStringUsingEncoding: NSASCIIStringEncoding ];
 
     int days = 0, hours = 0, minutes = 0, seconds = 0;
@@ -42,20 +48,18 @@
 
         int value, charsRead;
         char type;
-        if ( sscanf ( ptr, "%d%c%n", &value, &type, &charsRead ) != 2 )
-            ;  // handle parse error
 
+        if ( sscanf ( ptr, "%d%c%n", &value, &type, &charsRead ) != 2 ) {;}  // TODO: handle parse error
         if ( type == 'D' )      days = value;
         else if ( type == 'H' ) hours = value;
         else if ( type == 'M' ) minutes = value;
         else if ( type == 'S' ) seconds = value;
-        else {;}  // handle invalid type
+        else {;}  // TODO: handle invalid type
 
         ptr += charsRead;
         }
 
-    interval = ( ( days * 24 + hours ) * 60 + minutes ) * 60 + seconds;
-    return interval;
+    return ( interval = ( ( days * 24 + hours ) * 60 + minutes ) * 60 + seconds );
     }
 
 @end // NSDate + Tau
