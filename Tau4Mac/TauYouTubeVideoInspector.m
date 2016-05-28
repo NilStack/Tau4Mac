@@ -151,6 +151,12 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
 @synthesize YouTubeContent = YouTubeContent_;
 - ( void ) setYouTubeContent: ( GTLObject* )_New
     {
+    if ( _New.tauContentType != TauYouTubeVideo )
+        {
+        DDLogWarn( @"<%@: %p> has illegal type of YouTube content: %lu.", NSStringFromClass( [ _New class ] ), _New, _New.tauContentType );
+        return;
+        }
+
     YouTubeContent_ = _New;
 
     NSDictionary* json = [ YouTubeContent_ JSON ];
