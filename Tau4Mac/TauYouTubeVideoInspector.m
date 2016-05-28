@@ -238,9 +238,9 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
                 self.categoryField.stringValue = @( [ videoItemSnippetJson[ @"categoryId" ] integerValue ] ).youtubeCategoryName;
                 self.dimensionField.stringValue = [ videoItemContentDetailsJson[ @"dimension" ] uppercaseString ];
 
-                self.viewCountField.stringValue = videoItemStatisticsJson[ @"viewCount" ];
-                self.likesCountField.stringValue = videoItemStatisticsJson[ @"likeCount" ];
-                self.dislikesCountField.stringValue = videoItemStatisticsJson[ @"dislikeCount" ];
+                self.viewCountField.stringValue = videoItemStatisticsJson[ @"viewCount" ] ?: NSLocalizedString( @"Uncounted", nil );
+                self.likesCountField.stringValue = videoItemStatisticsJson[ @"likeCount" ] ?: NSLocalizedString( @"Uncounted", nil );
+                self.dislikesCountField.stringValue = videoItemStatisticsJson[ @"dislikeCount" ] ?: NSLocalizedString( @"Uncounted", nil );
                 }
             else
                 DDLogLocalError( @"%@", _Error );
