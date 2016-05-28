@@ -133,6 +133,15 @@ NSString extern* const TauPartnerChannelAuditAuthScope;
 
 
 
+#define TauUIUnknownPlaceholder @"Unknown"
+#define TauUIUncountedPlaceholder @"Uncounted"
+
+
+
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+
 typedef NS_ENUM ( NSInteger, TauContentViewTag )
     { TauSearchContentViewTag  = 0
     , TauExploreContentViewTag = 1

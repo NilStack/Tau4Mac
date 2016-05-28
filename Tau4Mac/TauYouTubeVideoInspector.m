@@ -186,28 +186,27 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
                                            completionHandler:
         ^( GTLYouTubeVideoListResponse* _Response, NSError* _Error )
             {
-            if ( !_Error )
+            if ( _Response && !_Error )
                 {
                 GTLYouTubeVideo* videoItem = _Response.items.firstObject;
                 GTLYouTubeVideoSnippet* snippet = videoItem.snippet;
                 GTLYouTubeVideoContentDetails* contentDetails = videoItem.contentDetails;
                 GTLYouTubeVideoStatistics* statistics = videoItem.statistics;
 
-                self.descriptionField.stringValue = snippet.descriptionProperty ?: NSLocalizedString( @"No Description", nil );
+                self.descriptionField.stringValue = snippet.descriptionProperty ?: TauUIUnknownPlaceholder;
 
                 NSString* iso8601Duration = contentDetails.duration;
-                self.durationField.stringValue = iso8601Duration ? @( [ NSDate timeIntervalFromISO8601Duration: iso8601Duration ] ).stringValue : NSLocalizedString( @"Unknown", nil );
+                self.durationField.stringValue = iso8601Duration ? @( [ NSDate timeIntervalFromISO8601Duration: iso8601Duration ] ).stringValue : TauUIUnknownPlaceholder;
                 self.categoryField.stringValue = @( [ [ snippet categoryId ] integerValue ] ).youtubeCategoryName;
-                self.dimensionField.stringValue = [ [ contentDetails dimension ] uppercaseString ] ?: NSLocalizedString( @"Unknown", nil );
+                self.dimensionField.stringValue = [ [ contentDetails dimension ] uppercaseString ] ?: TauUIUnknownPlaceholder;
 
                 NSNumber* viewCount = [ statistics viewCount ];
                 NSNumber* likesCount = [ statistics likeCount ];
                 NSNumber* dislikesCount = [ statistics dislikeCount ];
 
-                NSString static* const uncoundedPlaceholder = @"Uncounted";
-                self.viewCountField.stringValue = viewCount ? viewCount.stringValue : uncoundedPlaceholder;
-                self.likesCountField.stringValue = likesCount ? likesCount.stringValue : uncoundedPlaceholder;
-                self.dislikesCountField.stringValue = dislikesCount ? dislikesCount.stringValue : uncoundedPlaceholder;
+                self.viewCountField.stringValue = viewCount ? viewCount.stringValue : TauUIUncountedPlaceholder;
+                self.likesCountField.stringValue = likesCount ? likesCount.stringValue : TauUIUncountedPlaceholder;
+                self.dislikesCountField.stringValue = dislikesCount ? dislikesCount.stringValue : TauUIUncountedPlaceholder;
 
                 BOOL hasCaption = [ [ contentDetails caption ] boolValue ];
                 BOOL isLicensed = [ [ contentDetails licensedContent ] boolValue ];
