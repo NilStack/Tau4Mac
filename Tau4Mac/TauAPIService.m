@@ -283,7 +283,11 @@ GTLServiceYouTube TAU_PRIVATE* service;
     ^( GTLServiceTicket* _Ticket, id _Object, NSError* _Error )
         {
         if ( _Handler )
-            _Handler( _Object, _Error );
+            {
+            dispatch_async( dispatch_get_main_queue(), ( dispatch_block_t )^( void ) {
+                _Handler( _Object, _Error );
+                } );
+            }
         } ];
     }
 

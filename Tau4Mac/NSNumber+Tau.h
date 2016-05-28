@@ -13,4 +13,6 @@
 
 + ( instancetype ) numberWithNegateBool: ( BOOL )_Flag;
 
+@property ( copy, readonly ) NSString* youtubeCategoryName;
+
 @end // NSNumber + Tau

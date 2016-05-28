@@ -399,8 +399,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="gXp-oc-AMp">
-                                <rect key="frame" x="85" y="362" width="71" height="14"/>
-                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="Anna's Story" usesSingleLineMode="YES" id="7dz-JW-wJY">
+                                <rect key="frame" x="85" y="362" width="10" height="14"/>
+                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="-" usesSingleLineMode="YES" id="7dz-JW-wJY">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -415,8 +415,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="eMd-lZ-lhm">
-                                <rect key="frame" x="85" y="218" width="121" height="14"/>
-                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="Science &amp; Technology" id="TYf-YP-22G">
+                                <rect key="frame" x="85" y="218" width="10" height="14"/>
+                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="-" id="TYf-YP-22G">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -431,8 +431,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1aP-Xo-E05">
-                                <rect key="frame" x="85" y="238" width="41" height="14"/>
-                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="GitHub" id="Ot1-oP-OpB">
+                                <rect key="frame" x="85" y="238" width="10" height="14"/>
+                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="-" id="Ot1-oP-OpB">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -473,8 +473,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="L6k-hP-DLX">
-                                <rect key="frame" x="85" y="167" width="51" height="14"/>
-                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="00:01:53" usesSingleLineMode="YES" id="Q4Y-Uq-lyg">
+                                <rect key="frame" x="85" y="167" width="10" height="14"/>
+                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="-" usesSingleLineMode="YES" id="Q4Y-Uq-lyg">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -496,7 +496,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="37" id="kb7-F9-C1f"/>
                                 </constraints>
-                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="47765" usesSingleLineMode="YES" id="TaG-Dp-jtT">
+                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="-" usesSingleLineMode="YES" id="TaG-Dp-jtT">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -511,8 +511,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Nag-1E-ZCK">
-                                <rect key="frame" x="85" y="34" width="26" height="14"/>
-                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="586" usesSingleLineMode="YES" id="3a5-sV-g9j">
+                                <rect key="frame" x="85" y="34" width="10" height="14"/>
+                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="-" usesSingleLineMode="YES" id="3a5-sV-g9j">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -527,8 +527,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="biH-pi-cTm">
-                                <rect key="frame" x="85" y="14" width="17" height="14"/>
-                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="19" usesSingleLineMode="YES" id="UgM-DQ-HrX">
+                                <rect key="frame" x="85" y="14" width="10" height="14"/>
+                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="-" usesSingleLineMode="YES" id="UgM-DQ-HrX">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -543,8 +543,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9WN-uR-3by">
-                                <rect key="frame" x="85" y="147" width="19" height="14"/>
-                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="2D" id="ciZ-cn-Zbf">
+                                <rect key="frame" x="85" y="147" width="10" height="14"/>
+                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="-" id="ciZ-cn-Zbf">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
