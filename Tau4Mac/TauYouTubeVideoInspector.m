@@ -163,54 +163,54 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
     description = ( description.length > 0 ) ? description : NSLocalizedString( @"No Description", nil );
     self.descriptionField.stringValue = description;
 
-    NSString* resourceId = nil;
-
-    if ( [ YouTubeContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ] )
+    if ( [ YouTubeContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ]
+            || [ YouTubeContent_ isKindOfClass: [ GTLYouTubePlaylistItem class ] ] )
         {
-        NSString* idKey = nil;
-        SEL sel = nil;
-        switch ( YouTubeContent_.tauContentType )
-            {
-            case TauYouTubeVideo: idKey = @"videoId"; sel = @selector( videoRequestWithVideoIdentifier: ); break;
-            case TauYouTubeChannel: idKey = @"channelId"; sel = @selector( channelRequestWithChannelIdentifier: ); break;
-            case TauYouTubePlayList: idKey = @"playlistId"; sel = @selector( playlistRequestWithPlaylistIdentifier: ); break;
-            default: {;}
-            }
+        NSDictionary* videoIdDict = nil;
 
-        resourceId = [ YouTubeContent_ JSON ][ @"id" ][ idKey ];
-        TauRestRequest* req = objc_msgSend( [ TauRestRequest class ], sel, resourceId );
+        if ( [ YouTubeContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ] )
+            videoIdDict = [ YouTubeContent_ JSON ][ @"id" ];
+        else if ( [ YouTubeContent_ isKindOfClass: [ GTLYouTubePlaylistItem class ] ] )
+            videoIdDict = [ YouTubeContent_ JSON ][ @"snippet" ][ @"resourceId" ];
+
+        TauRestRequest* req = [ TauRestRequest videoRequestWithVideoIdentifier: [ videoIdDict objectForKey: @"videoId" ] ];
         req.responseVerboseLevelMask |= ( TRSRestResponseVerboseFlagContentDetails | TRSRestResponseVerboseFlagStatistics );
-        NSLog( @"%@", req );
 
         [ [ TauAPIService sharedService ] executeRestRequest: req
                                            completionHandler:
-        ^( GTLCollectionObject* _Response, NSError* _Error )
+        ^( GTLYouTubeVideoListResponse* _Response, NSError* _Error )
             {
             if ( !_Error )
                 {
-                NSDictionary* videoItemSnippetJson = _Response.items.firstObject.JSON[ @"snippet" ];
-                NSDictionary* videoItemContentDetailsJson = _Response.items.firstObject.JSON[ @"contentDetails" ];
-                NSDictionary* videoItemStatisticsJson = _Response.items.firstObject.JSON[ @"statistics" ];
+                GTLYouTubeVideo* videoItem = _Response.items.firstObject;
+                GTLYouTubeVideoSnippet* snippet = videoItem.snippet;
+                GTLYouTubeVideoContentDetails* contentDetails = videoItem.contentDetails;
+                GTLYouTubeVideoStatistics* statistics = videoItem.statistics;
 
-                self.descriptionField.stringValue = videoItemSnippetJson[ @"description" ] ?: NSLocalizedString( @"No Description", nil );
+                self.descriptionField.stringValue = snippet.descriptionProperty ?: NSLocalizedString( @"No Description", nil );
 
-                NSString* iso8601Duration = videoItemContentDetailsJson[ @"duration" ];
-                self.durationField.stringValue = @( [ NSDate timeIntervalFromISO8601Duration: iso8601Duration ] ).stringValue ?: NSLocalizedString( @"Unknown", nil );
-                self.categoryField.stringValue = @( [ videoItemSnippetJson[ @"categoryId" ] integerValue ] ).youtubeCategoryName;
-                self.dimensionField.stringValue = [ videoItemContentDetailsJson[ @"dimension" ] uppercaseString ] ?: NSLocalizedString( @"Unknown", nil );
+                NSString* iso8601Duration = contentDetails.duration;
+                self.durationField.stringValue = iso8601Duration ? @( [ NSDate timeIntervalFromISO8601Duration: iso8601Duration ] ).stringValue : NSLocalizedString( @"Unknown", nil );
+                self.categoryField.stringValue = @( [ [ snippet categoryId ] integerValue ] ).youtubeCategoryName;
+                self.dimensionField.stringValue = [ [ contentDetails dimension ] uppercaseString ] ?: NSLocalizedString( @"Unknown", nil );
 
-                self.viewCountField.stringValue = videoItemStatisticsJson[ @"viewCount" ] ?: NSLocalizedString( @"Uncounted", nil );
-                self.likesCountField.stringValue = videoItemStatisticsJson[ @"likeCount" ] ?: NSLocalizedString( @"Uncounted", nil );
-                self.dislikesCountField.stringValue = videoItemStatisticsJson[ @"dislikeCount" ] ?: NSLocalizedString( @"Uncounted", nil );
+                NSNumber* viewCount = [ statistics viewCount ];
+                NSNumber* likesCount = [ statistics likeCount ];
+                NSNumber* dislikesCount = [ statistics dislikeCount ];
 
-                BOOL hasCaption = [ videoItemContentDetailsJson[ @"caption" ] boolValue ];
-                BOOL isLicensed = [ videoItemContentDetailsJson[ @"licensedContent" ] boolValue ];
+                NSString static* const uncoundedPlaceholder = @"Uncounted";
+                self.viewCountField.stringValue = viewCount ? viewCount.stringValue : uncoundedPlaceholder;
+                self.likesCountField.stringValue = likesCount ? likesCount.stringValue : uncoundedPlaceholder;
+                self.dislikesCountField.stringValue = dislikesCount ? dislikesCount.stringValue : uncoundedPlaceholder;
+
+                BOOL hasCaption = [ [ contentDetails caption ] boolValue ];
+                BOOL isLicensed = [ [ contentDetails licensedContent ] boolValue ];
 
                 self.captionBadge.image = [ NSImage imageNamed: hasCaption ? NSImageNameStatusAvailable : NSImageNameStatusUnavailable ];
                 self.licensedBadge.image = [ NSImage imageNamed: isLicensed ? NSImageNameStatusAvailable : NSImageNameStatusUnavailable ];
                 }
             else
-                DDLogLocalError( @"%@", _Error );
+                DDLogLocalError( @"failed fetching the details of a YouTube video due to {%@}.", _Error );
             } ];
         }
     }
