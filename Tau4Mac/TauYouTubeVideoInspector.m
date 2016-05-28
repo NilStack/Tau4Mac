@@ -192,16 +192,22 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
                 NSDictionary* videoItemContentDetailsJson = _Response.items.firstObject.JSON[ @"contentDetails" ];
                 NSDictionary* videoItemStatisticsJson = _Response.items.firstObject.JSON[ @"statistics" ];
 
-                self.descriptionField.stringValue = videoItemSnippetJson[ @"description" ];
+                self.descriptionField.stringValue = videoItemSnippetJson[ @"description" ] ?: NSLocalizedString( @"No Description", nil );
 
                 NSString* iso8601Duration = videoItemContentDetailsJson[ @"duration" ];
-                self.durationField.stringValue = @( [ NSDate timeIntervalFromISO8601Duration: iso8601Duration ] ).stringValue;
+                self.durationField.stringValue = @( [ NSDate timeIntervalFromISO8601Duration: iso8601Duration ] ).stringValue ?: NSLocalizedString( @"Unknown", nil );
                 self.categoryField.stringValue = @( [ videoItemSnippetJson[ @"categoryId" ] integerValue ] ).youtubeCategoryName;
-                self.dimensionField.stringValue = [ videoItemContentDetailsJson[ @"dimension" ] uppercaseString ];
+                self.dimensionField.stringValue = [ videoItemContentDetailsJson[ @"dimension" ] uppercaseString ] ?: NSLocalizedString( @"Unknown", nil );
 
                 self.viewCountField.stringValue = videoItemStatisticsJson[ @"viewCount" ] ?: NSLocalizedString( @"Uncounted", nil );
                 self.likesCountField.stringValue = videoItemStatisticsJson[ @"likeCount" ] ?: NSLocalizedString( @"Uncounted", nil );
                 self.dislikesCountField.stringValue = videoItemStatisticsJson[ @"dislikeCount" ] ?: NSLocalizedString( @"Uncounted", nil );
+
+                BOOL hasCaption = [ videoItemContentDetailsJson[ @"caption" ] boolValue ];
+                BOOL isLicensed = [ videoItemContentDetailsJson[ @"licensedContent" ] boolValue ];
+
+                self.captionBadge.image = [ NSImage imageNamed: hasCaption ? NSImageNameStatusAvailable : NSImageNameStatusUnavailable ];
+                self.licensedBadge.image = [ NSImage imageNamed: isLicensed ? NSImageNameStatusAvailable : NSImageNameStatusUnavailable ];
                 }
             else
                 DDLogLocalError( @"%@", _Error );

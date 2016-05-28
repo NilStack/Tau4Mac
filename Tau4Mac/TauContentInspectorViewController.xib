@@ -494,7 +494,7 @@
                             <textField horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="LiG-Hd-PVt">
                                 <rect key="frame" x="85" y="54" width="115" height="14"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="111" id="kb7-F9-C1f"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="111" id="kb7-F9-C1f"/>
                                 </constraints>
                                 <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="-" usesSingleLineMode="YES" id="TaG-Dp-jtT">
                                     <font key="font" metaFont="smallSystem"/>
