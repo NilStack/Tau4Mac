@@ -126,12 +126,8 @@ TauDeallocEnd
     {
     NSUInteger cnt = YouTubeContents_.count;
 
-    if ( !cnt )
-        return TauContentInspectorNoSelectionMode;
-    else if ( cnt == 1 )
-        return TauContentInspectorSingleSelectionMode;
-    else
-        return TauContentInspectorMultipleSelectionsMode;
+    return cnt ? ( ( cnt == 1 ) ? TauContentInspectorSingleSelectionMode : TauContentInspectorMultipleSelectionsMode )
+               : TauContentInspectorNoSelectionMode;
     }
 
 @synthesize selfObservController_ = priSelfObservController_;
