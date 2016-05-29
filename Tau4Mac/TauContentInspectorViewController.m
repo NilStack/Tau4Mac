@@ -9,7 +9,7 @@
 #import "TauContentInspectorViewController.h"
 #import "TauContentInspectorSubViews.h"
 
-#import "TauYouTubeVideoInspector.h"
+#import "TauYouTubeContentInspector.h"
 
 // Private
 @interface TauContentInspectorViewController ()

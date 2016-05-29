@@ -8,7 +8,7 @@
 
 #import "TauContentInspectorSubViews.h"
 
-#import "TauYouTubeVideoInspector.h"
+#import "TauYouTubeContentInspector.h"
 
 // TauContentInspectorNoSelectionSubView class
 @interface TauContentInspectorNoSelectionSubView ()
@@ -40,7 +40,7 @@
 
 // TauContentInspectorSingleSelectionSubView class
 @interface TauContentInspectorSingleSelectionSubView ()
-@property ( weak ) IBOutlet TauYouTubeVideoInspector* videoInspector_;
+@property ( weak ) IBOutlet TauYouTubeContentInspector* videoInspector_;
 @end
 
 @implementation TauContentInspectorSingleSelectionSubView

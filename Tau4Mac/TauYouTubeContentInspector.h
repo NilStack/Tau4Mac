@@ -1,12 +1,12 @@
 //
-//  TauYouTubeVideoInspector.h
+//  TauYouTubeContentInspector.h
 //  Tau4Mac
 //
 //  Created by Tong G. on 4/19/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-// TauYouTubeVideoInspector class
-@interface TauYouTubeVideoInspector : NSView
+// TauYouTubeContentInspector class
+@interface TauYouTubeContentInspector : NSView
 @property ( strong, readwrite ) GTLObject* YouTubeContent;
-@end // TauYouTubeVideoInspector class
+@end // TauYouTubeContentInspector class

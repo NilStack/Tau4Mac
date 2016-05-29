@@ -1,5 +1,5 @@
 //
-//  TauYouTubeVideoInspector.m
+//  TauYouTubeContentInspector.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 4/19/16.
@@ -7,7 +7,7 @@
 //
 
 #import <objc/message.h>
-#import "TauYouTubeVideoInspector.h"
+#import "TauYouTubeContentInspector.h"
 #import "TauBooleanStatusBadge.h"
 
 // ---------------------------------------------------
@@ -58,7 +58,7 @@
 
 
 
-typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
+typedef NS_ENUM ( NSInteger, TauYouTubeContentInspectorType )
     { TauYouTubeVideoMetaInfoInspector = 0
     , TauYouTubeChannelMetaInfoInspector = 1
     , TauYouTubeVideoCommentsInspector = 2
@@ -66,8 +66,8 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
     , TauYouTubeVideoUnknownInspector = -1
     };
 
-// TauYouTubeVideoInspector class
-@interface TauYouTubeVideoInspector ()
+// TauYouTubeContentInspector class
+@interface TauYouTubeContentInspector ()
 
 @property ( weak ) IBOutlet NSSegmentedControl* switcher_;
 @property ( weak ) IBOutlet NSBox* horCuttingLine_;
@@ -76,13 +76,13 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
 @property ( weak ) IBOutlet PriYouTubeChannelMetaInfoView_* channelMetaInfoView_;
 @property ( weak ) IBOutlet PriYouTubeVideoCommentsView_* commentsView_;
 
-@property ( assign, readwrite ) TauYouTubeVideoInspectorType activedInspectorType;
+@property ( assign, readwrite ) TauYouTubeContentInspectorType activedInspectorType;
 
 @property ( strong, readonly ) NSMutableArray <NSLayoutConstraint*>* activedViewAutoPinedConstraints_;
 
 @end
 
-@implementation TauYouTubeVideoInspector
+@implementation TauYouTubeContentInspector
 
 - ( instancetype ) initWithCoder: ( NSCoder* )_Coder
     {
@@ -114,7 +114,7 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
     return NO;
     }
 
-- ( void ) setActivedInspectorType: ( TauYouTubeVideoInspectorType )_New
+- ( void ) setActivedInspectorType: ( TauYouTubeContentInspectorType )_New
     {
     if ( _New != activedInspectorType_ )
         {
@@ -147,7 +147,7 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
         }
     }
 
-- ( TauYouTubeVideoInspectorType ) activedInspectorType
+- ( TauYouTubeContentInspectorType ) activedInspectorType
     {
     return activedInspectorType_;
     }
@@ -160,7 +160,7 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
     return priActivedViewAutoPinedConstraints_;
     }
 
-@end // TauYouTubeVideoInspector class
+@end // TauYouTubeContentInspector class
 
 
 
