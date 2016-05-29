@@ -7,7 +7,7 @@
 //
 
 #import "TauContentInspectorViewController.h"
-#import "TauContentInspectorCandidates.h"
+#import "TauContentInspectorPlaceholderCandidates.h"
 
 #import "TauContentInspectorSingleSelectionCandidate.h"
 

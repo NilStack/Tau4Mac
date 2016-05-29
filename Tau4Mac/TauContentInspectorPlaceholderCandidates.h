@@ -1,5 +1,5 @@
 //
-//  TauContentInspectorCandidates.h
+//  TauContentInspectorPlaceholderCandidates.h
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/31/16.

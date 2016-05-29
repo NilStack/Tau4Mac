@@ -1,12 +1,12 @@
 //
-//  TauContentInspectorCandidates.m
+//  TauContentInspectorPlaceholderCandidates.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 3/31/16.
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-#import "TauContentInspectorCandidates.h"
+#import "TauContentInspectorPlaceholderCandidates.h"
 
 #import "TauContentInspectorSingleSelectionCandidate.h"
 
