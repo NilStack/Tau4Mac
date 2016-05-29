@@ -10,7 +10,7 @@
             <connections>
                 <outlet property="multipleSelectionSubView_" destination="DeI-dZ-qVA" id="uIi-D2-jZE"/>
                 <outlet property="noSelectionCandidate_" destination="AnE-3J-eXW" id="Kpn-sx-4Bf"/>
-                <outlet property="singleSelectionSubView_" destination="c9S-GL-zfS" id="nBy-g2-6lq"/>
+                <outlet property="singleSelectionCandidate_" destination="c9S-GL-zfS" id="nBy-g2-6lq"/>
                 <outlet property="view" destination="JpR-XP-nVJ" id="PbH-ZP-GSR"/>
                 <outlet property="ytContentModelController_" destination="nkQ-0u-50I" id="vcT-WP-HCJ"/>
             </connections>

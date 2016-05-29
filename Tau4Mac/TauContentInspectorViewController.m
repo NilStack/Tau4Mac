@@ -17,7 +17,7 @@
 @property ( weak, readonly ) NSView* activedSelectionSubView_;
 
 @property ( weak ) IBOutlet TauContentInspectorNoSelectionCandidate* noSelectionCandidate_;
-@property ( weak ) IBOutlet TauContentInspectorSingleSelectionCandidate* singleSelectionSubView_;
+@property ( weak ) IBOutlet TauContentInspectorSingleSelectionCandidate* singleSelectionCandidate_;
 @property ( weak ) IBOutlet TauContentInspectorMultipleSelectionsCandidate* multipleSelectionSubView_;
 
 @property ( weak ) IBOutlet NSArrayController* ytContentModelController_;
@@ -49,7 +49,7 @@ TauDeallocEnd
     switch ( _Mode )
         {
         case TauContentInspectorNoSelectionMode: return [ self.noSelectionCandidate_ configureForAutoLayout ];
-        case TauContentInspectorSingleSelectionMode: return [ self.singleSelectionSubView_ configureForAutoLayout ];
+        case TauContentInspectorSingleSelectionMode: return [ self.singleSelectionCandidate_ configureForAutoLayout ];
         case TauContentInspectorMultipleSelectionsMode: return [ self.multipleSelectionSubView_ configureForAutoLayout ];
         }
     }
