@@ -20,7 +20,7 @@
         <customView wantsLayer="YES" id="JpR-XP-nVJ" userLabel="Master View">
             <rect key="frame" x="0.0" y="0.0" width="268" height="410"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <point key="canvasLocation" x="787" y="691"/>
+            <point key="canvasLocation" x="685" y="109"/>
         </customView>
         <arrayController objectClassName="GTLObject" id="nkQ-0u-50I" userLabel="YouTube Content Objects Model Controller">
             <connections>

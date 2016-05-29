@@ -99,6 +99,8 @@ typedef NS_ENUM ( NSInteger, TauInspectorType )
 
 @property ( weak ) IBOutlet PriYouTubeCommentsView_* commentsView_;
 
+@property ( strong, readonly ) NSMutableArray <NSLayoutConstraint*>* cachedConstraints_;
+
 @end // Internal
 
 // TauContentInspectorSingleSelectionCandidate class
@@ -130,9 +132,38 @@ typedef NS_ENUM ( NSInteger, TauInspectorType )
     if ( inspectorType_ != _New )
         {
         [ self willChangeValueForKey: TauKVOStrictClassKeyPath( TauContentInspectorSingleSelectionCandidate, inspectorType_ ) ];
+
         inspectorType_ = _New;
 
-        DDLogInfo( @"%ld", _New );
+        PriYouTubeContentView_* activingView = nil;
+        switch ( inspectorType_ )
+            {
+            case TauYouTubeMetaInfoInspector: activingView = self.currentMetaInfoView_; break;
+            case TauYouTubeCommentsInspector: activingView = self.commentsView_; break;
+            case TauYouTubeVideoUnknownInspector: DDLogUnexpected( @"unexpected unknown inspector." ); break;
+            }
+
+        if ( activingView )
+            {
+            if ( priCachedConstraints_.count > 0 )
+                {
+                [ self removeConstraints: priCachedConstraints_ ];
+                [ priCachedConstraints_ removeAllObjects ];
+                }
+
+            // TODO: Clean these ugly code
+            [ self.videoMetaInfoView_ removeFromSuperview ];
+            [ self.channelMetaInfoView_ removeFromSuperview ];
+            [ self.commentsView_ removeFromSuperview ];
+
+            [ self addSubview: activingView ];
+            [ self.cachedConstraints_ addObjectsFromArray: [ activingView autoPinEdgesToSuperviewEdgesWithInsets: NSEdgeInsetsZero excludingEdge: ALEdgeTop ] ];
+            [ self.cachedConstraints_ addObject: [ activingView autoPinEdge: ALEdgeTop toEdge: ALEdgeBottom ofView: self.horCuttingLine_ ] ];
+
+            activingView.YouTubeContent = YouTubeContent_;
+            }
+        else
+            DDLogFatal( @"`activingView` var must not be nil." );
 
         [ self didChangeValueForKey: TauKVOStrictClassKeyPath( TauContentInspectorSingleSelectionCandidate, inspectorType_ ) ];
         }
@@ -141,6 +172,29 @@ typedef NS_ENUM ( NSInteger, TauInspectorType )
 - ( TauInspectorType ) inspectorType_
     {
     return inspectorType_;
+    }
+
+@dynamic currentMetaInfoView_;
+- ( PriYouTubeContentView_* ) currentMetaInfoView_
+    {
+    PriYouTubeContentView_* result = nil;
+    switch ( YouTubeContent_.tauContentType )
+        {
+        case TauYouTubeVideo: result = self.videoMetaInfoView_; break;
+        case TauYouTubeChannel: result = self.channelMetaInfoView_; break;
+        case TauYouTubePlayList: DDLogWarn( @"we have not implemented the playlist meta info view." ); result = nil; break;
+        case TauYouTubeUnknownContent: DDLogUnexpected( @"unexpected unknown content." ); break;
+        }
+
+    return result;
+    }
+
+@synthesize cachedConstraints_ = priCachedConstraints_;
+- ( NSArray <NSLayoutConstraint*>* ) cachedConstraints_
+    {
+    if ( !priCachedConstraints_ )
+        priCachedConstraints_ = [ NSMutableArray array ];
+    return priCachedConstraints_;
     }
 
 @end // TauContentInspectorSingleSelectionCandidate class
@@ -164,8 +218,6 @@ typedef NS_ENUM ( NSInteger, TauInspectorType )
         }
     
     [ super setYouTubeContent: _New ];
-
-    self.YouTubeContent = _New;
 
     NSDictionary* json = [ self.YouTubeContent JSON ];
     NSDictionary* snippetJson = json[ @"snippet" ];
