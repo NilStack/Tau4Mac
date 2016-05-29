@@ -18,7 +18,7 @@
 
 @property ( weak ) IBOutlet TauContentInspectorNoSelectionCandidate* noSelectionSubView_;
 @property ( weak ) IBOutlet TauContentInspectorSingleSelectionCandidate* singleSelectionSubView_;
-@property ( weak ) IBOutlet TauContentInspectorMultipleSelectionsSubView* multipleSelectionSubView_;
+@property ( weak ) IBOutlet TauContentInspectorMultipleSelectionsCandidate* multipleSelectionSubView_;
 
 @property ( weak ) IBOutlet NSArrayController* ytContentModelController_;
 

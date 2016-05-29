@@ -28,7 +28,7 @@
             </connections>
         </arrayController>
         <userDefaultsController representsSharedInstance="YES" id="1QY-hg-lk7"/>
-        <customView id="DeI-dZ-qVA" customClass="TauContentInspectorMultipleSelectionsSubView">
+        <customView id="DeI-dZ-qVA" customClass="TauContentInspectorMultipleSelectionsCandidate">
             <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>

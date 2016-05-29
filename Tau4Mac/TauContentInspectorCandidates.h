@@ -27,6 +27,6 @@
 
 
 
-// TauContentInspectorMultipleSelectionsSubView class
-@interface TauContentInspectorMultipleSelectionsSubView : NSVisualEffectView
-@end // TauContentInspectorMultipleSelectionsSubView class
+// TauContentInspectorMultipleSelectionsCandidate class
+@interface TauContentInspectorMultipleSelectionsCandidate : NSVisualEffectView
+@end // TauContentInspectorMultipleSelectionsCandidate class

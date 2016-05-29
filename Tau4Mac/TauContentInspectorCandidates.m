@@ -24,13 +24,13 @@
 
 
 
-// TauContentInspectorMultipleSelectionsSubView class
-@interface TauContentInspectorMultipleSelectionsSubView ()
+// TauContentInspectorMultipleSelectionsCandidate class
+@interface TauContentInspectorMultipleSelectionsCandidate ()
 @property ( weak ) IBOutlet NSView* multipleSelectionLabelSection_;
 @end
 
-@implementation TauContentInspectorMultipleSelectionsSubView
-@end // TauContentInspectorMultipleSelectionsSubView class
+@implementation TauContentInspectorMultipleSelectionsCandidate
+@end // TauContentInspectorMultipleSelectionsCandidate class
 
 
 
