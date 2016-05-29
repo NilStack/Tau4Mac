@@ -106,6 +106,9 @@
                                     </segment>
                                 </segments>
                             </segmentedCell>
+                            <connections>
+                                <binding destination="-2" name="selectedIndex" keyPath="self.singleSelectionCandidate_.inspectorType_" id="UmT-Xb-5x0"/>
+                            </connections>
                         </segmentedControl>
                     </subviews>
                     <constraints>

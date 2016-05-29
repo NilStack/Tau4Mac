@@ -75,18 +75,20 @@
 
 
 
-typedef NS_ENUM ( NSInteger, TauContentInspectorSingleSelectionCandidateType )
+typedef NS_ENUM ( NSInteger, TauInspectorType )
     { TauYouTubeMetaInfoInspector = 0
     , TauYouTubeCommentsInspector = 1
 
     , TauYouTubeVideoUnknownInspector = -1
     };
 
-// TauContentInspectorSingleSelectionCandidate class
+// Internal
 @interface TauContentInspectorSingleSelectionCandidate ()
 
 @property ( weak ) IBOutlet NSSegmentedControl* switcher_;
 @property ( weak ) IBOutlet NSBox* horCuttingLine_;
+
+@property ( assign, readwrite ) TauInspectorType inspectorType_;     // KVB-compliant
 
 // The result (one of videoMetaInfoView_, channelMetaInfoView_, playlistMetaInfoView_)
 // of this property will be derived from self.YouTubeContent
@@ -94,10 +96,12 @@ typedef NS_ENUM ( NSInteger, TauContentInspectorSingleSelectionCandidateType )
 
 @property ( weak ) IBOutlet PriYouTubeVideoMetaInfoView_* videoMetaInfoView_;
 @property ( weak ) IBOutlet PriYouTubeChannelMetaInfoView_* channelMetaInfoView_;
+
 @property ( weak ) IBOutlet PriYouTubeCommentsView_* commentsView_;
 
-@end
+@end // Internal
 
+// TauContentInspectorSingleSelectionCandidate class
 @implementation TauContentInspectorSingleSelectionCandidate
 
 @synthesize YouTubeContent = YouTubeContent_;
@@ -111,6 +115,32 @@ typedef NS_ENUM ( NSInteger, TauContentInspectorSingleSelectionCandidateType )
 - ( GTLObject* ) YouTubeContent
     {
     return YouTubeContent_;
+    }
+
+#pragma mark - Internal
+
+@synthesize inspectorType_;
++ ( BOOL ) automaticallyNotifiesObserversOfInspectorType_
+    {
+    return NO;
+    }
+
+- ( void ) setInspectorType_: ( TauInspectorType )_New
+    {
+    if ( inspectorType_ != _New )
+        {
+        [ self willChangeValueForKey: TauKVOStrictClassKeyPath( TauContentInspectorSingleSelectionCandidate, inspectorType_ ) ];
+        inspectorType_ = _New;
+
+        DDLogInfo( @"%ld", _New );
+
+        [ self didChangeValueForKey: TauKVOStrictClassKeyPath( TauContentInspectorSingleSelectionCandidate, inspectorType_ ) ];
+        }
+    }
+
+- ( TauInspectorType ) inspectorType_
+    {
+    return inspectorType_;
     }
 
 @end // TauContentInspectorSingleSelectionCandidate class

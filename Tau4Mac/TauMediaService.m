@@ -424,7 +424,7 @@ TauMediaService static* sMediaService_;
             [ priDisposableFetchingUnits_ removeObjectForKey: key ];
 
             NSUInteger count = priDisposableFetchingUnits_.count;
-            TMSLogFetchingUnitsCount( @"remaining fetching units count: %lu%@.", count, ( count == 0 ) ? @" (🍺)" : @"" );
+            TMSLogFetchingUnitsCount( @"remaining fetching units count: <%lu>%@", count, ( count == 0 ) ? @" (🍺)" : @"" );
             } ];
         }
 
