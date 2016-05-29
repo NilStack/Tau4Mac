@@ -65,7 +65,7 @@
             </connections>
             <point key="canvasLocation" x="383" y="80.5"/>
         </customView>
-        <customView id="AnE-3J-eXW" customClass="TauContentInspectorNoSelectionSubView">
+        <customView id="AnE-3J-eXW" customClass="TauContentInspectorNoSelectionCandidate">
             <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>

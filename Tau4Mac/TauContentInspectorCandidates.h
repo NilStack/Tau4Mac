@@ -6,9 +6,9 @@
 //  Copyright © 2016 Tong Kuo. All rights reserved.
 //
 
-// TauContentInspectorNoSelectionSubView class
-@interface TauContentInspectorNoSelectionSubView : NSVisualEffectView
-@end // TauContentInspectorNoSelectionSubView class
+// TauContentInspectorNoSelectionCandidate class
+@interface TauContentInspectorNoSelectionCandidate : NSVisualEffectView
+@end // TauContentInspectorNoSelectionCandidate class
 
 
 

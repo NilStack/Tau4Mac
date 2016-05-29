@@ -16,7 +16,7 @@
 
 @property ( weak, readonly ) NSView* activedSelectionSubView_;
 
-@property ( weak ) IBOutlet TauContentInspectorNoSelectionSubView* noSelectionSubView_;
+@property ( weak ) IBOutlet TauContentInspectorNoSelectionCandidate* noSelectionSubView_;
 @property ( weak ) IBOutlet TauContentInspectorSingleSelectionSubView* singleSelectionSubView_;
 @property ( weak ) IBOutlet TauContentInspectorMultipleSelectionsSubView* multipleSelectionSubView_;
 

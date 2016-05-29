@@ -10,13 +10,13 @@
 
 #import "TauYouTubeContentInspector.h"
 
-// TauContentInspectorNoSelectionSubView class
-@interface TauContentInspectorNoSelectionSubView ()
+// TauContentInspectorNoSelectionCandidate class
+@interface TauContentInspectorNoSelectionCandidate ()
 @property ( weak ) IBOutlet NSView* noSelectionLabelSection_;
 @end
 
-@implementation TauContentInspectorNoSelectionSubView
-@end // TauContentInspectorNoSelectionSubView class
+@implementation TauContentInspectorNoSelectionCandidate
+@end // TauContentInspectorNoSelectionCandidate class
 
 
 
