@@ -16,17 +16,6 @@
 
 
 
-// TauContentInspectorSingleSelectionCandidate class
-@interface TauContentInspectorSingleSelectionCandidate : NSVisualEffectView
-@property ( strong, readwrite ) GTLObject* YouTubeContent;
-@end // TauContentInspectorSingleSelectionCandidate class
-
-
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-
-
 // TauContentInspectorMultipleSelectionsCandidate class
 @interface TauContentInspectorMultipleSelectionsCandidate : NSVisualEffectView
 @end // TauContentInspectorMultipleSelectionsCandidate class

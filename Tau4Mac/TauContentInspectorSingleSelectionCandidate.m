@@ -1,5 +1,5 @@
 //
-//  TauYouTubeContentInspector.m
+//  TauContentInspectorSingleSelectionCandidate.m
 //  Tau4Mac
 //
 //  Created by Tong G. on 4/19/16.
@@ -7,7 +7,7 @@
 //
 
 #import <objc/message.h>
-#import "TauYouTubeContentInspector.h"
+#import "TauContentInspectorSingleSelectionCandidate.h"
 #import "TauBooleanStatusBadge.h"
 
 // ---------------------------------------------------
@@ -63,15 +63,15 @@
 
 
 
-typedef NS_ENUM ( NSInteger, TauYouTubeContentInspectorType )
+typedef NS_ENUM ( NSInteger, TauContentInspectorSingleSelectionCandidateType )
     { TauYouTubeMetaInfoInspector = 0
     , TauYouTubeCommentsInspector = 1
 
     , TauYouTubeVideoUnknownInspector = -1
     };
 
-// TauYouTubeContentInspector class
-@interface TauYouTubeContentInspector ()
+// TauContentInspectorSingleSelectionCandidate class
+@interface TauContentInspectorSingleSelectionCandidate ()
 
 @property ( weak ) IBOutlet NSSegmentedControl* switcher_;
 @property ( weak ) IBOutlet NSBox* horCuttingLine_;
@@ -83,8 +83,11 @@ typedef NS_ENUM ( NSInteger, TauYouTubeContentInspectorType )
 
 @end
 
-@implementation TauYouTubeContentInspector
-@end // TauYouTubeContentInspector class
+@implementation TauContentInspectorSingleSelectionCandidate
+
+@synthesize YouTubeContent = YouTubeContent_;
+
+@end // TauContentInspectorSingleSelectionCandidate class
 
 
 

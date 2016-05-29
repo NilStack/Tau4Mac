@@ -10,7 +10,7 @@
             <connections>
                 <outlet property="multipleSelectionCandidate_" destination="DeI-dZ-qVA" id="uIi-D2-jZE"/>
                 <outlet property="noSelectionCandidate_" destination="AnE-3J-eXW" id="Kpn-sx-4Bf"/>
-                <outlet property="singleSelectionCandidate_" destination="c9S-GL-zfS" id="nBy-g2-6lq"/>
+                <outlet property="singleSelectionCandidate_" destination="5j9-Qy-NaE" id="NHe-03-k7A"/>
                 <outlet property="view" destination="JpR-XP-nVJ" id="PbH-ZP-GSR"/>
                 <outlet property="ytContentModelController_" destination="nkQ-0u-50I" id="vcT-WP-HCJ"/>
             </connections>
@@ -55,15 +55,7 @@
             <connections>
                 <outlet property="multipleSelectionLabelSection_" destination="x7u-dB-CgK" id="tOd-nZ-Lmf"/>
             </connections>
-            <point key="canvasLocation" x="492.5" y="433"/>
-        </customView>
-        <customView id="c9S-GL-zfS" customClass="TauContentInspectorSingleSelectionCandidate">
-            <rect key="frame" x="0.0" y="0.0" width="230" height="503"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <connections>
-                <outlet property="contentInspector_" destination="5j9-Qy-NaE" id="nE2-7o-cmy"/>
-            </connections>
-            <point key="canvasLocation" x="383" y="80.5"/>
+            <point key="canvasLocation" x="-222.5" y="109"/>
         </customView>
         <customView id="AnE-3J-eXW" customClass="TauContentInspectorNoSelectionCandidate">
             <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
@@ -92,9 +84,9 @@
             <connections>
                 <outlet property="noSelectionLabelSection_" destination="jJL-pR-HgS" id="vWN-jh-DKr"/>
             </connections>
-            <point key="canvasLocation" x="787.5" y="357"/>
+            <point key="canvasLocation" x="64.5" y="109"/>
         </customView>
-        <customView id="5j9-Qy-NaE" customClass="TauYouTubeContentInspector">
+        <customView id="5j9-Qy-NaE" customClass="TauContentInspectorSingleSelectionCandidate">
             <rect key="frame" x="0.0" y="0.0" width="220" height="439"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
@@ -148,7 +140,7 @@
                 <outlet property="switcher_" destination="rKo-3A-SBu" id="Qgx-P2-KG3"/>
                 <outlet property="videoMetaInfoView_" destination="lAt-BT-slE" id="Rmj-Uw-XPa"/>
             </connections>
-            <point key="canvasLocation" x="709" y="20.5"/>
+            <point key="canvasLocation" x="347" y="114.5"/>
         </customView>
         <scrollView verticalHuggingPriority="750" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="lAt-BT-slE" userLabel="Video Meta Information" customClass="PriYouTubeVideoMetaInfoView_">
             <rect key="frame" x="0.0" y="0.0" width="218" height="402"/>

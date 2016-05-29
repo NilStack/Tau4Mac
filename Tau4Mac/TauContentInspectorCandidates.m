@@ -8,7 +8,7 @@
 
 #import "TauContentInspectorCandidates.h"
 
-#import "TauYouTubeContentInspector.h"
+#import "TauContentInspectorSingleSelectionCandidate.h"
 
 // TauContentInspectorNoSelectionCandidate class
 @interface TauContentInspectorNoSelectionCandidate ()
@@ -31,45 +31,3 @@
 
 @implementation TauContentInspectorMultipleSelectionsCandidate
 @end // TauContentInspectorMultipleSelectionsCandidate class
-
-
-
-// ---------------------------------------------------
-
-
-
-// TauContentInspectorSingleSelectionCandidate class
-@interface TauContentInspectorSingleSelectionCandidate ()
-@property ( weak ) IBOutlet TauYouTubeContentInspector* contentInspector_;
-@end
-
-@implementation TauContentInspectorSingleSelectionCandidate
-
-#pragma mark - Initializations
-
-// ------------------------------------------------------
-/// setup UI
-- ( void ) awakeFromNib
-// ------------------------------------------------------
-    {
-    // TODO:
-
-    [ self addSubview: [ self.contentInspector_ configureForAutoLayout ] ];
-    [ self.contentInspector_ autoPinEdgesToSuperviewEdges ];
-    }
-
-@synthesize YouTubeContent = YouTubeContent_;
-- ( void ) setYouTubeContent: ( GTLObject* )_New
-    {
-    YouTubeContent_ = _New;
-    }
-
-- ( GTLObject* ) YouTubeContent
-    {
-    return YouTubeContent_;
-    }
-
-#pragma mark - Private
-// TODO:
-
-@end // TauContentInspectorSingleSelectionCandidate class
