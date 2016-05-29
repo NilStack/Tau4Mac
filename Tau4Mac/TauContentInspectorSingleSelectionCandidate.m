@@ -19,16 +19,19 @@
 
 
 @interface PriYouTubeContentView_ : NSScrollView
-//@property ( strong, readwrite ) GTLObject* YouTubeContent;
+@property ( strong, readwrite ) GTLObject* YouTubeContent;
 @end
 @implementation PriYouTubeContentView_
-//@synthesize YouTubeContent = YouTubeContent_;
+    {
+    GTLObject __strong* YouTubeContent_;
+    }
+
+@synthesize YouTubeContent = YouTubeContent_;
+
 @end
 
 // PriYouTubeVideoMetaInfoView_ class
 @interface PriYouTubeVideoMetaInfoView_ : PriYouTubeContentView_
-
-@property ( strong, readwrite ) GTLObject* YouTubeContent;
 
 @property ( weak ) IBOutlet NSTextField* videoTitleField;
 @property ( weak ) IBOutlet NSTextField* descriptionField;
@@ -49,8 +52,6 @@
 // PriYouTubeChannelMetaInfoView_ class
 @interface PriYouTubeChannelMetaInfoView_ : PriYouTubeContentView_
 
-@property ( strong, readwrite ) GTLObject* YouTubeContent;
-
 @property ( weak ) IBOutlet NSTextField* videoTitleField;
 @property ( weak ) IBOutlet NSTextField* descriptionField;
 @property ( weak ) IBOutlet NSTextField* publishedAtField;
@@ -62,8 +63,8 @@
 
 @end // PriYouTubeChannelMetaInfoView_ class
 
-// PriYouTubeVideoCommentsView_ class
-@interface PriYouTubeVideoCommentsView_ : PriYouTubeContentView_
+// PriYouTubeCommentsView_ class
+@interface PriYouTubeCommentsView_ : PriYouTubeContentView_
 @end
 
 
@@ -87,10 +88,13 @@ typedef NS_ENUM ( NSInteger, TauContentInspectorSingleSelectionCandidateType )
 @property ( weak ) IBOutlet NSSegmentedControl* switcher_;
 @property ( weak ) IBOutlet NSBox* horCuttingLine_;
 
+// The result (one of videoMetaInfoView_, channelMetaInfoView_, playlistMetaInfoView_)
+// of this property will be derived from self.YouTubeContent
 @property ( weak, readonly ) PriYouTubeContentView_* currentMetaInfoView_;
+
 @property ( weak ) IBOutlet PriYouTubeVideoMetaInfoView_* videoMetaInfoView_;
 @property ( weak ) IBOutlet PriYouTubeChannelMetaInfoView_* channelMetaInfoView_;
-@property ( weak ) IBOutlet PriYouTubeVideoCommentsView_* commentsView_;
+@property ( weak ) IBOutlet PriYouTubeCommentsView_* commentsView_;
 
 @end
 
@@ -121,7 +125,6 @@ typedef NS_ENUM ( NSInteger, TauContentInspectorSingleSelectionCandidateType )
 
 @implementation PriYouTubeVideoMetaInfoView_
 
-@synthesize YouTubeContent = YouTubeContent_;
 - ( void ) setYouTubeContent: ( GTLObject* )_New
     {
     if ( _New.tauContentType != TauYouTubeVideo )
@@ -129,10 +132,12 @@ typedef NS_ENUM ( NSInteger, TauContentInspectorSingleSelectionCandidateType )
         DDLogWarn( @"<%@: %p> has illegal type of YouTube content: %lu.", NSStringFromClass( [ _New class ] ), _New, _New.tauContentType );
         return;
         }
+    
+    [ super setYouTubeContent: _New ];
 
-    YouTubeContent_ = _New;
+    self.YouTubeContent = _New;
 
-    NSDictionary* json = [ YouTubeContent_ JSON ];
+    NSDictionary* json = [ self.YouTubeContent JSON ];
     NSDictionary* snippetJson = json[ @"snippet" ];
 
     self.videoTitleField.stringValue = snippetJson[ @"title" ];
@@ -142,15 +147,15 @@ typedef NS_ENUM ( NSInteger, TauContentInspectorSingleSelectionCandidateType )
     description = ( description.length > 0 ) ? description : NSLocalizedString( @"No Description", nil );
     self.descriptionField.stringValue = description;
 
-    if ( [ YouTubeContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ]
-            || [ YouTubeContent_ isKindOfClass: [ GTLYouTubePlaylistItem class ] ] )
+    if ( [ self.YouTubeContent isKindOfClass: [ GTLYouTubeSearchResult class ] ]
+            || [ self.YouTubeContent isKindOfClass: [ GTLYouTubePlaylistItem class ] ] )
         {
         NSDictionary* videoIdDict = nil;
 
-        if ( [ YouTubeContent_ isKindOfClass: [ GTLYouTubeSearchResult class ] ] )
-            videoIdDict = [ YouTubeContent_ JSON ][ @"id" ];
-        else if ( [ YouTubeContent_ isKindOfClass: [ GTLYouTubePlaylistItem class ] ] )
-            videoIdDict = [ YouTubeContent_ JSON ][ @"snippet" ][ @"resourceId" ];
+        if ( [ self.YouTubeContent isKindOfClass: [ GTLYouTubeSearchResult class ] ] )
+            videoIdDict = [ self.YouTubeContent JSON ][ @"id" ];
+        else if ( [ self.YouTubeContent isKindOfClass: [ GTLYouTubePlaylistItem class ] ] )
+            videoIdDict = [ self.YouTubeContent JSON ][ @"snippet" ][ @"resourceId" ];
 
         TauRestRequest* req = [ TauRestRequest videoRequestWithVideoIdentifier: [ videoIdDict objectForKey: @"videoId" ] ];
         req.responseVerboseLevelMask |= ( TRSRestResponseVerboseFlagContentDetails | TRSRestResponseVerboseFlagStatistics );
@@ -190,11 +195,6 @@ typedef NS_ENUM ( NSInteger, TauContentInspectorSingleSelectionCandidateType )
         }
     }
 
-- ( GTLObject* ) YouTubeContent
-    {
-    return YouTubeContent_;
-    }
-
 @end // PriYouTubeVideoMetaInfoView_ class
 
 
@@ -206,7 +206,6 @@ typedef NS_ENUM ( NSInteger, TauContentInspectorSingleSelectionCandidateType )
 // PriYouTubeChannelMetaInfoView_ class
 @implementation PriYouTubeChannelMetaInfoView_
 
-@synthesize YouTubeContent = YouTubeContent_;
 - ( void ) setYouTubeContent: ( GTLObject* )_New
     {
     if ( _New.tauContentType != TauYouTubeChannel )
@@ -215,18 +214,13 @@ typedef NS_ENUM ( NSInteger, TauContentInspectorSingleSelectionCandidateType )
         return;
         }
 
-    YouTubeContent_ = _New;
+    [ super setYouTubeContent: _New ];
 
     if ( [ self isKindOfClass: [ GTLYouTubeChannel class ] ]
             || [ self isKindOfClass: [ GTLYouTubeSubscription class ] ] )
         {
 
         }
-    }
-
-- ( GTLObject* ) YouTubeContent
-    {
-    return YouTubeContent_;
     }
 
 @end // PriYouTubeChannelMetaInfoView_ class
@@ -237,5 +231,5 @@ typedef NS_ENUM ( NSInteger, TauContentInspectorSingleSelectionCandidateType )
 
 
 
-@implementation PriYouTubeVideoCommentsView_
-@end // PriYouTubeVideoCommentsView_ class
+@implementation PriYouTubeCommentsView_
+@end // PriYouTubeCommentsView_ class
