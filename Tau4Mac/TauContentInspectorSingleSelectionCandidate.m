@@ -10,16 +10,23 @@
 #import "TauContentInspectorSingleSelectionCandidate.h"
 #import "TauBooleanStatusBadge.h"
 
-// ---------------------------------------------------
-/// Required Headers
 
-@interface PriYouTubeContentInfoView_ : NSScrollView
+
+// --------------------------------------------------------------------------
+#pragma mark - Interfaces of Private Views -
+// --------------------------------------------------------------------------
+
+
+
+@interface PriYouTubeContentView_ : NSScrollView
+//@property ( strong, readwrite ) GTLObject* YouTubeContent;
 @end
-@implementation PriYouTubeContentInfoView_
+@implementation PriYouTubeContentView_
+//@synthesize YouTubeContent = YouTubeContent_;
 @end
 
 // PriYouTubeVideoMetaInfoView_ class
-@interface PriYouTubeVideoMetaInfoView_ : PriYouTubeContentInfoView_
+@interface PriYouTubeVideoMetaInfoView_ : PriYouTubeContentView_
 
 @property ( strong, readwrite ) GTLObject* YouTubeContent;
 
@@ -40,7 +47,7 @@
 @end
 
 // PriYouTubeChannelMetaInfoView_ class
-@interface PriYouTubeChannelMetaInfoView_ : PriYouTubeContentInfoView_
+@interface PriYouTubeChannelMetaInfoView_ : PriYouTubeContentView_
 
 @property ( strong, readwrite ) GTLObject* YouTubeContent;
 
@@ -56,10 +63,14 @@
 @end // PriYouTubeChannelMetaInfoView_ class
 
 // PriYouTubeVideoCommentsView_ class
-@interface PriYouTubeVideoCommentsView_ : PriYouTubeContentInfoView_
+@interface PriYouTubeVideoCommentsView_ : PriYouTubeContentView_
 @end
 
-// ---------------------------------------------------
+
+
+// ---------------------------------------------------------------------------------
+#pragma mark - Implementation of TauContentInspectorSingleSelectionCandidate class -
+// ---------------------------------------------------------------------------------
 
 
 
@@ -76,7 +87,7 @@ typedef NS_ENUM ( NSInteger, TauContentInspectorSingleSelectionCandidateType )
 @property ( weak ) IBOutlet NSSegmentedControl* switcher_;
 @property ( weak ) IBOutlet NSBox* horCuttingLine_;
 
-@property ( weak, readonly ) PriYouTubeContentInfoView_* currentMetaInfoView_;
+@property ( weak, readonly ) PriYouTubeContentView_* currentMetaInfoView_;
 @property ( weak ) IBOutlet PriYouTubeVideoMetaInfoView_* videoMetaInfoView_;
 @property ( weak ) IBOutlet PriYouTubeChannelMetaInfoView_* channelMetaInfoView_;
 @property ( weak ) IBOutlet PriYouTubeVideoCommentsView_* commentsView_;
@@ -86,12 +97,27 @@ typedef NS_ENUM ( NSInteger, TauContentInspectorSingleSelectionCandidateType )
 @implementation TauContentInspectorSingleSelectionCandidate
 
 @synthesize YouTubeContent = YouTubeContent_;
+- ( void ) setYouTubeContent: ( GTLObject* )_New
+    {
+    YouTubeContent_ = _New;
+
+    // TODO:
+    }
+
+- ( GTLObject* ) YouTubeContent
+    {
+    return YouTubeContent_;
+    }
 
 @end // TauContentInspectorSingleSelectionCandidate class
 
 
 
-// ~~~ ------------------------------------------- ~~~
+// --------------------------------------------------------------------------
+#pragma mark - Implementation of Private Views -
+// --------------------------------------------------------------------------
+
+
 
 @implementation PriYouTubeVideoMetaInfoView_
 
