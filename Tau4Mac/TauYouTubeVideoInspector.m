@@ -34,6 +34,22 @@
 
 @end
 
+// PriYouTubeChannelMetaInfoView_ class
+@interface PriYouTubeChannelMetaInfoView_ : NSScrollView
+
+@property ( strong, readwrite ) GTLObject* YouTubeContent;
+
+@property ( weak ) IBOutlet NSTextField* videoTitleField;
+@property ( weak ) IBOutlet NSTextField* descriptionField;
+@property ( weak ) IBOutlet NSTextField* publishedAtField;
+
+@property ( weak ) IBOutlet NSTextField* viewCountField;
+@property ( weak ) IBOutlet NSTextField* commentsCountField;
+@property ( weak ) IBOutlet NSTextField* subscribersCountField;
+@property ( weak ) IBOutlet NSTextField* videosCountField;
+
+@end // PriYouTubeChannelMetaInfoView_ class
+
 // PriYouTubeVideoCommentsView_ class
 @interface PriYouTubeVideoCommentsView_ : NSScrollView
 @end
@@ -44,7 +60,8 @@
 
 typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
     { TauYouTubeVideoMetaInfoInspector = 0
-    , TauYouTubeVideoCommentsInspector = 1
+    , TauYouTubeChannelMetaInfoInspector = 1
+    , TauYouTubeVideoCommentsInspector = 2
 
     , TauYouTubeVideoUnknownInspector = -1
     };
@@ -56,6 +73,7 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
 @property ( weak ) IBOutlet NSBox* horCuttingLine_;
 
 @property ( weak ) IBOutlet PriYouTubeVideoMetaInfoView_* videoMetaInfoView_;
+@property ( weak ) IBOutlet PriYouTubeChannelMetaInfoView_* channelMetaInfoView_;
 @property ( weak ) IBOutlet PriYouTubeVideoCommentsView_* commentsView_;
 
 @property ( assign, readwrite ) TauYouTubeVideoInspectorType activedInspectorType;
@@ -113,6 +131,7 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
         switch ( activedInspectorType_ )
             {
             case TauYouTubeVideoMetaInfoInspector: activingView = self.videoMetaInfoView_; break;
+            case TauYouTubeChannelMetaInfoInspector: activingView = self.channelMetaInfoView_; break;
             case TauYouTubeVideoCommentsInspector: activingView = self.commentsView_; break;
             case TauYouTubeVideoUnknownInspector: {;} break;
             }
@@ -224,6 +243,34 @@ typedef NS_ENUM ( NSInteger, TauYouTubeVideoInspectorType )
     }
 
 @end // PriYouTubeVideoMetaInfoView_ class
+
+
+
+// ---------------------------------------------------
+
+
+
+// PriYouTubeChannelMetaInfoView_ class
+@implementation PriYouTubeChannelMetaInfoView_
+
+@synthesize YouTubeContent = YouTubeContent_;
+- ( void ) setYouTubeContent: ( GTLObject* )_New
+    {
+    if ( _New.tauContentType != TauYouTubeChannel )
+        {
+        DDLogWarn( @"<%@: %p> has illegal type of YouTube content: %lu.", NSStringFromClass( [ _New class ] ), _New, _New.tauContentType );
+        return;
+        }
+
+    YouTubeContent_ = _New;
+    }
+
+- ( GTLObject* ) YouTubeContent
+    {
+    return YouTubeContent_;
+    }
+
+@end // PriYouTubeChannelMetaInfoView_ class
 
 
 
