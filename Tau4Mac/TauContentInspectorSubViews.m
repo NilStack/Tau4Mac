@@ -40,7 +40,7 @@
 
 // TauContentInspectorSingleSelectionSubView class
 @interface TauContentInspectorSingleSelectionSubView ()
-@property ( weak ) IBOutlet TauYouTubeContentInspector* videoInspector_;
+@property ( weak ) IBOutlet TauYouTubeContentInspector* contentInspector_;
 @end
 
 @implementation TauContentInspectorSingleSelectionSubView
@@ -54,15 +54,15 @@
     {
     // TODO:
 
-    [ self addSubview: [ self.videoInspector_ configureForAutoLayout ] ];
-    [ self.videoInspector_ autoPinEdgesToSuperviewEdges ];
+    [ self addSubview: [ self.contentInspector_ configureForAutoLayout ] ];
+    [ self.contentInspector_ autoPinEdgesToSuperviewEdges ];
     }
 
 @synthesize YouTubeContent = YouTubeContent_;
 - ( void ) setYouTubeContent: ( GTLObject* )_New
     {
     YouTubeContent_ = _New;
-    self.videoInspector_.YouTubeContent = YouTubeContent_;
+    self.contentInspector_.YouTubeContent = YouTubeContent_;
     }
 
 - ( GTLObject* ) YouTubeContent
