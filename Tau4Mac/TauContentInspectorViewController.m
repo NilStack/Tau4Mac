@@ -17,7 +17,7 @@
 @property ( weak, readonly ) NSView* activedSelectionSubView_;
 
 @property ( weak ) IBOutlet TauContentInspectorNoSelectionCandidate* noSelectionSubView_;
-@property ( weak ) IBOutlet TauContentInspectorSingleSelectionSubView* singleSelectionSubView_;
+@property ( weak ) IBOutlet TauContentInspectorSingleSelectionCandidate* singleSelectionSubView_;
 @property ( weak ) IBOutlet TauContentInspectorMultipleSelectionsSubView* multipleSelectionSubView_;
 
 @property ( weak ) IBOutlet NSArrayController* ytContentModelController_;

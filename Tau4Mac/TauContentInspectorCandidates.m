@@ -38,12 +38,12 @@
 
 
 
-// TauContentInspectorSingleSelectionSubView class
-@interface TauContentInspectorSingleSelectionSubView ()
+// TauContentInspectorSingleSelectionCandidate class
+@interface TauContentInspectorSingleSelectionCandidate ()
 @property ( weak ) IBOutlet TauYouTubeContentInspector* contentInspector_;
 @end
 
-@implementation TauContentInspectorSingleSelectionSubView
+@implementation TauContentInspectorSingleSelectionCandidate
 
 #pragma mark - Initializations
 
@@ -72,4 +72,4 @@
 #pragma mark - Private
 // TODO:
 
-@end // TauContentInspectorSingleSelectionSubView class
+@end // TauContentInspectorSingleSelectionCandidate class

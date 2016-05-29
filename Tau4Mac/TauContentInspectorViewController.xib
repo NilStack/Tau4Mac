@@ -57,7 +57,7 @@
             </connections>
             <point key="canvasLocation" x="492.5" y="433"/>
         </customView>
-        <customView id="c9S-GL-zfS" customClass="TauContentInspectorSingleSelectionSubView">
+        <customView id="c9S-GL-zfS" customClass="TauContentInspectorSingleSelectionCandidate">
             <rect key="frame" x="0.0" y="0.0" width="230" height="503"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <connections>
@@ -520,7 +520,7 @@
                 <autoresizingMask key="autoresizingMask"/>
             </scroller>
             <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="hiO-ZN-Jqv">
-                <rect key="frame" x="163" y="0.0" width="15" height="111"/>
+                <rect key="frame" x="162" y="0.0" width="16" height="111"/>
                 <autoresizingMask key="autoresizingMask"/>
             </scroller>
             <point key="canvasLocation" x="1213" y="-106.5"/>
