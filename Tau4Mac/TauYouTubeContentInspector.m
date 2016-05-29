@@ -13,8 +13,13 @@
 // ---------------------------------------------------
 /// Required Headers
 
+@interface PriYouTubeContentInfoView_ : NSScrollView
+@end
+@implementation PriYouTubeContentInfoView_
+@end
+
 // PriYouTubeVideoMetaInfoView_ class
-@interface PriYouTubeVideoMetaInfoView_ : NSScrollView
+@interface PriYouTubeVideoMetaInfoView_ : PriYouTubeContentInfoView_
 
 @property ( strong, readwrite ) GTLObject* YouTubeContent;
 
@@ -35,7 +40,7 @@
 @end
 
 // PriYouTubeChannelMetaInfoView_ class
-@interface PriYouTubeChannelMetaInfoView_ : NSScrollView
+@interface PriYouTubeChannelMetaInfoView_ : PriYouTubeContentInfoView_
 
 @property ( strong, readwrite ) GTLObject* YouTubeContent;
 
@@ -51,7 +56,7 @@
 @end // PriYouTubeChannelMetaInfoView_ class
 
 // PriYouTubeVideoCommentsView_ class
-@interface PriYouTubeVideoCommentsView_ : NSScrollView
+@interface PriYouTubeVideoCommentsView_ : PriYouTubeContentInfoView_
 @end
 
 // ---------------------------------------------------
@@ -59,9 +64,8 @@
 
 
 typedef NS_ENUM ( NSInteger, TauYouTubeContentInspectorType )
-    { TauYouTubeVideoMetaInfoInspector = 0
-    , TauYouTubeChannelMetaInfoInspector = 1
-    , TauYouTubeVideoCommentsInspector = 2
+    { TauYouTubeMetaInfoInspector = 0
+    , TauYouTubeCommentsInspector = 1
 
     , TauYouTubeVideoUnknownInspector = -1
     };
@@ -72,6 +76,7 @@ typedef NS_ENUM ( NSInteger, TauYouTubeContentInspectorType )
 @property ( weak ) IBOutlet NSSegmentedControl* switcher_;
 @property ( weak ) IBOutlet NSBox* horCuttingLine_;
 
+@property ( weak, readonly ) PriYouTubeContentInfoView_* currentMetaInfoView_;
 @property ( weak ) IBOutlet PriYouTubeVideoMetaInfoView_* videoMetaInfoView_;
 @property ( weak ) IBOutlet PriYouTubeChannelMetaInfoView_* channelMetaInfoView_;
 @property ( weak ) IBOutlet PriYouTubeVideoCommentsView_* commentsView_;
@@ -93,19 +98,34 @@ typedef NS_ENUM ( NSInteger, TauYouTubeContentInspectorType )
 
 - ( void ) awakeFromNib
     {
-    [ self setActivedInspectorType: TauYouTubeVideoMetaInfoInspector ];
+    [ self setActivedInspectorType: TauYouTubeMetaInfoInspector ];
     }
 
 @synthesize YouTubeContent = YouTubeContent_;
 - ( void ) setYouTubeContent: ( GTLObject* )_New
     {
     YouTubeContent_ = _New;
-    self.videoMetaInfoView_.YouTubeContent = YouTubeContent_;
+    [ self.currentMetaInfoView_ setValue: YouTubeContent_ forKey: @"YouTubeContent" ];
     }
 
 - ( GTLObject* ) YouTubeContent
     {
     return YouTubeContent_;
+    }
+
+@dynamic currentMetaInfoView_;
+- ( PriYouTubeContentInfoView_* ) currentMetaInfoView_
+    {
+    PriYouTubeContentInfoView_* result = nil;
+
+    switch ( YouTubeContent_.tauContentType )
+        {
+        case TauYouTubeVideo: result = self.videoMetaInfoView_; break;
+        case TauYouTubeChannel: result = self.channelMetaInfoView_; break;
+        case TauYouTubePlayList: ; // TODO:
+        }
+
+    return result;
     }
 
 @synthesize activedInspectorType = activedInspectorType_;
@@ -130,18 +150,20 @@ typedef NS_ENUM ( NSInteger, TauYouTubeContentInspectorType )
         NSView* activingView = nil;
         switch ( activedInspectorType_ )
             {
-            case TauYouTubeVideoMetaInfoInspector: activingView = self.videoMetaInfoView_; break;
-            case TauYouTubeChannelMetaInfoInspector: activingView = self.channelMetaInfoView_; break;
-            case TauYouTubeVideoCommentsInspector: activingView = self.commentsView_; break;
-            case TauYouTubeVideoUnknownInspector: {;} break;
+            case TauYouTubeMetaInfoInspector: activingView = self.currentMetaInfoView_; break;
+            case TauYouTubeCommentsInspector: {;} break;
             }
 
         [ self.videoMetaInfoView_ removeFromSuperview ];
+        [ self.channelMetaInfoView_ removeFromSuperview ];
         [ self.commentsView_ removeFromSuperview ];
 
-        [ self addSubview: activingView ];
-        [ self.activedViewAutoPinedConstraints_ addObjectsFromArray: [ activingView autoPinEdgesToSuperviewEdgesWithInsets: NSEdgeInsetsZero excludingEdge: ALEdgeTop ] ];
-        [ self.activedViewAutoPinedConstraints_ addObject: [ activingView autoPinEdge: ALEdgeTop toEdge: ALEdgeBottom ofView: self.horCuttingLine_ ] ];
+        if ( activingView )
+            {
+            [ self addSubview: activingView ];
+            [ self.activedViewAutoPinedConstraints_ addObjectsFromArray: [ activingView autoPinEdgesToSuperviewEdgesWithInsets: NSEdgeInsetsZero excludingEdge: ALEdgeTop ] ];
+            [ self.activedViewAutoPinedConstraints_ addObject: [ activingView autoPinEdge: ALEdgeTop toEdge: ALEdgeBottom ofView: self.horCuttingLine_ ] ];
+            }
 
         [ self didChangeValueForKey: TauKVOStrictKey( activedInspectorType ) ];
         }
@@ -263,6 +285,12 @@ typedef NS_ENUM ( NSInteger, TauYouTubeContentInspectorType )
         }
 
     YouTubeContent_ = _New;
+
+    if ( [ self isKindOfClass: [ GTLYouTubeChannel class ] ]
+            || [ self isKindOfClass: [ GTLYouTubeSubscription class ] ] )
+        {
+
+        }
     }
 
 - ( GTLObject* ) YouTubeContent
