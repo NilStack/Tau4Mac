@@ -7,7 +7,7 @@
 //
 
 #import "TauContentInspectorViewController.h"
-#import "TauContentInspectorSubViews.h"
+#import "TauContentInspectorCandidates.h"
 
 #import "TauYouTubeContentInspector.h"
 
