@@ -8,5 +8,4 @@
 
 // TauYouTubeContentInspector class
 @interface TauYouTubeContentInspector : NSView
-@property ( strong, readwrite ) GTLObject* YouTubeContent;
 @end // TauYouTubeContentInspector class

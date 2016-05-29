@@ -114,9 +114,6 @@
                                     </segment>
                                 </segments>
                             </segmentedCell>
-                            <connections>
-                                <binding destination="-2" name="selectedIndex" keyPath="self.singleSelectionSubView_.contentInspector_.activedInspectorType" id="GXz-Td-cGa"/>
-                            </connections>
                         </segmentedControl>
                     </subviews>
                     <constraints>
