@@ -110,8 +110,7 @@ typedef NS_ENUM ( NSInteger, TauInspectorType )
 - ( void ) setYouTubeContent: ( GTLObject* )_New
     {
     YouTubeContent_ = _New;
-
-    // TODO:
+    self.currentMetaInfoView_.YouTubeContent = YouTubeContent_;
     }
 
 - ( GTLObject* ) YouTubeContent
@@ -135,6 +134,12 @@ typedef NS_ENUM ( NSInteger, TauInspectorType )
 
         inspectorType_ = _New;
 
+        if ( priCachedConstraints_.count > 0 )
+            {
+            [ self removeConstraints: priCachedConstraints_ ];
+            [ priCachedConstraints_ removeAllObjects ];
+            }
+
         PriYouTubeContentView_* activingView = nil;
         switch ( inspectorType_ )
             {
@@ -145,12 +150,6 @@ typedef NS_ENUM ( NSInteger, TauInspectorType )
 
         if ( activingView )
             {
-            if ( priCachedConstraints_.count > 0 )
-                {
-                [ self removeConstraints: priCachedConstraints_ ];
-                [ priCachedConstraints_ removeAllObjects ];
-                }
-
             // TODO: Clean these ugly code
             [ self.videoMetaInfoView_ removeFromSuperview ];
             [ self.channelMetaInfoView_ removeFromSuperview ];

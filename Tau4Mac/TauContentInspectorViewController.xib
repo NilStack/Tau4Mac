@@ -162,7 +162,7 @@
                 <autoresizingMask key="autoresizingMask"/>
             </scroller>
             <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="hiO-ZN-Jqv">
-                <rect key="frame" x="163" y="0.0" width="15" height="111"/>
+                <rect key="frame" x="162" y="0.0" width="16" height="111"/>
                 <autoresizingMask key="autoresizingMask"/>
             </scroller>
             <point key="canvasLocation" x="1213" y="-106.5"/>
